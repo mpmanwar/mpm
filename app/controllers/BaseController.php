@@ -7,16 +7,13 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
-	protected function setupLayout()
-	{
-		if ( ! is_null($this->layout))
-		{
-			$this->layout = View::make($this->layout);
-		}
-	}
-
-	/*############Added#############*/
-	protected function isPostRequest(){
+	protected function setupLayout(){
+        if ( ! is_null($this->layout)){
+            $this->layout = View::make($this->layout);
+        }
+    }
+    
+    protected function isPostRequest(){
         //return Input::server('REQUEST_METHOD') === "POST";
         return Request::isMethod('POST');
     }

@@ -5,19 +5,24 @@ class HomeController extends BaseController {
 	public function db_connect(){
         if (DB::connection()->getDatabaseName())
         {
-            echo "conncted sucessfully to database : " . DB::connection()->getDatabaseName();
+            echo "Conncted sucessfully to database : " . DB::connection()->getDatabaseName();
             die;
         }
     }
 
-	public function index(){
+	public function hello(){
 		$countries = Country::all();
-		print_r($countries);die;
-		return View::make('index');
+
+		echo '<pre>';
+	    print_r($countries->toArray());
+	    echo '</pre>';die;
+
+		return View::make('hello');
 	}
 
-	public function hello(){
-		return View::make('hello');
+	public function dashboard(){
+		$data['title'] = "Dashboard";
+		return View::make('home.dashboard', $data);
 	}
 
 }

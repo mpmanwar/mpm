@@ -17,6 +17,10 @@
 });*/
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@dashboard');
 Route::get('/hello', 'HomeController@hello');
 Route::get('/db_connect', 'HomeController@db_connect');
+Route::get('/practice_details', 'PracticeDetailsController@index');
+Route::post('/post_practice_details', 'PracticeDetailsController@insertPracticeDetails');
+Route::post('/ajaxSearchByCity', 'PracticeDetailsController@ajaxSearchByCity');
+Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState');

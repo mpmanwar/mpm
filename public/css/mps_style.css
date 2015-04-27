@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+.s_text{font-size:12px;}
+.mps_btn{width:100%; margin-bottom:80px;}
+.btn_align{width:100%;}
+.drop_down_city{position:absolute; left:26px; background:#FFF; border:1px solid #ccc; width:85%;}
+.drop_down_city ul{list-style:none!important; margin:0; padding:0; }
+.drop_down_city ul li{border-bottom:1px solid #ccc; width:100%;}
+.drop_down_city ul li a{text-align:left!important; color:#333; padding:15px 11px 15px 11px; line-height:30px;}
+.drop_down_city ul li a:hover{color:#3c8dbc;}
+
+/*========== practice details=======*/
+.top_bts{position: relative; display: inline-block; vertical-align: middle;}
+.top_bts ul{list-style:none;}
+.top_bts ul li{float:left; margin-right:15px; margin-bottom:10px;}
+.top_bts ul li:last-child{margin-right:0;}
+
+.practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:95%;}
+.setting_con{margin-top:15px; width:30%;}
+.box_border{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 10px;}
+.box_border2{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 0px;}
+.row_cont{margin-left:0!important; margin-right:0!important;}
+.b_gap{margin-top:20px;}
+.practice_mid2{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:15px auto; width:95%;}
+.col1_border{border:1px solid #dbdbdb; padding:10px; margin-top:10px;}
+.c1_m{margin-right:10px;}
+.c1_m:last-child{margin-right:0;}
+.agent_left{float:left; width:47%; margin-right:10px;}
+.agent_right{float:right; width:47%;}
+.country_con{width:24%; float:left; margin-right:10px;}
+.no_con{width:44%; float:left;}
+.tel_cont{margin-bottom:15px;}
+.col2{border:1px solid #dbdbdb;}
+.col_m1{width:100%; border:1px solid #dbdbdb; padding:0px 10px 10px 10px;}
+.col_m2{width:100%; border:1px solid #dbdbdb; padding:10px; margin-top:10px;}
+.save_con{margin-top:20px; float:right;}
+.t1_left{float:left;}
+.t1_right{float:right; padding-top:25px;}
+.p_left{padding-left:0!important;}
+/*===========add user=========*/
+.add_usercon{padding-top:20px;}
+.tabarea{width:100%; margin-top:20px;}
+/*.nav-tabs-custom > .nav-tabs{border-bottom-color: #f4f4f4!important; }*/
+.sorting_1{color:#3c8dbc;}
+.active_t{color:#00a65a;}
+.dataTables_paginate{float:right;}
+.gray_y{color:#999;}
+
+/*==========add user account==========*/
+.user_account{margin-top:20px;}
+.user_ncon{width:25%; float:left; margin-right:10px;}
+.user_econ{width:48%; float:left;}
+
+
+
+
+
+
+@media only screen and (min-width : 320px) and (max-width : 480px),
+only screen and (min-device-width: 320px) and (max-device-width: 480px){
+.res_t{font-size:20px;}
+.col-xs-4{width:100%;}
+.country_con, .no_con,.tel_cont{width:100%;}
+.t1_right{padding-top:0px;}
+.user_account{width:100%;}
+.user_ncon{width:100%;}
+.user_econ{width:100%;}
+.chk_cont{width:100%;}
+
+} 
+
+@media only screen and (min-width : 768px) and (max-width : 1024px),
+only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+.no_con{width:40%;}	
+.user_econ{width:47%;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

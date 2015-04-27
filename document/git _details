@@ -1,0 +1,11 @@
+username : mpmanwar
+password : anwar@123
+email : rdave2014@gmail.com
+
+
+1. Create user to github.com
+2. Create repository
+3. git clone https://github.com/mpmanwar/mpm.git
+4. git add -A
+5. git commit -a -m "initial commit"
+6. git push
