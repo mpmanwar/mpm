@@ -10,7 +10,11 @@ class PracticeDetailsController extends BaseController {
 		$data["practice_details"]	= PracticeDetail::where("practice_id", "=", 1)->first();
 		if(!empty($data["practice_details"]) && count($data["practice_details"]) > 0)
 		{
-			$practice_addresses	= PracticeAddress::where("practice_id", "=", 1)->get();
+			$data["practice_details"]['telephone_no'] 	= explode("-", $data["practice_details"]['telephone_no']);
+			$data["practice_details"]['fax_no'] 		= explode("-", $data["practice_details"]['fax_no']);
+			$data["practice_details"]['mobile_no'] 		= explode("-", $data["practice_details"]['mobile_no']);
+
+			$practice_addresses	= PracticeAddress::where("practice_id", "=", $data["practice_details"]['practice_id'])->get();
 			foreach($practice_addresses as $pa_row){
 				$city_name = City::where("city_id", "=", $pa_row->city_id)->get();
 				$state_name = State::where("state_id", "=", $pa_row->state_id)->get();
@@ -44,7 +48,7 @@ class PracticeDetailsController extends BaseController {
 			}
 		}
 		
-		//print_r($data);die;
+		//echo "<pre>";print_r($data);die;
 		return View::make('practice.practice_details', $data);
 	}
 
@@ -61,10 +65,14 @@ class PracticeDetailsController extends BaseController {
 		$pd_data['telephone_no']			= $postData['tel_country_code']."-".$postData['tel_area_code']."-".$postData['tel_number'];
 		$pd_data['fax_no']					= $postData['fax_country_code']."-".$postData['fax_area_code']."-".$postData['fax_number'];
 		$pd_data['mobile_no']				= $postData['mob_country_code']."-".$postData['mob_area_code']."-".$postData['mob_number'];
+		if(!empty($postData['practice_id'])){
+			PracticeDetail::where("practice_id", "=", $postData['practice_id'])->update($pd_data);
+		}else{
+			$pd_id = PracticeDetail::insertGetId($pd_data);
+		}
+			
 
-		$pd_id = PracticeDetail::insertGetId($pd_data);
-
-		$pa_data['practice_id']		= $pd_id;
+		$pa_data['practice_id']		= !empty($postData['practice_id'])?$postData['practice_id']:$pd_id;
 		$pa_data['type']			= "registered";
 		$pa_data['attention']		= $postData['reg_attention'];
 		$pa_data['street_address']	= $postData['reg_street_address'];
@@ -72,9 +80,14 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['state_id']		= $postData['hid_reg_state_id'];
 		$pa_data['zip']				= $postData['reg_zip'];
 		$pa_data['country_id']		= $postData['hid_reg_country_id'];
-		$pareg_id = PracticeAddress::insertGetId($pa_data);
+		if(!empty($postData['reg_address_id'])){
+			PracticeAddress::where("address_id", "=", $postData['reg_address_id'])->update($pa_data);
+		}else{
+			$pareg_id = PracticeAddress::insertGetId($pa_data);
+		}
+		
 
-		$pa_data['practice_id']		= $pd_id;
+		$pa_data['practice_id']		= !empty($postData['practice_id'])?$postData['practice_id']:$pd_id;
 		$pa_data['type']			= "physical";
 		$pa_data['attention']		= $postData['phy_attention'];
 		$pa_data['street_address']	= $postData['phy_street_address'];
@@ -82,11 +95,17 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['state_id']		= $postData['hid_phy_state_id'];
 		$pa_data['zip']				= $postData['phy_zip'];
 		$pa_data['country_id']		= $postData['hid_phy_country_id'];
-		$paphy_id = PracticeAddress::insertGetId($pa_data);
-
-		$update_data['registered_address_id'] 	= $pareg_id;
-		$update_data['physical_address_id'] 	= $paphy_id;
-		PracticeDetail::where("practice_id", "=", $pd_id)->update($update_data);
+		if(!empty($postData['phy_address_id'])){
+			PracticeAddress::where("address_id", "=", $postData['phy_address_id'])->update($pa_data);
+		}else{
+			$paphy_id = PracticeAddress::insertGetId($pa_data);
+		}
+		
+		if(empty($postData['practice_id'])){
+			$update_data['registered_address_id'] 	= $pareg_id;
+			$update_data['physical_address_id'] 	= $paphy_id;
+			PracticeDetail::where("practice_id", "=", $pd_id)->update($update_data);
+		}
 
 		//echo $pd_id;die;
 		return Redirect::to('/practice_details');

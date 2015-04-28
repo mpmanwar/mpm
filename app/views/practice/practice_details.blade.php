@@ -19,7 +19,13 @@
                 </section>
 
                 <!-- Main content -->
-              <section class="content">
+
+{{ Form::open(array('url' => '/insertPracticeDetails', 'files' => true)) }}
+<input type="hidden" name="practice_id" value="{{ $practice_details->practice_id or ''}}">
+<input type="hidden" name="reg_address_id" value="{{ $practice_address['reg_address_id'] or ''}}">
+<input type="hidden" name="phy_address_id" value="{{ $practice_address['phy_address_id'] or ''}}">
+
+<section class="content">
 
 <div class="row">
 <div class="top_bts">
@@ -28,14 +34,16 @@
 <li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
 <li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
-<li><button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button></li>
+@if(isset($practice_details->practice_id) && !empty($practice_details->practice_id))
+<li><button class="btn btn-warning" type="submit" name="edit" id="edit"><i class="fa fa-edit"></i> Edit</button></li>
+@endif
 <div class="clearfix"></div>
 </ul>
   
 </div>
 </div>
 
-{{ Form::open(array('url' => '/post_practice_details', 'files' => true)) }}
+
 <div class="practice_mid">
 
 <div class="row box_border row_cont">
@@ -52,7 +60,9 @@
 
 <div class="save_con">
 <!-- <button class="btn btn-warning" type="submit" name="save" id="save">Edit Physical Address</button> -->
+@if(!isset($practice_details->practice_id) && empty($practice_details->practice_id))
 <button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
+@endif
 <button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
 </div>
 
@@ -69,29 +79,29 @@
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="display_name">Display Name</label>
-<input type="text" placeholder="Display Name" value="{{ $practice_details->display_name or ''}}" {{ !empty($practice_details->display_name)?'disabled':'' }} id="display_name" name="display_name" class="form-control">
+<input type="text" placeholder="Display Name" value="{{ $practice_details->display_name or '' }}" id="display_name" name="display_name" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="legal_name">Legal/Trading Name</label>
-<input type="text" placeholder="Legal/Trading Name" value="{{ $practice_details->legal_name or ''}}" {{ !empty($practice_details->legal_name)?'disabled':'' }} id="legal_name" name="legal_name" class="form-control">
+<input type="text" placeholder="Legal/Trading Name" value="{{ $practice_details->legal_name or '' }}" id="legal_name" name="legal_name" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="registration_no">Registration Number</label>
-<input type="text" placeholder="Registration Number" value="{{ $practice_details->registration_no or ''}}" {{ !empty($practice_details->registration_no)?'disabled':'' }} id="registration_no" name="registration_no" class="form-control">
+<input type="text" placeholder="Registration Number" value="{{ $practice_details->registration_no or '' }}" id="registration_no" name="registration_no" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label>Organisation Type</label>
-<select class="form-control" name="organisation_type_id" id="organisation_type_id" {{ !empty($practice_details->organisation_type_id)?'disabled':'' }}>
+<select class="form-control" name="organisation_type_id" id="organisation_type_id">
     <option value="">--Select Organization Type--</option>
 @if(!empty($org_types))
     @foreach($org_types as $key=>$org_row)
-    <option value="{{ $org_row->organisation_id }}"{{ ($practice_details->organisation_type_id == $org_row->organisation_id)?'selected':'' }}>{{ $org_row->name }}</option>
+    <option value="{{ $org_row->organisation_id }}" {{ (isset($practice_details->organisation_type_id) && ($practice_details->organisation_type_id == $org_row->organisation_id))?'selected':'' }}>{{ $org_row->name }}</option>
     @endforeach
 @endif
 </select>
@@ -178,16 +188,16 @@
 <h3 class="box-title">Registered Address</h3>
 <div class="form-group">
 <label for="reg_attention">Attention</label>
-<input type="text" placeholder="Attention" value="{{ $practice_address['reg_attention'] or ''}}" {{ !empty($practice_address['reg_attention'])?'disabled':'' }} id="reg_attention" name="reg_attention" class="form-control">
+<input type="text" placeholder="Attention" value="{{ $practice_address['reg_attention'] or '' }}" id="reg_attention" name="reg_attention" class="form-control">
 </div>
 <div class="form-group">
 <label for="reg_street_address">Street Address or PO Box</label>
-<textarea placeholder="Street Address or PO Box" {{ !empty($practice_address['reg_street_address'])?'disabled':'' }} id="reg_street_address" name="reg_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
+<textarea placeholder="Street Address or PO Box" id="reg_street_address" name="reg_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
 </div>
 <div class="form-group">
 <label for="reg_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" value="{{ $practice_address['reg_city_name'] or ''}}" {{ !empty($practice_address['reg_city_name'])?'disabled':'' }} onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
-<input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id" value="{{ $practice_address['reg_city_id'] or ''}}">
+<input type="text" placeholder="Town/City" value="{{ $practice_address['reg_city_name'] or '' }}" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
+<input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id" value="{{ $practice_address['reg_city_id'] or '' }}">
 <div class="drop_down_city" id="reg_city_id_div" style="display:none;">
     <ul id="reg_city_id_result"></ul>
 </div>
@@ -196,13 +206,13 @@
 
 <div class="form-group">
 <label for="reg_state_id">State/Region</label>
-<input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state_name'] or ''}}" {{ !empty($practice_address['reg_state_name'])?'disabled':'' }} id="reg_state_id" name="reg_state_id" class="form-control">
-<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="{{ $practice_address['reg_state_id'] or ''}}">
+<input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state_name'] or '' }}" id="reg_state_id" name="reg_state_id" class="form-control">
+<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="{{ $practice_address['reg_state_id'] or '' }}">
 </div>
 
 <div class="form-group">
 <label for="reg_zip">Postal/Zip Code</label>
-<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['reg_zip'] or ''}}" {{ !empty($practice_address['reg_zip'])?'disabled':'' }} id="reg_zip" name="reg_zip" class="form-control">
+<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['reg_zip'] or '' }}" id="reg_zip" name="reg_zip" class="form-control">
 </div>
 
 <div class="form-group">
@@ -220,7 +230,7 @@
 <div class="clearfix"></div>
 <div class="form-group">
 <label for="phy_attention">Attention</label>
-<input type="text" placeholder="Attention" value="{{ $practice_address['phy_attention'] or ''}}" id="phy_attention" name="phy_attention" class="form-control">
+<input type="text" placeholder="Attention" value="{{ $practice_address['phy_attention'] or '' }}" id="phy_attention" name="phy_attention" class="form-control">
 </div>
 <div class="form-group">
 <label for="phy_street_address">Street Address or PO Box</label>
@@ -228,8 +238,8 @@
 </div>
 <div class="form-group">
 <label for="phy_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" value="{{ $practice_address['phy_city_name'] or ''}}" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
-<input type="hidden" name="hid_phy_city_id" id="hid_phy_city_id">
+<input type="text" placeholder="Town/City" value="{{ $practice_address['phy_city_name'] or '' }}" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
+<input type="hidden" name="hid_phy_city_id" id="hid_phy_city_id" value="{{ $practice_address['phy_city_id'] or '' }}">
 <div class="drop_down_city" id="phy_city_id_div" style="display:none;">
     <ul id="phy_city_id_result"></ul>
 </div>
@@ -239,12 +249,12 @@
 <div class="form-group">
 <label for="phy_state_id">State/Region</label>
 <input type="text" placeholder="State/Region" value="{{ $practice_address['phy_state_name'] or ''}}" id="phy_state_id" name="phy_state_id" class="form-control">
-<input type="hidden" name="hid_phy_state_id" id="hid_phy_state_id">
+<input type="hidden" name="hid_phy_state_id" id="hid_phy_state_id" value="{{ $practice_address['phy_state_id'] or '' }}">
 </div>
 
 <div class="form-group">
 <label for="phy_zip">Postal/Zip Code</label>
-<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['phy_zip'] or ''}}" id="phy_zip" name="phy_zip" class="form-control">
+<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['phy_zip'] or '' }}" id="phy_zip" name="phy_zip" class="form-control">
 </div>
 
 <div class="form-group">
@@ -254,6 +264,8 @@
 </div>
 </div>
  </div>
+
+
  
  <div class="col-xs-12 col-xs-4">
   <div class="col_m1">
@@ -262,19 +274,19 @@
 <div class="country_con">
 <div class="form-group">
 <label for="tel_country_code">Country</label>
-<input type="text" placeholder="Country" id="tel_country_code" name="tel_country_code" class="form-control">
+<input type="text" placeholder="Country" value="{{ $practice_details['telephone_no'][0] or '' }}" id="tel_country_code" name="tel_country_code" class="form-control">
 </div>
 </div>
 <div class="country_con">
 <div class="form-group">
 <label for="tel_area_code">Area</label>
-<input type="text" placeholder="Area" id="tel_area_code" name="tel_area_code" class="form-control">
+<input type="text" placeholder="Area" value="{{ $practice_details['telephone_no'][1] or '' }}" id="tel_area_code" name="tel_area_code" class="form-control">
 </div>
 </div>
 <div class="no_con">
 <div class="form-group">
 <label for="tel_number">Number</label>
-<input type="text" placeholder="Number" id="tel_number" name="tel_number" class="form-control">
+<input type="text" placeholder="Number" value="{{ $practice_details['telephone_no'][2] or '' }}" id="tel_number" name="tel_number" class="form-control">
 </div>
 </div>
 </div>
@@ -284,19 +296,19 @@
 <div class="country_con">
 <div class="form-group">
 <label for="fax_country_code">Country</label>
-<input type="text" placeholder="Country" id="fax_country_code" name="fax_country_code" class="form-control">
+<input type="text" placeholder="Country" value="{{ $practice_details['fax_no'][0] or '' }}" id="fax_country_code" name="fax_country_code" class="form-control">
 </div>
 </div>
 <div class="country_con">
 <div class="form-group">
 <label for="fax_area_code">Area</label>
-<input type="text" placeholder="Area" id="fax_area_code" name="fax_area_code" class="form-control">
+<input type="text" placeholder="Area" value="{{ $practice_details['fax_no'][1] or '' }}" id="fax_area_code" name="fax_area_code" class="form-control">
 </div>
 </div>
 <div class="no_con">
 <div class="form-group">
 <label for="fax_number">Number</label>
-<input type="text" placeholder="Number" id="fax_number" name="fax_number" class="form-control">
+<input type="text" placeholder="Number" value="{{ $practice_details['fax_no'][2] or '' }}" id="fax_number" name="fax_number" class="form-control">
 </div>
 </div>
 </div>
@@ -306,19 +318,19 @@
 <div class="country_con">
 <div class="form-group">
 <label for="mob_country_code">Country</label>
-<input type="text" placeholder="Country" id="mob_country_code" name="mob_country_code" class="form-control">
+<input type="text" placeholder="Country" value="{{ $practice_details['mobile_no'][0] or '' }}" id="mob_country_code" name="mob_country_code" class="form-control">
 </div>
 </div>
 <div class="country_con">
 <div class="form-group">
 <label for="mob_area_code">Area</label>
-<input type="text" placeholder="Area" id="mob_area_code" name="mob_area_code" class="form-control">
+<input type="text" placeholder="Area" value="{{ $practice_details['mobile_no'][1] or '' }}" id="mob_area_code" name="mob_area_code" class="form-control">
 </div>
 </div>
 <div class="no_con">
 <div class="form-group">
 <label for="mob_number">Number</label>
-<input type="text" placeholder="Number" id="mob_number" name="mob_number" class="form-control">
+<input type="text" placeholder="Number" value="{{ $practice_details['mobile_no'][2] or '' }}" id="mob_number" name="mob_number" class="form-control">
 </div>
 </div>
 </div>
@@ -337,10 +349,11 @@
  </div> 
  <div class="clearfix"></div> 
  </div>
- {{ Form::close() }}
+ 
 
 
                 </section><!-- /.content -->
+{{ Form::close() }}
             </aside><!-- /.right-side -->
         
       
