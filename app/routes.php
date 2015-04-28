@@ -24,3 +24,6 @@ Route::get('/practice_details', 'PracticeDetailsController@index');
 Route::post('/insertPracticeDetails', 'PracticeDetailsController@insertPracticeDetails');
 Route::post('/ajaxSearchByCity', 'PracticeDetailsController@ajaxSearchByCity');
 Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState');
+Route::get('/user_list', 'UserController@user_list');
+Route::get('/add_user', 'UserController@add_user');
+Route::post('/user_process', 'UserController@user_process');

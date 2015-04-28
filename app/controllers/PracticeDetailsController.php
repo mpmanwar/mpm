@@ -30,7 +30,7 @@ class PracticeDetailsController extends BaseController {
 					$data["practice_address"]['reg_state_id']		= $state_name[0]->state_id;
 					$data["practice_address"]['reg_state_name']		= $state_name[0]->state_name;
 					$data["practice_address"]['reg_zip']			= $pa_row->zip;
-					$data["practice_address"]['reg_country_name']		= $country_name[0]->country_name;
+					$data["practice_address"]['reg_country_name']	= $country_name[0]->country_name;
 				}
 				if($pa_row->type == "physical"){
 					$data["practice_address"]['phy_address_id']		= $pa_row->address_id;
@@ -81,11 +81,14 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['zip']				= $postData['reg_zip'];
 		$pa_data['country_id']		= $postData['hid_reg_country_id'];
 		if(!empty($postData['reg_address_id'])){
+			unset($pa_data['practice_id']);
+			unset($pa_data['type']);
 			PracticeAddress::where("address_id", "=", $postData['reg_address_id'])->update($pa_data);
 		}else{
 			$pareg_id = PracticeAddress::insertGetId($pa_data);
-		}
-		
+		}//echo $this->last_query();
+		//print_r($pa_data);die;
+		unset($pa_data);
 
 		$pa_data['practice_id']		= !empty($postData['practice_id'])?$postData['practice_id']:$pd_id;
 		$pa_data['type']			= "physical";
@@ -96,6 +99,8 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['zip']				= $postData['phy_zip'];
 		$pa_data['country_id']		= $postData['hid_phy_country_id'];
 		if(!empty($postData['phy_address_id'])){
+			unset($pa_data['practice_id']);
+			unset($pa_data['type']);
 			PracticeAddress::where("address_id", "=", $postData['phy_address_id'])->update($pa_data);
 		}else{
 			$paphy_id = PracticeAddress::insertGetId($pa_data);

@@ -34,9 +34,9 @@
 <li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
 <li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
-@if(isset($practice_details->practice_id) && !empty($practice_details->practice_id))
+
 <li><button class="btn btn-warning" type="submit" name="edit" id="edit"><i class="fa fa-edit"></i> Edit</button></li>
-@endif
+
 <div class="clearfix"></div>
 </ul>
   
@@ -57,9 +57,9 @@
 </div>
 
 <div class="save_con">
-@if(!isset($practice_details->practice_id) && empty($practice_details->practice_id))
+
 <button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
-@endif
+
 <button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
 </div>
 
@@ -189,7 +189,7 @@
 </div>
 <div class="form-group">
 <label for="reg_street_address">Street Address or PO Box</label>
-<textarea placeholder="Street Address or PO Box" id="reg_street_address" name="reg_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
+<textarea placeholder="Street Address or PO Box" id="reg_street_address" name="reg_street_address" rows="3" class="form-control">{{ $practice_address['reg_street_address'] or ''}}</textarea>
 </div>
 <div class="form-group">
 <label for="reg_city_id">Town/City</label>

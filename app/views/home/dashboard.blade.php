@@ -148,8 +148,8 @@
                           </div>
                                     
                            
-                           <div class="mps_btn">
-                        <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button>
+                           <div class="mps_btn"><a href="/user_list">
+                        <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button></a>
                         </div>
                         
                           <div class="mps_btn">
