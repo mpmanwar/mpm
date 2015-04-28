@@ -53,13 +53,10 @@
  </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
-<a href="/">
-    <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
-</a>
+    <a href="/" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
 </div>
 
 <div class="save_con">
-<!-- <button class="btn btn-warning" type="submit" name="save" id="save">Edit Physical Address</button> -->
 @if(!isset($practice_details->practice_id) && empty($practice_details->practice_id))
 <button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
 @endif
