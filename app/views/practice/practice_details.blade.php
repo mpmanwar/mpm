@@ -2,7 +2,14 @@
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-           @extends('layouts.inner_leftside')
+           <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    @include('layouts.inner_leftside')
+                </section>
+                <!-- /.sidebar -->
+            </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
@@ -47,11 +54,11 @@
 <div class="practice_mid">
 
 <div class="row box_border row_cont">
- <div class="col-xs-12 col-xs-6">
+ <div class="col_left">
  <h2 class="res_t">Organisation Name & Type</h2>
 
  </div>
- <div class="col-xs-12 col-xs-6">
+ <div class="col_right">
  <div class="setting_con">
     <a href="/" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
 </div>
@@ -353,7 +360,9 @@
 {{ Form::close() }}
             </aside><!-- /.right-side -->
         
-      
+  </div>
+
+        <!-- ./wrapper -->     
 @stop
 
 

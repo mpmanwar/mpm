@@ -16,7 +16,7 @@
 .top_bts ul li:last-child{margin-right:0;}
 
 .practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:95%;}
-.setting_con{margin-top:15px; width:30%; float:left;}
+.setting_con{margin-right:10px;margin-top:15px; float:left;}
 .box_border{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 10px;}
 .box_border2{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 0px;}
 .row_cont{margin-left:0!important; margin-right:0!important;}
@@ -37,6 +37,9 @@
 .t1_left{float:left;}
 .t1_right{float:right; padding-top:25px;}
 .p_left{padding-left:0!important;}
+.col_left{width:45%; float:left;}
+.col_right{float:right; width:52%;}
+
 
 /*===========add user=========*/
 .add_usercon{padding-top:20px;}
@@ -72,6 +75,10 @@ only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .chk_cont{width:100%;}
 .mps_btn{width:100%; margin:0 0px 20px 0px!important;}
 .btn-lg1{font-size:16px;}
+.save_con{float:left;}
+.col_left{width:100%;}
+.col_right{float:left; width:100%;}
+.setting_con{width:100%;}
 } 
 
 @media only screen and (min-width : 768px) and (max-width : 1024px),
