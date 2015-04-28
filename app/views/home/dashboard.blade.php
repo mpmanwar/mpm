@@ -8,7 +8,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                            <img src="{{ URL :: asset('img/user3.jpg') }}" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hello, Jane</p>
@@ -29,11 +29,11 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="index.html">
+                            <a href="/">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="pages/widgets.html">
                                 <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
                             </a>
@@ -111,7 +111,7 @@
                                 <li><a href="pages/examples/500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
                                 <li><a href="pages/examples/blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -126,7 +126,7 @@
                         <small>CLIENT NAME  Limited</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Dashboard</li>
                     </ol>
                 </section>

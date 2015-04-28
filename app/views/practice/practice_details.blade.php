@@ -9,12 +9,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        PRACTICE DETAILS
+                        MY PRACTICE MANAGER
                         <small>CLIENT NAME Limited</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
+                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Practice Details</li>
                     </ol>
                 </section>
 
