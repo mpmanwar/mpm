@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 .s_text{font-size:12px;}
-.mps_btn{width:100%; margin-bottom:80px;}
+.mps_btn{width:30%; margin:0 30px 80px 0px; float:left;}
 .btn_align{width:100%;}
 .drop_down_city{position:absolute; left:26px; background:#FFF; border:1px solid #ccc; width:85%;}
 .drop_down_city ul{list-style:none!important; margin:0; padding:0; }
@@ -16,7 +16,7 @@
 .top_bts ul li:last-child{margin-right:0;}
 
 .practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:95%;}
-.setting_con{margin-top:15px; width:30%;}
+.setting_con{margin-top:15px; width:30%; float:left;}
 .box_border{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 10px;}
 .box_border2{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 0px;}
 .row_cont{margin-left:0!important; margin-right:0!important;}
@@ -27,8 +27,8 @@
 .c1_m:last-child{margin-right:0;}
 .agent_left{float:left; width:47%; margin-right:10px;}
 .agent_right{float:right; width:47%;}
-.country_con{width:24%; float:left; margin-right:10px;}
-.no_con{width:44%; float:left;}
+.country_con{width:27%; float:left; margin-right:10px;}
+.no_con{width:39%; float:left;}
 .tel_cont{margin-bottom:15px;}
 .col2{border:1px solid #dbdbdb;}
 .col_m1{width:100%; border:1px solid #dbdbdb; padding:0px 10px 10px 10px;}
@@ -37,6 +37,7 @@
 .t1_left{float:left;}
 .t1_right{float:right; padding-top:25px;}
 .p_left{padding-left:0!important;}
+
 /*===========add user=========*/
 .add_usercon{padding-top:20px;}
 .tabarea{width:100%; margin-top:20px;}
@@ -50,7 +51,10 @@
 .user_account{margin-top:20px;}
 .user_ncon{width:25%; float:left; margin-right:10px;}
 .user_econ{width:48%; float:left;}
-
+ .btn-lg1{border-radius: 6px;
+    font-size: 18px;
+    line-height: 1.33;
+    padding: 10px 16px;}
 
 
 
@@ -66,13 +70,17 @@ only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .user_ncon{width:100%;}
 .user_econ{width:100%;}
 .chk_cont{width:100%;}
-
+.mps_btn{width:100%; margin:0 0px 20px 0px!important;}
+.btn-lg1{font-size:16px;}
 } 
 
 @media only screen and (min-width : 768px) and (max-width : 1024px),
 only screen and (min-device-width: 768px) and (max-device-width: 1024px){
-.no_con{width:40%;}	
+.no_con{width:100%;}	
+.country_con{width:44%;}
 .user_econ{width:47%;}
+.btn_cont{width:50%;}
+.mps_btn{width:45%; margin:0 20px 20px 0px!important;}
 }
 
 

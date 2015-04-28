@@ -45,8 +45,22 @@
  </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
- <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
- </div>
+<a href="/">
+    <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
+</a>
+</div>
+
+<div class="save_con">
+<!-- <button class="btn btn-warning" type="submit" name="save" id="save">Edit Physical Address</button> -->
+<button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
+<button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
+</div>
+
+
+
+
+
+
  </div>
  <div class="clearfix"></div>
 </div>
@@ -55,29 +69,29 @@
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="display_name">Display Name</label>
-<input type="text" placeholder="Display Name" id="display_name" name="display_name" class="form-control">
+<input type="text" placeholder="Display Name" value="{{ $practice_details->display_name or ''}}" {{ !empty($practice_details->display_name)?'disabled':'' }} id="display_name" name="display_name" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="legal_name">Legal/Trading Name</label>
-<input type="text" placeholder="Legal/Trading Name" id="legal_name" name="legal_name" class="form-control">
+<input type="text" placeholder="Legal/Trading Name" value="{{ $practice_details->legal_name or ''}}" {{ !empty($practice_details->legal_name)?'disabled':'' }} id="legal_name" name="legal_name" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="registration_no">Registration Number</label>
-<input type="text" placeholder="Registration Number" id="registration_no" name="registration_no" class="form-control">
+<input type="text" placeholder="Registration Number" value="{{ $practice_details->registration_no or ''}}" {{ !empty($practice_details->registration_no)?'disabled':'' }} id="registration_no" name="registration_no" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label>Organisation Type</label>
-<select class="form-control" name="organisation_type_id" id="organisation_type_id">
+<select class="form-control" name="organisation_type_id" id="organisation_type_id" {{ !empty($practice_details->organisation_type_id)?'disabled':'' }}>
     <option value="">--Select Organization Type--</option>
 @if(!empty($org_types))
     @foreach($org_types as $key=>$org_row)
-    <option value={{ $org_row->organisation_id }}>{{ $org_row->name }}</option>
+    <option value="{{ $org_row->organisation_id }}"{{ ($practice_details->organisation_type_id == $org_row->organisation_id)?'selected':'' }}>{{ $org_row->name }}</option>
     @endforeach
 @endif
 </select>
@@ -94,7 +108,7 @@
  <div class="col-xs-12 col-xs-4">
   <div class="col_m2">
 <button class="btn btn-success">Companies Log In</button>
-<h3 class="box-title">Sign in details</h3>
+<h3 class="box-title"><!-- Sign in details--></h3> 
 <div class="form-group">
 <label for="exampleInputEmail1">User Name</label>
 <input type="text" placeholder="Enter email" id="exampleInputEmail1" class="form-control">
@@ -109,7 +123,7 @@
 <div class="col-xs-12 col-xs-4">
  <div class="col_m2">
 <button class="btn btn-primary">HMRC Log In</button>
-<h3 class="box-title">Sign in details</h3>
+<h3 class="box-title"><!-- Sign in details --></h3>
 <div class="form-group">
 <label for="exampleInputEmail1">User Name</label>
 <input type="text" placeholder="Enter email" id="exampleInputEmail1" class="form-control">
@@ -124,7 +138,7 @@
  <div class="col-xs-12 col-xs-4">
   <div class="col_m2">
 <button class="btn btn-warning">Agent IDS</button>
-<h3 class="box-title">Sign in details</h3>
+<h3 class="box-title"><!-- Sign in details --></h3>
 <div class="agent_left">
 <div class="form-group">
 <label for="exampleInputEmail1">Paye</label>
@@ -164,16 +178,16 @@
 <h3 class="box-title">Registered Address</h3>
 <div class="form-group">
 <label for="reg_attention">Attention</label>
-<input type="text" placeholder="Attention" id="reg_attention" name="reg_attention" class="form-control">
+<input type="text" placeholder="Attention" value="{{ $practice_address['reg_attention'] or ''}}" {{ !empty($practice_address['reg_attention'])?'disabled':'' }} id="reg_attention" name="reg_attention" class="form-control">
 </div>
 <div class="form-group">
 <label for="reg_street_address">Street Address or PO Box</label>
-<textarea placeholder="Street Address or PO Box" id="reg_street_address" name="reg_street_address" rows="3" class="form-control"></textarea>
+<textarea placeholder="Street Address or PO Box" {{ !empty($practice_address['reg_street_address'])?'disabled':'' }} id="reg_street_address" name="reg_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
 </div>
 <div class="form-group">
 <label for="reg_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
-<input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id">
+<input type="text" placeholder="Town/City" value="{{ $practice_address['reg_city_name'] or ''}}" {{ !empty($practice_address['reg_city_name'])?'disabled':'' }} onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
+<input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id" value="{{ $practice_address['reg_city_id'] or ''}}">
 <div class="drop_down_city" id="reg_city_id_div" style="display:none;">
     <ul id="reg_city_id_result"></ul>
 </div>
@@ -182,18 +196,19 @@
 
 <div class="form-group">
 <label for="reg_state_id">State/Region</label>
-<input type="text" placeholder="State/Region" id="reg_state_id" name="reg_state_id" class="form-control">
-<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id">
+<input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state_name'] or ''}}" {{ !empty($practice_address['reg_state_name'])?'disabled':'' }} id="reg_state_id" name="reg_state_id" class="form-control">
+<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="{{ $practice_address['reg_state_id'] or ''}}">
 </div>
 
 <div class="form-group">
 <label for="reg_zip">Postal/Zip Code</label>
-<input type="text" placeholder="Postal/Zip Code" id="reg_zip" name="reg_zip" class="form-control">
+<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['reg_zip'] or ''}}" {{ !empty($practice_address['reg_zip'])?'disabled':'' }} id="reg_zip" name="reg_zip" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="reg_country_id">Country</label>
-<input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control">
+<input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_reg_country_id" id="hid_reg_country_id" value="1">
 </div>
 </div>
  </div>
@@ -205,15 +220,15 @@
 <div class="clearfix"></div>
 <div class="form-group">
 <label for="phy_attention">Attention</label>
-<input type="text" placeholder="Attention" id="phy_attention" name="phy_attention" class="form-control">
+<input type="text" placeholder="Attention" value="{{ $practice_address['phy_attention'] or ''}}" id="phy_attention" name="phy_attention" class="form-control">
 </div>
 <div class="form-group">
 <label for="phy_street_address">Street Address or PO Box</label>
-<textarea placeholder="Street Address or PO Box" name="phy_street_address" id="phy_street_address" rows="3" class="form-control"></textarea>
+<textarea placeholder="Street Address or PO Box" name="phy_street_address" id="phy_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
 </div>
 <div class="form-group">
 <label for="phy_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
+<input type="text" placeholder="Town/City" value="{{ $practice_address['phy_city_name'] or ''}}" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
 <input type="hidden" name="hid_phy_city_id" id="hid_phy_city_id">
 <div class="drop_down_city" id="phy_city_id_div" style="display:none;">
     <ul id="phy_city_id_result"></ul>
@@ -223,18 +238,19 @@
 
 <div class="form-group">
 <label for="phy_state_id">State/Region</label>
-<input type="text" placeholder="State/Region" id="phy_state_id" name="phy_state_id" class="form-control">
+<input type="text" placeholder="State/Region" value="{{ $practice_address['phy_state_name'] or ''}}" id="phy_state_id" name="phy_state_id" class="form-control">
 <input type="hidden" name="hid_phy_state_id" id="hid_phy_state_id">
 </div>
 
 <div class="form-group">
 <label for="phy_zip">Postal/Zip Code</label>
-<input type="text" placeholder="Postal/Zip Code" id="phy_zip" name="phy_zip" class="form-control">
+<input type="text" placeholder="Postal/Zip Code" value="{{ $practice_address['phy_zip'] or ''}}" id="phy_zip" name="phy_zip" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="phy_country_id">Country</label>
-<input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control">
+<input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_phy_country_id" id="hid_phy_country_id" value="1">
 </div>
 </div>
  </div>
@@ -310,9 +326,9 @@
  <div class="clearfix"></div> 
  </div>
  <div class="save_con">
-<button class="btn btn-warning" type="submit" name="save" id="save">Edit Physical Address</button>
+<!-- <button class="btn btn-warning" type="submit" name="save" id="save">Edit Physical Address</button> 
 <button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
-<button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
+<button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>-->
 </div>
  </div>
  

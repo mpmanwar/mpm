@@ -135,88 +135,43 @@
                 <section class="content">
 
                     <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                   
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn"><a href="/practice_details">
-                        <button class="btn btn-warning btn-lg btn_align">PRACTICE DETAILS</button></a>
+                    <div class="mps_btn"><a href="/practice_details">
+                        <button class="btn btn-warning btn-lg1 btn_align">PRACTICE DETAILS</button></a>
                         </div>
-                            <!-- small box -->
-                            
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                        <button class="btn btn-danger btn-lg btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
+                        
+                          <div class="mps_btn">
+                        <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
                            </div>
                            
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                          <button class="btn btn-info btn-lg btn_align">CLIENT LIST ALLOCATION - INDIV</button>
+                            <div class="mps_btn">
+                          <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
                           </div>
-                                                     
-                        </div>
-                        <!-- ./col -->
-                        <!--<div class="col-lg-4 col-xs-6">
-                        <button class="btn btn-success btn-lg">Success</button>
+                                    
                            
+                           <div class="mps_btn">
+                        <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button>
+                        </div>
+                        
+                          <div class="mps_btn">
+                        <button class="btn btn-danger btn-lg1 btn_align">EMAIL SETTINGS</button>
+                           </div>
+                           
+                           <div class="mps_btn">
+                          <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
+                          </div>
                           
-                          
-                        </div>--><!-- ./col -->
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                        <button class="btn btn-warning btn-lg btn_align">ADD USER</button>
+                          <div class="mps_btn">
+                        <button class="btn btn-warning btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
                         </div>
-                            <!-- small box -->
-                            
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                        <button class="btn btn-danger btn-lg btn_align">EMAIL SETTINGS</button>
+                        
+                        <div class="mps_btn">
+                        <button class="btn btn-danger btn-lg1 btn_align">NOTIFICATIONS</button>
                            </div>
                            
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                          <button class="btn btn-info btn-lg btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
+                           <div class="mps_btn">
+                          <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
+<span class="s_text">CHECKLIST/TASK</span></button>
                           </div>
-                                                     
-                        </div>
-                           </div>
-                           
-                           <div class="row">
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                        <button class="btn btn-warning btn-lg btn_align">MANAGE SUBSCRIPTION</button>
-                        </div>
-                            <!-- small box -->
-                            
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                        <button class="btn btn-danger btn-lg btn_align">NOTIFICATIONS</button>
-                           </div>
-                           
-                        </div><!-- ./col -->
-                        <div class="col-lg-4 col-xs-6">
-                         <div class="mps_btn">
-                          <button class="btn btn-info btn-lg btn_align">NEW CLIENT - ON BOARDING
-        <span class="s_text">CHECKLIST/TASK</span></button>
-                          </div>
-                                                     
-                        </div>
-                           </div>
-                    
-                    <!-- /.row -->
-
-                    <!-- top row -->
-                   
-                    <!-- /.row -->
-
-                    <!-- Main row -->
-                    <!-- /.row (main row) -->
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
