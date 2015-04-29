@@ -119,20 +119,31 @@
 <div class="practice_mid2">
 <div class="row row_cont">
 
- <div class="col-xs-12 col-xs-4">
-  <div class="col_m2">
-<button class="btn btn-success">Companies Log In</button>
+<div class="col-xs-12 col-xs-4">
+    <div class="col_m2">
+<button class="btn btn-success">Companies’ House login</button>
 <h3 class="box-title"><!-- Sign in details--></h3> 
-<div class="form-group">
-<label for="exampleInputEmail1">User Name</label>
-<input type="text" placeholder="Enter email" id="exampleInputEmail1" class="form-control">
+    <div class="form-group">
+        <label for="exampleInputEmail1">User Name</label>
+        <input type="text" placeholder="Enter Username" id="exampleInputEmail1" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" placeholder="Password" id="exampleInputPassword1" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Presenter ID</label>
+        <input type="text" placeholder="Enter Presenter ID" id="exampleInputEmail1" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Presenter Authentication codes</label>
+        <input type="text" placeholder="Enter Presenter Authentication codes" id="exampleInputEmail1" class="form-control">
+    </div>
+
+    </div>
 </div>
-<div class="form-group">
-<label for="exampleInputPassword1">Password</label>
-<input type="password" placeholder="Password" id="exampleInputPassword1" class="form-control">
-</div>
-</div>
- </div>
  
 <div class="col-xs-12 col-xs-4">
  <div class="col_m2">
@@ -140,12 +151,18 @@
 <h3 class="box-title"><!-- Sign in details --></h3>
 <div class="form-group">
 <label for="exampleInputEmail1">User Name</label>
-<input type="text" placeholder="Enter email" id="exampleInputEmail1" class="form-control">
+<input type="text" placeholder="Enter Username" id="exampleInputEmail1" class="form-control">
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Password</label>
 <input type="password" placeholder="Password" id="exampleInputPassword1" class="form-control">
 </div>
+
+<div class="form-group">
+<label for="exampleInputEmail1">Gateway Agent Identifier</label>
+<input type="text" placeholder="Gateway Agent Identifier" id="exampleInputEmail1" class="form-control">
+</div>
+
 </div>
  </div>
  

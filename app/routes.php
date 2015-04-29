@@ -20,10 +20,12 @@
 Route::get('/', 'HomeController@dashboard');
 Route::get('/hello', 'HomeController@hello');
 Route::get('/db_connect', 'HomeController@db_connect');
-Route::get('/practice_details', 'PracticeDetailsController@index');
+Route::get('/practice-details', 'PracticeDetailsController@index');
 Route::post('/insertPracticeDetails', 'PracticeDetailsController@insertPracticeDetails');
 Route::post('/ajaxSearchByCity', 'PracticeDetailsController@ajaxSearchByCity');
 Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState');
-Route::get('/user_list', 'UserController@user_list');
-Route::get('/add_user', 'UserController@add_user');
+Route::get('/user-list', 'UserController@user_list');
+Route::get('/add-user', 'UserController@add_user');
 Route::post('/user_process', 'UserController@user_process');
+Route::get('/php_info', 'PracticeDetailsController@php_info');
+Route::get('/sendMail', 'UserController@sendMail');

@@ -62,7 +62,7 @@
 
 <div class="add_usercon">
 <p><a href="#">What's this?</a></p>
-<a href="/add_user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>
+<a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>
 </div>
 
 <div class="tabarea">
@@ -92,67 +92,45 @@
                             <tr><th rowspan="1" colspan="1">Rendering engine</th><th rowspan="1" colspan="1">Browser</th><th rowspan="1" colspan="1">Platform(s)</th><th rowspan="1" colspan="1">Engine version</th><th rowspan="1" colspan="1">CSS grade</th></tr>
                         </tfoot>-->
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr class="odd">
-                                <td class="  sorting_1">Abel Asiamah</td>
-                                <td class=" ">Financial Adviser + Manage User + Provide Support</td>
-                                <td class=" "><a href="#" class="active_t">Active</a></td>
+                    @if(!empty($user_lists) && count($user_lists) > 0)
+                        @foreach($user_lists as $user_row)
+                            <tr class="odd">
+                                <td class="sorting_1">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</td>
+                                <td class=" ">{{ $user_row->permission or "" }}</td>
+                                <td class=" ">
+                                    @if($user_row->status == 'I')
+                                        <a href="#" class="active_t">Active</a>
+                                    @else
+                                        <a href="#" class="active_t">Inactive</a>
+                                    @endif
+                                </td>
                                 <td class=" ">1 May 2013 9:13 p.m.</td>
                                 <td class=" ">3</td>
                             </tr>
-                            <tr class="even">
-                                <td class="  sorting_1">Ben Abraham</td>
-                                <td class=" ">Financial Adviser</td>
-                                 <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">2 May 2013 10:31 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                            
-                             <tr class="odd">
-                                <td class="  sorting_1">Abel Asiamah</td>
-                                <td class=" ">Financial Adviser + Manage User + Provide Support</td>
-                                <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">1 May 2013 9:13 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                            <tr class="even">
-                                <td class="  sorting_1">Ben Abraham</td>
-                                <td class=" ">Financial Adviser</td>
-                                 <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">2 May 2013 10:31 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                             <tr class="odd">
-                                <td class="  sorting_1">Abel Asiamah</td>
-                                <td class=" ">Financial Adviser + Manage User + Provide Support</td>
-                                <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">1 May 2013 9:13 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                            <tr class="even">
-                                <td class="  sorting_1">Ben Abraham</td>
-                                <td class=" ">Financial Adviser</td>
-                                 <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">2 May 2013 10:31 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                             <tr class="odd">
-                                <td class="  sorting_1">Abel Asiamah</td>
-                                <td class=" ">Financial Adviser + Manage User + Provide Support</td>
-                                <td class=" "><a href="#" class="active_t">Active</a></td>
-                                <td class=" ">1 May 2013 9:13 p.m.</td>
-                                <td class=" ">3</td>
-                            </tr>
-                            <tr class="even">
-                                <td class="  sorting_1">Ben Abraham</td>
-                                <td class="gray_y">Financial Adviser</td>
-                                 <td class=""><a href="#" class="gray_y">Pending</a></td>
-                                <td class=" "></td>
-                                <td class=" "></td>
-                            </tr>
+                        @endforeach
+                    @endif
                            
-                           </tbody></table>
-                           <div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div></div>
+                    </tbody></table>
+                    <!-- <div class="row">
+                        <div class="col-xs-6">
+                            <div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                                <ul class="pagination">
+                                    <li class="prev disabled"><a href="#">← Previous</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li class="next"><a href="#">Next → </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
+            </div>
                       <!--end table--> 
                     </div><!-- /.tab-pane -->
                                     <!-- <div id="tab_2" class="tab-pane">

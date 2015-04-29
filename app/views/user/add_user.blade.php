@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+
 @section('content')       
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -26,6 +27,8 @@
                 </section>
 
                 <!-- Main content -->
+
+
 {{ Form::open(array('url' => '/user_process', 'files' => true)) }}               
 <section class="content">
 <div class="row">
@@ -50,7 +53,7 @@
 
 <div class="row box_border2 row_cont">
  <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">Enter There Details <small>General Settings</small></h2>
+ <h2 class="res_t">New User  Details <small>General Settings</small></h2>
   </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
@@ -64,18 +67,18 @@
  <div class="user_ncon">
 <div class="form-group">
 <label for="f_name">First Name</label>
-<input type="text" placeholder="First Name" id="f_name" name="f_name" class="form-control">
+<input type="text" placeholder="First Name" id="fname" name="fname" class="form-control">
 </div>
 </div>
 
  <div class="user_ncon">
 <div class="form-group">
 <label for="l_name">Last Name</label>
-<input type="text" placeholder="Last Name" id="l_name" name="l_name" class="form-control">
+<input type="text" placeholder="Last Name" id="lname" name="lname" class="form-control">
 </div>
 </div>
 
- <div class="user_econ">
+ <div class="user_ncon"><!--u-->
 <div class="form-group">
 <label for="email">Email</label>
 <input type="text" placeholder="Email" id="email" name="email" class="form-control">
@@ -110,11 +113,11 @@
                                         
         <tbody role="alert" aria-live="polite" aria-relevant="all">
         <tr class="odd">
-                    <td class="  sorting_1">
+                    <td class="sorting_1">
                     <div class="form-group"> 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        <input type="radio" name="user_type" id="optionsRadios1" value="staff" class="handle-change-user" data-type="staff">
                        STAFF
                     </label>
                 </div>
@@ -131,13 +134,13 @@
                     <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
                 </tr>
                 <tr class="even">
-                    <td class="  sorting_1">
+                  <td class="sorting_1">
                     <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        <input type="radio" name="user_type" id="optionsRadios2" value="client" class="handle-change-user" data-type="client">
                         CLIENT
                     </label>
-                </div>
+                    </div>
                 </td>
                    <td class=" " align="center"></td>
                      <td class=" " align="center"></td>
@@ -149,50 +152,78 @@
                 </tr>
                 
                 <tr class="odd">
-                    <td class="  sorting_1">
+                    <td class="sorting_1">
                     <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" />
+                        <input type="radio" name="user_type" id="optionsRadios3" value="admin"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
                         ADMIN
                     </label>
                 </div>
                 </td>
                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                    <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
                 </tr>
                 
                 
                 
                 
                 </tbody></table>
-                <div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div></div>
+                <!-- <div class="row">
+                  <div class="col-xs-6">
+                    <div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="dataTables_paginate paging_bootstrap">
+                      <ul class="pagination">
+                        <li class="prev disabled"><a href="#">← Previous</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li class="next"><a href="#">Next → </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
     </div><!-- /.box-body -->
                           
 </div>
  <div class="clearfix"></div>
-<div class="row ">
- <div class="col-xs-12 col-xs-6 chk_cont">
-<div class="checkbox">
+
+<div class="row" id="user_permissions">
+  @if(!empty($permission_list) && count($permission_list) > 0)
+    @foreach($permission_list as $key=>$list)
+      <div class="col-xs-3 permission_check"><input type="checkbox" value="{{ $list->permission_id }}" name="permission[]" checked="checked"/> {{ $list->name }}</div>
+    @endforeach
+  @endif
+</div>
+
+<div class="row">
+ <div class="col-xs-12 col-xs-9 chk_cont">
+<div class="checkbox allow_user">
 <label>
 <input type="checkbox"/>
-<strong> Manage Users</strong> Allows this user to add remove users and change permissions
+<strong> Manage Users </strong> &nbsp;Allows this user to add remove users and change permissions
 </label>                                                
 </div>
 <div class="checkbox">
 <label>
-<input type="checkbox"/>
-<strong> Payroll Admin</strong> You do not have permission to change this
-</label>                                                
+<!-- <input type="checkbox"/>
+     <strong> Payroll Admin</strong> You do not have permission to change this
+     </label>  -->                                               
 </div>
  </div>
-  <div class="col-xs-12 col-xs-6 chk_cont">
+  <div class="col-xs-12 col-xs-3 chk_cont">
 <div class="save_con">
-<button class="btn btn-primary" type="Save">Continue</button>
+<button class="btn btn-primary" type="Save">Send</button>
 <button class="btn btn-danger" type="Save">Cancel</button>
 </div>
 
@@ -205,5 +236,5 @@
     </section><!-- /.content -->
 {{ Form::close() }}
             </aside><!-- /.right-side -->
-        
+    
 @stop

@@ -135,45 +135,57 @@
                 <section class="content">
 
                     <!-- Small boxes (Stat box) -->
-                    <div class="mps_btn"><a href="/practice_details">
-                        <button class="btn btn-warning btn-lg1 btn_align">PRACTICE DETAILS</button></a>
+                     <div class="btn_con_left">  
+                        <div class="mps_btn">
+                        <a href="/practice-details">
+                            <button class="btn btn-warning btn-lg1 btn_align">PRACTICE DETAILS</button>
+                        </a>
                         </div>
                         
+                        <div class="mps_btn">
+                        <a href="/user-list">
+                            <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button>
+                        </a>
+                        </div>
+                        
+                        
+                          <div class="mps_btn">
+                        <button class="btn btn-warning btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
+                        </div>
+                        </div>
+                        
+                         <div class="btn_con_left">  
                           <div class="mps_btn">
                         <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
                            </div>
                            
                             <div class="mps_btn">
-                          <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
-                          </div>
-                                    
-                           
-                           <div class="mps_btn"><a href="/user_list">
-                        <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button></a>
-                        </div>
-                        
-                          <div class="mps_btn">
                         <button class="btn btn-danger btn-lg1 btn_align">EMAIL SETTINGS</button>
                            </div>
                            
-                           <div class="mps_btn">
-                          <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
-                          </div>
-                          
-                          <div class="mps_btn">
-                        <button class="btn btn-warning btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
-                        </div>
-                        
+                         
                         <div class="mps_btn">
                         <button class="btn btn-danger btn-lg1 btn_align">NOTIFICATIONS</button>
                            </div>
+                           </div>
                            
+                            <div class="btn_con_right">   
+                            <div class="mps_btn">
+                          <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
+                          </div>
+                                    
+                           <div class="mps_btn">
+                          <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
+                          </div>
                            <div class="mps_btn">
                           <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
 <span class="s_text">CHECKLIST/TASK</span></button>
                           </div>
-
-                </section><!-- /.content -->
+                           </div>
+                           
+                     
+                </section>
+                <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 .s_text{font-size:12px;}
-.mps_btn{width:30%; margin:0 30px 80px 0px; float:left;}
+.mps_btn{width:100%; margin:0 30px 80px 0px; float:left;}
 .btn_align{width:100%;}
 .drop_down_city{position:absolute; left:26px; background:#FFF; border:1px solid #ccc; width:85%;}
 .drop_down_city ul{list-style:none!important; margin:0; padding:0; }
@@ -16,7 +16,7 @@
 .top_bts ul li:last-child{margin-right:0;}
 
 .practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:95%;}
-.setting_con{margin-right:10px;margin-top:15px; float:left;}
+.setting_con{margin-top:15px; float:left;}
 .box_border{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 10px;}
 .box_border2{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 0px;}
 .row_cont{margin-left:0!important; margin-right:0!important;}
@@ -39,6 +39,10 @@
 .p_left{padding-left:0!important;}
 .col_left{width:45%; float:left;}
 .col_right{float:right; width:52%;}
+.btn_con_left{width:31%; float:left;  margin:0 10px 0 0;}
+.btn_con_right{float:left; width:31%;}
+
+
 
 
 /*===========add user=========*/
@@ -59,6 +63,10 @@
     line-height: 1.33;
     padding: 10px 16px;}
 
+.permission_check{width: 18%;}
+.allow_user{width: 100%;}
+
+
 
 
 
@@ -75,10 +83,14 @@ only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .chk_cont{width:100%;}
 .mps_btn{width:100%; margin:0 0px 20px 0px!important;}
 .btn-lg1{font-size:16px;}
-.save_con{float:left;}
+.save_con{float:left; margin-top: 0;}
 .col_left{width:100%;}
 .col_right{float:left; width:100%;}
 .setting_con{width:100%;}
+.btn_con_left{width:100%; margin-right:0;}
+.btn_con_right{width:100%;}
+.permission_check{width: 100%;margin-bottom: 5px;}
+
 } 
 
 @media only screen and (min-width : 768px) and (max-width : 1024px),
@@ -87,7 +99,9 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 .country_con{width:44%;}
 .user_econ{width:47%;}
 .btn_cont{width:50%;}
-.mps_btn{width:45%; margin:0 20px 20px 0px!important;}
+.mps_btn{margin:0 20px 20px 0px!important;}
+.btn_con_left{width:100%; margin-right:0;}
+.btn_con_right{width:100%;}
 }
 
 

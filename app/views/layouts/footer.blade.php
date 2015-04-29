@@ -28,9 +28,11 @@
         <script src="{{ URL :: asset('js/AdminLTE/app.js') }}" type="text/javascript"></script>
         
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="{{ URL :: asset('js/AdminLTE/dashboard.js') }}" type="text/javascript"></script> 
+        <!--<script src="{{ URL :: asset('js/AdminLTE/dashboard.js') }}" type="text/javascript"></script> -->
 
         <!-- Add By User -->
         <script src="{{ URL :: asset('js/sites/practice_details.js') }}" type="text/javascript"></script>
+        <script src="{{ URL :: asset('js/sites/users.js') }}" type="text/javascript"></script>
         <script type="text/javascript" src="js/sites/jquery.autoSuggest.js"></script> 
         <!-- Add By User -->
+        

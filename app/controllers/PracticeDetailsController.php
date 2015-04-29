@@ -1,6 +1,10 @@
 <?php
 
 class PracticeDetailsController extends BaseController {
+	public function php_info()
+	{
+		phpinfo();
+	}
 	
 	public function index()
 	{
@@ -113,7 +117,7 @@ class PracticeDetailsController extends BaseController {
 		}
 
 		//echo $pd_id;die;
-		return Redirect::to('/practice_details');
+		return Redirect::to('/practice-details');
 		//return Redirect::back();
 	}
 
