@@ -58,12 +58,12 @@ class UserController extends BaseController {
 			UserPermission::insert($usrp_data);
 		}
 
-		$this->sendMail($usr_data);
+		$this->send_mail($usr_data);
 
 		return Redirect::to('/add-user');
 	}
 
-	private function sendMail($data)
+	public function send_mail($data)
 	{//print_r($data);die;
 		Mail::send('emails.add_user', $data, function($message) use ($data) {
             $message->from('anwar.khan@appsbee.com', 'MPM');

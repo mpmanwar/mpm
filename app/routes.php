@@ -28,4 +28,4 @@ Route::get('/user-list', 'UserController@user_list');
 Route::get('/add-user', 'UserController@add_user');
 Route::post('/user_process', 'UserController@user_process');
 Route::get('/php_info', 'PracticeDetailsController@php_info');
-Route::get('/sendMail', 'UserController@sendMail');
+Route::get('/send_mail', 'UserController@send_mail');
