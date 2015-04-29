@@ -65,9 +65,9 @@ class UserController extends BaseController {
 
 	private function sendMail($data)
 	{//print_r($data);die;
-		Mail::send('emails.add_user', $data, function($message) {
+		Mail::send('emails.add_user', $data, function($message) use ($data) {
             $message->from('anwar.khan@appsbee.com', 'MPM');
-            $message->to("anwarkhanmca786@gmail.com", "Anwar")->subject("Test MPM");
+            $message->to($data['email'], $data['fname'].' '.$data['lname'])->subject("Test MPM");
             
         });
 	}
