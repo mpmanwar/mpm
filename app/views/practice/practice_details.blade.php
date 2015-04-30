@@ -125,7 +125,7 @@
 <h3 class="box-title"><!-- Sign in details--></h3> 
     <div class="form-group">
         <label for="exampleInputEmail1">User Name</label>
-        <input type="text" placeholder="Enter Username" id="exampleInputEmail1" class="form-control">
+        <input type="text" placeholder="User Name" id="exampleInputEmail1" class="form-control">
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
@@ -151,7 +151,7 @@
 <h3 class="box-title"><!-- Sign in details --></h3>
 <div class="form-group">
 <label for="exampleInputEmail1">User Name</label>
-<input type="text" placeholder="Enter Username" id="exampleInputEmail1" class="form-control">
+<input type="text" placeholder="User Name" id="exampleInputEmail1" class="form-control">
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Password</label>
