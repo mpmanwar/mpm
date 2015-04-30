@@ -53,12 +53,13 @@
 .active_t{color:#00a65a;}
 .dataTables_paginate{float:right;}
 .gray_y{color:#999;}
+#example2 th{text-align:center;}
 
 /*==========add user account==========*/
 .user_account{margin-top:20px;}
 .user_ncon{width:25%; float:left; margin-right:10px;}
 .user_econ{width:48%; float:left;}
- .btn-lg1{border-radius: 6px;
+.btn-lg1{border-radius: 6px;
     font-size: 18px;
     line-height: 1.33;
     padding: 10px 16px;}

@@ -108,16 +108,16 @@
         <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
         <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
             <thead>
-                <tr role="row">
-                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>
-                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">VAT</th>
-                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CORP TAX</th>
-                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">STATUTORY ACCOUNTS</th>
+                <tr  role="row">
+                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>
+                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">VAT</th>
+                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CORP TAX</th>
+                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">STATUTORY ACCOUNTS</th>
                 
-                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">MANAGEMENT ACCOUNTS</th>
-                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">NOTICE BOARD</th>
-                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">INCOME TAX RETURNS</th>
-                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">ETC</th>
+                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">MANAGEMENT ACCOUNTS</th>
+                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">NOTICE BOARD</th>
+                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">INCOME TAX RETURNS</th>
+                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">ETC</th>
                 </tr>
             </thead>
                                         
@@ -213,7 +213,7 @@
 </div>
 
 <div class="row">
- <div class="col-xs-12 col-xs-9 chk_cont">
+ <div class="col-xs-12 col-xs-9 chk_cont" style="margin-bottom: -15px;">
 <div class="checkbox allow_user">
 <label>
 <input type="checkbox"/>
@@ -227,7 +227,7 @@
      </label>  -->                                               
 </div>
  </div>
-  <div class="col-xs-12 col-xs-3 chk_cont">
+  <div class="col-xs-12 col-xs-3 chk_cont" style="margin-top: -20px;">
 <div class="save_con">
 <button class="btn btn-primary" type="Save">Send</button>
 <button class="btn btn-danger" type="Save">Cancel</button>
