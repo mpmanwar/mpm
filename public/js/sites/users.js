@@ -12,7 +12,7 @@ function getUserPermissions( value )
 
 
 $(function(){
-	$("body").on("click", ".iradio_minimal", function(){
+	/*$("body").on("click", ".iradio_minimal", function(){
 		console.log("here");
 	});
 	$(".radio").on("click", function(){
@@ -23,14 +23,19 @@ $(function(){
 	$(".radio").click(function(){
 		var type = $(this).find(".handle-change-user").data('type');
 		console.log(type);
-	});
+	});*/
 
 	console.log("hello");
 });
 
 $(document).ready(function(){
 
-
+	$('#past5m').click(function() { 
+        alert('hello'); 
+    });
+    $('#past1h').click(function() { 
+        alert('hello'); 
+    });
 
 	/*$(".handle-change-user").on("click", function(){
 		console.log("click");

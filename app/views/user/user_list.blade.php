@@ -104,8 +104,8 @@
                                         <a href="#" class="active_t">Inactive</a>
                                     @endif
                                 </td>
-                                <td class=" ">1 May 2013 9:13 p.m.</td>
-                                <td class=" ">3</td>
+                                <td class=" ">{{ $user_row->last_login or '' }}<!-- 1 May 2013 9:13 p.m. --></td>
+                                <td class=" ">{{ $user_row->login_count or '0' }}</td>
                             </tr>
                         @endforeach
                     @endif

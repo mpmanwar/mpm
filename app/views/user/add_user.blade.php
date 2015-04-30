@@ -87,8 +87,31 @@
 <div class="clearfix"></div>
 </div>
 
+
+<div class="btn-group" data-toggle="buttons" style="margin-left:50px;"> 
+    <label class="btn btn-default">
+        <input id="past5m" type="radio"> 5m
+    </label> 
+    <label class="btn btn-default"> 
+        <input id="past1h" type="radio"> 1h
+    </label>
+</div>
+
+
+
 <div class="tabarea">
     <div class="box-header">
+      @if(Session::has('message'))
+        <p style="color:#00a65a; font-size:15px;">{{ Session::get('message') }}</p>
+      @endif
+      
+      @if ( $errors->count() > 0 )
+        <ul>
+            @foreach( $errors->all() as $message )
+              <li style="color:red; font-size:15px;">{{ $message }}</li>
+            @endforeach
+        </ul>
+      @endif
         <h3 class="box-title">Access to the accounts</h3>  
                                      
     </div><!-- /.box-header -->
@@ -113,66 +136,61 @@
                                         
         <tbody role="alert" aria-live="polite" aria-relevant="all">
         <tr class="odd">
-                    <td class="sorting_1">
-                    <div class="form-group"> 
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="user_type" id="optionsRadios1" value="staff" class="handle-change-user" data-type="staff">
-                       STAFF
-                    </label>
-                </div>
-                
-                
+          <td class="sorting_1">
+            <div class="form-group"> 
+              <div class="radio">
+                <label>
+                    <input type="radio" name="user_type" id="optionsRadios1" value="staff" class="handle-change-user" data-type="staff">
+                   STAFF
+                </label>
+              </div>
             </div>
-                    </td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                     <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
-                </tr>
-                <tr class="even">
-                  <td class="sorting_1">
-                    <div class="radio">
-                    <label>
-                        <input type="radio" name="user_type" id="optionsRadios2" value="client" class="handle-change-user" data-type="client">
-                        CLIENT
-                    </label>
-                    </div>
-                </td>
-                   <td class=" " align="center"></td>
-                     <td class=" " align="center"></td>
-                     <td class=" " align="center"></td>
-                     <td class=" " align="center"></td>
-                     <td class=" " align="center"></td>
-                     <td class=" " align="center"></td>
-                     <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
-                </tr>
+          </td>
+          <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+          <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+        </tr>
+        <tr class="even">
+          <td class="sorting_1">
+            <div class="radio">
+            <label>
+                <input type="radio" name="user_type" id="optionsRadios2" value="client" class="handle-change-user" data-type="client">
+                CLIENT
+            </label>
+            </div>
+          </td>
+          <td class=" " align="center"></td>
+            <td class=" " align="center"></td>
+            <td class=" " align="center"></td>
+            <td class=" " align="center"></td>
+            <td class=" " align="center"></td>
+            <td class=" " align="center"></td>
+            <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+          </tr>
                 
-                <tr class="odd">
-                    <td class="sorting_1">
-                    <div class="radio">
-                    <label>
-                        <input type="radio" name="user_type" id="optionsRadios3" value="admin"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
-                        ADMIN
-                    </label>
-                </div>
-                </td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-                    <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
-                </tr>
-                
-                
-                
-                
-                </tbody></table>
+          <tr class="odd">
+            <td class="sorting_1">
+              <div class="radio">
+              <label>
+                <input type="radio" name="user_type" id="optionsRadios3" value="admin"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
+                ADMIN
+              </label>
+          </div>
+            </td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+            <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+          </tr>
+        </tbody>
+      </table>
                 <!-- <div class="row">
                   <div class="col-xs-6">
                     <div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div>
