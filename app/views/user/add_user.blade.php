@@ -87,18 +87,6 @@
 <div class="clearfix"></div>
 </div>
 
-
-<div class="btn-group" data-toggle="buttons" style="margin-left:50px;"> 
-    <label class="btn btn-default">
-        <input id="past5m" type="radio"> 5m
-    </label> 
-    <label class="btn btn-default"> 
-        <input id="past1h" type="radio"> 1h
-    </label>
-</div>
-
-
-
 <div class="tabarea">
     <div class="box-header">
       @if(Session::has('message'))
