@@ -128,7 +128,7 @@
             <div class="form-group"> 
               <div class="radio">
                 <label>
-                    <input type="radio" name="user_type" id="optionsRadios1" value="staff" class="handle-change-user" data-type="staff">
+                    <input type="radio" name="user_type" id="optionsRadios1" value="S" class="handle-change-user" data-type="staff">
                    STAFF
                 </label>
               </div>
@@ -146,7 +146,7 @@
           <td class="sorting_1">
             <div class="radio">
             <label>
-                <input type="radio" name="user_type" id="optionsRadios2" value="client" class="handle-change-user" data-type="client">
+                <input type="radio" name="user_type" id="optionsRadios2" value="C" class="handle-change-user" data-type="client">
                 CLIENT
             </label>
             </div>
@@ -164,7 +164,7 @@
             <td class="sorting_1">
               <div class="radio">
               <label>
-                <input type="radio" name="user_type" id="optionsRadios3" value="admin"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
+                <input type="radio" name="user_type" id="optionsRadios3" value="A"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
                 ADMIN
               </label>
           </div>

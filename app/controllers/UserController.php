@@ -52,6 +52,7 @@ class UserController extends BaseController {
 			$usr_data['fname']			= $postData['fname'];
 			$usr_data['lname']			= $postData['lname'];
 			$usr_data['email']			= $postData['email'];
+			$usr_data['user_type']		= $postData['user_type'];
 			$usr_data['created']		= date("Y-m-d H:i:s");
 			$usr_id = User::insertGetId($usr_data);
 			$usr_data['user_id']		= $usr_id;
