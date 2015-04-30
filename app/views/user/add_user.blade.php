@@ -212,8 +212,8 @@
   @endif
 </div>
 
-<div class="row">
- <div class="col-xs-12 col-xs-9 chk_cont" style="margin-bottom: -15px;">
+<div class="row btn_row">
+ <div class="col-xs-12 col-xs-9 chk_cont">
 <div class="checkbox allow_user">
 <label>
 <input type="checkbox"/>
