@@ -1,5 +1,8 @@
 @extends('layouts.layout')
 @section('content')
+<script type="text/javascript">
+$(":file").filestyle({input: false});
+</script>
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
            <aside class="left-side sidebar-offcanvas">
@@ -31,6 +34,7 @@
 <input type="hidden" name="practice_id" value="{{ $practice_details->practice_id or ''}}">
 <input type="hidden" name="reg_address_id" value="{{ $practice_address['reg_address_id'] or ''}}">
 <input type="hidden" name="phy_address_id" value="{{ $practice_address['phy_address_id'] or ''}}">
+<input type="hidden" name="hidd_practice_logo" value="{{ $practice_details->practice_logo or ''}}">
 
 <section class="content">
 
@@ -55,8 +59,17 @@
 
 <div class="row box_border row_cont">
  <div class="col_left">
- <h2 class="res_t">Organisation Name & Type</h2>
+ 
+ <h2 class="res_t p_details">Practice Details</h2>
+ 
+<div class="browse_cont">
+ <span class="btn btn-default btn-file p_details">
+    Browse <input type="file" name="practice_logo">
+</span>
+<img src="practice_logo/{{ $practice_details->practice_logo or '' }}" class="browse_img" alt="" width="30" /></div>
 
+<div class="clearfix"></div>
+<!--<input type="file" name="practice_logo" id="practice_logo">-->
  </div>
  <div class="col_right">
  <div class="setting_con">
@@ -69,11 +82,6 @@
 
 <button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
 </div>
-
-
-
-
-
 
  </div>
  <div class="clearfix"></div>

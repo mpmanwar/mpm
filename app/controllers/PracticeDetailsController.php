@@ -1,4 +1,9 @@
 <?php
+// import the Intervention Image Manager Class
+use Intervention\Image\ImageManagerStatic as Image;
+
+// configure with favored image driver (gd by default)
+Image::configure(array('driver' => 'imagick'));
 
 class PracticeDetailsController extends BaseController {
 	public function php_info()
@@ -69,13 +74,48 @@ class PracticeDetailsController extends BaseController {
 		$pd_data['telephone_no']			= $postData['tel_country_code']."-".$postData['tel_area_code']."-".$postData['tel_number'];
 		$pd_data['fax_no']					= $postData['fax_country_code']."-".$postData['fax_area_code']."-".$postData['fax_number'];
 		$pd_data['mobile_no']				= $postData['mob_country_code']."-".$postData['mob_area_code']."-".$postData['mob_number'];
+
 		if(!empty($postData['practice_id'])){
 			PracticeDetail::where("practice_id", "=", $postData['practice_id'])->update($pd_data);
+			$pd_id = $postData['practice_id'];
 		}else{
 			$pd_id = PracticeDetail::insertGetId($pd_data);
 		}
+
+		//////////////////file upload start//////////////////
+        if (Input::hasFile('practice_logo')) {
+            $file = Input::file('practice_logo');
+            $destinationPath = "practice_logo/";
+            $Name = Input::file('practice_logo')->getClientOriginalName();
+            $fileName = time().$Name;
+            $result = Input::file('practice_logo')->move($destinationPath, $fileName);
+
+            ### delete the previous image if exists ###
+            $prevPath   = "practice_logo/".$postData['hidd_practice_logo'];
+            if($postData['hidd_practice_logo'] != ""){
+            	if( file_exists( $prevPath ) ){
+                	unlink( $prevPath );
+            	}
+            }
+            
+            ### delete the previous image if exists ###
+
+            if( $result ){
+                /*Image::make($destinationPath.'thumble')->resize(350, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save();*/
+	
+                
+            }
+
+            $logo_data['practice_logo']       = $fileName;
+            PracticeDetail::where("practice_id", "=", $pd_id)->update($logo_data);
+
+        }
+        /////////////////file upload end////////////////////
 			
 
+		//$pa_data['practice_id']		= !empty($postData['practice_id'])?$postData['practice_id']:$pd_id;
 		$pa_data['practice_id']		= !empty($postData['practice_id'])?$postData['practice_id']:$pd_id;
 		$pa_data['type']			= "registered";
 		$pa_data['attention']		= $postData['reg_attention'];
