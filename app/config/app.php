@@ -192,7 +192,6 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Image'             => 'Intervention\Image\Facades\Image',
 		'Excel' 			=> 'Maatwebsite\Excel\Facades\Excel'
-
 	),
 
 );
