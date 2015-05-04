@@ -42,7 +42,7 @@ $(":file").filestyle({input: false});
 <div class="top_bts">
 <ul>
 <li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
-<li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
+<li><a class="btn btn-success" href="/downloadPdf"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><a class="btn btn-primary" href="/downloadExel"><i class="fa fa fa-file-text-o"></i> Excel</a></li>
 <li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
 
