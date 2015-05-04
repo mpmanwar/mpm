@@ -121,6 +121,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider',
 
 	),
 
@@ -188,7 +191,9 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-
+		'Image'             => 'Intervention\Image\Facades\Image',
+		'Excel' 			=> 'Maatwebsite\Excel\Facades\Excel',
+		'PDF'             	=> 'Barryvdh\DomPDF\ServiceProvider'
 	),
 
 );

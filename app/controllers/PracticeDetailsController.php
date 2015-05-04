@@ -5,6 +5,8 @@
 // configure with favored image driver (gd by default)
 //Image::configure(array('driver' => 'imagick'));
 
+
+use Excel;
 class PracticeDetailsController extends BaseController {
 	public function php_info()
 	{
@@ -56,9 +58,34 @@ class PracticeDetailsController extends BaseController {
 				}
 			}
 		}
-		
-		//echo "<pre>";print_r($data);die;
-		return View::make('practice.practice_details', $data);
+
+		$viewToLoad = 'practice.practice_details';
+		///////////  Start Generate and store excel file ////////////////////////////
+        Excel::create('practiceDetails', function($excel) use($data, $viewToLoad) {
+
+            // Set the title
+            $excel->setTitle('MPM Practice Details');
+
+            // Chain the setters
+            $excel->setCreator('MPM')->setCompany('MPM');
+
+            // Call them separately
+            $excel->setDescription('MPM Practice Details');
+			$excel->sheet('Sheetname', function($sheet) use($data, $viewToLoad) {
+				$sheet->loadView($viewToLoad)->with($data);
+           	})->save();
+            
+        });
+
+        ///////////  End Generate and store excel file ////////////////////////////
+
+        ///////////  Start Generate and store pdf file ////////////////////////////
+        //PDF::loadFile()->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+        ///////////  End Generate and store pdf file ////////////////////////////
+
+
+        //echo "<pre>";print_r($data);die;
+		return View::make($viewToLoad, $data);
 	}
 
 	function insertPracticeDetails(){
@@ -185,6 +212,43 @@ class PracticeDetailsController extends BaseController {
         	echo "You do not have permission to call this method directly.";
         }
 		//echo view('search.search_city',$data);
+	}
+
+	/*
+     * Download generated excel report
+     */
+	function downloadExel()
+	{
+		$filepath = storage_path().'/exports/practiceDetails.xls';
+        $fileName = 'practiceDetails.xls';
+
+        $headers = array(
+            'Content-Description: File Transfer',
+            'Content-Type: application/vnd.ms-excel',
+            'Content-Disposition: attachment; filename=' . $filepath,
+            'Content-Transfer-Encoding: binary',
+            'Expires: 0',
+            'Cache-Control: must-revalidate',
+            'Pragma: public',
+            'Content-Length: ' . filesize($filepath)
+        );
+        ob_clean();
+        flush();
+
+        return Response::download($filepath, $fileName, $headers);
+		exit;
+    	
+	}
+
+	/*
+     * Download generated pdf report
+     */
+	function downloadPdf()
+	{
+		$pdf = PDF::loadView('PrintView', $parameter);
+        return $pdf->stream("Hello.pdf");
+		exit;
+    	
 	}
 
 }

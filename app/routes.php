@@ -27,6 +27,8 @@ Route::post('/insertPracticeDetails', 'PracticeDetailsController@insertPracticeD
 Route::post('/ajaxSearchByCity', 'PracticeDetailsController@ajaxSearchByCity');
 Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState');
 Route::get('/php_info', 'PracticeDetailsController@php_info');
+Route::any('/downloadExel', array("as"=>"download/downloadExel", "uses"=>'PracticeDetailsController@downloadExel'));
+Route::any('/downloadPdf', array("as"=>"download/downloadPdf", "uses"=>'PracticeDetailsController@downloadPdf'));
 ### Routes for practice details related URL's end ###
 
 ### Routes for user related URL's start ###
@@ -35,4 +37,5 @@ Route::get('/user-list', 'UserController@user_list');
 Route::get('/add-user', 'UserController@add_user');
 Route::get('/send_mail', 'UserController@send_mail');
 Route::any('/delete-users', array("as"=>"user/delete-users", "uses"=>'UserController@delete_users'));
+
 ### Routes for user related URL's end ###
