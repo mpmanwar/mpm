@@ -26,18 +26,19 @@
                 </section>
 
                 <!-- Main content -->
-              <section class="content">
+{{ Form::open(array('url' => '/delete-users', 'files' => true)) }}                 
+<section class="content">
 <div class="row">
 <div class="top_bts">
 <ul>
 <li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
 <li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
-<li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
+<li><button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
+<!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
-<li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li>
-<li><button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button></li>
+<li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li> 
+<li><button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button></li>-->
 <div class="clearfix"></div>
 </ul>
   
@@ -59,6 +60,9 @@
  </div>
  <div class="clearfix"></div>
 </div>
+@if(Session::has('message'))
+    <p style="color:#00a65a; font-size:15px;">{{ Session::get('message') }}</p>
+@endif
 
 <div class="add_usercon">
 <p><a href="#">What's this?</a></p>
@@ -81,6 +85,7 @@
                     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
                         <thead>
                             <tr role="row">
+                                <th></th>
                                 <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Permissions</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
@@ -95,7 +100,8 @@
                     @if(!empty($user_lists) && count($user_lists) > 0)
                         @foreach($user_lists as $user_row)
                             <tr class="odd">
-                                <td class="sorting_1">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</td>
+                                <td><input type="checkbox" value="{{$user_row->user_id}}" name="user_delete_id[]" id="user_delete_id"></td>
+                                <td class="sorting_1"><a href="/edit-user">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</a></td>
                                 <td class=" ">{{ $user_row->permission or "" }}</td>
                                 <td class=" ">
                                     @if($user_row->status == 'I')
@@ -219,8 +225,9 @@
 
 
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
+    </section><!-- /.content -->
+{{ Form::close() }}    
+</aside><!-- /.right-side -->
             
         
       

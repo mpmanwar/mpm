@@ -99,4 +99,17 @@ class UserController extends BaseController {
     	return isset($date) ? date("d M Y H:i a", strtotime($date)):"";
     }
 
+
+    public function delete_users()
+    {
+    	$userIds = Input::get('user_delete_id');
+    	//print_r($userData);
+    	foreach ($userIds as $key => $value) {
+    		$User_delete = User::where("user_id", "=", $value)->delete();
+    		Session::flash('message', 'Users are successfully deleted');
+    	}
+    	return Redirect::to("user-list");
+    	
+    }
+
 }
