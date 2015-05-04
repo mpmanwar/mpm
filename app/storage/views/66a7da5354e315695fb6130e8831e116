@@ -1,0 +1,4 @@
+
+<h1>Hi, <?php echo $fname; ?>!</h1>
+ 
+<p>You are now MPM user!</p>
