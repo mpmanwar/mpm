@@ -122,7 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Maatwebsite\Excel\ExcelServiceProvider'
+		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider'
 
 	),
 
@@ -191,7 +192,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Image'             => 'Intervention\Image\Facades\Image',
-		'Excel' 			=> 'Maatwebsite\Excel\Facades\Excel'
+		'Excel' 			=> 'Maatwebsite\Excel\Facades\Excel',
+		'PDF' 				=> 'Barryvdh\DomPDF\Facade'
 	),
 
 );

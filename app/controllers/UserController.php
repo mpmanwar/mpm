@@ -57,11 +57,18 @@ class UserController extends BaseController {
 			$usr_id = User::insertGetId($usr_data);
 			$usr_data['user_id']		= $usr_id;
 
-			foreach($postData['permission'] as $value){
-				$usrp_data['user_id']		= $usr_id;
-				$usrp_data['permission_id']	= $value;
-				UserPermission::insert($usrp_data);
+			if($postData['user_type'] != "C"){
+				if(!empty($postData['permission']) && count($postData['permission']) > 0){
+					foreach($postData['permission'] as $value){
+						$usrp_data['user_id']		= $usr_id;
+						$usrp_data['permission_id']	= $value;
+						UserPermission::insert($usrp_data);
+					}
+				}
+				
 			}
+		
+			
 
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The email has been sent to the new user.');
@@ -111,5 +118,89 @@ class UserController extends BaseController {
     	return Redirect::to("user-list");
     	
     }
+
+    public function edit_user($id) {
+		$peruser_per = array();
+		$data['title'] = "User Edit";
+		$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
+		//print_r($data['info']);die;
+
+		$data['permission_list'] = Permission::get();
+
+		$data['per_list'] = UserPermission::where('user_id', '=', $id)->get();
+
+		$i = 0;
+		$data['permission_id'] = array();
+		foreach ($data['per_list'] as $usr_per) {
+			$data['permission_id'][$i] = $usr_per->permission_id;
+			$i++;
+		}
+		//print_r($peruser_per);die();
+
+		return View::make("user/edit_user", $data);
+
+	}
+
+	public function saveedit() {
+
+		$id = Input::get("user_id");
+
+		$usrp_data = array();
+		$postData 			= Input::all();
+		$data['fname'] 		= $postData['fname'];
+		$data['lname'] 		= $postData['lname'];
+		$data['email'] 		= $postData['email'];
+		$data['user_type'] 	= $postData['user_type'];
+		//echo $postData['user_type'];die;
+		UserPermission::where('user_id', '=', $id)->delete();
+
+		if($postData['user_type'] != "C"){
+			if(!empty($postData['permission']) && count($postData['permission']) > 0){
+				foreach ($postData['permission'] as $value) {
+					$usrp_data['user_id'] = $id;
+					$usrp_data['permission_id'] = $value;
+					UserPermission::insert($usrp_data);
+				}
+			}
+			
+		}
+		
+
+		//print_r($data);die();
+
+		User::where('user_id', '=', $id)->update($data);
+
+		return Redirect::action('UserController@user_list');
+	}
+
+	public function pdf() {
+		$data['title'] = "User List";
+		$data['user_lists'] = User::get();
+		if (isset($data['user_lists']) && count($data['user_lists']) > 0) {
+			$i = 0;
+			foreach ($data['user_lists'] as $user_list) {
+				$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
+				                                            ->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
+				//echo $this->last_query();die;
+				//print_r($permissions);die;
+				$permission = "";
+				if (isset($permissions) && count($permissions) > 0) {
+					foreach ($permissions as $usr_perission) {
+						$permission .= $usr_perission->name . " + ";
+					}
+					$permission = substr($permission, 0, -3);
+				}
+
+				$data['user_lists'][$i]['permission'] = $permission;
+				$data['user_lists'][$i]['login_count'] = LoginDetail::where("user_id", "=", $user_list->user_id)->count();
+				$last_login = LoginDetail::where("user_id", "=", $user_list->user_id)->orderBy('id', 'desc')->pluck('login_date');
+				$data['user_lists'][$i]['last_login'] = $this->getDateFormat($last_login);
+				$i++;
+			}
+		}
+
+		$pdf = PDF::loadView('user/pdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('test.pdf');
+	}
 
 }

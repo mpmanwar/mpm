@@ -37,5 +37,7 @@ Route::get('/user-list', 'UserController@user_list');
 Route::get('/add-user', 'UserController@add_user');
 Route::get('/send_mail', 'UserController@send_mail');
 Route::any('/delete-users', array("as"=>"user/delete-users", "uses"=>'UserController@delete_users'));
-
+Route::get('/edit-user/{id}', 'UserController@edit_user');
+Route::post('/save-edit', 'UserController@saveedit');
+Route::get('/pdf', 'UserController@pdf');
 ### Routes for user related URL's end ###

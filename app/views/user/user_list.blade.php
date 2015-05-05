@@ -32,7 +32,7 @@
 <div class="top_bts">
 <ul>
 <li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
-<li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
+<li><a href="/pdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
 <li><button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
@@ -101,7 +101,7 @@
                         @foreach($user_lists as $user_row)
                             <tr class="odd">
                                 <td><input type="checkbox" value="{{$user_row->user_id}}" name="user_delete_id[]" id="user_delete_id"></td>
-                                <td class="sorting_1"><a href="/edit-user">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</a></td>
+                                <td class="sorting_1"><a href="/edit-user/{{$user_row->user_id}}">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</a></td>
                                 <td class=" ">{{ $user_row->permission or "" }}</td>
                                 <td class=" ">
                                     @if($user_row->status == 'I')

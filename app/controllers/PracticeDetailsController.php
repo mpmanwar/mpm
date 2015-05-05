@@ -5,6 +5,7 @@ class PracticeDetailsController extends BaseController {
 	public function php_info()
 	{
 		phpinfo();
+		die;
 	}
 	
 	public function index()
