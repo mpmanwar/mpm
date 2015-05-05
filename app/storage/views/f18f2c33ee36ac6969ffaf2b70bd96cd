@@ -156,7 +156,7 @@
                            </div>-->
                            
                             <div class="mps_btn">
-                        <button class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</button>
+                        <a  href="/email-settings" class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</a>
                            </div>
                            
                          

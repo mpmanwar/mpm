@@ -41,3 +41,8 @@ Route::get('/edit-user/{id}', 'UserController@edit_user');
 Route::post('/save-edit', 'UserController@saveedit');
 Route::get('/pdf', 'UserController@pdf');
 ### Routes for user related URL's end ###
+
+
+### Routes for Email Settings related URL's start ###
+Route::any('/email-settings', array("as"=>"email_settings/index", "uses"=>'EmailSettingsController@index'));
+### Routes for Email Settings related URL's end ###
