@@ -30,15 +30,17 @@ $(function(){
 
 $(document).ready(function(){
 
-	$('#past5m').click(function() { 
-        alert('hello'); 
-    });
-    $('#past1h').click(function() { 
-        alert('hello'); 
-    });
+	$('.iradio_minimal').on('ifChecked', function(event){
+		$('#user_permissions checkbox').prop('disabled', true);
 
-	/*$(".handle-change-user").on("click", function(){
-		console.log("click");
-	});*/
+		var value = $(this).find(".handle-change-user").data('type');
+	  	if(value == "admin"){
+			$("#user_permissions").show();
+		}else if(value == "staff"){
+			$("#user_permissions").show();
+		}else{
+			$("#user_permissions").hide();
+		}
+	});
 
 });

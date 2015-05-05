@@ -54,6 +54,17 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'mpmsdb',
+			'username'  => 'mpmdbusr',
+			'password'  => 'b=wr.G-GR-&9*8',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		/*'mysql' => array(
+			'driver'    => 'mysql',
 			'host'      => '192.168.0.1',
 			'database'  => 'mpm',
 			'username'  => 'anwar',
@@ -62,7 +73,7 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-
+*/
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',

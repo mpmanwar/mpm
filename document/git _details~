@@ -29,3 +29,8 @@ password:  AppsbEE##::321
 cd /var/www/mpm/mpm/
 git pull
 
+<!----------set up mail send from local server---------->
+apt-get install postfix
+/etc/init.d/postfix restart
+
+

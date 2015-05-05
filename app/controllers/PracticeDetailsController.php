@@ -1,6 +1,6 @@
 <?php
 
-//use Excel;
+use Excel;
 class PracticeDetailsController extends BaseController {
 	public function php_info()
 	{

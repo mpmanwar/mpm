@@ -6,8 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		/*"intervention/image": "^2.2",
-		"maatwebsite/excel": "~1.2.1"*/
+		"intervention/image": "^2.2",
+		"maatwebsite/excel": "~1.2.1"
 	},
 	"autoload": {
 		"classmap": [
