@@ -235,15 +235,6 @@ class PracticeDetailsController extends BaseController {
     	
 	}
 
-	/*
-     * Download generated pdf report
-     */
-	function downloadPdf()
-	{
-		$pdf = PDF::loadView('PrintView', $parameter);
-        return $pdf->stream("Hello.pdf");
-		exit;
-    	
-	}
+	
 
 }
