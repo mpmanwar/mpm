@@ -10,8 +10,11 @@ function openModal( template_id )
 	    	$('#edit_email_template_id').val(resp['email_template_id']);
 	    	$('#edit_name').val(resp['name']);
 	    	$('#edit_title').empty().val(resp['title']);
-	    	$('#edit_message').empty().val(resp['message']);
+	    	//$('#edit_message').empty().text(resp['message']);
 	    	$('#edit-modal').modal('show');
+CKEDITOR.instances['edit_message'].setData(resp['message']);
+			//CKEDITOR.instances['edit_message'].insertText(resp['message']);
+	    	
 	    }
 	});
 }
