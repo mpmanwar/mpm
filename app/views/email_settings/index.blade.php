@@ -63,8 +63,8 @@
                     @if(!empty($email_templates))
                     @foreach($email_templates as $key=>$email_tmpl_row)
                       <tr>
-                        <td align="center">{{ $email_tmpl_row->name }}</td>
                         <td align="center">{{ $email_tmpl_row->template_type_name }}</td>
+                        <td align="center">{{ $email_tmpl_row->name }}</td>
                         <td align="center"></td>
                         <td align="center">
                           <a data-toggle="modal" class="openModal" data-template_id="{{ $email_tmpl_row->email_template_id }}" onclick="openModal('{{ $email_tmpl_row->email_template_id }}')">
@@ -165,7 +165,7 @@
 
 <!-- Edit MESSAGE MODAL -->
 <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  {{ Form::open(array('url' => '/template/edit-email-template', 'files' => true)) }}
+  {{ Form::open(array('url' => '/template/edit-email-template', 'files' => true, 'id' => 'edit_form')) }}
 <input type="hidden" name="edit_email_template_id" id="edit_email_template_id" value=""> 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -185,7 +185,7 @@
           <div class="input_dropdown">
               <label>Type</label>
               <select class="form-control" name="edit_template_type" id="edit_template_type" onChange="getTemplate(this.value)">
-                <option>Select Template Type</option>
+                <option value="">Select Template Type</option>
                 @if(!empty($template_types))
                 @foreach($template_types as $key=>$type_row)
                 <option value="{{ $type_row->template_type_id }}">{{ $type_row->template_type_name }}</option>
@@ -221,7 +221,7 @@
       <div class="modal-footer clearfix">
         <div class="email_btns">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          <button type="submit" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
+          <button type="button" onclick="form_validation()" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
         </div>
       </div>
     </form>

@@ -40,6 +40,17 @@ function getTemplate( template_id )
 	});
 }
 
+function form_validation()
+{
+	if($('#edit_template_type').val() == ""){
+		alert("Please select template type");
+		return false;
+	}else{
+		$("#edit_form").submit();
+		return true;
+	}
+}
+
 
 $(document).ready(function(){
 
