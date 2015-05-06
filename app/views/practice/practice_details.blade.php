@@ -41,8 +41,8 @@ $(":file").filestyle({input: false});
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
-<li><a class="btn btn-success" href="/downloadPdf"><i class="fa fa-download"></i> Generate PDF</a></li>
+<li><button type="button" class="btn btn-info" onClick="window.print()"><i class="fa fa-print"></i> Print</button></li>
+<li><a class="btn btn-success" href="#"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><a class="btn btn-primary" href="/downloadExel"><i class="fa fa fa-file-text-o"></i> Excel</a></li>
 <li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
 
@@ -58,19 +58,28 @@ $(":file").filestyle({input: false});
 <div class="practice_mid">
 
 <div class="row box_border row_cont">
- <div class="col_left">
- 
+ <div class="col_left col_left_new">
+<div class="col-xs-12">
+ <div class="col-lg-6">   
  <h2 class="res_t p_details">Practice Details</h2>
- 
+ </div>
+  <div class="col-lg-6">  
 <div class="browse_cont">
  <span class="btn btn-default btn-file p_details">
     Browse <input type="file" name="practice_logo">
 </span>
-<img src="practice_logo/{{ $practice_details->practice_logo or '' }}" class="browse_img" alt="" width="30" /></div>
-
+@if($practice_details->practice_logo != "" && file_exists("practice_logo/".$practice_details->practice_logo))
+<img src="practice_logo/{{ $practice_details->practice_logo }}" class="browse_img" alt="" width="30" />
+@endif
+</div>
+</div>
 <div class="clearfix"></div>
 <!--<input type="file" name="practice_logo" id="practice_logo">-->
+</div>
  </div>
+
+
+
  <div class="col_right">
  <div class="setting_con">
     <a href="/" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>

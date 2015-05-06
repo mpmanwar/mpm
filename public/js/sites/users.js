@@ -43,4 +43,28 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#deleteUsers').click(function() {
+	  	var val = [];
+        $(':checkbox:checked').each(function(i){
+          	val[i] = $(this).val();
+        });
+		if(val.length>0){
+			if(confirm("Do you want to delete?")){
+				$.ajax({
+				    type: "POST",
+				    url: '/delete-users',
+				    data: { 'user_delete_id' : val },
+				    success : function(resp){
+				    	//window.location = 'http://mpm.com/user-list';
+				    	window.location = '/user-list';
+				    }
+				});
+			}
+
+ 		}else{
+ 			alert('Please select atleast one user');
+ 		}
+ 	});	
+
 });
+

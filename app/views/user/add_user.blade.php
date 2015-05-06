@@ -229,8 +229,8 @@
  </div>
   <div class="col-xs-12 col-xs-3 chk_cont" style="margin-top: -20px;">
 <div class="save_con">
-<button class="btn btn-primary" type="Save">Send</button>
-<button class="btn btn-danger" type="Save">Cancel</button>
+<button type="submit" class="btn btn-primary" type="Save">Send</button>
+<button type="button" onClick="history.back(-1)" class="btn btn-danger" type="Save">Cancel</button>
 </div>
 
  </div>

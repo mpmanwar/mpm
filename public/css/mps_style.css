@@ -41,8 +41,9 @@
 .col_right{float:right; width:52%;}
 .btn_con_left{width:31%; float:left;  margin:0 10px 0 0;}
 .btn_con_right{float:left; width:31%;}
-
-
+.col_left_new .col-xs-12 { padding: 0;}
+.col_left_new .col-lg-6 { padding: 0;}
+.browse_cont { padding:22px 0 0 20px; }
 
 
 /*===========add user=========*/
@@ -72,6 +73,7 @@
 .top_search_con{float:right;}
 .no_selectitem{padding-top:7px; float:left;}
 .tab_topcon{width:100%;}
+.openModal{ cursor: pointer;}
 
 
 

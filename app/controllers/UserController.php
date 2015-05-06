@@ -200,7 +200,7 @@ class UserController extends BaseController {
 		}
 
 		$pdf = PDF::loadView('user/pdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
-		return $pdf->download('test.pdf');
+		return $pdf->download('user_list.pdf');
 	}
 
 }

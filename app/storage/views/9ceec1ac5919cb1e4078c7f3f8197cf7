@@ -26,15 +26,15 @@
                 </section>
 
                 <!-- Main content -->
-<?php echo Form::open(array('url' => '/delete-users', 'files' => true)); ?>                 
+<!-- <?php echo Form::open(array('url' => '/delete-users', 'files' => true)); ?> -->                 
 <section class="content">
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
+<li><button class="btn btn-info" onClick="window.print()"><i class="fa fa-print"></i> Print</button></li>
 <li><a href="/pdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<li><button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
+ <li><a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
 <li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li> 
@@ -226,7 +226,7 @@
 
 
     </section><!-- /.content -->
-<?php echo Form::close(); ?>    
+<!-- <?php echo Form::close(); ?> -->    
 </aside><!-- /.right-side -->
             
         

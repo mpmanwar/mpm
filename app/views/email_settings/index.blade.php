@@ -19,20 +19,32 @@
       <h1> EMAIL SETTINGS </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Email Settings</li>
+        <li class="active">Templates</li>
       </ol>
     </section>
     <!-- Main content -->
     <section class="content">
-      
+    
       <div class="practice_mid">
-        <form>
-          
+    @if(Session::has('success'))
+      <p style="color:#00a65a; font-size:15px;">{{ Session::get('success') }}</p>
+    @endif
+
+    @if(Session::has('error'))
+      <p style="color:red; font-size:15px;">{{ Session::get('error') }}</p>
+    @endif
+    
+    <div id="msg"></div>
+
           <div class="tabarea">
             <div class="box-header">
+
               <h3 class="box-title">Email Templates</h3>
             </div>
-            <div class="add_template"><a class="btn btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Add template</a></div>
+            <div class="add_template">
+              <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#compose-modal">
+                <i class="fa fa-plus"></i> Add template</a>
+            </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
              <!-- <p>Choose the user's level of access to this organisation's accounts:</p>-->
@@ -48,27 +60,22 @@
                      </tr>
                   </thead>
                   <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr class="odd">
-                      <td class="sorting_1">fewf</td>
-                      <td class=" " align="center">wefwef</td>
-                      <td class=" " align="center">wefewf</td>
-                      <td class=" " align="center"><a href="#">Edit</a></td>
-                      <td class=" " align="center"><a href="#"><img src="img/cross.png" /></a></td>
-                    </tr>
-                    <tr class="even">
-                      <td class="sorting_1">fewf</td>
-                      <td class=" " align="center">wefwef</td>
-                      <td class=" " align="center">wefewf</td>
-                      <td class=" " align="center"><a href="#">Edit</a></td>
-                      <td class=" " align="center"><a href="#"><img src="img/cross.png" /></a></td>
-                    </tr>
-                    <tr class="odd">
-                      <td class="sorting_1">fewf</td>
-                      <td class=" " align="center">wefwef</td>
-                      <td class=" " align="center">wefewf</td>
-                      <td class=" " align="center"><a href="#">Edit</a></td>
-                      <td class=" " align="center"><a href="#"><img src="img/cross.png" /></a></td>
-                    </tr>
+                    @if(!empty($email_templates))
+                    @foreach($email_templates as $key=>$email_tmpl_row)
+                      <tr>
+                        <td align="center">{{ $email_tmpl_row->name }}</td>
+                        <td align="center">{{ $email_tmpl_row->template_type_name }}</td>
+                        <td align="center"></td>
+                        <td align="center">
+                          <a data-toggle="modal" class="openModal" data-template_id="{{ $email_tmpl_row->email_template_id }}" onclick="openModal('{{ $email_tmpl_row->email_template_id }}')">
+                            Edit </a>
+                        </td>
+                        <td align="center"><a href="javascript:void(0)" data-eml_tmpl_id="{{ $email_tmpl_row->email_template_id }}" class="deleteTemplate"><img src="img/cross.png" /></a></td>
+                      </tr>
+                    @endforeach
+                    @endif
+                    
+                                       
                   </tbody>
                 </table>
                 
@@ -78,7 +85,7 @@
           </div>
           <div class="clearfix"></div>
           
-        </form>
+  
       </div>
     </section>
     <!-- /.content -->
@@ -90,83 +97,141 @@
         <!-- ./wrapper --> 
 
 <!-- COMPOSE MESSAGE MODAL -->
-        <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-                       <h4 class="modal-title">NEW TEMPLATE</h4>
-                        
-                        
-                        
-                       
-                        <div class="clearfix"></div>
-                    </div>
-                    <form action="#" method="post">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="input_box_g">
-                <label for="exampleInputEmail1">First Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="First Name">
-                                </div>
+{{ Form::open(array('url' => '/template/add_template', 'files' => true)) }}
+<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add an email template</h4>
+        <div class="clearfix"></div>
+      </div>
+    <form action="#" method="post">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="input_box_g">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="add_name" id="add_name" placeholder="First Name">
+          </div>
                                 
-                                <div class="input_dropdown">
-                                            <label>Insert Variable</label>
-                                            <select class="form-control">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
-                                        </div>
-                                  <div class="clearfix"></div>      
-                            </div>
-                            <div class="form-group">
-                                <div class="input_box_g">
-                                    <label for="exampleInputEmail1">Title</label>
-                                    <input name="Title" type="text" class="form-control" placeholder="Title">
-                                </div>
-                                <div class="input_dropdown">
-                                            <label>Select</label>
-                                            <select class="form-control">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
-                                        </div>
-                             <div class="clearfix"></div>     
-                            </div>
-                            <!--<div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">BCC:</span>
-                                    <input name="email_to" type="email" class="form-control" placeholder="Email BCC">
-                                </div>
-                            </div>-->
-                            <div class="form-group">
-                                <textarea name="message" id="email_message" class="form-control" placeholder="Message" style="height: 250px;"></textarea>
-                            </div>
-                            <!--<div class="form-group">                                
-                                <div class="btn btn-success btn-file">
-                                    <i class="fa fa-paperclip"></i> Attachment
-                                    <input type="file" name="attachment"/>
-                                </div>
-                                <p class="help-block">Max. 32MB</p>
-                            </div>-->
-
-                        </div>
-                       <div class="modal-footer clearfix">
-                            <div class="email_btns">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button type="save" class="btn btn-primary pull-left save_t">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
+          <div class="input_dropdown">
+              <label>Type</label>
+              <select class="form-control" name="add_template_type" id="add_template_type" onChange="getTemplate(this.value)">
+                <option>Select Template Type</option>
+                @if(!empty($template_types))
+                @foreach($template_types as $key=>$type_row)
+                <option value="{{ $type_row->template_type_id }}">{{ $type_row->template_type_name }}</option>
+                @endforeach
+                @endif
+              </select>
+          </div>
+          <div class="clearfix"></div>      
         </div>
+
+        <div class="form-group">
+            <div class="input_box_g">
+              <label for="exampleInputEmail1">Title</label>
+              <input name="add_title" id="add_title" type="text" class="form-control" placeholder="Title">
+            </div>
+            <div class="input_dropdown">
+                <label>Insert Placeholder</label>
+                <select class="form-control">
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 3</option>
+                    <option>option 4</option>
+                    <option>option 5</option>
+                </select>
+            </div>
+          <div class="clearfix"></div>     
+        </div>
+
+        <div class="form-group">
+            <textarea name="add_message" id="add_message" class="form-control" placeholder="Message" style="height: 250px;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
+        </div>
+      </div>
+    </form>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+</div>
+{{ Form :: close() }}
+
+<!-- Edit MESSAGE MODAL -->
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  {{ Form::open(array('url' => '/template/edit-email-template', 'files' => true)) }}
+<input type="hidden" name="edit_email_template_id" id="edit_email_template_id" value=""> 
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Edit an email template</h4>
+        <div class="clearfix"></div>
+      </div>
+    <form action="#" method="post">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="input_box_g">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" id="edit_name" name="edit_name" value="">
+          </div>
+                                
+          <div class="input_dropdown">
+              <label>Type</label>
+              <select class="form-control" name="edit_template_type" id="edit_template_type" onChange="getTemplate(this.value)">
+                <option>Select Template Type</option>
+                @if(!empty($template_types))
+                @foreach($template_types as $key=>$type_row)
+                <option value="{{ $type_row->template_type_id }}">{{ $type_row->template_type_name }}</option>
+                @endforeach
+                @endif
+              </select>
+          </div>
+          <div class="clearfix"></div>      
+        </div>
+
+        <div class="form-group">
+            <div class="input_box_g">
+              <label for="exampleInputEmail1">Title</label>
+              <input name="edit_title" id="edit_title" type="text" class="form-control" value="">
+            </div>
+            <div class="input_dropdown">
+                <label>Insert Placeholder</label>
+                <select class="form-control">
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 3</option>
+                    <option>option 4</option>
+                    <option>option 5</option>
+                </select>
+            </div>
+          <div class="clearfix"></div>     
+        </div>
+
+        <div class="form-group">
+            <textarea name="edit_message" id="edit_message" class="form-control" style="height: 250px;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
+        </div>
+      </div>
+    </form>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+{{ Form :: close() }}
+
+
+</div>
+<script src="ckeditor/ckeditor.js"></script>
 
 @stop
 
