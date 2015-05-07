@@ -217,7 +217,7 @@ class PracticeDetailsController extends BaseController {
 		$filepath = storage_path().'/exports/practiceDetails.xls';
         $fileName = 'practiceDetails.xls';
 
-        $headers = array(
+        /*$headers = array(
             'Content-Description: File Transfer',
             'Content-Type: application/vnd.ms-excel',
             'Content-Disposition: attachment; filename=' . $filepath,
@@ -228,10 +228,15 @@ class PracticeDetailsController extends BaseController {
             'Content-Length: ' . filesize($filepath)
         );
         ob_clean();
-        flush();
+        flush();*/
+        $headers = array(
+            'Content-Type: application/vnd.ms-excel'
+        );
 
         return Response::download($filepath, $fileName, $headers);
 		exit;
+		
+		
     	
 	}
 
