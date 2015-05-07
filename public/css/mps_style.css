@@ -54,7 +54,7 @@
 .active_t{color:#00a65a;}
 .dataTables_paginate{float:right;}
 .gray_y{color:#999;}
-#example2 th{text-align:center;}
+#example2 th{text-align:left;}
 /*==========add user account==========*/
 .user_account{margin-top:20px;}
 .user_ncon{width:25%; float:left; margin-right:10px;}

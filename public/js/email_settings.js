@@ -6,20 +6,36 @@ function openModal( template_id )
 	    url: '/template/edit_template',
 	    data: { 'template_id' : template_id },
 	    success : function(resp){
-	    	//$('#edit-modal').empty().html(resp);
-	    	$('#edit_email_template_id').val(resp['email_template_id']);
+			$('#edit_email_template_id').val(resp['email_template_id']);
 	    	$('#edit_name').val(resp['name']);
 	    	$('#edit_title').empty().val(resp['title']);
-	    	//$('#edit_message').empty().text(resp['message']);
+	    	$('#hidd_file').empty().val(resp['file']);
+	    	$('#edit_attach_file').empty().html(resp['file']);
+			CKEDITOR.instances['edit_message'].setData(resp['message']);
+
+			getTemplateType( resp['template_type_id'] );
+
 	    	$('#edit-modal').modal('show');
-CKEDITOR.instances['edit_message'].setData(resp['message']);
-			//CKEDITOR.instances['edit_message'].insertText(resp['message']);
-	    	
+			
+			
 	    }
 	});
 }
 
-function getTemplate( template_id )
+function getTemplateType( tmpl_typ_id )
+{
+	$.ajax({
+	    type: "POST",
+	    url: '/template/get-edit-template-type',
+	    data: { 'tmpl_typ_id' : tmpl_typ_id },
+	    success : function(resp){
+	    	//console.log(resp);
+	    	$('#edit_template_type').empty().html(resp);
+	    }
+	});
+}
+
+function getTemplate( template_id, process )
 {
 	$.ajax({
 	    type: "POST",
@@ -29,11 +45,11 @@ function getTemplate( template_id )
 	    success : function(resp){
 	    	//console.log(resp);
 	    	if(resp != "fail"){
-	    		$('#add_title').empty().val(resp['title']);
-	    		$('#add_message').empty().val(resp['message']);
+	    		$('#'+process+'_title').empty().val(resp['title']);
+	    		CKEDITOR.instances[process+'_message'].setData(resp['content']);
 	    	}else{
-	    		$('#add_title').val("");
-	    		$('#add_message').val("");
+	    		$('#'+process+'_title').val("");
+	    		CKEDITOR.instances[process+'_message'].setData("");
 	    	}
 	    	
 	    }

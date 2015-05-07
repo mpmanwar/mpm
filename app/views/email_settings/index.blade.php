@@ -24,8 +24,20 @@
     </section>
     <!-- Main content -->
     <section class="content">
-    
+      
       <div class="practice_mid">
+
+        <div class="row box_border2 row_cont">
+          <div class="col-xs-12 col-xs-6 p_left">
+            <h2 class="res_t">Email Templates</h2>
+          </div>
+          <div class="col-xs-12 col-xs-6">
+            <div class="setting_con">
+              <a href="/" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
     @if(Session::has('success'))
       <p style="color:#00a65a; font-size:15px;">{{ Session::get('success') }}</p>
     @endif
@@ -36,11 +48,13 @@
     
     <div id="msg"></div>
 
-          <div class="tabarea">
-            <div class="box-header">
+    
 
+          <div class="tabarea">
+            <!-- <div class="box-header">
+            
               <h3 class="box-title">Email Templates</h3>
-            </div>
+            </div> -->
             <div class="add_template">
               <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#compose-modal">
                 <i class="fa fa-plus"></i> Add template</a>
@@ -63,14 +77,18 @@
                     @if(!empty($email_templates))
                     @foreach($email_templates as $key=>$email_tmpl_row)
                       <tr>
-                        <td align="center">{{ $email_tmpl_row->template_type_name }}</td>
-                        <td align="center">{{ $email_tmpl_row->name }}</td>
-                        <td align="center"></td>
-                        <td align="center">
+                        <td align="left">{{ $email_tmpl_row->template_type_name }}</td>
+                        <td align="left">{{ $email_tmpl_row->name }}</td>
+                        <td align="left">
+                          @if(!empty($email_tmpl_row->file) && file_exists( "uploads/emailTemplates/".$email_tmpl_row->file ) )
+                          <a href="uploads/emailTemplates/{{ $email_tmpl_row->file }}"><img src="img/attachment.png" width="20" /></a>
+                          @endif
+                        </td>
+                        <td align="left">
                           <a data-toggle="modal" class="openModal" data-template_id="{{ $email_tmpl_row->email_template_id }}" onclick="openModal('{{ $email_tmpl_row->email_template_id }}')">
                             Edit </a>
                         </td>
-                        <td align="center"><a href="javascript:void(0)" data-eml_tmpl_id="{{ $email_tmpl_row->email_template_id }}" class="deleteTemplate"><img src="img/cross.png" /></a></td>
+                        <td align="left"><a href="javascript:void(0)" data-eml_tmpl_id="{{ $email_tmpl_row->email_template_id }}" class="deleteTemplate"><img src="img/cross.png" /></a></td>
                       </tr>
                     @endforeach
                     @endif
@@ -116,8 +134,9 @@
                                 
           <div class="input_dropdown">
               <label>Type</label>
-              <select class="form-control" name="add_template_type" id="add_template_type" onChange="getTemplate(this.value)">
+              <select class="form-control" name="add_template_type" id="add_template_type" onChange="getTemplate(this.value, 'add')">
                 <option>Select Template Type</option>
+                
                 @if(!empty($template_types))
                 @foreach($template_types as $key=>$type_row)
                 <option value="{{ $type_row->template_type_id }}">{{ $type_row->template_type_name }}</option>
@@ -151,6 +170,13 @@
         </div>
       </div>
       <div class="modal-footer clearfix">
+        <div class="form-group new_temp">                                
+            <div class="btn btn-success btn-file">
+                <i class="fa fa-paperclip"></i> Attachment
+                <input type="file" name="add_file" id="add_file" />
+            </div>
+            <!-- <p class="help-block">Max. 32MB</p> -->
+        </div>
         <div class="email_btns">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           <button type="submit" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
@@ -167,6 +193,7 @@
 <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
   {{ Form::open(array('url' => '/template/edit-email-template', 'files' => true, 'id' => 'edit_form')) }}
 <input type="hidden" name="edit_email_template_id" id="edit_email_template_id" value=""> 
+<input type="hidden" name="hidd_file" id="hidd_file" value=""> 
 <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -182,9 +209,9 @@
             <input type="text" class="form-control" id="edit_name" name="edit_name" value="">
           </div>
                                 
-          <div class="input_dropdown">
+          <div class="input_dropdown" id="type_dropdown">
               <label>Type</label>
-              <select class="form-control" name="edit_template_type" id="edit_template_type" onChange="getTemplate(this.value)">
+              <select class="form-control" name="edit_template_type" id="edit_template_type" onChange="getTemplate(this.value, 'edit')">
                 <option value="">Select Template Type</option>
                 @if(!empty($template_types))
                 @foreach($template_types as $key=>$type_row)
@@ -219,6 +246,13 @@
         </div>
       </div>
       <div class="modal-footer clearfix">
+        <div class="form-group new_temp">                                
+            <div class="btn btn-success btn-file">
+                <i class="fa fa-paperclip"></i> Attachment
+                <input type="file" name="edit_file" id="edit_file" />
+            </div>
+             <p class="help-block" id="edit_attach_file"></p> 
+        </div>
         <div class="email_btns">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           <button type="button" onclick="form_validation()" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>

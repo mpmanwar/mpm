@@ -22,12 +22,22 @@ class EmailSettingsController extends BaseController {
 		$template_id = Input::get("template_id");
 		if(Request::ajax())
     	{
-			//$data['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
 			$data['emailTemplates'] 	= EmailTemplate::where("email_template_id", $template_id)->first();
 
-	        //echo "<pre>";print_r($data['emailTemplates']);die;
+			//echo "<pre>";print_r($data['emailTemplates']);die;
 			//echo View::make("email_settings.edit_template", $data);
 			echo json_encode($data['emailTemplates']);
+		}
+	}
+
+	public function get_edit_template_type()
+	{
+		$tmpl_typ_id = Input::get("tmpl_typ_id");
+		if(Request::ajax())
+    	{
+			$template_types['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
+			$template_types['template_type_id']	= $tmpl_typ_id;
+			echo View::make("email_settings.template_type", $template_types);
 		}
 	}
 
@@ -57,8 +67,20 @@ class EmailSettingsController extends BaseController {
 		$tmpl_data['title']				= $postData['add_title'];
 		$tmpl_data['message']			= $postData['add_message'];
 		$tmpl_data['created']			= date("Y-m-d H:i:s");
-		$pd_id = EmailTemplate::insert($tmpl_data);
+		$pd_id = EmailTemplate::insertGetId($tmpl_data);
 		if ($pd_id) {
+			//////////////////file upload start//////////////////
+	        if (Input::hasFile('add_file')) {
+	            $file = Input::file('add_file');
+	            $destinationPath = "uploads/emailTemplates/";
+	            $fileName = Input::file('add_file')->getClientOriginalName();
+	            $result = Input::file('add_file')->move($destinationPath, $fileName);
+				
+				$file_data['file']       = $fileName;
+	            EmailTemplate::where("email_template_id", "=", $pd_id)->update($file_data);
+
+	        }
+	        /////////////////file upload end////////////////////
 			Session::flash('success', 'New email template has been added.');
 		}else{
 			Session::flash('error', 'There are some error to add new email template.');
@@ -81,6 +103,27 @@ class EmailSettingsController extends BaseController {
 		$update = EmailTemplate::where("email_template_id", "=", $postData['edit_email_template_id'])->update($tmpl_data);
 		//echo $this->last_query();die;
 		if ($update) {
+			//////////////////file upload start//////////////////
+	        if (Input::hasFile('edit_file')) {
+	            $file = Input::file('edit_file');
+	            $destinationPath = "uploads/emailTemplates/";
+	            $fileName = Input::file('edit_file')->getClientOriginalName();
+	            $result = Input::file('edit_file')->move($destinationPath, $fileName);
+				
+				$file_data['file']       = $fileName;
+	            EmailTemplate::where("email_template_id", "=", $postData['edit_email_template_id'])->update($file_data);
+
+	            ### delete the previous image if exists ###
+	            $prevPath   = "uploads/emailTemplates/".$postData['hidd_file'];
+	            if($postData['hidd_file'] != ""){
+	            	if( file_exists( $prevPath ) ){
+	                	unlink( $prevPath );
+	            	}
+	            }
+	            ### delete the previous image if exists ###
+
+	        }
+	        /////////////////file upload end////////////////////
 			Session::flash('success', 'Email template successfully updated.');
 		}else{
 			Session::flash('error', 'There are some error to update email template.');
