@@ -7,7 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"intervention/image": "^2.2",
-		"maatwebsite/excel": "dev-master",
+		"maatwebsite/excel": "~2.0.0",
 		"barryvdh/laravel-dompdf": "*"
 	},
 	"autoload": {
