@@ -34,10 +34,10 @@
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
-<li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
-<li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
+<li><button type="button" class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
+<li><button type="button" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
+<li><button type="button" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
+<li><button type="button" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
 <li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li>

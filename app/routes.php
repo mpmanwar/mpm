@@ -28,7 +28,7 @@ Route::post('/ajaxSearchByCity', 'PracticeDetailsController@ajaxSearchByCity');
 Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState');
 Route::get('/php_info', 'PracticeDetailsController@php_info');
 Route::any('/downloadExel', array("as"=>"download/downloadExel", "uses"=>'PracticeDetailsController@downloadExel'));
-Route::any('/downloadPdf', array("as"=>"download/downloadPdf", "uses"=>'PracticeDetailsController@downloadPdf'));
+Route::any('/download/downloadPdf', array("as"=>"downloadPdf", "uses"=>'PracticeDetailsController@downloadPdf'));
 ### Routes for practice details related URL's end ###
 
 ### Routes for user related URL's start ###
@@ -40,6 +40,7 @@ Route::any('/delete-users', array("as"=>"user/delete-users", "uses"=>'UserContro
 Route::get('/edit-user/{id}', 'UserController@edit_user');
 Route::post('/save-edit', 'UserController@saveedit');
 Route::get('/pdf', 'UserController@pdf');
+Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=>'UserController@download_excel'));
 ### Routes for user related URL's end ###
 
 
@@ -52,3 +53,5 @@ Route::any('/template/delete-email-template', array("as"=>"delete_email_template
 Route::any('/template/edit-email-template', array("as"=>"edit_email_template", "uses"=>'EmailSettingsController@edit_email_template'));
 Route::any('/template/get-edit-template-type', array("as"=>"get_edit_template_type", "uses"=>'EmailSettingsController@get_edit_template_type'));
 ### Routes for Email Settings related URL's end ###
+
+

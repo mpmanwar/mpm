@@ -30,6 +30,18 @@ class UserController extends BaseController {
 			}
 		}
 
+		$viewToLoad = 'user.excel';
+		///////////  Start Generate and store excel file ////////////////////////////
+        Excel::create('UserList', function($excel) use($data, $viewToLoad) {
+
+			$excel->sheet('Sheetname', function($sheet) use($data, $viewToLoad) {
+				$sheet->loadView($viewToLoad)->with($data);
+           	})->save();
+            
+        });
+
+        ///////////  End Generate and store excel file ////////////////////////////
+
 		//echo "<prev>".print_r($data);die;
 		return View::make('user.user_list', $data);
 	}
@@ -201,6 +213,18 @@ class UserController extends BaseController {
 
 		$pdf = PDF::loadView('user/pdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
 		return $pdf->download('user_list.pdf');
+	}
+
+	function download_excel()
+	{
+		$filepath = storage_path().'/exports/UserList.xls';
+        $fileName = 'UserList.xls';
+		$headers = array(
+            'Content-Type: application/vnd.ms-excel'
+        );
+
+        return Response::download($filepath, $fileName, $headers);
+		exit;
 	}
 
 }

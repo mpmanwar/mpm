@@ -33,7 +33,7 @@
 <ul>
 <li><button class="btn btn-info" onClick="window.print()"><i class="fa fa-print"></i> Print</button></li>
 <li><a href="/pdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a></li>
-<li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
+<li><a href="/download/downloadExcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a></li>
  <li><a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
@@ -85,7 +85,7 @@
                     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
                         <thead>
                             <tr role="row">
-                                <th></th>
+                                <th><input type="checkbox" value="1" name="allCheckSelect" id="allCheckSelect"></th>
                                 <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Permissions</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
