@@ -14,7 +14,7 @@ class EmailSettingsController extends BaseController {
 
 			$data['email_templates'] 	= DB::table('email_templates')
 			    ->join('template_types', 'email_templates.template_type_id', '=', 'template_types.template_type_id')
-			    ->select('email_templates.*', 'template_types.template_type_name')->get();
+			    ->select('email_templates.*', 'template_types.template_type_name')->orderBy("email_template_id", "Desc")->get();
 			Cache::put('template_list', $data, 10);
 			
 		}
@@ -110,6 +110,7 @@ class EmailSettingsController extends BaseController {
 			Session::flash('error', 'There are some error to add new email template.');
 		}
 		
+		Cache::flush();
 		return Redirect::to('/email-settings');
 		
 	}
@@ -152,7 +153,8 @@ class EmailSettingsController extends BaseController {
 		}else{
 			Session::flash('error', 'There are some error to update email template.');
 		}
-		
+
+		Cache::flush();
 		return Redirect::to('/email-settings');
 		
 	}
@@ -167,6 +169,7 @@ class EmailSettingsController extends BaseController {
 			if ($del) {
 				$msg = "success";
 				Session::flash('success', 'Email template has been deleted successfully.');
+				Cache::flush();
 			}else{
 				$msg = "fail";
 				Session::flash('error', 'There are some error to delete this email template.');

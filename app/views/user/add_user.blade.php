@@ -132,7 +132,7 @@
             <div class="form-group"> 
               <div class="radio">
                 <label>
-                    <input type="radio" name="user_type" id="optionsRadios1" value="S" class="handle-change-user" data-type="staff">
+                    <input type="radio" checked name="user_type" id="optionsRadios1" value="S" class="handle-change-user" data-type="staff">
                    STAFF
                 </label>
               </div>
@@ -168,7 +168,7 @@
             <td class="sorting_1">
               <div class="radio">
               <label>
-                <input type="radio" name="user_type" id="optionsRadios3" value="A"  class="handle-change-user" data-type="admin" checked />  <!-- onClick="getUserPermissions(this.value)" -->
+                <input type="radio" name="user_type" id="optionsRadios3" value="A"  class="handle-change-user" data-type="admin" />  <!-- onClick="getUserPermissions(this.value)" -->
                 ADMIN
               </label>
           </div>
@@ -211,7 +211,7 @@
 <div class="row" id="user_permissions">
   @if(!empty($permission_list) && count($permission_list) > 0)
     @foreach($permission_list as $key=>$list)
-      <div class="col-xs-3 permission_check"><input type="checkbox" value="{{ $list->permission_id }}" name="permission[]" checked="checked"/> {{ $list->name }}</div>
+      <div class="col-xs-3 permission_check"><input type="checkbox" value="{{ $list->permission_id }}" name="permission[]" checked="checked" /> {{ $list->name }}</div>
     @endforeach
   @endif
 </div>

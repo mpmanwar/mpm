@@ -30,7 +30,8 @@ cd /var/www/mpm/mpm/
 git pull
 
 remove command : rm file.php
-
+Give Permission : chmod -R 777 app/storage/
+truncate file : truncate logs/laravel.log --size 0
 
 <!----------set up mail send from local server---------->
 apt-get install postfix

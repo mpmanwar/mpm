@@ -89,6 +89,7 @@ class UserController extends BaseController {
 		
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The email has been sent to the new user.');
+			Cache::flush();
 			return Redirect::to('/add-user');
 		}else{
           	return Redirect::to('/add-user')->withInput()->withErrors( $validator );
@@ -132,6 +133,7 @@ class UserController extends BaseController {
     		$User_delete = User::where("user_id", "=", $value)->delete();
     		Session::flash('message', 'Users are successfully deleted');
     	}
+    	Cache::flush();
     	return Redirect::to("user-list");
     	
     }
@@ -161,7 +163,7 @@ class UserController extends BaseController {
 
 
 		//print_r($peruser_per);die();
-
+		Cache::flush();
 		return View::make("user/edit_user", $data);
 
 	}
@@ -176,7 +178,7 @@ class UserController extends BaseController {
 		$data['lname'] 		= $postData['lname'];
 		$data['email'] 		= $postData['email'];
 		$data['user_type'] 	= $postData['user_type'];
-		//echo $postData['user_type'];die;
+		//echo print_r($postData['permission']);die;
 		UserPermission::where('user_id', '=', $id)->delete();
 
 		if($postData['user_type'] != "C"){
@@ -194,7 +196,7 @@ class UserController extends BaseController {
 		//print_r($data);die();
 
 		User::where('user_id', '=', $id)->update($data);
-
+		Cache::flush();
 		return Redirect::action('UserController@user_list');
 	}
 
