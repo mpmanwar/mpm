@@ -10,7 +10,7 @@ class UserController extends BaseController {
 			$data = Cache::get('user_list');
 		}else{
 			$data['title'] = "User List";
-			$data['user_lists']	= User::get();
+			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 				$i = 0;
 				foreach($data['user_lists'] as $user_list){
