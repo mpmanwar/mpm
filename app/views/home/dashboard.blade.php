@@ -134,7 +134,7 @@
                 <!-- Main content -->
                 <section class="content">
 
-                    <!-- Small boxes (Stat box) -->
+                    <!-- Small boxes (Stat box)
                      <div class="btn_con_left">  
                         <div class="mps_btn">
                         <a href="/practice-details">
@@ -151,9 +151,9 @@
                         </div>
                         
                           <div class="btn_con_left">  
-                          <!--<div class="mps_btn">
+                          <div class="mps_btn">
                                                  <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
-                           </div>-->
+                           </div>
                            
                             <div class="mps_btn">
                         <a  href="/email-settings" class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</a>
@@ -166,23 +166,103 @@
                            </div>
                            
                           <div class="btn_con_right">   
-                            <!--<div class="mps_btn">
+                            <div class="mps_btn">
                                                       <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
                                                       </div>
                                     
                                                        <div class="mps_btn">
                                                       <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
-                                                      </div>--> 
+                                                      </div> 
                            <div class="mps_btn">
                           <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
-<span class="s_text">CHECKLIST/TASK</span></button>
+                    <span class="s_text">CHECKLIST/TASK</span></button>
                           </div>
                           
                           <div class="mps_btn">
                         <button class="btn btn-info btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
                         </div>
                           
-                           </div>
+                           </div> -->
+
+
+
+    <div class="col-xs-12">
+        <div class="circle_icons">
+            <ul>
+                <a href="/practice-details">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="c_tagline">PRACTICE DETAILS</p>
+                        </div>
+       
+                    </li>
+                </a>
+        
+                <a href="/email-settings">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">EMAIL SETTINGS</p>
+                        </div>
+                   
+                    </li>
+                </a>
+        
+                 <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/client_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="/user-list">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/adduser_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">ADD USER</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/noti_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">NOTIFICATIONS</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/manage_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">MANAGE SUBSCRIPTION</p>
+                        </div>
+                    </li>
+                </a>
+        
+        
+            <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
                            
                      
                 </section>

@@ -1,17 +1,24 @@
 <?php
-
+//Cache::forget('template_list');
 //use Excel;
 class EmailSettingsController extends BaseController {
 		
 	public function index()
 	{
-		$data['title'] 				= "Email Settings";
-		$data['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
-		$data['email_templates'] 	= EmailTemplate::orderBy("email_template_id", "DESC")->get();
+		if (Cache::has('template_list')){
+			$data = Cache::get('template_list');
+		}else{
+			$data['title'] 				= "Email Settings";
+			$data['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
+			$data['email_templates'] 	= EmailTemplate::orderBy("email_template_id", "DESC")->get();
 
-		$data['email_templates'] 	= DB::table('email_templates')
-		    ->join('template_types', 'email_templates.template_type_id', '=', 'template_types.template_type_id')
-		    ->select('email_templates.*', 'template_types.template_type_name')->get();
+			$data['email_templates'] 	= DB::table('email_templates')
+			    ->join('template_types', 'email_templates.template_type_id', '=', 'template_types.template_type_id')
+			    ->select('email_templates.*', 'template_types.template_type_name')->get();
+			Cache::put('template_list', $data, 10);
+			
+		}
+ 
 		//echo $this->last_query();die;
         //echo "<pre>";print_r($data);die;
 		return View::make("email_settings.index", $data);
@@ -22,11 +29,17 @@ class EmailSettingsController extends BaseController {
 		$template_id = Input::get("template_id");
 		if(Request::ajax())
     	{
-			$data['emailTemplates'] 	= EmailTemplate::where("email_template_id", $template_id)->first();
+    		if(Cache::has('emailTemplates')){
+    			$emailTemplates 	= Cache::get('emailTemplates');
+    		}else{
+    			$emailTemplates 	= EmailTemplate::where("email_template_id", $template_id)->first();
+    			Cache::put('emailTemplates', $emailTemplates, 10);
+    		}
+			
 
-			//echo "<pre>";print_r($data['emailTemplates']);die;
+			//echo "<pre>";print_r($emailTemplates);die;
 			//echo View::make("email_settings.edit_template", $data);
-			echo json_encode($data['emailTemplates']);
+			echo json_encode($emailTemplates);
 		}
 	}
 
@@ -35,8 +48,14 @@ class EmailSettingsController extends BaseController {
 		$tmpl_typ_id = Input::get("tmpl_typ_id");
 		if(Request::ajax())
     	{
-			$template_types['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
-			$template_types['template_type_id']	= $tmpl_typ_id;
+    		if(Cache::has('get_edit_template_type')){
+    			$template_types 	= Cache::get('get_edit_template_type');
+    		}else{
+				$template_types['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
+				$template_types['template_type_id']	= $tmpl_typ_id;
+				Cache::put('get_edit_template_type', $template_types, 10);
+			}
+
 			echo View::make("email_settings.template_type", $template_types);
 		}
 	}
@@ -46,7 +65,12 @@ class EmailSettingsController extends BaseController {
 		$template_id = Input::get("template_id");
 		if(Request::ajax())
     	{
-			$template 		= Template::where("template_type_id", $template_id)->first();
+    		if(Cache::has('get_template')){
+    			$template 	= Cache::get('get_template');
+    		}else{
+				$template 		= Template::where("template_type_id", $template_id)->first();
+				Cache::put('get_template', $template, 10);
+			}
 			//echo $this->last_query();die;
 			if(!empty($template) && count($template) >0){
 				echo json_encode($template);

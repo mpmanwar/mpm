@@ -1,4 +1,9 @@
 @extends('layouts.layout')
+
+@section('myjsfile')
+    <script type="text/javascript" src="js/email_settings.js"></script>
+@stop
+
 @section('content')
 
 <div class="wrapper row-offcanvas row-offcanvas-left">

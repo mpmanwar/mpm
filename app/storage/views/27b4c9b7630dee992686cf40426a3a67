@@ -1,5 +1,9 @@
 
 
+<?php $__env->startSection('myjsfile'); ?>
+    <script src="<?php echo URL :: asset('js/sites/users.js'); ?>" type="text/javascript"></script>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>       
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->

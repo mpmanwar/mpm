@@ -32,7 +32,8 @@
         <![endif]-->
     </head>
     <body class="skin-blue">
-        
+        <?php echo $__env->yieldContent('mycssfile'); ?>
+
         <!--Header Start-->  
         <?php echo $__env->make('layouts/header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <!--Header End-->    
@@ -44,6 +45,7 @@
         <!--Footer Start-->  
         <?php echo $__env->make('layouts/footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <!--Footer End-->     
-
+        
+        <?php echo $__env->yieldContent('myjsfile'); ?>
     </body>
 </html>

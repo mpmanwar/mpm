@@ -32,7 +32,8 @@
         <![endif]-->
     </head>
     <body class="skin-blue">
-        
+        @yield('mycssfile')
+
         <!--Header Start-->  
         @include('layouts/header')
         <!--Header End-->    
@@ -44,6 +45,7 @@
         <!--Footer Start-->  
         @include('layouts/footer')
         <!--Footer End-->     
-
+        
+        @yield('myjsfile')
     </body>
 </html>

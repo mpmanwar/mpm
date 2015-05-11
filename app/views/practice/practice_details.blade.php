@@ -1,8 +1,14 @@
 @extends('layouts.layout')
+
+@section('myjsfile')
+    <script src="{{ URL :: asset('js/sites/practice_details.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(":file").filestyle({input: false});
+    </script>
+@stop
+
 @section('content')
-<script type="text/javascript">
-$(":file").filestyle({input: false});
-</script>
+
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
            <aside class="left-side sidebar-offcanvas">

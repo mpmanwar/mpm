@@ -1,6 +1,6 @@
 <?php
+//Cache::forget('template_list');
 
-//use Excel;
 class PracticeDetailsController extends BaseController {
 	public function php_info()
 	{

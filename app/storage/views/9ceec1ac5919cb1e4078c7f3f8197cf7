@@ -1,4 +1,23 @@
 
+
+<?php $__env->startSection('myjsfile'); ?>
+    <script src="<?php echo URL :: asset('js/sites/users.js'); ?>" type="text/javascript"></script>
+    <script type="text/javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    
+
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -31,7 +50,7 @@
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info" onClick="window.print()"><i class="fa fa-print"></i> Print</button></li>
+<li><button class="btn btn-info" onClick="javascript:printDiv('printArea')"><i class="fa fa-print"></i> Print</button></li>
 <li><a href="/pdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><a href="/download/downloadExcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a></li>
  <li><a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
@@ -69,7 +88,7 @@
 <a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>
 </div>
 
-<div class="tabarea">
+<div class="tabarea" id="printArea">
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab_1">Users</a></li>

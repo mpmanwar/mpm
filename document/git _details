@@ -29,6 +29,9 @@ password:  AppsbEE##::321
 cd /var/www/mpm/mpm/
 git pull
 
+remove command : rm file.php
+Give Permission : chmod -R 777 app/storage/
+
 <!----------set up mail send from local server---------->
 apt-get install postfix
 /etc/init.d/postfix restart

@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('myjsfile')
+    <script src="{{ URL :: asset('js/sites/users.js') }}" type="text/javascript"></script>
+@stop
+
 @section('content')
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->

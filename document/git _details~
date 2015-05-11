@@ -29,6 +29,9 @@ password:  AppsbEE##::321
 cd /var/www/mpm/mpm/
 git pull
 
+remove command : rm file.php
+
+
 <!----------set up mail send from local server---------->
 apt-get install postfix
 /etc/init.d/postfix restart
@@ -43,5 +46,11 @@ xero.com
 Username : anwar.khan@appsbee.com
 Password : welcome123@
 
+
+========FTP============
+ftp host: sulavmart.com
+usr: mpmanwarftp
+pass: anwar@123
+port: 21
 
 

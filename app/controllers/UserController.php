@@ -1,46 +1,53 @@
 <?php
 //opcache_reset ();
-//use mail;
+//Cache::forget('user_list');
 
 class UserController extends BaseController {
 	
 	public function user_list(){
-		$data['title'] = "User List";
-		$data['user_lists']	= User::get();
-		if(isset($data['user_lists']) && count($data['user_lists']) > 0){
-			$i = 0;
-			foreach($data['user_lists'] as $user_list){
-				$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
-					->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
-					//echo $this->last_query();die;
-					//print_r($permissions);die;
-					$permission = "";
-					if(isset($permissions) && count($permissions) > 0){
-						foreach($permissions as $usr_perission){
-							$permission.= $usr_perission->name." + ";
+
+		if (Cache::has('user_list')){
+			$data = Cache::get('user_list');
+		}else{
+			$data['title'] = "User List";
+			$data['user_lists']	= User::get();
+			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
+				$i = 0;
+				foreach($data['user_lists'] as $user_list){
+					$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
+						->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
+						//echo $this->last_query();die;
+						//print_r($permissions);die;
+						$permission = "";
+						if(isset($permissions) && count($permissions) > 0){
+							foreach($permissions as $usr_perission){
+								$permission.= $usr_perission->name." + ";
+							}
+							$permission = substr($permission, 0, -3);
 						}
-						$permission = substr($permission, 0, -3);
-					}
-					
-				$data['user_lists'][$i]['permission']	= $permission;
-				$data['user_lists'][$i]['login_count']	= LoginDetail::where("user_id", "=", $user_list->user_id)->count();
-				$last_login	= LoginDetail::where("user_id", "=", $user_list->user_id)->orderBy('id', 'desc')->pluck('login_date');
-				$data['user_lists'][$i]['last_login']	= $this->getDateFormat($last_login);
-				$i++;
+						
+					$data['user_lists'][$i]['permission']	= $permission;
+					$data['user_lists'][$i]['login_count']	= LoginDetail::where("user_id", "=", $user_list->user_id)->count();
+					$last_login	= LoginDetail::where("user_id", "=", $user_list->user_id)->orderBy('id', 'desc')->pluck('login_date');
+					$data['user_lists'][$i]['last_login']	= $this->getDateFormat($last_login);
+					$i++;
+				}
 			}
-		}
 
-		$viewToLoad = 'user.excel';
-		///////////  Start Generate and store excel file ////////////////////////////
-        Excel::create('UserList', function($excel) use($data, $viewToLoad) {
+			$viewToLoad = 'user.excel';
+			///////////  Start Generate and store excel file ////////////////////////////
+	        Excel::create('UserList', function($excel) use($data, $viewToLoad) {
 
-			$excel->sheet('Sheetname', function($sheet) use($data, $viewToLoad) {
-				$sheet->loadView($viewToLoad)->with($data);
-           	})->save();
-            
-        });
+				$excel->sheet('Sheetname', function($sheet) use($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+	           	})->save();
+	            
+	        });
+			///////////  End Generate and store excel file ////////////////////////////
 
-        ///////////  End Generate and store excel file ////////////////////////////
+	        Cache::put('user_list', $data, 10);
+    	}
+
 
 		//echo "<prev>".print_r($data);die;
 		return View::make('user.user_list', $data);
@@ -80,8 +87,6 @@ class UserController extends BaseController {
 				
 			}
 		
-			
-
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The email has been sent to the new user.');
 			return Redirect::to('/add-user');
@@ -133,20 +138,28 @@ class UserController extends BaseController {
 
     public function edit_user($id) {
 		$peruser_per = array();
-		$data['title'] = "User Edit";
-		$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
-		//print_r($data['info']);die;
 
-		$data['permission_list'] = Permission::get();
+		if (Cache::has('edit_user')){
+			$data = Cache::get('edit_user');
+		}else{
+			$data['title'] = "User Edit";
+			$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
+			//print_r($data['info']);die;
 
-		$data['per_list'] = UserPermission::where('user_id', '=', $id)->get();
+			$data['permission_list'] = Permission::get();
 
-		$i = 0;
-		$data['permission_id'] = array();
-		foreach ($data['per_list'] as $usr_per) {
-			$data['permission_id'][$i] = $usr_per->permission_id;
-			$i++;
+			$data['per_list'] = UserPermission::where('user_id', '=', $id)->get();
+
+			$i = 0;
+			$data['permission_id'] = array();
+			foreach ($data['per_list'] as $usr_per) {
+				$data['permission_id'][$i] = $usr_per->permission_id;
+				$i++;
+			}
+			Cache::put('edit_user', $data, 10);
 		}
+
+
 		//print_r($peruser_per);die();
 
 		return View::make("user/edit_user", $data);
