@@ -81,7 +81,7 @@
 /*=============dashboard==========*/
 .circle_icons{width:100%; margin-top:20px;}
 .circle_icons ul{list-style:none;}
-.circle_icons ul li{float:left; background:#fff; border:1px solid #c9c9c9; box-shadow: -2px 2px 5px #888888; width:198px; height:221px; margin:0 50px 44px 65px;}
+.circle_icons ul li{float:left; background:#fff; border:1px solid #c9c9c9; box-shadow: -2px 2px 5px #888888; width:198px; height:194px; margin:0 50px 44px 65px;}
 .circle_icons_inner{margin-top:12px; float:left; width:100%;} 
 .circle_con{background: #5098c2; margin:0 auto; /* Old browsers */
 background: -moz-linear-gradient(top,  #5098c2 39%, #206892 100%); /* FF3.6+ */
@@ -91,8 +91,8 @@ background: -o-linear-gradient(top,  #5098c2 39%,#206892 100%); /* Opera 11.10+ 
 background: -ms-linear-gradient(top,  #5098c2 39%,#206892 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #5098c2 39%,#206892 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', endColorstr='#206892',GradientType=0 ); /* IE6-9 */
- width:141px; height:141px; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -o-border-radius:50%; -ms-border-radius:50%; text-align:center;}
-.circle_con img{padding-top:33px; text-align:center;}
+ width:120px; height:120px; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -o-border-radius:50%; -ms-border-radius:50%; text-align:center;}
+.circle_con img{padding-top:32px; text-align:center; width:55%;}
 .c_tagline{color:#000; font-size:14px; text-transform:uppercase; text-align:center; padding-top:15px; font-weight:bold;}
 .circle_icons ul li:hover{opacity:0.5;}
 

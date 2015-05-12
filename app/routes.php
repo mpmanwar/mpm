@@ -18,8 +18,11 @@
 
 
 Route::get('/', 'HomeController@dashboard');
-Route::get('/hello', 'HomeController@hello');
 Route::get('/db_connect', 'HomeController@db_connect');
+Route::any('organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
+Route::any('individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
+Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
+Route::any('/organisation/add-client', array("as"=>"add_organisation_client", "uses"=>'HomeController@add_organisation_client'));
 
 ### Routes for practice details related URL's start ###
 Route::get('/practice-details', 'PracticeDetailsController@index');
@@ -53,5 +56,9 @@ Route::any('/template/delete-email-template', array("as"=>"delete_email_template
 Route::any('/template/edit-email-template', array("as"=>"edit_email_template", "uses"=>'EmailSettingsController@edit_email_template'));
 Route::any('/template/get-edit-template-type', array("as"=>"get_edit_template_type", "uses"=>'EmailSettingsController@get_edit_template_type'));
 ### Routes for Email Settings related URL's end ###
+
+### Routes for Settings related URL's start ###
+Route::any('settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 'SettingsController@index' ));
+### Routes for Settings related URL's end ###
 
 

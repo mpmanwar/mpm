@@ -28,17 +28,9 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="/">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <!-- <li>
-                            <a href="pages/widgets.html">
-                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
+                         @include('layouts.outer_leftside')
+                         
+                        <!-- <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-bar-chart-o"></i>
                                 <span>Charts</span>
@@ -127,61 +119,142 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
+                        <li class="active">Settings</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
 
-                    <!-- Small boxes (Stat box) -->
+                    <!-- Small boxes (Stat box)
                      <div class="btn_con_left">  
                         <div class="mps_btn">
                         <a href="/practice-details">
-                            <button class="btn btn-warning btn-lg1 btn_align">PRACTICE DETAILS</button>
+                            <button class="btn btn-info btn-lg1 btn_align">PRACTICE DETAILS</button>
                         </a>
                         </div>
                         
                         <div class="mps_btn">
                         <a href="/user-list">
-                            <button class="btn btn-warning btn-lg1 btn_align">ADD USER</button>
+                            <button class="btn btn-info btn-lg1 btn_align">ADD USER</button>
                         </a>
                         </div>
-                        
-                        
-                          <div class="mps_btn">
-                        <button class="btn btn-warning btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
-                        </div>
+                          
                         </div>
                         
-                         <!-- <div class="btn_con_left">  
+                          <div class="btn_con_left">  
                           <div class="mps_btn">
                                                  <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
-                           </div> -->
+                           </div>
                            
                             <div class="mps_btn">
-                        <button class="btn btn-danger btn-lg1 btn_align">EMAIL SETTINGS</button>
+                        <a  href="/email-settings" class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</a>
                            </div>
                            
                          
                         <div class="mps_btn">
-                        <button class="btn btn-danger btn-lg1 btn_align">NOTIFICATIONS</button>
+                        <button class="btn btn-info btn-lg1 btn_align">NOTIFICATIONS</button>
                            </div>
                            </div>
                            
-                            <!-- <div class="btn_con_right">   
+                          <div class="btn_con_right">   
                             <div class="mps_btn">
                                                       <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
                                                       </div>
                                     
                                                        <div class="mps_btn">
                                                       <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
-                                                      </div> -->
+                                                      </div> 
                            <div class="mps_btn">
                           <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
-<span class="s_text">CHECKLIST/TASK</span></button>
+                    <span class="s_text">CHECKLIST/TASK</span></button>
                           </div>
-                           </div>
+                          
+                          <div class="mps_btn">
+                        <button class="btn btn-info btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
+                        </div>
+                          
+                           </div> -->
+
+
+
+    <div class="col-xs-12">
+        <div class="circle_icons">
+            <ul>
+                <a href="/practice-details">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="c_tagline">PRACTICE DETAILS</p>
+                        </div>
+       
+                    </li>
+                </a>
+        
+                <a href="/email-settings">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">EMAIL SETTINGS</p>
+                        </div>
+                   
+                    </li>
+                </a>
+        
+                 <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/client_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="/user-list">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/adduser_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">ADD USER</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/noti_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">NOTIFICATIONS</p>
+                        </div>
+                    </li>
+                </a>
+                
+                <a href="#">
+                    <li>
+                        <div class="circle_icons_inner">
+                            <div class="circle_con">
+                                <img src="{{ URl::asset('img/manage_i.png') }}" alt="" />
+                            </div>
+                            <p class="c_tagline">MANAGE SUBSCRIPTION</p>
+                        </div>
+                    </li>
+                </a>
+        
+        
+            <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
                            
                      
                 </section>

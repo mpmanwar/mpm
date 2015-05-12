@@ -28,17 +28,9 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="/">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <!-- <li>
-                            <a href="pages/widgets.html">
-                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
+                        @include('layouts.outer_leftside')
+                        
+                        <!-- <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-bar-chart-o"></i>
                                 <span>Charts</span>
@@ -117,155 +109,60 @@
                 <!-- /.sidebar -->
             </aside>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        SETTINGS
-                        <small>CLIENT NAME  Limited</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
-                    </ol>
-                </section>
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>CLIENT NAME  Limited</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
 
-                <!-- Main content -->
-                <section class="content">
+        <!-- Main content -->
+        <section class="content">
 
-                    <!-- Small boxes (Stat box)
-                     <div class="btn_con_left">  
-                        <div class="mps_btn">
-                        <a href="/practice-details">
-                            <button class="btn btn-info btn-lg1 btn_align">PRACTICE DETAILS</button>
+            <div class="col-xs-12">
+                <div class="circle_icons">
+                    <ul>
+                        <a href="/organisation-clients">
+                            <li>
+                                <div class="circle_icons_inner">
+                                    <div class="circle_con">
+                                        <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <p class="c_tagline">Client List Organisation</p>
+                                </div>
+               
+                            </li>
                         </a>
-                        </div>
-                        
-                        <div class="mps_btn">
-                        <a href="/user-list">
-                            <button class="btn btn-info btn-lg1 btn_align">ADD USER</button>
+                
+                        <a href="/individual-clients">
+                            <li>
+                                <div class="circle_icons_inner">
+                                    <div class="circle_con">
+                                        <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
+                                    </div>
+                                    <p class="c_tagline">Client List Individual</p>
+                                </div>
+                           
+                            </li>
                         </a>
-                        </div>
-                          
-                        </div>
+                
                         
-                          <div class="btn_con_left">  
-                          <div class="mps_btn">
-                                                 <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
-                           </div>
-                           
-                            <div class="mps_btn">
-                        <a  href="/email-settings" class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</a>
-                           </div>
-                           
-                         
-                        <div class="mps_btn">
-                        <button class="btn btn-info btn-lg1 btn_align">NOTIFICATIONS</button>
-                           </div>
-                           </div>
-                           
-                          <div class="btn_con_right">   
-                            <div class="mps_btn">
-                                                      <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
-                                                      </div>
-                                    
-                                                       <div class="mps_btn">
-                                                      <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
-                                                      </div> 
-                           <div class="mps_btn">
-                          <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
-                    <span class="s_text">CHECKLIST/TASK</span></button>
-                          </div>
-                          
-                          <div class="mps_btn">
-                        <button class="btn btn-info btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
-                        </div>
-                          
-                           </div> -->
-
-
-
-    <div class="col-xs-12">
-        <div class="circle_icons">
-            <ul>
-                <a href="/practice-details">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
-                            </div>
-                            <div class="clearfix"></div>
-                            <p class="c_tagline">PRACTICE DETAILS</p>
-                        </div>
-       
-                    </li>
-                </a>
-        
-                <a href="/email-settings">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">EMAIL SETTINGS</p>
-                        </div>
-                   
-                    </li>
-                </a>
-        
-                 <a href="#">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/client_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
-                        </div>
-                    </li>
-                </a>
                 
-                <a href="/user-list">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/adduser_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">ADD USER</p>
-                        </div>
-                    </li>
-                </a>
                 
-                <a href="#">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/noti_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">NOTIFICATIONS</p>
-                        </div>
-                    </li>
-                </a>
-                
-                <a href="#">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/manage_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">MANAGE SUBSCRIPTION</p>
-                        </div>
-                    </li>
-                </a>
-        
-        
-            <div class="clearfix"></div>
-            </ul>
-        </div>
-    </div>
-                           
-                     
-                </section>
+                    <div class="clearfix"></div>
+                    </ul>
+                </div>
+            </div>
+                                   
+        </section>
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

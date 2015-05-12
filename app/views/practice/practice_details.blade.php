@@ -88,7 +88,7 @@
 
  <div class="col_right">
  <div class="setting_con">
-    <a href="/" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+    <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
 </div>
 
 <div class="save_con">
