@@ -27,11 +27,21 @@ class HomeController extends BaseController {
 
 	public function add_individual_client(){
 		$data['title'] = "Add Individual Client";
+		$data['rel_types'] = RelationshipType::orderBy("relation_type_id")->get();
+		$data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
+		$data['titles'] = Title::orderBy("title_id")->get();
 		return View::make('home.individual.add_individual_client', $data);
 	}
 
 	public function add_organisation_client(){
 		$data['title'] = "Add Organisation Client";
+		return View::make('home.organisation.add_organisation_client', $data);
+	}
+
+	public function insert_individual_client(){
+		
+		$postData = Input::all();
+		print_r($postData);die;
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 

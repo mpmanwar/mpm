@@ -45,7 +45,7 @@
                 <section class="content-header">
                     <h1>
                         ORGANISATION CLIENT LIST
-                        <small>CLIENT NAME  Limited</small>
+                        <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>

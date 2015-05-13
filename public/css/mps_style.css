@@ -96,6 +96,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .c_tagline{color:#000; font-size:14px; text-transform:uppercase; text-align:center; padding-top:15px; font-weight:bold;}
 .circle_icons ul li:hover{opacity:0.5;}
 
+.table_top_box{width:100%;}
+.table_top_box ul{list-style:none; margin:0; padding:0;}
+.table_top_box ul li{float:left; margin-right:9px; width:11%;}
+.table_top_box ul li:last-child{margin-right:0;}
+/*.table_top_box ul li.b1{width:98px; margin-left:18px;}
+.table_top_box ul li.b2{width:98px;}
+.table_top_box ul li.b3{width:135px;}
+.table_top_box ul li.b4{width:116px;}
+.table_top_box ul li.b3{width:135px;}
+*/
+
+
+.n1{width:20px;}
+.s_box{ width:100%; margin-right:5px;}
+.l_box{ width: 100%; margin-right:5px;}
+.align_left{padding-left : 0px}
 
 
 
@@ -122,7 +138,7 @@ only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .permission_check{width: 100%;margin-bottom: 5px;}
 .circle_icons ul{margin-left:0; padding-left:0;}
 .circle_icons ul li{margin:30px auto; float:none;}
-
+.table_top_box ul li{width:46%; margin-bottom:10px;}
 
 } 
 
@@ -135,6 +151,8 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 .mps_btn{margin:0 20px 20px 0px!important;}
 .btn_con_left{width:100%; margin-right:0;}
 .btn_con_right{width:100%;}
+.table_top_box ul li{width:10%;}
+
 }
 
 @media print {

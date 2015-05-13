@@ -1,4 +1,26 @@
 @extends('layouts.layout')
+
+@section('mycssfile')
+<!-- Date picker script -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<!-- Date picker script -->
+@stop
+
+@section('myjsfile')
+<!-- Date picker script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Date picker script -->
+<script>
+$(document).ready(function(){
+    $("#dob").datepicker({ minDate: 0 });
+    $("#app_date").datepicker({ minDate: 0 });
+    $("#spouse_dob").datepicker({ minDate: 0 });
+})
+</script>
+
+    
+@stop
+
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -45,16 +67,18 @@
                 <section class="content-header">
                     <h1>
                         ADD CLIENT
-                        <small>CLIENT NAME  Limited</small>
+                        <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Add Clients</li>
+                        <!-- <li class="active">Add Clients</li> -->
                     </ol>
                 </section>
 
-                <!-- Main content -->
-                <section class="content">
+    <!-- Main content -->
+    {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true)) }}
+    <section class="content">
+
       <div class="row">
         <div class="top_bts">
           <ul>
@@ -77,8 +101,9 @@
           </ul>
         </div>
       </div>
+
       <div class="practice_mid">
-        <form>
+        
           <!--<div class="row box_border2 row_cont">
  <div class="col-xs-12 col-xs-6 p_left">
  <h2 class="res_t">USERS <small>General Settings</small></h2>
@@ -95,36 +120,38 @@
 <p><a href="#">What's this?</a></p>
 <button class="btn btn-success"><i class="fa fa-edit"></i> Add User</button>
 </div>-->
-          <div class="tabarea">
+<div class="tabarea">
 <div class="row row_cont">
 
  <div class="col-xs-12 col-xs-6">
   <div class="col_m2">
-<h3 class="box-title">Personal</h3>
+<h3 class="box-title">Personal Address</h3>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Tax Return Required</label>
+<label for="exampleInputPassword1">Tax Return Required &nbsp;&nbsp;</label>
 <input type="checkbox"/>
 </div>
 
 <div class="form-group">
 <label for="exampleInputEmail1">Relationship Type</label>
 <select class="form-control">
-<option>option 1</option>
-<option>option 2</option>
-<option>option 3</option>
-<option>option 4</option>
-<option>option 5</option>
+    <option value="">-- Select Relationship Type --</option>
+    @if(!empty($rel_types))
+        @foreach($rel_types as $key=>$type_row)
+        <option value="{{ $type_row->relation_type_id }}">{{ $type_row->relation_type }}</option>
+        @endforeach
+    @endif
 </select>
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Title</label>
 <select class="form-control">
-<option>option 1</option>
-<option>option 2</option>
-<option>option 3</option>
-<option>option 4</option>
-<option>option 5</option>
+    <option value="">-- Select Title --</option>
+    @if(!empty($titles))
+        @foreach($titles as $key=>$title_row)
+        <option value="{{ $title_row->title_id }}">{{ $title_row->title_name }}</option>
+        @endforeach
+    @endif
 </select>
 </div>
 
@@ -135,7 +162,7 @@
 
 <div class="form-group">
 <label for="exampleInputPassword1">Middle Name</label>
-<input type="text" placeholder="Middle Name" id="exampleInputPassword1" class="form-control">
+<input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
 <div class="form-group">
@@ -150,17 +177,17 @@
 
 <div class="form-group">
 <label for="exampleInputPassword1">Sex</label>
-<input type="text" placeholder="Title" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Date of Birth</label>
 <input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Ni Number</label>
-<input type="text" placeholder="Title" id="exampleInputPassword1" class="form-control">
+<label for="dob">Date of Birth</label>
+<input type="text" id="dob" name="dob" class="form-control">
+</div>
+
+<div class="form-group">
+<label for="exampleInputPassword1">NI Number</label>
+<input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
 <div class="form-group">
@@ -170,23 +197,25 @@
 
 
 <div class="form-group">
-<label for="exampleInputPassword1">Appointment Date</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<label for="app_date">Appointment Date</label>
+<input type="text" id="app_date" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Marital Status</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<select class="form-control">
+    <option value="">-- Select Marital Status --</option>
+    @if(!empty($marital_status))
+        @foreach($marital_status as $key=>$status_row)
+        <option value="{{ $status_row->marital_status_id }}">{{ $status_row->status_name }}</option>
+        @endforeach
+    @endif
+</select>
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Spouse Date of Birth</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<label for="spouse_dob">Spouse Date of Birth</label>
+<input type="text" id="spouse_dob" class="form-control">
 </div>
 <h3 class="box-title">Service Address</h3>
 <div class="form-group">
@@ -216,7 +245,7 @@
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Country</label>
+<label for="exampleInputPassword1">County</label>
 <input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
@@ -225,243 +254,23 @@
 <input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
-
-<h3 class="box-title">Residential Address</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Building Name/Number</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Street</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Town</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
 <div class="form-group">
 <label for="exampleInputPassword1">Country</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<select class="form-control">
+<option value="1">United Kingdom</option>
+</select>
 </div>
 
-<div class="form-group">
-<label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<h3 class="box-title">Other</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">AML Checks Done</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Nationality</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Occuption</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country of Residence</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Telephone 1</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Telephone 2</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Fax</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Email</label>
-<input type="email" id="exampleInputPassword1" class="form-control">
-</div>
-<h3 class="box-title">Releted Parties</h3>
-
-<div class="col-xs-12">
-<div class="col-xs-12 col-xs-6">
-<p>AB Limited</p>
-<p>C Limited</p>
-</div>
-<div class="col-xs-12 col-xs-6">
-<p>Director/Shareholder</p>
-<p>Secretary</p>
-</div>
-</div>
-
-
-
-<button class="btn btn-primary">SUBMIT</button>
 
 </div>
  </div>
  
 <div class="col-xs-12 col-xs-6">
   <div class="col_m2">
-<h3 class="box-title">Personal</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Tax Return Required</label>
-<input type="checkbox"/>
-</div>
-
-<div class="form-group">
-<label for="exampleInputEmail1">Relationship Type</label>
-<select class="form-control">
-<option>option 1</option>
-<option>option 2</option>
-<option>option 3</option>
-<option>option 4</option>
-<option>option 5</option>
-</select>
-</div>
-<div class="form-group">
-<label for="exampleInputPassword1">Title</label>
-<select class="form-control">
-<option>option 1</option>
-<option>option 2</option>
-<option>option 3</option>
-<option>option 4</option>
-<option>option 5</option>
-</select>
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">First Name</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Middle Name</label>
-<input type="text" placeholder="Middle Name" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Last Name</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Client Code</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Sex</label>
-<input type="text" placeholder="Title" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Ni Number</label>
-<input type="text" placeholder="Title" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Tax Reference</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-
-<div class="form-group">
-<label for="exampleInputPassword1">Appointment Date</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Marital Status</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Spouse Date of Birth</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-<!--<h3 class="box-title">Service Address</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Building Name/Number</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-
-<div class="form-group">
-<label for="exampleInputPassword1">Street</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Town</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>-->
-
 
 <h3 class="box-title">Residential Address</h3>
 <div class="form-group">
-<label for="exampleInputPassword1">Change</label>
+<label for="exampleInputPassword1">Change &nbsp;&nbsp;</label>
 <input type="checkbox"/>
 </div>
 
@@ -486,13 +295,20 @@
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Country</label>
+<label for="exampleInputPassword1">County</label>
 <input type="text" id="exampleInputPassword1" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Postcode</label>
 <input type="text" id="exampleInputPassword1" class="form-control">
+</div>
+
+<div class="form-group">
+<label for="exampleInputPassword1">Country</label>
+<select class="form-control">
+<option value="1">United Kingdom</option>
+</select>
 </div>
 
 <h3 class="box-title">Other</h3>
@@ -518,12 +334,9 @@
 
 <div class="form-group">
 <label for="exampleInputPassword1">Country of Residence</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<select class="form-control">
+<option value="1">United Kingdom</option>
+</select>
 </div>
 
 <div class="form-group">
@@ -547,8 +360,8 @@
 </div>
 <h3 class="box-title">Releted Parties</h3>
 
-<div class="col-xs-12">
-<div class="col-xs-12 col-xs-6">
+<div class="col-xs-12 align_left">
+<div class="col-xs-12 col-xs-6 align_left">
 <p>AB Limited</p>
 <p>C Limited</p>
 </div>
@@ -559,8 +372,7 @@
 </div>
 
 
-
-<button class="btn btn-primary">SUBMIT</button>
+<button type="submit" name="submit" id="submit" class="btn btn-primary">SUBMIT</button>
 
 </div>
  </div>
@@ -570,9 +382,12 @@
 
             
           </div>
-        </form>
+        
       </div>
     </section>
+
+{{ Form::close() }}
+
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

@@ -16,13 +16,15 @@
 	return View::make('hello');
 });*/
 
-
+### Routes for Dashboard related URL's start ###
 Route::get('/', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
 Route::any('individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
 Route::any('/organisation/add-client', array("as"=>"add_organisation_client", "uses"=>'HomeController@add_organisation_client'));
+Route::any('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
+### Routes for Dashboard related URL's end ###
 
 ### Routes for practice details related URL's start ###
 Route::get('/practice-details', 'PracticeDetailsController@index');
