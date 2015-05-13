@@ -28,9 +28,9 @@ $(function() {
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": true},
             {"bSortable": false},
             {"bSortable": true},
+            {"bSortable": false},
             {"bSortable": false},
             {"bSortable": true},
             {"bSortable": true},
@@ -159,7 +159,7 @@ $(function() {
                     <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
                   </li>
                   <li>
-                    <button class="btn btn-success">Search</button>
+                    <button type="button" id="show_search" class="btn btn-success">Search</button>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -168,20 +168,23 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-            <div class="table_top_box">
-            <ul>
-            <li style="width:auto;"><input type="button" value="Clear"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-           
-            </ul>
-            <div class="clearfix"></div>
+            <div class="table_top_box" id="table_top_box">
+              <ul>
+                <li style="width:auto;"><input type="reset" value="Clear"></li>
+                <li><input type="text" name="search_client_text" id="search_client_text" placeholder="Search..." class="search_box"></li>
+              <!-- <li style="width:auto;"><input type="button" value="Clear"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li>
+              <li><input type="text" class="s_box"></li> -->
+             
+              </ul>
+              
+              <div class="clearfix"></div>
           
             </div>
             
@@ -195,8 +198,8 @@ $(function() {
                             <th>#</th>
                             <th>STAFF</th>
                             <th>DOB</th>
-                            <th>BUSINESS NAME</th>
                             <th>CLIENT NAME</th>
+                            <th>BUSINESS NAME</th>
                             <th>NI NUMBER</th>
                             <th>TAX REFERENCE</th>
                             <th>ACTING</th>
@@ -208,21 +211,14 @@ $(function() {
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                           <tr class="all_check">
                             <td align="center">
-                              <input type="checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
+                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
                             </td>
                             <td class=" ">1</td>
                             
-                            <td class="">
-                              
-                              <select name="user_type">
-                                <option value="S">Staff</option>
-                                <option value="S">Client</option>
-                                <option value="S">Admin</option>
-                              </select>
-                            </td>
+                            <td class="">Staff</td>
                             <td class=" ">23-04-2008</td>
-                            <td class=" "></td>
                             <td class=" "><a href="#">2607 LTD.</a></td>
+                            <td class=" "></td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class=" ">Yes</td>
@@ -230,20 +226,14 @@ $(function() {
                           </tr>
                           <tr class="all_check">
                             <td align="center">
-                                <input type="checkbox" name="client_delete_id[]" value="2" id="client_delete_id"/>
+                                <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="2" id="client_delete_id"/>
                             </td>
                            <td class=" ">2</td>
                             
-                            <td class=" ">
-                              <select name="user_type">
-                                <option value="S">Staff</option>
-                                <option value="S">Client</option>
-                                <option value="S">Admin</option>
-                              </select>
-                            </td>
+                            <td class=" ">Client</td>
                             <td class=" ">30-04-2008</td>
-                            <td class=" "></td>
                             <td class=" "><a href="#">2207 LTD.</a></td>
+                            <td class=" "></td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class=" ">No</td>
@@ -251,20 +241,14 @@ $(function() {
                           </tr>
                           <tr class="all_check">
                             <td align="center">
-                              <input type="checkbox" name="client_delete_id[]" value="3" id="client_delete_id"/>
+                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="3" id="client_delete_id"/>
                             </td>
                             <td class=" ">3</td>
                             
-                            <td class=" ">
-                              <select name="user_type">
-                                <option value="S">Staff</option>
-                                <option value="S">Client</option>
-                                <option value="S">Admin</option>
-                              </select>
-                            </td>
+                            <td class=" ">Admin</td>
                             <td class=" ">27-04-2008</td>
-                            <td class=" "></td>
                             <td class=" "><a href="#">2307 LTD.</a></td>
+                            <td class=" "></td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class=" ">Yes</td>
@@ -272,20 +256,14 @@ $(function() {
                           </tr>
                           <tr class="all_check">
                             <td align="center">
-                              <input type="checkbox" name="client_delete_id[]" value="4" id="client_delete_id"/>
+                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="4" id="client_delete_id"/>
                             </td>
                             <td class=" ">4</td>
                             
-                            <td class=" ">
-                              <select name="user_type">
-                                <option value="S">Staff</option>
-                                <option value="S">Client</option>
-                                <option value="S">Admin</option>
-                              </select>
-                            </td>
+                            <td class=" ">Staff</td>
                             <td class=" ">30-04-2008</td>
-                            <td class=" "></td>
                             <td class=" "><a href="#">2603 LTD.</a></td>
+                            <td class=" "></td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class=" ">No</td>

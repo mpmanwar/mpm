@@ -12,15 +12,16 @@ $(document).ready(function(){
 		$('input').iCheck('uncheck');
 	});
 
-	$("input[name='client_delete_id[]']").on('ifUnchecked', function(event){
+	/*$("input[name='client_delete_id[]']").on('ifUnchecked', function(event){
 		//$(this).removeAttr('checked');
 		$(this).iCheck('uncheck');
-	});
+	});*/
 
 
 	$('#deleteClients').click(function() {
 		var val = [];
-        $("input[name='client_delete_id[]']").each( function (i) {
+        //$("input[name='client_delete_id[]']").each( function (i) {
+        $(".ads_Checkbox:checked").each( function (i) {
 			if($(this).is(':checked')){
 				val[i] = $(this).val();
 			}
@@ -43,6 +44,14 @@ $(document).ready(function(){
  		}else{
  			alert('Please select atleast one clients');
  		}
+ 	});
+
+ 	$('#show_search').click(function() {
+		$('#table_top_box').toggle();
+ 	});
+
+ 	$('#search_client_text').keyup(function() {
+		//alert($(this).val());
  	});
 
 

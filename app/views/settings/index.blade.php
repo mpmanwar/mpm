@@ -115,7 +115,7 @@
                 <section class="content-header">
                     <h1>
                         SETTINGS
-                        <small>CLIENT NAME  Limited</small>
+                        <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -181,7 +181,7 @@
     <div class="col-xs-12">
         <div class="circle_icons">
             <ul>
-                <a href="/practice-details">
+                <a href="/practice-details" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">
@@ -194,7 +194,7 @@
                     </li>
                 </a>
         
-                <a href="/email-settings">
+                <a href="/email-settings" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">
@@ -206,7 +206,7 @@
                     </li>
                 </a>
         
-                 <a href="#">
+                 <a href="#" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">
@@ -217,7 +217,7 @@
                     </li>
                 </a>
                 
-                <a href="/user-list">
+                <a href="/user-list" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">
@@ -228,7 +228,7 @@
                     </li>
                 </a>
                 
-                <a href="#">
+                <a href="#" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">
@@ -239,7 +239,7 @@
                     </li>
                 </a>
                 
-                <a href="#">
+                <a href="#" class="hvr-grow">
                     <li>
                         <div class="circle_icons_inner">
                             <div class="circle_con">

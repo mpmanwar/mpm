@@ -129,7 +129,7 @@
             <div class="col-xs-12">
                 <div class="circle_icons">
                     <ul>
-                        <a href="/organisation-clients">
+                        <a href="/organisation-clients" class="hvr-grow">
                             <li>
                                 <div class="circle_icons_inner">
                                     <div class="circle_con">
@@ -142,7 +142,7 @@
                             </li>
                         </a>
                 
-                        <a href="/individual-clients">
+                        <a href="/individual-clients" class="hvr-grow">
                             <li>
                                 <div class="circle_icons_inner">
                                     <div class="circle_con">
