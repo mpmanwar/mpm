@@ -361,7 +361,7 @@ $(document).ready(function(){
 <!-- This portion is for user created field -->
 @if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
   @foreach($steps_fields_users as $row_fields)
-    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
       <div class="form-group">
       <div class="twobox_2">
       <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
@@ -513,7 +513,19 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+<div class="form-group">
 
+<div class="n_box01">
+    <label for="exampleInputPassword1">Country Code</label>
+<select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
+<option value="+91">+91</option>
+<option value="+95">+95</option>
+</select></div>
+<div class="telbox">
+<label for="exampleInputPassword1">Mobile</label>
+    <input type="text" id="serv_mobile" name="serv_mobile" class="form-control"></div>
+<div class="clearfix"></div>
+</div>
 
 
 <div class="form-group">
@@ -535,7 +547,7 @@ $(document).ready(function(){
 <!-- This portion is for user created field -->
 @if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
   @foreach($steps_fields_users as $row_fields)
-    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "3")
       <div class="form-group">
       <div class="twobox_2">
       <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
@@ -723,7 +735,7 @@ $(document).ready(function(){
 <!-- This portion is for user created field -->
 @if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
   @foreach($steps_fields_users as $row_fields)
-    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
       <div class="form-group">
       <div class="twobox_2">
       <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
