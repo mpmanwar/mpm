@@ -69,6 +69,16 @@ $(".open").click(function(){
   $("#step"+data_id).show("slow");
 });
 
+$(".open_header").click(function(){
+  $("#header_ul li").parent().find('li').removeClass("active");
+  $(this).parent('li').addClass('active');
+
+  var data_id = $(this).data('id');
+  var remove_id = data_id-1;
+  $(".tab-pane").hide("fast");
+  $("#step"+data_id).show("slow");
+});
+
 $(".back").click(function(){
   var data_id = $(this).data('id');
   var remove_id = Number(data_id)+Number(1);

@@ -106,22 +106,22 @@ $(document).ready(function(){
     <div class="practice_mid">
         
 
-        <div class="tabarea">
-          
-          <div class="nav-tabs-custom">
-              <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active" id="tab_1"><a href="javascript:void(0)">GENERAL</a></li>
-                <li id="tab_2"><a href="javascript:void(0)">TAX INFORMATION</a></li>
-                <li id="tab_3"><a href="javascript:void(0)">CONTACT INFORMATION</a></li>
-                <li id="tab_4"><a href="javascript:void(0)">RELATIONSHIP</a></li>
-                <li id="tab_5"><a href="javascript:void(0)">OTHERS</a></li>
-                 
-                <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Add
-                 
-                </a></li>
-                
-              </ul>
-              <div class="tab-content">
+<div class="tabarea">
+  
+  <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
+        <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
+        <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
+        <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
+        <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
+        <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+         
+        <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Add
+         
+        </a></li>
+        
+      </ul>
+      <div class="tab-content">
 
 
         <div id="step1" class="tab-pane active" style="display:block;">
@@ -224,8 +224,8 @@ $(document).ready(function(){
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">Ocupation</label>
-<input type="text" id="ocupation" name="ocupation" class="form-control">
+<label for="exampleInputPassword1">Occupation</label>
+<input type="text" id="occupation" name="occupation" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
