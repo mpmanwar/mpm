@@ -33,6 +33,8 @@ remove command : rm file.php
 Give Permission : chmod -R 777 app/storage/
 truncate file : truncate logs/laravel.log --size 0
 
+Clear cache : php artisan cache:clear
+
 <!----------set up mail send from local server---------->
 apt-get install postfix
 /etc/init.d/postfix restart

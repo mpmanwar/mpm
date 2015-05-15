@@ -7,6 +7,7 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -76,7 +77,7 @@ $(document).ready(function(){
                 </section>
 
     <!-- Main content -->
-    {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true)) }}
+    {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
     <section class="content">
 
       <div class="row">
@@ -102,287 +103,679 @@ $(document).ready(function(){
         </div>
       </div>
 
-      <div class="practice_mid">
+    <div class="practice_mid">
         
-          <!--<div class="row box_border2 row_cont">
- <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">USERS <small>General Settings</small></h2>
 
- </div>
- <div class="col-xs-12 col-xs-6">
- <div class="setting_con">
- <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
- </div>
- </div>
- <div class="clearfix"></div>
-</div>-->
-          <!--<div class="add_usercon">
-<p><a href="#">What's this?</a></p>
-<button class="btn btn-success"><i class="fa fa-edit"></i> Add User</button>
-</div>-->
-<div class="tabarea">
-<div class="row row_cont">
+        <div class="tabarea">
+          
+          <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs nav-tabsbg">
+                <li class="active" id="tab_1"><a href="javascript:void(0)">GENERAL</a></li>
+                <li id="tab_2"><a href="javascript:void(0)">TAX INFORMATION</a></li>
+                <li id="tab_3"><a href="javascript:void(0)">CONTACT INFORMATION</a></li>
+                <li id="tab_4"><a href="javascript:void(0)">RELATIONSHIP</a></li>
+                <li id="tab_5"><a href="javascript:void(0)">OTHERS</a></li>
+                 
+                <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Add
+                 
+                </a></li>
+                
+              </ul>
+              <div class="tab-content">
 
- <div class="col-xs-12 col-xs-6">
-  <div class="col_m2">
-<h3 class="box-title">Personal Address</h3>
 
+        <div id="step1" class="tab-pane active" style="display:block;">
+                  <!--table area-->
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      <div class="row">  
+                    
+                    <div class="col-xs-12 col-xs-6">
+ <div class="col_m2">  
+                
 <div class="form-group">
-<label for="exampleInputPassword1">Tax Return Required &nbsp;&nbsp;</label>
-<input type="checkbox"/>
-</div>
 
-<div class="form-group">
-<label for="exampleInputEmail1">Relationship Type</label>
-<select class="form-control">
-    <option value="">-- Select Relationship Type --</option>
-    @if(!empty($rel_types))
-        @foreach($rel_types as $key=>$type_row)
-        <option value="{{ $type_row->relation_type_id }}">{{ $type_row->relation_type }}</option>
-        @endforeach
-    @endif
-</select>
-</div>
-<div class="form-group">
-<label for="exampleInputPassword1">Title</label>
-<select class="form-control">
-    <option value="">-- Select Title --</option>
-    @if(!empty($titles))
-        @foreach($titles as $key=>$title_row)
-        <option value="{{ $title_row->title_id }}">{{ $title_row->title_name }}</option>
-        @endforeach
-    @endif
-</select>
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">First Name</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Middle Name</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Last Name</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
+<div class="twobox_2">
 <label for="exampleInputPassword1">Client Code</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+  <input type="text" id="client_code" name="client_code" class="form-control"></div>
 </div>
 
+<div class="form-group">
+
+<div class="clearfix"></div>
+<div class="n_box1">
+<label for="exampleInputPassword1">Title</label>
+<select class="form-control" id="title" name="title">
+  @if(!empty($titles))
+    @foreach($titles as $key=>$title_row)
+    <option value="{{ $title_row->title_id }}">{{ $title_row->title_name }}</option>
+    @endforeach
+  @endif
+</select></div>
+<div class="n_box2">
+    <label for="exampleInputPassword1">First Name</label>
+    <input type="text" id="fname" name="fname" class="form-control"></div>
+<div class="n_box3">
+    <label for="exampleInputPassword1">Middle Name</label>
+    <input type="text" id="mname" name="mname" class="form-control"></div>
+<div class="n_box4">
+    <label for="exampleInputPassword1">Last Name</label>
+    <input type="text" id="lname" name="lname" class="form-control"></div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Sex</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<select class="form-control" name="sex" id="sex">
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+</select>
+</div>
 </div>
 
+<div class="twobox_2">
 <div class="form-group">
-<label for="dob">Date of Birth</label>
+<label for="exampleInputPassword1">Date of Birth</label>
 <input type="text" id="dob" name="dob" class="form-control">
 </div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">NI Number</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+</div>
+<div class="clearfix"></div>
 </div>
 
-<div class="form-group">
-<label for="exampleInputPassword1">Tax Reference</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-
-<div class="form-group">
-<label for="app_date">Appointment Date</label>
-<input type="text" id="app_date" class="form-control">
-</div>
-
+<div class="twobox">
+<div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Marital Status</label>
-<select class="form-control">
-    <option value="">-- Select Marital Status --</option>
-    @if(!empty($marital_status))
-        @foreach($marital_status as $key=>$status_row)
-        <option value="{{ $status_row->marital_status_id }}">{{ $status_row->status_name }}</option>
-        @endforeach
-    @endif
+<select class="form-control" name="marital_status" id="marital_status">
+  @if(!empty($marital_status))
+    @foreach($marital_status as $key=>$status_row)
+    <option value="{{ $status_row->merital_status_id }}">{{ $status_row->status_name }}</option>
+    @endforeach
+  @endif
 </select>
 </div>
+</div>
 
+<div class="twobox_2">
 <div class="form-group">
-<label for="spouse_dob">Spouse Date of Birth</label>
-<input type="text" id="spouse_dob" class="form-control">
+<label for="exampleInputPassword1">Spouse Date of Birth</label>
+<input type="text" id="spouse_dob" name="spouse_dob" class="form-control">
 </div>
-<h3 class="box-title">Service Address</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
 </div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Building Name/Number</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<div class="clearfix"></div>
 </div>
 
 
-<div class="form-group">
-<label for="exampleInputPassword1">Street</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Town</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">County</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-<select class="form-control">
-<option value="1">United Kingdom</option>
-</select>
-</div>
-
-
-</div>
- </div>
- 
-<div class="col-xs-12 col-xs-6">
-  <div class="col_m2">
-
-<h3 class="box-title">Residential Address</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change &nbsp;&nbsp;</label>
-<input type="checkbox"/>
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Building Name/Number</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Street</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Town</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">County</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-<select class="form-control">
-<option value="1">United Kingdom</option>
-</select>
-</div>
-
-<h3 class="box-title">Other</h3>
-<div class="form-group">
-<label for="exampleInputPassword1">Change</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">AML Checks Done</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
+<div class="twobox">
+<div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Nationality</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Occuption</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Country of Residence</label>
-<select class="form-control">
+<select class="form-control" name="nationality" id="nationality">
 <option value="1">United Kingdom</option>
 </select>
 </div>
+</div>
 
+<div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">Telephone 1</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<label for="exampleInputPassword1">Ocupation</label>
+<input type="text" id="ocupation" name="ocupation" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
+          <input type="text" id="" class="form-control">
+        @else
+          <textarea name="" id="" rows="4" cols="40"></textarea>
+        @endif
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
+
+                <div class="add_client_btn">
+                    <button class="btn btn-info open" data-id="2" type="button">Next</button>
+                    <!-- <button class="btn btn-success" type="button">Save</button> -->
+                    <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+                
+                  
+                </div>
+            </div>
+                  
+                  <!--end table-->
+        </div>
+    </div>
+         
+        <div id="step2" class="tab-pane" style="display:none;">
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      
+                      <div class="row">  
+                    
+                    <div class="col-xs-12 col-xs-6">
+                    
+                    
+  <div class="col_m2">  
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">NI Number</label>
+<input type="text" id="ni_number" name="ni_number" class="form-control">
+</div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Tax Reference</label>
+<input type="text" id="tax_reference" name="tax_reference" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Tax Office</label>
+<select class="form-control" id="tax_office_id" name="tax_office_id">
+  @if(!empty($tax_office))
+    @foreach($tax_office as $key=>$office_row)
+    <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+    @endforeach
+  @endif
+
+</select>
+</div>
+</div>
+<div class="clearfix"></div>
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Telephone 2</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+<label for="exampleInputPassword1">Address</label>
+<input type="text" id="tax_address" name="tax_address" value="{{ $tax_office_by_id->address  or "" }}" class="form-control">
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Town/City</label>
+<input type="text" id="tax_city" name="tax_city" value="{{ $tax_office_by_id->city  or "" }}" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">State Region</label>
+<input type="text" id="tax_region" name="tax_region" value="{{ $tax_office_by_id->region  or "" }}" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Postal/Zip Code</label>
+<input type="text" id="tax_zipcode" name="tax_zipcode" value="{{ $tax_office_by_id->zipcode  or "" }}" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Telephone</label>
+<input type="text" id="tax_telephone" name="tax_telephone" value="{{ $tax_office_by_id->telephone  or "" }}" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
+          <input type="text" id="" class="form-control">
+        @else
+          <textarea name="" id="" rows="4" cols="40"></textarea>
+        @endif
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
+<div class="add_client_btn">
+<button class="btn btn-info open"data-id="3" type="button">Next</button>
+<!-- <button class="btn btn-success" type="button">Save</button> -->
+<button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
+</div>
+<div class="clearfix"></div>
+                   </div>                  
+                    
+                    
+                    
+                    
+                    
+ 
+                   </div>
+                  
+                    </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+         
+        <div id="step3" class="tab-pane" style="display:none;">
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      
+                      <div class="row">  
+                    
+                    <div class="col-xs-12 col-xs-6">
+                    <div class="col_m2">  
+<h3 class="box-title">Residential Address</h3>                 
+<div class="form-group">
+<label for="exampleInputPassword1">Residential Address</label>
+<input type="text" id="res_address" name="res_address" class="form-control">
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Town/City</label>
+<input type="text" id="res_city" name="res_city" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">State Region</label>
+<input type="text" id="res_region" name="res_region" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Postal/Zip Code</label>
+<input type="text" id="res_zipcode" name="res_zipcode" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Country</label>
+  <select class="form-control" name="res_country" id="res_country">
+    <option value="1">United Kingdom</option>
+  </select>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+<h3 class="box-title">Service Address</h3>                 
+<div class="form-group">
+<label for="exampleInputPassword1">Service Address</label>
+<input type="text" id="serv_address" name="serv_address" class="form-control">
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Town/City</label>
+<input type="text" id="serv_city" name="serv_city" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">State/Region</label>
+<input type="text" id="serv_region" name="serv_region" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Postal/Zip Code</label>
+<input type="text" id="serv_zipcode" name="serv_zipcode" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Country</label>
+  <select class="form-control" name="serv_country" id="serv_country">
+    <option value="1">United Kingdom</option>
+  </select>
+</div>
+</div>
+<div class="clearfix"></div>
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Fax</label>
-<input type="text" id="exampleInputPassword1" class="form-control">
+
+<div class="n_box01">
+    <label for="exampleInputPassword1">Country Code</label>
+<select class="form-control" id="serv_tele_code" name="serv_tele_code">
+<option value="+91">+91</option>
+<option value="+95">+95</option>
+</select></div>
+<div class="telbox">
+<label for="exampleInputPassword1">Telephone</label>
+    <input type="text" id="serv_telephone" name="serv_telephone" class="form-control"></div>
+<div class="clearfix"></div>
 </div>
+
+
+
 
 <div class="form-group">
 <label for="exampleInputPassword1">Email</label>
-<input type="email" id="exampleInputPassword1" class="form-control">
+<input type="text" id="serv_email" name="serv_email" class="form-control">
 </div>
-<h3 class="box-title">Releted Parties</h3>
 
-<div class="col-xs-12 align_left">
-<div class="col-xs-12 col-xs-6 align_left">
-<p>AB Limited</p>
-<p>C Limited</p>
+<div class="form-group">
+<label for="exampleInputPassword1">Website</label>
+<input type="text" id="serv_website" name="serv_website" class="form-control">
 </div>
-<div class="col-xs-12 col-xs-6">
-<p>Director/Shareholder</p>
-<p>Secretary</p>
-</div>
+
+<div class="form-group">
+<label for="exampleInputPassword1">Skype</label>
+<input type="text" id="serv_skype" name="serv_skype" class="form-control">
 </div>
 
 
-<button type="submit" name="submit" id="submit" class="btn btn-primary">SUBMIT</button>
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
+          <input type="text" id="" class="form-control">
+        @else
+          <textarea name="" id="" rows="4" cols="40"></textarea>
+        @endif
+      </div>
 
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
+
+<div class="add_client_btn">
+<button class="btn btn-info open" data-id="4" type="button">Next</button>
+<!-- <button class="btn btn-success" type="button">Save</button> -->
+<button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
- </div>
+<div class="clearfix"></div>
+
+
+                   </div>
  
- </div>
+                   </div>
+                   
+                    </div>
+                      
+                    </div>
+                  </div>
+                </div>
+         
+        <div id="step4" class="tab-pane" style="display:none;">
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      
+                      <div class="row">  
+                    
+                   <div class="col-xs-12">
+ <div class="col_m2"> 
+ <div class="director_table"> 
+<h3 class="box-title">RELATIONSHIP</h3>      
+<div class="form-group">
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New</a>
+</div>
+
+<div class="box-body table-responsive">
+<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+<table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+  <tr>
+    <td width="25%"><strong>Name</strong></td>
+    <td width="30%" align="center"><strong>Appointment Date</strong></td>
+    <td width="30%" align="center"><strong>Relationship Type</strong></td>
+    <td width="15%" align="center"><strong>Action</strong></td>
+    
+  </tr>
+
+  <!-- <tr>
+    <td width="25%">Anwar</td>
+    <td width="30%" align="center">10/20/2015</td>
+    <td width="30%" align="center">Any</td>
+    <td width="15%" align="center">
+      <a href=""><i class="fa fa-edit"></i></a>
+      <a href=""><i class="fa fa-trash-o fa-fw"></i></a> 
+      
+    </td>
+    
+  </tr> -->
+  </table>
+
+  <div class="contain_tab4" id="new_relationship" style="display:none;">
+    <div class="contain_search">
+      <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+    </div>
+
+    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
+
+    <div class="contain_type">
+      <select class="form-control" name="reltype" id="reltype">
+          @if(!empty($rel_types))
+            @foreach($rel_types as $key=>$rel_row)
+            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+            @endforeach
+          @endif
+        </select>
+    </div>
+    
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Save</button></div>
+  </div>
+    
+
+
+</div>
+</div>
+
+<div class="add_client_btn">
+<button class="btn btn-info open" data-id="5" type="button">Next</button>
+<!-- <button class="btn btn-success" type="button">Save</button> -->
+<button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+                   
+                   
+                   </div>
+                   
+
+                  
+                    </div>
+                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                    </div>
+                  </div>
+                </div>
+
+        <div id="step5" class="tab-pane" style="display:none;">
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      
+                      <div class="row">  
+                    
+                   <div class="col-xs-12 col-xs-6">
+ <div class="col_m2"> 
+ <div class="director_table"> 
+<h3 class="box-title">OTHERS</h3> 
+
+
+<div class="twobox">
+<div class="twobox_01">
+<div class="form-group">
+<label for="exampleInputPassword1">AML Checks Done</label>
+<input type="checkbox" name="others_check[]" value="AML Checks Done" />
+</div>
+</div>
+
+<div class="twobox_02">
+<div class="form-group">
+<label for="exampleInputPassword1">Acting?</label>
+<input type="checkbox" name="others_check[]" value="Acting" />
+</div>
+</div>
+
+<div class="twobox_03">
+<div class="form-group">
+<label for="exampleInputPassword1">Tax Return Required</label>
+<input type="checkbox" name="others_check[]" value="Tax Return Required" />
+</div>
+</div>
+
+<div class="clearfix"></div>
+</div>
+
+
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Responsible Staff</label>
+<select class="form-control" name="resp_staff" id="resp_staff">
+  @if(!empty($responsible_staff))
+    @foreach($responsible_staff as $key=>$staff_row)
+      <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+    @endforeach
+  @endif
+
+</select>
+</div>
+</div>
+<div class="clearfix"></div>
+
+</div>
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
+          <input type="text" id="" class="form-control">
+        @else
+          <textarea name="" id="" rows="4" cols="40"></textarea>
+        @endif
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
+
+<div class="add_client_btn">
+<!-- <button class="btn btn-info">Next</button> -->
+<button class="btn btn-success save" type="submit">Save</button>
+<button class="btn btn-danger back" data-id="4" type="button">Cancel</button>
+</div>
+<div class="clearfix"></div>
+</div>
+                   
+                   
+                   </div>
+                   
+
+                  
+                    </div>
+                      
+                    </div>
+                  </div>
+                </div>
+       
+
+</div>
+          </div>
+          
+
 
 
             
           </div>
         
+    
+
+
+
       </div>
     </section>
 
@@ -391,5 +784,58 @@ $(document).ready(function(){
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD NEW FILED</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleInputPassword1">-- Select Step --</label>
+          <select class="form-control" name="step_id" id="step_id">
+            @if(!empty($steps))
+              @foreach($steps as $key=>$step_row)
+                @if(!empty($step_row->step_id) && $step_row->step_id != '4')
+                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
+                @endif
+              @endforeach
+            @endif
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Name</label>
+          <input type="text" id="field_name" name="field_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Type</label>
+          <select class="form-control" name="field_type" id="field_type">
+            <option value="text">Text</option>
+            <option value="textarea">Textarea</option>
+          </select>
+        </div>
+        
+        <div class="modal-footer clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          </div>
+        </div>
+      </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 @stop
