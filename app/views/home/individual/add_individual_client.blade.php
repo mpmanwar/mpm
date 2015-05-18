@@ -13,9 +13,9 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#dob").datepicker({ minDate: 0 });
-    $("#app_date").datepicker({ minDate: 0 });
-    $("#spouse_dob").datepicker({ minDate: 0 });
+    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
+    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0 });
 })
 </script>
 
@@ -116,7 +116,7 @@ $(document).ready(function(){
         <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
         <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
          
-        <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Add
+        <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field
          
         </a></li>
         
@@ -139,7 +139,7 @@ $(document).ready(function(){
                 
 <div class="form-group">
 
-<div class="twobox_2">
+<div class="n_box1">
 <label for="exampleInputPassword1">Client Code</label>
   <input type="text" id="client_code" name="client_code" class="form-control"></div>
 </div>
@@ -311,7 +311,7 @@ $(document).ready(function(){
     <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
     @endforeach
   @endif
-
+    <option value="other">Other</option>
 </select>
 </div>
 </div>
@@ -811,7 +811,7 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
       <div class="modal-body">
         <div class="form-group">
-          <label for="exampleInputPassword1">-- Select Step --</label>
+          <label for="exampleInputPassword1">Select Section</label>
           <select class="form-control" name="step_id" id="step_id">
             @if(!empty($steps))
               @foreach($steps as $key=>$step_row)
@@ -833,6 +833,9 @@ $(document).ready(function(){
           <select class="form-control" name="field_type" id="field_type">
             <option value="text">Text</option>
             <option value="textarea">Textarea</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="date">Date</option>
+            <option value="dropdown">Dropdown</option>
           </select>
         </div>
         

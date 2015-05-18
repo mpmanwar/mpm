@@ -74,7 +74,6 @@ $(".open_header").click(function(){
   $(this).parent('li').addClass('active');
 
   var data_id = $(this).data('id');
-  var remove_id = data_id-1;
   $(".tab-pane").hide("fast");
   $("#step"+data_id).show("slow");
 });
@@ -139,32 +138,33 @@ $(".back").click(function(){
         $("#step4").show("slow");
     });*/
  
-    $("#save_client_data").click(function() {
-      	$("#loader").show();
-        setTimeout(function(){
-           $("#basicform").html('<h2>Thanks for your time.</h2>');
-        }, 1000);
-        
-        return false;
-    });
-
-    $("#tax_office_id").change(function(){
-      var office_id   = $(this).val();
+    
+  $("#tax_office_id").change(function(){
+    var office_id   = $(this).val();
+    if(office_id == "other"){
+      $('#tax_address').val("");
+      $('#tax_city').val("");
+      $('#tax_region').val("");
+      $('#tax_zipcode').val("");
+      $('#tax_telephone').val("");
+    }else{
       $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: '/individual/get-office-address',
-      data: { 'office_id' : office_id },
-      success : function(resp){
-        //console.log(resp['address']);
-        $('#tax_address').val(resp['address']);
-        $('#tax_city').val(resp['city']);
-        $('#tax_region').val(resp['region']);
-        $('#tax_zipcode').val(resp['zipcode']);
-        $('#tax_telephone').val(resp['telephone']);
-      }
-    });
+        type: "POST",
+        dataType: "json",
+        url: '/individual/get-office-address',
+        data: { 'office_id' : office_id },
+        success : function(resp){
+          //console.log(resp['address']);
+          $('#tax_address').val(resp['address']);
+          $('#tax_city').val(resp['city']);
+          $('#tax_region').val(resp['region']);
+          $('#tax_zipcode').val(resp['zipcode']);
+          $('#tax_telephone').val(resp['telephone']);
+        }
+      });
 
+    }
+    
 
       
 });
