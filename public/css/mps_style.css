@@ -156,12 +156,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .twobox_01{float:left; width:35%; margin-right:10px;}
 .twobox_02{float:left; width:20%; margin-right:10px;}
 .twobox_03{float:left; width:40%;}
+.add_client_chk{float:left; width:48%; margin-top:30px;}
+.add_ch1{float:left; margin-right:25px;}
+.add_ch2{float:left;}
+.chk_andbox{width:100%;}
+.chk_left{float:left; width:48.7%; margin-top:5px;}
+.box_right{float:right; width:48%;}
 
 .contain_tab4{ width: 100%; border: 1px solid #ddd; padding: 10px; float: left;}
 .contain_search{float:left; margin-right: 10px; width: 24%;}
 .contain_type{float:left; margin-right: 10px; width: 30%;}
 .contain_date{float:left; margin-right: 10px; width: 30%;}
 .contain_action{float:left; margin-left: 27px;}
+
 
 
 
