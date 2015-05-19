@@ -43,7 +43,10 @@ class HomeController extends BaseController {
 	}
 
 	public function add_organisation_client(){
-		$data['title'] = "Add Organisation Client";
+		$data['title'] 			= "Add Organisation Client";
+		$data['org_types']		= OrganizationType::get();
+		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
+		$data['steps'] 			= Step::orderBy("step_id")->get();
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
@@ -96,6 +99,24 @@ class HomeController extends BaseController {
 		//$data['field_label']	= Input::get("field_label");
 		$field_id = StepsFieldsUser::insertGetId($data);
 		return Redirect::to('/individual/add-client');
+	}
+
+	function save_services()
+	{
+		$rel_types	= array();
+		$user_id 	= 1;
+		$services 		= Input::get("services");
+		$staff		= Input::get("staff");
+
+		if (Request::ajax()) {   
+			//$rel_types 	= RelationshipType::where("relation_type_id", "=", $type)->first();
+			//echo $this->last_query();die;         
+        }
+        $rel_types['services'] 		= $services;
+        $rel_types['staff'] 		= $staff;
+
+        echo json_encode($rel_types);
+        exit();
 	}
 
 }
