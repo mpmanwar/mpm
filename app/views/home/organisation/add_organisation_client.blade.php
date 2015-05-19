@@ -1,11 +1,28 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-
+<!-- Date picker script -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<!-- Date picker script -->
 @stop
 
 @section('myjsfile')
-
+<script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<!-- Date picker script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Date picker script -->
+<script>
+$(document).ready(function(){
+    $("#incorporation_date").datepicker({minDate: new Date(1900, 12-1, 25)});
+    $("#made_up_date").datepicker({minDate: new Date(1900, 12-1, 25)});
+    $("#next_ret_due").datepicker({minDate: new Date(1900, 12-1, 25)});
+    $("#last_acc_madeup_date").datepicker({minDate: new Date(1900, 12-1, 25)});
+    $("#next_acc_due").datepicker({minDate: new Date(1900, 12-1, 25)});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
+    
+})
+</script>
 @stop
 
 @section('content')
@@ -59,7 +76,7 @@
       <div class="practice_mid">
         
           <div class="tabarea">
-            <div class="tab_topcon">
+            <!-- <div class="tab_topcon">
               <div class="top_bts">
                 <ul style="padding:0;">
                   <li>
@@ -80,23 +97,18 @@
                 </table>
               </div>
               <div class="clearfix"></div>
-            </div>
-            <div class="nav-tabs-custom">
-              <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">STEP 1 <br>
-                  <span>Business : Information</span></a></li>
-                <li><a data-toggle="tab" href="#tab_2">STEP 2<br>
-                  <span>Tax information</span></a></li>
-                <li><a data-toggle="tab" href="#tab_3">STEP 3<br>
-                  <span>Contact Information</span></a></li>
-                <li><a data-toggle="tab" href="#tab_4">STEP 4<br>
-                  <span>Relationship</span></a></li>
-                <li><a data-toggle="tab" href="#tab_5">STEP 5<br>
-                  <span>OTHERS</span></a></li>
-                <!--<li class="pull-right"><a class="text-muted" href="#"><i class="fa fa-gear"></i></a></li>-->
-              </ul>
+            </div> -->
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
+          <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">BUSINESS INFORMATION</a></li>
+          <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
+          <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
+          <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
+          <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+          <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+        </ul>
               <div class="tab-content">
-                <div id="tab_1" class="tab-pane active">
+                <div id="step1" class="tab-pane active">
                   <!--table area-->
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
@@ -107,164 +119,204 @@
                       <div class="row">
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
+
+                      <div class="twobox">
+                        <div class="twobox_1">
+                          <div class="small_box">
                             <div class="form-group">
-                              <label for="exampleInputPassword1">Business Type</label>
-                              <select class="form-control">
-                                <option>Partnership</option>
-                                <option>Sole Tradership</option>
-                                <option>Company</option>
-                                <option>LLP</option>
-                                <option>Incorporation Charity</option>
-                                <option>Unincorporation Charity</option>
-                                <option>Other</option>
-                              </select>
+                              <label for="exampleInputPassword1">Client Code</label>
+                              <input type="text" id="" class="form-control">
                             </div>
+                          </div>
+                        </div>
+                        <div class="twobox_2">
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Business Type</label>
+                              <select class="form-control">
+                                @if(!empty($org_types))
+                                  @foreach($org_types as $key=>$org_row)
+                                  <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
+                                  @endforeach
+                                @endif
+                              </select>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+
+                            
                             <div class="form-group">
                               <label for="exampleInputPassword1">Business Name</label>
                               <input type="text" id="" class="form-control">
                             </div>
+
                             <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Client Code</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Incorporation Date</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
+                              <div class="threebox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registration Number</label>
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
-                              <div class="twobox_2">
+                              <div class="threebox_1">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Incorporation Date</label>
+                                  <input type="text" id="incorporation_date" name="incorporation_date" class="form-control">
+                                </div>
+                              </div>
+
+                              <div class="threebox_2">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Registered In</label>
+                                  <input type="text" id="incorporation_date" name="incorporation_date" class="form-control">
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <!-- <div class="twobox">
+                              <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registered In</label>
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
+                              
                               <div class="clearfix"></div>
                             </div>
-                            <h3 class="box-title">Annual Returns</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Annual Returns</label>
-                              <input type="checkbox"/>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Annual Returns</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Made up Date</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Next Return Due</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Ch Authentication Code</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Year End Accounts</label>
-                              <input type="checkbox"/>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Accounting Ref Date</label>
-                                  <select class="form-control">
-                                    <option>10/05/2014</option>
-                                    <option>01/20/2015</option>
-                                    <option>20/10/2016</option>
-                                    <option>05/05/2017</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Year of first Finalcial Year End</label>
-                                  <select class="form-control">
-                                    <option>Jan</option>
-                                    <option>Feb</option>
-                                    <option>March</option>
-                                    <option>April</option>
-                                    <option>May</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Last Account Made of Date</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Next Account Due</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <h3 class="box-title">Statement of Capital Summary</h3>
-                            <table class="table table-bordered table-hover dataTable">
-                              <tr>
-                                <td>Total issued :</td>
-                                <td>7064254</td>
-                              </tr>
-                              <tr>
-                                <td>Currency :</td>
-                                <td>GBP</td>
-                              </tr>
-                              <tr>
-                                <td>Total Aggregate Value :</td>
-                                <td>7</td>
-                              </tr>
-                            </table>
+                             -->
                             <div class="form-group">
                               <label for="exampleInputPassword1">Business Description</label>
                               <input type="text" id="" class="form-control">
                             </div>
-                          </div>
-                        </div>
+
+                            <h3 class="box-title">Annual Returns</h3>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Annual Returns</label>
+                              <input type="checkbox" name="ann_ret_check" id="ann_ret_check" value="1" />
+                            </div>
+
+      <div id="show_ann_ret" style="display:none;">
+        <div class="twobox">
+          <div class="twobox_1">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Made up Date</label>
+              <input type="text" id="made_up_date" name="made_up_date" class="form-control">
+            </div>
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Next Return Due</label>
+              <input type="text" id="next_ret_due" name="next_ret_due" class="form-control">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="twobox">
+          <div class="twobox_1">
+            <div class="form-group">
+              <label for="exampleInputPassword1">CH Authentication Code</label>
+              <input type="text" id="" class="form-control">
+            </div>
+          </div>
+          <!-- <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Ch Authentication Code</label>
+              <input type="text" id="" class="form-control">
+            </div>
+          </div> -->
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Year End Accounts</label>
+          <input type="checkbox" name="yearend_acc_check" id="yearend_acc_check" value="1" />
+        </div>
+
+      <div id="show_year_end" style="display:none;">
+        <div class="twobox">
+          <div class="twobox_1">
+            <label for="exampleInputPassword1">Accounting Ref Date</label> 
+            <div class="clearfix"></div>
+            <div class="accountbox1">
+            <div class="form-group">
+              <select class="form-control">
+                @for($i = 1; $i<=31;$i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
+              </select>
+            </div>
+          </div>
+
+          <div class="accountbox2">
+            <div class="form-group">
+              <select class="form-control">
+                <option value="JAN">JAN</option>
+                <option value="FEB">FEB</option>
+                <option value="MAR">MAR</option>
+                <option value="APR">APR</option>
+                <option value="MAY">MAY</option>
+                <option value="JUN">JUN</option>
+                <option value="JUL">JUL</option>
+                <option value="AUG">AUG</option>
+                <option value="SEPT">SEPT</option>
+                <option value="OCT">OCT</option>
+                <option value="NOV">NOV</option>
+                <option value="DEC">DEC</option>            
+                
+              </select>
+            </div>
+          </div>
+            <div class="clearfix"></div>
+          </div>
+
+           <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Last Account Made Up Date</label>
+              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" class="form-control">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="twobox">
+          <div class="twobox_1">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Next Account Due</label>
+              <input type="text" id="next_acc_due" name="next_acc_due" class="form-control">
+            </div>
+          </div>
+          <!-- <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Next Account Due</label>
+              <input type="text" id="" class="form-control">
+            </div>
+          </div> -->
+          <div class="clearfix"></div>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="add_client_btn">
+          <button class="btn btn-info open" data-id="2" type="button">Next</button>
+          <!-- <button class="btn btn-success" type="button">Save</button> -->
+          <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
+      </div>
+      <div class="clearfix"></div>
+
+    </div>
+  </div>
                       </div>
                     </div>
                   </div>
                   <!--end table-->
                 </div>
                 <!-- /.tab-pane -->
-                <div id="tab_2" class="tab-pane">
+                <div id="step2" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
                       <div class="row">
@@ -275,11 +327,11 @@
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
                             <h3 class="box-title">Tax Information</h3>
-                            <h3 class="box-title">VAT</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Registered for Vat</label>
-                              <input type="checkbox"/>
+                              <input type="checkbox" name="reg_for_vat" id="reg_for_vat" value="1" />
                             </div>
+                            <div class="registered_vat" id="show_reg_for_vat" style="display:none">
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
@@ -300,13 +352,18 @@
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
                                   <select class="form-control">
-                                    <option>Partnership</option>
-                                    <option>Sole Tradership</option>
-                                    <option>Company</option>
-                                    <option>LLP</option>
-                                    <option>Incorporation Charity</option>
-                                    <option>Unincorporation Charity</option>
-                                    <option>Other</option>
+                                    <option>Standered Vat Accounting Scheme</option>
+                                    <option>Annual Accounting</option>
+                                    <option>Flat Rate Scheme</option>
+                                    <option>Retails Schemes - Point of Sale</option>
+                                    <option>Retails Schemes - Apportionment Schemes</option>
+                                    <option>Retails Schemes - Direct Calculation Schemes</option>
+                                    <option>Retails Schemes - Caterers Catering</option>
+                                    <option>Retails Schemes - Chemist(retail pharmacist)</option>
+                                    <option>Margin Schemes</option>
+                                    <option>Tour operator's Margine Scheme</option>
+                                    <option>Others - specify</option>
+                                    
                                   </select>
                                 </div>
                               </div>
@@ -351,41 +408,48 @@
                               </div>
                               <div class="clearfix"></div>
                             </div>
+                            </div>
+                            
                             <div class="form-group">
-                              <label for="exampleInputPassword1">EC Sales Lis</label>
+                              <label for="exampleInputPassword1">EC Sales List</label>
                               <input type="checkbox"/>
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputPassword1">Tax Reference</label>
+                              <label for="exampleInputPassword1">Tax</label>
+                               <input type="checkbox" id="tax_div" name="tax_div" value="1" >
                             </div>
-                            <div class="form-group">
-                              <div class="accural_chk">
-                                <label for="exampleInputPassword1">Corporate Tax</label>
-                                <input type="checkbox" >
-                              </div>
-                              <div class="accural_chk">
-                                <label for="exampleInputPassword1">Income Tax</label>
-                                <input type="checkbox" >
-                              </div>
-                              <div class="accural_chk">
-                                <label for="exampleInputPassword1">None</label>
-                                <input type="checkbox" >
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
+                          
+                          <div id="show_tax_div" style="display:none;"> 
+                            <div class="tax_utr_con">
+                            <div class="tax_utr">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Tax Reference(UTR)</label>
                               <input type="text" id="" class="form-control">
                             </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Quaryerly Corporation Tax Payments</label>
-                              <input type="checkbox" >
                             </div>
+                            
+                            <div class="tax_utr_drop">
+                            <div class="form-group">
+                              <label for="exampleInputPassword1"></label>
+                              <select class="form-control">
+                                    <option>None</option>
+                                    <option>Income Tax</option>
+                                    <option>Corporation Tax</option>
+                                  </select>
+                            </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            </div>
+                                                       
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Tax District</label>
-                                  <input type="text" id="" class="form-control">
+                                   <select class="form-control">
+                                    <option>Liverpool</option>
+                                    <option>Newcastle Upon Tyne</option>
+                                    <option>Cardiff</option>
+                                  </select>
                                 </div>
                               </div>
                               <div class="twobox_2">
@@ -411,21 +475,21 @@
                               </div>
                               <div class="clearfix"></div>
                             </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
+                        </div>
+                            
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">Paye Registered</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
                                 </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
+                        
+                        <div id="show_paye_reg" style="display:none;">    
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">CIS Registered</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
+                            
+                            
+                            
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
@@ -435,7 +499,7 @@
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Paye Reference</label>
+                                  <label for="exampleInputPassword1">PAYE Reference</label>
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
@@ -452,9 +516,7 @@
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Employer Office</label>
                                   <input type="text" id="" class="form-control">
-                                  <!--<input type="text" id="" class="form-control">
-<input type="text" id="" class="form-control">
-<input type="text" id="" class="form-control">-->
+                                 
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -472,46 +534,28 @@
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
+
+                        </div>
                               <div class="clearfix"></div>
                             </div>
-                            <!--<div class="form-group">
-<label for="exampleInputPassword1">Employer Office</label>
-<input type="text" id="" class="form-control">
-<input type="text" id="" class="form-control">
-<input type="text" id="" class="form-control">
-<input type="text" id="" class="form-control">
-</div>-->
+                            
+<div class="add_client_btn">
+  <button class="btn btn-info open"data-id="3" type="button">Next</button>
+  <!-- <button class="btn btn-success" type="button">Save</button> -->
+  <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
+</div>
+                             <div class="clearfix"></div>
                           </div>
                         </div>
                         <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <h3 class="box-title">Statement of Capital Summary</h3>
-                            <table class="table table-bordered table-hover dataTable">
-                              <tr>
-                                <td>Total issued :</td>
-                                <td>7064254</td>
-                              </tr>
-                              <tr>
-                                <td>Currency :</td>
-                                <td>GBP</td>
-                              </tr>
-                              <tr>
-                                <td>Total Aggregate Value :</td>
-                                <td>7</td>
-                              </tr>
-                            </table>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Business Description</label>
-                              <input type="text" id="" class="form-control">
-                            </div>
-                          </div>
+                          
                         </div>
                       </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                      
                     </div>
                   </div>
                 </div>
-                <div id="tab_3" class="tab-pane">
+                <div id="step3" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
                       <div class="row">
@@ -524,8 +568,9 @@
                             <h3 class="box-title">Contact Information</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Registered Office Address</label>
-                              <input type="checkbox"/>
+                              <input type="checkbox" name="reg_office_addr" id="reg_office_addr" />
                             </div>
+                            <div class="address_type" id="show_reg_office_addr">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Address Type</label>
                               <input type="text" id="" class="form-control">
@@ -534,6 +579,16 @@
                               <label for="exampleInputPassword1">Name</label>
                               <input type="text" id="" class="form-control">
                             </div>
+                            </div>
+                             <div class="form-group">
+                              <label for="exampleInputPassword1">Select or Add</label>
+                               <select class="form-control">
+                                    <option>Choose One</option>
+                                    <option>Choose Two</option>
+                                    
+                                  </select>
+                            </div>
+                            
                             <div class="form-group">
                               <label for="exampleInputPassword1">Address Line1</label>
                               <input type="text" id="" class="form-control">
@@ -551,7 +606,7 @@
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
+                                  <label for="exampleInputPassword1">County</label>
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
@@ -572,79 +627,145 @@
                               </div>
                               <div class="clearfix"></div>
                             </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
+                            
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">Trading Address</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
+                            
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">Correspondence Address</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
+                            
+                             <div class="form-group">
                                   <label for="exampleInputPassword1">Banker</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
+                            
+                             <div class="form-group">
                                   <label for="exampleInputPassword1">Trading Address</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
+                                
+                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Old Accountants</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="twobox_2">
+                                
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Auditors</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
+                            
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">Solicitors</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
+                            
+                            <div class="form-group">
                                   <label for="exampleInputPassword1">Others</label>
                                   <input type="checkbox"/>
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
+                            
+                            
+                            
                             <div class="form-group">
                               <label for="exampleInputPassword1">Notes</label>
-                              <input type="checkbox"/>
+                             <textarea rows="3" class="form-control"></textarea>
                             </div>
+<div class="add_client_btn">
+<button class="btn btn-info open" data-id="4" type="button">Next</button>
+<!-- <button class="btn btn-success" type="button">Save</button> -->
+<button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
+</div>
+                            <div class="clearfix"></div>
                           </div>
                         </div>
                         <div class="col-xs-12 col-xs-6"> </div>
                       </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                      
                     </div>
                   </div>
                 </div>
-                <div id="tab_4" class="tab-pane">
+
+                <div id="step4" class="tab-pane" style="display:none;">
+                  <div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      
+                      <div class="row">  
+                    
+                   <div class="col-xs-12">
+ <div class="col_m2"> 
+ <div class="director_table"> 
+<h3 class="box-title">RELATIONSHIP</h3>      
+<div class="form-group">
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New</a>
+</div>
+
+<div class="box-body table-responsive">
+<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+<table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+  <tr>
+    <td width="25%"><strong>Name</strong></td>
+    <td width="30%" align="center"><strong>Appointment Date</strong></td>
+    <td width="30%" align="center"><strong>Relationship Type</strong></td>
+    <td width="15%" align="center"><strong>Action</strong></td>
+    
+  </tr>
+
+  </table>
+
+  <div class="contain_tab4" id="new_relationship" style="display:none;">
+    <div class="contain_search">
+      <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+    </div>
+
+    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
+
+    <div class="contain_type">
+      <select class="form-control" name="reltype" id="reltype">
+          @if(!empty($rel_types))
+            @foreach($rel_types as $key=>$rel_row)
+            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+            @endforeach
+          @endif
+        </select>
+    </div>
+    
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Save</button></div>
+  </div>
+    
+
+
+</div>
+</div>
+
+<div class="add_client_btn">
+<button class="btn btn-info open" data-id="5" type="button">Next</button>
+<!-- <button class="btn btn-success" type="button">Save</button> -->
+<button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+                   
+                   
+                   </div>
+                   
+
+                  
+                    </div>
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <div id="step5" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
                       <div class="row">
@@ -653,716 +774,10 @@
                       </div>
                       <div class="row">
                         <div class="col-xs-12 col-xs-6">
+                          
                           <div class="col_m2">
-                            <div class="director_table">
-                              <h3 class="box-title">RELATIONSHIP</h3>
-                              <h2>Directors</h2>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Select From Store</label>
-                                <input type="checkbox"/>
-                              </div>
-                              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                                <div class="row">
-                                  <div class="col-xs-6"></div>
-                                  <div class="col-xs-6"></div>
-                                </div>
-                                <table width="100%" class="table table-bordered table-hover dataTable">
-                                  <tr>
-                                    <td>Name</td>
-                                    <td colspan="3" align="center">Action</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Mr. Sagi Shorrer</td>
-                                    <td align="center"><a href="#">View</a></td>
-                                    <td align="center"><a href="#">Edit</a></td>
-                                    <td align="center"><a href="#">Resign</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Mr. Shukri Shammas</td>
-                                    <td align="center"><a href="#">View</a></td>
-                                    <td align="center"><a href="#">Edit</a></td>
-                                    <td align="center"><a href="#">Resign</a></td>
-                                  </tr>
-                                </table>
-                              </div>
-                            </div>
-                            <div class="director_table">
-                              <h2>Secretaries</h2>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Select From Store</label>
-                                <input type="checkbox"/>
-                              </div>
-                              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                                <div class="row">
-                                  <div class="col-xs-6"></div>
-                                  <div class="col-xs-6"></div>
-                                </div>
-                                <table width="100%" class="table table-bordered table-hover dataTable">
-                                  <tr>
-                                    <td>Name</td>
-                                    <td colspan="3" align="center">Action</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Mr. Sagi Shorrer</td>
-                                    <td align="center"><a href="#">View</a></td>
-                                    <td align="center"><a href="#">Edit</a></td>
-                                    <td align="center"><a href="#">Resign</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Mr. Shukri Shammas</td>
-                                    <td align="center"><a href="#">View</a></td>
-                                    <td align="center"><a href="#">Edit</a></td>
-                                    <td align="center"><a href="#">Resign</a></td>
-                                  </tr>
-                                </table>
-                              </div>
-                            </div>
-                            <div class="director_table">
-                              <h2>Shareholders</h2>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Select From Store</label>
-                                <input type="checkbox"/>
-                              </div>
-                              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                                <div class="row">
-                                  <div class="col-xs-6"></div>
-                                  <div class="col-xs-6"></div>
-                                </div>
-                                <table width="100%" class="table table-bordered table-hover dataTable">
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Share Type</th>
-                                    <th>Balance</th>
-                                    <th>Shareholder Since</th>
-                                    <th>Residential Address</th>
-                                  </tr>
-                                  <tr>
-                                    <td>Paul Kaliszewski</td>
-                                    <td>Ordinary</td>
-                                    <td>452822</td>
-                                    <td>&nbsp;</td>
-                                    <td align="center">United Kingdom</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Patrick Kampfner</td>
-                                    <td>Ordinary</td>
-                                    <td>25078</td>
-                                    <td>&nbsp;</td>
-                                    <td align="center">United Kingdom</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Roman Lentz</td>
-                                    <td>Ordinary</td>
-                                    <td>201542</td>
-                                    <td>&nbsp;</td>
-                                    <td align="center">United Kingdom</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Roman Lentz</td>
-                                    <td>Ordinary</td>
-                                    <td>201542</td>
-                                    <td>&nbsp;</td>
-                                    <td align="center">United Kingdom</td>
-                                  </tr>
-                                </table>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Proprietor</label>
-                                <input type="checkbox"/>
-                                <button class="btn btn-info"><i class="fa fa-plus"></i>ADD</button>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Partners</label>
-                                <input type="checkbox"/>
-                                <button class="btn btn-info"><i class="fa fa-plus"></i>ADD</button>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Proprietor</label>
-                                <input type="checkbox"/>
-                                <button class="btn btn-info"><i class="fa fa-plus"></i>ADD</button>
-                              </div>
-                              <div class="col_m2">
-                                <h3 class="box-title">Share Capital <small>Return of Allotment of Share</small></h3>
-                                <table class="table table-bordered table-hover dataTable">
-                                  <tr>
-                                    <td>Total issued :</td>
-                                    <td>7064254</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Currency :</td>
-                                    <td>GBP</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Total Aggregate Value :</td>
-                                    <td>7</td>
-                                  </tr>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <h3 class="box-title">Personal</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Tax Return Required</label>
-                              <input type="checkbox"/>
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Relationship Type</label>
-                              <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                              </select>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Title</label>
-                                  <select class="form-control">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">First Name</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Middle Name</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Last Name</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Client Code</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Sex</label>
-                                  <select class="form-control">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Date of Birth</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Ni Number</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Tax Reference</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Apppointtment Date</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Marital Status</label>
-                                  <select class="form-control">
-                                    <option>Married</option>
-                                    <option>Unmarried</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Spouse Date of Birth</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <h3 class="box-title">Service Address</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Change</label>
-                              <input type="checkbox">
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Building Name/Number</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Street</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Address</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Town</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postcode</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <h3 class="box-title">Residential Address</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Change</label>
-                              <input type="checkbox" >
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Building Name/Number</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Street</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Address</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Town</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postcode</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <h3 class="box-title">Other</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Change</label>
-                              <input type="checkbox" >
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">AML Checks Done</label>
-                              <input type="checkbox" >
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Nationality</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Occuption</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country of Residence</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Telephone1</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Telephone2</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Fax</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Email</label>
-                                  <input type="email" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <h3 class="box-title">Releted Parties</h3>
-                            <div class="col-xs-12">
-                              <div class="col-xs-12 col-xs-6">
-                                <p>AB Limited</p>
-                                <p>C Limited</p>
-                              </div>
-                              <div class="col-xs-12 col-xs-6">
-                                <p>Director/Shareholder</p>
-                                <p>Secretary</p>
-                              </div>
-                            </div>
-                            <button class="btn btn-primary">SAVE</button>
-                          </div>
-                        </div>
-                      </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
-                    </div>
-                  </div>
-                </div>
-                <div id="tab_5" class="tab-pane">
-                  <div class="box-body table-responsive">
-                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                      <div class="row">
-                        <div class="col-xs-6"></div>
-                        <div class="col-xs-6"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <div class="director_table">
-                              <h3 class="box-title">OTHERS</h3>
-                              <div class="other_top">
-                                <div class="twobox_1">
-                                  <h4>Services</h4>
-                                </div>
-                                <div class="twobox_2">
-                                  <h4>Staff</h4>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Audit</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>New</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Bookkeeping</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>New</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Annual Returns</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Statutory Accounts</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Vat Returns</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Management Accounts</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Corporation Tax</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Payroll</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">P11Ds</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Statutory Accounts</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Sole Trade Annual Accounts</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                              <div class="chk_andbox">
-                                <div class="chk_left">
-                                  <div class="form-group">
-                                    <input type="checkbox" >
-                                    <label for="exampleInputPassword1">Sole Trade Annual Accounts</label>
-                                  </div>
-                                </div>
-                                <div class="box_right">
-                                  <div class="form-group">
-                                    <select class="form-control">
-                                      <option>Option1</option>
-                                      <option>Option2</option>
-                                      <option>Option3</option>
-                                      <option>Option4</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <h3 class="box-title">Bank Details</h3>
+                            <h3 class="box-title">Others</h3>
+                            <h4 class="box-title">Bank Details</h4>
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
@@ -1387,61 +802,105 @@
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Address</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Address Line2</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">City/Town</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postcode</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
                                   <label for="exampleInputPassword1">Marketing Source</label>
                                   <input type="text" id="" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
                             </div>
+                            
+                            <div class="director_table">
+                              <h3 class="box-title">Services</h3>
+                              <div class="form-group">
+                                <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()"><i class="fa fa-plus"></i> New</a>
+                              </div>
+                              <div class="box-body table-responsive">
+                                <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                  <div class="row">
+                                    <div class="col-xs-6"></div>
+                                    <div class="col-xs-6"></div>
+                                  </div>
+                                  <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+                                    <tr>
+                                      <td><strong>Service</strong></td>
+                                      <td align="center"><strong>Staff</strong></td>
+                                      <td align="center"><strong>Action</strong></td>
+                                    </tr>
+                                    <!-- <tr>
+                                      <td>
+                                      <select class="form-control">
+                                          <option>Add New</option>
+                                          <option>Audit</option>
+                                          <option>Bookkeeping</option>
+                                          <option>Annual Returns</option>
+                                          <option>Statutory Accounts</option>
+                                          <option>Vat Returns</option>
+                                          <option>Management Accounts</option>
+                                          <option>Corporation Tax</option>
+                                          <option>Payroll</option>
+                                          <option>P11Ds</option>
+                                          <option>Sole Trade Annual Accounts</option>
+                                        </select>
+                                      </td>
+                                      <td align="center">
+                                      <select class="form-control">
+                                          <option>Option1</option>
+                                          <option>Option2</option>
+                                          </select></td>
+                                      <td align="center"><button class="btn btn-success">Save</button></td>
+                                    </tr> -->
+                                    
+                                  </table>
+
+
+
+<div class="contain_tab4" id="add_services_div" style="display:none;">
+    <div class="services_search">
+      <select class="form-control" name="services" id="services">
+        <option>Add New</option>
+        <option value="Audit">Audit</option>
+        <option value="Bookkeeping">Bookkeeping</option>
+        <option value="Annual Returns">Annual Returns</option>
+        <option value="Statutory Accounts">Statutory Accounts</option>
+        <option value="Vat Returns">Vat Returns</option>
+        <option value="Management Accounts">Management Accounts</option>
+        <option value="Corporation Tax">Corporation Tax</option>
+        <option value="Payroll">Payroll</option>
+        <option value="P11Ds">P11Ds</option>
+        <option value="Sole Trade Annual Accounts">Sole Trade Annual Accounts</option>
+      </select>
+    </div>
+
+    <div class="contain_type">
+      <select class="form-control" name="staff" id="staff">
+        <option value="Staff 1">Staff 1</option>
+        <option value="Staff 2">Staff 2</option>
+      </select>
+      
+    </div>
+    
+    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Save</button></div>
+  </div>
+
+
+
+                                </div>
+                              </div>
+<div class="add_client_btn">
+<!-- <button class="btn btn-info">Next</button> -->
+<button class="btn btn-success save" type="submit">Save</button>
+<button class="btn btn-danger back" data-id="4" type="button">Cancel</button>
+</div>
+                              <div class="clearfix"></div>
+                            </div>
+                            
                           </div>
                         </div>
+                        <div class="col-xs-12 col-xs-6">
+                          
+                        </div>
                       </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                      
                     </div>
                   </div>
                 </div>
@@ -1458,5 +917,59 @@
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+
+<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD NEW FILED</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Select Section</label>
+          <select class="form-control" name="step_id" id="step_id">
+            @if(!empty($steps))
+              @foreach($steps as $key=>$step_row)
+                @if(!empty($step_row->step_id) && $step_row->step_id != '4')
+                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
+                @endif
+              @endforeach
+            @endif
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Name</label>
+          <input type="text" id="field_name" name="field_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Type</label>
+          <select class="form-control" name="field_type" id="field_type">
+            <option value="text">Text</option>
+            <option value="textarea">Textarea</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="date">Date</option>
+            <option value="dropdown">Dropdown</option>
+          </select>
+        </div>
+        
+        <div class="modal-footer clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          </div>
+        </div>
+      </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 @stop

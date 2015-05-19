@@ -123,8 +123,7 @@ $(document).ready(function(){
       </ul>
       <div class="tab-content">
 
-
-        <div id="step1" class="tab-pane active" style="display:block;">
+          <div id="step1" class="tab-pane active" style="display:block;">
                   <!--table area-->
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">

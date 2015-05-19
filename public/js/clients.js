@@ -87,56 +87,6 @@ $(".back").click(function(){
   $("#step"+data_id).show("slow");
 });
 
-  	/*$(".open2").click(function() {
-  		$("#tab_2").addClass("active");
-  		$("#tab_1").removeClass("active");
-      	$(".tab-pane").hide("fast");
-        $("#step2").show("slow");
-   	});
- 	$(".open3").click(function() {
- 		$("#tab_3").addClass("active");
-  		$("#tab_2").removeClass("active");
-      	$(".tab-pane").hide("fast");
-        $("#step3").show("slow");
-    });
-	$(".open4").click(function() {
-		$("#tab_4").addClass("active");
-  		$("#tab_3").removeClass("active");
-      	$(".tab-pane").hide("fast");
-        $("#step4").show("slow");
-    });
-	$(".open5").click(function() {
-		$("#tab_5").addClass("active");
-  		$("#tab_4").removeClass("active");
-      	$(".tab-pane").hide("fast");
-        $("#step5").show("slow");
-    });*/
-
-
- 	/*$(".back1").click(function() {
- 		$("#tab_1").addClass("active");
-  		$("#tab_2").removeClass("active");
-		$(".tab-pane").hide("fast");
-		$("#step1").show("slow");
-    });
- 	$(".back2").click(function() {
- 		$("#tab_2").addClass("active");
-  		$("#tab_3").removeClass("active");
-        $(".tab-pane").hide("fast");
-        $("#step2").show("slow");
-    });
-    $(".back3").click(function() {
-    	$("#tab_3").addClass("active");
-  		$("#tab_4").removeClass("active");
-        $(".tab-pane").hide("fast");
-        $("#step3").show("slow");
-    });
- 	$(".back4").click(function() {
- 		$("#tab_4").addClass("active");
-  		$("#tab_5").removeClass("active");
-        $(".tab-pane").hide("fast");
-        $("#step4").show("slow");
-    });*/
  
     
   $("#tax_office_id").change(function(){

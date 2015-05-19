@@ -168,10 +168,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .contain_type{float:left; margin-right: 10px; width: 30%;}
 .contain_date{float:left; margin-right: 10px; width: 30%;}
 .contain_action{float:left; margin-left: 27px;}
+.accountcon{float:left; width:50%;}
+.accountbox1{width:47%; float:left; margin-right:10px;}
+.accountbox2{width:48%; float:left;}
 
+.address_type{ display:none;}
+.registered_vat{display:block;}
+.tax_utr_con{display:block;}
+.tax_utr{float:left; width:63%; margin-right:10px;}
+.tax_utr_drop{float:left; width:33%; margin-top:5px;}
 
-
-
+.threebox_1{width:32.5%; float:left; margin-right:10px;}
+.threebox_2{width:30%; float:left;}
+.small_box{width: 55%;}
+.services_search{float: left; margin-right: 10px; width: 34%;}
 
 
 
