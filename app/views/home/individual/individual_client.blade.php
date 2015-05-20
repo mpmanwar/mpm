@@ -192,87 +192,51 @@ $(function() {
               <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
                 <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
                         
-                        <thead>
-                          <tr role="row">
-                            <th><input type="checkbox" id="allCheckSelect"/></th>
-                            <th>#</th>
-                            <th>STAFF</th>
-                            <th>DOB</th>
-                            <th>CLIENT NAME</th>
-                            <th>BUSINESS NAME</th>
-                            <th>NI NUMBER</th>
-                            <th>TAX REFERENCE</th>
-                            <th>ACTING</th>
-                            <th>RESIDENTIAL ADDRESS</th>
-                          
-                          </tr>
-                        </thead>
+            <thead>
+              <tr role="row">
+                <th><input type="checkbox" id="allCheckSelect"/></th>
+                <th>#</th>
+                <th>STAFF</th>
+                <th>DOB</th>
+                <th>CLIENT NAME</th>
+                <th>BUSINESS NAME</th>
+                <th>NI NUMBER</th>
+                <th>TAX REFERENCE</th>
+                <th>ACTING</th>
+                <th>RESIDENTIAL ADDRESS</th>
+              
+              </tr>
+            </thead>
 
-                        <tbody role="alert" aria-live="polite" aria-relevant="all">
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">1</td>
-                            
-                            <td class="">Staff</td>
-                            <td class=" ">23-04-2008</td>
-                            <td class=" "><a href="#">2607 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">Yes</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                                <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="2" id="client_delete_id"/>
-                            </td>
-                           <td class=" ">2</td>
-                            
-                            <td class=" ">Client</td>
-                            <td class=" ">30-04-2008</td>
-                            <td class=" "><a href="#">2207 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">No</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="3" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">3</td>
-                            
-                            <td class=" ">Admin</td>
-                            <td class=" ">27-04-2008</td>
-                            <td class=" "><a href="#">2307 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">Yes</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="4" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">4</td>
-                            
-                            <td class=" ">Staff</td>
-                            <td class=" ">30-04-2008</td>
-                            <td class=" "><a href="#">2603 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">No</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                                           <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">? Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next ? </a></li></ul></div></div></div>--></div>
-                                </div>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+              @if(!empty($client_details))
+              <?php $i=1; ?>
+              @foreach($client_details as $key=>$client_row)
+                <tr class="all_check">
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
+                  </td>
+                  <td class=" ">{{ $i }}</td>
+                  <td class="">Staff</td>
+                  <td class=" ">{{ $client_row['dob'] or "" }}</td>
+                  <td class=" "><a href="#">{{ $client_row['name'] or "" }}</a></td>
+                  <td class=" "></td>
+                  <td class=" ">{{ $client_row['ni_number'] or "" }}</td>
+                  <td class=" ">{{ $client_row['tax_reference'] or "" }}</td>
+                  <td class=" ">Yes</td>
+                  <td class=" ">{{ $client_row['res_address'] or "" }}</td>
+                </tr>
+                <?php $i++; ?>
+                @endforeach
+                
+              @endif
+              
+              
+              
+            </tbody>
+          </table>
+                         </div>
+        </div>
             
             
             

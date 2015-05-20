@@ -349,13 +349,13 @@ $(document).ready(function(){
                                 <div class="add_ch1">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Cash</label>
-                                    <input type="checkbox" name="vat_scheme_type" id="vat_scheme_type" value="cash" />
+                                    <input type="checkbox" name="vat_scheme_cash" value="cash" />
                                   </div>
                                 </div>
                                 <div class="add_ch2">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Accrual</label>
-                                    <input type="checkbox" name="vat_scheme_type" id="vat_scheme_type" value="accrual" />
+                                    <input type="checkbox" name="vat_scheme_accrual" value="accrual" />
                                   </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -551,11 +551,11 @@ $(document).ready(function(){
                             <div class="address_type" id="show_reg_office_addr">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Address Type</label>
-                              <input type="text" id="" class="form-control">
+                              <input type="text" id="cont_addr_type" name="cont_addr_type" class="form-control">
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Name</label>
-                              <input type="text" id="" class="form-control">
+                              <input type="text" id="cont_name" name="cont_name" class="form-control">
                             </div>
                             </div>
                              <div class="form-group">
@@ -569,23 +569,23 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">Address Line1</label>
-                              <input type="text" id="" class="form-control">
+                              <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control">
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Address Line2</label>
-                              <input type="text" id="" class="form-control">
+                              <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control">
                             </div>
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">City/Town</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="cont_city" name="cont_city" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">County</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="cont_county" name="cont_county" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -594,13 +594,13 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Postcode</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="cont_postcode" name="cont_postcode" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="cont_country" name="cont_country" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -608,49 +608,47 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Trading Address</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_trad_addr" id="cont_trad_addr" value="1" />
                                 </div>
                             
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Correspondence Address</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_corres_addr" id="cont_corres_addr" value="2" />
                                 </div>
                             
                              <div class="form-group">
                                   <label for="exampleInputPassword1">Banker</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_banker_addr" id="cont_banker_addr" value="3" />
                                 </div>
                             
                              <div class="form-group">
                                   <label for="exampleInputPassword1">Trading Address</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox"  name="cont_trad_addr" id="cont_trad_addr" value="4"/>
                                 </div>
                                 
                                  <div class="form-group">
                                   <label for="exampleInputPassword1">Old Accountants</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
                                 </div>
                                 
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Auditors</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
                                 </div>
                             
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Solicitors</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
                                 </div>
                             
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Others</label>
-                                  <input type="checkbox"/>
+                                  <input type="checkbox" name="cont_others_addr" id="cont_others_addr" value="8" />
                                 </div>
-                            
-                            
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">Notes</label>
-                             <textarea rows="3" class="form-control"></textarea>
+                             <textarea rows="3" name="notes" id="notes" class="form-control"></textarea>
                             </div>
 <div class="add_client_btn">
 <button class="btn btn-info open" data-id="4" type="button">Next</button>
@@ -687,6 +685,9 @@ $(document).ready(function(){
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+<input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
+<input type="hidden" id="search_client_type" name="search_client_type" value="ind">
+<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
     <td width="25%"><strong>Name</strong></td>
@@ -701,12 +702,13 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <div class="search_value" id="show_search_client"></div>
     </div>
 
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
 
     <div class="contain_type">
-      <select class="form-control" name="reltype" id="reltype">
+      <select class="form-control" name="rel_type_id" id="rel_type_id">
           @if(!empty($rel_types))
             @foreach($rel_types as $key=>$rel_row)
             <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
@@ -760,13 +762,13 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Bank Name</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="bank_name" name="bank_name" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Sort Code</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="bank_short_code" name="bank_short_code" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -775,13 +777,13 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Account Number</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="bank_acc_no" name="bank_acc_no" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="" class="form-control">
+                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -902,7 +904,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FILED</h4>
+        <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}

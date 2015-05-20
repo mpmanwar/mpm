@@ -1,5 +1,5 @@
 <?php
-class IndividualClient  extends Eloquent{
+class Client  extends Eloquent{
 	
 	public $timestamps = false;
 	
