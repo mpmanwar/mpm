@@ -29,6 +29,10 @@ Route::any('/individual/save-userdefined-field', array("as"=>"save_userdefined_f
 
 Route::any('/organisation/add-client', array("as"=>"add_organisation_client", "uses"=>'HomeController@add_organisation_client'));
 Route::any('/organisation/save-services', array("as"=>"save_services", "uses"=>'HomeController@save_services'));
+<<<<<<< HEAD
+=======
+Route::any('/organisation/insert-client-details', array("as"=>"insert_organisation_client", "uses"=>'HomeController@insert_organisation_client'));
+>>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
 ### Routes for Dashboard related URL's end ###
 
 ### Routes for practice details related URL's start ###

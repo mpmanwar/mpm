@@ -22,6 +22,7 @@ class HomeController extends BaseController {
 
 	public function organisation_clients(){
 		$data['title'] = "Organisation Clients List";
+		$data['client_details']	= OrganisationClient::where("user_id", "=", 1)->get();
 		return View::make('home.organisation.organisation_client', $data);
 	}
 
@@ -142,4 +143,64 @@ class HomeController extends BaseController {
         exit();
 	}
 
+<<<<<<< HEAD
+=======
+	public function insert_organisation_client()
+	{
+		$postData 			= Input::all();
+		$data 				= array();
+		
+		if(!empty($postData['client_code'])){
+			$this->save_client(1, 1, 'client_code', $postData['client_code']);
+		}
+		if(!empty($postData['business_type'])){
+			$this->save_client(1, 1, 'business_type', $postData['business_type']);
+		}
+		if(!empty($postData['business_name'])){
+			$this->save_client(1, 1, 'business_name', $postData['business_name']);
+		}
+		if(!empty($postData['registration_number'])){
+			$this->save_client(1, 1, 'registration_number', $postData['registration_number']);
+		}
+		if(!empty($postData['incorporation_date'])){
+			$this->save_client(1, 1, 'incorporation_date', $postData['incorporation_date']);
+		}
+		if(!empty($postData['registered_date'])){
+			$this->save_client(1, 1, 'registered_date', $postData['registered_date']);
+		}
+		if(!empty($postData['business_desc'])){
+			$this->save_client(1, 1, 'business_desc', $postData['business_desc']);
+		}
+		if(!empty($postData['made_up_date'])){
+			$this->save_client(1, 1, 'made_up_date', $postData['made_up_date']);
+		}
+		if(!empty($postData['next_ret_due'])){
+			$this->save_client(1, 1, 'next_ret_due', $postData['next_ret_due']);
+		}
+		if(!empty($postData['ch_auth_code'])){
+			$this->save_client(1, 1, 'ch_auth_code', $postData['ch_auth_code']);
+		}
+		if(!empty($postData['acc_ref_day']) && !empty($postData['acc_ref_month'])){
+			$this->save_client(1, 1, 'acc_ref_date', $postData['acc_ref_day'].'-'.$postData['acc_ref_month']);
+		}
+		if(!empty($postData['last_acc_madeup_date'])){
+			$this->save_client(1, 1, 'last_acc_madeup_date', $postData['last_acc_madeup_date']);
+		}
+		if(!empty($postData['next_acc_due'])){
+			$this->save_client(1, 1, 'next_acc_due', $postData['next_acc_due']);
+		}
+
+		return Redirect::to('/organisation/add-client'); 
+	}
+
+	public function save_client($user_id, $step_id, $field_name, $field_value)
+	{
+		$data['user_id']		= $user_id;
+		$data['step_id']		= $step_id;
+		$data['field_name']		= $field_name;
+		$data['field_value']	= $field_value;
+		OrganisationClient::insert($data);
+	}
+
+>>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
 }
