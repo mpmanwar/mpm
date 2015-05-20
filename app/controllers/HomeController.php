@@ -53,6 +53,29 @@ class HomeController extends BaseController {
 	public function insert_individual_client(){
 		
 		$postData = Input::all();
+        
+        
+        	$data['field_name'] 	= $postData['client_code'];
+            $data['user_id'] = 1;
+            
+            
+            $data['step_id'] = 1;
+            $data['field_value'] 	= $postData['client_code'];
+            
+            // StepsFieldsUser::insert($data);
+              print_r($data);die;
+            
+            $data['title'] 	= $postData['fname']." ". $postData['mname']." ". $postData['lname'];
+            $data['sex'] 	= $postData['sex'];
+            $data['dob'] 	= $postData['dob'];
+            $data['spouse_dob'] 	= $postData['spouse_dob'];
+            $data['nationality'] 	= $postData['nationality'];
+            $data['occupation'] 	= $postData['occupation']; 
+            
+           
+            StepsFieldsUser::insert($data);
+            
+        print_r($data);die;
 		print_r($postData);die;
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
