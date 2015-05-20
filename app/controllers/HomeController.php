@@ -94,7 +94,7 @@ class HomeController extends BaseController {
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::orderBy("step_id")->get();
 
-		$data['steps_fields_users'] = StepsFieldsUser::get();
+		$data['steps_fields_users'] = StepsFieldsAddedUser::get();
 		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
 		//$data['responsible_staff'] = User::select(DB::raw('concat(fname," ",lname) as full_name,user_id'))->lists('full_name', 'user_id');
 		//print_r($data['responsible_staff']);die;

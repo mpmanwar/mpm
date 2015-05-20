@@ -18040,3 +18040,7 @@ Stack trace:
 #29 /srv/www/mpm/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #30 /srv/www/mpm/public/index.php(49): Illuminate\Foundation\Application->run()
 #31 {main} [] []
+[2015-05-20 16:47:39] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'StepsFieldsAddedUser' not found' in /srv/www/mpm/app/controllers/HomeController.php:97
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
