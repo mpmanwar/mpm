@@ -123,22 +123,7 @@ $(function() {
       </div>
       <div class="practice_mid">
         <form>
-          <!--<div class="row box_border2 row_cont">
- <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">USERS <small>General Settings</small></h2>
-
- </div>
- <div class="col-xs-12 col-xs-6">
- <div class="setting_con">
- <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
- </div>
- </div>
- <div class="clearfix"></div>
-</div>-->
-          <!--<div class="add_usercon">
-<p><a href="#">What's this?</a></p>
-<button class="btn btn-success"><i class="fa fa-edit"></i> Add User</button>
-</div>-->
+          
           <div class="tabarea">
             <div class="tab_topcon">
               <div class="top_bts">
@@ -172,16 +157,7 @@ $(function() {
               <ul>
                 <li style="width:auto;"><input type="reset" value="Clear"></li>
                 <li><input type="text" name="search_client_text" id="search_client_text" placeholder="Search..." class="search_box"></li>
-              <!-- <li style="width:auto;"><input type="button" value="Clear"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li> -->
-             
+              
               </ul>
               
               <div class="clearfix"></div>
@@ -217,10 +193,10 @@ $(function() {
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
                   </td>
                   <td>{{ $i }}</td>
-                  <td>Staff</td>
+                  <td>{{ $client_row['staff_name'] or "" }}</td>
                   <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
                   <td><a href="#">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
-                  <td></td>
+                  <td>{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
                   <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
                   <td>{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>

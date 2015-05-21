@@ -26,8 +26,27 @@ class HomeController extends BaseController {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] 	= $client_id->client_id;
 
+				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//echo $this->last_query();//die;
+				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
+
 				if( isset($client_details) && count($client_details) >0 ){
 					foreach($client_details as $client_row){
+						//get staff name start
+						if(!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff"){
+							$staff_name	= User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
+							//echo $this->last_query();die;
+							$client_data[$i]['staff_name'] 	= $staff_name['fname']." ".$staff_name['lname'];
+						}
+						//get staff name end
+
+						//get business name start
+						if(!empty($relation_name['field_value'])){
+							$client_data[$i]['business_name'] 	= $relation_name['field_value'];
+						}
+						
+						//get business name end
+
 						if( isset($client_row['field_name']) && $client_row['field_name'] == "business_type" ){
 							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
 							$client_data[$i][$client_row['field_name']] 	= $business_type['name'];
@@ -37,13 +56,18 @@ class HomeController extends BaseController {
 						
 					}
 
+					
+
 					$i++;
 				}
+
 				
-				//echo $this->last_query();die;
+				
+				
 			}
 		}
 		$data['client_details']		= $client_data;
+		
 
 		//print_r($data);die;
 		return View::make('home.individual.individual_client', $data);
@@ -55,14 +79,24 @@ class HomeController extends BaseController {
 		$client_data 	= array();
 		$user_id 		= 1;
 		$client_ids		= Client::where("type", "=", "org")->where('user_id', '=', $user_id)->select("client_id")->get();
+
 		$i = 0;
 		if( isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $client_id){
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] 	= $client_id->client_id;
 
+				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//echo $this->last_query();//die;
+				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();
+
 				if( isset($client_details) && count($client_details) >0 ){
 					foreach($client_details as $client_row){
+						//get business name start
+						if(!empty($relation_name['field_value'])){
+							$client_data[$i]['staff_name'] 	= $relation_name['field_value'];
+						}
+
 						if( isset($client_row['field_name']) && $client_row['field_name'] == "business_type" ){
 							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
 							$client_data[$i][$client_row['field_name']] 	= $business_type['name'];
@@ -90,7 +124,8 @@ class HomeController extends BaseController {
 		$data['rel_types'] 			= RelationshipType::orderBy("relation_type_id")->get();
 		$data['marital_status'] 	= MaritalStatus::orderBy("marital_status_id")->get();
 		$data['titles'] 			= Title::orderBy("title_id")->get();
-		$data['tax_office'] 		= TaxOfficeAddress::select("office_id", "office_name")->get();
+		$data['tax_office'] 		= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
+		//$data['other_tax_office'] 	= TaxOfficeAddress::where("parent_id", "!=", '0')->select("office_id", "office_name")->get();
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::orderBy("step_id")->get();
 
@@ -107,6 +142,9 @@ class HomeController extends BaseController {
 		$data['org_types']		= OrganisationType::get();
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::orderBy("step_id")->get();
+		$data['staff_details']	= User::select("user_id", "fname", "lname")->get();
+		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
+		$data['services'] 		= TemplateType::get();
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
@@ -157,10 +195,12 @@ class HomeController extends BaseController {
 		if (!empty($postData['tax_reference'])) {
 			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_reference', $postData['tax_reference']);
 		}
-        if (!empty($postData['tax_office_id'])) {
+		if (!empty($postData['other_office_id'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_office_id', $postData['other_office_id']);
+		}else{
 			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
 		}
-        if (!empty($postData['tax_address'])) {
+		if (!empty($postData['tax_address'])) {
 			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_address', $postData['tax_address']);
 		}
         if (!empty($postData['tax_city'])) {
@@ -230,6 +270,25 @@ class HomeController extends BaseController {
 			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_skype', $postData['serv_skype']);
 		}
 //################ CONTACT INFORMATION SECTION END #################//
+
+//############# RELATIONSHIP START ###################//
+		if(!empty($postData['app_hidd_array'])){
+			$relData	= array();
+			$app_hidd_array = explode(",", $postData['app_hidd_array']);//print_r($app_hidd_array);
+			foreach($app_hidd_array as $row){
+				$rel_row = explode("mpm", $row);
+				$relData[] = array(
+					'client_id' => $client_id,
+					'appointment_with' => $rel_row['0'],
+					'appointment_date' => date("Y-m-d H:i:s", strtotime($rel_row['1'])),
+					'relationship_type_id' => $rel_row['2'],
+				);
+			}
+			ClientRelationship::insert($relData);
+
+		}	
+//#############RELATIONSHIP END ###################//
+
 
 //################ OTHERS SECTION END #################//
         $step_id=5;
@@ -305,15 +364,16 @@ class HomeController extends BaseController {
 	{
 		$rel_types	= array();
 		$user_id 	= 1;
-		$services 	= Input::get("services");
-		$staff		= Input::get("staff");
+		$service_id 	= Input::get("service_id");
+		$staff_id		= Input::get("staff_id");
 
 		if (Request::ajax()) {   
-			//$rel_types 	= RelationshipType::where("relation_type_id", "=", $type)->first();
+			$temp_types 	= TemplateType::where("template_type_id", "=", $service_id)->first();
+			$user 	= User::where("user_id", "=", $staff_id)->select("fname", "lname")->first();
 			//echo $this->last_query();die;         
         }
-        $rel_types['services'] 		= $services;
-        $rel_types['staff'] 		= $staff;
+        $rel_types['service'] 		= $temp_types['template_type_name'];
+        $rel_types['staff'] 		= $user['fname']." ".$user['lname'];
 
         echo json_encode($rel_types);
         exit();
@@ -326,9 +386,14 @@ class HomeController extends BaseController {
 		$search_value 	= Input::get("search_value");
 		$client_type 	= Input::get("client_type");
 		$client_ids		= Client::where("type", "=", $client_type)->where('user_id', '=', $user_id)->select("client_id")->get();
+		if($client_type == "org"){
+			$field_name = 'business_name';
+		}else{
+			$field_name = 'name';
+		}
 		$i = 0;
 		foreach($client_ids as $client_id){
-			$client_name = StepsFieldsClient::where("field_value", "like", '%'.$search_value.'%')->where('field_name', '=', 'name')->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
+			$client_name = StepsFieldsClient::where("field_value", "like", '%'.$search_value.'%')->where('field_name', '=', $field_name)->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
 			if( isset($client_name) && count($client_name) >0 ){
 				$client_details[$i]['client_id'] 	= $client_id->client_id;
 				$client_details[$i]['client_name'] 	= $client_name['field_value'];
@@ -433,17 +498,19 @@ class HomeController extends BaseController {
 			if(!empty($postData['tax_reference_type'])){
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_reference_type', $postData['tax_reference_type']);
 			}
-			if(!empty($postData['tax_district'])){
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_district', $postData['tax_district']);
+			if (!empty($postData['other_office_id'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_office_id', $postData['other_office_id']);
+			}else{
+				$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
 			}
-			if(!empty($postData['postal_address'])){
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'postal_address', $postData['postal_address']);
+			if(!empty($postData['tax_address'])){
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_address', $postData['tax_address']);
 			}
-			if(!empty($postData['post_code'])){
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'post_code', $postData['post_code']);
+			if(!empty($postData['tax_zipcode'])){
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_zipcode', $postData['tax_zipcode']);
 			}
-			if(!empty($postData['telephone'])){
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'telephone', $postData['telephone']);
+			if(!empty($postData['tax_telephone'])){
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_telephone', $postData['tax_telephone']);
 			}
 		}
 
@@ -565,6 +632,23 @@ class HomeController extends BaseController {
 		}
 //############# OTHERS INFORMATION END ###################//
 
+//############# SERVICES START ###################//
+		if(!empty($postData['serv_hidd_array'])){
+			$relData	= array();
+			$serv_hidd_array = explode(",", $postData['serv_hidd_array']);//print_r($serv_hidd_array);
+			foreach($serv_hidd_array as $row){
+				$rel_row = explode("mpm", $row);
+				$relData[] = array(
+					'client_id' => $client_id,
+					'service_id' => $rel_row['0'],
+					'staff_id' => $rel_row['1']
+				);
+			}
+			ClientService::insert($relData);
+
+		}	
+//############# SERVICES END ###################//
+
 
 
 		StepsFieldsClient::insert($arrData);
@@ -582,16 +666,5 @@ class HomeController extends BaseController {
 		return $data;
 		//OrganisationClient::insert($data);
 	}
-
-	/*public function save_client($user_id, $step_id, $field_name, $field_value)
-	{
-		$arrData = array( 
-	        "user_id"      => 1,
-	        "step_id"       => 1, 
-	        "field_name"       => 'client_code', 
-	        "field_value"    => $postData['client_code']
-	    );
-	    return $arrData;
-	}*/
 
 }

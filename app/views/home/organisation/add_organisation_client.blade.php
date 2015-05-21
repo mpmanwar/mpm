@@ -419,41 +419,62 @@ $(document).ready(function(){
                             <div class="clearfix"></div>
                             </div>
                                                        
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Tax District</label>
-                                   <select class="form-control" name="tax_district" id="tax_district">
-                                    <option value="Liverpool">Liverpool</option>
-                                    <option value="Newcastle Upon Tyne">Newcastle Upon Tyne</option>
-                                    <option value="Cardiff">Cardiff</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postal Address</label>
-                                  <input type="text" id="postal_address" name="postal_address" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" id="post_code" name="post_code" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Tel</label>
-                                  <input type="text" id="telephone" name="telephone" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                        </div>
+        <div class="twobox">
+          <div class="twobox_1">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tax District</label>
+               <select class="form-control" name="tax_office_id" id="tax_office_id">
+                  @if(!empty($tax_office))
+                    @foreach($tax_office as $key=>$office_row)
+                      @if($office_row->parent_id == 0)
+                        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+                      @endif
+                    @endforeach
+                  @endif
+                    
+                </select>
+            </div>
+          </div>
+          <div class="twobox_2" id="show_other_office" style="display:none;">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Other Address</label>
+              <select class="form-control" name="other_office_id" id="other_office_id">
+                <option value="">-- Select Address --</option>
+                  @if(!empty($tax_office))
+                    @foreach($tax_office as $key=>$office_row)
+                      @if($office_row->parent_id != 0)
+                        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+                      @endif
+                    @endforeach
+                  @endif
+                    
+                </select>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">Postal Address</label>
+            <textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $tax_office_by_id->address  or "" }}</textarea>
+          </div>
+
+          <div class="twobox">
+            <div class="twobox_1">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Post Code</label>
+                <input type="text" id="tax_zipcode" name="tax_zipcode" class="form-control">
+              </div>
+            </div>
+            <div class="twobox_2">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Telephone</label>
+                <input type="text" id="tax_telephone" name="tax_telephone" class="form-control">
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+      </div>
                             
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Paye Registered</label>
@@ -508,7 +529,7 @@ $(document).ready(function(){
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Tel</label>
+                                  <label for="exampleInputPassword1">Telephone</label>
                                   <input type="text" id="employer_telephone" name="employer_telephone" class="form-control">
                                 </div>
                               </div>
@@ -717,7 +738,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Save</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
   </div>
     
 
@@ -800,43 +821,44 @@ $(document).ready(function(){
                                     <div class="col-xs-6"></div>
                                     <div class="col-xs-6"></div>
                                   </div>
-                                  <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-                                    <tr>
-                                      <td><strong>Service</strong></td>
-                                      <td align="center"><strong>Staff</strong></td>
-                                      <td align="center"><strong>Action</strong></td>
-                                    </tr>
-                                    
-                                  </table>
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+    <tr>
+      <td><strong>Service</strong></td>
+      <td align="center"><strong>Staff</strong></td>
+      <td align="center"><strong>Action</strong></td>
+    </tr>
+    
+  </table>
 
 
 
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
-      <select class="form-control" name="services" id="services">
-        <option>Add New</option>
-        <option value="1">Audit</option>
-        <option value="2">Bookkeeping</option>
-        <option value="3">Annual Returns</option>
-        <option value="4">Statutory Accounts</option>
-        <option value="5">Vat Returns</option>
-        <option value="6">Management Accounts</option>
-        <option value="7">Corporation Tax</option>
-        <option value="8">Payroll</option>
-        <option value="9">P11Ds</option>
-        <option value="10">Sole Trade Annual Accounts</option>
-      </select>
+      <select class="form-control" name="service_id" id="service_id">
+                <option value=""> Add New </option>
+                  @if(!empty($services))
+                    @foreach($services as $key=>$service_row)
+                      <option value="{{ $service_row->template_type_id }}">{{ $service_row->template_type_name }}</option>
+                    @endforeach
+                  @endif
+                    
+                </select>
     </div>
 
     <div class="contain_type">
-      <select class="form-control" name="staff" id="staff">
-        <option value="Staff 1">Staff 1</option>
-        <option value="Staff 2">Staff 2</option>
-      </select>
+      <select class="form-control" name="staff_id" id="staff_id">
+        <option value="">None</option>
+          @if(!empty($staff_details))
+            @foreach($staff_details as $key=>$staff_row)
+            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+            @endforeach
+          @endif
+        </select>
       
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Save</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
   </div>
 
 

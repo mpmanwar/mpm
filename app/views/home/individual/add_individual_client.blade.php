@@ -307,37 +307,41 @@ $(document).ready(function(){
 <select class="form-control" id="tax_office_id" name="tax_office_id">
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
-    <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @if($office_row->parent_id == 0)
+        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @endif
     @endforeach
   @endif
-    <option value="other">Other</option>
+    
 </select>
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
 
+<div id="show_other_office" style="display:none;">
+  <div class="form-group">
+    <label for="exampleInputPassword1">Other Address</label>
+    <select class="form-control" id="other_office_id" name="other_office_id">
+      <option value="">-- Select Address --</option>
+      @if(!empty($tax_office))
+        @foreach($tax_office as $key=>$office_row)
+        @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+        @endforeach
+      @endif
+        
+    </select>
+  </div>
+</div>
+
 <div class="form-group">
 <label for="exampleInputPassword1">Address</label>
-<input type="text" id="tax_address" name="tax_address" value="{{ $tax_office_by_id->address  or "" }}" class="form-control">
+<textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $tax_office_by_id->address  or "" }}</textarea>
+
 </div>
 
-<div class="twobox">
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">Town/City</label>
-<input type="text" id="tax_city" name="tax_city" value="{{ $tax_office_by_id->city  or "" }}" class="form-control">
-</div>
-</div>
-
-<div class="twobox_2">
-<div class="form-group">
-<label for="exampleInputPassword1">State Region</label>
-<input type="text" id="tax_region" name="tax_region" value="{{ $tax_office_by_id->region  or "" }}" class="form-control">
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
 
 <div class="twobox">
 <div class="twobox_1">
@@ -609,7 +613,7 @@ $(document).ready(function(){
 <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
-    <td width="25%"><strong>Name</strong></td>
+    <td width="25%"><strong>Business Name</strong></td>
     <td width="30%" align="center"><strong>Appointment Date</strong></td>
     <td width="30%" align="center"><strong>Relationship Type</strong></td>
     <td width="15%" align="center"><strong>Action</strong></td>
@@ -621,6 +625,7 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <div class="search_value" id="show_search_client"></div>
     </div>
 
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
@@ -635,7 +640,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Save</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
   </div>
     
 
@@ -709,6 +714,7 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Responsible Staff</label>
 <select class="form-control" name="resp_staff" id="resp_staff">
+  <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
       <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>

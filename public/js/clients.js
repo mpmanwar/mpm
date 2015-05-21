@@ -91,12 +91,15 @@ $(".back").click(function(){
     
   $("#tax_office_id").change(function(){
     var office_id   = $(this).val();
-    if(office_id == "other"){
+    if(office_id == "4"){
       $('#tax_address').val("");
-      $('#tax_city').val("");
-      $('#tax_region').val("");
+      /*$('#tax_city').val("");
+      $('#tax_region').val("");*/
       $('#tax_zipcode').val("");
       $('#tax_telephone').val("");
+
+      $('#show_other_office').fadeIn();
+
     }else{
       $.ajax({
         type: "POST",
@@ -104,16 +107,35 @@ $(".back").click(function(){
         url: '/individual/get-office-address',
         data: { 'office_id' : office_id },
         success : function(resp){
-          //console.log(resp['address']);
+          $('#show_other_office').fadeOut();
+
           $('#tax_address').val(resp['address']);
-          $('#tax_city').val(resp['city']);
-          $('#tax_region').val(resp['region']);
+          /*$('#tax_city').val(resp['city']);
+          $('#tax_region').val(resp['region']);*/
           $('#tax_zipcode').val(resp['zipcode']);
           $('#tax_telephone').val(resp['telephone']);
         }
       });
 
     }
+  });
+
+  $("#other_office_id").change(function(){
+    var office_id   = $(this).val();
+    
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/individual/get-office-address',
+      data: { 'office_id' : office_id },
+      success : function(resp){
+        $('#tax_address').val(resp['address']);
+        $('#tax_zipcode').val(resp['zipcode']);
+        $('#tax_telephone').val(resp['telephone']);
+      }
+    });
+
+    
   });
 
   $("#relname").keyup(function(){

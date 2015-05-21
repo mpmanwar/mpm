@@ -210,34 +210,35 @@ $(function() {
             </tr>
         </thead>
 
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-                @if(!empty($client_details))
-                  @foreach($client_details as $key=>$client_row)
-                    
-                      <tr class="all_check">
-                        <td align="center">
-                          <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                        </td>
-                        <td>1</td>
-                        <td></td>
-                        <td>{{ $client_row['business_type'] or "" }}</td>
-                        <td>{{ $client_row['business_name'] or "" }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ $client_row['next_ret_due'] or "" }}</td>
-                        <td></td>
-                        <td>{{ $client_row['vat_stagger'] or "" }}</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    
-                  @endforeach
-                @endif
-              
-              
-            </tbody>
-          </table>
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
+            @if(!empty($client_details))
+                <?php $i=1; ?>
+                @foreach($client_details as $key=>$client_row)
+                
+                <tr class="all_check">
+                    <td align="center">
+                      <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                    </td>
+                    <td>{{ $i }}</td>
+                    <td>{{ $client_row['staff_name'] or "" }}</td>
+                    <td>{{ $client_row['business_type'] or "" }}</td>
+                    <td>{{ $client_row['business_name'] or "" }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ $client_row['next_ret_due'] or "" }}</td>
+                    <td></td>
+                    <td>{{ $client_row['vat_stagger'] or "" }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <?php $i++; ?>
+              @endforeach
+            @endif
+          
+          
+        </tbody>
+      </table>
 
         </div>
     </div>
