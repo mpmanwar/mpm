@@ -806,29 +806,6 @@ $(document).ready(function(){
                                       <td align="center"><strong>Staff</strong></td>
                                       <td align="center"><strong>Action</strong></td>
                                     </tr>
-                                    <!-- <tr>
-                                      <td>
-                                      <select class="form-control">
-                                          <option>Add New</option>
-                                          <option>Audit</option>
-                                          <option>Bookkeeping</option>
-                                          <option>Annual Returns</option>
-                                          <option>Statutory Accounts</option>
-                                          <option>Vat Returns</option>
-                                          <option>Management Accounts</option>
-                                          <option>Corporation Tax</option>
-                                          <option>Payroll</option>
-                                          <option>P11Ds</option>
-                                          <option>Sole Trade Annual Accounts</option>
-                                        </select>
-                                      </td>
-                                      <td align="center">
-                                      <select class="form-control">
-                                          <option>Option1</option>
-                                          <option>Option2</option>
-                                          </select></td>
-                                      <td align="center"><button class="btn btn-success">Save</button></td>
-                                    </tr> -->
                                     
                                   </table>
 
@@ -838,16 +815,16 @@ $(document).ready(function(){
     <div class="services_search">
       <select class="form-control" name="services" id="services">
         <option>Add New</option>
-        <option value="Audit">Audit</option>
-        <option value="Bookkeeping">Bookkeeping</option>
-        <option value="Annual Returns">Annual Returns</option>
-        <option value="Statutory Accounts">Statutory Accounts</option>
-        <option value="Vat Returns">Vat Returns</option>
-        <option value="Management Accounts">Management Accounts</option>
-        <option value="Corporation Tax">Corporation Tax</option>
-        <option value="Payroll">Payroll</option>
-        <option value="P11Ds">P11Ds</option>
-        <option value="Sole Trade Annual Accounts">Sole Trade Annual Accounts</option>
+        <option value="1">Audit</option>
+        <option value="2">Bookkeeping</option>
+        <option value="3">Annual Returns</option>
+        <option value="4">Statutory Accounts</option>
+        <option value="5">Vat Returns</option>
+        <option value="6">Management Accounts</option>
+        <option value="7">Corporation Tax</option>
+        <option value="8">Payroll</option>
+        <option value="9">P11Ds</option>
+        <option value="10">Sole Trade Annual Accounts</option>
       </select>
     </div>
 
@@ -925,6 +902,16 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="exampleInputPassword1">Field Name</label>
           <input type="text" id="field_name" name="field_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Subsection Name</label>
+          <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
+          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
         </div>
 
         <div class="form-group">

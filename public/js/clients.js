@@ -119,6 +119,7 @@ $(".back").click(function(){
   $("#relname").keyup(function(){
     var search_value  = $(this).val();
     var client_type   = $("#search_client_type").val();
+    //alert(search_value+", "+client_type);
     if(search_value == ""){
       $("#show_search_client").hide();
     }else{

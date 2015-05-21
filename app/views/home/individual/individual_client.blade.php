@@ -216,15 +216,15 @@ $(function() {
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
                   </td>
-                  <td class=" ">{{ $i }}</td>
-                  <td class="">Staff</td>
-                  <td class=" ">{{ $client_row['dob'] or "" }}</td>
-                  <td class=" "><a href="#">{{ $client_row['name'] or "" }}</a></td>
-                  <td class=" "></td>
-                  <td class=" ">{{ $client_row['ni_number'] or "" }}</td>
-                  <td class=" ">{{ $client_row['tax_reference'] or "" }}</td>
-                  <td class=" ">Yes</td>
-                  <td class=" ">{{ $client_row['res_address'] or "" }}</td>
+                  <td>{{ $i }}</td>
+                  <td>Staff</td>
+                  <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
+                  <td><a href="#">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
+                  <td></td>
+                  <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
+                  <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
+                  <td>{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
+                  <td>{{ (!empty($client_row['res_address'])) ? $client_row['res_address'] : '' }}</td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach

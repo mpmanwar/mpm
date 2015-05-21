@@ -604,6 +604,9 @@ $(document).ready(function(){
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+<input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
+<input type="hidden" id="search_client_type" name="search_client_type" value="org">
+<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
     <td width="25%"><strong>Name</strong></td>
@@ -613,17 +616,6 @@ $(document).ready(function(){
     
   </tr>
 
-  <!-- <tr>
-    <td width="25%">Anwar</td>
-    <td width="30%" align="center">10/20/2015</td>
-    <td width="30%" align="center">Any</td>
-    <td width="15%" align="center">
-      <a href=""><i class="fa fa-edit"></i></a>
-      <a href=""><i class="fa fa-trash-o fa-fw"></i></a> 
-      
-    </td>
-    
-  </tr> -->
   </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
@@ -634,7 +626,7 @@ $(document).ready(function(){
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
 
     <div class="contain_type">
-      <select class="form-control" name="reltype" id="reltype">
+      <select class="form-control" name="rel_type_id" id="rel_type_id">
           @if(!empty($rel_types))
             @foreach($rel_types as $key=>$rel_row)
             <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
@@ -666,7 +658,7 @@ $(document).ready(function(){
 
                   
                     </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                      
                     </div>
                   </div>
                 </div>
@@ -691,21 +683,21 @@ $(document).ready(function(){
 <div class="twobox_01">
 <div class="form-group">
 <label for="exampleInputPassword1">AML Checks Done</label>
-<input type="checkbox" name="others_check[]" value="AML Checks Done" />
+<input type="checkbox" name="aml_checks" value="1" />
 </div>
 </div>
 
 <div class="twobox_02">
 <div class="form-group">
 <label for="exampleInputPassword1">Acting?</label>
-<input type="checkbox" name="others_check[]" value="Acting" />
+<input type="checkbox" name="acting" value="1" />
 </div>
 </div>
 
 <div class="twobox_03">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Return Required</label>
-<input type="checkbox" name="others_check[]" value="Tax Return Required" />
+<input type="checkbox" name="tax_ret_req" value="1" />
 </div>
 </div>
 
@@ -804,7 +796,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FILED</h4>
+        <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
@@ -820,6 +812,16 @@ $(document).ready(function(){
               @endforeach
             @endif
           </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Subsection Name</label>
+          <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
+          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
         </div>
 
         <div class="form-group">

@@ -96,7 +96,7 @@ class HomeController extends BaseController {
 
 		$data['steps_fields_users'] = StepsFieldsAddedUser::get();
 		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
-		//$data['responsible_staff'] = User::select(DB::raw('concat(fname," ",lname) as full_name,user_id'))->lists('full_name', 'user_id');
+		
 		//print_r($data['responsible_staff']);die;
 		//echo $this->last_query();die;
 		return View::make('home.individual.add_individual_client', $data);
@@ -113,8 +113,151 @@ class HomeController extends BaseController {
 	public function insert_individual_client(){
 		
 		$postData = Input::all();
-		print_r($postData);die;
-		return View::make('home.organisation.add_organisation_client', $data);
+
+		$arrData = array();
+        $user_id = 1;
+        $client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
+            
+//################ GENERAL SECTION START #################//
+       $step_id = 1;
+        if (!empty($postData['client_code'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'client_code', $postData['client_code']);
+
+        }
+        
+        $fulltitle= Title::select("title_name")->where('title_id', $postData['title'])->first();
+        if (!empty($postData['title'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'name', $fulltitle['title_name']." " .$postData['fname']." ".$postData['mname']." ".$postData['lname']);
+		}
+		if (!empty($postData['sex'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'sex', $postData['sex']);
+		}
+        if (!empty($postData['dob'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'dob', $postData['dob']);
+		}
+        if (!empty($postData['marital_status'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'marital_status', $postData['marital_status']);
+		}
+        if (!empty($postData['spouse_dob'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'spouse_dob', $postData['spouse_dob']);
+		}
+        if (!empty($postData['nationality'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'nationality', $postData['nationality']);
+		}
+        if (!empty($postData['occupation'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'occupation', $postData['occupation']);
+		}
+//################ GENERAL SECTION END #################//
+
+//################ TAX SECTION START #################//
+        $step_id=2;
+        if (!empty($postData['ni_number'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'ni_number', $postData['ni_number']);
+		}
+		if (!empty($postData['tax_reference'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_reference', $postData['tax_reference']);
+		}
+        if (!empty($postData['tax_office_id'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
+		}
+        if (!empty($postData['tax_address'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_address', $postData['tax_address']);
+		}
+        if (!empty($postData['tax_city'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_city', $postData['tax_city']);
+		}
+        if (!empty($postData['tax_region'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_region', $postData['tax_region']);
+		}
+        if (!empty($postData['tax_zipcode'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_zipcode', $postData['tax_zipcode']);
+		}
+        if (!empty($postData['tax_telephone'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_telephone', $postData['tax_telephone']);
+		}
+        if (!empty($postData['tax_region'])) {
+			$arrData[] = $this->save_client($user_id,$client_id,$step_id, 'tax_region', $postData['tax_region']);
+		}
+//################ TAX INFORMATION SECTION END #################//
+
+//################ CONTACT INFORMATION SECTION START #################//
+        $step_id=3;
+        if (!empty($postData['res_address'])) {
+			$arrData[] = $this->save_client($user_id, $client_id,$step_id, 'res_address', $postData['res_address']);
+		}
+        if (!empty($postData['res_city'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'res_city', $postData['res_city']);
+		}
+        if (!empty($postData['res_region'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'res_region', $postData['res_region']);
+		}
+        if (!empty($postData['res_zipcode'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'res_zipcode', $postData['res_zipcode']);
+		}
+        if (!empty($postData['res_country'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'res_country', $postData['res_country']);
+		}
+        if (!empty($postData['serv_address'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_address', $postData['serv_address']);
+		}
+        if (!empty($postData['serv_city'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_city', $postData['serv_city']);
+		}
+        if (!empty($postData['serv_region'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_region', $postData['serv_region']);
+		}
+
+        if (!empty($postData['serv_zipcode'])) {
+			$arrData[] = $this->save_client($user_id,$client_id,$step_id, 'serv_zipcode', $postData['serv_zipcode']);
+		}
+        if (!empty($postData['serv_country'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_country', $postData['serv_country']);
+		}
+        if (!empty($postData['serv_telephone'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'telephone', $postData['serv_tele_code']." ".$postData['serv_telephone']);
+		}
+        if (!empty($postData['serv_mobile'])) {
+			$arrData[] = $this->save_client($user_id, $client_id,$step_id, 'mobile', $postData['serv_mobile_code']." " .$postData['serv_mobile']);
+
+        }
+        if (!empty($postData['serv_email'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_email', $postData['serv_email']);
+		}
+        if (!empty($postData['serv_website'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_website', $postData['serv_website']);
+		}
+        if (!empty($postData['serv_skype'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'serv_skype', $postData['serv_skype']);
+		}
+//################ CONTACT INFORMATION SECTION END #################//
+
+//################ OTHERS SECTION END #################//
+        $step_id=5;
+		/*if (!empty($postData['others_check'])) {
+            $checkbox_list='';
+            for ( $i=0; $i< count($postData['others_check']); $i++ ){
+                $checkbox_list=$checkbox_list.' '.$postData['others_check'][$i];
+            }
+            $arrData[] = $this->save_client($user_id,$client_id, $step_id, 'others_check', $checkbox_list);
+		}*/
+		if (!empty($postData['aml_checks'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'aml_checks', $postData['aml_checks']);
+		}
+		if (!empty($postData['acting'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'acting', $postData['acting']);
+		}
+		if (!empty($postData['tax_ret_req'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'tax_ret_req', $postData['tax_ret_req']);
+		}
+        if (!empty($postData['resp_staff'])) {
+			$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'resp_staff', $postData['resp_staff']);
+		}
+        
+		//print_r($arrData);die;
+        StepsFieldsClient::insert($arrData);
+		return Redirect::to('/individual/add-client'); 
+
+		//return View::make('home.organisation.add_organisation_client', $data);
 	}
 
 	public function get_office_address()
