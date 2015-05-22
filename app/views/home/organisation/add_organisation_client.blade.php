@@ -79,28 +79,7 @@ $(document).ready(function(){
       <div class="practice_mid">
         
           <div class="tabarea">
-            <!-- <div class="tab_topcon">
-              <div class="top_bts">
-                <ul style="padding:0;">
-                  <li>
-                    <button class="btn btn-info">PERMANENT DATA</button>
-                  </li>
-                  <li>
-                    <button class="btn btn-success">MANAGE ECSL</button>
-                  </li>
-                  <div class="clearfix"></div>
-                </ul>
-              </div>
-              <div class="top_search_con">
-                <table width="100%" border="0">
-                  <tr>
-                    <td>COUNT DOWN - DAYS</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="clearfix"></div>
-            </div> -->
+            
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
           <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">BUSINESS INFORMATION</a></li>
@@ -128,8 +107,7 @@ $(document).ready(function(){
                           <div class="small_box">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Client Code</label>
-                <input type="text" id="" class="form-control">
-
+                
                               <input type="text" id="client_code" name="client_code" class="form-control">
 
                             </div>
@@ -138,8 +116,6 @@ $(document).ready(function(){
                         <div class="twobox_2">
                           <div class="form-group">
                             <label for="exampleInputPassword1">Business Type</label>
-
-                              <select class="form-control">
 
                               <select class="form-control" name="business_type" id="business_type">
 
@@ -166,8 +142,6 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registration Number</label>
 
-                                  <input type="text" id="" class="form-control">
-
                                   <input type="text" id="registration_number" name="registration_number" class="form-control">
 
                                 </div>
@@ -182,8 +156,6 @@ $(document).ready(function(){
                               <div class="threebox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registered In</label>
-
-                                  <input type="text" id="incorporation_date" name="incorporation_date" class="form-control">
 
                                   <input type="text" id="registered_date" name="registered_date" class="form-control">
 
@@ -242,30 +214,18 @@ $(document).ready(function(){
           </div>
           <div class="clearfix"></div>
         </div>
+
         <div class="twobox">
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">CH Authentication Code</label>
 
-              <input type="text" id="" class="form-control">
-            </div>
-          </div>
-          <!-- <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Ch Authentication Code</label>
-              <input type="text" id="" class="form-control">
-            </div>
-          </div> -->
-
               <input type="text" id="ch_auth_code" name="ch_auth_code" class="form-control">
             </div>
           </div>
           
-
-          <div class="clearfix"></div>
         </div>
-
-      </div>
+          
 
 
         <div class="form-group">
@@ -280,11 +240,7 @@ $(document).ready(function(){
             <div class="clearfix"></div>
             <div class="accountbox1">
             <div class="form-group">
-
-              <select class="form-control">
-
               <select class="form-control" id="acc_ref_day" name="acc_ref_day">
-
                 @for($i = 1; $i<=31;$i++)
                 <option value="{{ $i }}">{{ $i }}</option>
                 @endfor
@@ -294,8 +250,6 @@ $(document).ready(function(){
 
           <div class="accountbox2">
             <div class="form-group">
-
-              <select class="form-control">
 
               <select class="form-control" name="acc_ref_month" id="acc_ref_month">
 
@@ -404,20 +358,6 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
-
-                                  <select class="form-control">
-                                    <option>Standered Vat Accounting Scheme</option>
-                                    <option>Annual Accounting</option>
-                                    <option>Flat Rate Scheme</option>
-                                    <option>Retails Schemes - Point of Sale</option>
-                                    <option>Retails Schemes - Apportionment Schemes</option>
-                                    <option>Retails Schemes - Direct Calculation Schemes</option>
-                                    <option>Retails Schemes - Caterers Catering</option>
-                                    <option>Retails Schemes - Chemist(retail pharmacist)</option>
-                                    <option>Margin Schemes</option>
-                                    <option>Tour operator's Margine Scheme</option>
-                                    <option>Others - specify</option>
-
                                   <select class="form-control" name="vat_scheme" id="vat_scheme">
                                     <option value="1">Standered Vat Accounting Scheme</option>
                                     <option value="2">Annual Accounting</option>
@@ -480,10 +420,7 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">EC Sales List</label>
-
-                              <input type="checkbox"/>
-
-                              <input type="checkbox" name="ec_scale_list" id="ec_scale_list"/>
+                                <input type="checkbox" name="ec_scale_list" id="ec_scale_list"/>
 
                             </div>
                             <div class="form-group">
@@ -508,16 +445,10 @@ $(document).ready(function(){
                             <div class="form-group">
                               <label for="exampleInputPassword1"></label>
 
-                              <select class="form-control">
-                                    <option>None</option>
-                                    <option>Income Tax</option>
-                                    <option>Corporation Tax</option>
-                                  </select>
-
                               <select class="form-control" name="tax_reference_type" id="tax_reference_type">
                                 <option value="none">None</option>
-                                <option value="Income Tax">Income Tax</option>
-                                <option value="Corporation Tax">Corporation Tax</option>
+                                <option value="Income">Income Tax</option>
+                                <option value="Corporation">Corporation Tax</option>
                               </select>
 
                             </div>
@@ -525,50 +456,9 @@ $(document).ready(function(){
                             <div class="clearfix"></div>
                             </div>
                                                        
-<<<<<<< HEAD
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Tax District</label>
 
-                                   <select class="form-control">
-                                    <option>Liverpool</option>
-                                    <option>Newcastle Upon Tyne</option>
-                                    <option>Cardiff</option>
+                            
 
-                                   <select class="form-control" name="tax_district" id="tax_district">
-                                    <option value="Liverpool">Liverpool</option>
-                                    <option value="Newcastle Upon Tyne">Newcastle Upon Tyne</option>
-                                    <option value="Cardiff">Cardiff</option>
-
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postal Address</label>
-                                  <input type="text" id="postal_address" name="postal_address" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" id="post_code" name="post_code" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Tel</label>
-                                  <input type="text" id="telephone" name="telephone" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                        </div>
-=======
         <div class="twobox">
           <div class="twobox_1">
             <div class="form-group">
@@ -624,22 +514,15 @@ $(document).ready(function(){
             </div>
             <div class="clearfix"></div>
           </div>
-      </div>
->>>>>>> ab7b362eebd43f179bcee93e591ab680341364dd
+      
+
                             
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">Paye Registered</label>
-                                  <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
-
-                                </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">PAYE Registered</label>
+            <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
+          </div>
                         
-                        <div id="show_paye_reg" style="display:none;">    
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">CIS Registered</label>
-                                  <input type="checkbox"/>
-                                </div>
-
-                                </div>
+                        
                         
                         <div id="show_paye_reg" style="display:none;">    
                             <div class="form-group">
@@ -661,9 +544,6 @@ $(document).ready(function(){
                                 <div class="form-group">
 
                                   <label for="exampleInputPassword1">PAYE Reference</label>
-                                  <input type="text" id="" class="form-control">
-
-                                  <label for="exampleInputPassword1">Paye Reference</label>
                                   <input type="text" id="paye_reference" name="paye_reference" class="form-control">
 
                                 </div>
@@ -680,8 +560,6 @@ $(document).ready(function(){
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Employer Office</label>
-
-                                  <input type="text" id="" class="form-control">
 
                                   <input type="text" id="employer_office" name="employer_office" class="form-control">
 
@@ -724,6 +602,7 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
+                  
                 <div id="step3" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
@@ -1012,14 +891,14 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-                <option value=""> Add New </option>
-                  @if(!empty($services))
-                    @foreach($services as $key=>$service_row)
-                      <option value="{{ $service_row->template_type_id }}">{{ $service_row->template_type_name }}</option>
-                    @endforeach
-                  @endif
-                    
-                </select>
+        <option value=""> Add New </option>
+          @if(!empty($services))
+            @foreach($services as $key=>$service_row)
+              <option value="{{ $service_row->template_type_id }}">{{ $service_row->template_type_name }}</option>
+            @endforeach
+          @endif
+            
+        </select>
     </div>
 
     <div class="contain_type">

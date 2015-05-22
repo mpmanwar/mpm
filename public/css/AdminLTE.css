@@ -405,8 +405,7 @@ body > .header .logo {
   font-weight: 500;
   height: 50px;
   display: block;
-  background-color: #fff; 
-  border-bottom: 1px solid #000;
+  background-color: #fff; border-bottom: 1px solid #000;
 }
 body > .header .logo .icon {
   margin-right: 10px;
@@ -2417,9 +2416,8 @@ Component: timeline
 */
 /* skin-blue navbar */
 .skin-blue .navbar {
-  background-color: #3c8dbc;border-bottom: 1px solid #000;
+  background-color: #3c8dbc; border-bottom: 1px solid #000;
 }
-
 .skin-blue .navbar .nav a {
   color: rgba(255, 255, 255, 0.8);
 }
@@ -3405,10 +3403,6 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> bf2207f0475bbabab6d7c23871f85990be512de2
 /*==========signup and login css==========*/
 .firstname_con {
   width: 100%;
@@ -3439,10 +3433,12 @@ fieldset[disabled] .btn-vk.active {
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
   -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-<<<<<<< HEAD
 }
 
 
-=======
-}
->>>>>>> bf2207f0475bbabab6d7c23871f85990be512de2
+
+
+
+
+
+
