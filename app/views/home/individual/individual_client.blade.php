@@ -179,20 +179,10 @@ $(function() {
               <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
                 <th>#</th>
-                <th><span id="staff_text">STAFF</span>
-                  <span id="staff_select" style="display:none;">
-                    <select id="first" name="first" style="width:100px;">
-                      @if(!empty($client_fields))
-                        @foreach($client_fields as $key=>$field_row)
-                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'resp_staff') ? 'selected':'' }} >{{ $field_row->field_label }}</option>
-                        @endforeach
-                      @endif
-                    </select>
-                  </span>
-                </th>
+                <th>STAFF</th>
                 <th><span id="dob_text">DOB</span>
                   <span id="dob_select" style="display:none;">
-                    <select id="second" style="width:100px;">
+                    <select id="four" style="width:100px;">
                       @if(!empty($client_fields))
                         @foreach($client_fields as $key=>$field_row)
                         <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'dob') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
@@ -201,20 +191,10 @@ $(function() {
                     </select>
                   </span>
                 </th>
-                <th><span id="name_text">CLIENT NAME</span>
-                  <span id="name_select" style="display:none;">
-                    <select id="third" style="width:100px;">
-                      @if(!empty($client_fields))
-                        @foreach($client_fields as $key=>$field_row)
-                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'name') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
-                        @endforeach
-                      @endif
-                    </select>
-                  </span>
-                </th>
+                <th>CLIENT NAME</th>
                 <th><span id="business_name_text">BUSINESS NAME</span>
                   <span id="business_name_select" style="display:none;">
-                    <select id="fourth" style="width:100px;">
+                    <select id="six" style="width:100px;">
                       @if(!empty($client_fields))
                         @foreach($client_fields as $key=>$field_row)
                         <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'business_name') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
@@ -224,10 +204,50 @@ $(function() {
                   </span>
                 </th>
                 
-                <th>NI NUMBER</th>
-                <th>TAX REFERENCE</th>
-                <th>ACTING</th>
-                <th>RESIDENTIAL ADDRESS</th>
+                <th><span id="ni_number_text">NI NUMBER</span>
+                  <span id="ni_number_select" style="display:none;">
+                    <select id="seven" name="first" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'ni_number') ? 'selected':'' }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="tax_reference_text">TAX REFERENCE</span>
+                  <span id="tax_reference_select" style="display:none;">
+                    <select id="eight" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'tax_reference') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="acting_text">ACTING</span>
+                  <span id="acting_select" style="display:none;">
+                    <select id="nine" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'acting') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="res_address_text">RESIDENTIAL ADDRESS</span>
+                  <span id="res_address_select" style="display:none;">
+                    <select id="ten" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'res_address') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
               
               </tr>
             </thead>

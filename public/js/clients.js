@@ -189,60 +189,88 @@ $(".back").click(function(){
     $("#edit_but").hide();
     $("#save_but").show();
 
-    $("#staff_select").show();
-    $("#staff_text").hide();
-
     $("#dob_select").show();
     $("#dob_text").hide();
 
-    $("#name_select").show();
-    $("#name_text").hide();
-
     $("#business_name_select").show();
     $("#business_name_text").hide();
+
+    $("#ni_number_select").show();
+    $("#ni_number_text").hide();
+
+    $("#tax_reference_select").show();
+    $("#tax_reference_text").hide();
+
+    $("#acting_select").show();
+    $("#acting_text").hide();
+
+    $("#res_address_select").show();
+    $("#res_address_text").hide();
 
   });
 
 //Individual table Save
   $("#save_but").click(function(){
 
-    var first_col   = $("#first").val();
-    var first       = first_col.split('-');
-    var second_col  = $("#second").val();
-    var second      = second_col.split('-');
-    var third_col   = $("#third").val();
-    var third       = third_col.split('-');
-    var fourth_col  = $("#fourth").val();
-    var fourth      = fourth_col.split('-');
+    var four_col    = $("#four").val();
+    var four        = four_col.split('-');
+    var six_col     = $("#six").val();
+    var six         = six_col.split('-');
+    var seven_col   = $("#seven").val();
+    var seven       = seven_col.split('-');
+    var eight_col   = $("#eight").val();
+    var eight       = eight_col.split('-');
+    var nine_col    = $("#nine").val();
+    var nine        = nine_col.split('-');
+    var ten_col     = $("#ten").val();
+    var ten         = ten_col.split('-');
 
     $.ajax({
       type: "POST",
       dataType: "json",
       url: '/individual/show-new-tables',
-      data: { 'first' : first[0], 'second' : second[0], 'third' : third[0], 'fourth' : fourth[0] },
+      data: { 'four' : four[0], 'six' : six[0], 'seven' : seven[0], 'eight' : eight[0], 'nine' : nine[0], 'ten' : ten[0] },
       success : function(resp){
 
-        var content = 'Anwar';
+
+
+        var content = '';
+        var i = 1;
+        $.each(resp, function(key){//alert(resp[key].ni_number)
+          content += '<tr class="all_check"><td align="center"><input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/></td><td>'+i+'</td><td>'+resp[key].staff_name+'</td><td>'+resp[key].four[0]+'</td><td><a href="#">'+resp[key].name+'</a></td><td>'+resp[key].six[0]+'</td><td>'+resp[key].seven[0]+'</td><td>'+resp[key].eight[0]+'</td><td>'+resp[key].nine[0]+'</td><td>'+resp[key].ten[0]+'</td></tr>';
+          //console.log(resp[key].client_name); 
+          i++;
+        });
+
         $("#example2 tbody").html(content);
 
         $("#edit_but").show();
         $("#save_but").hide();
 
-        $("#staff_select").hide();
-        $("#staff_text").show();
-        $("#staff_text").html(first[1]);
-
         $("#dob_select").hide();
         $("#dob_text").show();
-        $("#dob_text").html(second[1]);
-
-        $("#name_select").hide();
-        $("#name_text").show();
-        $("#name_text").html(third[1]);
+        $("#dob_text").html(four[1]);
 
         $("#business_name_select").hide();
         $("#business_name_text").show();
-        $("#business_name_text").html(fourth[1]);
+        $("#business_name_text").html(six[1]);
+
+        $("#ni_number_select").hide();
+        $("#ni_number_text").show();
+        $("#ni_number_text").html(seven[1]);
+
+        $("#tax_reference_select").hide();
+        $("#tax_reference_text").show();
+        $("#tax_reference_text").html(eight[1]);
+
+        $("#acting_select").hide();
+        $("#acting_text").show();
+        $("#acting_text").html(nine[1]);
+
+        $("#res_address_select").hide();
+        $("#res_address_text").show();
+        $("#res_address_text").html(ten[1]);
+
 
       }
     });

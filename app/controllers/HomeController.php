@@ -679,10 +679,12 @@ class HomeController extends BaseController {
 		$data 			= array();
 		$postData 		= Input::all();
 
-		$first	=	$postData['first'];
-		$second	=	$postData['second'];
-		$third	=	$postData['third'];
-		$fourth	=	$postData['fourth'];
+		$four	=	$postData['four'];
+		$six	=	$postData['six'];
+		$seven	=	$postData['seven'];
+		$eight	=	$postData['eight'];
+		$nine	=	$postData['nine'];
+		$ten	=	$postData['ten'];
 
 		$client_data 	= array();
 		$user_id 		= 1;
@@ -700,23 +702,33 @@ class HomeController extends BaseController {
 				if( isset($client_details) && count($client_details) >0 ){
 					foreach($client_details as $client_row){
 
+						//get staff name start
+						if(!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff"){
+							$staff_name	= User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
+							//echo $this->last_query();die;
+							$client_data[$i]['staff_name'] 	= $staff_name['fname']." ".$staff_name['lname'];
+						}
+						//get staff name end
+
 						//get business name start
 						if(!empty($relation_name['field_value']) && in_array("business_name", $postData)){
 							$client_data[$i]['business_name'] 	= $relation_name['field_value'];
 						}
 						//get business name end
+
+						//get client name start
+						if(!empty($client_row['field_name']) && $client_row['field_name'] == "name"){
+							$client_data[$i][$client_row['field_name']] 	= $client_row->field_value;
+						}
+						//get client name end
 						
-						if($client_row['field_name'] == $first || $client_row['field_name'] == $second || $client_row['field_name'] == $third || $client_row['field_name'] == $fourth )
+						if($client_row['field_name'] == $four || $client_row['field_name'] == $six || $client_row['field_name'] == $seven || $client_row['field_name'] == $eight|| $client_row['field_name'] == $nine || $client_row['field_name'] == $ten )
 						{
-							//get staff name start
-							if($client_row['field_name'] == "resp_staff" && in_array("resp_staff", $postData)){
-								$staff_name	= User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
-								//echo $this->last_query();die;
-								$client_data[$i]['staff_name'] 	= $staff_name['fname']." ".$staff_name['lname'];
-							}else{
-								$client_data[$i][$client_row['field_name']] 	= $client_row->field_value;
+							$client_data[$i][$client_row['field_name']] 	= $client_row->field_value;
+
+							if(!empty($client_row['field_name'] == "acting") && in_array("acting", $postData)){
+								$client_data[$i]['acting'] 	= "Yes";
 							}
-							
 							
 						}
 					}
@@ -726,8 +738,8 @@ class HomeController extends BaseController {
 		}
 
 
-		print_r($client_data);die;
-		echo json_encode($data);
+		//print_r($client_data);die;
+		echo json_encode($client_data);
         exit();
 	}
 

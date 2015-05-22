@@ -190,14 +190,6 @@ $(document).ready(function(){
                             </div>
 
 
-                            <h3 class="box-title">Annual Returns</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Annual Returns</label>
-                              <input type="checkbox" name="ann_ret_check" id="ann_ret_check" value="1" />
-                            </div>
-
-
-
       <div id="show_ann_ret" style="display:none;">
         <div class="twobox">
           <div class="twobox_1">
@@ -223,7 +215,7 @@ $(document).ready(function(){
               <input type="text" id="ch_auth_code" name="ch_auth_code" class="form-control">
             </div>
           </div>
-          
+          <div class="clearfix"></div>
         </div>
           
 
