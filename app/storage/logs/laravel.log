@@ -23012,3 +23012,7 @@ Stack trace:
 #0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
 #1 {main} [] []
 >>>>>>> bf2207f0475bbabab6d7c23871f85990be512de2
+[2015-05-22 14:57:59] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Client' not found' in /srv/www/mpm/app/controllers/HomeController.php:82
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
