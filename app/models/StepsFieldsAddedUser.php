@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 class StepsFieldsAddedUser  extends Eloquent{
 	
@@ -5,3 +6,13 @@ class StepsFieldsAddedUser  extends Eloquent{
 	
 
 }
+=======
+<?php
+class StepsFieldsAddedUser  extends Eloquent{
+	
+	//protected $table = 'practice_details';
+	public $timestamps = false;
+	
+
+}
+>>>>>>> ab7b362eebd43f179bcee93e591ab680341364dd

@@ -1,7 +1,8 @@
 <?php
-class Client  extends Eloquent{
+class ClientService  extends Eloquent{
 	
 	public $timestamps = false;
+	
 	
 
 }

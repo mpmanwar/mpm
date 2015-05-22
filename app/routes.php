@@ -32,6 +32,8 @@ Route::any('/organisation/save-services', array("as"=>"save_services", "uses"=>'
 
 Route::any('/organisation/insert-client-details', array("as"=>"insert_organisation_client", "uses"=>'HomeController@insert_organisation_client'));
 
+Route::any('/search/search-client', array("as"=>"search_client", "uses"=>'HomeController@search_client'));
+
 ### Routes for Dashboard related URL's end ###
 
 ### Routes for practice details related URL's start ###

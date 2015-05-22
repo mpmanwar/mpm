@@ -123,22 +123,7 @@ $(function() {
       </div>
       <div class="practice_mid">
         <form>
-          <!--<div class="row box_border2 row_cont">
- <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">USERS <small>General Settings</small></h2>
-
- </div>
- <div class="col-xs-12 col-xs-6">
- <div class="setting_con">
- <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
- </div>
- </div>
- <div class="clearfix"></div>
-</div>-->
-          <!--<div class="add_usercon">
-<p><a href="#">What's this?</a></p>
-<button class="btn btn-success"><i class="fa fa-edit"></i> Add User</button>
-</div>-->
+          
           <div class="tabarea">
             <div class="tab_topcon">
               <div class="top_bts">
@@ -172,16 +157,7 @@ $(function() {
               <ul>
                 <li style="width:auto;"><input type="reset" value="Clear"></li>
                 <li><input type="text" name="search_client_text" id="search_client_text" placeholder="Search..." class="search_box"></li>
-              <!-- <li style="width:auto;"><input type="button" value="Clear"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li>
-              <li><input type="text" class="s_box"></li> -->
-             
+              
               </ul>
               
               <div class="clearfix"></div>
@@ -192,87 +168,51 @@ $(function() {
               <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
                 <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
                         
-                        <thead>
-                          <tr role="row">
-                            <th><input type="checkbox" id="allCheckSelect"/></th>
-                            <th>#</th>
-                            <th>STAFF</th>
-                            <th>DOB</th>
-                            <th>CLIENT NAME</th>
-                            <th>BUSINESS NAME</th>
-                            <th>NI NUMBER</th>
-                            <th>TAX REFERENCE</th>
-                            <th>ACTING</th>
-                            <th>RESIDENTIAL ADDRESS</th>
-                          
-                          </tr>
-                        </thead>
+            <thead>
+              <tr role="row">
+                <th><input type="checkbox" id="allCheckSelect"/></th>
+                <th>#</th>
+                <th>STAFF</th>
+                <th>DOB</th>
+                <th>CLIENT NAME</th>
+                <th>BUSINESS NAME</th>
+                <th>NI NUMBER</th>
+                <th>TAX REFERENCE</th>
+                <th>ACTING</th>
+                <th>RESIDENTIAL ADDRESS</th>
+              
+              </tr>
+            </thead>
 
-                        <tbody role="alert" aria-live="polite" aria-relevant="all">
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">1</td>
-                            
-                            <td class="">Staff</td>
-                            <td class=" ">23-04-2008</td>
-                            <td class=" "><a href="#">2607 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">Yes</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                                <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="2" id="client_delete_id"/>
-                            </td>
-                           <td class=" ">2</td>
-                            
-                            <td class=" ">Client</td>
-                            <td class=" ">30-04-2008</td>
-                            <td class=" "><a href="#">2207 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">No</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="3" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">3</td>
-                            
-                            <td class=" ">Admin</td>
-                            <td class=" ">27-04-2008</td>
-                            <td class=" "><a href="#">2307 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">Yes</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="4" id="client_delete_id"/>
-                            </td>
-                            <td class=" ">4</td>
-                            
-                            <td class=" ">Staff</td>
-                            <td class=" ">30-04-2008</td>
-                            <td class=" "><a href="#">2603 LTD.</a></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class=" ">No</td>
-                            <td class=" ">&nbsp;</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                                           <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">? Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next ? </a></li></ul></div></div></div>--></div>
-                                </div>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+              @if(!empty($client_details))
+              <?php $i=1; ?>
+              @foreach($client_details as $key=>$client_row)
+                <tr class="all_check">
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
+                  </td>
+                  <td>{{ $i }}</td>
+                  <td>{{ $client_row['staff_name'] or "" }}</td>
+                  <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
+                  <td><a href="#">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
+                  <td>{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
+                  <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
+                  <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
+                  <td>{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
+                  <td>{{ (!empty($client_row['res_address'])) ? $client_row['res_address'] : '' }}</td>
+                </tr>
+                <?php $i++; ?>
+                @endforeach
+                
+              @endif
+              
+              
+              
+            </tbody>
+          </table>
+                         </div>
+        </div>
             
             
             

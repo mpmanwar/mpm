@@ -1,7 +1,6 @@
 <?php
-class OrganizationType  extends Eloquent{
+class OrganisationType  extends Eloquent{
 	
-	protected $table = 'organisation_types';
 	public $timestamps = false;
 
 	public static function getAllOrganizationTypeById( $id )

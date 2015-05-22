@@ -307,37 +307,41 @@ $(document).ready(function(){
 <select class="form-control" id="tax_office_id" name="tax_office_id">
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
-    <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @if($office_row->parent_id == 0)
+        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @endif
     @endforeach
   @endif
-    <option value="other">Other</option>
+    
 </select>
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
 
+<div id="show_other_office" style="display:none;">
+  <div class="form-group">
+    <label for="exampleInputPassword1">Other Address</label>
+    <select class="form-control" id="other_office_id" name="other_office_id">
+      <option value="">-- Select Address --</option>
+      @if(!empty($tax_office))
+        @foreach($tax_office as $key=>$office_row)
+        @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+        @endforeach
+      @endif
+        
+    </select>
+  </div>
+</div>
+
 <div class="form-group">
 <label for="exampleInputPassword1">Address</label>
-<input type="text" id="tax_address" name="tax_address" value="{{ $tax_office_by_id->address  or "" }}" class="form-control">
+<textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $tax_office_by_id->address  or "" }}</textarea>
+
 </div>
 
-<div class="twobox">
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">Town/City</label>
-<input type="text" id="tax_city" name="tax_city" value="{{ $tax_office_by_id->city  or "" }}" class="form-control">
-</div>
-</div>
-
-<div class="twobox_2">
-<div class="form-group">
-<label for="exampleInputPassword1">State Region</label>
-<input type="text" id="tax_region" name="tax_region" value="{{ $tax_office_by_id->region  or "" }}" class="form-control">
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
 
 <div class="twobox">
 <div class="twobox_1">
@@ -604,37 +608,30 @@ $(document).ready(function(){
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+<input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
+<input type="hidden" id="search_client_type" name="search_client_type" value="org">
+<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
-    <td width="25%"><strong>Name</strong></td>
+    <td width="25%"><strong>Business Name</strong></td>
     <td width="30%" align="center"><strong>Appointment Date</strong></td>
     <td width="30%" align="center"><strong>Relationship Type</strong></td>
     <td width="15%" align="center"><strong>Action</strong></td>
     
   </tr>
 
-  <!-- <tr>
-    <td width="25%">Anwar</td>
-    <td width="30%" align="center">10/20/2015</td>
-    <td width="30%" align="center">Any</td>
-    <td width="15%" align="center">
-      <a href=""><i class="fa fa-edit"></i></a>
-      <a href=""><i class="fa fa-trash-o fa-fw"></i></a> 
-      
-    </td>
-    
-  </tr> -->
   </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <div class="search_value" id="show_search_client"></div>
     </div>
 
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
 
     <div class="contain_type">
-      <select class="form-control" name="reltype" id="reltype">
+      <select class="form-control" name="rel_type_id" id="rel_type_id">
           @if(!empty($rel_types))
             @foreach($rel_types as $key=>$rel_row)
             <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
@@ -643,7 +640,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Save</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
   </div>
     
 
@@ -666,7 +663,7 @@ $(document).ready(function(){
 
                   
                     </div>
-                      <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>-->
+                      
                     </div>
                   </div>
                 </div>
@@ -691,21 +688,21 @@ $(document).ready(function(){
 <div class="twobox_01">
 <div class="form-group">
 <label for="exampleInputPassword1">AML Checks Done</label>
-<input type="checkbox" name="others_check[]" value="AML Checks Done" />
+<input type="checkbox" name="aml_checks" value="1" />
 </div>
 </div>
 
 <div class="twobox_02">
 <div class="form-group">
 <label for="exampleInputPassword1">Acting?</label>
-<input type="checkbox" name="others_check[]" value="Acting" />
+<input type="checkbox" name="acting" value="1" />
 </div>
 </div>
 
 <div class="twobox_03">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Return Required</label>
-<input type="checkbox" name="others_check[]" value="Tax Return Required" />
+<input type="checkbox" name="tax_ret_req" value="1" />
 </div>
 </div>
 
@@ -717,6 +714,7 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Responsible Staff</label>
 <select class="form-control" name="resp_staff" id="resp_staff">
+  <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
       <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
@@ -804,7 +802,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FILED</h4>
+        <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
@@ -820,6 +818,16 @@ $(document).ready(function(){
               @endforeach
             @endif
           </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Subsection Name</label>
+          <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
+          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
         </div>
 
         <div class="form-group">

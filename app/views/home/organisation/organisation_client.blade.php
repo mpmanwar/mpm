@@ -188,85 +188,60 @@ $(function() {
           
             </div>
             
-            <div class="box-body table-responsive">
-              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-                <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
-                        
-                    <thead>
-                        <tr role="row">
-                            <th><input type="checkbox" id="allCheckSelect"/></th>
-                            <th>#</th>
-                            <th>STAFF</th>
-                            <th>BUSINESS TYPE</th>
-                            <th>BUSINESS NAME</th>
-                            <th>Year End</th>
-                            <th>Deadline</th>
-                            <th>Count Down</th>
-                            <th>Next Return Due</th>
-                            <th>Count Down</th>
-                            <th>VAT Stagger</th>
-                            <th>CT Return Deadline</th>
-                            <th>Count Down</th>
-                        </tr>
-                    </thead>
+<div class="box-body table-responsive">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+    <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
+            
+        <thead>
+            <tr role="row">
+                <th><input type="checkbox" id="allCheckSelect"/></th>
+                <th>#</th>
+                <th>STAFF</th>
+                <th>BUSINESS TYPE</th>
+                <th>BUSINESS NAME</th>
+                <th>Year End</th>
+                <th>Deadline</th>
+                <th>Count Down</th>
+                <th>Next Return Due</th>
+                <th>Count Down</th>
+                <th>VAT Stagger</th>
+                <th>CT Return Deadline</th>
+                <th>Count Down</th>
+            </tr>
+        </thead>
 
-                        <tbody role="alert" aria-live="polite" aria-relevant="all">
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                            </td>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Jan-April - Jul-Oct</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                            </td>
-                            <td>2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Jan-April - Jul-Oct</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
+            @if(!empty($client_details))
+                <?php $i=1; ?>
+                @foreach($client_details as $key=>$client_row)
+                
+                <tr class="all_check">
+                    <td align="center">
+                      <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                    </td>
+                    <td>{{ $i }}</td>
+                    <td>{{ $client_row['staff_name'] or "" }}</td>
+                    <td>{{ $client_row['business_type'] or "" }}</td>
+                    <td>{{ $client_row['business_name'] or "" }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ $client_row['next_ret_due'] or "" }}</td>
+                    <td></td>
+                    <td>{{ $client_row['vat_stagger'] or "" }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <?php $i++; ?>
+              @endforeach
+            @endif
+          
+          
+        </tbody>
+      </table>
 
-                          <tr class="all_check">
-                            <td align="center">
-                              <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
-                            </td>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Jan-April - Jul-Oct</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                                           <!--<div class="row"><div class="col-xs-6"><div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div></div><div class="col-xs-6"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">? Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next ? </a></li></ul></div></div></div>--></div>
-                                </div>
+        </div>
+    </div>
             
             
             
