@@ -68,6 +68,7 @@ class HomeController extends BaseController {
 		}
 		$data['client_details']		= $client_data;
 		
+		$data['client_fields']		= ClientField::where("field_type", "=", "ind")->get();
 
 		//print_r($data);die;
 		return View::make('home.individual.individual_client', $data);
@@ -113,6 +114,8 @@ class HomeController extends BaseController {
 			}
 		}
 		$data['client_details']		= $client_data;
+
+		$data['client_fields']		= ClientField::where("field_type", "=", "org")->get();
 
 		//print_r($data);die;
 		
@@ -665,6 +668,63 @@ class HomeController extends BaseController {
 		$data['field_value']	= $field_value;
 		return $data;
 		//OrganisationClient::insert($data);
+	}
+
+	public function show_new_table()
+	{
+		$data 			= array();
+		$postData 		= Input::all();
+
+		$first	=	$postData['first'];
+		$second	=	$postData['second'];
+		$third	=	$postData['third'];
+		$fourth	=	$postData['fourth'];
+
+		$client_data 	= array();
+		$user_id 		= 1;
+		$client_ids		= Client::where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
+		$i = 0;
+		if( isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $client_id){
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+				//$client_data[$i]['client_id'] 	= $client_id->client_id;
+
+				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//echo $this->last_query();//die;
+				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
+
+				if( isset($client_details) && count($client_details) >0 ){
+					foreach($client_details as $client_row){
+
+						//get business name start
+						if(!empty($relation_name['field_value']) && in_array("business_name", $postData)){
+							$client_data[$i]['business_name'] 	= $relation_name['field_value'];
+						}
+						//get business name end
+						
+						if($client_row['field_name'] == $first || $client_row['field_name'] == $second || $client_row['field_name'] == $third || $client_row['field_name'] == $fourth )
+						{
+							//get staff name start
+							if($client_row['field_name'] == "resp_staff" && in_array("resp_staff", $postData)){
+								$staff_name	= User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
+								//echo $this->last_query();die;
+								$client_data[$i]['staff_name'] 	= $staff_name['fname']." ".$staff_name['lname'];
+							}else{
+								$client_data[$i][$client_row['field_name']] 	= $client_row->field_value;
+							}
+							
+							
+						}
+					}
+				}
+				$i++;
+			}
+		}
+
+
+		print_r($client_data);die;
+		echo json_encode($data);
+        exit();
 	}
 
 }

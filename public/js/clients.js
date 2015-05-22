@@ -181,6 +181,77 @@ $(".back").click(function(){
         $("#show_search_client").hide();
       }
   });
+
+
+
+//Individual table edited
+  $("#edit_but").click(function(){
+    $("#edit_but").hide();
+    $("#save_but").show();
+
+    $("#staff_select").show();
+    $("#staff_text").hide();
+
+    $("#dob_select").show();
+    $("#dob_text").hide();
+
+    $("#name_select").show();
+    $("#name_text").hide();
+
+    $("#business_name_select").show();
+    $("#business_name_text").hide();
+
+  });
+
+//Individual table Save
+  $("#save_but").click(function(){
+
+    var first_col   = $("#first").val();
+    var first       = first_col.split('-');
+    var second_col  = $("#second").val();
+    var second      = second_col.split('-');
+    var third_col   = $("#third").val();
+    var third       = third_col.split('-');
+    var fourth_col  = $("#fourth").val();
+    var fourth      = fourth_col.split('-');
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/individual/show-new-tables',
+      data: { 'first' : first[0], 'second' : second[0], 'third' : third[0], 'fourth' : fourth[0] },
+      success : function(resp){
+
+        var content = 'Anwar';
+        $("#example2 tbody").html(content);
+
+        $("#edit_but").show();
+        $("#save_but").hide();
+
+        $("#staff_select").hide();
+        $("#staff_text").show();
+        $("#staff_text").html(first[1]);
+
+        $("#dob_select").hide();
+        $("#dob_text").show();
+        $("#dob_text").html(second[1]);
+
+        $("#name_select").hide();
+        $("#name_text").show();
+        $("#name_text").html(third[1]);
+
+        $("#business_name_select").hide();
+        $("#business_name_text").show();
+        $("#business_name_text").html(fourth[1]);
+
+      }
+    });
+
+
+    
+
+
+  });
   
 
 

@@ -1,7 +1,8 @@
 <header class="header">
             <a href="/" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                My Practice Manager
+               <!--  My Practice Manager -->
+               <img src="{{ URL :: asset('img/logo.png') }}" class="" alt="" width="100"/>
                
             </a>
             <!-- Header Navbar: style can be found in header.less -->

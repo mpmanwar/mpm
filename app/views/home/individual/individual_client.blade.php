@@ -13,7 +13,7 @@
 <!-- page script -->
 <script type="text/javascript">
 $(function() {
-    $('#example2').dataTable({
+    var table = $('#example2').dataTable({
         "bPaginate": false,
         "bLengthChange": false,
         "bFilter": false,
@@ -27,17 +27,21 @@ $(function() {
         "aoColumns":[
             {"bSortable": false},
             {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": false},
-            {"bSortable": true},
             {"bSortable": false},
             {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
             {"bSortable": false}
         ]
 
+        //"aoColumnDefs": [{ "bVisible": false, "aTargets": [2] }]
+
     });
+
+
 });
 
 </script>
@@ -115,7 +119,10 @@ $(function() {
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
             <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
+
+              <button class="btn btn-warning" type="button" id="edit_but"><i class="fa fa-edit"></i> Edit</button>
+              <button class="btn btn-success" type="button" style="display:none;" id="save_but">Save</button>
+
             </li>
             <div class="clearfix"></div>
           </ul>
@@ -172,10 +179,51 @@ $(function() {
               <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
                 <th>#</th>
-                <th>STAFF</th>
-                <th>DOB</th>
-                <th>CLIENT NAME</th>
-                <th>BUSINESS NAME</th>
+                <th><span id="staff_text">STAFF</span>
+                  <span id="staff_select" style="display:none;">
+                    <select id="first" name="first" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'resp_staff') ? 'selected':'' }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="dob_text">DOB</span>
+                  <span id="dob_select" style="display:none;">
+                    <select id="second" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'dob') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="name_text">CLIENT NAME</span>
+                  <span id="name_select" style="display:none;">
+                    <select id="third" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'name') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                <th><span id="business_name_text">BUSINESS NAME</span>
+                  <span id="business_name_select" style="display:none;">
+                    <select id="fourth" style="width:100px;">
+                      @if(!empty($client_fields))
+                        @foreach($client_fields as $key=>$field_row)
+                        <option value="{{ $field_row->field_name }}-{{ $field_row->field_label }}" {{ ($field_row->field_name == 'business_name') ? 'selected':"" }} >{{ $field_row->field_label }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </span>
+                </th>
+                
                 <th>NI NUMBER</th>
                 <th>TAX REFERENCE</th>
                 <th>ACTING</th>
