@@ -726,7 +726,7 @@ class HomeController extends BaseController {
 						{
 							$client_data[$i][$client_row['field_name']] 	= $client_row->field_value;
 
-							if(!empty($client_row['field_name'] == "acting") && in_array("acting", $postData)){
+							if( ($client_row['field_name'] == "acting") && in_array("acting", $postData)){
 								$client_data[$i]['acting'] 	= "Yes";
 							}
 							
