@@ -1,5 +1,5 @@
 <?php
-class Country extends Eloquent {
+class Registration extends Eloquent {
 
 	public $timestamps = false;
 

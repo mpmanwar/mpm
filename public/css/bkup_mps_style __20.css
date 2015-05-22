@@ -164,7 +164,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .box_right{float:right; width:48%;}
 
 .contain_tab4{ width: 100%; border: 1px solid #ddd; padding: 10px; float: left;}
-.contain_search{float:left; margin-right: 10px; width: 24%; position: relative;}
+.contain_search{float:left; margin-right: 10px; width: 24%;}
 .contain_type{float:left; margin-right: 10px; width: 30%;}
 .contain_date{float:left; margin-right: 10px; width: 30%;}
 .contain_action{float:left; margin-left: 27px;}
@@ -181,11 +181,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .threebox_1{width:32.5%; float:left; margin-right:10px;}
 .threebox_2{width:30%; float:left;}
 .small_box{width: 55%;}
-.search_value{width:100%; border:1px solid #ddd; display:none; position: absolute; z-index: 10; background: #fff;}
-.search_value ul{list-style:none; margin:0; padding:0;}
-.search_value ul li{width:100%; padding:5px; border-bottom:1px solid #ddd; cursor:pointer;}
-.search_value ul li:hover{background:#ccc;}
-.search_value ul li:last-child{border-bottom:none;}
+.services_search{float: left; margin-right: 10px; width: 34%;}
+
 
 
 

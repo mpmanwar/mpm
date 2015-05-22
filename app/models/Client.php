@@ -1,5 +1,5 @@
 <?php
-class StepsFieldsUser  extends Eloquent{
+class Client  extends Eloquent{
 	
 	public $timestamps = false;
 	

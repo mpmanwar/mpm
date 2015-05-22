@@ -20,10 +20,9 @@ $(document).ready(function(){
     $("#last_acc_madeup_date").datepicker({minDate: new Date(1900, 12-1, 25)});
     $("#next_acc_due").datepicker({minDate: new Date(1900, 12-1, 25)});
     $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
-<<<<<<< HEAD
-=======
+
     $("#effective_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
     
 })
 </script>
@@ -129,22 +128,21 @@ $(document).ready(function(){
                           <div class="small_box">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Client Code</label>
-<<<<<<< HEAD
-                              <input type="text" id="" class="form-control">
-=======
+                <input type="text" id="" class="form-control">
+
                               <input type="text" id="client_code" name="client_code" class="form-control">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                             </div>
                           </div>
                         </div>
                         <div class="twobox_2">
                           <div class="form-group">
                             <label for="exampleInputPassword1">Business Type</label>
-<<<<<<< HEAD
+
                               <select class="form-control">
-=======
+
                               <select class="form-control" name="business_type" id="business_type">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                 @if(!empty($org_types))
                                   @foreach($org_types as $key=>$org_row)
                                   <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
@@ -167,11 +165,11 @@ $(document).ready(function(){
                               <div class="threebox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registration Number</label>
-<<<<<<< HEAD
+
                                   <input type="text" id="" class="form-control">
-=======
+
                                   <input type="text" id="registration_number" name="registration_number" class="form-control">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                 </div>
                               </div>
                               <div class="threebox_1">
@@ -184,16 +182,16 @@ $(document).ready(function(){
                               <div class="threebox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Registered In</label>
-<<<<<<< HEAD
+
                                   <input type="text" id="incorporation_date" name="incorporation_date" class="form-control">
-=======
+
                                   <input type="text" id="registered_date" name="registered_date" class="form-control">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                 </div>
                               </div>
                               <div class="clearfix"></div>
                             </div>
-<<<<<<< HEAD
+
                             <!-- <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
@@ -205,7 +203,7 @@ $(document).ready(function(){
                               <div class="clearfix"></div>
                             </div>
                              -->
-=======
+
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">Business Description</label>
@@ -213,21 +211,21 @@ $(document).ready(function(){
                             </div>
 
                             <h3 class="box-title">Annual Returns</h3>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                             <div class="form-group">
                               <label for="exampleInputPassword1">Annual Returns</label>
                               <input type="checkbox" name="ann_ret_check" id="ann_ret_check" value="1" />
                             </div>
 
-<<<<<<< HEAD
+
                             <h3 class="box-title">Annual Returns</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Annual Returns</label>
                               <input type="checkbox" name="ann_ret_check" id="ann_ret_check" value="1" />
                             </div>
 
-=======
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
+
       <div id="show_ann_ret" style="display:none;">
         <div class="twobox">
           <div class="twobox_1">
@@ -248,7 +246,7 @@ $(document).ready(function(){
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">CH Authentication Code</label>
-<<<<<<< HEAD
+
               <input type="text" id="" class="form-control">
             </div>
           </div>
@@ -258,12 +256,12 @@ $(document).ready(function(){
               <input type="text" id="" class="form-control">
             </div>
           </div> -->
-=======
+
               <input type="text" id="ch_auth_code" name="ch_auth_code" class="form-control">
             </div>
           </div>
           
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
           <div class="clearfix"></div>
         </div>
 
@@ -282,11 +280,11 @@ $(document).ready(function(){
             <div class="clearfix"></div>
             <div class="accountbox1">
             <div class="form-group">
-<<<<<<< HEAD
+
               <select class="form-control">
-=======
+
               <select class="form-control" id="acc_ref_day" name="acc_ref_day">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                 @for($i = 1; $i<=31;$i++)
                 <option value="{{ $i }}">{{ $i }}</option>
                 @endfor
@@ -296,11 +294,11 @@ $(document).ready(function(){
 
           <div class="accountbox2">
             <div class="form-group">
-<<<<<<< HEAD
+
               <select class="form-control">
-=======
+
               <select class="form-control" name="acc_ref_month" id="acc_ref_month">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                 <option value="JAN">JAN</option>
                 <option value="FEB">FEB</option>
                 <option value="MAR">MAR</option>
@@ -335,7 +333,7 @@ $(document).ready(function(){
               <input type="text" id="next_acc_due" name="next_acc_due" class="form-control">
             </div>
           </div>
-<<<<<<< HEAD
+
           <!-- <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Next Account Due</label>
@@ -348,12 +346,12 @@ $(document).ready(function(){
 
 
 
-=======
+
           
           <div class="clearfix"></div>
         </div>
 
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
       </div>
 
       <div class="add_client_btn">
@@ -406,7 +404,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
-<<<<<<< HEAD
+
                                   <select class="form-control">
                                     <option>Standered Vat Accounting Scheme</option>
                                     <option>Annual Accounting</option>
@@ -419,7 +417,7 @@ $(document).ready(function(){
                                     <option>Margin Schemes</option>
                                     <option>Tour operator's Margine Scheme</option>
                                     <option>Others - specify</option>
-=======
+
                                   <select class="form-control" name="vat_scheme" id="vat_scheme">
                                     <option value="1">Standered Vat Accounting Scheme</option>
                                     <option value="2">Annual Accounting</option>
@@ -432,7 +430,7 @@ $(document).ready(function(){
                                     <option value="9">Margin Schemes</option>
                                     <option value="10">Tour operator's Margine Scheme</option>
                                     <option value="11">Others - specify</option>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                     
                                   </select>
                                 </div>
@@ -482,11 +480,11 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">EC Sales List</label>
-<<<<<<< HEAD
+
                               <input type="checkbox"/>
-=======
+
                               <input type="checkbox" name="ec_scale_list" id="ec_scale_list"/>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Tax</label>
@@ -501,27 +499,27 @@ $(document).ready(function(){
                               <input type="text" id="tax_reference" name="tax_reference" class="form-control">
                             </div>
                             </div>
-<<<<<<< HEAD
+
                             </div>
-=======
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
+
                             
                             <div class="tax_utr_drop">
                             <div class="form-group">
                               <label for="exampleInputPassword1"></label>
-<<<<<<< HEAD
+
                               <select class="form-control">
                                     <option>None</option>
                                     <option>Income Tax</option>
                                     <option>Corporation Tax</option>
                                   </select>
-=======
+
                               <select class="form-control" name="tax_reference_type" id="tax_reference_type">
                                 <option value="none">None</option>
                                 <option value="Income Tax">Income Tax</option>
                                 <option value="Corporation Tax">Corporation Tax</option>
                               </select>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                             </div>
                             </div>
                             <div class="clearfix"></div>
@@ -531,17 +529,17 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Tax District</label>
-<<<<<<< HEAD
+
                                    <select class="form-control">
                                     <option>Liverpool</option>
                                     <option>Newcastle Upon Tyne</option>
                                     <option>Cardiff</option>
-=======
+
                                    <select class="form-control" name="tax_district" id="tax_district">
                                     <option value="Liverpool">Liverpool</option>
                                     <option value="Newcastle Upon Tyne">Newcastle Upon Tyne</option>
                                     <option value="Cardiff">Cardiff</option>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                   </select>
                                 </div>
                               </div>
@@ -573,7 +571,7 @@ $(document).ready(function(){
                             <div class="form-group">
                                   <label for="exampleInputPassword1">Paye Registered</label>
                                   <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
-<<<<<<< HEAD
+
                                 </div>
                         
                         <div id="show_paye_reg" style="display:none;">    
@@ -581,7 +579,7 @@ $(document).ready(function(){
                                   <label for="exampleInputPassword1">CIS Registered</label>
                                   <input type="checkbox"/>
                                 </div>
-=======
+
                                 </div>
                         
                         <div id="show_paye_reg" style="display:none;">    
@@ -589,7 +587,7 @@ $(document).ready(function(){
                               <label for="exampleInputPassword1">CIS Registered</label>
                               <input type="checkbox" name="cis_registered" name="cis_registered" />
                             </div>
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                             
                             
                             
@@ -602,13 +600,13 @@ $(document).ready(function(){
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-<<<<<<< HEAD
+
                                   <label for="exampleInputPassword1">PAYE Reference</label>
                                   <input type="text" id="" class="form-control">
-=======
+
                                   <label for="exampleInputPassword1">Paye Reference</label>
                                   <input type="text" id="paye_reference" name="paye_reference" class="form-control">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -623,11 +621,11 @@ $(document).ready(function(){
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Employer Office</label>
-<<<<<<< HEAD
+
                                   <input type="text" id="" class="form-control">
-=======
+
                                   <input type="text" id="employer_office" name="employer_office" class="form-control">
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
                                  
                                 </div>
                               </div>

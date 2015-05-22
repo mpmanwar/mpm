@@ -35,7 +35,7 @@ class HomeController extends BaseController {
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::orderBy("step_id")->get();
 
-		$data['steps_fields_users'] = StepsFieldsUser::get();
+		$data['steps_fields_users'] = StepsFieldsAddedUser::get();
 		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
 		//$data['responsible_staff'] = User::select(DB::raw('concat(fname," ",lname) as full_name,user_id'))->lists('full_name', 'user_id');
 		//print_r($data['responsible_staff']);die;
@@ -51,35 +51,7 @@ class HomeController extends BaseController {
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
-	public function insert_individual_client(){
-		
-		$postData = Input::all();
-        
-        
-        	$data['field_name'] 	= $postData['client_code'];
-            $data['user_id'] = 1;
-            
-            
-            $data['step_id'] = 1;
-            $data['field_value'] 	= $postData['client_code'];
-            
-            // StepsFieldsUser::insert($data);
-              print_r($data);die;
-            
-            $data['title'] 	= $postData['fname']." ". $postData['mname']." ". $postData['lname'];
-            $data['sex'] 	= $postData['sex'];
-            $data['dob'] 	= $postData['dob'];
-            $data['spouse_dob'] 	= $postData['spouse_dob'];
-            $data['nationality'] 	= $postData['nationality'];
-            $data['occupation'] 	= $postData['occupation']; 
-            
-           
-            StepsFieldsUser::insert($data);
-            
-        print_r($data);die;
-		print_r($postData);die;
-		return View::make('home.organisation.add_organisation_client', $data);
-	}
+	
 
 	public function get_office_address()
 	{
@@ -143,8 +115,7 @@ class HomeController extends BaseController {
         exit();
 	}
 
-<<<<<<< HEAD
-=======
+
 	public function insert_organisation_client()
 	{
 		$postData 			= Input::all();
@@ -202,5 +173,5 @@ class HomeController extends BaseController {
 		OrganisationClient::insert($data);
 	}
 
->>>>>>> 21bcf1ffe905a8a74af69f8dc0b04e2a8d191139
+
 }
