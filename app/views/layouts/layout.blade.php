@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        
         <title>{{ $title }}</title>
+        
+        
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="{{ URL :: asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />

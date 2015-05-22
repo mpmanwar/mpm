@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+<?php
+class StepsFieldsAddedUser  extends Eloquent{
+	
+	public $timestamps = false;
+	
+
+}
+=======
 <?php
 class StepsFieldsAddedUser  extends Eloquent{
 	
@@ -6,3 +15,4 @@ class StepsFieldsAddedUser  extends Eloquent{
 	
 
 }
+>>>>>>> ab7b362eebd43f179bcee93e591ab680341364dd

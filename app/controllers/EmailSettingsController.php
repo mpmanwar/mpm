@@ -1,6 +1,7 @@
 <?php
 //Cache::forget('template_list');
 //use Excel;
+
 class EmailSettingsController extends BaseController {
 		
 	public function index()

@@ -151,6 +151,7 @@ class HomeController extends BaseController {
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
+
 	public function insert_individual_client(){
 		
 		$postData = Input::all();
@@ -322,6 +323,7 @@ class HomeController extends BaseController {
 		//return View::make('home.organisation.add_organisation_client', $data);
 	}
 
+
 	public function get_office_address()
 	{
 		$tax_office_address = array();
@@ -409,6 +411,7 @@ class HomeController extends BaseController {
         echo json_encode($client_details);
         exit();
 	}
+
 
 	public function insert_organisation_client()
 	{
@@ -670,6 +673,7 @@ class HomeController extends BaseController {
 		//OrganisationClient::insert($data);
 	}
 
+
 	public function show_new_table()
 	{
 		$data 			= array();
@@ -726,5 +730,6 @@ class HomeController extends BaseController {
 		echo json_encode($data);
         exit();
 	}
+
 
 }
