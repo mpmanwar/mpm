@@ -11,7 +11,7 @@ class PracticeDetailsController extends BaseController {
 	public function index()
 	{
 		$data['title'] = "Practice Details";
-		$data['org_types'] = OrganizationType::orderBy("name")->get();
+		$data['org_types'] = OrganisationType::orderBy("name")->get();
 		//print_r($data['org_types']);die;
 		$data["practice_details"]	= PracticeDetail::where("practice_id", "=", 1)->first();
 		if(!empty($data["practice_details"]) && count($data["practice_details"]) > 0)
@@ -55,7 +55,8 @@ class PracticeDetailsController extends BaseController {
 		}
 
 		$viewToLoad = 'practice.excel';
-		$data["organization_type_name"]	= OrganizationType::where("organisation_id", "=", $data["practice_details"]->organisation_type_id)->first();
+		$data["organization_type_name"]	= OrganisationType::where("organisation_id", "=", $data["practice_details"]->organisation_type_id)->first();
+		//echo $this->last_query();die;
 		///////////  Start Generate and store excel file ////////////////////////////
         Excel::create('practiceDetails', function($excel) use($data, $viewToLoad) {
 			$excel->sheet('Sheetname', function($sheet) use($data, $viewToLoad) {

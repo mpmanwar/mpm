@@ -5,7 +5,7 @@ class OrganisationType  extends Eloquent{
 
 	public static function getAllOrganizationTypeById( $id )
     {
-        return OrganizationType::select("*")->where("organisation_id", $id)->get();
+        return OrganisationType::select("*")->where("organisation_id", $id)->get();
     }
 
 
