@@ -16,7 +16,7 @@ $(function() {
     $('#example2').dataTable({
         "bPaginate": false,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
@@ -41,6 +41,9 @@ $(function() {
         ]
 
     });
+
+    $("#example2_filter").hide();
+    
 });
 
 </script>
@@ -174,7 +177,7 @@ $(function() {
                     <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
                   </li>
                   <li>
-                    <button class="btn btn-success">Search</button>
+                    <button type="button" id="show_search" class="btn btn-success">Search</button>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
