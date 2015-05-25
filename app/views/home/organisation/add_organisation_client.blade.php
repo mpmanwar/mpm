@@ -114,11 +114,15 @@ $(document).ready(function(){
                           </div>
                         </div>
                         <div class="twobox_2">
+                        
+                        
+                        
                           <div class="form-group">
                             <label for="exampleInputPassword1">Business Type</label>
-
+                             <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                                
                               <select class="form-control" name="business_type" id="business_type">
-
+                               
                                 @if(!empty($org_types))
                                   @foreach($org_types as $key=>$org_row)
                                   <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
@@ -220,10 +224,18 @@ $(document).ready(function(){
           
 
 
+
+
+</div>
         <div class="form-group">
           <label for="exampleInputPassword1">Year End Accounts</label>
           <input type="checkbox" name="yearend_acc_check" id="yearend_acc_check" value="1" />
         </div>
+
+
+
+
+
 
       <div id="show_year_end" style="display:none;">
         <div class="twobox">
@@ -298,7 +310,7 @@ $(document).ready(function(){
         </div>
 
 
-      </div>
+      
 
       <div class="add_client_btn">
           <button class="btn btn-info open" data-id="2" type="button">Next</button>
@@ -350,6 +362,8 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
+                                  
+                                  <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
                                   <select class="form-control" name="vat_scheme" id="vat_scheme">
                                     <option value="1">Standered Vat Accounting Scheme</option>
                                     <option value="2">Annual Accounting</option>
@@ -361,7 +375,7 @@ $(document).ready(function(){
                                     <option value="8">Retails Schemes - Chemist(retail pharmacist)</option>
                                     <option value="9">Margin Schemes</option>
                                     <option value="10">Tour operator's Margine Scheme</option>
-                                    <option value="11">Others - specify</option>
+                                  <!--  <option value="11">Others - specify</option> -->
 
                                     
                                   </select>
@@ -370,14 +384,17 @@ $(document).ready(function(){
                               <div class="add_client_chk">
                                 <div class="add_ch1">
                                   <div class="form-group">
+                                  
+                                 
+                                
                                     <label for="exampleInputPassword1">Cash</label>
-                                    <input type="checkbox" name="vat_scheme_cash" value="cash" />
+                                    <input type="radio" name="vat_scheme" value="cash" />
                                   </div>
                                 </div>
                                 <div class="add_ch2">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Accrual</label>
-                                    <input type="checkbox" name="vat_scheme_accrual" value="accrual" />
+                                    <input type="radio" name="vat_scheme" value="accrual" />
                                   </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -446,7 +463,7 @@ $(document).ready(function(){
                             </div>
                             </div>
                             <div class="clearfix"></div>
-                            </div>
+                            
                                                        
 
                             
@@ -503,6 +520,7 @@ $(document).ready(function(){
                 <label for="exampleInputPassword1">Telephone</label>
                 <input type="text" id="tax_telephone" name="tax_telephone" class="form-control">
               </div>
+            </div>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -668,7 +686,19 @@ $(document).ready(function(){
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Country</label>
-                                  <input type="text" id="cont_country" name="cont_country" class="form-control">
+                                  
+                                  
+                                    <select class="form-control" id="cont_country" name="cont_country">
+                                <option value="1">United Kingdom</option>
+                                      @if(!empty($countries))
+                                        @foreach($countries as $key=>$coun_row)
+                                        <option value="{{ $coun_row->country_id }}">{{ $coun_row->country_name }}</option>
+                                        @endforeach
+                                      @endif
+                                        
+                                </select>
+                                                                                                                                                    
+                                 
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -859,6 +889,7 @@ $(document).ready(function(){
                             
                             <div class="director_table">
                               <h3 class="box-title">Services</h3>
+                              <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
                               <div class="form-group">
                                 <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()"><i class="fa fa-plus"></i> New</a>
                               </div>
@@ -883,7 +914,7 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-        <option value=""> Add New </option>
+        <option value=""></option>
           @if(!empty($services))
             @foreach($services as $key=>$service_row)
               <option value="{{ $service_row->template_type_id }}">{{ $service_row->template_type_name }}</option>
@@ -945,6 +976,10 @@ $(document).ready(function(){
         </div><!-- ./wrapper -->
 
 
+
+
+
+
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
@@ -996,7 +1031,7 @@ $(document).ready(function(){
         
         <div class="modal-footer clearfix">
           <div class="email_btns">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" style="float:left; " class="btn btn-danger" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
           </div>
         </div>
@@ -1007,5 +1042,61 @@ $(document).ready(function(){
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+
+<!-- add/edit list -->
+
+
+<div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+      <div class="modal-body">
+        
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="field_name" name="field_name" placeholder="Client Name" class="form-control">
+        </div>
+
+       <div class="form-group">
+                              
+                              <input type="checkbox" name="list_1" id="list_1" value="1" />
+                              <label for="list_1">List 1</label>
+       </div>
+       <div class="form-group">
+                              
+                              <input type="checkbox" name="list_2" id="list_2" value="2" />
+                              <label for="list_2">List 2</label>
+       </div>
+        <div class="modal-footer clearfix">
+          <div class="email_btns">
+           
+            <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+             <button type="button" class="btn btn-primary pull-left save_t" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
 
 @stop

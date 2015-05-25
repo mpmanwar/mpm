@@ -134,7 +134,6 @@ class HomeController extends BaseController {
 
 		$data['steps_fields_users'] = StepsFieldsAddedUser::get();
 		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
-		
 		//print_r($data['responsible_staff']);die;
 		//echo $this->last_query();die;
 		return View::make('home.individual.add_individual_client', $data);
@@ -148,6 +147,7 @@ class HomeController extends BaseController {
 		$data['staff_details']	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['services'] 		= TemplateType::get();
+        $data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
@@ -360,8 +360,15 @@ class HomeController extends BaseController {
 		$data['step_id'] 		= Input::get("step_id");
 		$data['field_name']		= Input::get("field_name");
 		$data['field_type']		= Input::get("field_type");
+        
+        
+        
+        
+	
+        
+        
 		//$data['field_label']	= Input::get("field_label");
-		$field_id = StepsFieldsUser::insertGetId($data);
+		$field_id = StepsFieldsAddedUser::insertGetId($data);
 		return Redirect::to('/individual/add-client');
 	}
 

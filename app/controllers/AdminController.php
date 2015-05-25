@@ -6,7 +6,8 @@ class AdminController extends BaseController
     public function signup()
     {
         $data['title'] = "Sign Up";
-        $data['coun'] 		= Country::select('country_name')->get();
+        $data['coun'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+       // $data['coun'] 		= Country::select('country_name')->get();
         return View::make('admin/signup',$data);
     }
 

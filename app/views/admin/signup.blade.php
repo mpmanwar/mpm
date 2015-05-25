@@ -70,6 +70,7 @@
                     <div class="form-group">
                     
                     <select class="form-control" id="country" name="country">
+                    <option value="1">United Kingdom</option>
                           @if(!empty($coun))
                             @foreach($coun as $key=>$coun_row)
                             <option value="{{ $coun_row->country_name }}">{{ $coun_row->country_name }}</option>

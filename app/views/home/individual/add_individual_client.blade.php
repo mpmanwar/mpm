@@ -238,11 +238,30 @@ $(document).ready(function(){
       <div class="form-group">
       <div class="twobox_2">
       <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
+      
+      
         @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
           <input type="text" id="" class="form-control">
-        @else
-          <textarea name="" id="" rows="4" cols="40"></textarea>
+       
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "textarea")
+         
+          <textarea name="" id="" rows="4" cols="35"></textarea>
+         
+          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "checkbox")
+          <input type="checkbox" id="" />
+          
+          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "dropdown")
+       
+         <select class="form-control" name="" id="">
+                                <option value=""></option>
+                                         </select>
+          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "date")                               
+                                         
+         <input type="date" >
+          
         @endif
+     
+     
       </div>
 
         <div class="clearfix"></div>
