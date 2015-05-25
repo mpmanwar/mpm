@@ -232,12 +232,28 @@ $(".back").click(function(){
       data: { 'four' : four[0], 'six' : six[0], 'seven' : seven[0], 'eight' : eight[0], 'nine' : nine[0], 'ten' : ten[0] },
       success : function(resp){
 
-
-
         var content = '';
         var i = 1;
-        $.each(resp, function(key){//alert(resp[key].ni_number)
-          content += '<tr class="all_check"><td align="center"><input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/></td><td>'+i+'</td><td>'+resp[key].staff_name+'</td><td>'+resp[key].four[0]+'</td><td><a href="#">'+resp[key].name+'</a></td><td>'+resp[key].six[0]+'</td><td>'+resp[key].seven[0]+'</td><td>'+resp[key].eight[0]+'</td><td>'+resp[key].nine[0]+'</td><td>'+resp[key].ten[0]+'</td></tr>';
+        $.each(resp, function(key){//alert(resp[key][four[0]])
+          if(resp[key][four[0]].length != 0 || resp[key][four[0]] == "undefined"){
+            resp[key][four[0]] = "";
+          }
+          if(resp[key][six[0]].length != 0 || resp[key][six[0]] == "undefined"){
+            resp[key][six[0]] = "";
+          }
+          if(resp[key][seven[0]].length != 0 || resp[key][seven[0]] == "undefined"){
+            resp[key][seven[0]] = "";
+          }
+          if(resp[key][eight[0]].length != 0 || resp[key][eight[0]] == "undefined"){
+            resp[key][eight[0]] = "";
+          }
+          if(resp[key][nine[0]].length != 0 || resp[key][nine[0]] == "undefined"){
+            resp[key][nine[0]] = "";
+          }
+          if(resp[key][ten[0]].length != 0 || resp[key][ten[0]] == "undefined"){
+            resp[key][ten[0]] = "";
+          }
+          content += '<tr class="all_check"><td align="center"><input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/></td><td>'+i+'</td><td>'+resp[key].staff_name+'</td><td>'+resp[key][four[0]]+'</td><td><a href="#">'+resp[key].name+'</a></td><td>'+resp[key][six[0]]+'</td><td>'+resp[key][seven[0]]+'</td><td>'+resp[key][eight[0]]+'</td><td>'+resp[key][nine[0]]+'</td><td>'+resp[key][ten[0]]+'</td></tr>';
           //console.log(resp[key].client_name); 
           i++;
         });

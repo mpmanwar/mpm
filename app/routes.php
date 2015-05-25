@@ -17,7 +17,7 @@
 });*/
 
 ### Routes for Dashboard related URL's start ###
-Route::get('/', 'HomeController@dashboard');
+Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
 Route::any('individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
@@ -76,19 +76,12 @@ Route::any('settings-dashboard', array('as' => 'settings-dashboard', 'uses' => '
 
 
 ### Routes for registration URL's start ###
-Route::get('/user-registration', 'RegistrationController@registration');
-
-Route::post('/user-signup', 'RegistrationController@signup');
-Route::get('/user-login', 'RegistrationController@login');
-
-Route::post('/user-log', 'RegistrationController@log');
-
-//Route::any('/registration/user-registration', array("as"=>"registration", "uses"=>'RegistrationController@registration'));
+Route::get('/admin-signup', 'AdminController@signup');
+Route::post('/signup-process', 'AdminController@signup_process');
+Route::get('/', 'AdminController@login');
+Route::post('/login-process', 'AdminController@login_process');
+Route::get('/admin-logout', 'AdminController@logout');
 ### Routes for Settings related URL's end ###
 
-//countries
 
-Route::get('/countries', 'RegistrationController@countries');
-
-//
 

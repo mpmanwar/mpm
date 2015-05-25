@@ -2,7 +2,7 @@
 <html class="bg-black">
     <head>
         <meta charset="UTF-8">
-       <title>Signup</title>
+        <title>{{ $title }}</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -13,28 +13,26 @@
 
     </head>
     <body class="bg-black">
-
+        
         <div class="form-box" id="login-box">
             <div class="header">Sign Up</div>
             
-            {{ Form::open(array('url' => '/user-signup', 'files' => true)) }}
+           
             
-          <!--  <form action=" " method="post"> --!>
-               
-                <div class="body bg-gray">
-                
+          <!--  <form action=" " method="post"> -->
+        {{ Form::open(array('url' => '/signup-process', 'files' => true)) }}      
+            <div class="body bg-gray">
                 @if ( $errors->count() > 0 )
-        
-            <ul>
-                @foreach( $errors->all() as $message )
-                  <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                    <ul>
+                        @foreach( $errors->all() as $message )
+                          <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 
                 
                 
-          <!--  <div id="message">{{ Session::get('message') }}</div> --!>
+                <div id="message" style="color: green;font-size: 15px;">{{ Session::get('message') }}</div>
                 <div class="firstname_con">
                               <div class="firstname">
                                   <input type="text" name="fname" id="fname" class="form-control1" placeholder="First Name"/>
@@ -332,7 +330,7 @@
                         <option value="eh">Western Sahara</option>
                         <option value="ye">Yemen</option>
                         <option value="zm">Zambia</option>
-                        <option value="zw">Zimbabwe</option> --!>
+                        <option value="zw">Zimbabwe</option> -->
 </select>
                        
                     </div>
@@ -342,12 +340,12 @@
 
                     <button type="submit" class="btn bg-olive btn-block">Get Started Now!</button>
 
-                    <a href='/user-login' class="text-center">I already have a membership</a>
+                    <a href='/' class="text-center">I already have a membership</a>
                     
                     
                 </div>
-            </form>
-
+           
+            {{ Form::close() }}
             <div class="margin text-center">
                 <span>Register using social networks</span>
                 <br/>
@@ -357,12 +355,6 @@
 
             </div>
         </div>
-
-
-        <!-- jQuery 2.0.2 -->
-       <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
-        <!-- Bootstrap -->
-        <!--<script src="../../js/bootstrap.min.js" type="text/javascript"></script>-->
 
     </body>
 </html>
