@@ -1,5 +1,5 @@
 <li class="active">
-    <a href="/">
+    <a href="/dashboard">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
     </a>
 </li>
