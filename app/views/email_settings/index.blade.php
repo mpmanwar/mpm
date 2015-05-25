@@ -133,7 +133,7 @@
       <div class="modal-body">
         <div class="form-group">
           <div class="input_box_g">
-            <label for="exampleInputEmail1">Name</label>
+            <label for="exampleInputEmail1">Template Name</label>
             <input type="text" class="form-control" name="add_name" id="add_name" placeholder="First Name">
           </div>
                                 
@@ -154,8 +154,8 @@
 
         <div class="form-group">
             <div class="input_box_g">
-              <label for="exampleInputEmail1">Title</label>
-              <input name="add_title" id="add_title" type="text" class="form-control" placeholder="Title">
+              <label for="exampleInputEmail1">Message Subject</label>
+              <input name="add_title" id="add_title" type="text" class="form-control" placeholder="Message Subject">
             </div>
             <div class="input_dropdown">
                 <label>Insert Placeholder</label>
@@ -210,7 +210,7 @@
       <div class="modal-body">
         <div class="form-group">
           <div class="input_box_g">
-            <label for="exampleInputEmail1">Name</label>
+            <label for="exampleInputEmail1">Template Name</label>
             <input type="text" class="form-control" id="edit_name" name="edit_name" value="">
           </div>
                                 
@@ -230,7 +230,7 @@
 
         <div class="form-group">
             <div class="input_box_g">
-              <label for="exampleInputEmail1">Title</label>
+              <label for="exampleInputEmail1">Message Subject</label>
               <input name="edit_title" id="edit_title" type="text" class="form-control" value="">
             </div>
             <div class="input_dropdown">

@@ -13,10 +13,10 @@
 <!-- page script -->
 <script type="text/javascript">
 $(function() {
-    var table = $('#example2').dataTable({
+  $('#example2').dataTable({
         "bPaginate": false,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
@@ -26,7 +26,7 @@ $(function() {
         //"aaSorting": [[ 5, "desc" ]],
         "aoColumns":[
             {"bSortable": false},
-            {"bSortable": false},
+            
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
@@ -41,8 +41,12 @@ $(function() {
 
     });
 
+  $("#example2_filter").hide();
+
 
 });
+
+
 
 </script>
 @stop
@@ -77,7 +81,7 @@ $(function() {
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="/">
+                            <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -92,11 +96,11 @@ $(function() {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        CLIENT LIST - INDIVIDUALs
+                        CLIENT LIST - INDIVIDUALS
                         <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Individual Clients</li>
                     </ol>
                 </section>
@@ -106,27 +110,30 @@ $(function() {
       <div class="row">
         <div class="top_bts">
           <ul>
-            <li>
+            <!-- <li>
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li>
+            </li> -->
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
             </li>
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
-            <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li>
-            <li>
-
+            
+            <!-- <li>
+            
               <button class="btn btn-warning" type="button" id="edit_but"><i class="fa fa-edit"></i> Edit</button>
               <button class="btn btn-success" type="button" style="display:none;" id="save_but">Save</button>
+            
+            </li> -->
 
-            </li>
+            
+
             <div class="clearfix"></div>
           </ul>
         </div>
+
+        <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div>
       </div>
       <div class="practice_mid">
         <form>
@@ -141,6 +148,12 @@ $(function() {
                   <li>
                     <button class="btn btn-success">BULK CSV IMPORT</button>
                   </li>
+                  <li>
+              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+            </li>
+                  <li>
+              <button type="button" id="archivedButton" style="display:none;" class="btn btn-warning">Archive</button>
+            </li>
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -172,13 +185,17 @@ $(function() {
             </div>
             
             <div class="box-body table-responsive">
-              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-                <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
+              <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                <div class="row">
+                  <div class="col-xs-6"></div>
+                  <div class="col-xs-6"></div>
+                </div>
+          <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
                         
             <thead>
               <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>#</th>
+                <!-- <th>#</th> -->
                 <th>STAFF</th>
                 <th><span id="dob_text">DOB</span>
                   <span id="dob_select" style="display:none;">
@@ -260,7 +277,7 @@ $(function() {
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
                   </td>
-                  <td>{{ $i }}</td>
+                  <!-- <td>{{ $i }}</td> -->
                   <td>{{ $client_row['staff_name'] or "" }}</td>
                   <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
                   <td><a href="#">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
@@ -268,7 +285,7 @@ $(function() {
                   <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
                   <td>{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
-                  <td>{{ (!empty($client_row['res_address'])) ? $client_row['res_address'] : '' }}</td>
+                  <td>{{ (!empty($client_row['res_address'])) ? $client_row['res_address'] : '' }}, {{ (!empty($client_row['res_city'])) ? $client_row['res_city'] : '' }}, {{ (!empty($client_row['res_zipcode'])) ? $client_row['res_zipcode'] : '' }}</td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach

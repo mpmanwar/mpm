@@ -52,7 +52,7 @@ $(document).ready(function(){
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="/">
+                            <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -71,7 +71,7 @@ $(document).ready(function(){
                         <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
                         <!-- <li class="active">Add Clients</li> -->
                     </ol>
                 </section>
@@ -217,6 +217,11 @@ $(document).ready(function(){
 <label for="exampleInputPassword1">Nationality</label>
 <select class="form-control" name="nationality" id="nationality">
 <option value="1">United Kingdom</option>
+@if(!empty($countries))
+  @foreach($countries as $key=>$country_row)
+  <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+  @endforeach
+@endif
 </select>
 </div>
 </div>
@@ -472,6 +477,11 @@ $(document).ready(function(){
 <label for="exampleInputPassword1">Country</label>
   <select class="form-control" name="res_country" id="res_country">
     <option value="1">United Kingdom</option>
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endforeach
+    @endif
   </select>
 </div>
 </div>
@@ -515,6 +525,11 @@ $(document).ready(function(){
 <label for="exampleInputPassword1">Country</label>
   <select class="form-control" name="serv_country" id="serv_country">
     <option value="1">United Kingdom</option>
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endforeach
+    @endif
   </select>
 </div>
 </div>

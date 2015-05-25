@@ -1,5 +1,5 @@
 function openModal( template_id )
-{
+{//console.log(template_id);
 	$.ajax({
 	    type: "POST",
 	    dataType: "json",
