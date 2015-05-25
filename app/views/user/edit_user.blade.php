@@ -22,7 +22,7 @@
                 <section class="content-header">
                     <h1>
                       MY PRACTICE MANAGER
-                        <small>CLIENT NAME Limited</small>
+                        <!-- <small>CLIENT NAME Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -41,10 +41,10 @@
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
+<!-- <li><button class="btn btn-info"><i class="fa fa-print"></i> Print</button></li> -->
 <li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
 <li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li>
+<!-- <li><button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li> -->
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
 <li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li>
@@ -60,7 +60,7 @@
 
 <div class="row box_border2 row_cont">
  <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">Edit User  Details <small>General Settings</small></h2>
+ <h2 class="res_t">Edit User  Details <!-- <small>General Settings</small> --></h2>
   </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
@@ -107,26 +107,25 @@
             @endforeach
         </ul>
       @endif
-        <h3 class="box-title">Access to the accounts</h3>
+        <!-- <h3 class="box-title">Access to the accounts</h3> -->  
+        <h3 class="box-title">USER ACCESS LEVEL</h3>  
 
     </div><!-- /.box-header -->
     <div class="box-body table-responsive">
-    <p>Choose the user's level of access to this organisation's accounts:</p>
+    <!-- <p>Choose the user's level of access to this organisation's accounts:</p> -->
         <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-        <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
-            <thead>
-                <tr  role="row">
-                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>
-                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">VAT</th>
-                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CORP TAX</th>
-                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">STATUTORY ACCOUNTS</th>
-
-                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">MANAGEMENT ACCOUNTS</th>
-                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">NOTICE BOARD</th>
-                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">INCOME TAX RETURNS</th>
-                <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">ETC</th>
-                </tr>
-            </thead>
+        <table class="table table-bordered table-hover dataTable" id="example2" style="margin-bottom: 10px;" aria-describedby="example2_info">
+        <thead>
+          <tr  role="row">
+            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>
+            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CRM</th>
+            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">JOBS</th>
+            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">SETTING</th>
+            
+            <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">STAFF MANAGEMENT</th>
+            <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">MANAGE USERS</th>
+          </tr>
+        </thead>
 
 
         <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -142,13 +141,13 @@
               </div>
             </div>
           </td>
-          <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-           <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
-          <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="crm" checked /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="jobs" checked /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="setting" checked /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="staff" checked /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="user" checked /></td>
+           <!-- <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
+                     <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td> -->
         </tr>
 
         <tr class="even">
@@ -165,28 +164,28 @@
             <td class=" " align="center"></td>
             <td class=" " align="center"></td>
             <td class=" " align="center"></td>
-            <td class=" " align="center"></td>
-            <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
+            <!-- <td class=" " align="center"></td>
+            <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td> -->
           </tr>
 
-          <tr class="odd">
-
+          <!-- <tr class="odd">
+          
             <td class="sorting_1">
               <div class="radio">
               <label>
-
-                <input type="radio" name="user_type" id="optionsRadios3" value="A"  class="handle-change-user" data-type="admin" {{ ($info[0]->user_type=="A")? 'checked':'' }} onClick="getUserPermissions(this.value)" />  <!-- onClick="getUserPermissions(this.value)" -->
-
-
+          
+                <input type="radio" name="user_type" id="optionsRadios3" value="A"  class="handle-change-user" data-type="admin" {{ ($info[0]->user_type=="A")? 'checked':'' }} onClick="getUserPermissions(this.value)" />  onClick="getUserPermissions(this.value)"
+          
+          
                 ADMIN
               </label>
-
+          
           </div>
             </td>
-
-
-
-
+          
+          
+          
+          
             <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
             <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
             <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
@@ -194,7 +193,7 @@
             <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
             <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
             <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
 
@@ -225,39 +224,38 @@
 
 </div>
 
+<h4>JOBS</h4>
 
+<div class="clearfix"></div>
 
-
- <div class="clearfix"></div>
-
-
-<div class="row" id="user_permissions" style="display:{{ ($info[0]->user_type=='C')? 'none':'block' }}">
-
-
+<!-- <div class="row" id="user_permissions" style="display:{{ ($info[0]->user_type=='C')? 'none':'block' }}">
   @if(!empty($permission_list) && count($permission_list) > 0)
-
-
-
     @foreach($permission_list as $key=>$list)
-
       <div class="col-xs-3 permission_check"><input type="checkbox" value="{{ $list->permission_id }}" name="permission[]" {{ (is_array($permission_id) && in_array($list->permission_id, $permission_id))?"checked":"" }}/> {{ $list->name }}</div>
-
-
     @endforeach
   @endif
+</div> -->
 
+<div class="jobs_chkbox">
+  <ul>
+    @if(!empty($permission_list) && count($permission_list) > 0)
+      @foreach($permission_list as $key=>$list)
+        <li><div class="job_checkbox"><label><input type="checkbox" value="{{ $list->permission_id }}" name="permission[]" {{ (is_array($permission_id) && in_array($list->permission_id, $permission_id))?"checked":"" }} /> {{ $list->name }}</label></div></li>
+      @endforeach
+    @endif
 
-
-
+  </ul>
 </div>
+<div class="clearfix"></div>
+
 
 <div class="row btn_row">
  <div class="col-xs-12 col-xs-9 chk_cont">
 <div class="checkbox allow_user">
-<label>
+<!-- <label>
 <input type="checkbox"/>
 <strong> Manage Users </strong> &nbsp;Allows this user to add remove users and change permissions
-</label>
+</label> -->
 </div>
 <div class="checkbox">
 <label>

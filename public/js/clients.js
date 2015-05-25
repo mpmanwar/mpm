@@ -47,11 +47,31 @@ $(document).ready(function(){
  	});
 
  	$('#show_search').click(function() {
-		$('#table_top_box').toggle();
+		//$('#table_top_box').toggle();
+    $('#example2_filter').toggle();
  	});
 
  	$('#search_client_text').keyup(function() {
-		//alert($(this).val());
+    var search_value = $(this).val();
+		$.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/individual/search-individual-client',
+      data: { 'search_value' : search_value, 'client_type' : "ind" },
+      success : function(resp){
+        if (resp.length != 0) {
+          var content = '';
+          $.each(resp, function(key){
+            content+= "<tr class='all_check odd'><td align='center'><input type='checkbox' class='ads_Checkbox' name='client_delete_id[]' value='1' id='client_delete_id'/><td>"+resp[key].staff_name+"</td><td>"+resp[key].dob+"</td><td><a href='#'>"+resp[key].name+"</a></td><td>"+resp[key].business_name+"</td><td>"+resp[key].ni_number+"</td><td>"+resp[key].tax_reference+"</td><td>"+resp[key].acting+"</td><td>"+resp[key].res_address+", "+resp[key].res_city+", "+resp[key].res_zipcode+"</td></tr>";
+            //console.log(resp[key].client_name); 
+          });
+
+          $("#example2 tbody").html(content);
+          //$("#show_search_client").show();
+        }
+        
+      }
+    });
  	});
 
 
@@ -59,9 +79,28 @@ $(document).ready(function(){
 
 
 // Add individual client
-
 $(".open").click(function(){
   var data_id = $(this).data('id');
+
+///////////Validation//////////////
+if(data_id == 2){
+  if($("#client_code").val() == ""){
+    alert("Client code can not be null");
+    $("#client_code").focus();
+    return false;
+  }else if($("#fname").val() == ""){
+    alert("First name can not be null");
+    $("#fname").focus();
+    return false;
+  }else if($("#lname").val() == ""){
+    alert("Last name can not be null");
+    $("#lname").focus();
+    return false;
+  }
+
+}
+///////////Validation//////////////
+
   var remove_id = data_id-1;
   $("#tab_"+data_id).addClass("active");
   $("#tab_"+remove_id).removeClass("active");
@@ -295,6 +334,17 @@ $(".back").click(function(){
     
 
 
+  });
+
+
+//Show Archived in add individual client
+  $("#archive_div").click(function(){
+    if($(this).html() == 'Show Archived'){
+      $(this).html('Hide Archived');
+    }else{
+      $(this).html('Show Archived')
+    }
+    $("#archivedButton").toggle();
   });
   
 

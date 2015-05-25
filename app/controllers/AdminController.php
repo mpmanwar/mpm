@@ -48,7 +48,7 @@ class AdminController extends BaseController
                 $insert_data['country']         = $postData['country'];
 
                 Admin::insert($insert_data);
-                Session::flash('message', 'Yuo have successfully registered');
+                Session::flash('message', 'You have successfully registered');
             }
                 
             return Redirect::to('/admin-signup');

@@ -30,13 +30,13 @@ class EmailSettingsController extends BaseController {
 		$template_id = Input::get("template_id");
 		if(Request::ajax())
     	{
-    		if(Cache::has('emailTemplates')){
+    		/*if(Cache::has('emailTemplates')){
     			$emailTemplates 	= Cache::get('emailTemplates');
     		}else{
     			$emailTemplates 	= EmailTemplate::where("email_template_id", $template_id)->first();
     			Cache::put('emailTemplates', $emailTemplates, 10);
-    		}
-			
+    		}*/
+			$emailTemplates 	= EmailTemplate::where("email_template_id", $template_id)->first();
 
 			//echo "<pre>";print_r($emailTemplates);die;
 			//echo View::make("email_settings.edit_template", $data);

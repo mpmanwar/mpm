@@ -26,8 +26,8 @@ $(function() {
         //"aaSorting": [[ 5, "desc" ]],
         "aoColumns":[
             {"bSortable": false},
-            {"bSortable": false},
-            {"bSortable": true},
+            //{"bSortable": false},
+            //{"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -76,7 +76,7 @@ $(function() {
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="/">
+                            <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -95,7 +95,7 @@ $(function() {
                         <!-- <small>CLIENT NAME  Limited</small> -->
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Organisation Clients</li>
                     </ol>
                 </section>
@@ -105,24 +105,29 @@ $(function() {
       <div class="row">
         <div class="top_bts">
           <ul>
-            <li>
+            <!-- <li>
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li>
+            </li> -->
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
             </li>
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
-            <li>
+            <!-- <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li>
+            </li> -->
+            
+
             <div class="clearfix"></div>
           </ul>
         </div>
+
+        <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div>
+
       </div>
       <div class="practice_mid">
         <form>
@@ -152,6 +157,13 @@ $(function() {
                   <li>
                     <button class="btn btn-success">BULK CSV IMPORT</button>
                   </li>
+                  <li>
+              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+            </li>
+
+            <li>
+              <button type="button" id="archivedButton" style="display:none;" class="btn btn-warning">Archive</button>
+            </li>
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -195,8 +207,8 @@ $(function() {
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>#</th>
-                <th>STAFF</th>
+                <!-- <th>#</th>
+                <th>STAFF</th> -->
                 <th>BUSINESS TYPE</th>
                 <th>BUSINESS NAME</th>
                 <th>Year End</th>
@@ -219,8 +231,8 @@ $(function() {
                     <td align="center">
                       <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td>{{ $i }}</td>
-                    <td>{{ $client_row['staff_name'] or "" }}</td>
+                    <!-- <td>{{ $i }}</td>
+                    <td>{{ $client_row['staff_name'] or "" }}</td> -->
                     <td>{{ $client_row['business_type'] or "" }}</td>
                     <td>{{ $client_row['business_name'] or "" }}</td>
                     <td></td>

@@ -22,11 +22,14 @@ Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
 Route::any('individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
-Route::any('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'IndividualClientController@insert_individual_client'));
+Route::post('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
 Route::any('/individual/get-office-address', array("as"=>"get_office_address", "uses"=>'HomeController@get_office_address'));
 Route::any('/individual/save-relationship', array("as"=>"save_relationship", "uses"=>'HomeController@save_relationship'));
 Route::any('/individual/save-userdefined-field', array("as"=>"save_userdefined_field", "uses"=>'HomeController@save_userdefined_field'));
 Route::any('/individual/show-new-tables', array("as"=>"show_new_table", "uses"=>'HomeController@show_new_table'));
+Route::any('/individual/search-individual-client', array("as"=>"search_individual_client", "uses"=>'HomeController@search_individual_client'));
+
+
 
 Route::any('/organisation/add-client', array("as"=>"add_organisation_client", "uses"=>'HomeController@add_organisation_client'));
 Route::any('/organisation/save-services', array("as"=>"save_services", "uses"=>'HomeController@save_services'));
