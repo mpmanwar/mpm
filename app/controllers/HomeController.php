@@ -138,16 +138,19 @@ class HomeController extends BaseController {
 		$data['marital_status'] 	= MaritalStatus::orderBy("marital_status_id")->get();
 		$data['titles'] 			= Title::orderBy("title_id")->get();
 		$data['tax_office'] 		= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
-		//$data['other_tax_office'] 	= TaxOfficeAddress::where("parent_id", "!=", '0')->select("office_id", "office_name")->get();
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::orderBy("step_id")->get();
-
-		$data['steps_fields_users'] = StepsFieldsAddedUser::get();
-		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
-
+		$data['responsible_staff'] 	= User::select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+		$data['field_types']		= FieldType::get();
 		
-		//print_r($data['responsible_staff']);die;
+		$steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "ind")->get();
+		foreach ($steps_fields_users as $key => $steps_fields_row) {
+			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
+		}
+		$data['steps_fields_users']		= $steps_fields_users;
+
+		//print_r($data['steps_fields_users']);die;
 		//echo $this->last_query();die;
 		return View::make('home.individual.add_individual_client', $data);
 	}
@@ -160,7 +163,15 @@ class HomeController extends BaseController {
 		$data['staff_details']	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['services'] 		= TemplateType::get();
-        $data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+		$data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+        $data['field_types']	= FieldType::get();
+
+        $steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "org")->get();
+		foreach ($steps_fields_users as $key => $steps_fields_row) {
+			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
+		}
+		$data['steps_fields_users']		= $steps_fields_users;
+
 		return View::make('home.organisation.add_organisation_client', $data);
 	}
 
@@ -373,16 +384,17 @@ class HomeController extends BaseController {
 		$data['step_id'] 		= Input::get("step_id");
 		$data['field_name']		= Input::get("field_name");
 		$data['field_type']		= Input::get("field_type");
+        $data['client_type']	= Input::get("client_type");
+        $data['select_option']	= Input::get("select_option");
         
-        
-        
-        
-	
-        
-        
-		//$data['field_label']	= Input::get("field_label");
+        //$data['field_label']	= Input::get("field_label");
 		$field_id = StepsFieldsAddedUser::insertGetId($data);
-		return Redirect::to('/individual/add-client');
+		if($data['client_type'] == "ind"){
+			return Redirect::to('/individual/add-client');
+		}else{
+			return Redirect::to('/organisation/add-client');
+		}
+		
 	}
 
 	function save_services()

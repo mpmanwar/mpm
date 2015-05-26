@@ -325,14 +325,8 @@ $(".back").click(function(){
         $("#res_address_select").hide();
         $("#res_address_text").show();
         $("#res_address_text").html(ten[1]);
-
-
       }
     });
-
-
-    
-
 
   });
 
@@ -349,7 +343,103 @@ $(".back").click(function(){
   
 
 
+//Get Service country code
+$(".service_country").change(function(){
+    var country_id   = $(this).val();
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/individual/get-country-code',
+      data: { 'country_id' : country_id },
+      success : function(resp){
+        $('#serv_tele_code').val(resp);
+        $('#serv_mobile_code').val(resp);
+      }
+    });
+});
 
+//Get same address as residential address start
+$('#res_service_same').on('ifChecked', function(event){
+  $('input').iCheck('check');
+  $("#serv_address").val($("#res_address").val()); 
+  $("#serv_city").val($("#res_city").val());
+  $("#serv_region").val($("#res_region").val());
+  $("#serv_zipcode").val($("#res_zipcode").val());
+});
+
+$('#res_service_same').on('ifUnchecked', function(event){
+  $("#serv_address").val(""); 
+  $("#serv_city").val("");
+  $("#serv_region").val("");
+  $("#serv_zipcode").val("");
+  $('input').iCheck('uncheck');
+});
+//Get same address as residential address start
+
+//Get office address in add individual client Contact information portion start
+$(".office_address").change(function(){
+  var data_name = $(this).data('name');
+  var office_id   = $(this).val();
+  if(office_id == "4"){
+    $('#'+data_name+'_address').val("");
+    $('#'+data_name+'_zipcode').val("");
+    
+    $('#show_other_'+data_name+'office').fadeIn();
+
+    }else{
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/individual/get-office-address',
+        data: { 'office_id' : office_id },
+        success : function(resp){
+          if(office_id <= 4){
+            $('#show_other_'+data_name+'office').fadeOut();
+          }
+
+          $('#'+data_name+'_address').val(resp['address']);
+          /*$('#res_city').val(resp['city']);
+          $('#res_region').val(resp['region']);*/
+          $('#'+data_name+'_zipcode').val(resp['zipcode']);
+        }
+      });
+
+    }
+}); 
+
+//Get office address in add individual client Contact information portion end
+
+//Delete user added field while add individual/organisation user start
+$(".delete_user_field").click(function(){
+  var field_id = $(this).data('field_id');
+  if (confirm("Do you want to delete this field ?")) {
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/individual/delete-user-field',
+      data: { 'field_id' : field_id },
+      success : function(resp){
+        if(resp != ""){
+          location.reload();
+        }
+      }
+    });
+  }
+  
+}); 
+//Delete user added field while add individual/organisation user end
+
+
+//Show select option while adding client start
+$(".user_field_type").change(function(){
+  var field_type   = $(this).val();
+  if(field_type == "4"){
+    $('#show_select_option').show();
+  }else{
+    $('#show_select_option').hide();
+  }
+}); 
+//Show select option while adding client end
 
 
 });//end of main document ready
