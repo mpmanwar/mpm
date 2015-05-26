@@ -275,7 +275,7 @@ $(function() {
               @foreach($client_details as $key=>$client_row)
                 <tr class="all_check">
                   <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="1" id="client_delete_id"/>
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" id="client_delete_id"/>
                   </td>
                   <!-- <td>{{ $i }}</td> -->
                   <td>{{ $client_row['staff_name'] or "" }}</td>

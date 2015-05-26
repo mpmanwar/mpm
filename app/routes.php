@@ -88,6 +88,7 @@ Route::get('/admin-logout', 'AdminController@logout');
 ### Routes for Client URL's start ###
 Route::any('/individual/get-country-code', array("as"=>"get_country_code", "uses"=>'ClientController@get_country_code'));
 Route::any('/individual/delete-user-field', array("as"=>"delete_user_field", "uses"=>'ClientController@delete_user_field'));
+Route::any('/delete-individual-clients', array("as"=>"delete_individual_client", "uses"=>'ClientController@delete_individual_client'));
 ### Routes for Client URL's end ###
 
 

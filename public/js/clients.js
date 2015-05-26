@@ -20,20 +20,18 @@ $(document).ready(function(){
 
 	$('#deleteClients').click(function() {
 		var val = [];
-        //$("input[name='client_delete_id[]']").each( function (i) {
-        $(".ads_Checkbox:checked").each( function (i) {
+    $(".ads_Checkbox:checked").each( function (i) {
 			if($(this).is(':checked')){
 				val[i] = $(this).val();
 			}
-
-       	});
-        //alert(val.length);return false;
+    });
+    //alert(val.length);return false;
 		if(val.length>0){
 			if(confirm("Do you want to delete?")){
 				$.ajax({
 				    type: "POST",
 				    url: '/delete-individual-clients',
-				    data: { 'user_delete_id' : val },
+				    data: { 'client_delete_id' : val },
 				    success : function(resp){
 				    	//window.location = 'http://mpm.com/user-list';
 				    	window.location = '/individual-clients';

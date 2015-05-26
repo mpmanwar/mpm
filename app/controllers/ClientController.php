@@ -16,4 +16,14 @@ class ClientController extends BaseController
         echo $affectedRows;
     }
 
+    public function delete_individual_client()
+    {
+        $client_delete_id     = Input::get("client_delete_id");
+        //print_r($client_delete_id);die;
+        foreach($client_delete_id as $client_id){
+            Client::where('client_id', '=', $client_id)->delete();
+            StepsFieldsClient::where('client_id', '=', $client_id)->delete();
+        }
+    }
+
 }
