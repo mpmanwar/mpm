@@ -182,7 +182,7 @@
             </div>
             <!-- <p class="help-block">Max. 32MB</p> -->
         </div>
-        <div class="email_btns">
+        <div class="email_btns2">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           <button type="submit" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
         </div>

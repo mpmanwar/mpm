@@ -193,6 +193,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .job_checkbox{float:left; }
 
 .add_to_list{ margin-left: 20px; }
+.modal-footer1 {padding: 19px 0px 20px; margin-top: 15px; text-align: right; border-top: 1px solid #e5e5e5;}
+.email_btns1{float:right; width:130px;}
+.save_text {margin-right: 5px;}
+.email_btns2 {float: right; width: 150px;}
+.service_t{float:left;}
+.add_edit{float: left; margin-left:20px; padding-top:25px;}
+
+
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){

@@ -776,10 +776,26 @@ $(document).ready(function(){
                    <div class="col-xs-12">
  <div class="col_m2"> 
  <div class="director_table"> 
-<h3 class="box-title">RELATIONSHIP</h3>      
+<h3 class="box-title">RELATIONSHIP</h3> 
+<div class="top_bts">
+<ul style="padding: 0;">  
+<li>
 <div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New</a>
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
 </div>
+</li>
+<li>
+<div class="form-group">
+  <a href="www.google.com" target="_blank" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Client-Organ</a>
+</div>
+</li>
+<li>
+<div class="form-group">
+  <a href="javascript:void(0)"target="_blank" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Client-Inv</a>
+</div>
+</li>
+</ul>  
+</div> 
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -888,10 +904,15 @@ $(document).ready(function(){
                             </div>
                             
                             <div class="director_table">
-                              <h3 class="box-title">Services</h3>
+                            <div class="service_t">
+                              <h3 class="box-title">Services</h3></div>
+                              
+                              <div class="add_edit">
                               <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                              </div>
+                              <div class="clearfix"></div>
                               <div class="form-group">
-                                <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()"><i class="fa fa-plus"></i> New</a>
+                                <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
                               </div>
                               <div class="box-body table-responsive">
                                 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">

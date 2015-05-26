@@ -161,7 +161,9 @@ class HomeController extends BaseController {
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['services'] 		= TemplateType::get();
         $data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
-		return View::make('home.organisation.add_organisation_client', $data);
+	
+    
+    	return View::make('home.organisation.add_organisation_client', $data);
 	}
 
 

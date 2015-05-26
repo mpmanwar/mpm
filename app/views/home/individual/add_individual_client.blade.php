@@ -880,10 +880,10 @@ $(document).ready(function(){
           </select>
         </div>
         
-        <div class="modal-footer clearfix">
-          <div class="email_btns">
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns1">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
           </div>
         </div>
       </div>
