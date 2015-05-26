@@ -309,7 +309,41 @@ $(document).ready(function(){
           <div class="clearfix"></div>
         </div>
 
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
+      </div>
 
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
       
 
       <div class="add_client_btn">
@@ -327,6 +361,8 @@ $(document).ready(function(){
                   <!--end table-->
                 </div>
                 <!-- /.tab-pane -->
+
+
                 <div id="step2" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
@@ -595,6 +631,46 @@ $(document).ready(function(){
                         </div>
                               <div class="clearfix"></div>
                             </div>
+
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
                             
 <div class="add_client_btn">
   <button class="btn btn-info open"data-id="3" type="button">Next</button>
@@ -748,6 +824,47 @@ $(document).ready(function(){
                               <label for="exampleInputPassword1">Notes</label>
                              <textarea rows="3" name="notes" id="notes" class="form-control"></textarea>
                             </div>
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
+
+
 <div class="add_client_btn">
 <button class="btn btn-info open" data-id="4" type="button">Next</button>
 <!-- <button class="btn btn-success" type="button">Save</button> -->
@@ -964,6 +1081,45 @@ $(document).ready(function(){
 
                                 </div>
                               </div>
+
+
+<!-- This portion is for user created field -->
+@if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
+  @foreach($steps_fields_users as $row_fields)
+    @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
+      <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
+      </div>
+
+        <div class="clearfix"></div>
+      </div>
+    @endif
+  @endforeach
+@endif
+<!-- This portion is for user created field -->
+
+
 <div class="add_client_btn">
 <!-- <button class="btn btn-info">Next</button> -->
 <button class="btn btn-success save" type="submit">Save</button>
@@ -1010,6 +1166,7 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+    <input type="hidden" name="client_type" value="org" /> 
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
@@ -1017,7 +1174,7 @@ $(document).ready(function(){
             @if(!empty($steps))
               @foreach($steps as $key=>$step_row)
                 @if(!empty($step_row->step_id) && $step_row->step_id != '4')
-                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
+                  <option value="{{ $step_row->step_id }}">{{ ($step_row->title == "GENERAL")?"BUSINESS INFORMATION":$step_row->title }}</option>
                 @endif
               @endforeach
             @endif
@@ -1041,13 +1198,19 @@ $(document).ready(function(){
 
         <div class="form-group">
           <label for="exampleInputPassword1">Field Type</label>
-          <select class="form-control" name="field_type" id="field_type">
-            <option value="text">Text</option>
-            <option value="textarea">Textarea</option>
-            <option value="checkbox">Checkbox</option>
-            <option value="date">Date</option>
-            <option value="dropdown">Dropdown</option>
+          <select class="form-control user_field_type" name="field_type" id="field_type">
+            @if(!empty($field_types))
+              @foreach($field_types as $key=>$field_row)
+                <option value="{{ $field_row->field_type_id }}">{{ $field_row->field_type_name }}</option>
+              @endforeach
+            @endif
           </select>
+        </div>
+
+        <div class="form-group" style="display:none;" id="show_select_option">
+          <label for="exampleInputPassword1">Options</label>
+          <textarea name="select_option" cols="40" rows="3"></textarea>
+          Give options width ',' separator
         </div>
         
         <div class="modal-footer clearfix">

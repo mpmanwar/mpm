@@ -92,6 +92,9 @@ $(document).ready(function(){
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
+            <li>
+              <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
+            </li>
             <!-- <li>
               <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
@@ -216,10 +219,18 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Nationality</label>
 <select class="form-control" name="nationality" id="nationality">
-<option value="1">United Kingdom</option>
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
-  <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+  @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+    <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+  @endif
+  @endforeach
+@endif
+@if(!empty($countries))
+  @foreach($countries as $key=>$country_row)
+  @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+    <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+  @endif
   @endforeach
 @endif
 </select>
@@ -242,29 +253,25 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
-      
-      
-        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
-          <input type="text" id="" class="form-control">
-       
-        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "textarea")
-         
-          <textarea name="" id="" rows="4" cols="35"></textarea>
-         
-          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "checkbox")
-          <input type="checkbox" id="" />
-          
-          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "dropdown")
-       
-         <select class="form-control" name="" id="">
-                                <option value=""></option>
-                                         </select>
-          @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "date")                               
-                                         
-         <input type="date" >
-          
-        @endif
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
      
      
       </div>
@@ -308,24 +315,29 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-xs-6">
                     
                     
-  <div class="col_m2">  
+
+
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">NI Number</label>
 <input type="text" id="ni_number" name="ni_number" class="form-control">
+
 </div>
 </div>
 
-<div class="twobox">
-<div class="twobox_1">
+<div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Reference</label>
 <input type="text" id="tax_reference" name="tax_reference" class="form-control">
 </div>
 </div>
+<div class="clearfix"></div>
+</div>
 
-<div class="twobox_2">
+
+<div class="twobox">
+<div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Office</label>
 <select class="form-control" id="tax_office_id" name="tax_office_id">
@@ -338,10 +350,13 @@ $(document).ready(function(){
   @endif
     
 </select>
+
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
+
+
 
 <div id="show_other_office" style="display:none;">
   <div class="form-group">
@@ -391,12 +406,27 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
-        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
-          <input type="text" id="" class="form-control">
-        @else
-          <textarea name="" id="" rows="4" cols="40"></textarea>
-        @endif
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
       </div>
 
         <div class="clearfix"></div>
@@ -441,10 +471,65 @@ $(document).ready(function(){
                     
                     <div class="col-xs-12 col-xs-6">
                     <div class="col_m2">  
-<h3 class="box-title">Residential Address</h3>                 
+<h3 class="box-title">Residential Address</h3>  
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Select Address</label>
+  <select class="form-control office_address" id="res_office_id" name="res_office_id" data-name="res">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+        @if($office_row->parent_id == 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div>
+</div>
+
+<div class="twobox_2" id="show_other_resoffice" style="display:none;">
+<div class="form-group">
+<label for="exampleInputPassword1">Other Address</label>
+  <select class="form-control office_address" id="other_res_office_id" name="other_res_office_id" data-name="res">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+      @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
+        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<!-- <div class="form-group">
+<label for="exampleInputPassword1">Select Address</label>
+  <select class="form-control" id="res_office_id" name="res_office_id">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+        @if($office_row->parent_id == 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div> -->
+
+
 <div class="form-group">
 <label for="exampleInputPassword1">Residential Address</label>
-<input type="text" id="res_address" name="res_address" class="form-control">
+<textarea id="res_address" name="res_address" class="form-control" rows="3"></textarea>
+
 </div>
 
 <div class="twobox">
@@ -457,7 +542,7 @@ $(document).ready(function(){
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">State Region</label>
+<label for="exampleInputPassword1">State/Region</label>
 <input type="text" id="res_region" name="res_region" class="form-control">
 </div>
 </div>
@@ -476,10 +561,18 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Country</label>
   <select class="form-control" name="res_country" id="res_country">
-    <option value="1">United Kingdom</option>
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
-      <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
       @endforeach
     @endif
   </select>
@@ -488,11 +581,83 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+<!-- <div>
+<h3 class="box-title">Service Address</h3> <p>Copy Residential address <input type="checkbox" name="res_service_same" id="res_service_same"> </p>
+</div> -->
 
-<h3 class="box-title">Service Address</h3>                 
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<h3 class="box-title">Service Address</h3>
+</div>
+</div>
+
+<div class="twobox_2" style="margin-top: 25px;">
+<div class="form-group">
+<label for="exampleInputPassword1"></label>
+  Copy Residential address <input type="checkbox" name="res_service_same" id="res_service_same">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Select Address</label>
+  <select class="form-control office_address" id="serv_office_id" name="serv_office_id" data-name="serv">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+        @if($office_row->parent_id == 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div>
+</div>
+
+<div class="twobox_2" id="show_other_servoffice" style="display:none;">
+<div class="form-group">
+<label for="exampleInputPassword1">Other Address</label>
+  <select class="form-control office_address" id="other_serv_office_id" name="other_serv_office_id" data-name="serv">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+      @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
+        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+      @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+<!-- <div class="form-group">
+<label for="exampleInputPassword1">Select Address</label>
+  <select class="form-control" id="service_office_id" name="service_office_id">
+    <option value="">-- Select Address --</option>
+    @if(!empty($tax_office))
+      @foreach($tax_office as $key=>$office_row)
+        @if($office_row->parent_id == 0)
+          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        @endif
+      @endforeach
+    @endif
+      
+  </select>
+</div> -->
+
 <div class="form-group">
 <label for="exampleInputPassword1">Service Address</label>
-<input type="text" id="serv_address" name="serv_address" class="form-control">
+<textarea id="serv_address" name="serv_address" class="form-control" rows="3"></textarea>
 </div>
 
 <div class="twobox">
@@ -523,11 +688,19 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Country</label>
-  <select class="form-control" name="serv_country" id="serv_country">
-    <option value="1">United Kingdom</option>
+  <select class="form-control service_country" name="serv_country" id="serv_country">
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
-      <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
       @endforeach
     @endif
   </select>
@@ -539,11 +712,13 @@ $(document).ready(function(){
 <div class="form-group">
 
 <div class="n_box01">
-    <label for="exampleInputPassword1">Country Code</label>
-<select class="form-control" id="serv_tele_code" name="serv_tele_code">
-<option value="+91">+91</option>
-<option value="+95">+95</option>
-</select></div>
+  <label for="exampleInputPassword1">Country Code</label>
+  <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
+  <option value="44">44</option>
+  </select> -->
+  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" disabled />
+</div>
+
 <div class="telbox">
 <label for="exampleInputPassword1">Telephone</label>
     <input type="text" id="serv_telephone" name="serv_telephone" class="form-control"></div>
@@ -553,11 +728,12 @@ $(document).ready(function(){
 <div class="form-group">
 
 <div class="n_box01">
-    <label for="exampleInputPassword1">Country Code</label>
-<select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
-<option value="+91">+91</option>
-<option value="+95">+95</option>
-</select></div>
+  <label for="exampleInputPassword1">Country Code</label>
+  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" disabled />
+<!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
+<option value="44">44</option>
+</select> -->
+</div>
 <div class="telbox">
 <label for="exampleInputPassword1">Mobile</label>
     <input type="text" id="serv_mobile" name="serv_mobile" class="form-control"></div>
@@ -587,12 +763,27 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "3")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
-        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
-          <input type="text" id="" class="form-control">
-        @else
-          <textarea name="" id="" rows="4" cols="40"></textarea>
-        @endif
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
       </div>
 
         <div class="clearfix"></div>
@@ -637,7 +828,7 @@ $(document).ready(function(){
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3>      
 <div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New</a>
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="javascript:void(0)" class="btn btn-info"><i class="fa fa-plus"></i> New Client - Organ</a>
 </div>
 
 <div class="box-body table-responsive">
@@ -769,12 +960,27 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }}</label>
-        @if(!empty($row_fields->field_type) && $row_fields->field_type == "text")
-          <input type="text" id="" class="form-control">
-        @else
-          <textarea name="" id="" rows="4" cols="40"></textarea>
-        @endif
+      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+            @foreach($row_fields->select_option as $key=>$value)
+              <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
+          @endif
+        </select>
+      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+      @endif
+     
+     
       </div>
 
         <div class="clearfix"></div>
@@ -840,6 +1046,7 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+    <input type="hidden" name="client_type" value="ind" />
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
@@ -871,13 +1078,19 @@ $(document).ready(function(){
 
         <div class="form-group">
           <label for="exampleInputPassword1">Field Type</label>
-          <select class="form-control" name="field_type" id="field_type">
-            <option value="text">Text</option>
-            <option value="textarea">Textarea</option>
-            <option value="checkbox">Checkbox</option>
-            <option value="date">Date</option>
-            <option value="dropdown">Dropdown</option>
+          <select class="form-control user_field_type" name="field_type" id="field_type">
+            @if(!empty($field_types))
+              @foreach($field_types as $key=>$field_row)
+                <option value="{{ $field_row->field_type_id }}">{{ $field_row->field_type_name }}</option>
+              @endforeach
+            @endif
           </select>
+        </div>
+
+        <div class="form-group" style="display:none;" id="show_select_option">
+          <label for="exampleInputPassword1">Options</label>
+          <textarea name="select_option" cols="40" rows="3"></textarea>
+          Give options width ',' separator
         </div>
         
         <div class="modal-footer1 clearfix">

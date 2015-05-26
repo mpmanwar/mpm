@@ -30,7 +30,6 @@ Route::any('/individual/show-new-tables', array("as"=>"show_new_table", "uses"=>
 Route::any('/individual/search-individual-client', array("as"=>"search_individual_client", "uses"=>'HomeController@search_individual_client'));
 
 
-
 Route::any('/organisation/add-client', array("as"=>"add_organisation_client", "uses"=>'HomeController@add_organisation_client'));
 Route::any('/organisation/save-services', array("as"=>"save_services", "uses"=>'HomeController@save_services'));
 
@@ -86,5 +85,9 @@ Route::post('/login-process', 'AdminController@login_process');
 Route::get('/admin-logout', 'AdminController@logout');
 ### Routes for Settings related URL's end ###
 
+### Routes for Client URL's start ###
+Route::any('/individual/get-country-code', array("as"=>"get_country_code", "uses"=>'ClientController@get_country_code'));
+Route::any('/individual/delete-user-field', array("as"=>"delete_user_field", "uses"=>'ClientController@delete_user_field'));
+### Routes for Client URL's end ###
 
 
