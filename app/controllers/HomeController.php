@@ -343,7 +343,7 @@ class HomeController extends BaseController {
         
 		//print_r($arrData);die;
         StepsFieldsClient::insert($arrData);
-		return Redirect::to('/individual/add-client'); 
+		return Redirect::to('/individual-clients'); 
 
 		//return View::make('home.organisation.add_organisation_client', $data);
 	}
@@ -688,10 +688,8 @@ class HomeController extends BaseController {
 		}	
 //############# SERVICES END ###################//
 
-
-
 		StepsFieldsClient::insert($arrData);
-		return Redirect::to('/organisation/add-client'); 
+		return Redirect::to('/organisation-clients'); 
 	}
 
 	public function save_client($user_id, $client_id, $step_id, $field_name, $field_value)
