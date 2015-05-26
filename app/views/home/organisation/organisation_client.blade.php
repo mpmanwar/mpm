@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(function() {
     $('#example2').dataTable({
-        "bPaginate": false,
+        "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
         "bSort": true,

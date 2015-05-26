@@ -13,9 +13,9 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
-    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0 });
+    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy'});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy' });
+    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy' });
 })
 </script>
 

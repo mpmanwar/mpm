@@ -14,14 +14,14 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#incorporation_date").datepicker({minDate: new Date(1900, 12-1, 25)});
-    $("#made_up_date").datepicker({minDate: new Date(1900, 12-1, 25)});
-    $("#next_ret_due").datepicker({minDate: new Date(1900, 12-1, 25)});
-    $("#last_acc_madeup_date").datepicker({minDate: new Date(1900, 12-1, 25)});
-    $("#next_acc_due").datepicker({minDate: new Date(1900, 12-1, 25)});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
+    $("#incorporation_date").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy'});
+    $("#made_up_date").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy'});
+    $("#next_ret_due").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy'});
+    $("#last_acc_madeup_date").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy'});
+    $("#next_acc_due").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy'});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy' });
 
-    $("#effective_date").datepicker({ minDate: new Date(1900, 12-1, 25) });
+    $("#effective_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy' });
 
     
 })
