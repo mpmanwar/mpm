@@ -85,7 +85,7 @@ $(document).ready(function(){
           <ul>
             <!-- <li>
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li> -->
+            </li>
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
             </li>
@@ -93,14 +93,20 @@ $(document).ready(function(){
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             <li>
-              <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
-            <!-- <li>
               <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
             <li>
               <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
             </li> -->
+            <li>
+              <button class="btn btn-success">IMPORT FROM CSV</button>
+            </li>
+            <li>
+              <button class="btn btn-primary">REQUEST FROM CLIENT</button>
+            </li>
+            <li>
+              <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
+            </li>
             <div class="clearfix"></div>
           </ul>
         </div>
@@ -473,7 +479,7 @@ $(document).ready(function(){
                     <div class="col_m2">  
 <h3 class="box-title">Residential Address</h3>  
 
-<div class="twobox">
+<!-- <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -508,7 +514,7 @@ $(document).ready(function(){
 </div>
 </div>
 <div class="clearfix"></div>
-</div>
+</div> -->
 
 <!-- <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -527,7 +533,7 @@ $(document).ready(function(){
 
 
 <div class="form-group">
-<label for="exampleInputPassword1">Residential Address</label>
+<label for="exampleInputPassword1">Address</label>
 <textarea id="res_address" name="res_address" class="form-control" rows="3"></textarea>
 
 </div>
@@ -602,7 +608,7 @@ $(document).ready(function(){
 </div>
 
 
-<div class="twobox">
+<!-- <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -637,7 +643,7 @@ $(document).ready(function(){
 </div>
 </div>
 <div class="clearfix"></div>
-</div>
+</div> -->
 
 
 <!-- <div class="form-group">
@@ -656,7 +662,7 @@ $(document).ready(function(){
 </div> -->
 
 <div class="form-group">
-<label for="exampleInputPassword1">Service Address</label>
+<label for="exampleInputPassword1">Address</label>
 <textarea id="serv_address" name="serv_address" class="form-control" rows="3"></textarea>
 </div>
 
@@ -828,7 +834,7 @@ $(document).ready(function(){
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3>      
 <div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="javascript:void(0)" class="btn btn-info"><i class="fa fa-plus"></i> New Client - Organ</a>
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
 </div>
 
 <div class="box-body table-responsive">
@@ -849,7 +855,7 @@ $(document).ready(function(){
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
       <div class="search_value" id="show_search_client"></div>
     </div>
 

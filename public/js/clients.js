@@ -128,15 +128,13 @@ $(".back").click(function(){
     
   $("#tax_office_id").change(function(){
     var office_id   = $(this).val();
+    var tax_type   = $('#tax_reference_type').val();
     if(office_id == "4"){
       $('#tax_address').val("");
-      /*$('#tax_city').val("");
-      $('#tax_region').val("");*/
       $('#tax_zipcode').val("");
       $('#tax_telephone').val("");
 
       $('#show_other_office').fadeIn();
-
     }else{
       $.ajax({
         type: "POST",
@@ -147,8 +145,6 @@ $(".back").click(function(){
           $('#show_other_office').fadeOut();
 
           $('#tax_address').val(resp['address']);
-          /*$('#tax_city').val(resp['city']);
-          $('#tax_region').val(resp['region']);*/
           $('#tax_zipcode').val(resp['zipcode']);
           $('#tax_telephone').val(resp['telephone']);
         }
@@ -175,7 +171,7 @@ $(".back").click(function(){
     
   });
 
-  $("#relname").keyup(function(){
+  $(".org_relclient_search").keyup(function(){
     var search_value  = $(this).val();
     var client_type   = $("#search_client_type").val();
     //alert(search_value+", "+client_type);
@@ -186,6 +182,38 @@ $(".back").click(function(){
         type: "POST",
         dataType: "json",
         url: '/search/search-client',
+        data: { 'search_value' : search_value, 'client_type' : client_type },
+        success : function(resp){
+          if (resp.length != 0) {
+            var content = '<ul>';
+            $.each(resp, function(key){
+              content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
+              //console.log(resp[key].client_name); 
+            });
+
+            content+= '</ul>';
+
+            $("#show_search_client").html(content);
+            $("#show_search_client").show();
+          }
+          
+        }
+      });
+
+    }
+  });
+
+  $(".all_relclient_search").keyup(function(){
+    var search_value  = $(this).val();
+    var client_type   = $("#search_client_type").val();
+    //alert(search_value+", "+client_type);
+    if(search_value == ""){
+      $("#show_search_client").hide();
+    }else{
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
           if (resp.length != 0) {
@@ -455,29 +483,35 @@ function saveRelationship()
     var rel_type_id = $('#rel_type_id').val();
     var rel_client_id = $('#rel_client_id').val();
 
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: '/individual/save-relationship',
-      data: { 'name' : name, 'date' : date, 'rel_type_id' : rel_type_id },
-      success : function(resp){
-        var content = '<tr><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href=""><i class="fa fa-edit"></i></a> <a href=""><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
-        $("#myRelTable").last().append(content);
+    if(rel_client_id == ""){
+      alert("Please search and select business name");
+      return false;
+    }else{
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/individual/save-relationship',
+        data: { 'name' : name, 'date' : date, 'rel_type_id' : rel_type_id },
+        success : function(resp){
+          var content = '<tr><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href=""><i class="fa fa-edit"></i></a> <a href=""><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          $("#myRelTable").last().append(content);
 
-        var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id;
-        if(itemselected !== undefined && itemselected !== null){
-            relationship_array.push(itemselected);
+          var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id;
+          if(itemselected !== undefined && itemselected !== null){
+              relationship_array.push(itemselected);
+          }
+
+          relationship_array.join(',');
+
+          $('#app_hidd_array').val(relationship_array);
+
+          $('#relname').val("");
+          $('#app_date').val("");
+          $("#new_relationship").hide('slow');
         }
-
-        relationship_array.join(',');
-
-        $('#app_hidd_array').val(relationship_array);
-
-        $('#relname').val("");
-        $('#app_date').val("");
-        $("#new_relationship").hide('slow');
-      }
-    });
+      });
+    }
+    
 
     
     

@@ -134,7 +134,7 @@ class HomeController extends BaseController {
 
 	public function add_individual_client(){
 		$data['title'] 				= "Add Individual Client";
-		$data['rel_types'] 			= RelationshipType::orderBy("relation_type_id")->get();
+		$data['rel_types'] 			= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 		$data['marital_status'] 	= MaritalStatus::orderBy("marital_status_id")->get();
 		$data['titles'] 			= Title::orderBy("title_id")->get();
 		$data['tax_office'] 		= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
@@ -157,14 +157,16 @@ class HomeController extends BaseController {
 
 	public function add_organisation_client(){
 		$data['title'] 			= "Add Organisation Client";
-		$data['org_types']		= OrganisationType::get();
+		$data['org_types']		= OrganisationType::orderBy("organisation_id")->get();
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::orderBy("step_id")->get();
 		$data['staff_details']	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
-		$data['services'] 		= TemplateType::get();
+		$data['services'] 		= Service::get();
         $data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
         $data['field_types']	= FieldType::get();
+        $data['vat_schemes']	= VatScheme::get();
+        $data['cont_address']	= $this->get_contact_address();
 
         $steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -174,6 +176,34 @@ class HomeController extends BaseController {
 
 		return View::make('home.organisation.add_organisation_client', $data);
 
+	}
+
+	public function get_contact_address()
+	{
+		$client_data = array();
+		$user_id = 1;
+
+		$client_ids		= Client::where('type', '=', "org")->where('user_id', '=', $user_id)->select("client_id")->get();
+		//echo $this->last_query();die;
+		$i = 0;
+		if( isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $client_id){
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+				$client_data[$i]['client_id'] 	= $client_id->client_id;
+
+				if( isset($client_details) && count($client_details) >0 ){
+					foreach($client_details as $client_row){
+						if(isset($client_row['field_name']) && ($client_row['field_name']=="cont_addr_line1" || $client_row['field_name']=="cont_addr_line2" ) ){
+							$client_data[$i][$client_row['field_name']] = $client_row['field_value'];
+						}
+					}
+
+					$i++;
+				}
+			}
+		}
+		//print_r($client_data);die;
+		return $client_data;
 	}
 
 
@@ -432,6 +462,35 @@ class HomeController extends BaseController {
 		$i = 0;
 		foreach($client_ids as $client_id){
 			$client_name = StepsFieldsClient::where("field_value", "like", '%'.$search_value.'%')->where('field_name', '=', $field_name)->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
+			if( isset($client_name) && count($client_name) >0 ){
+				$client_details[$i]['client_id'] 	= $client_id->client_id;
+				$client_details[$i]['client_name'] 	= $client_name['field_value'];
+				$i++;
+			}
+			
+			//echo $this->last_query();
+		}
+
+        echo json_encode($client_details);
+        exit();
+	}
+
+	public function search_all_client()
+	{
+		$client_details = array();
+		$user_id 		= 1;
+		$search_value 	= Input::get("search_value");
+		$client_ids		= Client::where('user_id', '=', $user_id)->select("client_id", "type")->get();
+
+		$i = 0;
+		foreach($client_ids as $client_id){
+			if($client_id->type == "org"){
+				$field_name = 'business_name';
+			}else{
+				$field_name = 'name';
+			}
+			$client_name = StepsFieldsClient::where("field_value", "like", '%'.$search_value.'%')->where('field_name', '=', $field_name)->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
+			//echo $this->last_query();//die;
 			if( isset($client_name) && count($client_name) >0 ){
 				$client_details[$i]['client_id'] 	= $client_id->client_id;
 				$client_details[$i]['client_name'] 	= $client_name['field_value'];

@@ -36,6 +36,7 @@ Route::any('/organisation/save-services', array("as"=>"save_services", "uses"=>'
 Route::any('/organisation/insert-client-details', array("as"=>"insert_organisation_client", "uses"=>'HomeController@insert_organisation_client'));
 
 Route::any('/search/search-client', array("as"=>"search_client", "uses"=>'HomeController@search_client'));
+Route::any('/search/search-all-client', array("as"=>"search_all_client", "uses"=>'HomeController@search_all_client'));
 
 ### Routes for Dashboard related URL's end ###
 
@@ -89,6 +90,14 @@ Route::get('/admin-logout', 'AdminController@logout');
 Route::any('/individual/get-country-code', array("as"=>"get_country_code", "uses"=>'ClientController@get_country_code'));
 Route::any('/individual/delete-user-field', array("as"=>"delete_user_field", "uses"=>'ClientController@delete_user_field'));
 Route::any('/delete-individual-clients', array("as"=>"delete_individual_client", "uses"=>'ClientController@delete_individual_client'));
+Route::any('/client/search-tax-address', array("as"=>"search_tax_address", "uses"=>'ClientController@search_tax_address'));
+Route::any('/client/add-business-type', array("as"=>"add_business_type", "uses"=>'ClientController@add_business_type'));
+Route::any('/client/delete-org-name', array("as"=>"delete_org_name", "uses"=>'ClientController@delete_org_name'));
+Route::any('/client/add-vat-scheme', array("as"=>"add_vat_scheme", "uses"=>'ClientController@add_vat_scheme'));
+Route::any('/client/delete-vat-scheme', array("as"=>"delete_vat_scheme", "uses"=>'ClientController@delete_vat_scheme'));
+Route::any('/client/get-oldcont-address', array("as"=>"get_oldcont_address", "uses"=>'ClientController@get_oldcont_address'));
+Route::any('/client/add-services', array("as"=>"add_services", "uses"=>'ClientController@add_services'));
+Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'ClientController@delete_services'));
 ### Routes for Client URL's end ###
 
 
