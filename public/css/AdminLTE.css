@@ -210,7 +210,7 @@ img {
   background-color: #39cccc !important;
 }
 .bg-olive {
-  background-color: #3d9970 !important;
+  background-color: #3c8dbc !important;
 }
 .bg-lime {
   background-color: #01ff70 !important;
@@ -336,7 +336,7 @@ body > .header {
   z-index: 1030;
 }
 body > .header .navbar {
-  min-height: 50px;
+  height: 50px;
   margin-bottom: 0;
   margin-left: 220px;
 }
@@ -405,8 +405,7 @@ body > .header .logo {
   font-weight: 500;
   height: 50px;
   display: block;
-  background-color: #fff; 
-  border-bottom: 1px solid #000;
+  background-color: #fff; border-bottom: 1px solid #000;
 }
 body > .header .logo .icon {
   margin-right: 10px;
@@ -2279,7 +2278,7 @@ Component: timeline
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background: #3d9970;
+  background: #3c8dbc;
   box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
   padding: 20px 10px;
   text-align: center;
