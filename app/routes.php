@@ -98,6 +98,8 @@ Route::any('/client/delete-vat-scheme', array("as"=>"delete_vat_scheme", "uses"=
 Route::any('/client/get-oldcont-address', array("as"=>"get_oldcont_address", "uses"=>'ClientController@get_oldcont_address'));
 Route::any('/client/add-services', array("as"=>"add_services", "uses"=>'ClientController@add_services'));
 Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'ClientController@delete_services'));
+Route::any('/client/insert-section', array("as"=>"insert_section", "uses"=>'ClientController@insert_section'));
+Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'ClientController@delete_section'));
 ### Routes for Client URL's end ###
 
 

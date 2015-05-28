@@ -127,7 +127,7 @@ class HomeController extends BaseController {
 
 		$data['client_fields']		= ClientField::where("field_type", "=", "org")->get();
 
-		//print_r($data);die;
+		//print_r($data['client_details']);die;
 		
 		return View::make('home.organisation.organisation_client', $data);
 	}
@@ -150,6 +150,21 @@ class HomeController extends BaseController {
 		}
 		$data['steps_fields_users']		= $steps_fields_users;
 
+		//###########User added section and sub section start##########//
+		$steps = array();
+		$subsections 	= Step::where("status", "=", "new")->get();
+        foreach($subsections as $key=>$val) {   
+	        if(isset($val->status) && $val->status == "new"){
+	        	$steps[$key]['step_id'] 	= $val->step_id;       
+	        	$steps[$key]['short_code'] 	= $val->short_code;        
+	        	$steps[$key]['title'] 		= $val->title;       
+	        	$steps[$key]['status'] 		= $val->status; 
+	        }     
+        	      
+        }  
+        $data['subsections'] = $this->buildtree($steps, "ind");
+        //###########User added section and sub section start##########//
+
 		//print_r($data['steps_fields_users']);die;
 		//echo $this->last_query();die;
 		return View::make('home.individual.add_individual_client', $data);
@@ -168,15 +183,58 @@ class HomeController extends BaseController {
         $data['vat_schemes']	= VatScheme::get();
         $data['cont_address']	= $this->get_contact_address();
 
-        $steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "org")->get();
+        $steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "org")->where("step_id", "<=", '5')->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
 			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
 		}
 		$data['steps_fields_users']		= $steps_fields_users;
 
+		//###########User added section and sub section start##########//
+		$steps = array();
+		$subsections 	= Step::where("status", "=", "new")->get();
+        foreach($subsections as $key=>$val) {   
+	        if(isset($val->status) && $val->status == "new"){
+	        	$steps[$key]['step_id'] 	= $val->step_id;       
+	        	$steps[$key]['short_code'] 	= $val->short_code;        
+	        	$steps[$key]['title'] 		= $val->title;       
+	        	$steps[$key]['status'] 		= $val->status; 
+	        }     
+        	      
+        }  
+        //print_r($steps);die; 
+        $data['subsections'] = $this->buildtree($steps, "org");
+        //print_r($data['subsections']);die;
+		//###########User added section and sub section start##########//
+
+
 		return View::make('home.organisation.add_organisation_client', $data);
 
 	}
+
+	public function buildtree($steps, $client_type) {
+    	$branch = array();
+  		foreach ($steps as $element) {   
+    		$children = StepsFieldsAddedUser::where("step_id", "=", $element['step_id'])->where("client_type", "=", $client_type)->get(); 
+    		foreach ($children as $key => $steps_fields_row) {
+				$children[$key]->select_option = explode(",", $steps_fields_row->select_option);
+			}
+			if (isset($children) && count($children) >0 ) {
+				foreach ($children as $key=>$row) {
+					$element['children'][$key]['field_id'] = $row->field_id;
+					$element['children'][$key]['user_id'] = $row->user_id;
+					$element['children'][$key]['step_id'] = $row->step_id;
+					$element['children'][$key]['field_type'] = $row->field_type;
+					$element['children'][$key]['field_name'] = $row->field_name;
+					$element['children'][$key]['field_value'] = $row->field_value;
+					$element['children'][$key]['select_option'] = $row->select_option;
+					$element['children'][$key]['client_type'] = $row->client_type;
+				}
+				$branch[] = $element;
+			}    
+			    
+    	}
+    	return $branch;
+    }
 
 	public function get_contact_address()
 	{

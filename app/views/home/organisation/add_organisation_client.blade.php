@@ -31,7 +31,7 @@ $(document).ready(function(){
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     @include('layouts/inner_leftside')
@@ -41,7 +41,7 @@ $(document).ready(function(){
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -313,29 +313,29 @@ $(document).ready(function(){
   @foreach($steps_fields_users as $row_fields)
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
-      <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
-        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
-      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
-        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
-          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
-            @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
-            @endforeach
-          @endif
-        </select>
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
-      @endif
-     
-     
-      </div>
+        <div class="twobox_2">
+        <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+          &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+          <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+          <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+          <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+          <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+            @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+              @foreach($row_fields->select_option as $key=>$value)
+                <option value="{{ $value }}">{{ $value }}</option>
+              @endforeach
+            @endif
+          </select>
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+          <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        @endif
+       
+       
+        </div>
 
         <div class="clearfix"></div>
       </div>
@@ -343,6 +343,52 @@ $(document).ready(function(){
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="4" cols="35"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      @endforeach
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
       
 
       <div class="add_client_btn">
@@ -559,7 +605,7 @@ $(document).ready(function(){
                             
           <div class="form-group">
             <label for="exampleInputPassword1">PAYE Registered</label>
-            <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
+            <input type="checkbox" class="org_tax_payee_address" id="paye_reg" name="paye_reg" value="1" />
           </div>
                         
                         
@@ -597,28 +643,34 @@ $(document).ready(function(){
                                   <input type="text" id="paye_district" name="paye_district" class="form-control">
                                 </div>
                               </div>
-                              <div class="twobox_2">
+                              <!-- <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Employer Office</label>
-
+                              
                                   <input type="text" id="employer_office" name="employer_office" class="form-control">
-
+                              
                                  
                                 </div>
-                              </div>
+                              </div> -->
                               <div class="clearfix"></div>
                             </div>
+
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Employer Office</label>
+                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office" disabled></textarea>
+                            </div>
+
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" id="employer_postcode" name="employer_postcode" class="form-control">
+                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control" disabled>
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Telephone</label>
-                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control">
+                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control" disabled>
                                 </div>
                               </div>
 
@@ -1225,18 +1277,23 @@ $(document).ready(function(){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputPassword1">Field Name</label>
-          <input type="text" id="field_name" name="field_name" class="form-control">
-        </div>
-
-        <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
+          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
+            <ul>
+              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
-          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
+          <input type="text" id="field_name" name="field_name" class="form-control">
+        </div> -->
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Name</label>
+          <input type="text" id="field_name" name="field_name" class="form-control">
         </div>
 
         <div class="form-group">
@@ -1394,6 +1451,47 @@ $(document).ready(function(){
   <!-- /.modal-dialog -->
 </div>
 <!-- Services Modal End-->
+
+
+<!-- Add Subsec Modal Start-->
+<div class="modal fade" id="addsubsec-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+      </div>
+
+      @if(!empty($services))
+        @foreach($services as $key=>$service_row)
+          <div class="form-group">
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+          </div>
+        @endforeach
+      @endif
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Add Subsec Modal End-->
 
 
 

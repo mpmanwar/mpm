@@ -7,6 +7,11 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
+    public function __construct() {       
+        View::share('left_class', "collapse-left");
+        View::share('right_class', "strech");
+    }
+
 	protected function setupLayout(){
         if ( ! is_null($this->layout)){
             $this->layout = View::make($this->layout);

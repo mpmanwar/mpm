@@ -25,7 +25,7 @@ $(document).ready(function(){
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
@@ -63,7 +63,7 @@ $(document).ready(function(){
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -288,6 +288,53 @@ $(document).ready(function(){
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="4" cols="35"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      @endforeach
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
 
 
 
@@ -1070,11 +1117,11 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
-          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
+          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
+            <ul>
+              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
+            </ul>
+          </div>
         </div>
 
         <div class="form-group">

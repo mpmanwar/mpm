@@ -16,6 +16,17 @@ class ClientController extends BaseController
         echo $affectedRows;
     }
 
+    public function delete_section()
+    {
+        $step_id        = Input::get("step_id");
+        $affected       = Step::where('step_id', '=', $step_id)->delete();
+        if($affected){
+            $affectedRows   = StepsFieldsAddedUser::where('step_id', '=', $step_id)->delete();
+            echo $affectedRows;
+        }
+        
+    }
+
     public function delete_individual_client()
     {
         $client_delete_id     = Input::get("client_delete_id");
@@ -122,6 +133,19 @@ class ClientController extends BaseController
         {
             $data = Service::where("service_id", "=", $field_id)->delete();
             echo $data;
+        }
+    }
+
+    public function insert_section()
+    {
+       $data['title']       = Input::get("subsec_name");
+       $data['short_code']  = strtolower(Input::get("subsec_name"));
+       $data['status']      = "new";
+        if(Request::ajax())
+        {
+            $data   = Step::insert($data);
+            $steps  = Step::get();
+            echo json_encode($steps);
         }
     }
 

@@ -455,6 +455,26 @@ $(".delete_user_field").click(function(){
 }); 
 //Delete user added field while add individual/organisation user end
 
+//Delete Section individual/organisation user start
+$(".delete_section").click(function(){
+  var step_id = $(this).data('step_id');
+  if (confirm("Do you want to delete this section ?")) {
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/client/delete-section',
+      data: { 'step_id' : step_id },
+      success : function(resp){
+        if(resp != ""){
+          location.reload();
+        }
+      }
+    });
+  }
+  
+}); 
+//Delete Section individual/organisation user end
+
 
 //Show select option while adding client start
 $(".user_field_type").change(function(){
@@ -466,6 +486,54 @@ $(".user_field_type").change(function(){
   }
 }); 
 //Show select option while adding client end
+
+//Add sub section name while add individual/organisation user start
+$("#subsec_name").focusin(function(){
+  $(".search_value").show(); 
+}); 
+/*$("#subsec_name").focusout(function(){
+  $(".search_value").hide(); 
+});*/
+//Add sub section name while add individual/organisation user end
+
+//Add new header section name while add individual/organisation user start
+$(".add_subsec_name").on("click", function(){
+  var subsec_name = $("#subsec_name").val();
+  if(subsec_name == ""){
+    alert("Please enter sub section name");
+    $("#subsec_name").focus();
+    return false;
+  }
+    $.ajax({
+      type: "POST",
+        dataType: "json",
+        url: '/client/insert-section',
+        data: { 'subsec_name' : subsec_name },
+        success : function(resp){
+          if (resp.length != 0) {
+            var content = "";
+            $.each(resp, function(key){
+
+              content+= "<option value='"+resp[key].step_id+"'>"+resp[key].title+"</option>";
+
+              //console.log(resp[key].short_code); 
+              /*$("#cont_addr_line1").val(resp[key].cont_addr_line1);
+              $("#cont_addr_line2").val(resp[key].cont_addr_line2);
+              $("#cont_city").val(resp[key].cont_city);
+              $("#cont_county").val(resp[key].cont_county);
+              $("#cont_postcode").val(resp[key].cont_postcode);*/
+              
+            });
+
+            $("#step_id").html(content);
+            $(".search_value").hide();
+            $("#subsec_name").val("");
+
+          }
+        }
+    });
+});
+//Add new header section name while add individual/organisation user end
 
 
 });//end of main document ready

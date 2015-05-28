@@ -57,6 +57,19 @@ $(document).ready(function(){
   });
   //Contact Name show while add organisation client end
 
+  //PAYE registered address show while add organisation client start
+  $('.org_tax_payee_address').on('ifChecked', function(event){
+      $("#employer_office").val("Customer Operations Employer Office, BP4009, Chillingham House, Benton Park View, Newcastle Upon Tyne");
+      $("#employer_postcode").val("NE98 1ZZ");
+      $("#employer_postcode").val("03002003200");
+  });
+  $('.org_tax_payee_address').on('ifUnchecked', function(event){
+      $("#employer_office").val("");
+      $("#employer_postcode").val("");
+      $("#employer_postcode").val("");
+  });
+  //PAYE registered address show while add organisation client end
+
 
 //Show organisation tax address type while adding client start
 $(".org_tax_reference").change(function(){
@@ -186,6 +199,8 @@ $(".delete_services").click(function(){
   
 }); 
 //Delete services name while add individual/organisation user end
+
+
 
 
 	
