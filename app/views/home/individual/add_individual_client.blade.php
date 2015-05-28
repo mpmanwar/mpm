@@ -769,7 +769,7 @@ $(document).ready(function(){
   <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
   <option value="44">44</option>
   </select> -->
-  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" disabled />
+  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" readonly />
 </div>
 
 <div class="telbox">
@@ -782,7 +782,7 @@ $(document).ready(function(){
 
 <div class="n_box01">
   <label for="exampleInputPassword1">Country Code</label>
-  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" disabled />
+  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" readonly />
 <!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
 <option value="44">44</option>
 </select> -->

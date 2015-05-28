@@ -123,61 +123,8 @@
                     </ol>
                 </section>
 
-                <!-- Main content -->
-                <section class="content">
-
-                    <!-- Small boxes (Stat box)
-                     <div class="btn_con_left">  
-                        <div class="mps_btn">
-                        <a href="/practice-details">
-                            <button class="btn btn-info btn-lg1 btn_align">PRACTICE DETAILS</button>
-                        </a>
-                        </div>
-                        
-                        <div class="mps_btn">
-                        <a href="/user-list">
-                            <button class="btn btn-info btn-lg1 btn_align">ADD USER</button>
-                        </a>
-                        </div>
-                          
-                        </div>
-                        
-                          <div class="btn_con_left">  
-                          <div class="mps_btn">
-                                                 <button class="btn btn-danger btn-lg1 btn_align">CLIENT LIST ALLOCATION - ORGAN</button>
-                           </div>
-                           
-                            <div class="mps_btn">
-                        <a  href="/email-settings" class="btn btn-info btn-lg1 btn_align">EMAIL SETTINGS</a>
-                           </div>
-                           
-                         
-                        <div class="mps_btn">
-                        <button class="btn btn-info btn-lg1 btn_align">NOTIFICATIONS</button>
-                           </div>
-                           </div>
-                           
-                          <div class="btn_con_right">   
-                            <div class="mps_btn">
-                                                      <button class="btn btn-info btn-lg1 btn_align">CLIENT LIST ALLOCATION - INDIV</button>
-                                                      </div>
-                                    
-                                                       <div class="mps_btn">
-                                                      <button class="btn btn-info btn-lg1 btn_align">PRACTICE LOGO <span class="s_text">UPLOAD</span></button>
-                                                      </div> 
-                           <div class="mps_btn">
-                          <button class="btn btn-info btn-lg1 btn_align">NEW CLIENT - ON BOARDING
-                    <span class="s_text">CHECKLIST/TASK</span></button>
-                          </div>
-                          
-                          <div class="mps_btn">
-                        <button class="btn btn-info btn-lg1 btn_align">MANAGE SUBSCRIPTION</button>
-                        </div>
-                          
-                           </div> -->
-
-
-
+<!-- Main content -->
+<!-- <section class="content">
     <div class="col-xs-12">
         <div class="circle_icons">
             <ul>
@@ -256,8 +203,90 @@
         </div>
     </div>
                            
-                     
-                </section>
+</section> -->
+
+<section class="content">
+    <div class="row icon_section">
+        <div class="left_section">
+            <ul>
+                <li class="hvr-grow">
+                    <a  href="/practice-details">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="c_tagline2">PRACTICE DETAILS</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="hvr-grow">
+                    <a  href="/email-settings">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="c_tagline2">EMAIL SETTINGS</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="hvr-grow">
+                    <a  href="#">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="small_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="hvr-grow">
+                    <a  href="/user-list">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="c_tagline2">ADD USER</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="hvr-grow">
+                    <a  href="#">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="c_tagline2">NOTIFICATIONS</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="hvr-grow">
+                    <a  href="#">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon">
+                                <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
+                            </div>
+                        <p class="c_tagline">MANAGE<br>SUBSCRIPTION</p>
+                        <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

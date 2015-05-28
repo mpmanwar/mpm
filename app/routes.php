@@ -74,7 +74,7 @@ Route::any('/template/get-edit-template-type', array("as"=>"get_edit_template_ty
 ### Routes for Email Settings related URL's end ###
 
 ### Routes for Settings related URL's start ###
-Route::any('settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 'SettingsController@index' ));
+Route::any('/settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 'SettingsController@index' ));
 ### Routes for Settings related URL's end ###
 
 

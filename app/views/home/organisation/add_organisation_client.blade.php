@@ -657,20 +657,20 @@ $(document).ready(function(){
 
                             <div class="form-group">
                               <label for="exampleInputPassword1">Employer Office</label>
-                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office" disabled></textarea>
+                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office" readonly></textarea>
                             </div>
 
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control" disabled>
+                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control" readonly>
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Telephone</label>
-                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control" disabled>
+                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control" readonly>
                                 </div>
                               </div>
 
