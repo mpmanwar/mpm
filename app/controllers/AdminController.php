@@ -6,7 +6,8 @@ class AdminController extends BaseController
     public function signup()
     {
         $data['title'] = "Sign Up";
-        $data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+        $data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
+            get();
         // $data['coun'] 		= Country::select('country_name')->get();
         return View::make('admin/signup', $data);
     }
@@ -15,7 +16,8 @@ class AdminController extends BaseController
     public function signup_process()
     {
         //die('sign');
-        if ($this->isPostRequest()) {
+        if ($this->isPostRequest())
+        {
             $postData = Input::all();
             $messages = array(
                 'fname.required' => 'Please enter your first name',
@@ -34,9 +36,11 @@ class AdminController extends BaseController
                 'phone' => 'required');
             $validator = Validator::make($postData, $rules, $messages);
 
-            if ($validator->fails()) {
+            if ($validator->fails())
+            {
                 return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
-            } else {
+            } else
+            {
                 $insert_data['first_name'] = $postData['fname'];
                 $insert_data['last_name'] = $postData['lname'];
                 $insert_data['practice_name'] = $postData['practicename'];
@@ -64,7 +68,8 @@ class AdminController extends BaseController
 
     public function login_process()
     {
-        if ($this->isPostRequest()) {
+        if ($this->isPostRequest())
+        {
             $postData = Input::all();
             $messages = array(
                 "userid.required" => "Please enter your userid",
@@ -79,10 +84,12 @@ class AdminController extends BaseController
             // print_r($rules);die();
             $validator = Validator::make($postData, $rules, $messages);
 
-            if ($validator->fails()) {
+            if ($validator->fails())
+            {
 
                 return Redirect::to('/')->withErrors($validator)->withInput();
-            } else {
+            } else
+            {
 
                 $admin = Admin::where('email_address', $postData['userid'])->where('password',
                     md5($postData['password']))->first();
@@ -95,7 +102,8 @@ class AdminController extends BaseController
                 // print_r( $admin);
                 //die();
                 //echo $this->last_query();die;
-                if (isset($admin) && count($admin) > 0) {
+                if (isset($admin) && count($admin) > 0)
+                {
 
 
                     $arr['id'] = $admin->id;
@@ -124,7 +132,8 @@ class AdminController extends BaseController
 
 
                     return Redirect::to('/dashboard');
-                } else {
+                } else
+                {
                     Session::flash('message', 'Your username/password doesn`t match');
                 }
             }
@@ -159,7 +168,8 @@ class AdminController extends BaseController
         $usr_data['email'] = $postData['userid'];
         $admin = Admin::where('email_address', $usr_data['email'])->first();
 
-        if ($admin) {
+        if ($admin)
+        {
             $usr_data['newpass'] = str_random(8);
             $data = array('password' => md5($usr_data['newpass']), );
             Admin::where('email_address', '=', $usr_data['email'])->update($data);
@@ -168,7 +178,8 @@ class AdminController extends BaseController
             Session::flash('message', 'The new password has been sent to your email.');
             return Redirect::to('/forgot-password');
 
-        } else {
+        } else
+        {
             Session::flash('message_error', 'Your username/password doesn`t match');
             return Redirect::to('/forgot-password');
         }
@@ -191,8 +202,9 @@ class AdminController extends BaseController
         $adminid = $admin_s['id'];
 
         $data['admin_details'] = Admin::where('id', $adminid)->first();
-        $country = Country::where('country_id', $data['admin_details']['country'])->first();
-        $data['admin_details']['country']   = $country['country_name'];
+        $country = Country::where('country_id', $data['admin_details']['country'])->
+            first();
+        $data['admin_details']['country'] = $country['country_name'];
 
         return View::make('admin/profile', $data);
     }
@@ -200,12 +212,55 @@ class AdminController extends BaseController
 
     public function change_password()
     {
-        return View::make('admin/change_password');
-        die(' public function');
+        $data['title'] = "Edit Password";
+        return View::make('admin/change_password', $data);
     }
-
+    
     public function new_pass()
     {
+
+        $usr_data = array();
+        $postData = Input::all();
+        $admin_s = Session::get('admin_details');
+        $adminid = $admin_s['id'];
+        
+        $messages = array(
+                "old_password.required" => "Please enter your Old Password",
+                "new_password.required" => "Please enter your New Password",
+                "conform_password.required" => "Please enter your confirm_password",
+                );
+
+        $rules = array(
+            'old_password' => 'required', 
+            'new_password' => 'required',
+            'conform_password' => 'required|same:new_password'
+        );
+        $validator = Validator::make($postData, $rules, $messages);
+                    
+        if ($validator->fails())
+        {
+            return Redirect::to('/change-password')->withErrors($validator)->withInput();
+        }else{
+            $usr_data['password'] = md5($postData['old_password']);
+            $admin = Admin::where('password', $usr_data['password'])->first();
+            if ($admin)
+            {
+                $data = array('password' => md5($postData['new_password']), );
+                Admin::where('id', '=', $adminid)->update($data);
+                Session::flash('message_su', 'Successfully update your password');
+            }else{
+                Session::flash('message', 'Please enter your correct old password');
+            }
+            
+        }
+        return Redirect::to('/change-password');
+        
+    }
+    
+/*
+    public function new_pass()
+    {
+
         $usr_data = array();
         $postData = Input::all();
         $admin_s = Session::get('admin_details');
@@ -213,10 +268,11 @@ class AdminController extends BaseController
 
         $usr_data['password'] = md5($postData['old_password']);
         $admin = Admin::where('password', $usr_data['password'])->first();
-        if ($admin) {
+        if ($admin)
+        {
             $messages = array(
-                "new_password.required" => "Please enter your new_password",
-                "conform_password.required" => "Please enter your conform_password",
+                "new_password.required" => "Please enter your New Password",
+                "conform_password.required" => "Please enter your confirm_password",
                 );
 
             $rules = array('new_password' => 'required', 'conform_password' =>
@@ -224,33 +280,51 @@ class AdminController extends BaseController
             //die('rules');
             $validator = Validator::make($postData, $rules, $messages);
 
-            if ($validator->fails()) {
+            if ($validator->fails())
+            {
 
-                die('valfails');
+                //die('valfails');
 
-                //return Redirect::to('/new-pass')->withErrors($validator)->withInput();
-            } else {
+                return Redirect::to('/change-password')->withErrors($validator)->withInput();
+            } else
+            {
+
                 $data = array('password' => md5($postData['new_password']), );
                 Admin::where('id', '=', $adminid)->update($data);
-                Session::flash('message', 'You have successfully update');
+
+                Session::flash('message_su', 'Successfully update your password');
+                return Redirect::to('/change-password');
             }
-            return Redirect::to('/admin-profile');
-            // die('if');
-        } else {
-            //Session::flash('message', 'Your username/password doesn`t match');
-            //die('main else');
+                return Redirect::to('/change-password',$data);
+            //return View::make('admin/change_password', $data);
         }
-
-
-        return View::make('admin/change_password');
+         else
+            {
+    
+    
+                $data['title'] = "Edit Password";
+    
+                Session::flash('message', 'Please enter your Old password');
+                return Redirect::to('/change-password',$data);
+                //return View::make('admin/change_password', $data);
+                //Session::flash('message', 'Your password doesn`t match');
+                //die('main else');
+            }
+       // die('out2');
+//        $data['title'] = "Edit Password";
+//
+//        //Session::flash('message', 'password doesn`t match');
+//
+//        return View::make('admin/change_password', $data);
 
     }
 
-
+*/
     public function profile_edit()
     {
         $data['title'] = "Edit - Profile";
-        $data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+        $data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
+            get();
         $admin_s = Session::get('admin_details');
 
         $data['admin_details'] = Admin::where('id', $admin_s['id'])->first();
@@ -261,7 +335,7 @@ class AdminController extends BaseController
     public function profile_update()
     {
         $admin_s = Session::get('admin_details');
-        
+
         $usr_data = array();
         $postData = Input::all();
         //print_r($postData);die();
@@ -271,8 +345,7 @@ class AdminController extends BaseController
             'website' => $postData['website'],
             'practice_name' => $postData['practice_name'],
             'phone' => $postData['phone'],
-            'country' => $postData['country']
-        );
+            'country' => $postData['country']);
 
         Admin::where('id', '=', $admin_s['id'])->update($data);
         //die('update');

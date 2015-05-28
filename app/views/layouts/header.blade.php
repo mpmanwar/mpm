@@ -219,8 +219,7 @@
                                 <li class="user-header bg-light-blue">
                                     <img src="{{ URL :: asset('img/user3.jpg') }}" class="img-circle" alt="User Image" />
                                     <p>
-                                       {{ $admin_s['first_name'] }} {{ $admin_s['last_name'] }}- Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                       {{ $admin_s['first_name'] }} {{ $admin_s['last_name'] }}
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -239,6 +238,9 @@
                                 <li class="user-footer">
                                     <div class="pull-left">
                                         <a href="/admin-profile" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 3px;">
+                                        <a href="/change-password" class="btn btn-default btn-flat">Edit Password</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="/admin-logout" class="btn btn-default btn-flat">Sign out</a>
