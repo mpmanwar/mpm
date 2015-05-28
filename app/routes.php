@@ -83,6 +83,20 @@ Route::post('/signup-process', 'AdminController@signup_process');
 Route::get('/', 'AdminController@login');
 Route::post('/login-process', 'AdminController@login_process');
 Route::get('/admin-logout', 'AdminController@logout');
+Route::get('/forgot-password', 'AdminController@forgot_password');
+Route::post('/password-send', 'AdminController@password_send');
+Route::get('/admin-profile', 'AdminController@adminprofile');
+Route::get('/change-password', 'AdminController@change_password');
+Route::post('/new-pass', 'AdminController@new_pass');
+Route::get('/profile-edit', 'AdminController@profile_edit');
+Route::post('/profile-update', 'AdminController@profile_update');
+
+
+
+
+
+
+
 ### Routes for Settings related URL's end ###
 
 ### Routes for Client URL's start ###

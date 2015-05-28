@@ -1,3 +1,6 @@
+
+
+
 @extends('layouts.layout')
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -11,7 +14,16 @@
                             <img src="{{ URL :: asset('img/user3.jpg') }}" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, Jane</p>
+                        
+                        
+                        
+                        
+                        <?php $admin_s =  Session::get('admin_details');
+                                //echo "Name :".$admin_s['first_name'];
+                                //echo "<pre>";print_r($admin_s);die;
+                         ?>
+                        
+                            <p>Hello, {{ $admin_s['first_name'] }}</p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>

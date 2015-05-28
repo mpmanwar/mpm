@@ -258,7 +258,7 @@
             </div>
              <p class="help-block" id="edit_attach_file"></p> 
         </div>
-        <div class="email_btns">
+        <div class="email_btns2">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           <button type="button" onclick="form_validation()" name="save" id="save" class="btn btn-primary pull-left save_t">Save</button>
         </div>
