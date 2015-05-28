@@ -1,0 +1,29 @@
+1- New fields should be editable/Deletable
+Add field
+2- add field - the First drop down - Please change from "Select Step" to "Select Section"
+3- Field type - please allow more field types - eg Dates, Drop downs,check boxes, etc;please look at the ones in app.centrecrm.com
+4-when fields are added pls cause the screen to remain in the same section and not to take users back to the general screens
+5- "+Add" - please change to " + New Field"
+7. Please allow the user to "Sub- Section" - This will be a section in any one of the Main sections eg User can add "Marketing Information" as subsection heading and the proceed to add the fields to that section .
+Example :-
+GENERAL - Section
+Field 1 - Default
+Field 2 - Default
+Marketing Information - Subsection -user defined
+Field 1 - user defined
+Field 2 - user defined
+etc
+Again the subsection should be Deletable /Editable
+
+6. Allow addresses to be added and retrievable from a central store
+7-Country / Country telephone codes please pre-populate
+7- Date fields seems not to be able to go back into the past
+8- Tax offices - Add " Other" as an option to the drop down after the first 3.
+9- Add the following to the list - after the 4 options - the items contained in this link
+https://www.dropbox.com/s/bi0rsjoteootjjg/other%20list.xls?dl=0
+
+10. Client code - Please keep the size of the box the same as the size of the title box
+11. The data table - Can I request a feature - If this is implemented we will not need to build a separate reporting section.
+The request is as follows:-
+The data table - when users click on edit
+The headings (with the exception of Client name) on the table should change into drop down and user should be able to select a field- once it's saved (ie the edit button should alternate between "Edit" and "Save" the client related data should show in that column. 

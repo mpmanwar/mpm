@@ -31,7 +31,7 @@ $(document).ready(function(){
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     @include('layouts/inner_leftside')
@@ -41,7 +41,7 @@ $(document).ready(function(){
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -117,22 +117,21 @@ $(document).ready(function(){
                         
                         
                         
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">Business Type</label>
-                             <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-                                
-                              <select class="form-control" name="business_type" id="business_type">
-                               
-                                @if(!empty($org_types))
-                                  @foreach($org_types as $key=>$org_row)
-                                  <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
-                                  @endforeach
-                                @endif
-                              </select>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Business Type</label>
+                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                      
+                    <select class="form-control" name="business_type" id="business_type">
+                     @if(!empty($org_types))
+                        @foreach($org_types as $key=>$org_row)
+                        <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
 
 
                             
@@ -314,29 +313,29 @@ $(document).ready(function(){
   @foreach($steps_fields_users as $row_fields)
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
-      <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
-        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
-      @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
-        <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
-          @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
-            @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
-            @endforeach
-          @endif
-        </select>
-      @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
-      @endif
-     
-     
-      </div>
+        <div class="twobox_2">
+        <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+          &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
+        @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
+          <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
+          <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
+          <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
+          <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
+            @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
+              @foreach($row_fields->select_option as $key=>$value)
+                <option value="{{ $value }}">{{ $value }}</option>
+              @endforeach
+            @endif
+          </select>
+        @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
+          <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        @endif
+       
+       
+        </div>
 
         <div class="clearfix"></div>
       </div>
@@ -344,6 +343,52 @@ $(document).ready(function(){
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="4" cols="35"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      @endforeach
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
       
 
       <div class="add_client_btn">
@@ -399,18 +444,13 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
                                   
-                                  <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-                                  <select class="form-control" name="vat_scheme" id="vat_scheme">
-                                    <option value="1">Standered Vat Accounting Scheme</option>
-                                    <option value="2">Annual Accounting</option>
-                                    <option value="3">Flat Rate Scheme</option>
-                                    <option value="4">Retails Schemes - Point of Sale</option>
-                                    <option value="5">Retails Schemes - Apportionment Schemes</option>
-                                    <option value="6">Retails Schemes - Direct Calculation Schemes</option>
-                                    <option value="7">Retails Schemes - Caterers Catering</option>
-                                    <option value="8">Retails Schemes - Chemist(retail pharmacist)</option>
-                                    <option value="9">Margin Schemes</option>
-                                    <option value="10">Tour operator's Margine Scheme</option>
+                                  <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
+                                  <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
+                                    @if(!empty($vat_schemes))
+                                      @foreach($vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}">{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
                                   <!--  <option value="11">Others - specify</option> -->
 
                                     
@@ -486,19 +526,19 @@ $(document).ready(function(){
 
 
                             
-                            <div class="tax_utr_drop">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1"></label>
+          <div class="tax_utr_drop">
+          <div class="form-group">
+            <label for="exampleInputPassword1"></label>
 
-                              <select class="form-control" name="tax_reference_type" id="tax_reference_type">
-                                <option value="none">None</option>
-                                <option value="Income">Income Tax</option>
-                                <option value="Corporation">Corporation Tax</option>
-                              </select>
+            <select class="form-control org_tax_reference" name="tax_reference_type" id="tax_reference_type">
+              <option value="N">None</option>
+              <option value="I">Income Tax</option>
+              <option value="C">Corporation Tax</option>
+            </select>
 
-                            </div>
-                            </div>
-                            <div class="clearfix"></div>
+          </div>
+          </div>
+          <div class="clearfix"></div>
                             
                                                        
 
@@ -509,14 +549,14 @@ $(document).ready(function(){
             <div class="form-group">
               <label for="exampleInputPassword1">Tax District</label>
                <select class="form-control" name="tax_office_id" id="tax_office_id">
-                  @if(!empty($tax_office))
+                  <!-- @if(!empty($tax_office))
                     @foreach($tax_office as $key=>$office_row)
                       @if($office_row->parent_id == 0)
                         <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
                       @endif
                     @endforeach
-                  @endif
-                    
+                  @endif -->
+                    <option value="">-- Select Address --</option>
                 </select>
             </div>
           </div>
@@ -565,7 +605,7 @@ $(document).ready(function(){
                             
           <div class="form-group">
             <label for="exampleInputPassword1">PAYE Registered</label>
-            <input type="checkbox" id="paye_reg" name="paye_reg" value="1" />
+            <input type="checkbox" class="org_tax_payee_address" id="paye_reg" name="paye_reg" value="1" />
           </div>
                         
                         
@@ -603,28 +643,34 @@ $(document).ready(function(){
                                   <input type="text" id="paye_district" name="paye_district" class="form-control">
                                 </div>
                               </div>
-                              <div class="twobox_2">
+                              <!-- <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Employer Office</label>
-
+                              
                                   <input type="text" id="employer_office" name="employer_office" class="form-control">
-
+                              
                                  
                                 </div>
-                              </div>
+                              </div> -->
                               <div class="clearfix"></div>
                             </div>
+
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Employer Office</label>
+                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office" readonly></textarea>
+                            </div>
+
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" id="employer_postcode" name="employer_postcode" class="form-control">
+                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control" readonly>
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Telephone</label>
-                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control">
+                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control" readonly>
                                 </div>
                               </div>
 
@@ -689,141 +735,190 @@ $(document).ready(function(){
                   </div>
                 </div>
                   
-                <div id="step3" class="tab-pane" style="display:none;">
-                  <div class="box-body table-responsive">
-                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                      <div class="row">
-                        <div class="col-xs-6"></div>
-                        <div class="col-xs-6"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12 col-xs-6">
-                          <div class="col_m2">
-                            <h3 class="box-title">Contact Information</h3>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Registered Office Address</label>
-                              <input type="checkbox" name="reg_office_addr" id="reg_office_addr" />
-                            </div>
+  <div id="step3" class="tab-pane" style="display:none;">
+    <div class="box-body table-responsive">
+      <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+        <div class="row">
+          <div class="col-xs-6"></div>
+          <div class="col-xs-6"></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-xs-6">
+            <div class="col_m2">
+              <h3 class="box-title">Contact Information</h3>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Trading Address</label>
+                <input type="checkbox" name="cont_trad_addr" id="cont_trad_addr" value="1" />
+              </div>
                             
-                            <div class="address_type" id="show_reg_office_addr">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Address Type</label>
-                                  <input type="text" id="cont_addr_type" name="cont_addr_type" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Name</label>
-                                  <input type="text" id="cont_name" name="cont_name" class="form-control">
-                                </div>
-                            </div>
+            <div class="address_type" id="show_reg_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="cont_name_check" id="cont_name_check" value="1" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_org_contact" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="cont_name" name="cont_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control" id="get_oldcont_address">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
                             
                             
-                            
-                            
-                            
-                             <div class="form-group">
-                              <label for="exampleInputPassword1">Select or Add</label>
-                               <select class="form-control">
-                                    <option>Choose One</option>
-                                    <option>Choose Two</option>
-                                    
-                                  </select>
-                            </div>
-                            
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Address Line1</label>
-                              <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Address Line2</label>
-                              <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control">
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">City/Town</label>
-                                  <input type="text" id="cont_city" name="cont_city" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">County</label>
-                                  <input type="text" id="cont_county" name="cont_county" class="form-control">
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Postcode</label>
-                                  <input type="text" id="cont_postcode" name="cont_postcode" class="form-control">
-                                </div>
-                              </div>
-                              <div class="twobox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Country</label>
-                                  
-                                  
-                                    <select class="form-control" id="cont_country" name="cont_country">
-                                <option value="1">United Kingdom</option>
-                                      @if(!empty($countries))
-                                        @foreach($countries as $key=>$coun_row)
-                                        <option value="{{ $coun_row->country_id }}">{{ $coun_row->country_name }}</option>
-                                        @endforeach
-                                      @endif
-                                        
-                                </select>
-                                                                                                                                                    
-                                 
-                                </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">Trading Address</label>
-                                  <input type="checkbox" name="cont_trad_addr" id="cont_trad_addr" value="1" />
-                                </div>
-                            
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">Correspondence Address</label>
-                                  <input type="checkbox" name="cont_corres_addr" id="cont_corres_addr" value="2" />
-                                </div>
-                            
-                             <div class="form-group">
-                                  <label for="exampleInputPassword1">Banker</label>
-                                  <input type="checkbox" name="cont_banker_addr" id="cont_banker_addr" value="3" />
-                                </div>
-                            
-                             <div class="form-group">
-                                  <label for="exampleInputPassword1">Trading Address</label>
-                                  <input type="checkbox"  name="cont_trad_addr" id="cont_trad_addr" value="4"/>
-                                </div>
-                                
-                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Old Accountants</label>
-                                  <input type="checkbox" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
-                                </div>
-                                
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Auditors</label>
-                                  <input type="checkbox" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
-                                </div>
-                            
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">Solicitors</label>
-                                  <input type="checkbox" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
-                                </div>
-                            
-                            <div class="form-group">
-                                  <label for="exampleInputPassword1">Others</label>
-                                  <input type="checkbox" name="cont_others_addr" id="cont_others_addr" value="8" />
-                                </div>
-                            
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Notes</label>
-                             <textarea rows="3" name="notes" id="notes" class="form-control"></textarea>
-                            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Registered Office Address</label>
+              <input type="checkbox" name="reg_office_addr" id="reg_office_addr" />
+            </div>
+            
+            
+            
+            <div class="form-group">
+                  <label for="exampleInputPassword1">Correspondence Address</label>
+                  <input type="checkbox" name="cont_corres_addr" id="cont_corres_addr" value="2" />
+                </div>
+            
+             <div class="form-group">
+                  <label for="exampleInputPassword1">Banker</label>
+                  <input type="checkbox" name="cont_banker_addr" id="cont_banker_addr" value="3" />
+                </div>
+            
+             <!-- <div class="form-group">
+                  <label for="exampleInputPassword1">Trading Address</label>
+                  <input type="checkbox"  name="cont_trad_addr" id="cont_trad_addr" value="4"/>
+                </div> -->
+                
+            <div class="form-group">
+              <label for="exampleInputPassword1">Old Accountants</label>
+              <input type="checkbox" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
+            </div>
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Auditors</label>
+              <input type="checkbox" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
+            </div>
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Solicitors</label>
+              <input type="checkbox" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
+            </div>
+            
+            <!-- <div class="form-group">
+              <label for="exampleInputPassword1">Others</label>
+              <input type="checkbox" name="cont_others_addr" id="cont_others_addr" value="8" />
+            </div>
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Notes</label>
+             <textarea rows="3" name="notes" id="notes" class="form-control"></textarea>
+            </div> -->
 
 
 <!-- This portion is for user created field -->
@@ -903,12 +998,12 @@ $(document).ready(function(){
 </li>
 <li>
 <div class="form-group">
-  <a href="www.google.com" target="_blank" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Client-Organ</a>
+  <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
 </div>
 </li>
 <li>
 <div class="form-group">
-  <a href="javascript:void(0)"target="_blank" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Client-Inv</a>
+  <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
 </div>
 </li>
 </ul>  
@@ -932,7 +1027,7 @@ $(document).ready(function(){
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
       <div class="search_value" id="show_search_client"></div>
     </div>
 
@@ -1025,7 +1120,7 @@ $(document).ready(function(){
                               <h3 class="box-title">Services</h3></div>
                               
                               <div class="add_edit">
-                              <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                              <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
                               </div>
                               <div class="clearfix"></div>
                               <div class="form-group">
@@ -1055,7 +1150,7 @@ $(document).ready(function(){
         <option value=""></option>
           @if(!empty($services))
             @foreach($services as $key=>$service_row)
-              <option value="{{ $service_row->template_type_id }}">{{ $service_row->template_type_name }}</option>
+              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
             @endforeach
           @endif
             
@@ -1182,18 +1277,23 @@ $(document).ready(function(){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputPassword1">Field Name</label>
-          <input type="text" id="field_name" name="field_name" class="form-control">
-        </div>
-
-        <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
+          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
+            <ul>
+              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
-          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
+          <input type="text" id="field_name" name="field_name" class="form-control">
+        </div> -->
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Field Name</label>
+          <input type="text" id="field_name" name="field_name" class="form-control">
         </div>
 
         <div class="form-group">
@@ -1213,10 +1313,11 @@ $(document).ready(function(){
           Give options width ',' separator
         </div>
         
-        <div class="modal-footer clearfix">
+        <div class="modal-footer1 clearfix">
           <div class="email_btns">
-            <button type="button" style="float:left; " class="btn btn-danger" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+            
           </div>
         </div>
       </div>
@@ -1240,33 +1341,29 @@ $(document).ready(function(){
         <h4 class="modal-title">ADD to List</h4>
         <div class="clearfix"></div>
       </div>
-    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-      <div class="modal-body">
-        
-
+    {{ Form::open(array('url' => '/client/add-business-type', 'id'=>'field_form')) }}
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
+      </div>
+      
+      @if(!empty($org_types))
+        @foreach($org_types as $key=>$org_row)
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="field_name" name="field_name" placeholder="Client Name" class="form-control">
-        </div>
-
-       <div class="form-group">
-                              
-                              <input type="checkbox" name="list_1" id="list_1" value="1" />
-                              <label for="list_1">List 1</label>
-       </div>
-       <div class="form-group">
-                              
-                              <input type="checkbox" name="list_2" id="list_2" value="2" />
-                              <label for="list_2">List 2</label>
-       </div>
-        <div class="modal-footer clearfix">
-          <div class="email_btns">
-           
-            <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
-             <button type="button" class="btn btn-primary pull-left save_t" data-dismiss="modal">Cancel</button>
-          </div>
+        <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
+        <label for="{{ $org_row->name }}">{{ $org_row->name }}</label>
+      </div>
+        @endforeach
+      @endif
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
+    </div>
     {{ Form::close() }}
   </div>
     <!-- /.modal-content -->
@@ -1274,6 +1371,127 @@ $(document).ready(function(){
   <!-- /.modal-dialog -->
 </div>
 
+
+<!-- Vat Scheme Modal -->
+<div class="modal fade" id="vatScheme-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/client/add-vat-scheme', 'id'=>'field_form')) }}
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
+      </div>
+
+      @if(!empty($vat_schemes))
+        @foreach($vat_schemes as $key=>$scheme_row)
+          <div class="form-group">
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+          </div>
+        @endforeach
+      @endif
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<!-- Services Modal Start-->
+<div class="modal fade" id="services-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+      </div>
+
+      @if(!empty($services))
+        @foreach($services as $key=>$service_row)
+          <div class="form-group">
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+          </div>
+        @endforeach
+      @endif
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Services Modal End-->
+
+
+<!-- Add Subsec Modal Start-->
+<div class="modal fade" id="addsubsec-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+      </div>
+
+      @if(!empty($services))
+        @foreach($services as $key=>$service_row)
+          <div class="form-group">
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+          </div>
+        @endforeach
+      @endif
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Add Subsec Modal End-->
 
 
 

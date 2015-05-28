@@ -25,7 +25,7 @@ $(document).ready(function(){
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
@@ -69,7 +69,7 @@ $(document).ready(function(){
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -91,7 +91,7 @@ $(document).ready(function(){
           <ul>
             <!-- <li>
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li> -->
+            </li>
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
             </li>
@@ -99,14 +99,20 @@ $(document).ready(function(){
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             <li>
-              <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
-            <!-- <li>
               <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
             <li>
               <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
             </li> -->
+            <li>
+              <button class="btn btn-success">IMPORT FROM CSV</button>
+            </li>
+            <li>
+              <button class="btn btn-primary">REQUEST FROM CLIENT</button>
+            </li>
+            <li>
+              <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
+            </li>
             <div class="clearfix"></div>
           </ul>
         </div>
@@ -288,6 +294,53 @@ $(document).ready(function(){
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="4" cols="35"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      @endforeach
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
 
 
 
@@ -479,7 +532,7 @@ $(document).ready(function(){
                     <div class="col_m2">  
 <h3 class="box-title">Residential Address</h3>  
 
-<div class="twobox">
+<!-- <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -514,7 +567,7 @@ $(document).ready(function(){
 </div>
 </div>
 <div class="clearfix"></div>
-</div>
+</div> -->
 
 <!-- <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -533,7 +586,7 @@ $(document).ready(function(){
 
 
 <div class="form-group">
-<label for="exampleInputPassword1">Residential Address</label>
+<label for="exampleInputPassword1">Address</label>
 <textarea id="res_address" name="res_address" class="form-control" rows="3"></textarea>
 
 </div>
@@ -608,7 +661,7 @@ $(document).ready(function(){
 </div>
 
 
-<div class="twobox">
+<!-- <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Select Address</label>
@@ -643,7 +696,7 @@ $(document).ready(function(){
 </div>
 </div>
 <div class="clearfix"></div>
-</div>
+</div> -->
 
 
 <!-- <div class="form-group">
@@ -662,7 +715,7 @@ $(document).ready(function(){
 </div> -->
 
 <div class="form-group">
-<label for="exampleInputPassword1">Service Address</label>
+<label for="exampleInputPassword1">Address</label>
 <textarea id="serv_address" name="serv_address" class="form-control" rows="3"></textarea>
 </div>
 
@@ -722,7 +775,7 @@ $(document).ready(function(){
   <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
   <option value="44">44</option>
   </select> -->
-  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" disabled />
+  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" readonly />
 </div>
 
 <div class="telbox">
@@ -735,7 +788,7 @@ $(document).ready(function(){
 
 <div class="n_box01">
   <label for="exampleInputPassword1">Country Code</label>
-  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" disabled />
+  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" readonly />
 <!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
 <option value="44">44</option>
 </select> -->
@@ -834,7 +887,7 @@ $(document).ready(function(){
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3>      
 <div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="javascript:void(0)" class="btn btn-info"><i class="fa fa-plus"></i> New Client - Organ</a>
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
 </div>
 
 <div class="box-body table-responsive">
@@ -855,7 +908,7 @@ $(document).ready(function(){
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control" id="relname" name="relname">
+      <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
       <div class="search_value" id="show_search_client"></div>
     </div>
 
@@ -1070,11 +1123,11 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputPassword1"><a href="javascript:void(0)">Add new ...</a></label>
-          <!-- <input type="text" id="field_name" name="field_name" class="form-control"> -->
+          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
+            <ul>
+              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
+            </ul>
+          </div>
         </div>
 
         <div class="form-group">

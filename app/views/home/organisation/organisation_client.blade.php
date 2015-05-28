@@ -52,7 +52,7 @@ $(function() {
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
@@ -97,7 +97,7 @@ $(function() {
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <aside class="right-side  {{ $right_class }}">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -245,8 +245,8 @@ $(function() {
                     <td>{{ $client_row['staff_name'] or "" }}</td> -->
                     <td>{{ $client_row['business_type'] or "" }}</td>
                     <td>{{ $client_row['business_name'] or "" }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $client_row['acc_ref_date'] or "" }}</td>
+                    <td>{{ $client_row['next_acc_due'] or "" }}</td>
                     <td></td>
                     <td>{{ $client_row['next_ret_due'] or "" }}</td>
                     <td></td>

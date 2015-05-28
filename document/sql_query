@@ -1,0 +1,3 @@
+UPDATE tax_office_addresses
+   SET tax_office_addresses.office_name = ( SELECT test.office_name FROM test WHERE test.id = tax_office_addresses.office_id )
+ WHERE EXISTS ( SELECT 1 FROM test WHERE test.id = tax_office_addresses.office_id )
