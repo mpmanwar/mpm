@@ -62,6 +62,7 @@ Route::get('/pdf', 'UserController@pdf');
 Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=>'UserController@download_excel'));
 Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "uses"=>'UserController@create_user_password'));
 Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
+Route::any('/update-status', array("as"=>"update_status", "uses"=>'UserController@update_status'));
 ### Routes for user related URL's end ###
 
 

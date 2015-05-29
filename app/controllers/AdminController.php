@@ -59,6 +59,57 @@ class AdminController extends BaseController {
 	}
 
 	public function login_process() {
+		$postData = Input::all();
+		$messages = array(
+			"userid.required" => "Please enter your userid",
+			"password.required" => "Please enter your password",
+		);
+		//print_r($messages);die();
+
+		$rules = array(
+			"userid" => "required",
+			"password" => "required",
+		);
+		// print_r($rules);die();
+		$validator = Validator::make($postData, $rules, $messages);
+
+		if ($validator->fails()) {
+
+			return Redirect::to('/')->withErrors($validator)->withInput();
+		} else {
+
+			$admin = User::where('email', $postData['userid'])->where('password',
+				md5($postData['password']))->first();
+			//echo $this->last_query();die;
+			if (isset($admin) && count($admin) > 0) {
+				//############### Check user status ##############//
+				if($admin->status == "I"){
+					Session::flash('message', 'You are inactive user, Please contact with admin');
+					return Redirect::to('/');
+				}
+				//############### Check user status ##############//
+
+				$arr['id'] = $admin->user_id;
+				$arr['first_name'] = $admin->fname;
+				$arr['last_name'] = $admin->fname;
+				$arr['email'] = $admin->email;
+				Session::put('admin_details', $arr);
+
+				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin->user_id));
+
+				return Redirect::to('/dashboard');
+			} else {
+				Session::flash('message', 'Your username/password doesn`t match');
+				return Redirect::to('/');
+			}
+		}
+		
+
+		
+
+	}
+
+	/*public function login_process() {
 		if ($this->isPostRequest()) {
 			$postData = Input::all();
 			$messages = array(
@@ -82,13 +133,6 @@ class AdminController extends BaseController {
 				$admin = Admin::where('email_address', $postData['userid'])->where('password',
 					md5($postData['password']))->first();
 
-				//if()
-
-				//echo $admin['first_name'];die();
-
-				// print_r( $admin);
-				//die();
-				//echo $this->last_query();die;
 				if (isset($admin) && count($admin) > 0) {
 
 					$arr['id'] = $admin->id;
@@ -101,17 +145,6 @@ class AdminController extends BaseController {
 					$arr['country'] = $admin->country;
 
 					Session::put('admin_details', $arr);
-
-					//$admin_s =  Session::get('admin_details');
-					//echo "Name :".$admin_s->first_name;
-					//print_r($admin_s);die;
-
-					//print"<pre>"; print_r($admin_s);die();
-
-					//echo json_encode($admin);die();
-
-					// echo "<pre>";print_r(Session::get('admin_details'));die();
-
 					return Redirect::to('/dashboard');
 				} else {
 					Session::flash('message', 'Your username/password doesn`t match');
@@ -121,7 +154,7 @@ class AdminController extends BaseController {
 
 		return Redirect::to('/');
 
-	}
+	}*/
 
 	public function logout() {
 		$value = Session::get('admin_details');

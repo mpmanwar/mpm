@@ -116,9 +116,9 @@
                                 <td class=" ">{{ $user_row->permission or "" }}</td>
                                 <td class=" ">
                                     @if($user_row->status == 'I')
-                                        <a href="#" class="active_t">Active</a>
+                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="active_t">Active</a>
                                     @else
-                                        <a href="#" class="active_t">Inactive</a>
+                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="active_t">Inactive</a>
                                     @endif
                                 </td>
                                 <td class=" ">{{ $user_row->last_login or '' }}<!-- 1 May 2013 9:13 p.m. --></td>

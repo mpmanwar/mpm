@@ -14,12 +14,12 @@ class UserController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		if (Cache::has('user_list')) {
+		/*if (Cache::has('user_list')) {
 			$data = Cache::get('user_list');
 
-		} else {
+		} else {*/
 
-			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
+			$data['user_lists']	= User::where("user_id", "!=", $admin_s['id'])->where("user_type", "!=", 'A')->orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 
 				$i = 0;
@@ -65,8 +65,8 @@ class UserController extends BaseController {
 			});
 			///////////  End Generate and store excel file ////////////////////////////
 
-			Cache::put('user_list', $data, 10);
-		}
+			/*Cache::put('user_list', $data, 10);
+		}*/
 
 		//echo "<prev>".print_r($data);die;
 		return View::make('user.user_list', $data);
@@ -317,11 +317,33 @@ class UserController extends BaseController {
 			return Redirect::to('/user/create-password/'.$postData['user_id'])->withErrors($validator)->withInput();
 		} else {
 			Session::flash('message', 'You have successfully created your password');
-			User::where('user_id', '=', base64_decode($postData['user_id']))->update(array("password"=>base64_encode($postData['password'])));
+			User::where('user_id', '=', base64_decode($postData['user_id']))->update(array("password"=>md5($postData['password'])));
 			//echo $this->last_query();die;
 		}
 
 		return Redirect::to('/user/create-password/'.$postData['user_id']);
+	}
+
+	public function update_status()
+	{
+		$user_id = Input::get("user_id");
+		$status = Input::get("status");
+
+		if (Request::ajax()) {
+			$userdata = User::where("user_id", "=", $user_id)->select('status')->first();
+			if($userdata['status'] == "I"){
+				$status = "A";
+				$ret = 'Inactive';
+			}
+			if($userdata['status'] == "A"){
+				$status = "I";
+				$ret = 'Active';
+			}
+			$data = User::where("user_id", "=", $user_id)->update(array('status'=>$status));
+			//echo $this->last_query();die;
+			
+			echo $ret;
+		}
 	}
 
 }

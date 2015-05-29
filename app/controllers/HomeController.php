@@ -12,8 +12,8 @@ class HomeController extends BaseController {
 	public function dashboard() {
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
-
-		if (empty($user_id)) {
+		//print_r($admin_s);die;
+		if (!isset($user_id) && $user_id == "") {
 			return Redirect::to('/');
 		}
 

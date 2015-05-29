@@ -105,6 +105,30 @@ $(document).ready(function(){
 	});
 
 
+ 	//##############User active/Inactive Portion start ################//
+ 	$('.active_t').click(function() {
+	  	var user_id = $(this).data('user_id');
+	  	var status = $(this).data('status');
+	  	
+	  	//alert(status);return false;
+		if(user_id >0 ){
+			if(confirm("Do you want to change the status?")){
+				$.ajax({
+				    type: "POST",
+				    url: '/update-status',
+				    data: { 'user_id' : user_id, 'status' : status },
+				    success : function(resp){
+				    	$("#user_status_"+user_id).html(resp);
+				    }
+				});
+			}
+
+ 		}else{
+ 			alert('This is invalid user');
+ 		}
+ 	});
+ 	//##############User active/Inactive Portion start ################//
+
 
 
 });
