@@ -89,10 +89,11 @@ class AdminController extends BaseController {
 				}
 				//############### Check user status ##############//
 
-				$arr['id'] = $admin->user_id;
-				$arr['first_name'] = $admin->fname;
-				$arr['last_name'] = $admin->fname;
-				$arr['email'] = $admin->email;
+				$arr['id'] 			= $admin->user_id;
+				$arr['first_name'] 	= $admin->fname;
+				$arr['last_name'] 	= $admin->fname;
+				$arr['email'] 		= $admin->email;
+				$arr['user_type'] 	= $admin->user_type;
 				Session::put('admin_details', $arr);
 
 				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin->user_id));
@@ -157,10 +158,8 @@ class AdminController extends BaseController {
 	}*/
 
 	public function logout() {
-		$value = Session::get('admin_details');
-		//print_r($value);
-		Session::forget('admin_details');
-		//print_r($value);die;
+		Session::flush();
+        Session::regenerate();
 		return Redirect::to('/');
 	}
 

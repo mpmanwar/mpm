@@ -75,9 +75,11 @@
 @endif
 
 <div class="add_usercon">
-<!-- <p><a href="#">What's this?</a></p> -->
+@if(isset($user_type) && $user_type == 'A')
 <a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>&nbsp;&nbsp;
 <a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a>
+@endif
+
 </div>
 
 <div class="tabarea" id="printArea">
