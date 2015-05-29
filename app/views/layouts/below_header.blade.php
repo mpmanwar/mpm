@@ -3,7 +3,7 @@
         <h1>{{ $heading }}</h1>
     </div>
     <div class="col-4 logo_con">
-        <a href="/practice-details"><img src="practice_logo/{{ $practice_logo }}" class="browse_img" alt="" width="40"></a>
+        <a href="/practice-details"><img src="/practice_logo/{{ $practice_logo }}" class="browse_img" alt="" width="40"></a>
     </div>
     <div class="col-4">
         <ol class="breadcrumb home_right">
