@@ -137,7 +137,7 @@
 
           @if(!empty($access_list) && count($access_list) > 0)
             @foreach($access_list as $key=>$list)
-              <td align="center"><input type="checkbox" name="user_access[]" value="{{ $list->access_id }}" checked /></td>
+              <td align="center"><input type="checkbox" name="user_access[]" data-name="{{ $list->access_name }}" value="{{ $list->access_id }}" checked /></td>
             @endforeach
           @endif
 

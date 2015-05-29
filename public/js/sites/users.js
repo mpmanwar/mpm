@@ -19,6 +19,47 @@ $(document).ready(function(){
 		}
 	});
 
+
+	$('.handle-change-user').on('ifChecked', function(event){
+		var value = $(this).data('type');//
+	  	if(value == "client"){
+			//$("#user_permissions").show();
+			$("input[name='user_access[]']").each( function (i) {
+				$(this).iCheck('uncheck');
+			});
+
+       		$("input[name='permission[]']").each( function (i) {
+				$(this).iCheck('uncheck');
+				$(this).iCheck('disable');
+				//$(this).prop('disabled', true);
+       		});
+
+		}else if(value == "staff"){
+			$("input[name='user_access[]']").each( function (i) {
+				$(this).iCheck('check');
+			});
+
+       		$("input[name='permission[]']").each( function (i) {
+				$(this).iCheck('check');
+				$(this).iCheck('disable');
+			});
+		}
+	});
+
+	$("input[name='user_access[]']").on('ifChecked', function(event){
+		var value = $(this).data('name');
+	  	if(value == "JOBS"){
+			$("input[name='permission[]']").each( function (i) {
+				//$(this).prop('disabled', false);
+				$(this).iCheck('enable');
+       		});
+
+		}
+	});
+
+
+
+
 	$('#deleteUsers').click(function() {
 	  	var val = [];
         $("input[name='user_delete_id[]']").each( function (i) {

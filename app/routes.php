@@ -60,6 +60,8 @@ Route::get('/edit-user/{id}', 'UserController@edit_user');
 Route::post('/save-edit', 'UserController@saveedit');
 Route::get('/pdf', 'UserController@pdf');
 Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=>'UserController@download_excel'));
+Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "uses"=>'UserController@create_user_password'));
+Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
 ### Routes for user related URL's end ###
 
 
@@ -114,6 +116,7 @@ Route::any('/client/add-services', array("as"=>"add_services", "uses"=>'ClientCo
 Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'ClientController@delete_services'));
 Route::any('/client/insert-section', array("as"=>"insert_section", "uses"=>'ClientController@insert_section'));
 Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'ClientController@delete_section'));
+
 ### Routes for Client URL's end ###
 
 

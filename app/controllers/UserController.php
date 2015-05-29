@@ -102,6 +102,7 @@ class UserController extends BaseController {
 			$usr_data['created'] = date("Y-m-d H:i:s");
 			$usr_id = User::insertGetId($usr_data);
 			$usr_data['user_id'] = $usr_id;
+			$usr_data['link'] = url()."/user/create-password/".base64_encode($usr_id);
 
 			if ($postData['user_type'] != "C") {
 				if (!empty($postData['permission']) && count($postData['permission']) > 0) {
@@ -288,6 +289,39 @@ class UserController extends BaseController {
 
 		return Response::download($filepath, $fileName, $headers);
 		exit;
+	}
+
+	public function create_user_password($id)
+	{
+		$data['user_id'] 	= $id;
+		$data['title']		= "Create Password";		
+		return View::make("user/change_password", $data);
+		
+	}
+
+	public function create_new_password()
+	{
+		$postData 	= Input::get();
+		$messages = array(
+			'password.required' => 'Please enter your password',
+			'con_pass.required' => 'Please enter confirmation password',
+			'con_pass.matchpassword' => "confirmation password doesn't match");
+
+		$rules = array(
+			'password' => 'required',
+			'con_pass' => 'required|same:password'
+		);
+		$validator = Validator::make($postData, $rules, $messages);
+
+		if ($validator->fails()) {
+			return Redirect::to('/user/create-password/'.$postData['user_id'])->withErrors($validator)->withInput();
+		} else {
+			Session::flash('message', 'You have successfully created your password');
+			User::where('user_id', '=', base64_decode($postData['user_id']))->update(array("password"=>base64_encode($postData['password'])));
+			//echo $this->last_query();die;
+		}
+
+		return Redirect::to('/user/create-password/'.$postData['user_id']);
 	}
 
 }
