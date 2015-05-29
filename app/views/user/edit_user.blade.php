@@ -19,16 +19,7 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                      MY PRACTICE MANAGER
-                        <!-- <small>CLIENT NAME Limited</small> -->
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Edit User</li>
-                    </ol>
-                </section>
+                @include('layouts.below_header')
 
                 <!-- Main content -->
 
@@ -118,12 +109,11 @@
         <thead>
           <tr  role="row">
             <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>
-            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CRM</th>
-            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">JOBS</th>
-            <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">SETTING</th>
-            
-            <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">STAFF MANAGEMENT</th>
-            <th align="center" class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">MANAGE USERS</th>
+            @if(!empty($access_list) && count($access_list) > 0)
+              @foreach($access_list as $key=>$list)
+                <th align="center" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">{{ $list->access_name }}</th>
+              @endforeach
+            @endif
           </tr>
         </thead>
 
@@ -141,11 +131,16 @@
               </div>
             </div>
           </td>
-          <td align="center"><input type="checkbox" name="user_access[]" value="crm" checked /></td>
+          @if(!empty($access_list) && count($access_list) > 0)
+            @foreach($access_list as $key=>$list)
+              <td align="center"><input type="checkbox" name="user_access[]" value="{{ $list->access_id }}" {{ (isset($access_id) && in_array($list->access_id, $access_id))?"checked":"" }} /></td>
+            @endforeach
+          @endif
+          <!-- <td align="center"><input type="checkbox" name="user_access[]" value="crm" checked /></td>
           <td align="center"><input type="checkbox" name="user_access[]" value="jobs" checked /></td>
           <td align="center"><input type="checkbox" name="user_access[]" value="setting" checked /></td>
           <td align="center"><input type="checkbox" name="user_access[]" value="staff" checked /></td>
-          <td align="center"><input type="checkbox" name="user_access[]" value="user" checked /></td>
+          <td align="center"><input type="checkbox" name="user_access[]" value="user" checked /></td> -->
            <!-- <td class=" " align="center"><input type="radio" name="" id="" value=""></td>
                      <td class=" " align="center"><img src="{{ URL :: asset('img/cross.png') }}" /></td> -->
         </tr>

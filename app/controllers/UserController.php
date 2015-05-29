@@ -7,9 +7,6 @@ class UserController extends BaseController {
 	public function user_list(){
 		$data['title'] = "User List";
 		$data['heading'] = "USER LIST";
-
-
-	public function user_list() {
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
 
@@ -21,24 +18,30 @@ class UserController extends BaseController {
 			$data = Cache::get('user_list');
 
 		} else {
-			$data['title'] = "User List";
-			$data['user_lists'] = User::orderBy("user_id", "Desc")->get();
-			if (isset($data['user_lists']) && count($data['user_lists']) > 0) {
 
-		}else{
 			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 
 				$i = 0;
 				foreach ($data['user_lists'] as $user_list) {
-					$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
-					                                            ->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
+					/*$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
 					//echo $this->last_query();die;
 					//print_r($permissions);die;
 					$permission = "";
 					if (isset($permissions) && count($permissions) > 0) {
 						foreach ($permissions as $usr_perission) {
 							$permission .= $usr_perission->name . " + ";
+						}
+						$permission = substr($permission, 0, -3);
+					}*/
+
+					$access = DB::table("user_accesses")->leftJoin('accesses', 'user_accesses.access_id', '=', 'accesses.access_id')->where('user_accesses.user_id', '=', $user_list->user_id)->select('accesses.access_name', 'accesses.access_id')->get();
+					//echo $this->last_query();die;
+					//print_r($permissions);die;
+					$permission = "";
+					if (isset($access) && count($access) > 0) {
+						foreach ($access as $usr_perission) {
+							$permission .= $usr_perission->access_name . " + ";
 						}
 						$permission = substr($permission, 0, -3);
 					}
@@ -69,6 +72,7 @@ class UserController extends BaseController {
 		return View::make('user.user_list', $data);
 	}
 
+
 	public function add_user() {
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
@@ -79,6 +83,7 @@ class UserController extends BaseController {
 		$data['title'] = "Add User";
 		$data['heading'] = "ADD USER DETAILS";
 		$data['permission_list'] = Permission::get();
+		$data['access_list'] = Access::get();
 		return View::make('user.add_user', $data);
 	}
 
@@ -109,10 +114,18 @@ class UserController extends BaseController {
 
 			}
 
+			if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
+				foreach ($postData['user_access'] as $value) {
+					$usracc_data['user_id'] = $usr_id;
+					$usracc_data['access_id'] = $value;
+					UserAccess::insert($usracc_data);
+				}
+			}
+
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The email has been sent to the new user.');
 			Cache::flush();
-			return Redirect::to('/add-user');
+			return Redirect::to('/user-list');
 		} else {
 			return Redirect::to('/add-user')->withInput()->withErrors($validator);
 		}
@@ -158,17 +171,24 @@ class UserController extends BaseController {
 
 	public function edit_user($id) {
 		$peruser_per = array();
+		$data['title'] = "User Edit";
+		$data['heading'] = "EDIT USER";
 
 		if (Cache::has('edit_user')) {
 			$data = Cache::get('edit_user');
 		} else {
-			$data['title'] = "User Edit";
-			$data['heading'] = "EDIT USER";
 			$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
 			//print_r($data['info']);die;
-
+			$data['access_list'] = Access::get();
+			$data['user_acc_list'] = UserAccess::where('user_id', '=', $id)->get();
+			if(isset($data['user_acc_list']) && count($data['user_acc_list']) >0 )
+			{
+				foreach ($data['user_acc_list'] as $key=>$usr_acc) {
+					$data['access_id'][$key] = $usr_acc->access_id;
+				}
+			}
+			
 			$data['permission_list'] = Permission::get();
-
 			$data['per_list'] = UserPermission::where('user_id', '=', $id)->get();
 
 			$i = 0;
@@ -177,6 +197,7 @@ class UserController extends BaseController {
 				$data['permission_id'][$i] = $usr_per->permission_id;
 				$i++;
 			}
+
 			Cache::put('edit_user', $data, 10);
 		}
 
@@ -209,6 +230,17 @@ class UserController extends BaseController {
 			}
 
 		}
+
+		//##########User Access Start############//
+		UserAccess::where('user_id', '=', $id)->delete();
+		if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
+			foreach ($postData['user_access'] as $value) {
+				$usracc_data['user_id'] = $id;
+				$usracc_data['access_id'] = $value;
+				UserAccess::insert($usracc_data);
+			}
+		}
+		//##########User Access End############//
 
 		//print_r($data);die();
 
