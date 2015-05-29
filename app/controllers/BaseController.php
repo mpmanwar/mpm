@@ -10,6 +10,15 @@ class BaseController extends Controller {
     public function __construct() {       
         View::share('left_class', "collapse-left");
         View::share('right_class', "strech");
+
+        $admin_s = Session::get('admin_details');
+        View::share('admin_name', $admin_s['first_name']." ".$admin_s['last_name']);
+
+        $practice_details   = PracticeDetail::where("practice_id", "=", $admin_s['id'])->first();
+        //echo $practice_details['display_name'];die;
+        View::share('practice_name', $practice_details['display_name']);
+        View::share('practice_logo', $practice_details['practice_logo']);
+
     }
 
 	protected function setupLayout(){

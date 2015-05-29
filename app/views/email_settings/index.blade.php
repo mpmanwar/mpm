@@ -19,14 +19,9 @@
 
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1> EMAIL SETTINGS </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Templates</li>
-      </ol>
-    </section>
+            <!-- Content Header (Page header) -->
+            @include('layouts.below_header')
+
     <!-- Main content -->
     <section class="content">
       
@@ -34,7 +29,7 @@
 
         <div class="row box_border2 row_cont">
           <div class="col-xs-12 col-xs-6 p_left">
-            <h2 class="res_t">Email Templates</h2>
+            <!-- <h2 class="res_t">Email Templates</h2> -->
           </div>
           <div class="col-xs-12 col-xs-6">
             <div class="setting_con">

@@ -5,11 +5,12 @@
 class UserController extends BaseController {
 	
 	public function user_list(){
+		$data['title'] = "User List";
+		$data['heading'] = "USER LIST";
 
 		if (Cache::has('user_list')){
 			$data = Cache::get('user_list');
 		}else{
-			$data['title'] = "User List";
 			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 				$i = 0;
@@ -55,6 +56,7 @@ class UserController extends BaseController {
 
 	public function add_user(){
 		$data['title'] = "Add User";
+		$data['heading'] = "ADD USER DETAILS";
 		$data['permission_list'] = Permission::get();
 		return View::make('user.add_user', $data);
 	}
@@ -145,6 +147,7 @@ class UserController extends BaseController {
 			$data = Cache::get('edit_user');
 		}else{
 			$data['title'] = "User Edit";
+			$data['heading'] = "EDIT USER";
 			$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
 			//print_r($data['info']);die;
 

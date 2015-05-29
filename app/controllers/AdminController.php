@@ -86,7 +86,6 @@ class AdminController extends BaseController
 
             if ($validator->fails())
             {
-
                 return Redirect::to('/')->withErrors($validator)->withInput();
             } else
             {
@@ -94,14 +93,6 @@ class AdminController extends BaseController
                 $admin = Admin::where('email_address', $postData['userid'])->where('password',
                     md5($postData['password']))->first();
 
-                //if()
-
-
-                //echo $admin['first_name'];die();
-
-                // print_r( $admin);
-                //die();
-                //echo $this->last_query();die;
                 if (isset($admin) && count($admin) > 0)
                 {
 
@@ -116,20 +107,6 @@ class AdminController extends BaseController
                     $arr['country'] = $admin->country;
 
                     Session::put('admin_details', $arr);
-
-
-                    //$admin_s =  Session::get('admin_details');
-                    //echo "Name :".$admin_s->first_name;
-                    //print_r($admin_s);die;
-
-
-                    //print"<pre>"; print_r($admin_s);die();
-
-                    //echo json_encode($admin);die();
-
-
-                    // echo "<pre>";print_r(Session::get('admin_details'));die();
-
 
                     return Redirect::to('/dashboard');
                 } else
