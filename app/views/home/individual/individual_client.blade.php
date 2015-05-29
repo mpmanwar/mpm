@@ -214,7 +214,7 @@ $(function() {
                     </select>
                   </span>
                 </th>
-                <th>CLIENT NAME</th>
+                <th>CLIENT NAMe</th>
                 <th><span id="business_name_text">BUSINESS NAME</span>
                   <span id="business_name_select" style="display:none;">
                     <select id="six" style="width:100px;">
@@ -285,8 +285,11 @@ $(function() {
                   </td>
                   <!-- <td>{{ $i }}</td> -->
                   <td>{{ $client_row['staff_name'] or "" }}</td>
+                  
                   <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
-                  <td><a href="#">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
+                 
+                  <td><a href="/edit-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
+                 
                   <td>{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
                   <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
