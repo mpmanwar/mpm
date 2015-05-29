@@ -19,17 +19,8 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                      MY PRACTICE MANAGER
-                        <!-- <small>CLIENT NAME Limited</small> -->
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Add User</li>
-                    </ol>
-                </section>
-
+                @include('layouts.below_header')
+                
                 <!-- Main content -->
 
 
@@ -38,10 +29,10 @@
 <div class="row">
 <div class="top_bts">
 <ul>
-<!-- <li><button type="button" class="btn btn-info"><i class="fa fa-print"></i> Print</button></li> -->
+<!-- <li><button type="button" class="btn btn-info"><i class="fa fa-print"></i> Print</button></li>
 <li><button type="button" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
 <li><button type="button" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<!-- <li><button type="button" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li> -->
+<li><button type="button" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button></li> -->
 <!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
 <li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li>
@@ -57,7 +48,7 @@
 
 <div class="row box_border2 row_cont">
  <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">Add User  Details <!-- <small>General Settings</small> --></h2>
+ <!-- <h2 class="res_t">Add User  Details <small>General Settings</small></h2> -->
   </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">

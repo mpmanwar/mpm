@@ -33,16 +33,7 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side <?php echo $right_class; ?>">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                      MY PRACTICE MANAGER
-                        <small>CLIENT NAME Limited</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">User List</li>
-                    </ol>
-                </section>
+                <?php echo $__env->make('layouts.below_header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                 <!-- Main content -->
 <!-- <?php echo Form::open(array('url' => '/delete-users', 'files' => true)); ?> -->                 
@@ -50,11 +41,11 @@
 <div class="row">
 <div class="top_bts">
 <ul>
-<li><button class="btn btn-info" onClick="javascript:printDiv('printArea')"><i class="fa fa-print"></i> Print</button></li>
+<!-- <li><button class="btn btn-info" onClick="javascript:printDiv('printArea')"><i class="fa fa-print"></i> Print</button></li> -->
 <li><a href="/pdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a></li>
 <li><a href="/download/downloadExcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a></li>
- <li><a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
-<!-- <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
+<!-- <li><a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+<li><button class="btn btn-warning"><i class="fa fa-edit"></i> Add Client - Key In</button></li>
 <li><button class="btn btn-success"><i class="fa fa-edit"></i> Improve CSV Or Excel</button></li>
 <li><button class="btn btn-primary"><i class="fa fa-edit"></i> Import From CH </button></li> 
 <li><button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button></li>-->
@@ -69,7 +60,7 @@
 <form>
 <div class="row box_border2 row_cont">
  <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">USERS <small>General Settings</small></h2>
+ <!-- <h2 class="res_t">USERS <small>General Settings</small></h2> -->
 
  </div>
  <div class="col-xs-12 col-xs-6">
@@ -84,8 +75,9 @@
 <?php endif; ?>
 
 <div class="add_usercon">
-<p><a href="#">What's this?</a></p>
-<a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>
+<!-- <p><a href="#">What's this?</a></p> -->
+<a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>&nbsp;&nbsp;
+<a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a>
 </div>
 
 <div class="tabarea" id="printArea">

@@ -3,6 +3,11 @@
 //Cache::forget('user_list');
 
 class UserController extends BaseController {
+	
+	public function user_list(){
+		$data['title'] = "User List";
+		$data['heading'] = "USER LIST";
+
 
 	public function user_list() {
 		$admin_s = Session::get('admin_details'); // session
@@ -14,10 +19,16 @@ class UserController extends BaseController {
 
 		if (Cache::has('user_list')) {
 			$data = Cache::get('user_list');
+
 		} else {
 			$data['title'] = "User List";
 			$data['user_lists'] = User::orderBy("user_id", "Desc")->get();
 			if (isset($data['user_lists']) && count($data['user_lists']) > 0) {
+
+		}else{
+			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
+			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
+
 				$i = 0;
 				foreach ($data['user_lists'] as $user_list) {
 					$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
@@ -66,6 +77,7 @@ class UserController extends BaseController {
 			return Redirect::to('/');
 		}
 		$data['title'] = "Add User";
+		$data['heading'] = "ADD USER DETAILS";
 		$data['permission_list'] = Permission::get();
 		return View::make('user.add_user', $data);
 	}
@@ -151,6 +163,7 @@ class UserController extends BaseController {
 			$data = Cache::get('edit_user');
 		} else {
 			$data['title'] = "User Edit";
+			$data['heading'] = "EDIT USER";
 			$data['info'] = User::select('*')->where('user_id', '=', $id)->get();
 			//print_r($data['info']);die;
 

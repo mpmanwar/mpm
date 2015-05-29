@@ -3,13 +3,7 @@
         <img src="/img/user3.jpg" class="img-circle" alt="User Image" />
     </div>
     <div class="pull-left info">
-         <?php $admin_s =  Session::get('admin_details');
-                                //echo "Name :".$admin_s['first_name'];
-                                //echo "<pre>";print_r($admin_s);die;
-                         ?>
-                        
-                            <p>Hello, <?php echo $admin_s['first_name']; ?> </p>
-
+        <p>Hello, {{ $admin_name }} </p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
     </div>
 </div>
@@ -32,71 +26,4 @@
     </li>
     
 </ul>
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <!-- <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="index.html">
-                                <i class="fa fa-angle-double-right"></i> <span>Client List Organisation</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pages/widgets.html">
-                                <i class="fa fa-angle-double-right"></i> <span>Client List Individual</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-angle-double-right"></i>
-                                <span>Jobs</span>
-                               
-                            </a>
-                           
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-angle-double-right"></i>
-                                <span>Notice Board</span>
-                            </a>
-                           
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-angle-double-right"></i> <span>Companies HSE Data</span>
-                                
-                            </a>
-                           
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-angle-double-right"></i> <span>HMRC Authorisations</span>
-                               
-                            </a>
-                           
-                        </li>
-                        <li>
-                            <a href="pages/calendar.html">
-                                <i class="fa fa-angle-double-right"></i> <span>CRM</span>
-                                
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pages/mailbox.html">
-                                <i class="fa fa-angle-double-right"></i> <span>Reports</span>
-                                
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-angle-double-right"></i> <span>Contact & Mass Mail</span>
-                                
-                            </a>
-                           
-                        </li>
-                         <li>
-                            <a href="pages/mailbox.html">
-                                <i class="fa fa-angle-double-right"></i> <span>Staff Management</span>
-                               
-                            </a>
-                        </li>
-                    </ul> -->
+                    
