@@ -117,3 +117,7 @@ Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'Clie
 ### Routes for Client URL's end ###
 
 
+
+### Routes for edit Client URL's start###
+Route::get('/edit-client/{id}', 'HomeController@edit_client');
+### Routes for edit Client URL's end###

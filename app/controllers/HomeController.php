@@ -44,7 +44,8 @@ class HomeController extends BaseController {
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
-				$client_data[$i]['client_id'] = $client_id->client_id;
+				
+                $client_data[$i]['client_id'] = $client_id->client_id;
 
 				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
@@ -1007,5 +1008,24 @@ class HomeController extends BaseController {
 		echo json_encode($client_data);
 		exit();
 	}
+    
+    /*
+    public function edit_client($client_id){
+        
+        //print_r($clientid);die('j');
+        
+         //$data['title'] = "Client Edit";
+          //  $data['heading'] = "Client USER";
+        
+   	$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+			
+        
+        
+        
+        
+        //$data['clientinfo'] = StepsFieldsClient::select('*')->where('client_id', '=', $client_id)->get();
+        echo "<pre>";print_r($client_details);
+        die('edit');
+    }*/
 
 }
