@@ -41,7 +41,7 @@ $(document).ready(function(){
 
        		$("input[name='permission[]']").each( function (i) {
 				$(this).iCheck('check');
-				$(this).iCheck('disable');
+				$(this).iCheck('enable');
 			});
 		}
 	});
