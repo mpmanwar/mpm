@@ -45,13 +45,13 @@ class EmailSettingsController extends BaseController {
 	public function get_edit_template_type() {
 		$tmpl_typ_id = Input::get("tmpl_typ_id");
 		if (Request::ajax()) {
-			if (Cache::has('get_edit_template_type')) {
+			/*if (Cache::has('get_edit_template_type')) {
 				$template_types = Cache::get('get_edit_template_type');
-			} else {
+			} else {*/
 				$template_types['template_types'] = TemplateType::orderBy("template_type_name", "ASC")->get();
 				$template_types['template_type_id'] = $tmpl_typ_id;
-				Cache::put('get_edit_template_type', $template_types, 10);
-			}
+				/*Cache::put('get_edit_template_type', $template_types, 10);
+			}*/
 
 			echo View::make("email_settings.template_type", $template_types);
 		}

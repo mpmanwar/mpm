@@ -118,9 +118,9 @@
                                 <td class=" "><?php echo isset($user_row->permission) ? $user_row->permission : ""; ?></td>
                                 <td class=" ">
                                     <?php if($user_row->status == 'I'): ?>
-                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="active_t">Active</a>
+                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo (isset($user_type) && $user_type == 'A')? 'active_t':''; ?>">Active</a>
                                     <?php else: ?>
-                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="active_t">Inactive</a>
+                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo (isset($user_type) && $user_type == 'A')? 'active_t':''; ?>">Inactive</a>
                                     <?php endif; ?>
                                 </td>
                                 <td class=" "><?php echo isset($user_row->last_login) ? $user_row->last_login : ''; ?><!-- 1 May 2013 9:13 p.m. --></td>
