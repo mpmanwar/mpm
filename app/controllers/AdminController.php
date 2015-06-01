@@ -146,7 +146,7 @@ class AdminController extends BaseController {
 			//echo $this->last_query();die;
 			if (isset($admin) && count($admin) > 0) {
 				//############### Check user status ##############//
-				if($admin->status == "I"){
+				if($admin['status'] == "I"){
 					Session::flash('message', 'You are inactive user, Please contact with admin');
 					return Redirect::to('/');
 				}
@@ -164,14 +164,14 @@ class AdminController extends BaseController {
 				}
 				//############### Check user free time limit end ##############//
 
-				$arr['id'] 			= $admin->user_id;
-				$arr['first_name'] 	= $admin->fname;
-				$arr['last_name'] 	= $admin->fname;
-				$arr['email'] 		= $admin->email;
-				$arr['user_type'] 	= $admin->user_type;
+				$arr['id'] 			= $admin['user_id'];
+				$arr['fname'] 		= $admin['fname'];
+				$arr['lname'] 		= $admin['lname'];
+				$arr['email'] 		= $admin['email'];
+				$arr['user_type'] 	= $admin['user_type'];
 				Session::put('admin_details', $arr);
 
-				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin->user_id));
+				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin['user_id']));
 
 				return Redirect::to('/dashboard');
 			} else {

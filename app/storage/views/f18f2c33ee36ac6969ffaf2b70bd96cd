@@ -10,31 +10,9 @@
                         <div class="pull-left image">
                             <img src="<?php echo URL :: asset('img/user3.jpg'); ?>" class="img-circle" alt="User Image" />
                         </div>
-                        <div class="pull-left info">
                         
-                        
-                        
-                        
-                        <?php $admin_s =  Session::get('admin_details');
-                                //echo "Name :".$admin_s['first_name'];
-                                //echo "<pre>";print_r($admin_s);die;
-                         ?>
-                        
-                            <p>Hello, <?php echo $admin_s['first_name']; ?></p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
                     </div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
+                    
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <?php echo $__env->make('layouts.outer_leftside', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -59,7 +37,7 @@
 <li class="hvr-grow">
 <a  href="/organisation-clients">
 <div class="circle_icons_inner">
-<div class="circle_icon"><img src="<?php echo URl::asset('img/dashboard_circle.png'); ?>" /></div>
+<div class="circle_icon"><img src="<?php echo URl :: asset('img/dashboard_circle.png'); ?>" /></div>
 <p class="c_tagline">CLIENT LIST - <br>
 ORGANISATIONS</p>
 <div class="clearfix"></div>

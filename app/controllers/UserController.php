@@ -19,7 +19,7 @@ class UserController extends BaseController {
 
 		} else {*/
 
-			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
+			$data['user_lists']	= User::where('parent_id', '=', $user_id)->orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 
 				$i = 0;
@@ -90,18 +90,20 @@ class UserController extends BaseController {
 	public function user_process() {
 		$usr_data = array();
 		$usrp_data = array();
+		$admin_s = Session::get('admin_details'); // session
 
 		$postData = Input::all();
 		//echo "<prev>".print_r($postData['permission']);die;
 		$validator = $this->validateChinForm($postData);
 		if ($validator->passes()) {
-			$usr_data['fname'] = $postData['fname'];
-			$usr_data['lname'] = $postData['lname'];
-			$usr_data['email'] = $postData['email'];
-			$usr_data['user_type'] = $postData['user_type'];
-			$usr_data['created'] = date("Y-m-d H:i:s");
+			$usr_data['parent_id'] 	= $admin_s['id'];
+			$usr_data['fname'] 		= $postData['fname'];
+			$usr_data['lname'] 		= $postData['lname'];
+			$usr_data['email'] 		= $postData['email'];
+			$usr_data['user_type'] 	= $postData['user_type'];
+			$usr_data['created'] 	= date("Y-m-d H:i:s");
 			$usr_id = User::insertGetId($usr_data);
-			$usr_data['user_id'] = $usr_id;
+			$usr_data['user_id'] 	= $usr_id;
 			$usr_data['link'] = url()."/user/create-password/".base64_encode($usr_id);
 
 			if ($postData['user_type'] != "C") {

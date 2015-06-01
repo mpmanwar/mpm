@@ -10,16 +10,7 @@
                         <div class="pull-left image">
                             <img src="{{ URL :: asset('img/user3.jpg') }}" class="img-circle" alt="User Image" />
                         </div>
-                        <div class="pull-left info">
-                           <?php $admin_s =  Session::get('admin_details');
-                                //echo "Name :".$admin_s['first_name'];
-                                //echo "<pre>";print_r($admin_s);die;
-                         ?>
                         
-                            <p>Hello, {{ $admin_s['first_name'] }}</p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
                     </div>
                     
                     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -37,86 +28,6 @@
                 @include('layouts.below_header')
 
 <!-- Main content -->
-<!-- <section class="content">
-    <div class="col-xs-12">
-        <div class="circle_icons">
-            <ul>
-                <a href="/practice-details" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
-                            </div>
-                            <div class="clearfix"></div>
-                            <p class="c_tagline">PRACTICE DETAILS</p>
-                        </div>
-       
-                    </li>
-                </a>
-        
-                <a href="/email-settings" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">EMAIL SETTINGS</p>
-                        </div>
-                   
-                    </li>
-                </a>
-        
-                 <a href="#" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/client_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
-                        </div>
-                    </li>
-                </a>
-                
-                <a href="/user-list" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/adduser_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">ADD USER</p>
-                        </div>
-                    </li>
-                </a>
-                
-                <a href="#" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/noti_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">NOTIFICATIONS</p>
-                        </div>
-                    </li>
-                </a>
-                
-                <a href="#" class="hvr-grow">
-                    <li>
-                        <div class="circle_icons_inner">
-                            <div class="circle_con">
-                                <img src="{{ URl::asset('img/manage_i.png') }}" alt="" />
-                            </div>
-                            <p class="c_tagline">MANAGE SUBSCRIPTION</p>
-                        </div>
-                    </li>
-                </a>
-        
-        
-            <div class="clearfix"></div>
-            </ul>
-        </div>
-    </div>
-                           
-</section> -->
 
 <section class="content">
     <div class="row icon_section">

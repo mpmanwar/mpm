@@ -17,7 +17,7 @@ class BaseController extends Controller {
         if(isset($admin_s) && count($admin_s) >0 ){
             View::share('id', $admin_s['id']);
             View::share('user_type', $admin_s['user_type']);
-            View::share('admin_name', $admin_s['first_name']." ".$admin_s['last_name']);
+            View::share('admin_name', $admin_s['fname']." ".$admin_s['lname']);
             $practice_details   = PracticeDetail::where("user_id", "=", $admin_s['id'])->first();
             View::share('practice_name', $practice_details['display_name']);
             if (File::exists("practice_logo/".$practice_details['practice_logo']) && $practice_details['practice_logo'] != ""){
