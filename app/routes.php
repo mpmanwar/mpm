@@ -72,6 +72,7 @@ Route::any('/template/edit_template', array("as"=>"show_edit_template", "uses"=>
 Route::any('/template/get_template', array("as"=>"get_template", "uses"=>'EmailSettingsController@get_template'));
 Route::any('/template/add_template', array("as"=>"add_email_template", "uses"=>'EmailSettingsController@add_email_template'));
 Route::any('/template/delete-email-template', array("as"=>"delete_email_template", "uses"=>'EmailSettingsController@delete_email_template'));
+Route::any('/template/delete-attach-file', array("as"=>"delete_attach_file", "uses"=>'EmailSettingsController@delete_attach_file'));
 Route::any('/template/edit-email-template', array("as"=>"edit_email_template", "uses"=>'EmailSettingsController@edit_email_template'));
 Route::any('/template/get-edit-template-type', array("as"=>"get_edit_template_type", "uses"=>'EmailSettingsController@get_edit_template_type'));
 ### Routes for Email Settings related URL's end ###

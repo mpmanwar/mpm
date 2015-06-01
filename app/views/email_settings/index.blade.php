@@ -81,7 +81,7 @@
                         <td align="left">{{ $email_tmpl_row->name }}</td>
                         <td align="left">
                           @if(!empty($email_tmpl_row->file) && file_exists( "uploads/emailTemplates/".$email_tmpl_row->file ) )
-                          <a href="uploads/emailTemplates/{{ $email_tmpl_row->file }}"><img src="img/attachment.png" width="20" /></a>
+                          <a href="uploads/emailTemplates/{{ $email_tmpl_row->file }}"><img src="img/attachment.png" width="20" /></a>&nbsp;&nbsp;<a href="javascript:void(0)" data-eml_tmpl_id="{{ $email_tmpl_row->email_template_id }}" data-file="{{ $email_tmpl_row->file }}" class="deleteTemplateFile"><img src="img/cross.png" width="12" /></a>
                           @endif
                         </td>
                         <td align="left">

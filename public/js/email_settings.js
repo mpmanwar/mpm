@@ -89,6 +89,33 @@ $(document).ready(function(){
 		
 	});
 
+
+//###################Delete Template Attach File Start ###########################//
+	$('.deleteTemplateFile').click(function(event){
+		var eml_tmpl_id = $(this).data('eml_tmpl_id');
+		var file = $(this).data('file');
+		if (confirm("Do you want to delete this attach file")) {
+			$.ajax({
+			    type: "POST",
+			    url: '/template/delete-attach-file',
+			    data: { 'eml_tmpl_id' : eml_tmpl_id, 'file' : file },
+			    success : function(resp){
+			    	if(resp == "success"){
+			    		location.reload();
+			    	}else{
+			    		$('#msg').html('<p style="color:red; font-size:15px;">There are some error to delete this email template.</p>')
+			    	}
+			    }
+			});
+		}
+		
+	});
+//###################Delete Template Attach File Start ###########################//
+
+
+
+
+
 });
 
 

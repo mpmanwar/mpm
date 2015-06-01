@@ -92,6 +92,7 @@ class EmailSettingsController extends BaseController {
 				$file = Input::file('add_file');
 				$destinationPath = "uploads/emailTemplates/";
 				$fileName = Input::file('add_file')->getClientOriginalName();
+				$fileName = $pd_id.$fileName;
 				$result = Input::file('add_file')->move($destinationPath, $fileName);
 
 				$file_data['file'] = $fileName;
@@ -126,6 +127,7 @@ class EmailSettingsController extends BaseController {
 				$file = Input::file('edit_file');
 				$destinationPath = "uploads/emailTemplates/";
 				$fileName = Input::file('edit_file')->getClientOriginalName();
+				$fileName = $postData['edit_email_template_id'].$fileName;
 				$result = Input::file('edit_file')->move($destinationPath, $fileName);
 
 				$file_data['file'] = $fileName;
@@ -164,6 +166,27 @@ class EmailSettingsController extends BaseController {
 			} else {
 				$msg = "fail";
 				Session::flash('error', 'There are some error to delete this email template.');
+			}
+			echo $msg;
+			exit;
+		}
+
+	}
+
+	public function delete_attach_file() {
+		$tmpl_data = array();
+		$eml_tmpl_id = Input::get('eml_tmpl_id');
+		$file = Input::get('file');
+		if (Request::ajax()) {
+			$del = EmailTemplate::where("email_template_id", "=", $eml_tmpl_id)->update(array('file'=>''));
+			if ($del) {
+				$msg = "success";
+				unlink('uploads/emailTemplates/'.$file);
+				Session::flash('success', 'Attached file has been deleted successfully.');
+				Cache::flush();
+			} else {
+				$msg = "fail";
+				Session::flash('error', 'There are some error to delete this file.');
 			}
 			echo $msg;
 			exit;
