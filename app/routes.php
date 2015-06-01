@@ -94,7 +94,7 @@ Route::get('/change-password', 'AdminController@change_password');
 Route::post('/new-pass', 'AdminController@new_pass');
 Route::get('/profile-edit', 'AdminController@profile_edit');
 Route::post('/profile-update', 'AdminController@profile_update');
-
+Route::any('/admin/activation/{id}', array("as"=>"activation", "uses"=>'AdminController@activation'));
 
 
 

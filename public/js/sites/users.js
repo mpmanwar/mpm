@@ -25,10 +25,14 @@ $(document).ready(function(){
 	  	if(value == "client"){
 			//$("#user_permissions").show();
 			$("input[name='user_access[]']").each( function (i) {
+				$(this).parent().addClass("check_gray");
 				$(this).iCheck('uncheck');
+				$(this).iCheck('disable');
+
 			});
 
        		$("input[name='permission[]']").each( function (i) {
+       			$(this).parent().addClass("check_gray");
 				$(this).iCheck('uncheck');
 				$(this).iCheck('disable');
 				//$(this).prop('disabled', true);
@@ -36,10 +40,13 @@ $(document).ready(function(){
 
 		}else if(value == "staff"){
 			$("input[name='user_access[]']").each( function (i) {
+				$(this).parent().removeClass("check_gray");
 				$(this).iCheck('check');
+				$(this).iCheck('enable');
 			});
 
        		$("input[name='permission[]']").each( function (i) {
+       			$(this).parent().removeClass("check_gray");
 				$(this).iCheck('check');
 				$(this).iCheck('enable');
 			});

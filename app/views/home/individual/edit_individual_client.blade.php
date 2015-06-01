@@ -71,16 +71,7 @@ $(document).ready(function(){
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        EDIT CLIENT
-                        <!-- <small>CLIENT NAME  Limited</small> -->
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <!-- <li class="active">Add Clients</li> -->
-                    </ol>
-                </section>
+                @include('layouts.below_header')
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}

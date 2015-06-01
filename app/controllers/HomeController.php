@@ -30,7 +30,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "INDIVIDUAL CLIENTS LIST";
+		$data['heading'] = "CLIENT LIST - INDIVIDUALS";
 		$data['title'] = "Individual Clients List";
 		$client_data = array();
 
@@ -106,7 +106,7 @@ class HomeController extends BaseController {
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
-		$data['heading'] = "ORGANISATION CLIENTS LIST";
+		$data['heading'] = "CLIENTS LIST - ORGANISATIONS";
 		$data['title'] = "Organisation Clients List";
 
 		$client_data = array();
@@ -166,8 +166,8 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "ADD INDIVIDUAL CLIENT";
-		$data['title'] = "Add Individual Client";
+		$data['heading'] = "ADD CLIENT";
+		$data['title'] = "Add Client";
 		$data['rel_types'] = RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 		$data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
 		$data['titles'] = Title::orderBy("title_id")->get();
@@ -213,8 +213,8 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "ADD ORGANISATION CLIENT";
-		$data['title'] = "Add Organisation Client";
+		$data['heading'] = "ADD CLIENT";
+		$data['title'] = "Add Client";
 		$data['org_types'] = OrganisationType::orderBy("organisation_id")->get();
 		$data['rel_types'] = RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] = Step::orderBy("step_id")->get();

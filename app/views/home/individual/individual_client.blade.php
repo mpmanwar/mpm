@@ -15,7 +15,7 @@
 $(function() {
   $('#example2').dataTable({
         "bPaginate": true,
-        "bLengthChange": false,
+        "bLengthChange": true,
         "bFilter": true,
         "bSort": true,
         "bInfo": true,
@@ -100,16 +100,7 @@ $(function() {
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        CLIENT LIST - INDIVIDUALS
-                        <!-- <small>CLIENT NAME  Limited</small> -->
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Individual Clients</li>
-                    </ol>
-                </section>
+                @include('layouts.below_header')
 
                 <!-- Main content -->
                 <section class="content">

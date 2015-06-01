@@ -19,8 +19,9 @@ class PracticeDetailsController extends BaseController {
 		$data['title'] = "Practice Details";
 		$data['org_types'] = OrganisationType::orderBy("name")->get();
 		//print_r($data['org_types']);die;
-		$data["practice_details"] = PracticeDetail::where("practice_id", "=", 1)->first();
-		if (!empty($data["practice_details"]) && count($data["practice_details"]) > 0) {
+		$data["practice_details"] = PracticeDetail::where("practice_id", "=", $user_id)->first();
+		//echo $this->last_query();die;
+		if (isset($data["practice_details"]) && count($data["practice_details"]) > 0) {
 			$data["practice_details"]['telephone_no'] = explode("-", $data["practice_details"]['telephone_no']);
 			$data["practice_details"]['fax_no'] = explode("-", $data["practice_details"]['fax_no']);
 			$data["practice_details"]['mobile_no'] = explode("-", $data["practice_details"]['mobile_no']);
@@ -57,20 +58,24 @@ class PracticeDetailsController extends BaseController {
 					$data["practice_address"]['phy_country_name'] = $country_name[0]->country_name;
 				}
 			}
-		}
 
-		$viewToLoad = 'practice.excel';
-		$data["organization_type_name"] = OrganisationType::where("organisation_id", "=", $data["practice_details"]->organisation_type_id)->first();
-		//echo $this->last_query();die;
-		///////////  Start Generate and store excel file ////////////////////////////
-		Excel::create('practiceDetails', function ($excel) use ($data, $viewToLoad) {
-			$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
-				$sheet->loadView($viewToLoad)->with($data);
-			})->save();
+
+			$viewToLoad = 'practice.excel';
+			$data["organization_type_name"] = OrganisationType::where("organisation_id", "=", $data["practice_details"]->organisation_type_id)->first();
+			//echo $this->last_query();die;
+			///////////  Start Generate and store excel file ////////////////////////////
+			Excel::create('practiceDetails', function ($excel) use ($data, $viewToLoad) {
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+				})->save();
 
 		});
 
 		///////////  End Generate and store excel file ////////////////////////////
+
+		}
+
+		
 
 		///////////  Start Generate and store pdf file ////////////////////////////
 		//return PDF::loadView($viewToLoad, $data)->stream('github.pdf');

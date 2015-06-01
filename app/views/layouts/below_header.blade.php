@@ -4,9 +4,7 @@
     </div>
     <div class="col-4 logo_con">
         <a href="/practice-details">
-            @if (file_exists('/practice_logo/{{ $practice_logo }}'))
-                <img src="/practice_logo/{{ $practice_logo }}" class="browse_img" alt="" width="40">
-            @endif
+            {{ $practice_logo }}
         </a>
     </div>
     

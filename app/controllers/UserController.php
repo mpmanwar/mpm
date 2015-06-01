@@ -19,7 +19,7 @@ class UserController extends BaseController {
 
 		} else {*/
 
-			$data['user_lists']	= User::where("user_id", "!=", $admin_s['id'])->where("user_type", "!=", 'A')->orderBy("user_id", "Desc")->get();
+			$data['user_lists']	= User::orderBy("user_id", "Desc")->get();
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 
 				$i = 0;
@@ -333,11 +333,11 @@ class UserController extends BaseController {
 			$userdata = User::where("user_id", "=", $user_id)->select('status')->first();
 			if($userdata['status'] == "I"){
 				$status = "A";
-				$ret = 'Inactive';
+				$ret = 'Active';
 			}
 			if($userdata['status'] == "A"){
 				$status = "I";
-				$ret = 'Active';
+				$ret = 'Inactive';
 			}
 			$data = User::where("user_id", "=", $user_id)->update(array('status'=>$status));
 			//echo $this->last_query();die;

@@ -65,7 +65,7 @@
  </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
- <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+ <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Manage Subscriptions</a>
  </div>
  </div>
  <div class="clearfix"></div>
@@ -75,7 +75,7 @@
 <?php endif; ?>
 
 <div class="add_usercon">
-<?php if(isset($user_type) && $user_type == 'A'): ?>
+<?php if($manage_user == 'Y'): ?>
 <a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>&nbsp;&nbsp;
 <a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a>
 <?php endif; ?>
@@ -114,13 +114,24 @@
                         <?php foreach($user_lists as $user_row): ?>
                             <tr class="odd">
                                 <td><input type="checkbox" value="<?php echo $user_row->user_id; ?>" name="user_delete_id[]" id="user_delete_id"></td>
-                                <td class="sorting_1"><a href="/edit-user/<?php echo $user_row->user_id; ?>"><?php echo isset($user_row->fname) ? $user_row->fname : ""; ?> <?php echo isset($user_row->lname) ? $user_row->lname : ""; ?></a></td>
+                                <td class="sorting_1">
+                                    <?php if($manage_user == 'Y'): ?>
+                                        <a href="/edit-user/<?php echo $user_row->user_id; ?>"><?php echo isset($user_row->fname) ? $user_row->fname : ""; ?> <?php echo isset($user_row->lname) ? $user_row->lname : ""; ?>
+
+                                    </a>
+                                    <?php else: ?>
+                                        <a href="javascript:void(0)"><?php echo isset($user_row->fname) ? $user_row->fname : ""; ?> <?php echo isset($user_row->lname) ? $user_row->lname : ""; ?>
+
+                                    </a>
+                                    <?php endif; ?>
+
+                                </td>
                                 <td class=" "><?php echo isset($user_row->permission) ? $user_row->permission : ""; ?></td>
                                 <td class=" ">
-                                    <?php if($user_row->status == 'I'): ?>
-                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo (isset($user_type) && $user_type == 'A')? 'active_t':''; ?>">Active</a>
+                                    <?php if($user_row->status == 'A'): ?>
+                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo ($manage_user == 'Y')? 'active_t':''; ?>">Active</a>
                                     <?php else: ?>
-                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo (isset($user_type) && $user_type == 'A')? 'active_t':''; ?>">Inactive</a>
+                                        <a href="javascript:void(0)" id="user_status_<?php echo $user_row->user_id; ?>" data-user_id="<?php echo isset($user_row->user_id) ? $user_row->user_id : ""; ?>" data-status="<?php echo isset($user_row->status) ? $user_row->status : ""; ?>" class="<?php echo ($manage_user == 'Y')? 'active_t':''; ?>">Inactive</a>
                                     <?php endif; ?>
                                 </td>
                                 <td class=" "><?php echo isset($user_row->last_login) ? $user_row->last_login : ''; ?><!-- 1 May 2013 9:13 p.m. --></td>

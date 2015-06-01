@@ -187,12 +187,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .email_btns2 {float: right; width: 150px;}
 .service_t{float:left;}
 .add_edit{float: left; margin-left:20px; padding-top:25px;}
-.open, .save{margin-right: 10px;}
+.save{margin-right: 10px;}
 
 /*===========dashboard=============*/
 .icon_section{margin-top:30px; margin-left:15px;}
-.col_display{width:84%; float:left;}
-.display_name{color:#fff; font-size:28px; text-align:center; padding-top: 5px;   text-transform: uppercase;}
+.col_display{width:64%; float:left;}
+.display_name{color:#fff; font-size:28px; text-align:center; padding-top:12px; text-transform: uppercase;}
 .logo_con{text-align:center;}
 .home_right{float:right;}
 .left_section{width:100%; text-align:center;}
@@ -209,9 +209,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .col-4 h1{font-size:30px;}
 .table_magin{margin-top: 27px;}
 .horizontal_line{width: 100%; height: 1px; background-color: #ccc; margin: -10px 0 5px 0;}
+.headermain{background:#3c8dbc; width:100%; border-bottom:1px solid #000;}
+.logo_controlar{float:left; width:18%; background:#fff; padding: 10px 0 10px 0; text-align: center;}
+.navbar-right{margin-right: 15px; width: 16%; }
+.nav>li>a{color:#fff!important;}
+.navbar-nav{float: right;}
+.navbar-nav > li > a:hover{background:none!important;}
+.nav > li > a:hover, .nav > li > a:hover{background:none!important;}
+/*.nav > li > a:hover, .nav > li > a:focus{background-color:none!important;}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color:none!important;}*/
+.navbar-nav > li > a {padding-top: 25px!important; padding-bottom: 19px!important;}
+.nav > li > a:hover, .nav > li > a:focus{background-color:none!important;}
+a:focus{background:none!important;}
+
+.check_gray{background: #ccc;}
+
+
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
+.logo_controlar, .col_display{width:100%;}
+.navbar-right{float:right; width: 100%;}
+.navbar-nav > li > a{padding-top:0!important; padding-bottom:10px!important;}
 .res_t{font-size:20px;}
 .col-xs-4{width:100%;}
 .country_con, .no_con,.tel_cont{width:100%;}
@@ -263,6 +282,9 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 .left_section ul li{ margin: 0 10px 50px;}
 .left_section{text-align:center; width:92%;}
 .display_name{padding-top:8px;}
+.logo_controlar{width:20%;}
+.col_display {width: 60%;}
+.display_name {padding-top: 14px;}
 
 
 }

@@ -35,6 +35,58 @@ class AdminController extends BaseController {
 			if ($validator->fails()) {
 				return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
 			} else {
+				$insert_data['fname'] 		= $postData['fname'];
+				$insert_data['lname'] 		= $postData['lname'];
+				$insert_data['email'] 		= $postData['email'];
+				$insert_data['password'] 	= md5($postData['password']);
+				$insert_data['phone'] 		= $postData['phone'];
+				$insert_data['website'] 	= $postData['website'];
+				$insert_data['country'] 	= $postData['country'];
+				$insert_data['user_type'] 	= "R";
+
+				$email_check = User::where('email', $postData['email'])->first();
+				//echo $this->last_query();die;
+				if (isset($email_check) && count($email_check) > 0) {
+					Session::flash('error_msg', 'This email is already exists, Please signup with another email');
+					return Redirect::to('/admin-signup');
+				}
+
+				$last_id = User::insertGetId($insert_data);
+				$insert_data['link'] = url()."/admin/activation/".base64_encode($last_id);
+				
+				$this->send_registration($insert_data);
+				Session::flash('message', 'You have successfully registered');
+				Session::flash('email', $insert_data['email']);
+			}
+
+			return Redirect::to('/admin-signup');
+		}
+	}
+
+	/*public function signup_process() {
+		//die('sign');
+		if ($this->isPostRequest()) {
+			$postData = Input::all();
+			$messages = array(
+				'fname.required' => 'Please enter your first name',
+				'email.required' => 'Please enter your email/username',
+				'password.required' => 'Please enter your password',
+				'confirmation_password.required' => 'Please enter confirmation password',
+				'confirmation_password.matchpassword' => "confirmation password doesn't match");
+
+			//print_r($messages);die();
+			$rules = array(
+				'fname' => 'required|alpha',
+				'lname' => 'required|alpha',
+				'email' => 'required|email',
+				'password' => 'required',
+				'confirmation_password' => 'required|same:password',
+				'phone' => 'required');
+			$validator = Validator::make($postData, $rules, $messages);
+
+			if ($validator->fails()) {
+				return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
+			} else {
 				$insert_data['first_name'] = $postData['fname'];
 				$insert_data['last_name'] = $postData['lname'];
 				$insert_data['practice_name'] = $postData['practicename'];
@@ -44,12 +96,23 @@ class AdminController extends BaseController {
 				$insert_data['website'] = $postData['website'];
 				$insert_data['country'] = $postData['country'];
 
-				Admin::insert($insert_data);
+				$last_id = Admin::insertGetId($insert_data);
+				$insert_data['link'] = url()."/admin/activation/".base64_encode($last_id);
+				
+				$this->send_registration($insert_data);
 				Session::flash('message', 'You have successfully registered');
 			}
 
 			return Redirect::to('/admin-signup');
 		}
+	}*/
+
+	private function send_registration($data) {
+		Mail::send('emails.registration', $data, function ($message) use ($data) {
+			$message->from('abel02@icloud.com', 'MPM');
+			$message->to($data['email'], $data['fname'] . ' ' . $data['lname'])->subject("Welcome to MPM");
+
+		});
 	}
 
 	public function login() {
@@ -88,6 +151,18 @@ class AdminController extends BaseController {
 					return Redirect::to('/');
 				}
 				//############### Check user status ##############//
+
+				//############### Check user free time limit start ##############//
+				if($admin['user_type'] == "R"){
+					$cirrentTime = time();
+					$timeInFuture = date('Y-m-d H:i:s', strtotime($admin['created']) + 45*86400);
+					if($cirrentTime > strtotime($timeInFuture)){
+						Session::flash('message', 'Your free trial login is over, Please subscribe now.');
+						return Redirect::to('/');
+					}
+					
+				}
+				//############### Check user free time limit end ##############//
 
 				$arr['id'] 			= $admin->user_id;
 				$arr['first_name'] 	= $admin->fname;
@@ -304,6 +379,27 @@ class AdminController extends BaseController {
 		Admin::where('id', '=', $admin_s['id'])->update($data);
 		//die('update');
 		return Redirect::to('/admin-profile');
+	}
+
+	public function activation($user_id) {//error_msg
+		$data['status'] 	= "A";
+		$user_id = base64_decode($user_id);
+		$user = User::where("user_id", "=", $user_id)->select("created")->first();
+		
+		if(isset($user) && count($user) > 0){
+			$cirrentTime = time();
+			$timeInFuture = date('Y-m-d H:i:s', strtotime($user['created']) + 86400);
+			
+			if($cirrentTime > strtotime($timeInFuture)){
+				User::where("user_id", "=", $user_id)->delete();
+				Session::flash("message", "Your activation time is over. Please register again");
+			}else{
+				User::where("user_id", "=", $user_id)->update($data);
+			}
+		}
+		
+		
+		return Redirect::to('/');
 	}
 
 }

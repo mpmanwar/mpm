@@ -1,6 +1,3 @@
-
-
-
 @extends('layouts.layout')
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -49,57 +46,10 @@
     <!-- Right side column. Contains the navbar and content of the page -->
     <aside class="right-side {{ $right_class }}">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Dashboard
-                <!-- <small>CLIENT NAME  Limited</small> -->
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
+        @include('layouts.below_header')
 
         <!-- Main content -->
-        <!-- <section class="content">
         
-            <div class="col-xs-12">
-                <div class="circle_icons">
-                    <ul>
-                        <a href="/organisation-clients" class="hvr-grow">
-                            <li>
-                                <div class="circle_icons_inner">
-                                    <div class="circle_con">
-                                        <img src="{{ URl::asset('img/practice_i.png') }}" alt="" />
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <p class="c_tagline">Client List Organisation</p>
-                                </div>
-               
-                            </li>
-                        </a>
-                
-                        <a href="/individual-clients" class="hvr-grow">
-                            <li>
-                                <div class="circle_icons_inner">
-                                    <div class="circle_con">
-                                        <img src="{{ URl::asset('img/email_i.png') }}" alt="" />
-                                    </div>
-                                    <p class="c_tagline">Client List Individual</p>
-                                </div>
-                           
-                            </li>
-                        </a>
-                
-                        
-                
-                
-                    <div class="clearfix"></div>
-                    </ul>
-                </div>
-            </div>
-                                   
-        </section> -->
 
         <section class="content">
     <div class="row icon_section">

@@ -52,7 +52,7 @@
   </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
- <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+ <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Manage Subscriptions</a>
  </div>
  </div>
  <div class="clearfix"></div>

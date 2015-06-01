@@ -23,7 +23,7 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
+                <!-- <section class="content-header">
                     <h1>
                         MY PRACTICE MANAGER
                         <small>CLIENT NAME Limited</small>
@@ -32,7 +32,8 @@
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Practice Details</li>
                     </ol>
-                </section>
+                </section> -->
+                @include('layouts.below_header')
 
                 <!-- Main content -->
 
@@ -74,8 +75,10 @@
  <span class="btn btn-default btn-file p_details">
     Browse <input type="file" name="practice_logo">
 </span>
-@if($practice_details->practice_logo != "" && file_exists("practice_logo/".$practice_details->practice_logo))
-<img src="practice_logo/{{ $practice_details->practice_logo }}" class="browse_img" alt="" width="30" />
+@if(isset($practice_details->practice_logo) && $practice_details->practice_logo != "")
+    @if(file_exists("practice_logo/".$practice_details->practice_logo))
+        <img src="practice_logo/{{ $practice_details->practice_logo }}" class="browse_img" alt="" width="30" />
+    @endif
 @endif
 </div>
 </div>

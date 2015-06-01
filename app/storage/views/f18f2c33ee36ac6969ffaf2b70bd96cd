@@ -1,7 +1,4 @@
 
-
-
-
 <?php $__env->startSection('content'); ?>
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -49,57 +46,10 @@
     <!-- Right side column. Contains the navbar and content of the page -->
     <aside class="right-side <?php echo $right_class; ?>">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Dashboard
-                <!-- <small>CLIENT NAME  Limited</small> -->
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
+        <?php echo $__env->make('layouts.below_header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
         <!-- Main content -->
-        <!-- <section class="content">
         
-            <div class="col-xs-12">
-                <div class="circle_icons">
-                    <ul>
-                        <a href="/organisation-clients" class="hvr-grow">
-                            <li>
-                                <div class="circle_icons_inner">
-                                    <div class="circle_con">
-                                        <img src="<?php echo URl::asset('img/practice_i.png'); ?>" alt="" />
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <p class="c_tagline">Client List Organisation</p>
-                                </div>
-               
-                            </li>
-                        </a>
-                
-                        <a href="/individual-clients" class="hvr-grow">
-                            <li>
-                                <div class="circle_icons_inner">
-                                    <div class="circle_con">
-                                        <img src="<?php echo URl::asset('img/email_i.png'); ?>" alt="" />
-                                    </div>
-                                    <p class="c_tagline">Client List Individual</p>
-                                </div>
-                           
-                            </li>
-                        </a>
-                
-                        
-                
-                
-                    <div class="clearfix"></div>
-                    </ul>
-                </div>
-            </div>
-                                   
-        </section> -->
 
         <section class="content">
     <div class="row icon_section">

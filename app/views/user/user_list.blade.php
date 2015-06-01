@@ -65,7 +65,7 @@
  </div>
  <div class="col-xs-12 col-xs-6">
  <div class="setting_con">
- <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+ <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Manage Subscriptions</a>
  </div>
  </div>
  <div class="clearfix"></div>
@@ -75,7 +75,7 @@
 @endif
 
 <div class="add_usercon">
-@if(isset($user_type) && $user_type == 'A')
+@if($manage_user == 'Y')
 <a href="/add-user" class="btn btn-success"><i class="fa fa-edit"></i> Add User</a>&nbsp;&nbsp;
 <a href="javascript:void(0)" id="deleteUsers" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</a>
 @endif
@@ -114,13 +114,22 @@
                         @foreach($user_lists as $user_row)
                             <tr class="odd">
                                 <td><input type="checkbox" value="{{$user_row->user_id}}" name="user_delete_id[]" id="user_delete_id"></td>
-                                <td class="sorting_1"><a href="/edit-user/{{$user_row->user_id}}">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}</a></td>
+                                <td class="sorting_1">
+                                    @if($manage_user == 'Y')
+                                        <a href="/edit-user/{{$user_row->user_id}}">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}
+                                    </a>
+                                    @else
+                                        <a href="javascript:void(0)">{{ $user_row->fname or ""}} {{ $user_row->lname or "" }}
+                                    </a>
+                                    @endif
+
+                                </td>
                                 <td class=" ">{{ $user_row->permission or "" }}</td>
                                 <td class=" ">
-                                    @if($user_row->status == 'I')
-                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="{{ (isset($user_type) && $user_type == 'A')? 'active_t':''}}">Active</a>
+                                    @if($user_row->status == 'A')
+                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="{{ ($manage_user == 'Y')? 'active_t':''}}">Active</a>
                                     @else
-                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="{{ (isset($user_type) && $user_type == 'A')? 'active_t':''}}">Inactive</a>
+                                        <a href="javascript:void(0)" id="user_status_{{ $user_row->user_id }}" data-user_id="{{ $user_row->user_id or "" }}" data-status="{{ $user_row->status or "" }}" class="{{ ($manage_user == 'Y')? 'active_t':''}}">Inactive</a>
                                     @endif
                                 </td>
                                 <td class=" ">{{ $user_row->last_login or '' }}<!-- 1 May 2013 9:13 p.m. --></td>
