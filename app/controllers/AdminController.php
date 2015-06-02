@@ -169,6 +169,8 @@ class AdminController extends BaseController {
 				$arr['lname'] 		= $admin['lname'];
 				$arr['email'] 		= $admin['email'];
 				$arr['user_type'] 	= $admin['user_type'];
+				$arr['parent_id'] 	= $admin['parent_id'];
+				$arr['group_id'] 	= $admin['group_id'];
 				Session::put('admin_details', $arr);
 
 				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin['user_id']));
@@ -382,9 +384,10 @@ class AdminController extends BaseController {
 	}
 
 	public function activation($user_id) {//error_msg
-		$data['status'] 	= "A";
 		$user_id = base64_decode($user_id);
-		$user = User::where("user_id", "=", $user_id)->select("created")->first();
+		$data['status'] 	= "A";
+		$data['group_id'] 	= $user_id;
+		$user = User::where("user_id", "=", $user_id)->select("created", "status")->first();
 		
 		if(isset($user) && count($user) > 0){
 			$cirrentTime = time();
@@ -394,7 +397,29 @@ class AdminController extends BaseController {
 				User::where("user_id", "=", $user_id)->delete();
 				Session::flash("message", "Your activation time is over. Please register again");
 			}else{
-				User::where("user_id", "=", $user_id)->update($data);
+				if($user['status'] == "A"){
+					Session::flash("message", "Your are activated user. Please log in");
+				}else{
+					$permission_list = Permission::get();//print_r($data['permission_list']);die;
+					if (isset($permission_list) && count($permission_list) > 0) {
+						foreach ($permission_list as $value) {
+							$usrp_data['user_id'] = $user_id;
+							$usrp_data['permission_id'] = $value->permission_id;
+							UserPermission::insert($usrp_data);
+						}
+					}
+
+					$access_list = Access::get();
+					if (!empty($access_list) && count($access_list) > 0) {
+						foreach ($access_list as $value) {
+							$usracc_data['user_id'] = $user_id;
+							$usracc_data['access_id'] = $value->access_id;
+							UserAccess::insert($usracc_data);
+						}
+					}
+					User::where("user_id", "=", $user_id)->update($data);
+				}
+				
 			}
 		}
 		

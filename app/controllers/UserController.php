@@ -19,22 +19,27 @@ class UserController extends BaseController {
 
 		} else {*/
 
-			$data['user_lists']	= User::where('parent_id', '=', $user_id)->orderBy("user_id", "Desc")->get();
+			//$user_lists	= User::where('user_id', '=', $user_id)->first();
+			
+			$parentId = array();
+			$childId = array();
+
+			$parentId = $this->getParentId($user_id, $admin_s['group_id']);
+			//$childId = $this->getChildId($user_id);
+			if(count($parentId) > 0){
+				$parentId = array_unique($parentId);
+			}
+			
+			//print_r($parentId);die;
+			$groupId = array_merge($parentId,$childId);
+						
+			$data['user_lists']	= User::whereIn('user_id', $groupId)->get();
+			//echo $this->last_query();die;
+
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
 
 				$i = 0;
 				foreach ($data['user_lists'] as $user_list) {
-					/*$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
-					//echo $this->last_query();die;
-					//print_r($permissions);die;
-					$permission = "";
-					if (isset($permissions) && count($permissions) > 0) {
-						foreach ($permissions as $usr_perission) {
-							$permission .= $usr_perission->name . " + ";
-						}
-						$permission = substr($permission, 0, -3);
-					}*/
-
 					$access = DB::table("user_accesses")->leftJoin('accesses', 'user_accesses.access_id', '=', 'accesses.access_id')->where('user_accesses.user_id', '=', $user_list->user_id)->select('accesses.access_name', 'accesses.access_id')->get();
 					//echo $this->last_query();die;
 					//print_r($permissions);die;
@@ -73,6 +78,38 @@ class UserController extends BaseController {
 	}
 
 
+    public function getParentId($user_id, $group_id, $parrent_array = null) {
+    	global $parrent_array, $chield_array;
+    	$users	= User::where('user_id', '=', $user_id)->where('group_id', '=', $group_id)->select("parent_id")->first();
+    	
+    	if (isset($users) && count($users) >0 && $users['parent_id'] !=0) { 
+    		$parrent_array[] = $users['parent_id'];  
+    		$chield_array = $this->getChildId($users['parent_id'], $group_id);
+    		//print_r($chield_array);
+    		$parrent_array = array_merge($parrent_array, $chield_array);
+			$this->getParentId($users['parent_id'], $group_id, $parrent_array);   
+		}elseif($users['parent_id'] == 0)
+		{
+			$parrent_array = $this->getChildId($users['parent_id'], $group_id);
+		} 
+    	return $parrent_array;
+    }
+
+    public function getChildId($parent_id, $group_id, $chield_array = null) {
+    	global $chield_array;
+    	$users	= User::where('parent_id', '=', $parent_id)->where('group_id', '=', $group_id)->select("user_id")->get();
+    	//echo $this->last_query();
+    	if( isset($users) && count($users) >0 ){
+    		foreach ($users as $element) {
+    			$chield_array[]	= $element->user_id;
+    			$this->getChildId($element->user_id, $group_id, $chield_array);
+    		}
+    	}
+    	//print_r($chield_array);
+    	return $chield_array;
+    }
+
+
 	public function add_user() {
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
@@ -97,6 +134,7 @@ class UserController extends BaseController {
 		$validator = $this->validateChinForm($postData);
 		if ($validator->passes()) {
 			$usr_data['parent_id'] 	= $admin_s['id'];
+			$usr_data['group_id'] 	= $admin_s['group_id'];
 			$usr_data['fname'] 		= $postData['fname'];
 			$usr_data['lname'] 		= $postData['lname'];
 			$usr_data['email'] 		= $postData['email'];
