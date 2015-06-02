@@ -57,8 +57,19 @@ $(document).ready(function(){
 		var value = $(this).data('name');
 	  	if(value == "JOBS"){
 			$("input[name='permission[]']").each( function (i) {
-				//$(this).prop('disabled', false);
+				$(this).parent().removeClass("check_gray");
 				$(this).iCheck('enable');
+       		});
+
+		}
+	});
+
+	$("input[name='user_access[]']").on('ifUnchecked', function(event){
+		var value = $(this).data('name');
+	  	if(value == "JOBS"){
+			$("input[name='permission[]']").each( function (i) {
+				$(this).parent().addClass("check_gray");
+				$(this).iCheck('disable');
        		});
 
 		}

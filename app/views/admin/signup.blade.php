@@ -16,9 +16,14 @@
         
         <div class="form-box" id="login-box">
 
-           
+           <div class="header">
+            @if(Session::has('message'))
+              Thank you for signing up
+            @else
+              Sign Up
+            @endif
+            </div>
 
-            <div class="header">Sign Up</div>
             <!--  <form action=" " method="post"> -->
             {{ Form::open(array('url' => '/signup-process', 'files' => true)) }}      
                 <div class="body bg-gray">

@@ -116,7 +116,7 @@ $(document).ready(function(){
 
 <div class="n_box1">
 <label for="exampleInputPassword1">Client Code</label>
-  <input type="text" id="client_code" name="client_code" class="form-control"></div>
+  <input type="text" id="client_code" name="client_code" class="form-control toUpperCase"></div>
 </div>
 
 <div class="form-group">
@@ -124,32 +124,32 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 <div class="n_box1">
 <label for="exampleInputPassword1">Title</label>
-<select class="form-control" id="title" name="title">
+<select class="form-control select_title" id="title" name="title">
   @if(!empty($titles))
     @foreach($titles as $key=>$title_row)
-    <option value="{{ $title_row->title_id }}">{{ $title_row->title_name }}</option>
+    <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
     @endforeach
   @endif
 </select></div>
 <div class="n_box2">
     <label for="exampleInputPassword1">First Name</label>
-    <input type="text" id="fname" name="fname" class="form-control"></div>
+    <input type="text" id="fname" name="fname" class="form-control toUpperCase"></div>
 <div class="n_box3">
     <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="mname" name="mname" class="form-control"></div>
+    <input type="text" id="mname" name="mname" class="form-control toUpperCase"></div>
 <div class="n_box4">
     <label for="exampleInputPassword1">Last Name</label>
-    <input type="text" id="lname" name="lname" class="form-control"></div>
+    <input type="text" id="lname" name="lname" class="form-control toUpperCase"></div>
 <div class="clearfix"></div>
 </div>
 
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Sex</label>
-<select class="form-control" name="sex" id="sex">
-<option value="Male">Male</option>
-<option value="Female">Female</option>
+<label for="exampleInputPassword1">Gender</label>
+<select class="form-control" name="gender" id="gender">
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
 </select>
 </div>
 </div>
@@ -493,77 +493,43 @@ $(document).ready(function(){
                     <div class="col_m2">  
 <h3 class="box-title">Residential Address</h3>  
 
-<!-- <div class="twobox">
-<div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Select Address</label>
-  <select class="form-control office_address" id="res_office_id" name="res_office_id" data-name="res">
+  <label for="exampleInputPassword1">Select or Add</label>
+   <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
     <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-        @if($office_row->parent_id == 0)
-          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-        @endif
-      @endforeach
-    @endif
-      
-  </select>
+      @if(!empty($cont_address))
+        @foreach($cont_address as $key=>$address_row)
+          @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+            <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+          @endif
+        @endforeach
+      @endif 
+    </select>
 </div>
-</div>
-
-<div class="twobox_2" id="show_other_resoffice" style="display:none;">
 <div class="form-group">
-<label for="exampleInputPassword1">Other Address</label>
-  <select class="form-control office_address" id="other_res_office_id" name="other_res_office_id" data-name="res">
-    <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-      @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
-        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-      @endif
-      @endforeach
-    @endif
-      
-  </select>
-</div>
-</div>
-<div class="clearfix"></div>
-</div> -->
+<label for="exampleInputPassword1">Address Line1</label>
+<input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control" />
 
-<!-- <div class="form-group">
-<label for="exampleInputPassword1">Select Address</label>
-  <select class="form-control" id="res_office_id" name="res_office_id">
-    <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-        @if($office_row->parent_id == 0)
-          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-        @endif
-      @endforeach
-    @endif
-      
-  </select>
-</div> -->
-
+</div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<textarea id="res_address" name="res_address" class="form-control" rows="3"></textarea>
+<label for="exampleInputPassword1">Address Line2</label>
+<input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control" />
 
 </div>
 
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Town/City</label>
+<label for="exampleInputPassword1">City/Town</label>
 <input type="text" id="res_city" name="res_city" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">State/Region</label>
-<input type="text" id="res_region" name="res_region" class="form-control">
+<label for="exampleInputPassword1">County</label>
+<input type="text" id="res_county" name="res_county" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -572,8 +538,8 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Postal/Zip Code</label>
-<input type="text" id="res_zipcode" name="res_zipcode" class="form-control">
+<label for="exampleInputPassword1">Postcode</label>
+<input type="text" id="res_postcode" name="res_postcode" class="form-control">
 </div>
 </div>
 
@@ -622,76 +588,41 @@ $(document).ready(function(){
 </div>
 
 
-<!-- <div class="twobox">
-<div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Select Address</label>
-  <select class="form-control office_address" id="serv_office_id" name="serv_office_id" data-name="serv">
-    <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-        @if($office_row->parent_id == 0)
-          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-        @endif
-      @endforeach
-    @endif
-      
-  </select>
+  <label for="exampleInputPassword1">Select or Add</label>
+   <select class="form-control get_oldcont_address" id="get_oldserv_address" data-type="serv">
+    <option value="">-- Select Address --</option><option value="1">1</option>
+      @if(!empty($cont_address))
+        @foreach($cont_address as $key=>$address_row)
+          @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+            <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+          @endif
+        @endforeach
+      @endif 
+    </select>
 </div>
-</div>
-
-<div class="twobox_2" id="show_other_servoffice" style="display:none;">
 <div class="form-group">
-<label for="exampleInputPassword1">Other Address</label>
-  <select class="form-control office_address" id="other_serv_office_id" name="other_serv_office_id" data-name="serv">
-    <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-      @if(!empty($office_row->parent_id) && $office_row->parent_id != 0)
-        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-      @endif
-      @endforeach
-    @endif
-      
-  </select>
+<label for="exampleInputPassword1">Address Line1</label>
+<input type="text" id="serv_addr_line1" name="serv_addr_line1" class="form-control" />
 </div>
-</div>
-<div class="clearfix"></div>
-</div> -->
-
-
-<!-- <div class="form-group">
-<label for="exampleInputPassword1">Select Address</label>
-  <select class="form-control" id="service_office_id" name="service_office_id">
-    <option value="">-- Select Address --</option>
-    @if(!empty($tax_office))
-      @foreach($tax_office as $key=>$office_row)
-        @if($office_row->parent_id == 0)
-          <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
-        @endif
-      @endforeach
-    @endif
-      
-  </select>
-</div> -->
 
 <div class="form-group">
-<label for="exampleInputPassword1">Address</label>
-<textarea id="serv_address" name="serv_address" class="form-control" rows="3"></textarea>
+<label for="exampleInputPassword1">Address Line2</label>
+<input type="text" id="serv_addr_line2" name="serv_addr_line2" class="form-control" />
 </div>
 
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Town/City</label>
+<label for="exampleInputPassword1">City/Town</label>
 <input type="text" id="serv_city" name="serv_city" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">State/Region</label>
-<input type="text" id="serv_region" name="serv_region" class="form-control">
+<label for="exampleInputPassword1">County</label>
+<input type="text" id="serv_county" name="serv_county" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -700,8 +631,8 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Postal/Zip Code</label>
-<input type="text" id="serv_zipcode" name="serv_zipcode" class="form-control">
+<label for="exampleInputPassword1">Postcode</label>
+<input type="text" id="serv_postcode" name="serv_postcode" class="form-control">
 </div>
 </div>
 
@@ -862,10 +793,8 @@ $(document).ready(function(){
     <td width="30%" align="center"><strong>Appointment Date</strong></td>
     <td width="30%" align="center"><strong>Relationship Type</strong></td>
     <td width="15%" align="center"><strong>Action</strong></td>
-    
   </tr>
-
-  </table>
+</table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">

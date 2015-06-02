@@ -99,7 +99,7 @@ $(document).ready(function(){
                             <div class="form-group">
                               <label for="exampleInputPassword1">Client Code</label>
                 
-                              <input type="text" id="client_code" name="client_code" class="form-control">
+                              <input type="text" id="client_code" name="client_code" class="form-control toUpperCase">
 
                             </div>
                           </div>
@@ -128,7 +128,7 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">Business Name</label>
-                              <input type="text" id="business_name" name="business_name" class="form-control">
+                              <input type="text" id="business_name" name="business_name" class="form-control toUpperCase">
                             </div>
 
                             <div class="twobox">
@@ -147,14 +147,18 @@ $(document).ready(function(){
                                 </div>
                               </div>
 
-                              <div class="threebox_2">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Registered In</label>
-
-                                  <input type="text" id="registered_date" name="registered_date" class="form-control">
-
-                                </div>
-                              </div>
+            <div class="threebox_2">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Registered In</label>
+                <select class="form-control" name="registered_in" id="registered_in">
+                 @if(!empty($reg_address))
+                    @foreach($reg_address as $key=>$reg_row)
+                    <option value="{{ $reg_row->reg_id }}">{{ $reg_row->reg_name }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </div>
+            </div>
                               <div class="clearfix"></div>
                             </div>
 
@@ -176,7 +180,7 @@ $(document).ready(function(){
                               <input type="text" id="business_desc" name="business_desc" class="form-control">
                             </div>
 
-                            <h3 class="box-title">Annual Returns</h3>
+                            <!-- <h3 class="box-title">Annual Returns</h3> -->
 
                             <div class="form-group">
                               <label for="exampleInputPassword1">Annual Returns</label>
@@ -409,7 +413,7 @@ $(document).ready(function(){
                       <div class="row">
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
-                            <h3 class="box-title">Tax Information</h3>
+                            <h3 class="box-title">TAX INFORMATION</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Registered for Vat</label>
                               <input type="checkbox" name="reg_for_vat" id="reg_for_vat" value="1" />
@@ -461,7 +465,7 @@ $(document).ready(function(){
                                 <div class="add_ch2">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Accrual</label>
-                                    <input type="radio" name="vat_scheme" value="accrual" />
+                                    <input type="radio" name="vat_scheme" value="accrual" checked />
                                   </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -472,7 +476,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Return Frequency</label>
-                                  <select class="form-control" name="ret_frequency" id="ret_frequency">
+                                  <select class="form-control frequency_change" name="ret_frequency" id="ret_frequency">
                                     <option value="quarterly">Quarterly</option>
                                     <option value="monthly">Monthly</option>
                                     <option value="yearly">Yearly</option>
@@ -795,7 +799,7 @@ $(document).ready(function(){
 
               <div class="form-group">
                 <label for="exampleInputPassword1">Select or Add</label>
-                 <select class="form-control" id="get_oldcont_address">
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
                   <option value="">-- Select Address --</option>
                     @if(!empty($cont_address))
                       @foreach($cont_address as $key=>$address_row)

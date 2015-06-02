@@ -19,7 +19,7 @@ class PracticeDetailsController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "PRACTICE DETAILS";
+		$data['heading'] = "";
 		$data['title'] = "Practice Details";
 		$data['org_types'] = OrganisationType::orderBy("name")->get();
 		//print_r($data['org_types']);die;

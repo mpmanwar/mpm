@@ -141,45 +141,6 @@ $(".delete_vat_scheme").click(function(){
 }); 
 //Delete organisation name while add individual/organisation user end
 
-//Show old Contact address while adding client start
-$("#get_oldcont_address").change(function(){
-  var client_id   = $(this).val();
-  if(client_id != "")
-  {
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: '/client/get-oldcont-address',
-      data: { 'client_id' : client_id },
-      success : function(resp){
-        //var value = $.parseJSON(resp);
-        //alert(value.client_code);
-        if (resp.length != 0) {
-          $.each(resp, function(key){
-            //console.log(resp[key].client_id); 
-            $("#cont_addr_line1").val(resp[key].cont_addr_line1);
-            $("#cont_addr_line2").val(resp[key].cont_addr_line2);
-            $("#cont_city").val(resp[key].cont_city);
-            $("#cont_county").val(resp[key].cont_county);
-            $("#cont_postcode").val(resp[key].cont_postcode);
-            
-          });
-
-        }
-
-      }
-    });
-  }else{
-    $("#cont_addr_line1").val("");
-    $("#cont_addr_line2").val("");
-    $("#cont_city").val("");
-    $("#cont_county").val("");
-    $("#cont_postcode").val("");
-  }
-  
-}); 
-//Show old Contact address while adding client end
-
 //Delete services name while add individual/organisation user start
 $(".delete_services").click(function(){
   var field_id = $(this).data('field_id');
@@ -201,7 +162,12 @@ $(".delete_services").click(function(){
 //Delete services name while add individual/organisation user end
 
 
-
+//Delete services name while add individual/organisation user start
+$(".frequency_change").change(function(){
+    var value = $(this).val();
+     
+}); 
+//Delete services name while add individual/organisation user end
 
 	
  	

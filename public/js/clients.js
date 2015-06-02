@@ -94,6 +94,10 @@ if(data_id == 2){
     alert("Last name can not be null");
     $("#lname").focus();
     return false;
+  }else if($("#business_name").val() == ""){
+    alert("Business name can not be null");
+    $("#business_name").focus();
+    return false;
   }
 
 }
@@ -107,10 +111,32 @@ if(data_id == 2){
 });
 
 $(".open_header").click(function(){
+  var data_id = $(this).data('id');
+  ///////////Validation//////////////
+  if(data_id == 2){
+    if($("#client_code").val() == ""){
+      alert("Client code can not be null");
+      $("#client_code").focus();
+      return false;
+    }else if($("#fname").val() == ""){
+      alert("First name can not be null");
+      $("#fname").focus();
+      return false;
+    }else if($("#lname").val() == ""){
+      alert("Last name can not be null");
+      $("#lname").focus();
+      return false;
+    }else if($("#business_name").val() == ""){
+      alert("Business name can not be null");
+      $("#business_name").focus();
+      return false;
+    }
+
+  }
+  ///////////Validation//////////////
+
   $("#header_ul li").parent().find('li').removeClass("active");
   $(this).parent('li').addClass('active');
-
-  var data_id = $(this).data('id');
   $(".tab-pane").fadeOut("fast");
   $("#step"+data_id).fadeIn("slow");
 });
@@ -386,19 +412,21 @@ $(".service_country").change(function(){
 
 //Get same address as residential address start
 $('#res_service_same').on('ifChecked', function(event){
-  $('input').iCheck('check');
-  $("#serv_address").val($("#res_address").val()); 
+  $(this).iCheck('check');
+  $("#serv_addr_line1").val($("#res_addr_line1").val()); 
+  $("#serv_addr_line2").val($("#res_addr_line2").val());
   $("#serv_city").val($("#res_city").val());
-  $("#serv_region").val($("#res_region").val());
-  $("#serv_zipcode").val($("#res_zipcode").val());
+  $("#serv_county").val($("#res_county").val());
+  $("#serv_postcode").val($("#res_postcode").val());
 });
 
 $('#res_service_same').on('ifUnchecked', function(event){
-  $("#serv_address").val(""); 
+  $("#serv_addr_line1").val(""); 
+  $("#serv_addr_line2").val("");
   $("#serv_city").val("");
-  $("#serv_region").val("");
-  $("#serv_zipcode").val("");
-  $('input').iCheck('uncheck');
+  $("#serv_county").val("");
+  $("#serv_postcode").val("");
+  $(this).iCheck('uncheck');
 });
 //Get same address as residential address start
 
@@ -432,7 +460,6 @@ $(".office_address").change(function(){
 
     }
 }); 
-
 //Get office address in add individual client Contact information portion end
 
 //Delete user added field while add individual/organisation user start
@@ -535,6 +562,69 @@ $(".add_subsec_name").on("click", function(){
 });
 //Add new header section name while add individual/organisation user end
 
+$('.toUpperCase').keyup(function() {
+    $(this).val($(this).val().toUpperCase());
+});
+
+
+//Show old Contact address while adding client start
+$(".get_oldcont_address").change(function(){
+  var client_id   = $(this).val();
+  var type   = $(this).data("type");alert(type);
+  if(client_id != "")
+  {
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/client/get-oldcont-address',
+      data: { 'client_id' : client_id },
+      success : function(resp){
+        //var value = $.parseJSON(resp);
+        //alert(value.client_code);
+        if (resp.length != 0) {
+          $.each(resp, function(key){
+            //console.log(resp[key].client_id); 
+            $("#"+type+"_addr_line1").val(resp[key].cont_addr_line1);
+            $("#"+type+"_addr_line2").val(resp[key].cont_addr_line2);
+            $("#"+type+"_city").val(resp[key].cont_city);
+            $("#"+type+"_county").val(resp[key].cont_county);
+            $("#"+type+"_postcode").val(resp[key].cont_postcode);
+            
+          });
+
+        }
+
+      }
+    });
+  }else{
+    $("#"+type+"_addr_line1").val("");
+    $("#"+type+"_addr_line2").val("");
+    $("#"+type+"_city").val("");
+    $("#"+type+"_county").val("");
+    $("#"+type+"_postcode").val("");
+  }
+  
+}); 
+//Show old Contact address while adding client end
+
+// Select title for gender change while adding client start //
+$(".select_title").change(function(){
+  var value   = $(this).val();
+  //alert(value);
+  var male = ['Mr', 'Rev', 'Sir', 'Lord', 'Captain'];
+  var female = ['Mrs', 'Miss', 'Dame', 'Lady'];
+  if($.inArray(value, male) != -1){
+    $("#gender").val('Male');
+  }else if($.inArray(value, female) != -1){
+    $("#gender").val('Female');
+  }else{
+    $("#gender").val('');
+  }
+  
+  //$("#gender option[value='Female']").prop('selected', true);
+
+});
+// Select title for gender change while adding client end //
 
 });//end of main document ready
 
@@ -547,7 +637,7 @@ var relationship_array = [];
 function saveRelationship()
 {
     var name = $('#relname').val();
-    var date = $('#app_date').val();
+    var app_date = $('#app_date').val();
     var rel_type_id = $('#rel_type_id').val();
     var rel_client_id = $('#rel_client_id').val();
 
@@ -559,16 +649,21 @@ function saveRelationship()
         type: "POST",
         dataType: "json",
         url: '/individual/save-relationship',
-        data: { 'name' : name, 'date' : date, 'rel_type_id' : rel_type_id },
-        success : function(resp){
-          var content = '<tr><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href=""><i class="fa fa-edit"></i></a> <a href=""><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+        data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id },
+        success : function(resp){console.log(resp['appointment_date']);
+          var content = '<tr><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
           $("#myRelTable").last().append(content);
 
           var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id;
           if(itemselected !== undefined && itemselected !== null){
               relationship_array.push(itemselected);
+              /*relationship_array.push({
+                  b_name: rel_client_id, 
+                  app_date:  resp['appointment_date'],
+                  r_type:  rel_type_id,
+              });*/
           }
-
+        //console.log(relationship_array);
           relationship_array.join(',');
 
           $('#app_hidd_array').val(relationship_array);

@@ -361,7 +361,8 @@ class UserController extends BaseController {
 			//echo $this->last_query();die;
 		}
 
-		return Redirect::to('/user/create-password/'.$postData['user_id']);
+		//return Redirect::to('/user/create-password/'.$postData['user_id']);
+		return Redirect::to('/');
 	}
 
 	public function update_status()

@@ -7,6 +7,7 @@
 <div class="col_display">
     <p class="display_name">{{ $practice_name }}</p>
 </div>
+<!-- <nav class="navbar" role="navigation" style="position: none!important;"> -->
 <div class="navbar-right">
       <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
@@ -40,6 +41,7 @@
             </li>
         </ul>
     </div>
+<!-- </nav> -->
     
 <div class="clearfix"></div>    
 

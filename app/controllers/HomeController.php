@@ -177,6 +177,7 @@ class HomeController extends BaseController {
 		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
 		$data['countries'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
 		$data['field_types'] = FieldType::get();
+		$data['cont_address'] = $this->get_contact_address();
 
 		$steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -225,6 +226,7 @@ class HomeController extends BaseController {
 		$data['field_types'] = FieldType::get();
 		$data['vat_schemes'] = VatScheme::get();
 		$data['cont_address'] = $this->get_contact_address();
+		$data['reg_address'] = RegisteredAddress::get();
 
 		$steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "org")->where("step_id", "<=", '5')->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -326,12 +328,21 @@ class HomeController extends BaseController {
 
 		}
 
-		$fulltitle = Title::select("title_name")->where('title_id', $postData['title'])->first();
+		//$fulltitle = Title::select("title_name")->where('title_id', $postData['title'])->first();
 		if (!empty($postData['title'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'name', $fulltitle['title_name'] . " " . $postData['fname'] . " " . $postData['mname'] . " " . $postData['lname']);
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'title', $postData['title']);
 		}
-		if (!empty($postData['sex'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'sex', $postData['sex']);
+		if (!empty($postData['fname'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'fname', $postData['fname']);
+		}
+		if (!empty($postData['mname'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'mname', $postData['mname']);
+		}
+		if (!empty($postData['lname'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'lname', $postData['lname']);
+		}
+		if (!empty($postData['gender'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'gender', $postData['gender']);
 		}
 		if (!empty($postData['dob'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'dob', $postData['dob']);
@@ -385,33 +396,39 @@ class HomeController extends BaseController {
 
 //################ CONTACT INFORMATION SECTION START #################//
 		$step_id = 3;
-		if (!empty($postData['res_address'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_address', $postData['res_address']);
+		if (!empty($postData['res_addr_line1'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line1', $postData['res_addr_line1']);
+		}
+		if (!empty($postData['res_addr_line2'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line2', $postData['res_addr_line2']);
 		}
 		if (!empty($postData['res_city'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_city', $postData['res_city']);
 		}
-		if (!empty($postData['res_region'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_region', $postData['res_region']);
+		if (!empty($postData['res_county'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_county', $postData['res_county']);
 		}
-		if (!empty($postData['res_zipcode'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_zipcode', $postData['res_zipcode']);
+		if (!empty($postData['res_postcode'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_postcode', $postData['res_postcode']);
 		}
 		if (!empty($postData['res_country'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_country', $postData['res_country']);
 		}
-		if (!empty($postData['serv_address'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_address', $postData['serv_address']);
+		if (!empty($postData['serv_addr_line1'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_addr_line1', $postData['serv_addr_line1']);
+		}
+		if (!empty($postData['serv_addr_line2'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_addr_line2', $postData['serv_addr_line2']);
 		}
 		if (!empty($postData['serv_city'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_city', $postData['serv_city']);
 		}
-		if (!empty($postData['serv_region'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_region', $postData['serv_region']);
+		if (!empty($postData['serv_county'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_county', $postData['serv_county']);
 		}
 
-		if (!empty($postData['serv_zipcode'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_zipcode', $postData['serv_zipcode']);
+		if (!empty($postData['serv_postcode'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_postcode', $postData['serv_postcode']);
 		}
 		if (!empty($postData['serv_country'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_country', $postData['serv_country']);
@@ -501,7 +518,8 @@ class HomeController extends BaseController {
 			//echo $this->last_query();die;
 		}
 
-		$rel_types['appointment_date'] = date("m/d/Y", strtotime(Input::get('date')));
+		//$rel_types['appointment_date'] = date("m/d/Y", strtotime(Input::get('app_date')));
+		$rel_types['appointment_date'] = Input::get('app_date');
 
 		echo json_encode($rel_types);
 		exit();
@@ -638,8 +656,8 @@ class HomeController extends BaseController {
 		if (!empty($postData['incorporation_date'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'incorporation_date', $postData['incorporation_date']);
 		}
-		if (!empty($postData['registered_date'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'registered_date', $postData['registered_date']);
+		if (!empty($postData['registered_in'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'registered_in', $postData['registered_in']);
 		}
 		if (!empty($postData['business_desc'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'business_desc', $postData['business_desc']);
