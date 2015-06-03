@@ -9,6 +9,7 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -488,9 +489,9 @@ $(document).ready(function(){
                                   <label for="exampleInputPassword1">Vat Stagger</label>
                                   <select class="form-control" name="vat_stagger" id="vat_stagger">
                                     <option>Choose One</option>
-                                    <option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option>
-                                    <option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option>
-                                    <option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>
+                                    <option value="JAJO">Jan-April-Jul-Oct</option>
+                                    <option value="FMAN">Feb-May-Aug-Nov</option>
+                                    <option value="MJSD">Mar-Jun-Sept-Dec</option>
                                   </select>
                                 </div>
                               </div>
@@ -652,20 +653,20 @@ $(document).ready(function(){
 
                             <div class="form-group">
                               <label for="exampleInputPassword1">Employer Office</label>
-                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office" readonly></textarea>
+                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office"></textarea>
                             </div>
 
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control" readonly>
+                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Telephone</label>
-                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control" readonly>
+                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control">
                                 </div>
                               </div>
 
@@ -1077,7 +1078,7 @@ $(document).ready(function(){
                         <div class="col-xs-12 col-xs-6">
                           
                           <div class="col_m2">
-                            <h3 class="box-title">Others</h3>
+                            <h3 class="box-title">OTHERS</h3>
                             <h4 class="box-title">Bank Details</h4>
                             <div class="twobox">
                               <div class="twobox_1">
@@ -1086,30 +1087,44 @@ $(document).ready(function(){
                                   <input type="text" id="bank_name" name="bank_name" class="form-control">
                                 </div>
                               </div>
-                              <div class="twobox_2">
+                              <!-- <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Sort Code</label>
                                   <input type="text" id="bank_short_code" name="bank_short_code" class="form-control">
                                 </div>
-                              </div>
+                              </div> -->
                               <div class="clearfix"></div>
                             </div>
+
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Account Number</label>
-                                  <input type="text" id="bank_acc_no" name="bank_acc_no" class="form-control">
+                                  <label for="exampleInputPassword1">Sort Code</label>
+                                  <input type="text" id="bank_short_code" name="bank_short_code" class="form-control">
+                                  
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
+                                  <label for="exampleInputPassword1">Account Number</label>
+                                  <input type="text" id="bank_acc_no" name="bank_acc_no" class="form-control">
+                                  
                                 </div>
                               </div>
                               <div class="clearfix"></div>
                             </div>
                             
+                            <div class="twobox">
+                              <div class="twobox_1">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Marketing Source</label>
+                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
+                                </div>
+                              </div>
+                              
+                              <div class="clearfix"></div>
+                            </div>
+
                             <div class="director_table">
                             <div class="service_t">
                               <h3 class="box-title">Services</h3></div>
@@ -1152,7 +1167,7 @@ $(document).ready(function(){
         </select>
     </div>
 
-    <div class="contain_type">
+    <div class="service">
       <select class="form-control" name="staff_id" id="staff_id">
         <option value="">None</option>
           @if(!empty($staff_details))

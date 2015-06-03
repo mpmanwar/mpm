@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  $("#bank_short_code").mask("99-99-99");
 
 	$('#ann_ret_check').on('ifChecked', function(event){
 		  $("#show_ann_ret").show("slow");
@@ -61,12 +62,12 @@ $(document).ready(function(){
   $('.org_tax_payee_address').on('ifChecked', function(event){
       $("#employer_office").val("Customer Operations Employer Office, BP4009, Chillingham House, Benton Park View, Newcastle Upon Tyne");
       $("#employer_postcode").val("NE98 1ZZ");
-      $("#employer_postcode").val("03002003200");
+      $("#employer_telephone").val("03002003200");
   });
   $('.org_tax_payee_address').on('ifUnchecked', function(event){
       $("#employer_office").val("");
       $("#employer_postcode").val("");
-      $("#employer_postcode").val("");
+      $("#employer_telephone").val("");
   });
   //PAYE registered address show while add organisation client end
 
@@ -165,6 +166,17 @@ $(".delete_services").click(function(){
 //Delete services name while add individual/organisation user start
 $(".frequency_change").change(function(){
     var value = $(this).val();
+    var option = "";
+    if(value == "quarterly"){
+      option+='<option>Choose One</option><option value="JAJO">Jan-April-Jul-Oct</option><option value="FMAN">Feb-May-Aug-Nov</option><option value="MJSD">Mar-Jun-Sept-Dec</option>';
+    }
+    if(value == "monthly"){
+      option+='<option>Choose One</option><option value="monthly">Monthly</option>';
+    }
+    if(value == "yearly"){
+      option+='<option>Choose One</option><option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>';
+    }
+    $("#vat_stagger").html(option);
      
 }); 
 //Delete services name while add individual/organisation user end

@@ -221,11 +221,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {background:none!important;}
 .check_gray{background: #ccc;}
 
-.navbar{margin-bottom:0!important;}
+.navbar{margin-bottom:0!important; position: static!important;}
 .skin-blue .navbar {
   background:none!important;
   border:none!important;
 }
+
+.service{float:left; margin-right: 5px; margin-left: 10px; width:28%;}
+.services_search{float:left; margin-right: 5px; width:35%;}
 
 
 @media only screen and (min-width : 320px) and (max-width : 480px),

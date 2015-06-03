@@ -31,6 +31,7 @@
                     </ul>
                 @endif
                 <div id="message" style="color: red;font-size: 15px;">{{ Session::get('message') }}</div> 
+                <div id="message" style="color: green;font-size: 15px;">{{ Session::get('success') }}</div>
                     <div class="form-group">
                         <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID"/>
                     </div>

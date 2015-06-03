@@ -253,28 +253,27 @@ class AdminController extends BaseController {
 		$postData = Input::all();
 
 		$usr_data['email'] = $postData['userid'];
-		$admin = Admin::where('email_address', $usr_data['email'])->first();
+		$admin = User::where('email', $usr_data['email'])->first();
 
-		if ($admin) {
+		if (isset($admin) && count($admin) >0 ) {
 			$usr_data['newpass'] = str_random(8);
 			$data = array('password' => md5($usr_data['newpass']));
-			Admin::where('email_address', '=', $usr_data['email'])->update($data);
+			User::where('email', '=', $usr_data['email'])->update($data);
 
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The new password has been sent to your email.');
-			return Redirect::to('/forgot-password');
-
+			
 		} else {
-			Session::flash('message_error', 'Your username/password doesn`t match');
-			return Redirect::to('/forgot-password');
+			Session::flash('message_error', 'Please enter your valid username');
 		}
+		return Redirect::to('/forgot-password');
 
 	}
 
 	private function send_mail($data) {
 		Mail::send('emails.password_admin', $data, function ($message) use ($data) {
-			$message->from('anwar.khan@appsbee.com', 'MPM'); $message->to($data['email'])->
-			subject("Welcome to MPM");}
+			$message->from('abel02@icloud.com', 'MPM'); $message->to($data['email'])->
+			subject("New Password Created");}
 		);
 	}
 	public function adminprofile() {
@@ -290,9 +289,8 @@ class AdminController extends BaseController {
 		$admin_s = Session::get('admin_details');
 		$adminid = $admin_s['id'];
 
-		$data['admin_details'] = Admin::where('id', $adminid)->first();
-		$country = Country::where('country_id', $data['admin_details']['country'])->
-		first();
+		$data['admin_details'] = User::where('user_id', $adminid)->first();
+		$country = Country::where('country_id', $data['admin_details']['country'])->first();
 		$data['admin_details']['country'] = $country['country_name'];
 
 		return View::make('admin/profile', $data);
@@ -341,13 +339,13 @@ class AdminController extends BaseController {
 			return Redirect::to('/change-password')->withErrors($validator)->withInput();
 		} else {
 			$usr_data['password'] = md5($postData['old_password']);
-			$admin = Admin::where('password', $usr_data['password'])->first();
-			if ($admin) {
+			$admin = User::where('password', $usr_data['password'])->first();
+			if (isset($admin) && count($admin) >0 ) {
 				$data = array('password' => md5($postData['new_password']));
-				Admin::where('id', '=', $adminid)->update($data);
+				User::where('user_id', '=', $adminid)->update($data);
 				Session::flash('message_su', 'Successfully update your password');
 			} else {
-				Session::flash('message', 'Please enter your correct old password');
+				Session::flash('message', 'Please enter valid old password');
 			}
 
 		}
@@ -361,7 +359,7 @@ class AdminController extends BaseController {
 		get();
 		$admin_s = Session::get('admin_details');
 
-		$data['admin_details'] = Admin::where('id', $admin_s['id'])->first();
+		$data['admin_details'] = User::where('user_id', $admin_s['id'])->first();
 		return View::make('admin/profile_edit', $data);
 	}
 
@@ -372,14 +370,13 @@ class AdminController extends BaseController {
 		$postData = Input::all();
 		//print_r($postData);die();
 		$data = array(
-			'first_name' => $postData['first_name'],
-			'last_name' => $postData['last_name'],
+			'fname' => $postData['first_name'],
+			'lname' => $postData['last_name'],
 			'website' => $postData['website'],
-			'practice_name' => $postData['practice_name'],
 			'phone' => $postData['phone'],
 			'country' => $postData['country']);
 
-		Admin::where('id', '=', $admin_s['id'])->update($data);
+		User::where('user_id', '=', $admin_s['id'])->update($data);
 		//die('update');
 		return Redirect::to('/admin-profile');
 	}
