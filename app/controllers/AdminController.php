@@ -170,7 +170,8 @@ class AdminController extends BaseController {
 				$arr['email'] 		= $admin['email'];
 				$arr['user_type'] 	= $admin['user_type'];
 				$arr['parent_id'] 	= $admin['parent_id'];
-				$arr['group_id'] 	= $admin['group_id'];
+				$arr['group_id'] 	= Common::getGroupId($admin['user_id']);
+				
 				Session::put('admin_details', $arr);
 
 				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin['user_id']));

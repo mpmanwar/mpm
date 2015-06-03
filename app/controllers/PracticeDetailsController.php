@@ -23,7 +23,10 @@ class PracticeDetailsController extends BaseController {
 		$data['title'] = "Practice Details";
 		$data['org_types'] = OrganisationType::orderBy("name")->get();
 		//print_r($data['org_types']);die;
-		$data["practice_details"] = PracticeDetail::where("user_id", "=", $user_id)->first();
+
+		$groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
+		$data["practice_details"] = PracticeDetail::whereIn("user_id", $groupUserId)->first();
+
 		//echo $this->last_query();die;
 		if (isset($data["practice_details"]) && count($data["practice_details"]) > 0) {
 			$data["practice_details"]['telephone_no'] = explode("-", $data["practice_details"]['telephone_no']);

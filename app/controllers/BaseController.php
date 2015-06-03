@@ -18,7 +18,10 @@ class BaseController extends Controller {
             View::share('id', $admin_s['id']);
             View::share('user_type', $admin_s['user_type']);
             View::share('admin_name', $admin_s['fname']." ".$admin_s['lname']);
-            $practice_details   = PracticeDetail::where("user_id", "=", $admin_s['id'])->first();
+
+            $groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
+            $practice_details = PracticeDetail::whereIn("user_id", $groupUserId)->first();
+
             View::share('practice_name', $practice_details['display_name']);
             if (File::exists("practice_logo/".$practice_details['practice_logo']) && $practice_details['practice_logo'] != ""){
                 $practice_logo = "<img src='/practice_logo/".$practice_details['practice_logo']."' class='browse_img' width='40'>";
@@ -27,14 +30,9 @@ class BaseController extends Controller {
             }
             View::share('practice_logo', $practice_logo);
 
-            $user_access   = UserAccess::where("user_id", "=", $admin_s['id'])->where("access_id", "=", 5)->first();
-            if(isset($user_access) && count($user_access) > 0){
-                View::share('manage_user', 'Y');
-            }else{
-                View::share('manage_user', 'N');
-            }
-
-
+            $user_access   = Common::getUserAccess($admin_s['id']);
+            View::share('manage_user', $user_access);
+            
         }
 
     }
