@@ -28,6 +28,9 @@
 
 {{ Form::open(array('action' => 'UserController@saveedit')) }}
 
+@if($info[0]->user_type != "C" && $info[0]->user_type != "S")
+<input type="hidden" name="hidd_user_type" value="{{ $info[0]->user_type }}">
+@endif
 <section class="content">
 <div class="row">
 <div class="top_bts">

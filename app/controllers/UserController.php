@@ -257,11 +257,15 @@ class UserController extends BaseController {
 		$data['fname'] = $postData['fname'];
 		$data['lname'] = $postData['lname'];
 		$data['email'] = $postData['email'];
-		$data['user_type'] = $postData['user_type'];
+		if(empty($postData['user_type'])){
+			$data['user_type'] = $postData['hidd_user_type'];
+		}else{
+			$data['user_type'] = $postData['user_type'];
+		}
 		//echo print_r($postData['permission']);die;
 		UserPermission::where('user_id', '=', $id)->delete();
 
-		if ($postData['user_type'] != "C") {
+		if ($data['user_type'] != "C") {
 			if (!empty($postData['permission']) && count($postData['permission']) > 0) {
 				foreach ($postData['permission'] as $value) {
 					$usrp_data['user_id'] = $id;
@@ -287,7 +291,7 @@ class UserController extends BaseController {
 
 		User::where('user_id', '=', $id)->update($data);
 		Cache::flush();
-		return Redirect::action('UserController@user_list');
+		return Redirect::to('/user-list');
 	}
 
 	public function pdf() {
