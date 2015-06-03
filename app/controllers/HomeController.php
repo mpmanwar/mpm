@@ -133,7 +133,15 @@ class HomeController extends BaseController {
 							$client_data[$i]['staff_name'] = $relation_name['field_value'];
 						}
 
-						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") {
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
+							$client_data[$i]['deadacc_count'] = $this->getDayCount($client_row->field_value);
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
+							$client_data[$i]['deadret_count'] = $this->getDayCount($client_row->field_value);
+						}
+
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") 
+						{
 							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
 							$client_data[$i][$client_row['field_name']] = $business_type['name'];
 						} else {
@@ -155,6 +163,15 @@ class HomeController extends BaseController {
 		//print_r($data['client_details']);die;
 
 		return View::make('home.organisation.organisation_client', $data);
+	}
+
+	function getDayCount($from)
+	{
+		$to = date("Y-m-d H:i:s");
+		$first_date = strtotime($from);
+	    $second_date = strtotime($to);
+	    $offset = $second_date-$first_date; 
+	    return floor($offset/60/60/24);
 	}
 
 	public function add_individual_client() {
@@ -294,6 +311,7 @@ class HomeController extends BaseController {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
+				//echo $this->last_query();die;
 
 				if (isset($client_details) && count($client_details) > 0) {
 					foreach ($client_details as $client_row) {
@@ -579,7 +597,7 @@ class HomeController extends BaseController {
 		if ($client_type == "org") {
 			$field_name = 'business_name';
 		} else {
-			$field_name = 'name';
+			$field_name = 'fname';
 		}
 		$i = 0;
 		foreach ($client_ids as $client_id) {
@@ -608,15 +626,26 @@ class HomeController extends BaseController {
 		$i = 0;
 		foreach ($client_ids as $client_id) {
 			if ($client_id->type == "org") {
-				$field_name = 'business_name';
+				$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'business_name')->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
+				//$field_name = 'business_name';
 			} else {
-				$field_name = 'name';
+				//$field_name = 'fname';
+				$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'fname')->orwhere('field_name', '=', 'mname')->orwhere('field_name', '=', 'lname')->where('client_id', '=', $client_id->client_id)->select("field_value")->get();
 			}
-			$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', $field_name)->where('client_id', '=', $client_id->client_id)->select("field_value")->first();
-			//echo $this->last_query();//die;
+			
+			//echo $this->last_query();die;
 			if (isset($client_name) && count($client_name) > 0) {
 				$client_details[$i]['client_id'] = $client_id->client_id;
-				$client_details[$i]['client_name'] = $client_name['field_value'];
+				if ($client_id->type == "org") {die("lll");
+					$client_details[$i]['client_name'] = $client_name['field_value'];
+				}else{
+					$name = "";
+					foreach($client_name as $value){
+						$name.=$value->field_value." ";
+					}
+					$client_details[$i]['client_name'] = trim($name);
+				}
+				
 				$i++;
 			}
 

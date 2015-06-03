@@ -489,9 +489,9 @@ $(document).ready(function(){
                                   <label for="exampleInputPassword1">Vat Stagger</label>
                                   <select class="form-control" name="vat_stagger" id="vat_stagger">
                                     <option>Choose One</option>
-                                    <option value="JAJO">Jan-April-Jul-Oct</option>
-                                    <option value="FMAN">Feb-May-Aug-Nov</option>
-                                    <option value="MJSD">Mar-Jun-Sept-Dec</option>
+                                    <option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option>
+                                    <option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option>
+                                    <option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>
                                   </select>
                                 </div>
                               </div>
@@ -524,7 +524,7 @@ $(document).ready(function(){
                             
           <div class="tax_utr_drop">
           <div class="form-group">
-            <label for="exampleInputPassword1"></label>
+            <label for="exampleInputPassword1">Tax Type</label>
 
             <select class="form-control org_tax_reference" name="tax_reference_type" id="tax_reference_type">
               <option value="N">None</option>
@@ -618,7 +618,7 @@ $(document).ready(function(){
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Account Office Ref</label>
+                                  <label for="exampleInputPassword1">Account Office Reference</label>
                                   <input type="text" id="acc_office_ref" name="acc_office_ref" class="form-control">
                                 </div>
                               </div>
@@ -741,11 +741,11 @@ $(document).ready(function(){
         <div class="row">
           <div class="col-xs-12 col-xs-6">
             <div class="col_m2">
-              <h3 class="box-title">Contact Information</h3>
+              <h3 class="box-title">CONTACT INFORMATION</h3>
 
               <div class="form-group">
                 <label for="exampleInputPassword1">Trading Address</label>
-                <input type="checkbox" name="cont_trad_addr" id="cont_trad_addr" value="1" />
+                <input type="checkbox" class="cont_all_addr" name="cont_trad_addr" id="cont_trad_addr" value="1" />
               </div>
                             
             <div class="address_type" id="show_reg_office_addr">
@@ -814,23 +814,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control">
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control">
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="cont_city" name="cont_city" class="form-control">
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="cont_county" name="cont_county" class="form-control">
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -839,7 +839,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control">
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -871,19 +871,19 @@ $(document).ready(function(){
 
             <div class="form-group">
               <label for="exampleInputPassword1">Registered Office Address</label>
-              <input type="checkbox" name="reg_office_addr" id="reg_office_addr" />
+              <input type="checkbox" class="cont_all_addr" name="reg_office_addr" id="reg_office_addr" />
             </div>
             
             
             
             <div class="form-group">
                   <label for="exampleInputPassword1">Correspondence Address</label>
-                  <input type="checkbox" name="cont_corres_addr" id="cont_corres_addr" value="2" />
+                  <input type="checkbox" class="cont_all_addr" name="cont_corres_addr" id="cont_corres_addr" value="2" />
                 </div>
             
              <div class="form-group">
                   <label for="exampleInputPassword1">Banker</label>
-                  <input type="checkbox" name="cont_banker_addr" id="cont_banker_addr" value="3" />
+                  <input type="checkbox" class="cont_all_addr" name="cont_banker_addr" id="cont_banker_addr" value="3" />
                 </div>
             
              <!-- <div class="form-group">
@@ -893,17 +893,17 @@ $(document).ready(function(){
                 
             <div class="form-group">
               <label for="exampleInputPassword1">Old Accountants</label>
-              <input type="checkbox" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
+              <input type="checkbox" class="cont_all_addr" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Auditors</label>
-              <input type="checkbox" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
+              <input type="checkbox" class="cont_all_addr" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Solicitors</label>
-              <input type="checkbox" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
+              <input type="checkbox" class="cont_all_addr" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
             </div>
             
             <!-- <div class="form-group">

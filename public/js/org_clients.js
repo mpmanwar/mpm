@@ -41,10 +41,10 @@ $(document).ready(function(){
   });
 
   //Trading Address show while add organisation client start
-  $('#cont_trad_addr').on('ifChecked', function(event){
+  $('.cont_all_addr').on('ifChecked', function(event){
       $("#show_reg_office_addr").show("slow");
   });
-  $('#cont_trad_addr').on('ifUnchecked', function(event){
+  $('.cont_all_addr').on('ifUnchecked', function(event){
       $("#show_reg_office_addr").hide("slow");
   });
   //Trading Address show while add organisation client end
@@ -168,7 +168,7 @@ $(".frequency_change").change(function(){
     var value = $(this).val();
     var option = "";
     if(value == "quarterly"){
-      option+='<option>Choose One</option><option value="JAJO">Jan-April-Jul-Oct</option><option value="FMAN">Feb-May-Aug-Nov</option><option value="MJSD">Mar-Jun-Sept-Dec</option>';
+      option+='<option>Choose One</option><option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>';
     }
     if(value == "monthly"){
       option+='<option>Choose One</option><option value="monthly">Monthly</option>';

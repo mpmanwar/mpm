@@ -41,7 +41,7 @@ $(function() {
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
-            {"bSortable": false},
+            {"bSortable": true},
             {"bSortable": false},
             {"bSortable": false}
         ]
@@ -185,7 +185,7 @@ $(function() {
                     </select>
                   </span>
                 </th>
-                <th>CLIENT NAMe</th>
+                <th>CLIENT NAME</th>
                 <th><span id="business_name_text">BUSINESS NAME</span>
                   <span id="business_name_select" style="display:none;">
                     <select id="six" style="width:100px;">
@@ -254,18 +254,14 @@ $(function() {
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" id="client_delete_id"/>
                   </td>
-                  <!-- <td>{{ $i }}</td> -->
-                  <td>{{ $client_row['staff_name'] or "" }}</td>
-                  
-                  <td>{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
-                 
-                  <td><a href="/edit-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['name']))? $client_row['name']: '' }}</a></td>
-                 
-                  <td>{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
-                  <td>{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
-                  <td>{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
-                  <td>{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
-                  <td>{{ (!empty($client_row['res_address'])) ? $client_row['res_address'] : '' }}, {{ (!empty($client_row['res_city'])) ? $client_row['res_city'] : '' }}, {{ (!empty($client_row['res_zipcode'])) ? $client_row['res_zipcode'] : '' }}</td>
+                  <td align="center">{{ $client_row['staff_name'] or "" }}</td>
+                  <td align="center">{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
+                  <td align="center"><a href="/edit-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['title']))? $client_row['title']: '' }} {{ (!empty($client_row['fname']))? $client_row['fname']: '' }} {{ (!empty($client_row['mname']))? $client_row['mname']: '' }} {{ (!empty($client_row['lname']))? $client_row['lname']: '' }}</a></td>
+                  <td align="center">{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
+                  <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
+                  <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
+                  <td align="center">{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
+                  <td align="center">{{ (!empty($client_row['res_addr_line1'])) ? $client_row['res_addr_line1'] : '' }}, {{ (!empty($client_row['res_city'])) ? $client_row['res_city'] : '' }}, {{ (!empty($client_row['res_postcode'])) ? $client_row['res_postcode'] : '' }}</td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach

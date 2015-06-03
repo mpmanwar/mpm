@@ -570,7 +570,7 @@ $('.toUpperCase').keyup(function() {
 //Show old Contact address while adding client start
 $(".get_oldcont_address").change(function(){
   var client_id   = $(this).val();
-  var type   = $(this).data("type");alert(type);
+  var type   = $(this).data("type");
   if(client_id != "")
   {
     $.ajax({

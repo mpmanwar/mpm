@@ -24,8 +24,6 @@ $(function() {
         "iDisplayLength": 25,
 
 
-        //"iDisplayLength": -1,
-        //"aaSorting": [[ 5, "desc" ]],
         "aoColumns":[
             {"bSortable": false},
             {"bSortable": true},
@@ -199,14 +197,14 @@ $(function() {
                       <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td>{{ $client_row['business_type'] or "" }}</td>
-                    <td>{{ $client_row['business_name'] or "" }}</td>
+                    <td><a href="">{{ $client_row['business_name'] or "" }}</a></td>
                     <td>{{ $client_row['acc_ref_date'] or "" }}</td>
                     <td>{{ $client_row['next_acc_due'] or "" }}</td>
-                    <td></td>
+                    <td>{{ $client_row['deadacc_count'] or "" }}</td>
                     <td>{{ $client_row['next_ret_due'] or "" }}</td>
-                    <td></td>
+                    <td>{{ $client_row['next_ret_due'] or "" }}</td>
                     <td>{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td></td>
+                    <td>{{ (!empty($client_row['cont_addr_line1'])) ? $client_row['cont_addr_line1']."," : '' }} {{ (!empty($client_row['cont_city'])) ? $client_row['cont_city']."," : '' }} {{ (!empty($client_row['cont_postcode'])) ? $client_row['cont_postcode'] : '' }}</td>
                 </tr>
                 <?php $i++; ?>
               @endforeach
