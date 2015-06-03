@@ -136,7 +136,7 @@ $(document).ready(function(){
     <input type="text" id="fname" name="fname" class="form-control toUpperCase"></div>
 <div class="n_box3">
     <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="mname" name="mname" class="form-control toUpperCase"></div>
+    <input type="text" id="mname" name="mname" class="form-control"></div>
 <div class="n_box4">
     <label for="exampleInputPassword1">Last Name</label>
     <input type="text" id="lname" name="lname" class="form-control toUpperCase"></div>
