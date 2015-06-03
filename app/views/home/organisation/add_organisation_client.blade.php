@@ -635,7 +635,7 @@ $(document).ready(function(){
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Paye District</label>
+                                  <label for="exampleInputPassword1">PAYE District</label>
                                   <input type="text" id="paye_district" name="paye_district" class="form-control">
                                 </div>
                               </div>

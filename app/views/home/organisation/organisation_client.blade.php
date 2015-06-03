@@ -15,19 +15,19 @@
 $(function() {
     $('#example2').dataTable({
         "bPaginate": true,
-        "bLengthChange": false,
+        "bLengthChange": true,
         "bFilter": true,
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
+        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 25,
 
 
         //"iDisplayLength": -1,
         //"aaSorting": [[ 5, "desc" ]],
         "aoColumns":[
             {"bSortable": false},
-            //{"bSortable": false},
-            //{"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -36,13 +36,12 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true}
+            {"bSortable": false}
         ]
 
     });
 
-    $("#example2_filter").hide();
+    //$("#example2_filter").hide();
     
 });
 
@@ -96,7 +95,7 @@ $(function() {
           </ul>
         </div>
 
-        <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div>
+        <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
 
       </div>
       <div class="practice_mid">
@@ -144,7 +143,8 @@ $(function() {
                     <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
                   </li>
                   <li>
-                    <button type="button" id="show_search" class="btn btn-success">Search</button>
+                    <!-- <button type="button" id="show_search" class="btn btn-success">Search</button> -->
+                    <a href="javascript:void(0)" id="archive_div">Show Archived</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -153,7 +153,7 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-            <div class="table_top_box">
+            <!-- <div class="table_top_box">
             <ul>
             <li style="width:auto;"><input type="button" value="Clear"></li>
             <li><input type="text" class="s_box"></li>
@@ -164,11 +164,11 @@ $(function() {
             <li><input type="text" class="s_box"></li>
             <li><input type="text" class="s_box"></li>
             <li><input type="text" class="s_box"></li>
-           
+                       
             </ul>
             <div class="clearfix"></div>
-          
-            </div>
+                      
+            </div> -->
             
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -177,8 +177,6 @@ $(function() {
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <!-- <th>#</th>
-                <th>STAFF</th> -->
                 <th>BUSINESS TYPE</th>
                 <th>BUSINESS NAME</th>
                 <th>Year End</th>
@@ -187,8 +185,7 @@ $(function() {
                 <th>Next Return Due</th>
                 <th>Count Down</th>
                 <th>VAT Stagger</th>
-                <th>CT Return Deadline</th>
-                <th>Count Down</th>
+                <th>Correspondence Address</th>
             </tr>
         </thead>
 
@@ -201,8 +198,6 @@ $(function() {
                     <td align="center">
                       <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <!-- <td>{{ $i }}</td>
-                    <td>{{ $client_row['staff_name'] or "" }}</td> -->
                     <td>{{ $client_row['business_type'] or "" }}</td>
                     <td>{{ $client_row['business_name'] or "" }}</td>
                     <td>{{ $client_row['acc_ref_date'] or "" }}</td>
@@ -211,7 +206,6 @@ $(function() {
                     <td>{{ $client_row['next_ret_due'] or "" }}</td>
                     <td></td>
                     <td>{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td></td>
                     <td></td>
                 </tr>
                 <?php $i++; ?>

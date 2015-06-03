@@ -557,11 +557,11 @@ class HomeController extends BaseController {
 		$staff_id = Input::get("staff_id");
 
 		if (Request::ajax()) {
-			$temp_types = TemplateType::where("template_type_id", "=", $service_id)->first();
+			$temp_types = Service::where("service_id", "=", $service_id)->first();
 			$user = User::where("user_id", "=", $staff_id)->select("fname", "lname")->first();
 			//echo $this->last_query();die;
 		}
-		$rel_types['service'] = $temp_types['template_type_name'];
+		$rel_types['service'] = $temp_types['service_name'];
 		$rel_types['staff'] = $user['fname'] . " " . $user['lname'];
 
 		echo json_encode($rel_types);

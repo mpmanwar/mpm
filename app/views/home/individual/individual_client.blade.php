@@ -20,6 +20,15 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
+        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 25,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
 
 
         //"iDisplayLength": -1,
@@ -41,7 +50,7 @@ $(function() {
 
     });
 
-  $("#example2_filter").hide();
+  //$("#example2_filter").hide();
 
 
 });
@@ -100,7 +109,7 @@ $(function() {
           </ul>
         </div>
 
-        <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div>
+        <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
       </div>
       <div class="practice_mid">
         <form>
@@ -131,7 +140,8 @@ $(function() {
                     <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
                   </li>
                   <li>
-                    <button type="button" id="show_search" class="btn btn-success">Search</button>
+                    <!-- <button type="button" id="show_search" class="btn btn-success">Search</button> -->
+                    <a href="javascript:void(0)" id="archive_div">Show Archived</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -140,7 +150,7 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-            <div class="table_top_box" id="table_top_box">
+            <!-- <div class="table_top_box" id="table_top_box">
               <ul>
                 <li style="width:auto;"><input type="reset" value="Clear"></li>
                 <li><input type="text" name="search_client_text" id="search_client_text" placeholder="Search..." class="search_box"></li>
@@ -148,8 +158,8 @@ $(function() {
               </ul>
               
               <div class="clearfix"></div>
-          
-            </div>
+                      
+            </div> -->
             
             <div class="box-body table-responsive">
               <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
