@@ -198,10 +198,11 @@ class HomeController extends BaseController {
 		$subsections = Step::where("status", "=", "new")->get();
 		foreach ($subsections as $key => $val) {
 			if (isset($val->status) && $val->status == "new") {
-				$steps[$key]['step_id'] = $val->step_id;
-				$steps[$key]['short_code'] = $val->short_code;
-				$steps[$key]['title'] = $val->title;
-				$steps[$key]['status'] = $val->status;
+				$steps[$key]['step_id'] 	= $val->step_id;
+				$steps[$key]['parent_id'] 	= $val->parent_id;
+				$steps[$key]['short_code'] 	= $val->short_code;
+				$steps[$key]['title'] 		= $val->title;
+				$steps[$key]['status'] 		= $val->status;
 			}
 
 		}
@@ -263,27 +264,57 @@ class HomeController extends BaseController {
 
 	}
 
+	/*public function buildtree($steps, $client_type) {
+		$branch = array();
+		$children = StepsFieldsAddedUser::where("substep_id", "!=", '0')->where("client_type", "=", $client_type)->get();
+		foreach ($children as $key => $steps_fields_row) {
+			$children[$key]->select_option = explode(",", $steps_fields_row->select_option);
+		}
+		if (isset($children) && count($children) > 0) {
+			foreach ($children as $key => $row) {
+
+				$step = Step::where("step_id", "=", $row->substep_id)->first();
+				if ( isset($step) && count($step) > 0 ) {
+					$element[$key]['step_id'] 		= $step['step_id'];
+					$element[$key]['short_code'] 	= $step['short_code'];
+					$element[$key]['title'] 		= $step['title'];
+					$element[$key]['status'] 		= $step['status'];
+				}
+
+				$element['children'][$key]['field_id'] 		= $row->field_id;
+				$element['children'][$key]['user_id'] 		= $row->user_id;
+				$element['children'][$key]['step_id'] 		= $row->step_id;
+				$element['children'][$key]['field_type'] 	= $row->field_type;
+				$element['children'][$key]['field_name'] 	= $row->field_name;
+				$element['children'][$key]['field_value'] 	= $row->field_value;
+				$element['children'][$key]['select_option'] = $row->select_option;
+				$element['children'][$key]['client_type'] 	= $row->client_type;
+			}
+			$branch[] = $element;
+		}
+
+		
+		return $branch;
+	}*/
+
 	public function buildtree($steps, $client_type) {
 		$branch = array();
 		foreach ($steps as $element) {
 			//$children = StepsFieldsAddedUser::where("step_id", "=", $element['step_id'])->where("client_type", "=", $client_type)->get();
-			$children = StepsFieldsAddedUser::where("substep_id", "!=", '0')->where("client_type", "=", $client_type)->get();
+			$children = StepsFieldsAddedUser::where("substep_id", "=", $element['step_id'])->where("client_type", "=", $client_type)->get();
 			foreach ($children as $key => $steps_fields_row) {
 				$children[$key]->select_option = explode(",", $steps_fields_row->select_option);
 			}
 			if (isset($children) && count($children) > 0) {
 				foreach ($children as $key => $row) {
-					$substep = Step::where("step_id", "=", $row->substep_id)->first();
-					$element['parent'][$key]['name'] = $substep['title'];
-
-					$element['children'][$key]['field_id'] = $row->field_id;
-					$element['children'][$key]['user_id'] = $row->user_id;
-					$element['children'][$key]['step_id'] = $row->step_id;
-					$element['children'][$key]['field_type'] = $row->field_type;
-					$element['children'][$key]['field_name'] = $row->field_name;
-					$element['children'][$key]['field_value'] = $row->field_value;
+					$element['children'][$key]['field_id'] 		= $row->field_id;
+					$element['children'][$key]['user_id'] 		= $row->user_id;
+					$element['children'][$key]['step_id'] 		= $row->step_id;
+					$element['children'][$key]['field_type'] 	= $row->field_type;
+					$element['children'][$key]['field_name'] 	= $row->field_name;
+					$element['children'][$key]['field_value'] 	= $row->field_value;
 					$element['children'][$key]['select_option'] = $row->select_option;
-					$element['children'][$key]['client_type'] = $row->client_type;
+					$element['children'][$key]['client_type'] 	= $row->client_type;
 				}
 				$branch[] = $element;
 			}

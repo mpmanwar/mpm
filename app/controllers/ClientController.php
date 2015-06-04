@@ -1,6 +1,89 @@
 <?php
 
 class ClientController extends BaseController {
+	public function edit_client($client_id)
+	{
+		$data['title'] = "Edit Client";
+        $data['heading'] = "";
+        $admin_s = Session::get('admin_details'); // session
+        $user_id = $admin_s['id'];
+
+        $data['rel_types'] = RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
+        $data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
+        $data['titles'] = Title::orderBy("title_id")->get();
+
+
+        $data['tax_office'] = TaxOfficeAddress::select("parent_id", "office_id",
+            "office_name")->get();
+        $data['tax_office_by_id'] = TaxOfficeAddress::where("office_id", "=", 1)->first();
+        $data['steps'] = Step::orderBy("step_id")->get();
+        $data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
+        $data['countries'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
+            get();
+        $data['field_types'] = FieldType::get();
+
+        $i = 0;
+        $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->
+            select("field_id", "field_name", "field_value")->get();
+        $client_data[$i]['client_id'] = $client_id;
+        $appointment_name = ClientRelationship::where('client_id', '=', $client_id)->
+            select("appointment_with")->first();
+
+        $relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->
+            where('field_name', '=', "business_name")->select("field_value")->first();
+
+
+        if (isset($client_details) && count($client_details) > 0) {
+            foreach ($client_details as $client_row) {
+                //get staff name start
+                if (!empty($client_row['field_name']) && $client_row['field_name'] ==
+                    "resp_staff") {
+                    $staff_name = User::where('user_id', '=', $client_row->field_value)->select("fname",
+                        "lname")->first();
+                    //echo $this->last_query();die;
+                    $client_data[$i]['staff_name'] = strtoupper(substr($staff_name['fname'], 0, 1)) .
+                        " " . strtoupper(substr($staff_name['lname'], 0, 1));
+                }
+                //get staff name end
+
+                //get business name start
+                if (!empty($relation_name['field_value'])) {
+                    $client_data[$i]['business_name'] = $relation_name['field_value'];
+                }
+
+                //get business name end
+				if (isset($client_row['field_name']) && $client_row['field_name'] ==
+                    "business_type") {
+                    $business_type = OrganisationType::where('organisation_id', '=', $client_row->
+                        field_value)->first();
+                    $client_data[$i][$client_row['field_name']] = $business_type['name'];
+                } else {
+                    $client_data[$i][$client_row['field_name']] = $client_row->field_value;
+                }
+
+            }
+
+            $i++;
+        }
+        $data['client_details'] = $client_data;
+
+        $data['client_fields'] = ClientField::where("field_type", "=", "ind")->first();
+
+        
+        $data['name'] = StepsFieldsClient::select('field_value')->where("client_id",
+            "=", $client_id)->where("field_name", "=", 'name')->first();
+        $value = $data['name']['field_value'];
+
+		$value = explode(" ", $data['name']['field_value']);
+
+		$data['name_id'] = Title::select('title_id')->where("title_name","=",$value[0])->first();
+        
+        $value=  $data['name']['field_value'];
+
+        return View::make('home.individual.edit_individual_client', $data);
+   
+   	}
+   	
 	public function get_country_code() {
 		$country_id = Input::get("country_id");
 		$country_code = Country::where("country_id", $country_id)->select("phone_code")->first();
@@ -129,8 +212,17 @@ class ClientController extends BaseController {
 		$data['short_code'] = strtolower(Input::get("subsec_name"));
 		$data['status'] 	= "new";
 		if (Request::ajax()) {
-			$data = Step::insert($data);
-			$steps = Step::where("status", "=", "new")->get();
+			Step::insert($data);
+			$steps = Step::where("parent_id", "=", $data['parent_id'])->where("status", "=", "new")->get();
+			echo json_encode($steps);
+		}
+	}
+
+	public function get_subsection() {
+		$step_id 		= Input::get("step_id");
+		
+		if (Request::ajax()) {
+			$steps = Step::where("parent_id", "=", $step_id)->get();//echo $this->last_query();die;
 			echo json_encode($steps);
 		}
 	}

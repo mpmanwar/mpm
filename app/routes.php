@@ -118,11 +118,8 @@ Route::any('/client/add-services', array("as"=>"add_services", "uses"=>'ClientCo
 Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'ClientController@delete_services'));
 Route::any('/client/insert-section', array("as"=>"insert_section", "uses"=>'ClientController@insert_section'));
 Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'ClientController@delete_section'));
-
+Route::any('/client/get-subsection', array("as"=>"get_subsection", "uses"=>'ClientController@get_subsection'));
+Route::any('/client/edit-client/{id}', array("as"=>"edit_client", "uses"=>'ClientController@edit_client'));
+Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
 ### Routes for Client URL's end ###
 
-
-
-### Routes for edit Client URL's start###
-Route::get('/edit-client/{id}', 'HomeController@edit_client');
-### Routes for edit Client URL's end###

@@ -13,9 +13,9 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy'});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy' });
-    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy' });
+    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
+    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
 })
 </script>
 
@@ -231,7 +231,7 @@ $(document).ready(function(){
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
         <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
@@ -260,6 +260,7 @@ $(document).ready(function(){
 <!-- Sub Section portion is for user created field -->
 @if(!empty($subsections) && count($subsections) > 0)
   @foreach($subsections as $row_section)
+    @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "1")
     <div class="form-group">
       <div class="twobox_2">
       <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
@@ -277,7 +278,7 @@ $(document).ready(function(){
           @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
             <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="4" cols="35"></textarea>
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
             <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
@@ -297,7 +298,8 @@ $(document).ready(function(){
 
           <div class="clearfix"></div>
         </div>
-      @endforeach
+        @endforeach
+      @endif
     @endif
   @endforeach
 @endif
@@ -334,7 +336,7 @@ $(document).ready(function(){
                     
                     <div class="col-xs-12 col-xs-6">
                     
-                    
+<div class="col_m2">                    
 
 
 <div class="twobox">
@@ -431,7 +433,7 @@ $(document).ready(function(){
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
         <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
@@ -456,6 +458,54 @@ $(document).ready(function(){
 @endif
 <!-- This portion is for user created field -->
 
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "2")
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+        @endforeach
+      @endif
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
+
 
 <div class="add_client_btn">
 <button class="btn btn-info open"data-id="3" type="button">Next</button>
@@ -477,7 +527,7 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
-              </div>
+                              <!--</div> -->
          
         <div id="step3" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
@@ -719,7 +769,7 @@ $(document).ready(function(){
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
         <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
@@ -734,15 +784,62 @@ $(document).ready(function(){
         <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
-     
-      </div>
+     </div>
 
-        <div class="clearfix"></div>
+      <div class="clearfix"></div>
       </div>
     @endif
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "3")
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+        @endforeach
+      @endif
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
 
 
 
@@ -914,7 +1011,7 @@ $(document).ready(function(){
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="4" cols="35"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
         <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
@@ -938,6 +1035,54 @@ $(document).ready(function(){
   @endforeach
 @endif
 <!-- This portion is for user created field -->
+
+<!-- Sub Section portion is for user created field -->
+@if(!empty($subsections) && count($subsections) > 0)
+  @foreach($subsections as $row_section)
+    @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "5")
+    <div class="form-group">
+      <div class="twobox_2">
+      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+        &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="horizontal_line"></div>
+    @if(isset($row_section['children']) && count($row_section['children']) >0 )
+      @foreach($row_section['children'] as $row_fields)
+        <div class="form-group">
+          <div class="twobox_2">
+          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+            &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
+          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+            <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
+              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+                @foreach($row_fields['select_option'] as $key=>$value)
+                  <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+              @endif
+            </select>
+          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @endif
+         
+         
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+        @endforeach
+      @endif
+    @endif
+  @endforeach
+@endif
+<!-- Sub Section portion is for user created field -->
 
 
 
@@ -999,7 +1144,7 @@ $(document).ready(function(){
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
-          <select class="form-control" name="step_id" id="step_id">
+          <select class="form-control show_subsec" name="step_id" id="step_id">
             @if( isset($steps) && count($steps) >0 )
               @foreach($steps as $key=>$step_row)
                 @if($step_row->step_id != '4' && $step_row->status == "old")
@@ -1026,7 +1171,7 @@ $(document).ready(function(){
             <option value="">-- Select sub section --</option>
             @if( isset($steps) && count($steps) >0 )
               @foreach($steps as $key=>$step_row)
-                @if($step_row->status == "new")
+                @if($step_row->status == "new" && $step_row->parent_id == 1)
                   <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
                 @endif
               @endforeach

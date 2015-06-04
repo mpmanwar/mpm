@@ -636,6 +636,30 @@ $(".subsec_change").change(function(){
 });
 // Show add subsection text while adding client end //
 
+// Show subsection dropdown while adding client start //
+$(".show_subsec").change(function(){
+  var step_id   = $(this).val();
+  //alert(value);
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: '/client/get-subsection',
+    data: { 'step_id' : step_id },
+    success : function(resp){
+      var content = "<option value=''>-- Select sub section --</option>";
+      if (resp.length != 0) {
+        $.each(resp, function(key){
+          content+= "<option value='"+resp[key].step_id+"'>"+resp[key].title+"</option>";
+        });
+      }
+      content+= '<option value="new">Add new ...</option>';
+      $("#substep_id").html(content);
+    }
+  });
+  
+});
+// Show subsection dropdown while adding client end //
+
 
 
 
@@ -663,7 +687,7 @@ function saveRelationship()
         dataType: "json",
         url: '/individual/save-relationship',
         data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id },
-        success : function(resp){console.log(resp['appointment_date']);
+        success : function(resp){
           var content = '<tr><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
           $("#myRelTable").last().append(content);
 
@@ -687,8 +711,5 @@ function saveRelationship()
         }
       });
     }
-    
-
-    
     
 }

@@ -256,7 +256,7 @@ $(function() {
                   </td>
                   <td align="center">{{ $client_row['staff_name'] or "" }}</td>
                   <td align="center">{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
-                  <td align="center"><a href="/edit-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['title']))? $client_row['title']: '' }} {{ (!empty($client_row['fname']))? $client_row['fname']: '' }} {{ (!empty($client_row['mname']))? $client_row['mname']: '' }} {{ (!empty($client_row['lname']))? $client_row['lname']: '' }}</a></td>
+                  <td align="center"><a href="/client/edit-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['title']))? $client_row['title']: '' }} {{ (!empty($client_row['fname']))? $client_row['fname']: '' }} {{ (!empty($client_row['mname']))? $client_row['mname']: '' }} {{ (!empty($client_row['lname']))? $client_row['lname']: '' }}</a></td>
                   <td align="center">{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
