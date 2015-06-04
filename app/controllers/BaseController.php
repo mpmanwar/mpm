@@ -24,7 +24,7 @@ class BaseController extends Controller {
 
             View::share('practice_name', $practice_details['display_name']);
             if (File::exists("practice_logo/".$practice_details['practice_logo']) && $practice_details['practice_logo'] != ""){
-                $practice_logo = "<img src='/practice_logo/".$practice_details['practice_logo']."' class='browse_img' width='40'>";
+                $practice_logo = "<img src='/practice_logo/".$practice_details['practice_logo']."' class='browse_img'>";
             }else{
                 $practice_logo = "";
             }

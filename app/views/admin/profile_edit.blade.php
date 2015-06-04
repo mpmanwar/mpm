@@ -31,12 +31,12 @@
 									<div class="twobox_1">
 										<div class="form-group">
 									        <label for="exampleInputPassword1">First Name</label>
-				                            <input type="text" id="first_name" name="first_name" class="form-control" value="{{ $admin_details['first_name'] or "" }}">
+				                            <input type="text" id="fname" name="fname" class="form-control" value="{{ $admin_details['fname'] or "" }}">
 										</div>
 									</div>
 									<div class="twobox_2">
 										<label for="exampleInputPassword1">Last Name</label>
-										<input type="text" id="last_name" name="last_name" class="form-control" value="{{ $admin_details['last_name'] or "" }}">
+										<input type="text" id="lname" name="lname" class="form-control" value="{{ $admin_details['lname'] or "" }}">
 									</div>
 									<div class="clearfix">
 									</div>
@@ -44,12 +44,12 @@
 								<div class="twobox">
 									<div class="twobox_1">
 										<div class="form-group">
-											<label for="exampleInputPassword1">Practice Name
+											<label for="exampleInputPassword1">Phone
 											</label>
-											<input type="text" id="practice_name" name="practice_name" class="form-control" value="{{ $admin_details['practice_name'] or "" }}">
+											<input type="text" id="phone" name="phone" class="form-control" value="{{ $admin_details['phone'] or "" }}">
 										</div>
 									</div>
-                                    <div class="twobox_2">
+									<div class="twobox_2">
 										<label for="exampleInputPassword1">Website</label>
 										<input type="text" id="website" name="website" class="form-control" value="{{ $admin_details['website'] or "" }}">
 									</div>
@@ -58,14 +58,7 @@
 								</div>
                                 
                                 <div class="twobox">
-									<div class="twobox_1">
-										<div class="form-group">
-											<label for="exampleInputPassword1">Phone
-											</label>
-											<input type="text" id="phone" name="phone" class="form-control" value="{{ $admin_details['phone'] or "" }}">
-										</div>
-									</div>
-                                   <div class="twobox_2">
+									<div class="twobox_2">
 										<label for="exampleInputPassword1">Country</label>
 										<select class="form-control" id="country" name="country">
                                             @if(!empty($coun))

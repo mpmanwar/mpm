@@ -63,15 +63,6 @@ class HomeController extends BaseController {
 
 						//get business name start
 						if (!empty($relation_name['field_value'])) {
-							/*$name = explode(" ", $relation_name['field_value']);
-							//echo count($name);
-							$bus_name = "";
-							for($i = 0; $i<count($name); $i++){
-							$bus_name .= " ".strtoupper(substr($name[$i], 0, 1));
-							}
-							//$bus_name .= " ".$name[count($name)-1];
-							$client_data[$i]['business_name'] 	= $bus_name;*/
-
 							$client_data[$i]['business_name'] = $relation_name['field_value'];
 						}
 
@@ -183,20 +174,20 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "ADD CLIENT";
-		$data['title'] = "Add Client";
-		$data['rel_types'] = RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
+		$data['heading'] 	= "ADD CLIENT";
+		$data['title'] 		= "Add Client";
+		$data['rel_types'] 	= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 		$data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
-		$data['titles'] = Title::orderBy("title_id")->get();
-		$data['tax_office'] = TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
-		$data['tax_office_by_id'] = TaxOfficeAddress::where("office_id", "=", 1)->first();
-		$data['steps'] = Step::orderBy("step_id")->get();
-		$data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
-		$data['countries'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
-		$data['field_types'] = FieldType::get();
-		$data['cont_address'] = $this->get_contact_address();
+		$data['titles'] 		= Title::orderBy("title_id")->get();
+		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
+		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
+		$data['steps'] 				= Step::orderBy("step_id")->get();
+		$data['responsible_staff'] 	= User::select('fname', 'lname', 'user_id')->get();
+		$data['countries'] 			= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+		$data['field_types'] 		= FieldType::get();
+		$data['cont_address'] 		= $this->get_contact_address();
 
-		$steps_fields_users = StepsFieldsAddedUser::where("client_type", "=", "ind")->get();
+		$steps_fields_users = StepsFieldsAddedUser::where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
 			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
 		}
@@ -217,7 +208,7 @@ class HomeController extends BaseController {
 		$data['subsections'] = $this->buildtree($steps, "ind");
 		//###########User added section and sub section start##########//
 
-		//print_r($data['steps_fields_users']);die;
+		//print_r($data['subsections']);die;
 		//echo $this->last_query();die;
 		return View::make('home.individual.add_individual_client', $data);
 	}
@@ -275,12 +266,16 @@ class HomeController extends BaseController {
 	public function buildtree($steps, $client_type) {
 		$branch = array();
 		foreach ($steps as $element) {
-			$children = StepsFieldsAddedUser::where("step_id", "=", $element['step_id'])->where("client_type", "=", $client_type)->get();
+			//$children = StepsFieldsAddedUser::where("step_id", "=", $element['step_id'])->where("client_type", "=", $client_type)->get();
+			$children = StepsFieldsAddedUser::where("substep_id", "!=", '0')->where("client_type", "=", $client_type)->get();
 			foreach ($children as $key => $steps_fields_row) {
 				$children[$key]->select_option = explode(",", $steps_fields_row->select_option);
 			}
 			if (isset($children) && count($children) > 0) {
 				foreach ($children as $key => $row) {
+					$substep = Step::where("step_id", "=", $row->substep_id)->first();
+					$element['parent'][$key]['name'] = $substep['title'];
+
 					$element['children'][$key]['field_id'] = $row->field_id;
 					$element['children'][$key]['user_id'] = $row->user_id;
 					$element['children'][$key]['step_id'] = $row->step_id;
@@ -548,15 +543,15 @@ class HomeController extends BaseController {
 		$data = array();
 
 		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$data['user_id'] = 1;
-		$data['step_id'] = Input::get("step_id");
-		$data['field_name'] = Input::get("field_name");
-		$data['field_type'] = Input::get("field_type");
-		$data['client_type'] = Input::get("client_type");
-		$data['select_option'] = Input::get("select_option");
 
-		//$data['field_label']	= Input::get("field_label");
+		$data['user_id'] 		= $admin_s['id'];
+		$data['step_id'] 		= Input::get("step_id");
+		$data['substep_id'] 	= Input::get("substep_id");
+		$data['field_name'] 	= Input::get("field_name");
+		$data['field_type'] 	= Input::get("field_type");
+		$data['client_type'] 	= Input::get("client_type");
+		$data['select_option'] 	= Input::get("select_option");
+
 		$field_id = StepsFieldsAddedUser::insertGetId($data);
 		if ($data['client_type'] == "ind") {
 			return Redirect::to('/individual/add-client');

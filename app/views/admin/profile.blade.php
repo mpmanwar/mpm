@@ -72,7 +72,6 @@ $(function() {
                     <tr role="row">
                       <th><strong>Name</strong></th>
                       <th align="center"><strong>Website</strong></th>
-                      <th align="center"><strong>Practice_Name</strong></th>
                       <th align="center"><strong>Phone No</strong></th>
                       <th align="center"><strong>Country</strong></th>
                       <th align="center"><strong>Action</strong></th>
@@ -82,9 +81,8 @@ $(function() {
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     @if(!empty($admin_details) && count($admin_details) > 0)
                        <tr>
-                            <td align="center">{{ $admin_details['first_name'] }} {{ $admin_details['last_name'] }}</td>
+                            <td align="center">{{ $admin_details['fname'] }} {{ $admin_details['lname'] }}</td>
                             <td align="center">{{ $admin_details['website'] }}</td>
-                            <td align="center">{{ $admin_details['practice_name'] }} </td>
                             <td align="center">{{ $admin_details['phone'] }} </td>
                             <td align="center">{{ $admin_details['country'] }} </td>
                             <td align="center"><a href="/profile-edit"><i class="fa fa-edit"></i></a></td>

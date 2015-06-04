@@ -371,11 +371,12 @@ class AdminController extends BaseController {
 		$postData = Input::all();
 		//print_r($postData);die();
 		$data = array(
-			'fname' => $postData['first_name'],
-			'lname' => $postData['last_name'],
-			'website' => $postData['website'],
-			'phone' => $postData['phone'],
-			'country' => $postData['country']);
+			'fname' 	=> $postData['fname'],
+			'lname' 	=> $postData['lname'],
+			'website' 	=> $postData['website'],
+			'phone' 	=> $postData['phone'],
+			'country' 	=> $postData['country']
+		);
 
 		User::where('user_id', '=', $admin_s['id'])->update($data);
 		//die('update');

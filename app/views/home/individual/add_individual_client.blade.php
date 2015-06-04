@@ -1000,9 +1000,9 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
           <select class="form-control" name="step_id" id="step_id">
-            @if(!empty($steps))
+            @if( isset($steps) && count($steps) >0 )
               @foreach($steps as $key=>$step_row)
-                @if(!empty($step_row->step_id) && $step_row->step_id != '4')
+                @if($step_row->step_id != '4' && $step_row->status == "old")
                   <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
                 @endif
               @endforeach
@@ -1010,7 +1010,7 @@ $(document).ready(function(){
           </select>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
           <div class="search_value" id="show_addnew_section" style="width:86.5%;">
@@ -1018,6 +1018,25 @@ $(document).ready(function(){
               <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
             </ul>
           </div>
+        </div> -->
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Subsection Name</label>
+          <select class="form-control subsec_change" name="substep_id" id="substep_id">
+            <option value="">-- Select sub section --</option>
+            @if( isset($steps) && count($steps) >0 )
+              @foreach($steps as $key=>$step_row)
+                @if($step_row->status == "new")
+                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
+                @endif
+              @endforeach
+            @endif
+            <option value="new">Add new ...</option>
+          </select>
+        </div>
+        <div class="input-group show_new_div" style="display:none;">
+            <input type="text" class="form-control" name="subsec_name" id="subsec_name">
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name"><i class="fa fa-plus"></i></a></span>
         </div>
 
         <div class="form-group">

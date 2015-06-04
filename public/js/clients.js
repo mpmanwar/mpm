@@ -531,6 +531,7 @@ $("#subsec_name").focusin(function(){
 
 //Add new header section name while add individual/organisation user start
 $(".add_subsec_name").on("click", function(){
+  var parent_id   = $("#step_id").val();
   var subsec_name = $("#subsec_name").val();
   if(subsec_name == ""){
     alert("Please enter sub section name");
@@ -541,25 +542,17 @@ $(".add_subsec_name").on("click", function(){
       type: "POST",
         dataType: "json",
         url: '/client/insert-section',
-        data: { 'subsec_name' : subsec_name },
+        data: { 'subsec_name' : subsec_name, 'parent_id' : parent_id },
         success : function(resp){
           if (resp.length != 0) {
-            var content = "";
+            var content = "<option value=''>-- Select sub section --</option>";
             $.each(resp, function(key){
-
               content+= "<option value='"+resp[key].step_id+"'>"+resp[key].title+"</option>";
-
-              //console.log(resp[key].short_code); 
-              /*$("#cont_addr_line1").val(resp[key].cont_addr_line1);
-              $("#cont_addr_line2").val(resp[key].cont_addr_line2);
-              $("#cont_city").val(resp[key].cont_city);
-              $("#cont_county").val(resp[key].cont_county);
-              $("#cont_postcode").val(resp[key].cont_postcode);*/
-              
             });
+            content+= '<option value="new">Add new ...</option>';
 
-            $("#step_id").html(content);
-            $(".search_value").hide();
+            $("#substep_id").html(content);
+            $(".show_new_div").hide();
             $("#subsec_name").val("");
 
           }
@@ -627,10 +620,24 @@ $(".select_title").change(function(){
     $("#gender").val('');
   }
   
-  //$("#gender option[value='Female']").prop('selected', true);
-
 });
 // Select title for gender change while adding client end //
+
+// Show add subsection text while adding client start //
+$(".subsec_change").change(function(){
+  var value   = $(this).val();
+  //alert(value);
+  if(value == "new"){
+    $(".show_new_div").show();
+  }else{
+    $(".show_new_div").hide();
+  }
+  
+});
+// Show add subsection text while adding client end //
+
+
+
 
 });//end of main document ready
 

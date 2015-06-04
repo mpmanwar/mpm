@@ -124,12 +124,13 @@ class ClientController extends BaseController {
 	}
 
 	public function insert_section() {
-		$data['title'] = Input::get("subsec_name");
+		$data['title'] 		= Input::get("subsec_name");
+		$data['parent_id'] 	= Input::get("parent_id");
 		$data['short_code'] = strtolower(Input::get("subsec_name"));
-		$data['status'] = "new";
+		$data['status'] 	= "new";
 		if (Request::ajax()) {
 			$data = Step::insert($data);
-			$steps = Step::get();
+			$steps = Step::where("status", "=", "new")->get();
 			echo json_encode($steps);
 		}
 	}
