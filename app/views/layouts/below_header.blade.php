@@ -3,7 +3,7 @@
         <h1>{{ $heading }}</h1>
     </div>
     <div class="col-4 logo_con">
-        <a href="/practice-details">
+        <a href="/practice-details" id="image_preview">
             {{ $practice_logo }}
         </a>
     </div>

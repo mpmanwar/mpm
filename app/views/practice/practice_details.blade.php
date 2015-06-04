@@ -2,8 +2,9 @@
 
 @section('myjsfile')
     <script src="{{ URL :: asset('js/sites/practice_details.js') }}" type="text/javascript"></script>
+    <script src="{{ URL :: asset('js/upload_script.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-        $(":file").filestyle({input: false});
+        //$(":file").filestyle({input: false});
     </script>
 @stop
 
@@ -37,7 +38,7 @@
 
                 <!-- Main content -->
 
-{{ Form::open(array('url' => '/insertPracticeDetails', 'files' => true)) }}
+{{ Form::open(array('url' => '/insertPracticeDetails', 'files' => true, 'id' => 'uploadimage')) }}
 <input type="hidden" name="practice_id" value="{{ $practice_details->practice_id or ''}}">
 <input type="hidden" name="reg_address_id" value="{{ $practice_address['reg_address_id'] or ''}}">
 <input type="hidden" name="phy_address_id" value="{{ $practice_address['phy_address_id'] or ''}}">
@@ -61,6 +62,9 @@
 </div>
 </div>
 
+<!-- Image upload error show -->
+<div id="error_image_type" style="margin-left: 400px;margin-bottom: 10px;color: red;"></div>
+<!-- Image upload error show -->
 
 <div class="practice_mid">
 
@@ -73,7 +77,7 @@
   <div class="col-lg-6">  
 <div class="browse_cont">
  <span class="btn btn-default btn-file p_details">
-    Browse <input type="file" name="practice_logo">
+    Browse <input type="file" name="practice_logo" id="practice_logo">
 </span>
 @if(isset($practice_details->practice_logo) && $practice_details->practice_logo != "")
     @if(file_exists("practice_logo/".$practice_details->practice_logo))
