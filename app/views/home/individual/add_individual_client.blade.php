@@ -1144,7 +1144,7 @@ $(document).ready(function(){
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
-          <select class="form-control show_subsec" name="step_id" id="step_id">
+          <select class="form-control show_subsec" name="step_id" id="step_id" data-client_type="ind">
             @if( isset($steps) && count($steps) >0 )
               @foreach($steps as $key=>$step_row)
                 @if($step_row->step_id != '4' && $step_row->status == "old")
@@ -1181,7 +1181,7 @@ $(document).ready(function(){
         </div>
         <div class="input-group show_new_div" style="display:none;">
             <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name"><i class="fa fa-plus"></i></a></span>
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="ind"><i class="fa fa-plus"></i></a></span>
         </div>
 
         <div class="form-group">

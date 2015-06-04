@@ -533,6 +533,8 @@ $("#subsec_name").focusin(function(){
 $(".add_subsec_name").on("click", function(){
   var parent_id   = $("#step_id").val();
   var subsec_name = $("#subsec_name").val();
+  var client_type = $(this).data('client_type');
+
   if(subsec_name == ""){
     alert("Please enter sub section name");
     $("#subsec_name").focus();
@@ -542,7 +544,7 @@ $(".add_subsec_name").on("click", function(){
       type: "POST",
         dataType: "json",
         url: '/client/insert-section',
-        data: { 'subsec_name' : subsec_name, 'parent_id' : parent_id },
+        data: { 'subsec_name' : subsec_name, 'parent_id' : parent_id, 'client_type' : client_type },
         success : function(resp){
           if (resp.length != 0) {
             var content = "<option value=''>-- Select sub section --</option>";
@@ -638,13 +640,14 @@ $(".subsec_change").change(function(){
 
 // Show subsection dropdown while adding client start //
 $(".show_subsec").change(function(){
-  var step_id   = $(this).val();
+  var step_id     = $(this).val();
+  var client_type = $(this).data("client_type");
   //alert(value);
   $.ajax({
     type: "POST",
     dataType: "json",
     url: '/client/get-subsection',
-    data: { 'step_id' : step_id },
+    data: { 'step_id' : step_id, 'client_type' : client_type },
     success : function(resp){
       var content = "<option value=''>-- Select sub section --</option>";
       if (resp.length != 0) {

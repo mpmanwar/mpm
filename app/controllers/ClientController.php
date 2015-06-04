@@ -83,7 +83,7 @@ class ClientController extends BaseController {
         return View::make('home.individual.edit_individual_client', $data);
    
    	}
-   	
+
 	public function get_country_code() {
 		$country_id = Input::get("country_id");
 		$country_code = Country::where("country_id", $country_id)->select("phone_code")->first();
@@ -207,22 +207,24 @@ class ClientController extends BaseController {
 	}
 
 	public function insert_section() {
-		$data['title'] 		= Input::get("subsec_name");
-		$data['parent_id'] 	= Input::get("parent_id");
-		$data['short_code'] = strtolower(Input::get("subsec_name"));
-		$data['status'] 	= "new";
+		$data['title'] 			= Input::get("subsec_name");
+		$data['parent_id'] 		= Input::get("parent_id");
+		$data['short_code'] 	= strtolower(Input::get("subsec_name"));
+		$data['status'] 		= "new";
+		$data['client_type'] 	= Input::get("client_type");
 		if (Request::ajax()) {
 			Step::insert($data);
-			$steps = Step::where("parent_id", "=", $data['parent_id'])->where("status", "=", "new")->get();
+			$steps = Step::where("client_type", "=", $data['client_type'])->where("parent_id", "=", $data['parent_id'])->where("status", "=", "new")->get();
 			echo json_encode($steps);
 		}
 	}
 
 	public function get_subsection() {
 		$step_id 		= Input::get("step_id");
-		
+		$client_type 	= Input::get("client_type");
 		if (Request::ajax()) {
-			$steps = Step::where("parent_id", "=", $step_id)->get();//echo $this->last_query();die;
+			$steps = Step::where("client_type", "=", $client_type)->where("parent_id", "=", $step_id)->get();
+			//echo $this->last_query();die;
 			echo json_encode($steps);
 		}
 	}
