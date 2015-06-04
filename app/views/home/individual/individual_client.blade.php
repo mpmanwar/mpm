@@ -168,7 +168,7 @@ $(function() {
                   <div class="col-xs-6"></div>
                 </div>
           <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
-                        
+            <input type="hidden" id="client_type" value="ind">  
             <thead>
               <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
@@ -261,19 +261,17 @@ $(function() {
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
-                  <td align="center">{{ (!empty($client_row['res_addr_line1'])) ? $client_row['res_addr_line1'] : '' }}, {{ (!empty($client_row['res_city'])) ? $client_row['res_city'] : '' }}, {{ (!empty($client_row['res_postcode'])) ? $client_row['res_postcode'] : '' }}</td>
+                  <td align="center">{{ (!empty($client_row['res_addr_line1'])) ? $client_row['res_addr_line1']."," : '' }} {{ (!empty($client_row['res_city'])) ? $client_row['res_city']."," : '' }} {{ (!empty($client_row['res_postcode'])) ? $client_row['res_postcode'] : '' }}</td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach
                 
               @endif
               
-              
-              
             </tbody>
           </table>
-                         </div>
         </div>
+      </div>
             
             
             

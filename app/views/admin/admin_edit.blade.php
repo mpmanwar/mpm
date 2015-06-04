@@ -330,46 +330,7 @@
 </div>
  {{ Form::close() }}
 <!-- ./wrapper -->
-<!-- COMPOSE MESSAGE MODAL -->
-<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:300px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FILED</h4>
-        <div class="clearfix"></div>
-      </div>
-      <form action="#" method="post">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="exampleInputPassword1">ewfef </label>
-            <select class="form-control">
-              <option>Select Relatioship Type</option>
-              <option>Sole Tradership</option>
-              <option>Company</option>
-              <option>LLP</option>
-              <option>Incorporation Charity</option>
-              <option>Unincorporation Charity</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Town/City</label>
-            <input type="text" id="" class="form-control">
-          </div>
-          <div class="modal-footer clearfix">
-            <div class="email_btns">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="save" class="btn btn-primary pull-left save_t">Save</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
+
 <!-- add new calendar event modal -->
 <!-- jQuery 2.0.2 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>

@@ -22,6 +22,7 @@ class PracticeDetailsController extends BaseController {
 		$data['heading'] = "";
 		$data['title'] = "Practice Details";
 		$data['org_types'] = OrganisationType::orderBy("name")->get();
+		$data['countries'] = Country::orderBy('country_name')->get();
 		//print_r($data['org_types']);die;
 
 		$groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
@@ -35,35 +36,41 @@ class PracticeDetailsController extends BaseController {
 
 			$practice_addresses = PracticeAddress::where("practice_id", "=", $data["practice_details"]['practice_id'])->get();
 			foreach ($practice_addresses as $pa_row) {
-				$city_name = City::where("city_id", "=", $pa_row->city_id)->first();
+				//$city_name = City::where("city_id", "=", $pa_row->city_id)->first();
 				//echo $this->last_query();die;
-				$state_name = State::where("state_id", "=", $pa_row->state_id)->first();
-				$country_name = Country::where("country_id", "=", $pa_row->country_id)->first();
+				//$state_name = State::where("state_id", "=", $pa_row->state_id)->first();
+				//$country_name = Country::where("country_id", "=", $pa_row->country_id)->first();
 				if ($pa_row->type == "registered") {
-					$data["practice_address"]['reg_address_id'] = $pa_row->address_id;
-					$data["practice_address"]['reg_practice_id'] = $pa_row->practice_id;
-					$data["practice_address"]['reg_type'] = $pa_row->type;
-					$data["practice_address"]['reg_attention'] = $pa_row->attention;
+					$data["practice_address"]['reg_address_id'] 	= $pa_row->address_id;
+					$data["practice_address"]['reg_practice_id'] 	= $pa_row->practice_id;
+					$data["practice_address"]['reg_type'] 			= $pa_row->type;
+					$data["practice_address"]['reg_attention'] 		= $pa_row->attention;
 					$data["practice_address"]['reg_street_address'] = $pa_row->street_address;
-					$data["practice_address"]['reg_city_id'] = $pa_row->city_id;
-					$data["practice_address"]['reg_city_name'] = (isset($city_name['city_name']))?$city_name['city_name']:"";
-					$data["practice_address"]['reg_state_id'] = (isset($state_name['state_id']))?$state_name['state_id']:"";
-					$data["practice_address"]['reg_state_name'] = (isset($state_name['state_name']))?$state_name['state_name']:"";
-					$data["practice_address"]['reg_zip'] = $pa_row->zip;
-					$data["practice_address"]['reg_country_name'] = (isset($country_name['country_name']))?$country_name['country_name']:"";
+					$data["practice_address"]['reg_city'] 			= $pa_row->city;
+					$data["practice_address"]['reg_state'] 			= $pa_row->state;
+					$data["practice_address"]['reg_zip'] 			= $pa_row->zip;
+					$data["practice_address"]['reg_country_id'] 	= $pa_row->country_id;
+
+					//$data["practice_address"]['reg_city_name'] 		= (isset($city_name['city_name']))?$city_name['city_name']:"";
+					//$data["practice_address"]['reg_state_name'] 	= (isset($state_name['state_name']))?$state_name['state_name']:"";
+					//$data["practice_address"]['reg_country_name'] 	= (isset($country_name['country_name']))?$country_name['country_name']:"";
 				}
 				if ($pa_row->type == "physical") {
-					$data["practice_address"]['phy_address_id'] = $pa_row->address_id;
-					$data["practice_address"]['phy_practice_id'] = $pa_row->practice_id;
-					$data["practice_address"]['phy_type'] = $pa_row->type;
-					$data["practice_address"]['phy_attention'] = $pa_row->attention;
+					$data["practice_address"]['phy_address_id'] 	= $pa_row->address_id;
+					$data["practice_address"]['phy_practice_id'] 	= $pa_row->practice_id;
+					$data["practice_address"]['phy_type'] 			= $pa_row->type;
+					$data["practice_address"]['phy_attention'] 		= $pa_row->attention;
 					$data["practice_address"]['phy_street_address'] = $pa_row->street_address;
-					$data["practice_address"]['phy_city_id'] = (isset($city_name['city_id']))?$city_name['city_id']:"";
-					$data["practice_address"]['phy_city_name'] = (isset($city_name['city_name']))?$city_name['city_name']:"";
-					$data["practice_address"]['phy_state_id'] = (isset($state_name['state_id']))?$state_name['state_id']:"";
-					$data["practice_address"]['phy_state_name'] = (isset($state_name['state_name']))?$state_name['state_name']:"";
-					$data["practice_address"]['phy_zip'] = $pa_row->zip;
-					$data["practice_address"]['phy_country_name'] = (isset($country_name['country_name']))?$country_name['country_name']:"";
+					$data["practice_address"]['phy_city'] 			= $pa_row->city;
+					$data["practice_address"]['phy_state'] 			= $pa_row->state;
+					$data["practice_address"]['phy_zip'] 			= $pa_row->zip;
+					$data["practice_address"]['phy_country_id'] 	= $pa_row->country_id;
+
+					//$data["practice_address"]['phy_city_id'] = (isset($city_name['city_id']))?$city_name['city_id']:"";
+					//$data["practice_address"]['phy_city_name'] = (isset($city_name['city_name']))?$city_name['city_name']:"";
+					//$data["practice_address"]['phy_state_id'] = (isset($state_name['state_id']))?$state_name['state_id']:"";
+					//$data["practice_address"]['phy_state_name'] = (isset($state_name['state_name']))?$state_name['state_name']:"";
+					//$data["practice_address"]['phy_country_name'] = (isset($country_name['country_name']))?$country_name['country_name']:"";
 				}
 			}
 
@@ -104,13 +111,13 @@ class PracticeDetailsController extends BaseController {
 
 		$pd_data['user_id'] = $admin_s['id'];
 
-		$pd_data['display_name'] = $postData['display_name'];
-		$pd_data['legal_name'] = $postData['legal_name'];
-		$pd_data['registration_no'] = $postData['registration_no'];
-		$pd_data['organisation_type_id'] = $postData['organisation_type_id'];
-		$pd_data['telephone_no'] = $postData['tel_country_code'] . "-" . $postData['tel_area_code'] . "-" . $postData['tel_number'];
-		$pd_data['fax_no'] = $postData['fax_country_code'] . "-" . $postData['fax_area_code'] . "-" . $postData['fax_number'];
-		$pd_data['mobile_no'] = $postData['mob_country_code'] . "-" . $postData['mob_area_code'] . "-" . $postData['mob_number'];
+		$pd_data['display_name'] 			= $postData['display_name'];
+		$pd_data['legal_name'] 				= $postData['legal_name'];
+		$pd_data['registration_no'] 		= $postData['registration_no'];
+		$pd_data['organisation_type_id'] 	= $postData['organisation_type_id'];
+		$pd_data['telephone_no'] 			= $postData['tel_country_code'] . "-" . $postData['tel_area_code'] . "-" . $postData['tel_number'];
+		$pd_data['fax_no'] 					= $postData['fax_country_code'] . "-" . $postData['fax_area_code'] . "-" . $postData['fax_number'];
+		$pd_data['mobile_no'] 				= $postData['mob_country_code'] . "-" . $postData['mob_area_code'] . "-" . $postData['mob_number'];
 
 		if (!empty($postData['practice_id'])) {
 			PracticeDetail::where("practice_id", "=", $postData['practice_id'])->update($pd_data);
@@ -155,10 +162,10 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['type'] = "registered";
 		$pa_data['attention'] = $postData['reg_attention'];
 		$pa_data['street_address'] = $postData['reg_street_address'];
-		$pa_data['city_id'] = $postData['hid_reg_city_id'];
-		$pa_data['state_id'] = $postData['hid_reg_state_id'];
+		$pa_data['city'] = $postData['reg_city'];
+		$pa_data['state'] = $postData['reg_state'];
 		$pa_data['zip'] = $postData['reg_zip'];
-		$pa_data['country_id'] = $postData['hid_reg_country_id'];
+		$pa_data['country_id'] = $postData['reg_country_id'];
 		if (!empty($postData['reg_address_id'])) {
 			unset($pa_data['practice_id']);
 			unset($pa_data['type']);
@@ -173,10 +180,10 @@ class PracticeDetailsController extends BaseController {
 		$pa_data['type'] = "physical";
 		$pa_data['attention'] = $postData['phy_attention'];
 		$pa_data['street_address'] = $postData['phy_street_address'];
-		$pa_data['city_id'] = $postData['hid_phy_city_id'];
-		$pa_data['state_id'] = $postData['hid_phy_state_id'];
+		$pa_data['city'] = $postData['phy_city'];
+		$pa_data['state'] = $postData['phy_state'];
 		$pa_data['zip'] = $postData['phy_zip'];
-		$pa_data['country_id'] = $postData['hid_phy_country_id'];
+		$pa_data['country_id'] = $postData['phy_country_id'];
 		if (!empty($postData['phy_address_id'])) {
 			unset($pa_data['practice_id']);
 			unset($pa_data['type']);

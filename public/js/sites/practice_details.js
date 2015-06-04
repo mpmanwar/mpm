@@ -2,11 +2,12 @@ function copyPostal()
 {
   $("#phy_attention").val($("#reg_attention").val());
   $("#phy_street_address").val($("#reg_street_address").val());
-  $("#phy_city_id").val($("#reg_city_id").val());
-  $("#phy_state_id").val($("#reg_state_id").val());
+  $("#phy_city").val($("#reg_city").val());
+  $("#phy_state").val($("#reg_state").val());
   $("#phy_zip").val($("#reg_zip").val());
-  $("#hid_phy_state_id").val($("#hid_reg_state_id").val());
-  $("#hid_phy_city_id").val($("#hid_reg_city_id").val());
+  $("#phy_country_id").val($("#reg_country_id").val());
+  //$("#hid_phy_state_id").val($("#hid_reg_state_id").val());
+  //$("#hid_phy_city_id").val($("#hid_reg_city_id").val());
 }
 
 function ajaxSearchByCity( value, div_id )

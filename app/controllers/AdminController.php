@@ -285,7 +285,7 @@ class AdminController extends BaseController {
 			return Redirect::to('/');
 		}
 		$data['title'] = "Profile";
-		$data['heading'] = "PROFILE";
+		$data['heading'] = "";
 		$admin_s = Session::get('admin_details');
 		$adminid = $admin_s['id'];
 
@@ -355,6 +355,7 @@ class AdminController extends BaseController {
 
 	public function profile_edit() {
 		$data['title'] = "Edit - Profile";
+		$data['heading'] = "";
 		$data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
 		get();
 		$admin_s = Session::get('admin_details');

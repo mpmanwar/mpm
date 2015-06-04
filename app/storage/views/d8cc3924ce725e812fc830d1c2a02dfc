@@ -244,18 +244,21 @@
 </div>
 <div class="form-group">
 <label for="reg_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" value="<?php echo isset($practice_address['reg_city_name']) ? $practice_address['reg_city_name'] : ''; ?>" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
+<!-- <input type="text" placeholder="Town/City" value="<?php echo isset($practice_address['reg_city_name']) ? $practice_address['reg_city_name'] : ''; ?>" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control"> 
 <input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id" value="<?php echo isset($practice_address['reg_city_id']) ? $practice_address['reg_city_id'] : ''; ?>">
 <div class="drop_down_city" id="reg_city_id_div" style="display:none;">
     <ul id="reg_city_id_result"></ul>
-</div>
+</div>-->
+
+<input type="text" placeholder="Town/City" name="reg_city" id="reg_city" value="<?php echo isset($practice_address['reg_city']) ? $practice_address['reg_city'] : ''; ?>" class="form-control">
 
 </div>
 
 <div class="form-group">
 <label for="reg_state_id">State/Region</label>
-<input type="text" placeholder="State/Region" value="<?php echo isset($practice_address['reg_state_name']) ? $practice_address['reg_state_name'] : ''; ?>" id="reg_state_id" name="reg_state_id" class="form-control">
-<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="<?php echo isset($practice_address['reg_state_id']) ? $practice_address['reg_state_id'] : ''; ?>">
+<!-- <input type="text" placeholder="State/Region" value="<?php echo isset($practice_address['reg_state_name']) ? $practice_address['reg_state_name'] : ''; ?>" id="reg_state_id" name="reg_state_id" class="form-control">
+<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="<?php echo isset($practice_address['reg_state_id']) ? $practice_address['reg_state_id'] : ''; ?>"> -->
+<input type="text" placeholder="State/Region" value="<?php echo isset($practice_address['reg_state']) ? $practice_address['reg_state'] : ''; ?>" id="reg_state" name="reg_state" class="form-control">
 </div>
 
 <div class="form-group">
@@ -265,8 +268,24 @@
 
 <div class="form-group">
 <label for="reg_country_id">Country</label>
-<input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control" disabled>
-<input type="hidden" name="hid_reg_country_id" id="hid_reg_country_id" value="1">
+<!-- <input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_reg_country_id" id="hid_reg_country_id" value="1"> -->
+<select class="form-control" name="reg_country_id" id="reg_country_id">
+    <?php if(!empty($countries)): ?>
+      <?php foreach($countries as $key=>$country_row): ?>
+      <?php if(!empty($country_row->country_code) && $country_row->country_code == "GB"): ?>
+        <option value="<?php echo $country_row->country_id; ?>"><?php echo $country_row->country_name; ?></option>
+      <?php endif; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
+    <?php if(!empty($countries)): ?>
+      <?php foreach($countries as $key=>$country_row): ?>
+      <?php if(!empty($country_row->country_code) && $country_row->country_code != "GB"): ?>
+        <option value="<?php echo $country_row->country_id; ?>" <?php echo (isset($practice_address['phy_country_id']) && $country_row->country_id == $practice_address['reg_country_id'])?"selected":""; ?>><?php echo $country_row->country_name; ?></option>
+      <?php endif; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </select>
 </div>
 </div>
  </div>
@@ -284,7 +303,8 @@
 <label for="phy_street_address">Street Address or PO Box</label>
 <textarea placeholder="Street Address or PO Box" name="phy_street_address" id="phy_street_address" rows="3" class="form-control"><?php echo isset($practice_address['phy_street_address']) ? $practice_address['phy_street_address'] : ''; ?></textarea>
 </div>
-<div class="form-group">
+
+<!-- <div class="form-group">
 <label for="phy_city_id">Town/City</label>
 <input type="text" placeholder="Town/City" value="<?php echo isset($practice_address['phy_city_name']) ? $practice_address['phy_city_name'] : ''; ?>" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
 <input type="hidden" name="hid_phy_city_id" id="hid_phy_city_id" value="<?php echo isset($practice_address['phy_city_id']) ? $practice_address['phy_city_id'] : ''; ?>">
@@ -292,12 +312,22 @@
     <ul id="phy_city_id_result"></ul>
 </div>
 
-</div>
+</div> -->
 
 <div class="form-group">
+<label for="phy_city_id">Town/City</label>
+<input type="text" placeholder="Town/City" value="<?php echo isset($practice_address['phy_city']) ? $practice_address['phy_city'] : ''; ?>" id="phy_city" name="phy_city" class="form-control">
+</div>
+
+<!-- <div class="form-group">
 <label for="phy_state_id">State/Region</label>
 <input type="text" placeholder="State/Region" value="<?php echo isset($practice_address['phy_state_name']) ? $practice_address['phy_state_name'] : ''; ?>" id="phy_state_id" name="phy_state_id" class="form-control">
 <input type="hidden" name="hid_phy_state_id" id="hid_phy_state_id" value="<?php echo isset($practice_address['phy_state_id']) ? $practice_address['phy_state_id'] : ''; ?>">
+</div> -->
+
+<div class="form-group">
+<label for="phy_state_id">State/Region</label>
+<input type="text" placeholder="State/Region" value="<?php echo isset($practice_address['phy_state']) ? $practice_address['phy_state'] : ''; ?>" id="phy_state" name="phy_state" class="form-control">
 </div>
 
 <div class="form-group">
@@ -307,8 +337,24 @@
 
 <div class="form-group">
 <label for="phy_country_id">Country</label>
-<input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control" disabled>
-<input type="hidden" name="hid_phy_country_id" id="hid_phy_country_id" value="1">
+<!-- <input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_phy_country_id" id="hid_phy_country_id" value="1"> -->
+<select class="form-control" name="phy_country_id" id="phy_country_id">
+    <?php if(!empty($countries)): ?>
+      <?php foreach($countries as $key=>$country_row): ?>
+      <?php if(!empty($country_row->country_code) && $country_row->country_code == "GB"): ?>
+        <option value="<?php echo $country_row->country_id; ?>"><?php echo $country_row->country_name; ?></option>
+      <?php endif; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
+    <?php if(!empty($countries)): ?>
+      <?php foreach($countries as $key=>$country_row): ?>
+      <?php if(!empty($country_row->country_code) && $country_row->country_code != "GB"): ?>
+        <option value="<?php echo $country_row->country_id; ?>"<?php echo (isset($practice_address['phy_country_id']) && $country_row->country_id == $practice_address['phy_country_id'])?"selected":""; ?>><?php echo $country_row->country_name; ?></option>
+      <?php endif; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </select>
 </div>
 </div>
  </div>

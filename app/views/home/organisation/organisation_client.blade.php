@@ -171,7 +171,7 @@ $(function() {
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
-            
+      <input type="hidden" id="client_type" value="org"> 
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>

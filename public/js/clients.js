@@ -27,6 +27,7 @@ $(document).ready(function(){
     });
     //alert(val.length);return false;
 		if(val.length>0){
+      var client_type = $("#client_type").val();
 			if(confirm("Do you want to delete?")){
 				$.ajax({
 				    type: "POST",
@@ -34,7 +35,12 @@ $(document).ready(function(){
 				    data: { 'client_delete_id' : val },
 				    success : function(resp){
 				    	//window.location = 'http://mpm.com/user-list';
-				    	window.location = '/individual-clients';
+              if(client_type == "org"){
+                window.location = '/organisation-clients';
+              }else{
+                window.location = '/individual-clients';
+              }
+				    	
 				    }
 				});
 			}

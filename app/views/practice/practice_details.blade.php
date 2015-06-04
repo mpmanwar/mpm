@@ -243,18 +243,21 @@
 </div>
 <div class="form-group">
 <label for="reg_city_id">Town/City</label>
-<input type="text" placeholder="Town/City" value="{{ $practice_address['reg_city_name'] or '' }}" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control">
+<!-- <input type="text" placeholder="Town/City" value="{{ $practice_address['reg_city_name'] or '' }}" onKeyUp="ajaxSearchByCity(this.value, 'reg_city_id')" id="reg_city_id" name="reg_city_id" class="form-control"> 
 <input type="hidden" name="hid_reg_city_id" id="hid_reg_city_id" value="{{ $practice_address['reg_city_id'] or '' }}">
 <div class="drop_down_city" id="reg_city_id_div" style="display:none;">
     <ul id="reg_city_id_result"></ul>
-</div>
+</div>-->
+
+<input type="text" placeholder="Town/City" name="reg_city" id="reg_city" value="{{ $practice_address['reg_city'] or '' }}" class="form-control">
 
 </div>
 
 <div class="form-group">
 <label for="reg_state_id">State/Region</label>
-<input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state_name'] or '' }}" id="reg_state_id" name="reg_state_id" class="form-control">
-<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="{{ $practice_address['reg_state_id'] or '' }}">
+<!-- <input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state_name'] or '' }}" id="reg_state_id" name="reg_state_id" class="form-control">
+<input type="hidden" name="hid_reg_state_id" id="hid_reg_state_id" value="{{ $practice_address['reg_state_id'] or '' }}"> -->
+<input type="text" placeholder="State/Region" value="{{ $practice_address['reg_state'] or '' }}" id="reg_state" name="reg_state" class="form-control">
 </div>
 
 <div class="form-group">
@@ -264,8 +267,24 @@
 
 <div class="form-group">
 <label for="reg_country_id">Country</label>
-<input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control" disabled>
-<input type="hidden" name="hid_reg_country_id" id="hid_reg_country_id" value="1">
+<!-- <input type="text" id="reg_country_id" value="United Kingdom" name="reg_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_reg_country_id" id="hid_reg_country_id" value="1"> -->
+<select class="form-control" name="reg_country_id" id="reg_country_id">
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+        <option value="{{ $country_row->country_id }}" {{ (isset($practice_address['phy_country_id']) && $country_row->country_id == $practice_address['reg_country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+  </select>
 </div>
 </div>
  </div>
@@ -283,7 +302,8 @@
 <label for="phy_street_address">Street Address or PO Box</label>
 <textarea placeholder="Street Address or PO Box" name="phy_street_address" id="phy_street_address" rows="3" class="form-control">{{ $practice_address['phy_street_address'] or ''}}</textarea>
 </div>
-<div class="form-group">
+
+<!-- <div class="form-group">
 <label for="phy_city_id">Town/City</label>
 <input type="text" placeholder="Town/City" value="{{ $practice_address['phy_city_name'] or '' }}" onKeyUp="ajaxSearchByCity(this.value, 'phy_city_id')" id="phy_city_id" name="phy_city_id" class="form-control">
 <input type="hidden" name="hid_phy_city_id" id="hid_phy_city_id" value="{{ $practice_address['phy_city_id'] or '' }}">
@@ -291,12 +311,22 @@
     <ul id="phy_city_id_result"></ul>
 </div>
 
-</div>
+</div> -->
 
 <div class="form-group">
+<label for="phy_city_id">Town/City</label>
+<input type="text" placeholder="Town/City" value="{{ $practice_address['phy_city'] or '' }}" id="phy_city" name="phy_city" class="form-control">
+</div>
+
+<!-- <div class="form-group">
 <label for="phy_state_id">State/Region</label>
 <input type="text" placeholder="State/Region" value="{{ $practice_address['phy_state_name'] or ''}}" id="phy_state_id" name="phy_state_id" class="form-control">
 <input type="hidden" name="hid_phy_state_id" id="hid_phy_state_id" value="{{ $practice_address['phy_state_id'] or '' }}">
+</div> -->
+
+<div class="form-group">
+<label for="phy_state_id">State/Region</label>
+<input type="text" placeholder="State/Region" value="{{ $practice_address['phy_state'] or ''}}" id="phy_state" name="phy_state" class="form-control">
 </div>
 
 <div class="form-group">
@@ -306,8 +336,24 @@
 
 <div class="form-group">
 <label for="phy_country_id">Country</label>
-<input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control" disabled>
-<input type="hidden" name="hid_phy_country_id" id="hid_phy_country_id" value="1">
+<!-- <input type="text" value="United Kingdom" id="phy_country_id" name="phy_country_id" class="form-control" disabled>
+<input type="hidden" name="hid_phy_country_id" id="hid_phy_country_id" value="1"> -->
+<select class="form-control" name="phy_country_id" id="phy_country_id">
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+        <option value="{{ $country_row->country_id }}"{{ (isset($practice_address['phy_country_id']) && $country_row->country_id == $practice_address['phy_country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+  </select>
 </div>
 </div>
  </div>
