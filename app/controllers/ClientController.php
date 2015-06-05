@@ -223,10 +223,14 @@ class ClientController extends BaseController {
 	}
 
 	public function get_subsection() {
+		$admin_s = Session::get('admin_details');
+		$groupUserId = $admin_s['group_users'];
+
 		$step_id 		= Input::get("step_id");
 		$client_type 	= Input::get("client_type");
+		
 		if (Request::ajax()) {
-			$steps = Step::where("client_type", "=", $client_type)->where("parent_id", "=", $step_id)->get();
+			$steps = Step::whereIn("user_id", $groupUserId)->where("client_type", "=", $client_type)->where("parent_id", "=", $step_id)->get();
 			//echo $this->last_query();die;
 			echo json_encode($steps);
 		}

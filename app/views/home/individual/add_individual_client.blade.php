@@ -13,9 +13,9 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
-    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
+    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-100:+0"});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 })
 </script>
 
@@ -1159,11 +1159,9 @@ $(document).ready(function(){
           <label for="exampleInputPassword1">Subsection Name</label>
           <select class="form-control subsec_change" name="substep_id" id="substep_id">
             <option value="">-- Select sub section --</option>
-            @if( isset($steps) && count($steps) >0 )
-              @foreach($steps as $key=>$step_row)
-                @if($step_row->status == "new" && $step_row->parent_id == 1)
-                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
-                @endif
+            @if( isset($substep) && count($substep) >0 )
+              @foreach($substep as $key=>$substep_row)
+                <option value="{{ $substep_row['step_id'] }}">{{ $substep_row['title'] }}</option>
               @endforeach
             @endif
             <option value="new">Add new ...</option>

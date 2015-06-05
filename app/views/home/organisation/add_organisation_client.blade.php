@@ -796,54 +796,53 @@ $(document).ready(function(){
 
               <div class="form-group">
                 <label for="exampleInputPassword1">Trading Address</label>
-                <input type="checkbox" class="cont_all_addr" value="trad" name="cont_trad_addr" id="cont_trad_addr" />
+                <input type="checkbox" class="cont_all_addr" value="trad" name="cont_trad_addr" />
               </div>
                             
             <div class="address_type" id="show_trad_office_addr">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="cont_name_check" id="cont_name_check" value="trad_cont" />
+                <input type="checkbox" class="cont_name_check" name="trad_name_check" value="trad_cont" />
               </div>
 
               <!-- Contact address expand start-->
             <div id="show_trad_cont" style="display:none;">
               <div class="form-group">
-                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="cont_name" name="cont_name" class="form-control">
+                <input type="text" id="trad_cont_name" name="trad_cont_name" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                  <input type="text" id="trad_cont_tele_code" name="trad_cont_tele_code" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                    <input type="text" id="trad_cont_telephone" name="trad_cont_telephone" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                    <input type="text" id="trad_cont_mobile_code" name="trad_cont_mobile_code" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                      <input type="text" id="trad_cont_mobile" name="trad_cont_mobile" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                  <input type="text" id="trad_cont_email" name="trad_cont_email" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                  <input type="text" id="trad_cont_website" name="trad_cont_website" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                  <input type="text" id="trad_cont_skype" name="trad_cont_skype" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -865,23 +864,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="trad_cont_addr_line1" name="trad_cont_addr_line1" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="trad_cont_addr_line2" name="trad_cont_addr_line2" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_city" name="trad_cont_city" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_county" name="trad_cont_county" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -890,13 +889,13 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_postcode" name="trad_cont_postcode" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Country</label>
-                    <select class="form-control" id="cont_country" name="cont_country">
+                    <select class="form-control" id="trad_cont_country" name="trad_cont_country">
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -934,42 +933,41 @@ $(document).ready(function(){
               <!-- Contact address expand start-->
             <div id="show_reg_cont" style="display:none;">
               <div class="form-group">
-                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="reg_name" name="reg_name" class="form-control">
+                <input type="text" id="reg_cont_name" name="reg_cont_name" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                  <input type="text" id="reg_cont_tele_code" name="reg_cont_tele_code" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                    <input type="text" id="reg_cont_telephone" name="reg_cont_telephone" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                    <input type="text" id="reg_cont_mobile_code" name="reg_cont_mobile_code" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                      <input type="text" id="reg_cont_mobile" name="reg_cont_mobile" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                  <input type="text" id="reg_cont_email" name="reg_cont_email" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                  <input type="text" id="reg_cont_website" name="reg_cont_website" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                  <input type="text" id="reg_cont_skype" name="reg_cont_skype" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -991,23 +989,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="reg_cont_addr_line1" name="reg_cont_addr_line1" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="reg_cont_addr_line2" name="reg_cont_addr_line2" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_city" name="reg_cont_city" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_county" name="reg_cont_county" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1016,13 +1014,13 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_postcode" name="reg_cont_postcode" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Country</label>
-                    <select class="form-control" id="cont_country" name="cont_country">
+                    <select class="form-control" id="reg_cont_country" name="reg_cont_country">
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")

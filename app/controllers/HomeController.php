@@ -180,12 +180,13 @@ class HomeController extends BaseController {
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
+		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
 		$data['responsible_staff'] 	= User::select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
 
-		$steps_fields_users = StepsFieldsAddedUser::where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
+		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
 			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
 		}
@@ -194,6 +195,7 @@ class HomeController extends BaseController {
 		//###########User added section and sub section start##########//
 		$steps = array();
 		$subsections = Step::whereIn("user_id", $groupUserId)->where("status", "=", "new")->get();
+		//echo $this->last_query();die;
 		foreach ($subsections as $key => $val) {
 			if (isset($val->status) && $val->status == "new") {
 				$steps[$key]['step_id'] 	= $val->step_id;
@@ -226,6 +228,7 @@ class HomeController extends BaseController {
 		$data['org_types'] 		= OrganisationType::orderBy("organisation_id")->get();
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
+		$data['subsections'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['services'] 		= Service::get();
@@ -235,7 +238,7 @@ class HomeController extends BaseController {
 		$data['cont_address'] 	= $this->get_contact_address();
 		$data['reg_address'] 	= RegisteredAddress::get();
 
-		$steps_fields_users = StepsFieldsAddedUser::where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
+		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
 			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
 		}
