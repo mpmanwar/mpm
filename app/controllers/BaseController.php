@@ -12,7 +12,7 @@ class BaseController extends Controller {
         View::share('right_class', "strech");
         
         $admin_s = Session::get('admin_details');
-//echo $admin_s['user_type'];die;
+
         //print_r($admin_s);die;
         if(isset($admin_s) && count($admin_s) >0 ){
             View::share('id', $admin_s['id']);

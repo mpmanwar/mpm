@@ -23,22 +23,18 @@ class HomeController extends BaseController {
 	}
 
 	public function individual_clients() {
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$client_data 		= array();
+		$data['heading'] 	= "CLIENT LIST - INDIVIDUALS";
+		$data['title'] 		= "Individual Clients List";
+		$admin_s 			= Session::get('admin_details');
+		$user_id 			= $admin_s['id'];
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] = "CLIENT LIST - INDIVIDUALS";
-		$data['title'] = "Individual Clients List";
-		$client_data = array();
-
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-
-		//$user_id = 1;
-		$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
+		$client_ids = Client::where("type", "=", "ind")->whereIn("user_id", $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -91,21 +87,18 @@ class HomeController extends BaseController {
 	}
 
 	public function organisation_clients() {
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$client_data 		= array();
+		$data['heading'] 	= "CLIENTS LIST - ORGANISATIONS";
+		$data['title'] 		= "Organisation Clients List";
+		$admin_s 			= Session::get('admin_details'); // session
+		$user_id 			= $admin_s['id']; //session user id
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
-		$data['heading'] = "CLIENTS LIST - ORGANISATIONS";
-		$data['title'] = "Organisation Clients List";
-
-		$client_data = array();
-
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
-		$client_ids = Client::where("type", "=", "org")->where('user_id', '=', $user_id)->select("client_id")->get();
+		
+		$client_ids = Client::where("type", "=", "org")->whereIn("user_id", $groupUserId)->select("client_id")->get();
 
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
