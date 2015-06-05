@@ -48,6 +48,7 @@ Route::post('/ajaxSearchGetState', 'PracticeDetailsController@ajaxSearchGetState
 Route::get('/php_info', 'PracticeDetailsController@php_info');
 Route::any('/downloadExel', array("as"=>"download/downloadExel", "uses"=>'PracticeDetailsController@downloadExel'));
 Route::any('/download/downloadPdf', array("as"=>"downloadPdf", "uses"=>'PracticeDetailsController@downloadPdf'));
+Route::any('/practice/delete-practice-logo', array("as"=>"delete_practice_logo", "uses"=>'PracticeDetailsController@delete_practice_logo'));
 ### Routes for practice details related URL's end ###
 
 ### Routes for user related URL's start ###

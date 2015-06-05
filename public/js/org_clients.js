@@ -41,20 +41,24 @@ $(document).ready(function(){
   });
 
   //Trading Address show while add organisation client start
-  $('.cont_all_addr').on('ifChecked', function(event){
-      $("#show_reg_office_addr").show("slow");
+  $('.cont_all_addr').on('ifChecked', function(event){//show_trad_office_addr  
+      var value = $(this).val();
+      $("#show_"+value+"_office_addr").show("slow");
   });
   $('.cont_all_addr').on('ifUnchecked', function(event){
-      $("#show_reg_office_addr").hide("slow");
+      var value = $(this).val();
+      $("#show_"+value+"_office_addr").hide("slow");
   });
   //Trading Address show while add organisation client end
 
   //Contact Name show while add organisation client start
   $('.cont_name_check').on('ifChecked', function(event){
-      $("#show_org_contact").show("slow");
+      var value = $(this).val();
+      $("#show_"+value).show("slow");
   });
   $('.cont_name_check').on('ifUnchecked', function(event){
-      $("#show_org_contact").hide("slow");
+      var value = $(this).val();
+      $("#show_"+value).hide("slow");
   });
   //Contact Name show while add organisation client end
 
@@ -181,16 +185,39 @@ $(".frequency_change").change(function(){
 }); 
 //Delete services name while add individual/organisation user end
 
+// Delete Allocate Serveces while adding organisation client start //
+$("#myServTable").on("click", ".delete_service", function(){
+  var delete_index       = $(this).data("delete_index");
+
+  if(service_array.length > 0){
+    for (var j = 0; j < service_array.length; j++) { 
+        var element     = service_array[j];
+        var rand_value  = element.split("mpm");
+        if(rand_value[2] == delete_index){
+          service_array.splice(j, 1);
+          break;
+        }
+    }
+  }
+  
+  $('#serv_hidd_array').val(service_array);
+  $("#added_service_tr"+delete_index).hide();
+  
+});
+// Delete Allocate Serveces while adding organisation client end //
 	
  	
 });//end of main document ready
 
 function show_org_other_div()
 {
+  $("#service_id").val('');
+  $("#staff_id").val('');
   $("#add_services_div").show('slow');
 }
 
 var service_array = [];
+var service = 0;
 function saveServices()
 {
     var service_id  = $('#service_id').val();
@@ -202,22 +229,18 @@ function saveServices()
       url: '/organisation/save-services',
       data: { 'service_id' : service_id, 'staff_id' : staff_id },
       success : function(resp){
-        var content = '<tr><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href=""><i class="fa fa-edit"></i></a> <a href=""><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+        var content = '<tr id="added_service_tr'+service+'"><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href="javascript:void()" class="edit_service" data-edit_index="'+service+'"><i class="fa fa-edit"></i></a> <a href="javascript:void()" class="delete_service" data-delete_index="'+service+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
         $("#myServTable").last().append(content);
 
-        var itemselected = service_id+"mpm"+staff_id;
+        var itemselected = service_id+"mpm"+staff_id+"mpm"+service;
         if(itemselected !== undefined && itemselected !== null){
             service_array.push(itemselected);
         }
 
-        service_array.join(',');
-
         $('#serv_hidd_array').val(service_array);
-
-        //$('#relname').val("");
-        //$('#app_date').val("");
-
         $("#add_services_div").hide('slow');
+
+        service++;
       }
     });
 

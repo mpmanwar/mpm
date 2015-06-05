@@ -1155,16 +1155,6 @@ $(document).ready(function(){
           </select>
         </div>
 
-        <!-- <div class="form-group">
-          <label for="exampleInputPassword1">Subsection Name</label>
-          <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
-          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
-            <ul>
-              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
-            </ul>
-          </div>
-        </div> -->
-
         <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <select class="form-control subsec_change" name="substep_id" id="substep_id">

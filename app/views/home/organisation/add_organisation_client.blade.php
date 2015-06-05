@@ -796,17 +796,17 @@ $(document).ready(function(){
 
               <div class="form-group">
                 <label for="exampleInputPassword1">Trading Address</label>
-                <input type="checkbox" class="cont_all_addr" name="cont_trad_addr" id="cont_trad_addr" value="1" />
+                <input type="checkbox" class="cont_all_addr" value="trad" name="cont_trad_addr" id="cont_trad_addr" />
               </div>
                             
-            <div class="address_type" id="show_reg_office_addr">
+            <div class="address_type" id="show_trad_office_addr">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="cont_name_check" id="cont_name_check" value="1" />
+                <input type="checkbox" class="cont_name_check" name="cont_name_check" id="cont_name_check" value="trad_cont" />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_org_contact" style="display:none;">
+            <div id="show_trad_cont" style="display:none;">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
                 <input type="text" id="cont_name" name="cont_name" class="form-control">
@@ -922,20 +922,377 @@ $(document).ready(function(){
 
             <div class="form-group">
               <label for="exampleInputPassword1">Registered Office Address</label>
-              <input type="checkbox" class="cont_all_addr" name="reg_office_addr" id="reg_office_addr" />
+              <input type="checkbox" class="cont_all_addr" value="reg" name="reg_office_addr" id="reg_office_addr" />
+            </div>
+
+            <div class="address_type" id="show_reg_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="reg_name_check" value="reg_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_reg_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
             
             
             
             <div class="form-group">
-                  <label for="exampleInputPassword1">Correspondence Address</label>
-                  <input type="checkbox" class="cont_all_addr" name="cont_corres_addr" id="cont_corres_addr" value="2" />
+              <label for="exampleInputPassword1">Correspondence Address</label>
+              <input type="checkbox" class="cont_all_addr" name="cont_corres_addr" value="corres" />
+            </div>
+
+            <div class="address_type" id="show_corres_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="corres_name_check" value="corres_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_corres_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
                 </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
             
-             <div class="form-group">
-                  <label for="exampleInputPassword1">Banker</label>
-                  <input type="checkbox" class="cont_all_addr" name="cont_banker_addr" id="cont_banker_addr" value="3" />
+            <div class="form-group">
+              <label for="exampleInputPassword1">Banker</label>
+              <input type="checkbox" class="cont_all_addr" name="cont_banker_addr" value="banker" />
+            </div>
+
+            <div class="address_type" id="show_banker_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="corres_name_check" value="banker_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_banker_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
                 </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
             
              <!-- <div class="form-group">
                   <label for="exampleInputPassword1">Trading Address</label>
@@ -944,17 +1301,374 @@ $(document).ready(function(){
                 
             <div class="form-group">
               <label for="exampleInputPassword1">Old Accountants</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_old_acc_addr" id="cont_old_acc_addr" value="5" />
+              <input type="checkbox" class="cont_all_addr" name="cont_oldacc_addr" value="oldacc" />
+            </div>
+
+            <div class="address_type" id="show_oldacc_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="corres_name_check" value="oldacc_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_oldacc_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Auditors</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_auditors_addr" id="cont_auditors_addr" value="6" />
+              <input type="checkbox" class="cont_all_addr" name="cont_auditors_addr" value="auditors" />
+            </div>
+
+            <div class="address_type" id="show_auditors_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="auditors_name_check" value="auditors_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_auditors_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Solicitors</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_solicitors_addr" id="cont_solicitors_addr" value="7" />
+              <input type="checkbox" class="cont_all_addr" name="cont_solicitors_addr" value="solicitors" />
+            </div>
+
+            <div class="address_type" id="show_solicitors_office_addr">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contact Name</label>
+                <input type="checkbox" class="cont_name_check" name="solicitors_name_check" value="solicitors_cont" />
+              </div>
+
+              <!-- Contact address expand start-->
+            <div id="show_solicitors_cont" style="display:none;">
+              <div class="form-group">
+                <!-- <label for="exampleInputPassword1">Address Line1</label> -->
+                <input type="text" id="reg_name" name="reg_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <div class="n_box01">
+                  <label for="exampleInputPassword1">Country Code</label>
+                  <input type="text" id="cont_tele_code" name="cont_tele_code" class="form-control">
+                </div>
+
+                <div class="telbox">
+                  <label for="exampleInputPassword1">Telephone</label>
+                    <input type="text" id="cont_telephone" name="cont_telephone" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="n_box01">
+                    <label for="exampleInputPassword1">Country Code</label>
+                    <input type="text" id="cont_mobile_code" name="cont_mobile_code" class="form-control">
+                  </div>
+                  <div class="telbox">
+                  <label for="exampleInputPassword1">Mobile</label>
+                      <input type="text" id="cont_mobile" name="cont_mobile" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Email</label>
+                  <input type="text" id="cont_email" name="cont_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="cont_website" name="cont_website" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skype</label>
+                  <input type="text" id="cont_skype" name="cont_skype" class="form-control">
+                </div>
+            </div>
+              <!-- Contact address expand end-->
+
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select or Add</label>
+                 <select class="form-control get_oldcont_address" id="get_oldcont_address" data-type="cont">
+                  <option value="">-- Select Address --</option>
+                    @if(!empty($cont_address))
+                      @foreach($cont_address as $key=>$address_row)
+                        @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
+                          <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
+                        @endif
+                      @endforeach
+                    @endif 
+                  </select>
+              </div>
+                            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line1</label>
+                <input type="text" id="cont_addr_line1" name="cont_addr_line1" class="form-control toUpperCase">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Address Line2</label>
+                <input type="text" id="cont_addr_line2" name="cont_addr_line2" class="form-control toUpperCase">
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">City/Town</label>
+                    <input type="text" id="cont_city" name="cont_city" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">County</label>
+                    <input type="text" id="cont_county" name="cont_county" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="twobox">
+                <div class="twobox_1">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" id="cont_postcode" name="cont_postcode" class="form-control toUpperCase">
+                  </div>
+                </div>
+                <div class="twobox_2">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <select class="form-control" id="cont_country" name="cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
             
             <!-- <div class="form-group">
@@ -1243,7 +1957,7 @@ $(document).ready(function(){
   <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
   <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
     <tr>
-      <td><strong>Service</strong></td>
+      <td align="center"><strong>Service</strong></td>
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>

@@ -295,4 +295,15 @@ class PracticeDetailsController extends BaseController {
 		return $pdf->download('practice_details.pdf');
 	}
 
+	public function delete_practice_logo()
+	{
+		$practice_id = Input::get("practice_id");
+		$logo_name = Input::get("logo_name");
+		$affectedRows = PracticeDetail::where('practice_id', '=', $practice_id)->update(array("practice_logo"=>""));
+		if($affectedRows){
+			unlink("practice_logo/".$logo_name);
+		}
+		echo $affectedRows;
+	}
+
 }

@@ -22,7 +22,9 @@ $(document).ready(function (e) {
 	});
 	
 	function imageIsLoaded(e) {
-		$('#image_preview img').attr('src', e.target.result);
+		
+		$('#image_preview').html( '<img src="'+e.target.result+'" class="browse_img">' );
+		//$('#image_preview').attr('src', e.target.result);
 	};
 
 });

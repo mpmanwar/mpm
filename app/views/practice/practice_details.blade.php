@@ -81,7 +81,8 @@
 </span>
 @if(isset($practice_details->practice_logo) && $practice_details->practice_logo != "")
     @if(file_exists("practice_logo/".$practice_details->practice_logo))
-        <img src="practice_logo/{{ $practice_details->practice_logo }}" class="browse_img" alt="" width="30" />
+      <img src="practice_logo/{{ $practice_details->practice_logo }}" class="browse_img" alt="" width="30" />
+      <button class="btn btn-danger" data-practice_id="{{ $practice_details->practice_id }}" data-logo_name="{{ $practice_details->practice_logo }}" title="Delete Logo?" type="button" id="delete_practice_logo">Delete</button>
     @endif
 @endif
 </div>
@@ -92,17 +93,17 @@
  </div>
 
 
-
- <div class="col_right">
+<div class="col_right">
  <div class="setting_con">
     <a href="/settings-dashboard" class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</a>
+
 </div>
 
 <div class="save_con">
 
 <button class="btn btn-primary" type="submit" name="save" id="save">Save</button>
 
-<button class="btn btn-danger" type="reset" name="cancel" id="cancel">Cancel</button>
+<button class="btn btn-info" type="reset" name="cancel" id="cancel">Cancel</button>
 </div>
 
  </div>

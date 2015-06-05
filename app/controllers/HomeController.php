@@ -164,8 +164,9 @@ class HomeController extends BaseController {
 
 	public function add_individual_client() {
 
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -178,9 +179,9 @@ class HomeController extends BaseController {
 		$data['titles'] 		= Title::orderBy("title_id")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
-		$data['steps'] 				= Step::orderBy("step_id")->get();
+		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['responsible_staff'] 	= User::select('fname', 'lname', 'user_id')->get();
-		$data['countries'] 			= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
 
@@ -192,7 +193,7 @@ class HomeController extends BaseController {
 
 		//###########User added section and sub section start##########//
 		$steps = array();
-		$subsections = Step::where("status", "=", "new")->get();
+		$subsections = Step::whereIn("user_id", $groupUserId)->where("status", "=", "new")->get();
 		foreach ($subsections as $key => $val) {
 			if (isset($val->status) && $val->status == "new") {
 				$steps[$key]['step_id'] 	= $val->step_id;
@@ -212,9 +213,9 @@ class HomeController extends BaseController {
 	}
 
 	public function add_organisation_client() {
-
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -224,11 +225,11 @@ class HomeController extends BaseController {
 		$data['title'] 			= "Add Client";
 		$data['org_types'] 		= OrganisationType::orderBy("organisation_id")->get();
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
-		$data['steps'] 			= Step::orderBy("step_id")->get();
+		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['services'] 		= Service::get();
-		$data['countries'] 		= Country::where("country_id", "!=", 1)->orderBy('country_name')->get();
+		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 		$data['vat_schemes'] 	= VatScheme::get();
 		$data['cont_address'] 	= $this->get_contact_address();
@@ -242,7 +243,7 @@ class HomeController extends BaseController {
 
 		//###########User added section and sub section start##########//
 		$steps = array();
-		$subsections = Step::where("status", "=", "new")->get();
+		$subsections = Step::whereIn("user_id", $groupUserId)->where("status", "=", "new")->get();
 		foreach ($subsections as $key => $val) {
 			if (isset($val->status) && $val->status == "new") {
 				$steps[$key]['step_id'] 	= $val->step_id;

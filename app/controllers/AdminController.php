@@ -171,6 +171,7 @@ class AdminController extends BaseController {
 				$arr['user_type'] 	= $admin['user_type'];
 				$arr['parent_id'] 	= $admin['parent_id'];
 				$arr['group_id'] 	= Common::getGroupId($admin['user_id']);
+				$arr['group_users'] = Common::getUserIdByGroupId($arr['group_id']);
 				
 				Session::put('admin_details', $arr);
 

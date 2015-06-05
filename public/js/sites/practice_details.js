@@ -1,3 +1,22 @@
+$(document).ready(function(){
+	$("#delete_practice_logo").click(function(){
+		var practice_id = $(this).data("practice_id");
+		var logo_name 	= $(this).data("logo_name");
+		if(confirm("Do you want to delete this logo?")){
+			$.ajax({
+				type : "POST",
+				url : "/practice/delete-practice-logo",
+				data : {"practice_id" : practice_id, "logo_name" : logo_name },
+				success : function(resp){
+					if(resp == 1){
+						location.reload();
+					}
+				}
+			})
+		}
+	});
+});
+
 function copyPostal()
 {
   $("#phy_attention").val($("#reg_attention").val());

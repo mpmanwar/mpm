@@ -160,16 +160,14 @@ class ClientController extends BaseController {
 	}
 
 	public function get_oldcont_address() {
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
 
 		$client_id = Input::get("client_id");
-
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-
-		//$user_id = 1;
 		$client_data = array();
 		if (Request::ajax()) {
-			$client_ids = Client::where('type', '=', "org")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
+			$client_ids = Client::whereIn("user_id", $groupUserId)->where('type', '=', "org")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
 			//echo $this->last_query();die;
 			$i = 0;
 			if (isset($client_ids) && count($client_ids) > 0) {
@@ -207,14 +205,19 @@ class ClientController extends BaseController {
 	}
 
 	public function insert_section() {
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+
 		$data['title'] 			= Input::get("subsec_name");
 		$data['parent_id'] 		= Input::get("parent_id");
+		$data['user_id'] 		= $user_id;
 		$data['short_code'] 	= strtolower(Input::get("subsec_name"));
 		$data['status'] 		= "new";
 		$data['client_type'] 	= Input::get("client_type");
 		if (Request::ajax()) {
 			Step::insert($data);
-			$steps = Step::where("client_type", "=", $data['client_type'])->where("parent_id", "=", $data['parent_id'])->where("status", "=", "new")->get();
+			$steps = Step::whereIn("user_id", $groupUserId)->where("client_type", "=", $data['client_type'])->where("parent_id", "=", $data['parent_id'])->where("status", "=", "new")->get();
 			echo json_encode($steps);
 		}
 	}

@@ -665,12 +665,7 @@ $(".show_subsec").change(function(){
 
 // Delete relationship while adding client start //
 $("#myRelTable").on("click", ".delete_rel", function(){
-  //var app_hidden  = $("#app_hidd_array").val();
-  //var app_hidden  = relationship_array;
   var delete_index       = $(this).data("delete_index");
-
-  //var array = relationship_array.split(",");
-  //var remain_val = relationship_array.split(',');
 
   if(relationship_array.length > 0){
     for (var j = 0; j < relationship_array.length; j++) { 
@@ -686,12 +681,7 @@ $("#myRelTable").on("click", ".delete_rel", function(){
   }
   
   $('#app_hidd_array').val(relationship_array);
-
   $("#added_tr"+delete_index).hide();
-  //alert(value);
-  
-
-
   
 });
 // Delete relationship while adding client end //
