@@ -191,21 +191,20 @@ $(function() {
             @if(!empty($client_details))
                 <?php $i=1; ?>
                 @foreach($client_details as $key=>$client_row)
-                
-                <tr class="all_check">
+                  <tr class="all_check">
                     <td align="center">
                       <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td>{{ $client_row['business_type'] or "" }}</td>
-                    <td><a href="">{{ $client_row['business_name'] or "" }}</a></td>
-                    <td>{{ $client_row['acc_ref_date'] or "" }}</td>
-                    <td>{{ $client_row['next_acc_due'] or "" }}</td>
-                    <td>{{ $client_row['deadacc_count'] or "" }}</td>
-                    <td>{{ $client_row['next_ret_due'] or "" }}</td>
-                    <td>{{ $client_row['next_ret_due'] or "" }}</td>
-                    <td>{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td>{{ (!empty($client_row['cont_addr_line1'])) ? $client_row['cont_addr_line1']."," : '' }} {{ (!empty($client_row['cont_city'])) ? $client_row['cont_city']."," : '' }} {{ (!empty($client_row['cont_postcode'])) ? $client_row['cont_postcode'] : '' }}</td>
-                </tr>
+                    <td align="center">{{ $client_row['business_type'] or "" }}</td>
+                    <td align="center"><a href="">{{ $client_row['business_name'] or "" }}</a></td>
+                    <td align="center">{{ $client_row['acc_ref_date'] or "" }}</td>
+                    <td align="center">{{ $client_row['next_acc_due'] or "" }}</td>
+                    <td align="center">{{ $client_row['deadacc_count'] or "" }}</td>
+                    <td align="center">{{ $client_row['next_ret_due'] or "" }}</td>
+                    <td align="center">{{ $client_row['deadret_count'] or "" }}</td>
+                    <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
+                    <td align="center">{{ (!empty($client_row['cont_addr_line1'])) ? $client_row['cont_addr_line1']."," : '' }} {{ (!empty($client_row['cont_city'])) ? $client_row['cont_city']."," : '' }} {{ (!empty($client_row['cont_postcode'])) ? $client_row['cont_postcode'] : '' }}</td>
+                  </tr>
                 <?php $i++; ?>
               @endforeach
             @endif

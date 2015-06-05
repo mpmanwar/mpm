@@ -158,11 +158,15 @@ class HomeController extends BaseController {
 
 	function getDayCount($from)
 	{
-		$to = date("Y-m-d H:i:s");
-		$first_date = strtotime($from);
-	    $second_date = strtotime($to);
-	    $offset = $second_date-$first_date; 
-	    return floor($offset/60/60/24);
+		$date1 = date("m/d/Y", strtotime($from));
+		$date2 = date("m/d/Y");
+
+		$diff = abs(strtotime($date2) - strtotime($date1));
+		$days = floor(($diff)/ (60*60*24));
+		/*$years = floor($diff / (365*60*60*24));
+		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+		$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));*/
+		return $days;
 	}
 
 	public function add_individual_client() {
@@ -334,10 +338,8 @@ class HomeController extends BaseController {
 		$step_id = 1;
 		if (!empty($postData['client_code'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'client_code', $postData['client_code']);
-
 		}
 
-		//$fulltitle = Title::select("title_name")->where('title_id', $postData['title'])->first();
 		if (!empty($postData['title'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'title', $postData['title']);
 		}
@@ -385,12 +387,6 @@ class HomeController extends BaseController {
 		}
 		if (!empty($postData['tax_address'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_address', $postData['tax_address']);
-		}
-		if (!empty($postData['tax_city'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_city', $postData['tax_city']);
-		}
-		if (!empty($postData['tax_region'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_region', $postData['tax_region']);
 		}
 		if (!empty($postData['tax_zipcode'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_zipcode', $postData['tax_zipcode']);
@@ -504,7 +500,6 @@ class HomeController extends BaseController {
 		StepsFieldsClient::insert($arrData);
 		return Redirect::to('/individual-clients');
 
-		//return View::make('home.organisation.add_organisation_client', $data);
 	}
 
 	public function get_office_address() {
