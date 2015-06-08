@@ -37,7 +37,6 @@ Route::any('/organisation/insert-client-details', array("as"=>"insert_organisati
 
 Route::any('/search/search-client', array("as"=>"search_client", "uses"=>'HomeController@search_client'));
 Route::any('/search/search-all-client', array("as"=>"search_all_client", "uses"=>'HomeController@search_all_client'));
-
 ### Routes for Dashboard related URL's end ###
 
 ### Routes for practice details related URL's start ###
@@ -97,13 +96,6 @@ Route::post('/new-pass', 'AdminController@new_pass');
 Route::get('/profile-edit', 'AdminController@profile_edit');
 Route::post('/profile-update', 'AdminController@profile_update');
 Route::any('/admin/activation/{id}', array("as"=>"activation", "uses"=>'AdminController@activation'));
-
-
-
-
-
-
-### Routes for Settings related URL's end ###
 
 ### Routes for Client URL's start ###
 Route::any('/individual/get-country-code', array("as"=>"get_country_code", "uses"=>'ClientController@get_country_code'));

@@ -130,8 +130,12 @@ class ClientController extends BaseController {
 	}
 
 	public function add_business_type() {
-		$data['name'] = Input::get("org_name");
-		$data['type'] = 1;
+		$session_data = Session::get('admin_details');
+		
+		$data['name'] 			= Input::get("org_name");
+		$data['client_type'] 	= Input::get("client_type");
+		$data['user_id'] 		= $session_data['id'];
+		$data['status'] 		= "new";
 		OrganisationType::insert($data);
 		return Redirect::to('/organisation/add-client');
 	}
@@ -145,8 +149,11 @@ class ClientController extends BaseController {
 	}
 
 	public function add_vat_scheme() {
-		$data['vat_scheme_name'] = Input::get("vat_scheme_name");
-		$data['type'] = 1;
+		$session_data = Session::get('admin_details');
+
+		$data['vat_scheme_name'] 	= Input::get("vat_scheme_name");
+		$data['user_id'] 			= $session_data['id'];
+		$data['status'] 			= "new";
 		VatScheme::insert($data);
 		return Redirect::to('/organisation/add-client');
 	}
@@ -190,8 +197,11 @@ class ClientController extends BaseController {
 	}
 
 	public function add_services() {
+		$session_data = Session::get('admin_details');
+		
 		$data['service_name'] = Input::get("service_name");
-		$data['service_type'] = 1;
+		$data['user_id'] 			= $session_data['id'];
+		$data['status'] 			= "new";
 		Service::insert($data);
 		return Redirect::to('/organisation/add-client');
 	}

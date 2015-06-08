@@ -225,16 +225,25 @@ class HomeController extends BaseController {
 
 		$data['heading'] 		= "ADD CLIENT";
 		$data['title'] 			= "Add Client";
-		$data['org_types'] 		= OrganisationType::orderBy("organisation_id")->get();
+
+		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("organisation_id")->get();
+
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['subsections'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
-		$data['services'] 		= Service::get();
+
+		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
-		$data['vat_schemes'] 	= VatScheme::get();
+
+		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
+		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_contact_address();
 		$data['reg_address'] 	= RegisteredAddress::get();
 
@@ -294,9 +303,9 @@ class HomeController extends BaseController {
 
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
+		$groupUserId = $admin_s['group_users'];
 
-		$client_ids = Client::where('type', '=', "org")->where('user_id', '=', $user_id)->select("client_id")->get();
+		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
