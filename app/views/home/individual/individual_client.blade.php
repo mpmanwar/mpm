@@ -12,15 +12,16 @@
 
 <!-- page script -->
 <script type="text/javascript">
+var oTable;
 $(function() {
-  $('#example2').dataTable({
+  oTable = $('#example2').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "aLengthMenu": [[25, 25, 50, -1], [25, 50, 100, 200]],
         "iDisplayLength": 25,
         "language": {
             "lengthMenu": "Show _MENU_ entries",
@@ -30,10 +31,7 @@ $(function() {
             "infoFiltered": "(filtered from _MAX_ total records)"
         },
 
-
-        //"iDisplayLength": -1,
-        //"aaSorting": [[ 5, "desc" ]],
-        "aoColumns":[
+      "aoColumns":[
             {"bSortable": false},
             
             {"bSortable": false},
@@ -46,17 +44,18 @@ $(function() {
             {"bSortable": false}
         ]
 
-        //"aoColumnDefs": [{ "bVisible": false, "aTargets": [2] }]
-
     });
-
-  //$("#example2_filter").hide();
-
 
 });
 
 
-
+/*$(document).ready(function(){
+  $("#archivedButton").click(function(){
+        var oSettings = oTable.fnSettings();
+        oSettings._iDisplayLength = -1;
+        oTable.fnDraw();
+  })
+})*/
 </script>
 @stop
 
@@ -128,7 +127,7 @@ $(function() {
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
                   <li>
-              <button type="button" id="archivedButton" style="display:none;" class="btn btn-warning">Archive</button>
+              <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
             </li>
                   <div class="clearfix"></div>
                 </ul>

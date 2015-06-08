@@ -198,7 +198,7 @@ class ClientController extends BaseController {
 
 	public function add_services() {
 		$session_data = Session::get('admin_details');
-		
+
 		$data['service_name'] = Input::get("service_name");
 		$data['user_id'] 			= $session_data['id'];
 		$data['status'] 			= "new";
@@ -243,6 +243,15 @@ class ClientController extends BaseController {
 			$steps = Step::whereIn("user_id", $groupUserId)->where("client_type", "=", $client_type)->where("parent_id", "=", $step_id)->get();
 			//echo $this->last_query();die;
 			echo json_encode($steps);
+		}
+	}
+
+	public function archive_client() {
+		$clients_id = Input::get("client_id");
+		//print_r($clients_id);die;
+		foreach ($clients_id as $client_id) {
+			Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"Y"));
+			//echo $this->last_query();die;
 		}
 	}
 

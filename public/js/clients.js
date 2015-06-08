@@ -392,14 +392,47 @@ $(".back").click(function(){
 
 //Show Archived in add individual client
   $("#archive_div").click(function(){
-    if($(this).html() == 'Show Archived'){
-      $(this).html('Hide Archived');
-    }else{
-      $(this).html('Show Archived')
-    }
-    $("#archivedButton").toggle();
+      if($(this).html() == 'Show Archived'){
+        $(this).html('Hide Archived');
+      }else{
+        $(this).html('Show Archived')
+      }
+      //$("#archivedButton").toggle();
   });
+
+// Archive and Un-Archive client start //
+  $("#archivedButton").click(function(){
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    //alert(val.length);return false;
+    if(val.length>0){
+      var client_type = $("#client_type").val();
+      if(confirm("Do you want to change the status of the client?")){
+        $.ajax({
+            type: "POST",
+            url: '/client/archive-clients',
+            data: { 'client_id' : val },
+            success : function(resp){
+              if(client_type == "org"){
+                window.location = '/organisation-clients';
+              }else{
+                window.location = '/individual-clients';
+              }
+              
+            }
+        });
+      }
+
+    }else{
+      alert('Please select atleast one clients');
+    }
   
+  });
+// Archive and Un-Archive client start //  
 
 
 //Get Service country code

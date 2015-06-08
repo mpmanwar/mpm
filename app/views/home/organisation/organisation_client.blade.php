@@ -12,8 +12,10 @@
 
 <!-- page script -->
 <script type="text/javascript">
+var oTable;
+
 $(function() {
-    $('#example2').dataTable({
+    oTable = $('#example2').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -39,9 +41,15 @@ $(function() {
 
     });
 
-    //$("#example2_filter").hide();
-    
 });
+
+/*$(document).ready(function(){
+  $("#archivedButton").click(function(){
+        var oSettings = oTable.fnSettings();
+        oSettings._iDisplayLength = -1;
+        oTable.fnDraw();
+  })
+})*/
 
 </script>
 @stop
@@ -129,7 +137,7 @@ $(function() {
             </li>
 
             <li>
-              <button type="button" id="archivedButton" style="display:none;" class="btn btn-warning">Archive</button>
+              <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
             </li>
                   <div class="clearfix"></div>
                 </ul>
