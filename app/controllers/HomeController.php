@@ -151,14 +151,13 @@ class HomeController extends BaseController {
 
 	function getDayCount($from)
 	{
-		$date1 = date("m/d/Y", strtotime($from));
-		$date2 = date("m/d/Y");
+		$arr = explode('/', $from);
+		$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
+		$date2 = date("Y-m-d");
+		//echo $date2;die;
 
 		$diff = abs(strtotime($date2) - strtotime($date1));
-		$days = floor(($diff)/ (60*60*24));
-		/*$years = floor($diff / (365*60*60*24));
-		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-		$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));*/
+		$days = round($diff/86400);
 		return $days;
 	}
 
@@ -316,8 +315,8 @@ class HomeController extends BaseController {
 
 				if (isset($client_details) && count($client_details) > 0) {
 					foreach ($client_details as $client_row) {
-						if (isset($client_row['field_name']) && ($client_row['field_name'] == "cont_addr_line1" || $client_row['field_name'] == "cont_addr_line2")) {
-							$client_data[$i][$client_row['field_name']] = $client_row['field_value'];
+						if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" || $client_row['field_name'] == "corres_cont_addr_line2")) {
+							$client_data[$i]['cont_addr_line1'] = $client_row['field_value'];
 						}
 					}
 
@@ -330,14 +329,13 @@ class HomeController extends BaseController {
 	}
 
 	public function insert_individual_client() {
-
 		$postData = Input::all();
-
 		$arrData = array();
 
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
 		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
 
 //################ GENERAL SECTION START #################//
@@ -346,18 +344,25 @@ class HomeController extends BaseController {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'client_code', $postData['client_code']);
 		}
 
+		$client_name = "";
 		if (!empty($postData['title'])) {
+			$client_name.=$postData['title']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'title', $postData['title']);
 		}
 		if (!empty($postData['fname'])) {
+			$client_name.=$postData['fname']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'fname', $postData['fname']);
 		}
 		if (!empty($postData['mname'])) {
+			$client_name.=$postData['mname']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'mname', $postData['mname']);
 		}
 		if (!empty($postData['lname'])) {
+			$client_name.=$postData['lname'];
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'lname', $postData['lname']);
 		}
+		$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'client_name', trim($client_name));
+
 		if (!empty($postData['gender'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'gender', $postData['gender']);
 		}
@@ -389,7 +394,9 @@ class HomeController extends BaseController {
 		if (!empty($postData['other_office_id'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_office_id', $postData['other_office_id']);
 		} else {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
+			if (!empty($postData['tax_office_id'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
+			}
 		}
 		if (!empty($postData['tax_address'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_address', $postData['tax_address']);
@@ -482,13 +489,6 @@ class HomeController extends BaseController {
 
 //################ OTHERS SECTION END #################//
 		$step_id = 5;
-		/*if (!empty($postData['others_check'])) {
-		$checkbox_list='';
-		for ( $i=0; $i< count($postData['others_check']); $i++ ){
-		$checkbox_list=$checkbox_list.' '.$postData['others_check'][$i];
-		}
-		$arrData[] = $this->save_client($user_id,$client_id, $step_id, 'others_check', $checkbox_list);
-		}*/
 		if (!empty($postData['aml_checks'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'aml_checks', $postData['aml_checks']);
 		}
@@ -501,6 +501,19 @@ class HomeController extends BaseController {
 		if (!empty($postData['resp_staff'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'resp_staff', $postData['resp_staff']);
 		}
+
+		//################## USER ADDED FIELD START ###############//
+		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+		//echo $this->last_query();die;
+		if(isset($field_added) && count($field_added) > 0){
+			foreach ($field_added as $key => $value) {
+				$field_name = strtolower($value->field_name);
+				if (isset($postData[$field_name]) && $postData[$field_name] != "") {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+				}
+			}
+		}
+		//################## USER ADDED FIELD END ###############//
 
 		//print_r($arrData);die;
 		StepsFieldsClient::insert($arrData);
@@ -560,9 +573,9 @@ class HomeController extends BaseController {
 
 	function save_services() {
 		$rel_types = array();
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		
 		$service_id = Input::get("service_id");
 		$staff_id = Input::get("staff_id");
 
@@ -580,9 +593,9 @@ class HomeController extends BaseController {
 
 	public function search_client() {
 		$client_details = array();
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		
 		$search_value = Input::get("search_value");
 		$client_type = Input::get("client_type");
 		$client_ids = Client::where("type", "=", $client_type)->where('user_id', '=', $user_id)->select("client_id")->get();
@@ -609,11 +622,66 @@ class HomeController extends BaseController {
 
 	public function search_all_client() {
 		$client_details = array();
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
+		$clients = array();
+
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::where('user_id', '=', $user_id)->select("client_id", "type")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->select("client_id")->get();
+		if(isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $key=>$client_id){
+				$clients[$key]['client_id']	= $client_id->client_id;
+			}
+		}
+		//echo $this->last_query();die;
+		$org_client = $this->getOrgClient($clients, $search_value);
+		$ind_client = $this->getIndClient($clients, $search_value);
+		$client_details = array_merge($org_client, $ind_client);
+
+//print_r($client_details);die;
+		echo json_encode($client_details);
+		exit();
+	}
+
+	function getOrgClient($client_ids, $search_value)
+	{
+		$clients = array();
+		$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'business_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+
+		if(isset($client_name) && count($client_name) >0 ){
+			foreach($client_name as $key=>$name){
+				$clients[$key]['client_id']		= $name->client_id;
+				$clients[$key]['client_name']	= $name->field_value;
+			}
+		}
+		//echo $this->last_query();die;
+		return $clients;
+	}
+	function getIndClient($client_ids, $search_value)
+	{
+		$clients = array();
+		$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'client_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+
+		if(isset($client_name) && count($client_name) >0 ){
+			foreach($client_name as $key=>$name){
+				$clients[$key]['client_id']		= $name->client_id;
+				$clients[$key]['client_name']	= $name->field_value;
+			}
+		}
+		//echo $this->last_query();die;
+		return $clients;
+	}
+
+	/*public function search_all_client() {
+		$client_details = array();
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
+		$search_value = Input::get("search_value");
+		$client_ids = Client::whereIn('user_id', $groupUserId)->select("client_id", "type")->get();
 
 		$i = 0;
 		foreach ($client_ids as $client_id) {
@@ -646,17 +714,15 @@ class HomeController extends BaseController {
 
 		echo json_encode($client_details);
 		exit();
-	}
+	}*/
 
 	public function insert_organisation_client() {
 		$postData = Input::all();
 		$data = array();
 		$arrData = array();
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//$user_id = 1;
-
-		//print_r($postData['app_hidd_array']);die;
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
 
 		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
 
@@ -683,29 +749,43 @@ class HomeController extends BaseController {
 		if (!empty($postData['business_desc'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'business_desc', $postData['business_desc']);
 		}
-		if (!empty($postData['made_up_date'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'made_up_date', $postData['made_up_date']);
+
+		if(isset($postData['ann_ret_check']) && $postData['ann_ret_check'] != ""){
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ann_ret_check', $postData['ann_ret_check']);
+
+			if (!empty($postData['made_up_date'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'made_up_date', $postData['made_up_date']);
+			}
+			if (!empty($postData['next_ret_due'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'next_ret_due', $postData['next_ret_due']);
+			}
+			if (!empty($postData['ch_auth_code'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ch_auth_code', $postData['ch_auth_code']);
+			}
 		}
-		if (!empty($postData['next_ret_due'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'next_ret_due', $postData['next_ret_due']);
-		}
-		if (!empty($postData['ch_auth_code'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ch_auth_code', $postData['ch_auth_code']);
-		}
-		if (!empty($postData['acc_ref_day']) && !empty($postData['acc_ref_month'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'acc_ref_date', $postData['acc_ref_day'] . '-' . $postData['acc_ref_month']);
-		}
-		if (!empty($postData['last_acc_madeup_date'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'last_acc_madeup_date', $postData['last_acc_madeup_date']);
-		}
-		if (!empty($postData['next_acc_due'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'next_acc_due', $postData['next_acc_due']);
+
+		if(isset($postData['yearend_acc_check']) && $postData['yearend_acc_check'] != ""){
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'yearend_acc_check', $postData['yearend_acc_check']);
+
+			if (!empty($postData['acc_ref_day'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'acc_ref_day', $postData['acc_ref_day']);
+			}
+			if (!empty($postData['acc_ref_month'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'acc_ref_month', $postData['acc_ref_month']);
+			}
+			if (!empty($postData['last_acc_madeup_date'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'last_acc_madeup_date', $postData['last_acc_madeup_date']);
+			}
+			if (!empty($postData['next_acc_due'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'next_acc_due', $postData['next_acc_due']);
+			}
 		}
 //#############BUSINESS INFORMATION END###################//
 
 //#############TAX INFORMATION START###################//
 		$step_id = 2;
-		if (!empty($postData['reg_for_vat'])) {
+		if (isset($postData['reg_for_vat']) && $postData['reg_for_vat'] != "") {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'reg_for_vat', $postData['reg_for_vat']);
 
 			if (!empty($postData['effective_date'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'effective_date', $postData['effective_date']);
@@ -713,14 +793,11 @@ class HomeController extends BaseController {
 			if (!empty($postData['vat_number'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_number', $postData['vat_number']);
 			}
+			if (!empty($postData['vat_scheme_type'])) {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_scheme_type', $postData['vat_scheme_type']);
+			}
 			if (!empty($postData['vat_scheme'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_scheme', $postData['vat_scheme']);
-			}
-			if (!empty($postData['vat_scheme_cash'])) {
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_scheme_cash', $postData['vat_scheme_cash']);
-			}
-			if (!empty($postData['vat_scheme_accrual'])) {
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_scheme_accrual', $postData['vat_scheme_accrual']);
 			}
 			if (!empty($postData['ret_frequency'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ret_frequency', $postData['ret_frequency']);
@@ -729,11 +806,14 @@ class HomeController extends BaseController {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'vat_stagger', $postData['vat_stagger']);
 			}
 		}
+
 		if (!empty($postData['ec_scale_list'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ec_scale_list', $postData['ec_scale_list']);
 		}
 
 		if (!empty($postData['tax_div'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_div', $postData['tax_div']);
+
 			if (!empty($postData['tax_reference'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_reference', $postData['tax_reference']);
 			}
@@ -757,6 +837,8 @@ class HomeController extends BaseController {
 		}
 
 		if (!empty($postData['paye_reg'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'paye_reg', $postData['paye_reg']);
+
 			if (!empty($postData['cis_registered'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cis_registered', $postData['cis_registered']);
 			}
@@ -784,60 +866,63 @@ class HomeController extends BaseController {
 //#############TAX INFORMATION END###################//
 
 //#############CONTACT INFORMATION START###################//
-		$step_id = 3;
-		if (!empty($postData['reg_office_addr'])) {
-			if (!empty($postData['cont_addr_type'])) {
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_addr_type', $postData['cont_addr_type']);
+		$step_id 	= 3;
+		$array 	 	= array("trad", "reg", "corres", "banker", "oldacc", "auditors", "solicitors");
+		foreach($array as $key=>$val){//echo $postData['cont_'.$val.'_addr'];die;
+			if (isset($postData['cont_'.$val.'_addr']) && $postData['cont_'.$val.'_addr'] != "") {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_'.$val.'_addr', $postData['cont_'.$val.'_addr']);
+				if (isset($postData[$val.'_name_check']) && $postData[$val.'_name_check'] != "") {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_name_check', $postData[$val.'_name_check']);
+
+					if (!empty($postData[$val.'_cont_name'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_name', $postData[$val.'_cont_name']);
+					}
+					if (!empty($postData[$val.'_cont_tele_code'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_tele_code', $postData[$val.'_cont_tele_code']);
+					}
+					if (!empty($postData[$val.'_cont_telephone'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_telephone', $postData[$val.'_cont_telephone']);
+					}
+					if (!empty($postData[$val.'_cont_mobile_code'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_mobile_code', $postData[$val.'_cont_mobile_code']);
+					}
+					if (!empty($postData[$val.'_cont_mobile'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_mobile', $postData[$val.'_cont_mobile']);
+					}
+					if (!empty($postData[$val.'_cont_email'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_email', $postData[$val.'_cont_email']);
+					}
+					if (!empty($postData[$val.'_cont_website'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_website', $postData[$val.'_cont_website']);
+					}
+					if (!empty($postData[$val.'_cont_skype'])) {
+						$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_skype', $postData[$val.'_cont_skype']);
+					}
+
+				}
+
+				if (!empty($postData[$val.'_cont_addr_line1'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_addr_line1', $postData[$val.'_cont_addr_line1']);
+				}
+				if (!empty($postData[$val.'_cont_addr_line2'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_addr_line2', $postData[$val.'_cont_addr_line2']);
+				}
+				if (!empty($postData[$val.'_cont_city'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_city', $postData[$val.'_cont_city']);
+				}
+				if (!empty($postData[$val.'_cont_county'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_county', $postData[$val.'_cont_county']);
+				}
+				if (!empty($postData[$val.'_cont_postcode'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_postcode', $postData[$val.'_cont_postcode']);
+				}
+				if (!empty($postData[$val.'_cont_country'])) {
+					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $val.'_cont_country', $postData[$val.'_cont_country']);
+				}
+
 			}
-			if (!empty($postData['cont_name'])) {
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_name', $postData['cont_name']);
-			}
 		}
-		if (!empty($postData['cont_addr_line1'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_addr_line1', $postData['cont_addr_line1']);
-		}
-		if (!empty($postData['cont_addr_line2'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_addr_line2', $postData['cont_addr_line2']);
-		}
-		if (!empty($postData['cont_city'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_city', $postData['cont_city']);
-		}
-		if (!empty($postData['cont_county'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_county', $postData['cont_county']);
-		}
-		if (!empty($postData['cont_postcode'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_postcode', $postData['cont_postcode']);
-		}
-		if (!empty($postData['cont_country'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_country', $postData['cont_country']);
-		}
-		if (!empty($postData['cont_trad_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_trad_addr', $postData['cont_trad_addr']);
-		}
-		if (!empty($postData['cont_corres_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_corres_addr', $postData['cont_corres_addr']);
-		}
-		if (!empty($postData['cont_banker_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_banker_addr', $postData['cont_banker_addr']);
-		}
-		if (!empty($postData['cont_trad_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_trad_addr', $postData['cont_trad_addr']);
-		}
-		if (!empty($postData['cont_old_acc_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_old_acc_addr', $postData['cont_old_acc_addr']);
-		}
-		if (!empty($postData['cont_auditors_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_auditors_addr', $postData['cont_auditors_addr']);
-		}
-		if (!empty($postData['cont_solicitors_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_solicitors_addr', $postData['cont_solicitors_addr']);
-		}
-		if (!empty($postData['cont_others_addr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'cont_others_addr', $postData['cont_others_addr']);
-		}
-		if (!empty($postData['notes'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'notes', $postData['notes']);
-		}
+
 //############# CONTACT INFORMATION END ###################//
 
 //############# RELATIONSHIP START ###################//
@@ -890,6 +975,19 @@ class HomeController extends BaseController {
 
 		}
 //############# SERVICES END ###################//
+
+//################## USER ADDED FIELD START ###############//
+$field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+//echo $this->last_query();die;
+if(isset($field_added) && count($field_added) > 0){
+	foreach ($field_added as $key => $value) {
+		$field_name = strtolower($value->field_name);
+		if (isset($postData[$field_name]) && $postData[$field_name] != "") {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+		}
+	}
+}
+//################## USER ADDED FIELD END ###############//
 
 		StepsFieldsClient::insert($arrData);
 		return Redirect::to('/organisation-clients');

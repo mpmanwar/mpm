@@ -213,7 +213,8 @@ $(".back").click(function(){
       $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/search/search-client',
+        //url: '/search/search-client',
+        url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
           if (resp.length != 0) {
@@ -706,7 +707,7 @@ function saveRelationship()
     //var i = Math.floor((Math.random() * 100) + 1);
 
     if(rel_client_id == ""){
-      alert("Please search and select business name");
+      alert("Please search and select business name/name");
       return false;
     }else{
       $.ajax({
