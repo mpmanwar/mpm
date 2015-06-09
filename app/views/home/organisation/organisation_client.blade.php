@@ -150,7 +150,9 @@ $(function() {
                   </li>
                   <li>
                     <!-- <button type="button" id="show_search" class="btn btn-success">Search</button> -->
-                    <a href="javascript:void(0)" id="archive_div">Show Archived</a>
+                    <?php $value = Session::get('show_archive');?>
+                    <a href="javascript:void(0)" id="archive_div">
+                      {{ (isset($value) && $value == "Y") ? "Show Archived":"Hide Archived" }}</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -199,9 +201,9 @@ $(function() {
             @if(!empty($client_details))
                 <?php $i=1; ?>
                 @foreach($client_details as $key=>$client_row)
-                  <tr class="all_check">
+                  <tr class="all_check" {{ ($client_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                     <td align="center">
-                      <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                      <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td align="center">{{ $client_row['business_type'] or "" }}</td>
                     <td align="center"><a href="/client/edit-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
