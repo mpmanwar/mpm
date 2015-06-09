@@ -114,6 +114,7 @@ Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'Clie
 Route::any('/client/get-subsection', array("as"=>"get_subsection", "uses"=>'ClientController@get_subsection'));
 Route::any('/client/edit-client/{id}', array("as"=>"edit_client", "uses"=>'ClientController@edit_client'));
 Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
-Route::any('/client/archive-clients', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
+Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
+Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "uses"=>'ClientController@show_archive_client'));
 ### Routes for Client URL's end ###
 

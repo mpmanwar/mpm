@@ -247,12 +247,32 @@ class ClientController extends BaseController {
 	}
 
 	public function archive_client() {
+		Session::put('show_archive', 'Y');
+
 		$clients_id = Input::get("client_id");
+		$status = Input::get("status");
 		//print_r($clients_id);die;
 		foreach ($clients_id as $client_id) {
-			Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"Y"));
+			if($status == "Archive"){
+				Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"Y", "show_archive"=>"Y"));
+			}else{
+				Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"N", "show_archive"=>"N"));
+			}
+			
 			//echo $this->last_query();die;
 		}
+	}
+
+	public function show_archive_client() {
+		$is_archive = Input::get("is_archive");
+		if($is_archive == "Y"){
+			Session::put('show_archive', 'Y');
+		}else{
+			Session::put('show_archive', 'N');
+		}
+
+		$affected = DB::table('clients')->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
+		//echo $this->last_query();die;
 	}
 
 }

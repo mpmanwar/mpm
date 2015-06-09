@@ -34,14 +34,15 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$client_ids = Client::where("type", "=", "ind")->whereIn("user_id", $groupUserId)->select("client_id")->get();
+		$client_ids = Client::where("type", "=", "ind")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				
-                $client_data[$i]['client_id'] = $client_id->client_id;
+                $client_data[$i]['client_id'] 		= $client_id->client_id;
+                $client_data[$i]['show_archive'] 	= $client_id->show_archive;
 
 				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
@@ -82,7 +83,7 @@ class HomeController extends BaseController {
 
 		$data['client_fields'] = ClientField::where("field_type", "=", "ind")->get();
 //die;
-		//print_r($data);die;
+		//print_r($data['client_details']);die;
 		return View::make('home.individual.individual_client', $data);
 	}
 
@@ -98,7 +99,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("type", "=", "org")->whereIn("user_id", $groupUserId)->select("client_id")->get();
+		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {

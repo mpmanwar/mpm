@@ -12,10 +12,26 @@ $(document).ready(function(){
 		$('input').iCheck('uncheck');
 	});
 
-	/*$("input[name='client_delete_id[]']").on('ifUnchecked', function(event){
-		//$(this).removeAttr('checked');
-		$(this).iCheck('uncheck');
-	});*/
+	$(".ads_Checkbox").on('ifChecked', function(event){
+    $(".ads_Checkbox:checked").each( function (i) {
+        if($(this).data("archive") == "Y"){
+          $("#archivedButton").html('Un-Archive');
+        }else{
+          $("#archivedButton").html('Archive');
+        }
+    });
+		
+	});
+  $(".ads_Checkbox").on('ifUnchecked', function(event){
+    $(".ads_Checkbox:checked").each( function (i) {
+        if($(this).data("archive") == "Y"){
+          $("#archivedButton").html('Un-Archive');
+        }else{
+          $("#archivedButton").html('Archive');
+        }
+    });
+    
+  });
 
 
 	$('#deleteClients').click(function() {
@@ -392,11 +408,31 @@ $(".back").click(function(){
 
 //Show Archived in add individual client
   $("#archive_div").click(function(){
-      if($(this).html() == 'Show Archived'){
-        $(this).html('Hide Archived');
-      }else{
-        $(this).html('Show Archived')
+    var client_type = $("#client_type").val();
+    var is_archive;
+    var html = $(this).html();
+    if($.trim(html) == 'Show Archived'){
+      is_archive  = 'N';
+      //$(this).html('Hide Archived');
+    }else{
+      is_archive  = 'Y';
+      //$(this).html('Show Archived');
+    }
+    //alert(is_archive);return false;
+    $.ajax({
+      type: "POST",
+      url: '/client/show-archive-client',
+      data: { 'is_archive' : is_archive },
+      success : function(resp){//return false;
+        if(client_type == "org"){
+          window.location = '/organisation-clients';
+        }else{
+          window.location = '/individual-clients';
+        }
+        
       }
+    });
+      
       //$("#archivedButton").toggle();
   });
 
@@ -411,11 +447,12 @@ $(".back").click(function(){
     //alert(val.length);return false;
     if(val.length>0){
       var client_type = $("#client_type").val();
+      var status = $.trim($(this).html());
       if(confirm("Do you want to change the status of the client?")){
         $.ajax({
             type: "POST",
-            url: '/client/archive-clients',
-            data: { 'client_id' : val },
+            url: '/client/archive-client',
+            data: { 'client_id' : val, 'status' : status },
             success : function(resp){
               if(client_type == "org"){
                 window.location = '/organisation-clients';
