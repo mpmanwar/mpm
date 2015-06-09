@@ -338,7 +338,13 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
 		
-		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
+		if(isset($postData['client_id']) && $postData['client_id'] == "new"){
+			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
+		}else{
+			$client_id = $postData['client_id'];
+			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
+		}
+		
 
 //################ GENERAL SECTION START #################//
 		$step_id = 1;
@@ -453,11 +459,18 @@ class HomeController extends BaseController {
 		if (!empty($postData['serv_country'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_country', $postData['serv_country']);
 		}
+		if (!empty($postData['serv_tele_code'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_tele_code', $postData['serv_tele_code']);
+		}
 		if (!empty($postData['serv_telephone'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'telephone', $postData['serv_tele_code'] . " " . $postData['serv_telephone']);
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_telephone', $postData['serv_telephone']);
+		}
+		if (!empty($postData['serv_mobile_code'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_mobile_code', $postData['serv_mobile_code']);
+
 		}
 		if (!empty($postData['serv_mobile'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'mobile', $postData['serv_mobile_code'] . " " . $postData['serv_mobile']);
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_mobile', $postData['serv_mobile']);
 
 		}
 		if (!empty($postData['serv_email'])) {

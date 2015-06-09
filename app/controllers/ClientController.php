@@ -267,4 +267,18 @@ class ClientController extends BaseController {
 		//echo $this->last_query();die;
 	}
 
+	public function edit_relation_type()
+	{
+		$data['relation_type'] = Input::get("relation_type");
+		$client_type = Input::get("client_type");
+		if($client_type == "org"){
+			$data['relationship'] = RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
+		}else{
+			$data['relationship'] = RelationshipType::orderBy("relation_type_id")->get();
+		}
+
+		echo View::make("home.relationship_types", $data);
+		
+	}
+
 }

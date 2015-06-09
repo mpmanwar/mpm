@@ -32,7 +32,6 @@ $(document).ready(function(){
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         @include('layouts.outer_leftside')
-                        
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -45,26 +44,13 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
+    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
     <section class="content">
 
       <div class="row">
         <div class="top_bts">
           <ul>
-            <!-- <li>
-              <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li>
-            <li>
-              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
-            </li>
-            <li>
-              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
-            </li>
-            <li>
-              <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li>
-            <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
+            
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
@@ -308,7 +294,7 @@ $(document).ready(function(){
 
 
                 <div class="add_client_btn">
-                    <button class="btn btn-info open" data-id="2" type="button">Next</button>
+                    <button class="btn btn-info open" data-id="2" type="button">Save/Edit</button>
                     <!-- <button class="btn btn-success" type="button">Save</button> -->
                     <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
                 </div>
@@ -508,7 +494,7 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open"data-id="3" type="button">Next</button>
+<button class="btn btn-info open"data-id="3" type="button">Save/Edit</button>
 <!-- <button class="btn btn-success" type="button">Save</button> -->
 <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
 </div>
@@ -844,7 +830,7 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="4" type="button">Next</button>
+<button class="btn btn-info open" data-id="4" type="button">Save/Edit</button>
 <!-- <button class="btn btn-success" type="button">Save</button> -->
 <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
@@ -910,7 +896,7 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
-      <div class="search_value" id="show_search_client"></div>
+      <div class="search_value show_search_client" id="show_search_client"></div>
     </div>
 
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
@@ -934,7 +920,7 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="5" type="button">Next</button>
+<button class="btn btn-info open" data-id="5" type="button">Save/Edit</button>
 <!-- <button class="btn btn-success" type="button">Save</button> -->
 <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>

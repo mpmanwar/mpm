@@ -1832,7 +1832,7 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-      <div class="search_value" id="show_search_client"></div>
+      <div class="search_value show_search_client" id="show_search_client"></div>
     </div>
 
     <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
@@ -2326,7 +2326,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD to List</h4>
+        <h4 class="modal-title">Add to List</h4>
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}

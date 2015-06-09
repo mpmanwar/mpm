@@ -117,5 +117,6 @@ Route::any('/client/edit-ind-client/{id}', array("as"=>"edit_ind_client", "uses"
 Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
 Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
 Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "uses"=>'ClientController@show_archive_client'));
+Route::any('/client/edit-relation-type', array("as"=>"edit_relation_type", "uses"=>'ClientController@edit_relation_type'));
 ### Routes for Client URL's end ###
 

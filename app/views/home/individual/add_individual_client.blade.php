@@ -14,9 +14,11 @@
 <script>
 $(document).ready(function(){
     $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-100:+0"});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+    $(".app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
     $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
-})
+
+});
+
 </script>
 
     
@@ -45,6 +47,7 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
+    <input name="client_id" type="hidden" value="new">
     <section class="content">
 
       <div class="row">
@@ -896,10 +899,10 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
-      <div class="search_value" id="show_search_client"></div>
+      <div class="search_value show_search_client" id="show_search_client"></div>
     </div>
 
-    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
+    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control app_date"></div>
 
     <div class="contain_type">
       <select class="form-control" name="rel_type_id" id="rel_type_id">
@@ -913,8 +916,6 @@ $(document).ready(function(){
     
     <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
   </div>
-    
-
 
 </div>
 </div>
