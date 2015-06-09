@@ -48,13 +48,28 @@ class ClientController extends BaseController {
 		$data['subsections'] = App::make('HomeController')->buildtree($steps, "ind");
 		//###########User added section and sub section start##########//
 
-
 		//############# Get client data start ################//
-		$data['relationship'] = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
-            ->join('users', 'users.user_id', '=', 'cr.appointment_with')
+		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'users.fname', 'users.lname')
-            ->get();
+            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.client_id')->get();
+        if(isset($relationship) && count($relationship) >0 )
+        {
+        	foreach ($relationship as $key => $row) {
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->client_id)->first();
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data['relationship'][$key]['name'] = $client_name['field_value'];
+        		}else{
+        			/*$client_name = StepsFieldsClient::where("client_id", "=", $row->client_id)->first();
+        			if(isset($client_name) && count($client_name) >0 ){
+
+        			}*/
+        			$data['relationship'][$key]['name'] = "Processing...";
+        		}
+        		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
+        		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
+        		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
+        	}
+        }
         //echo $this->last_query();die;
 
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
@@ -279,6 +294,14 @@ class ClientController extends BaseController {
 
 		echo View::make("home.relationship_types", $data);
 		
+	}
+
+	public function delete_relationship()
+	{
+		$delete_index = Input::get("delete_index");
+		$client_type = Input::get("client_type");
+		$resp = ClientRelationship::where("client_relationship_id", "=", $delete_index)->delete();
+		echo $resp;
 	}
 
 }

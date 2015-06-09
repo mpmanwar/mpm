@@ -880,12 +880,12 @@ $(document).ready(function(){
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
-      <tr id="added_tr'+i+'">
-        <td width="25%">{{ $relation_row->fname }} {{ $relation_row->lname }}</td>
-        <td width="30%" align="center">{{ $relation_row->appointment_date }}</td>
-        <td width="30%" align="center">{{ $relation_row->relation_type }}</td>
+      <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
+        <td width="25%">{{ $relation_row['name'] or "" }}</td>
+        <td width="30%" align="center">{{ $relation_row['appointment_date'] }}</td>
+        <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="15%" align="center">
-          <a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a>
+          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
         </td>
       </tr>
     @endforeach

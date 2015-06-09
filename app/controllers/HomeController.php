@@ -655,7 +655,6 @@ class HomeController extends BaseController {
 		$ind_client = $this->getIndClient($clients, $search_value);
 		$client_details = array_merge($org_client, $ind_client);
 
-//print_r($client_details);die;
 		echo json_encode($client_details);
 		exit();
 	}
