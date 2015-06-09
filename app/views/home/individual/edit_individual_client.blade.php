@@ -13,9 +13,9 @@
 <!-- Date picker script -->
 <script>
 $(document).ready(function(){
-    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
-    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
-    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
+    $("#dob").datepicker({minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-100:+0"});
+    $("#app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+    $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 })
 </script>
 
@@ -116,7 +116,7 @@ $(document).ready(function(){
 
 <div class="n_box1">
 <label for="exampleInputPassword1">Client Code</label>
-  <input type="text" id="client_code" name="client_code" class="form-control toUpperCase"></div>
+  <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase"></div>
 </div>
 
 <div class="form-group">
@@ -127,19 +127,19 @@ $(document).ready(function(){
 <select class="form-control select_title" id="title" name="title">
   @if(!empty($titles))
     @foreach($titles as $key=>$title_row)
-    <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
+    <option value="{{ $title_row->title_name }}" {{ ($title_row->title_name == $client_details['title'])?"selected":"" }}>{{ $title_row->title_name }}</option>
     @endforeach
   @endif
 </select></div>
 <div class="n_box2">
     <label for="exampleInputPassword1">First Name</label>
-    <input type="text" id="fname" name="fname" class="form-control toUpperCase"></div>
+    <input type="text" id="fname" name="fname" value="{{ $client_details['fname'] or "" }}" class="form-control toUpperCase"></div>
 <div class="n_box3">
     <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="mname" name="mname" class="form-control"></div>
+    <input type="text" id="mname" name="mname" value="{{ $client_details['mname'] or "" }}" class="form-control"></div>
 <div class="n_box4">
     <label for="exampleInputPassword1">Last Name</label>
-    <input type="text" id="lname" name="lname" class="form-control toUpperCase"></div>
+    <input type="text" id="lname" name="lname" value="{{ $client_details['lname'] or "" }}" class="form-control toUpperCase"></div>
 <div class="clearfix"></div>
 </div>
 
@@ -148,8 +148,8 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Gender</label>
 <select class="form-control" name="gender" id="gender">
-  <option value="Male">Male</option>
-  <option value="Female">Female</option>
+  <option value="Male" {{ ($client_details['gender'] == "Male")?"selected":"" }}>Male</option>
+  <option value="Female" {{ ($client_details['gender'] == "Female")?"selected":"" }}>Female</option>
 </select>
 </div>
 </div>
@@ -157,7 +157,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="dob" name="dob" class="form-control">
+<input type="text" id="dob" name="dob" value="{{ $client_details['dob'] or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -170,7 +170,7 @@ $(document).ready(function(){
 <select class="form-control" name="marital_status" id="marital_status">
   @if(!empty($marital_status))
     @foreach($marital_status as $key=>$status_row)
-    <option value="{{ $status_row->merital_status_id }}">{{ $status_row->status_name }}</option>
+    <option value="{{ $status_row->merital_status_id }}" {{ (isset($client_details['marital_status']) && $status_row->merital_status_id == $client_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
     @endforeach
   @endif
 </select>
@@ -180,7 +180,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Spouse Date of Birth</label>
-<input type="text" id="spouse_dob" name="spouse_dob" class="form-control">
+<input type="text" id="spouse_dob" name="spouse_dob" value="{{ $client_details['spouse_dob'] or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -195,14 +195,14 @@ $(document).ready(function(){
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-    <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-    <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
@@ -213,7 +213,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Occupation</label>
-<input type="text" id="occupation" name="occupation" class="form-control">
+<input type="text" id="occupation" name="occupation" value="{{ $client_details['occupation'] or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -343,7 +343,7 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">NI Number</label>
-<input type="text" id="ni_number" name="ni_number" class="form-control">
+<input type="text" id="ni_number" name="ni_number" value="{{ $client_details['ni_number'] or "" }}" class="form-control">
 
 </div>
 </div>
@@ -351,7 +351,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Reference</label>
-<input type="text" id="tax_reference" name="tax_reference" class="form-control">
+<input type="text" id="tax_reference" name="tax_reference" value="{{ $client_details['tax_reference'] or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -366,7 +366,7 @@ $(document).ready(function(){
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
       @if($office_row->parent_id == 0)
-        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+        <option value="{{ $office_row->office_id }}"{{ (isset($client_details['tax_office_id']) && $office_row->office_id == $client_details['tax_office_id'])?"selected":"" }}>{{ $office_row->office_name }}</option>
       @endif
     @endforeach
   @endif
@@ -399,7 +399,7 @@ $(document).ready(function(){
 
 <div class="form-group">
 <label for="exampleInputPassword1">Address</label>
-<textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $tax_office_by_id->address  or "" }}</textarea>
+<textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $client_details['tax_address'] or "" }}</textarea>
 
 </div>
 
@@ -408,14 +408,14 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Postal/Zip Code</label>
-<input type="text" id="tax_zipcode" name="tax_zipcode" value="{{ $tax_office_by_id->zipcode  or "" }}" class="form-control">
+<input type="text" id="tax_zipcode" name="tax_zipcode" value="{{ $client_details['tax_zipcode'] or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Telephone</label>
-<input type="text" id="tax_telephone" name="tax_telephone" value="{{ $tax_office_by_id->telephone  or "" }}" class="form-control">
+<input type="text" id="tax_telephone" name="tax_telephone" value="{{ $client_details['tax_telephone']  or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -558,13 +558,13 @@ $(document).ready(function(){
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line1</label>
-<input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control" />
+<input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $client_details['res_addr_line1']  or "" }}" class="form-control" />
 
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line2</label>
-<input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control" />
+<input type="text" id="res_addr_line2" name="res_addr_line2" value="{{ $client_details['res_addr_line2']  or "" }}" class="form-control" />
 
 </div>
 
@@ -572,14 +572,14 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">City/Town</label>
-<input type="text" id="res_city" name="res_city" class="form-control">
+<input type="text" id="res_city" name="res_city" value="{{ $client_details['res_city']  or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">County</label>
-<input type="text" id="res_county" name="res_county" class="form-control">
+<input type="text" id="res_county" name="res_county" value="{{ $client_details['res_county']  or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -589,7 +589,7 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="res_postcode" name="res_postcode" class="form-control">
+<input type="text" id="res_postcode" name="res_postcode" value="{{ $client_details['res_postcode']  or "" }}" class="form-control">
 </div>
 </div>
 
@@ -600,14 +600,14 @@ $(document).ready(function(){
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($client_details['res_country']) && $country_row->country_id == $client_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($client_details['res_country']) && $country_row->country_id == $client_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
@@ -641,7 +641,7 @@ $(document).ready(function(){
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldserv_address" data-type="serv">
-    <option value="">-- Select Address --</option><option value="1">1</option>
+    <option value="">-- Select Address --</option>
       @if(!empty($cont_address))
         @foreach($cont_address as $key=>$address_row)
           @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
@@ -653,26 +653,26 @@ $(document).ready(function(){
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line1</label>
-<input type="text" id="serv_addr_line1" name="serv_addr_line1" class="form-control" />
+<input type="text" id="serv_addr_line1" name="serv_addr_line1" value="{{ $client_details['serv_addr_line1']  or "" }}" class="form-control" />
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line2</label>
-<input type="text" id="serv_addr_line2" name="serv_addr_line2" class="form-control" />
+<input type="text" id="serv_addr_line2" name="serv_addr_line2" value="{{ $client_details['serv_addr_line2']  or "" }}" class="form-control" />
 </div>
 
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">City/Town</label>
-<input type="text" id="serv_city" name="serv_city" class="form-control">
+<input type="text" id="serv_city" name="serv_city" value="{{ $client_details['serv_city']  or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">County</label>
-<input type="text" id="serv_county" name="serv_county" class="form-control">
+<input type="text" id="serv_county" name="serv_county" value="{{ $client_details['serv_county']  or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -682,7 +682,7 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="serv_postcode" name="serv_postcode" class="form-control">
+<input type="text" id="serv_postcode" name="serv_postcode" value="{{ $client_details['serv_postcode']  or "" }}" class="form-control">
 </div>
 </div>
 
@@ -693,14 +693,14 @@ $(document).ready(function(){
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($client_details['serv_country']) && $country_row->country_id == $client_details['serv_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($client_details['serv_country']) && $country_row->country_id == $client_details['serv_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
@@ -717,12 +717,12 @@ $(document).ready(function(){
   <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
   <option value="44">44</option>
   </select> -->
-  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" readonly />
+  <input type="text" id="serv_tele_code" value="{{ $client_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
 </div>
 
 <div class="telbox">
 <label for="exampleInputPassword1">Telephone</label>
-    <input type="text" id="serv_telephone" name="serv_telephone" class="form-control"></div>
+    <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $client_details['serv_telephone']  or "" }}" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
@@ -730,31 +730,31 @@ $(document).ready(function(){
 
 <div class="n_box01">
   <label for="exampleInputPassword1">Country Code</label>
-  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" readonly />
+  <input type="text" id="serv_mobile_code" value="{{ $client_details['serv_mobile_code']  or "" }}" name="serv_mobile_code" class="form-control" readonly />
 <!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
 <option value="44">44</option>
 </select> -->
 </div>
 <div class="telbox">
 <label for="exampleInputPassword1">Mobile</label>
-    <input type="text" id="serv_mobile" name="serv_mobile" class="form-control"></div>
+    <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $client_details['serv_mobile']  or "" }}" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
 
 <div class="form-group">
 <label for="exampleInputPassword1">Email</label>
-<input type="text" id="serv_email" name="serv_email" class="form-control">
+<input type="text" id="serv_email" name="serv_email" value="{{ $client_details['serv_email']  or "" }}" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Website</label>
-<input type="text" id="serv_website" name="serv_website" class="form-control">
+<input type="text" id="serv_website" name="serv_website" value="{{ $client_details['serv_website']  or "" }}" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Skype</label>
-<input type="text" id="serv_skype" name="serv_skype" class="form-control">
+<input type="text" id="serv_skype" name="serv_skype" value="{{ $client_details['serv_skype']  or "" }}" class="form-control">
 </div>
 
 
@@ -891,6 +891,20 @@ $(document).ready(function(){
     <td width="30%" align="center"><strong>Relationship Type</strong></td>
     <td width="15%" align="center"><strong>Action</strong></td>
   </tr>
+
+  @if(isset($relationship) && count($relationship) >0 )
+    @foreach($relationship as $key=>$relation_row)
+      <tr id="added_tr'+i+'">
+        <td width="25%">{{ $relation_row->fname }} {{ $relation_row->lname }}</td>
+        <td width="30%" align="center">{{ $relation_row->appointment_date }}</td>
+        <td width="30%" align="center">{{ $relation_row->relation_type }}</td>
+        <td width="15%" align="center">
+          <a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a>
+        </td>
+      </tr>
+    @endforeach
+  @endif
+
 </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
@@ -959,21 +973,21 @@ $(document).ready(function(){
 <div class="twobox_01">
 <div class="form-group">
 <label for="exampleInputPassword1">AML Checks Done</label>
-<input type="checkbox" name="aml_checks" value="1" />
+<input type="checkbox" name="aml_checks" value="1" {{ (isset($client_details['aml_checks']) && $client_details['aml_checks'] == "1")?"checked":"" }} />
 </div>
 </div>
 
 <div class="twobox_02">
 <div class="form-group">
 <label for="exampleInputPassword1">Acting?</label>
-<input type="checkbox" name="acting" value="1" />
+<input type="checkbox" name="acting" value="1" {{ (isset($client_details['acting']) && $client_details['acting'] == "1")?"checked":"" }} />
 </div>
 </div>
 
 <div class="twobox_03">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Return Required</label>
-<input type="checkbox" name="tax_ret_req" value="1" />
+<input type="checkbox" name="tax_ret_req" value="1" {{ (isset($client_details['tax_ret_req']) && $client_details['tax_ret_req'] == "1")?"checked":"" }} />
 </div>
 </div>
 
@@ -988,7 +1002,7 @@ $(document).ready(function(){
   <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+      <option value="{{ $staff_row->user_id }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row->user_id )?"selected":"" }}>{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
     @endforeach
   @endif
 
@@ -1144,7 +1158,7 @@ $(document).ready(function(){
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
-          <select class="form-control show_subsec" name="step_id" id="step_id">
+          <select class="form-control show_subsec" name="step_id" id="step_id" data-client_type="ind">
             @if( isset($steps) && count($steps) >0 )
               @foreach($steps as $key=>$step_row)
                 @if($step_row->step_id != '4' && $step_row->status == "old")
@@ -1155,25 +1169,13 @@ $(document).ready(function(){
           </select>
         </div>
 
-        <!-- <div class="form-group">
-          <label for="exampleInputPassword1">Subsection Name</label>
-          <input type="text" placeholder="Search or Add" id="subsec_name" name="subsec_name" class="form-control">
-          <div class="search_value" id="show_addnew_section" style="width:86.5%;">
-            <ul>
-              <li class='putClientName'><a href="javascript:void(0)" class="add_subsec_name">Add new ...</a></li>
-            </ul>
-          </div>
-        </div> -->
-
         <div class="form-group">
           <label for="exampleInputPassword1">Subsection Name</label>
           <select class="form-control subsec_change" name="substep_id" id="substep_id">
             <option value="">-- Select sub section --</option>
-            @if( isset($steps) && count($steps) >0 )
-              @foreach($steps as $key=>$step_row)
-                @if($step_row->status == "new" && $step_row->parent_id == 1)
-                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
-                @endif
+            @if( isset($substep) && count($substep) >0 )
+              @foreach($substep as $key=>$substep_row)
+                <option value="{{ $substep_row['step_id'] }}">{{ $substep_row['title'] }}</option>
               @endforeach
             @endif
             <option value="new">Add new ...</option>
@@ -1181,7 +1183,7 @@ $(document).ready(function(){
         </div>
         <div class="input-group show_new_div" style="display:none;">
             <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name"><i class="fa fa-plus"></i></a></span>
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="ind"><i class="fa fa-plus"></i></a></span>
         </div>
 
         <div class="form-group">

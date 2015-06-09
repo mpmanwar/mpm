@@ -182,7 +182,7 @@ class HomeController extends BaseController {
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
-		$data['responsible_staff'] 	= User::select('fname', 'lname', 'user_id')->get();
+		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
@@ -233,7 +233,7 @@ class HomeController extends BaseController {
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['subsections'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->orderBy("step_id")->get();
-		$data['staff_details'] 	= User::select("user_id", "fname", "lname")->get();
+		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
 		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);

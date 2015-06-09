@@ -161,23 +161,6 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-            <!-- <div class="table_top_box">
-            <ul>
-            <li style="width:auto;"><input type="button" value="Clear"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-            <li><input type="text" class="s_box"></li>
-                       
-            </ul>
-            <div class="clearfix"></div>
-                      
-            </div> -->
-            
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
@@ -206,7 +189,7 @@ $(function() {
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td align="center">{{ $client_row['business_type'] or "" }}</td>
-                    <td align="center"><a href="/client/edit-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
+                    <td align="center"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
                     <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['acc_ref_month'] or "" }}</td>
                     <td align="center">{{ $client_row['next_acc_due'] or "" }}</td>
                     <td align="center">{{ $client_row['deadacc_count'] or "" }}</td>

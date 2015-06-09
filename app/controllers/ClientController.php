@@ -1,84 +1,76 @@
 <?php
 
 class ClientController extends BaseController {
-	public function edit_client($client_id)
+	public function edit_ind_client($client_id)
 	{
 		$data['title'] = "Edit Client";
         $data['heading'] = "";
-        $admin_s = Session::get('admin_details'); // session
-        $user_id = $admin_s['id'];
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $groupUserId = $session['group_users'];
 
-        $data['rel_types'] = RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
-        $data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
-        $data['titles'] = Title::orderBy("title_id")->get();
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+        
+        $data['rel_types'] 	= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
+		$data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
+		$data['titles'] 		= Title::orderBy("title_id")->get();
+		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
+		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
+		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
+		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
+		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
+		$data['countries'] 			= Country::orderBy('country_name')->get();
+		$data['field_types'] 		= FieldType::get();
+		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
+
+		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
+		foreach ($steps_fields_users as $key => $steps_fields_row) {
+			$steps_fields_users[$key]->select_option = explode(",", $steps_fields_row->select_option);
+		}
+		$data['steps_fields_users'] = $steps_fields_users;
+
+		//###########User added section and sub section start##########//
+		$steps = array();
+		$subsections = Step::whereIn("user_id", $groupUserId)->where("status", "=", "new")->get();
+		//echo $this->last_query();die;
+		foreach ($subsections as $key => $val) {
+			if (isset($val->status) && $val->status == "new") {
+				$steps[$key]['step_id'] 	= $val->step_id;
+				$steps[$key]['parent_id'] 	= $val->parent_id;
+				$steps[$key]['short_code'] 	= $val->short_code;
+				$steps[$key]['title'] 		= $val->title;
+				$steps[$key]['status'] 		= $val->status;
+			}
+
+		}
+		$data['subsections'] = App::make('HomeController')->buildtree($steps, "ind");
+		//###########User added section and sub section start##########//
 
 
-        $data['tax_office'] = TaxOfficeAddress::select("parent_id", "office_id",
-            "office_name")->get();
-        $data['tax_office_by_id'] = TaxOfficeAddress::where("office_id", "=", 1)->first();
-        $data['steps'] = Step::orderBy("step_id")->get();
-        $data['responsible_staff'] = User::select('fname', 'lname', 'user_id')->get();
-        $data['countries'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
-            get();
-        $data['field_types'] = FieldType::get();
+		//############# Get client data start ################//
+		$data['relationship'] = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
+            ->join('users', 'users.user_id', '=', 'cr.appointment_with')
+            ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
+            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'users.fname', 'users.lname')
+            ->get();
+        //echo $this->last_query();die;
 
-        $i = 0;
-        $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->
-            select("field_id", "field_name", "field_value")->get();
-        $client_data[$i]['client_id'] = $client_id;
-        $appointment_name = ClientRelationship::where('client_id', '=', $client_id)->
-            select("appointment_with")->first();
+		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 
-        $relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->
-            where('field_name', '=', "business_name")->select("field_value")->first();
-
+		$client_data['client_id'] 		= $client_id;	
 
         if (isset($client_details) && count($client_details) > 0) {
-            foreach ($client_details as $client_row) {
-                //get staff name start
-                if (!empty($client_row['field_name']) && $client_row['field_name'] ==
-                    "resp_staff") {
-                    $staff_name = User::where('user_id', '=', $client_row->field_value)->select("fname",
-                        "lname")->first();
-                    //echo $this->last_query();die;
-                    $client_data[$i]['staff_name'] = strtoupper(substr($staff_name['fname'], 0, 1)) .
-                        " " . strtoupper(substr($staff_name['lname'], 0, 1));
-                }
-                //get staff name end
+			foreach ($client_details as $client_row) {
+				$client_data[$client_row['field_name']] = $client_row->field_value;
+			}
+		}
 
-                //get business name start
-                if (!empty($relation_name['field_value'])) {
-                    $client_data[$i]['business_name'] = $relation_name['field_value'];
-                }
+		$data['client_details'] 	=	$client_data;
 
-                //get business name end
-				if (isset($client_row['field_name']) && $client_row['field_name'] ==
-                    "business_type") {
-                    $business_type = OrganisationType::where('organisation_id', '=', $client_row->
-                        field_value)->first();
-                    $client_data[$i][$client_row['field_name']] = $business_type['name'];
-                } else {
-                    $client_data[$i][$client_row['field_name']] = $client_row->field_value;
-                }
-
-            }
-
-            $i++;
-        }
-        $data['client_details'] = $client_data;
-
-        $data['client_fields'] = ClientField::where("field_type", "=", "ind")->first();
-
-        
-        $data['name'] = StepsFieldsClient::select('field_value')->where("client_id",
-            "=", $client_id)->where("field_name", "=", 'name')->first();
-        $value = $data['name']['field_value'];
-
-		$value = explode(" ", $data['name']['field_value']);
-
-		$data['name_id'] = Title::select('title_id')->where("title_name","=",$value[0])->first();
-        
-        $value=  $data['name']['field_value'];
+		//print_r($data['relationship']);die;
+		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);
    
