@@ -34,14 +34,14 @@ $(function() {
       "aoColumns":[
             {"bSortable": false},
             
-            {"bSortable": false},
-            {"bSortable": false},
-            {"bSortable": false},
-            {"bSortable": false},
-            {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": false},
-            {"bSortable": false}
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true}
         ]
 
     });
