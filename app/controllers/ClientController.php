@@ -51,7 +51,7 @@ class ClientController extends BaseController {
 		//############# Get client data start ################//
 		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.client_id')->get();
+            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id')->get();
         if(isset($relationship) && count($relationship) >0 )
         {
         	foreach ($relationship as $key => $row) {

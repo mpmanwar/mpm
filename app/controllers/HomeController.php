@@ -490,10 +490,11 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
+				$app_date = explode("-", $rel_row['1']);
 				$relData[] = array(
 					'client_id' => $client_id,
 					'appointment_with' => $rel_row['0'],
-					'appointment_date' => date("Y-m-d H:i:s", strtotime($rel_row['1'])),
+					'appointment_date' => $app_date[2]."-".$app_date[1]."-".$app_date[0],
 					'relationship_type_id' => $rel_row['2'],
 				);
 			}
