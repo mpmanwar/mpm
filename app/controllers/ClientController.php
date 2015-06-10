@@ -59,11 +59,23 @@ class ClientController extends BaseController {
         		if(isset($client_name) && count($client_name) >0 ){
         			$data['relationship'][$key]['name'] = $client_name['field_value'];
         		}else{
-        			/*$client_name = StepsFieldsClient::where("client_id", "=", $row->client_id)->first();
-        			if(isset($client_name) && count($client_name) >0 ){
-
-        			}*/
-        			$data['relationship'][$key]['name'] = "Processing...";
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->client_id)->get();
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				}
+        			}
+        			$data['relationship'][$key]['name'] = trim($name);
         		}
         		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
@@ -302,6 +314,28 @@ class ClientController extends BaseController {
 		$client_type = Input::get("client_type");
 		$resp = ClientRelationship::where("client_relationship_id", "=", $delete_index)->delete();
 		echo $resp;
+	}
+
+	public function save_database_relationship()
+	{
+		$data = array();
+		$type = "";
+		$edit_id = Input::get("edit_id");
+		$date = explode("-", Input::get("app_date"));
+
+		if(Input::get("rel_client_id") != ""){
+			$data['appointment_with'] = Input::get("rel_client_id");
+		}
+		$data['appointment_date'] = $date[2]."-".$date[1]."-".$date[0];
+		$data['relationship_type_id'] = Input::get("rel_type_id");
+		
+		$resp = ClientRelationship::where("client_relationship_id", "=", $edit_id)->update($data);
+		//echo $this->last_query();die;
+		if($resp){
+			$relationship = RelationshipType::where("relation_type_id", "=", $data['relationship_type_id'])->first();
+			$type = $relationship['relation_type'];
+		}
+		echo $type;
 	}
 
 }
