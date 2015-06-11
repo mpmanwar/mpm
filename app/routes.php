@@ -122,3 +122,9 @@ Route::any('/client/delete-relationship', array("as"=>"delete_relationship", "us
 Route::any('/client/save-database-relationship', array("as"=>"save_database_relationship", "uses"=>'ClientController@save_database_relationship'));
 ### Routes for Client URL's end ###
 
+
+
+## Company House Data Start ##
+Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
+## Company House Data End ##
+
