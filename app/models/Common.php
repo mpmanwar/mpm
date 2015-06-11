@@ -63,4 +63,20 @@ class Common extends Eloquent {
 	    }
 	}
 
+	public static function getDayCount($from)
+	{
+		$arr = explode('/', $from);
+		$days = 0;
+		if( $from != "" ){
+			$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
+			$date2 = date("Y-m-d");
+			//echo $date2;die;
+
+			$diff = abs(strtotime($date2) - strtotime($date1));
+			$days = round($diff/86400);
+		}
+		
+		return $days;
+	}
+
 }

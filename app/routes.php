@@ -126,5 +126,6 @@ Route::any('/client/save-database-relationship', array("as"=>"save_database_rela
 
 ## Company House Data Start ##
 Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
+Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'ChdataController@chdata_details'));
 ## Company House Data End ##
 

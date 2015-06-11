@@ -2,43 +2,46 @@
 class ChdataController extends BaseController {
 	
 	public function index()
-	{//phpinfo();die;
-		$data = array();
+	{
+		$data 			= array();
+		$details_data 	= array();
+		$data['heading'] 	= "CH DATA";
+		$data['title'] 		= "Ch Data";
+		
 		$numbers = CompanyNumber::orderBy("cn_id")->get();
 		if(isset($numbers) && count($numbers) >0 ){
 			foreach ($numbers as $key => $row) {
-				$data[$key]['details'] = $this->getCompanyDetails($row->number);
-				print_r($data[$key]['details']);die;
+				$details = Common::getCompanyDetails($row->number);
+				if(isset($details) && count($details) >0 ){
+					$details_data[$key]['company_number'] 		= $details->primaryTopic->CompanyNumber;
+					$details_data[$key]['company_name'] 		= $details->primaryTopic->CompanyName;
+					$details_data[$key]['incorporation_date'] 	= $details->primaryTopic->IncorporationDate;
+					$details_data[$key]['acc_ref_date'] 		= $details->primaryTopic->Accounts->AccountRefDay."/".$details->primaryTopic->Accounts->AccountRefMonth;
+					$details_data[$key]['auth_code'] 			= "";
+					$details_data[$key]['last_ret_made_date'] 	= $details->primaryTopic->Returns->LastMadeUpDate;
+					$details_data[$key]['next_due_date'] 		= $details->primaryTopic->Returns->NextDueDate;
+					$details_data[$key]['count_down'] 			= Common::getDayCount($details->primaryTopic->Returns->NextDueDate);
+
+				}
 			}
 		}
+		$data['company_details']	= $details_data;
+		//print_r($details);die;
+		return View::make('ch_data.chdata_list', $data);
+		
 
-		//print_r($data);
 	}
 
-	public function getCompanyDetails($int)
+	public function chdata_details($number)
 	{
-		$ch = curl_init();
-	    curl_setopt($ch, CURLOPT_URL, 'http://data.companieshouse.gov.uk/doc/company/' . $int . '.json'); 
-	    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); 
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch, CURLOPT_HEADER, false);
-	    curl_setopt($ch, CURLOPT_TIMEOUT, '10');
-	    
-	    $result = curl_exec($ch);
-	    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	    
-	    curl_close($ch);
-	    
-	    switch($status)
-	    {
-	        case '200':
-	            return json_decode($result);
-	            break;
-	        
-	        default:
-	            return false;
-	            break;
-	    }
+		$data = array();
+		$data['heading'] 	= "COMPANY DETAILS";
+		$data['title'] 		= "Company Details";
+		$details 	= Common::getCompanyDetails($number);
+
+		$data['details']	= $details->primaryTopic;
+		//print_r($data['details']);die;
+		return View::make("ch_data.chdata_details", $data);
 	}
 
 }
