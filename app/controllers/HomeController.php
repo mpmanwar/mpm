@@ -153,7 +153,7 @@ class HomeController extends BaseController {
 
 	function getDayCount($from)
 	{
-		$arr = explode('/', $from);
+		$arr = explode('-', $from);
 		$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
 		$date2 = date("Y-m-d");
 		//echo $date2;die;

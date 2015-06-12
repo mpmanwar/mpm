@@ -178,7 +178,7 @@
 </div>
 
 
-<div class="registered_table">
+<!-- <div class="registered_table">
 <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;">
   <tr class="td_color">
     <td width="80%"><span class="table_tead_t">SHARE HOLDERS</span></td>
@@ -194,7 +194,7 @@
     
   </tr>
 </table>
-</div>
+</div> -->
 
 <div class="registered_table">
 <table width="100%" border="1" bordercolor="60aad2">
