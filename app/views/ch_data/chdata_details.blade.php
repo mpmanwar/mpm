@@ -49,7 +49,7 @@
                     <button class="btn btn-info">WEBCHECK</button>
                   </li>
                   <li>
-                    <button class="btn btn-warning">BACK</button>
+                    <a href="/chdata/index" class="btn btn-warning">BACK</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
