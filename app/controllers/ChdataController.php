@@ -8,7 +8,7 @@ class ChdataController extends BaseController {
 		$data['heading'] 	= "CH DATA";
 		$data['title'] 		= "Ch Data";
 		
-		$numbers = CompanyNumber::orderBy("cn_id")->get();
+		$numbers = CompanyNumber::orderBy("cn_id", "DESC")->get();
 		if(isset($numbers) && count($numbers) >0 ){
 			foreach ($numbers as $key => $row) {
 				$details = Common::getCompanyDetails($row->number);
@@ -37,11 +37,42 @@ class ChdataController extends BaseController {
 		$data = array();
 		$data['heading'] 	= "COMPANY DETAILS";
 		$data['title'] 		= "Company Details";
-		$details 	= Common::getCompanyDetails($number);
+		$details 			= Common::getCompanyDetails($number);
+		$registered_office 	= Common::getRegisteredOffice($number);
+		$officers 			= Common::getOfficerDetails($number);
+		$filling_history 	= Common::getFillingHistory($number);
 
-		$data['details']	= $details->primaryTopic;
-		//print_r($data['details']);die;
+		$data['details']			= $details->primaryTopic;
+		$data['officers']			= $officers->items;
+		$data['filling_history']	= $filling_history->items;
+		$data['registered_office']	= $registered_office;
+		//print_r($data['officers']);die;
 		return View::make("ch_data.chdata_details", $data);
+	}
+
+	public function officers_details()
+	{
+		$number = Input::get("number");
+		$key 	= Input::get("key");
+		$data = array();
+		$off_data = array();
+
+		$officers 			= Common::getOfficerDetails($number);
+		
+		$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[0]->date_of_birth:"";
+		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[0]->nationality:"";
+		$off_data['officer_role'] 			= isset($officers->items[$key]->officer_role)?$officers->items[0]->officer_role:"";
+		$off_data['name'] 					= isset($officers->items[$key]->name)?$officers->items[0]->name:"";
+		$off_data['occupation'] 			= isset($officers->items[$key]->occupation)?$officers->items[0]->occupation:"";
+		$off_data['appointed_on'] 			= isset($officers->items[$key]->appointed_on)?$officers->items[0]->appointed_on:"";
+		$off_data['country_of_residence'] 	= isset($officers->items[$key]->country_of_residence)?$officers->items[0]->country_of_residence:"";
+		$off_data['address'] 				= isset($officers->items[$key]->address)?$officers->items[0]->address:"";
+		$off_data['links'] 					= isset($officers->items[$key]->links)?$officers->items[0]->links:"";
+
+		$data['officers'] = $off_data;
+
+		echo View::make("ch_data.ajax_officer_details", $data);
+		
 	}
 
 }

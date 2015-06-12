@@ -107,6 +107,8 @@ $(function() {
                     <td>COMPANIES HOUSE</td>
                     <td>&nbsp;</td>
                     <td><button class="btn btn-danger">SYNC DATA</button></td>
+                    <td>&nbsp;</td>
+                    <td><a href="https://beta.companieshouse.gov.uk" target="_blank" class="btn btn-info">WEBCHECK</a></td>
                   </tr>
                 </table>
               </div>
@@ -165,7 +167,7 @@ $(function() {
                             <td><input type="checkbox"/></td>
                             <td class="sorting_1" align="center">{{$details['incorporation_date'] or ""}}</td>
                             <td align="center">{{ $details['company_number'] or "" }}</td>
-                            <td align="center"><a href="/chdata-details/{{ $details['company_number'] }}">{{ $details['company_name'] or "" }}</a></td>
+                            <td align="left"><a href="/chdata-details/{{ $details['company_number'] }}">{{ $details['company_name'] or "" }}</a></td>
                             <td align="center">{{ $details['acc_ref_date'] or "" }}</td>
                             <td align="center">{{ $details['auth_code'] or "" }}</td>
                             <td align="center">{{ $details['last_ret_made_date'] or "" }}</td>

@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('myjsfile')
+<script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
+@stop
+
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <!-- Left side column. contains the logo and sidebar -->
@@ -45,9 +49,9 @@
                   <li>
                     <button class="btn btn-success">GENERATE PDF</button>
                   </li>
-                  <li>
+                  <!-- <li>
                     <button class="btn btn-info">WEBCHECK</button>
-                  </li>
+                  </li> -->
                   <li>
                     <a href="/chdata/index" class="btn btn-warning">BACK</a>
                   </li>
@@ -134,17 +138,17 @@
   </tr>
   <tr>
     <td>
-    {{ $details->RegAddress->AddressLine1 or "" }}<br>
-    {{ $details->RegAddress->AddressLine2 or "" }}<br>
-    {{ $details->RegAddress->PostTown or "" }}<br>
-    {{ $details->RegAddress->County or "" }}<br>
-    {{ $details->RegAddress->Postcode or "" }}
+    {{ $registered_office->address_line_1 or "" }}<br>
+    {{ $registered_office->address_line_2 or "" }}<br>
+    {{ $registered_office->locality or "" }}<br>
+    {{ $registered_office->country or "" }}<br>
+    {{ $registered_office->postal_code or "" }}
     </td>
   </tr>
 </table>
 </div>
 
-<div class="registered_table">
+<!-- <div class="registered_table">
 <table width="100%" border="1" bordercolor="60aad2">
   <tr class="td_color">
      <td colspan="2"><span class="table_tead_t">SHARE CAPITAL</span></td>
@@ -162,18 +166,25 @@
     <td>1</td>
   </tr>
 </table>
-</div>
+</div> -->
 
 <div class="registered_table">
 <table width="100%" border="1" bordercolor="60aad2">
   <tr class="td_color">
     <td><span class="table_tead_t">DIRECTORS</span></td>
   </tr>
-  <tr>
-    <td><a href="#" class="link_color" data-toggle="modal" data-target="#compose-modal"> Mr. Jude LOBO</a>
-   
-    </td>
-  </tr>
+
+@if(!empty($officers))
+  @foreach($officers as $key=>$field_row)
+    @if($field_row->officer_role == "director")
+      <tr>
+        <td><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ $field_row->name or "" }}</a></td>
+      </tr>
+    @endif
+  @endforeach
+@endif
+  
+
 </table>
 </div>
 
@@ -201,25 +212,44 @@
   <tr class="td_color">
     <td><span class="table_tead_t">SECRETARIES</span></td>
   </tr>
-  <tr>
-    <td><a href="#" class="link_color" data-toggle="modal" data-target="#personal_details"> Mr. Jude LOBO</a>
-  </tr>
+@if(!empty($officers))
+  @foreach($officers as $key=>$field_row)
+    @if($field_row->officer_role == "secretary")
+      <tr>
+        <td><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ $field_row->name or "" }}</a></td>
+      </tr>
+    @endif
+  @endforeach
+@endif
+
 </table>
 </div>
 <div class="registered_table">
 <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;">
   <tr class="td_color">
-    <td colspan="3" align="left"><span class="table_tead_t">COMPANY FILING HISTORY LIST</span></td>
+    <td colspan="4" align="left"><span class="table_tead_t">COMPANY FILING HISTORY LIST</span></td>
   </tr>
   <tr>
-    <td>
-    Type</td>
-    <td>Date</td>
+    <td>Type</td>
+    <td width="15%">Date</td>
     <td>Description</td>
+    <td>View/Download</td>
   </tr>
-   <tr>
+
+@if(!empty($filling_history))
+  @foreach($filling_history as $key=>$field_row)
+    <tr>
+      <td>{{ $field_row->type or "" }}</td>
+      <td>{{ $field_row->date or "" }}</td>
+      <td align="left">{{ $field_row->description or "" }}</td>
+      <td><a href="javascript:void(0)">View PDF</a></td>
+    </tr>
+  @endforeach
+@endif
+
+   <!-- <tr>
     <td colspan="3">&nbsp;</td>
-  </tr>
+     </tr> -->
 </table>
 </div>
 
@@ -323,64 +353,8 @@
 <div class="modal fade" id="personal_details" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-       <div class="cross_btn1"><button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button></div>
-      <div class="registered_table1 popup_align">
-     
-<table width="100%" border="1" bordercolor="60aad2">
-  <tr class="td_color">
-     <td colspan="2"><span class="table_tead_t">PERSONAL DETAILS</span></td>
-    </tr>
-  <tr>
-    <td width="29%" class="td_color">Title :</td>
-    <td width="71%">Mr.</td>
-  </tr>
-  <tr>
-    <td class="td_color">First Name :</td>
-    <td>Jude</td>
-  </tr>
-  <tr>
-    <td class="td_color">Middle Name :</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="td_color">Last Name :</td>
-    <td>LOBO</td>
-  </tr>
- 
-   <tr class="td_color">
-     <td colspan="2"><span class="table_tead_t">ADDRESS</span></td>
-    </tr>
-  <tr>
-    <tr>
-    <td class="td_color">Address 1 :</td>
-    <td>24</td>
-  </tr>
-   <tr>
-    <td class="td_color">Address 2 :</td>
-    <td>Awefwef</td>
-  </tr>
-   <tr>
-    <td class="td_color">Address 3 :</td>
-    <td></td>
-  </tr>
-     <tr>
-    <td class="td_color">Town :</td>
-    <td></td>
-  </tr>
-     <tr>
-    <td class="td_color">Country :</td>
-    <td>Leicestershire</td>
-  </tr>
-     <tr>
-    <td class="td_color">Post Code :</td>
-    <td>LE652NR</td>
-  </tr>
-  <tr>
-    <td class="td_color">Country :</td>
-    <td>GBR</td>
-  </tr>
-</table>
-</div>
+      <div class="cross_btn1"><button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button></div>
+      <div class="registered_table1 popup_align" id="officer_details_div"></div>
     </div>
     <!-- /.modal-content -->
   </div>

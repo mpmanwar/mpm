@@ -63,9 +63,27 @@ class Common extends Eloquent {
 	    }
 	}
 
-	public static function getCompanyAllDetails($int)
+	public static function getCompanyData($int)
 	{
 		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int);
+		return json_decode($jsontoken);
+	}
+
+	public static function getOfficerDetails($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/officers");
+		return json_decode($jsontoken);
+	}
+
+	public static function getFillingHistory($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/filing-history");
+		return json_decode($jsontoken);
+	}
+
+	public static function getRegisteredOffice($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/registered-office-address");
 		return json_decode($jsontoken);
 	}
 

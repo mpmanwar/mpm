@@ -189,14 +189,14 @@ $(function() {
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td align="center">{{ $client_row['business_type'] or "" }}</td>
-                    <td align="center"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
+                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
                     <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['acc_ref_month'] or "" }}</td>
                     <td align="center">{{ $client_row['next_acc_due'] or "" }}</td>
                     <td align="center">{{ $client_row['deadacc_count'] or "" }}</td>
                     <td align="center">{{ $client_row['next_ret_due'] or "" }}</td>
                     <td align="center">{{ $client_row['deadret_count'] or "" }}</td>
                     <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td align="center">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_city'])) ? $client_row['corres_cont_city']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county']."," : '' }} {{ (!empty($client_row['corres_cont_postcode'])) ? $client_row['corres_cont_postcode'] : '' }}</td>
+                    <td align="left">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_city'])) ? $client_row['corres_cont_city']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county']."," : '' }} {{ (!empty($client_row['corres_cont_postcode'])) ? $client_row['corres_cont_postcode'] : '' }}</td>
                   </tr>
                 <?php $i++; ?>
               @endforeach
