@@ -48,6 +48,9 @@
                   <li>
                     <button class="btn btn-info">WEBCHECK</button>
                   </li>
+                  <li>
+                    <button class="btn btn-warning">BACK</button>
+                  </li>
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -66,8 +69,8 @@
             <div class="details_table">
             <table width="100%" border="1" bordercolor="60aad2">
   <tr>
-    <td width="29%" class="td_color">Company Name :</td>
-    <td width="71%">{{ $details->CompanyName or "" }}</td>
+    <td width="40%" class="td_color">Company Name :</td>
+    <td width="60%">{{ $details->CompanyName or "" }}</td>
   </tr>
   <tr>
     <td class="td_color">Registration Number :</td>

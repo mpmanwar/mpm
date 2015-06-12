@@ -63,6 +63,12 @@ class Common extends Eloquent {
 	    }
 	}
 
+	public static function getCompanyAllDetails($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int);
+		return json_decode($jsontoken);
+	}
+
 	public static function getDayCount($from)
 	{
 		$arr = explode('/', $from);

@@ -164,14 +164,14 @@ $(function() {
                         <tr class="even">
                             <td><input type="checkbox"/></td>
                             <td class="sorting_1" align="center">{{$details['incorporation_date'] or ""}}</td>
-                            <td align="center"><a href="/chdata-details/{{ $details['company_number'] }}">{{ $details['company_number'] or "" }}</a></td>
-                            <td align="center">{{ $details['company_name'] or "" }}</td>
+                            <td align="center">{{ $details['company_number'] or "" }}</td>
+                            <td align="center"><a href="/chdata-details/{{ $details['company_number'] }}">{{ $details['company_name'] or "" }}</a></td>
                             <td align="center">{{ $details['acc_ref_date'] or "" }}</td>
                             <td align="center">{{ $details['auth_code'] or "" }}</td>
                             <td align="center">{{ $details['last_ret_made_date'] or "" }}</td>
                             <td align="center">{{ $details['next_due_date'] or "" }}</td>
                             <td align="center">{{ $details['count_down'] or "" }}</td>
-                            <td align="center"></td>
+                            <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
                             <td align="center">+</td>
                         </tr>
                     @endforeach

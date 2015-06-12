@@ -72,6 +72,8 @@ user : anwar.khan@appsbee.com
 Pass : Welcome!@#$*&^%123()/\][MPM
 API KEY : hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj
 Application name : My Practice Manager
+curl -X GET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/02050399
+
 
 ------------------
 https://developer.duedil.com/
