@@ -63,4 +63,56 @@ class Common extends Eloquent {
 	    }
 	}
 
+	public static function getCompanyData($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int);
+		return json_decode($jsontoken);
+	}
+
+	public static function getOfficerDetails($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/officers");
+		return json_decode($jsontoken);
+	}
+
+	public static function getFillingHistory($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/filing-history");
+		return json_decode($jsontoken);
+	}
+
+	public static function getRegisteredOffice($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/registered-office-address");
+		return json_decode($jsontoken);
+	}
+
+	public static function getCharges($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/charges");
+		return json_decode($jsontoken);
+	}
+
+	public static function getInsolvency($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/insolvency");
+		return json_decode($jsontoken);
+	}
+
+	public static function getDayCount($from)
+	{
+		$arr = explode('/', $from);
+		$days = 0;
+		if( $from != "" ){
+			$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
+			$date2 = date("Y-m-d");
+			//echo $date2;die;
+
+			$diff = abs(strtotime($date2) - strtotime($date1));
+			$days = round($diff/86400);
+		}
+		
+		return $days;
+	}
+
 }
