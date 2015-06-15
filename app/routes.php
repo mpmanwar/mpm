@@ -107,6 +107,7 @@ Route::any('/client/delete-org-name', array("as"=>"delete_org_name", "uses"=>'Cl
 Route::any('/client/add-vat-scheme', array("as"=>"add_vat_scheme", "uses"=>'ClientController@add_vat_scheme'));
 Route::any('/client/delete-vat-scheme', array("as"=>"delete_vat_scheme", "uses"=>'ClientController@delete_vat_scheme'));
 Route::any('/client/get-oldcont-address', array("as"=>"get_oldcont_address", "uses"=>'ClientController@get_oldcont_address'));
+Route::any('/client/get-orgoldcont-address', array("as"=>"get_orgoldcont_address", "uses"=>'ClientController@get_orgoldcont_address'));
 Route::any('/client/add-services', array("as"=>"add_services", "uses"=>'ClientController@add_services'));
 Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'ClientController@delete_services'));
 Route::any('/client/insert-section', array("as"=>"insert_section", "uses"=>'ClientController@insert_section'));

@@ -153,7 +153,7 @@ class HomeController extends BaseController {
 
 	function getDayCount($from)
 	{
-		$arr = explode('/', $from);
+		$arr = explode('-', $from);
 		$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
 		$date2 = date("Y-m-d");
 		//echo $date2;die;
@@ -186,6 +186,8 @@ class HomeController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
+        
+        //print_r($data['cont_address']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -245,7 +247,10 @@ class HomeController extends BaseController {
 		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
 		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
 		//echo $this->last_query();die;
-		$data['cont_address'] 	= $this->get_contact_address();
+		$data['cont_address'] 	= $this->get_orgcontact_address();
+        
+        //print_r($data['cont_address'] );die();
+        
 		$data['reg_address'] 	= RegisteredAddress::get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
@@ -306,27 +311,129 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id']; //session user id
 		$groupUserId = $admin_s['group_users'];
 
-		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+ 	$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
-				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+             
+             
+              
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				//echo $this->last_query();die;
 
 				if (isset($client_details) && count($client_details) > 0) {
+				    
 					foreach ($client_details as $client_row) {
-						if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" || $client_row['field_name'] == "corres_cont_addr_line2")) {
-							$client_data[$i]['cont_addr_line1'] = $client_row['field_value'];
-						}
+						if (isset($client_row['field_name']) && ($client_row['field_name'] == "res_addr_line1")) //corres_cont_addr_line2
+                        {
+					       $client_data[$i]['reg_addr_line1'] = $client_row['field_value'];
+                        }
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "serv_addr_line1")) //corres_cont_addr_line2
+                        {
+					       $client_data[$i]['serv_addr_line1'] = $client_row['field_value'];
+                        }
+                       
 					}
 
-					$i++;
+					
+                           //res_addr_line1
 				}
+                $i++;
 			}
 		}
-		//print_r($client_data);die;
+		//echo "<pre>";print_r($client_data);die;
+		return $client_data;
+	}
+    
+    
+    public function get_orgcontact_address() {
+		$client_data = array();
+
+		$admin_s = Session::get('admin_details'); // session
+		$user_id = $admin_s['id']; //session user id
+        $groupUserId = $admin_s['group_users'];
+
+		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+ 	//$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
+		//echo $this->last_query();die;
+		$i = 0;
+		if (isset($client_ids) && count($client_ids) > 0) {
+		  
+			foreach ($client_ids as $client_id) {
+			 
+			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+             
+             
+              
+				$client_data[$i]['client_id'] = $client_id->client_id;
+				//echo $this->last_query();die;
+
+				if (isset($client_details) && count($client_details) > 0) {
+				   
+					foreach ($client_details as $client_row) {
+					   
+						if (isset($client_row['field_name']) && ($client_row['field_name'] == "trad_cont_addr_line1" )) 
+                                //corres_cont_addr_line2
+                        {
+					
+                            $client_data[$i]['trad_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                       	if (isset($client_row['field_name']) && ($client_row['field_name'] == "reg_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['reg_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['corres_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "banker_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['banker_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "oldacc_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['oldacc_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "auditors_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['auditors_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "solicitors_cont_addr_line1" )) 
+                                
+                        {
+					
+                            $client_data[$i]['solicitors_cont_addr_line1'] = $client_row['field_value'];
+                        }
+                        
+                        
+					}
+
+					
+                           //res_addr_line1
+				}
+                $i++;
+			}
+		}
+	//	echo "<pre>";print_r($client_data);die;
 		return $client_data;
 	}
 
@@ -357,18 +464,22 @@ class HomeController extends BaseController {
 			$client_name.=$postData['title']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'title', $postData['title']);
 		}
+                
 		if (!empty($postData['fname'])) {
 			$client_name.=$postData['fname']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'fname', $postData['fname']);
 		}
+        
 		if (!empty($postData['mname'])) {
 			$client_name.=$postData['mname']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'mname', $postData['mname']);
 		}
+        
 		if (!empty($postData['lname'])) {
 			$client_name.=$postData['lname'];
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'lname', $postData['lname']);
 		}
+        
 		$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'client_name', trim($client_name));
 
 		if (!empty($postData['gender'])) {
