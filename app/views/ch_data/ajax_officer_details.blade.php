@@ -18,7 +18,7 @@
         <td class="td_color" align="left"><strong>Country of residence</strong></td><td align="left">{{ $officers['country_of_residence'] or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color" align="left"><strong>Officer Role</strong></td><td align="left">{{ $officers['officer_role'] or "" }}</td>
+        <td class="td_color" align="left"><strong>Officer Role</strong></td><td align="left">{{ ucwords($officers['officer_role']) }}</td>
     </tr>
     <tr>
         <td class="td_color" align="left"><strong>Appointed on</strong></td><td align="left">{{ date("d F Y", strtotime($officers['appointed_on'])) }}</td>
