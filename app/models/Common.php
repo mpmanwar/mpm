@@ -87,6 +87,18 @@ class Common extends Eloquent {
 		return json_decode($jsontoken);
 	}
 
+	public static function getCharges($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/charges");
+		return json_decode($jsontoken);
+	}
+
+	public static function getInsolvency($int)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/insolvency");
+		return json_decode($jsontoken);
+	}
+
 	public static function getDayCount($from)
 	{
 		$arr = explode('/', $from);

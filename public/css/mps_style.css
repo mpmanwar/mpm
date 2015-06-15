@@ -240,19 +240,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 /*.search_left{float:left;}
 .send_task{float:left; margin-left:100px;}
 .show_entires{float:right;}*/
-.details_table{width:50%; margin: 0 auto;}
+/*.details_table{width:50%; margin: 0 auto;}*/
 .details_table table{border:1px solid #60aad2!important;}
 .details_table table tr td{padding:7px; color:#000; font-size:14px;}
 .td_color{background:#deedf5;}
-.registered_table{width:100%; margin-top:15px;}
-.table_tead_t{color:#000; font-size:18px;}
+.registered_table{width:100%;}
+.table_tead_t{color:#008080; font-size:18px;}
 .link_color{color:#000!important;}
 .popup_align{padding:15px;}
-.registered_table1{width:100%; margin-top:15px;}
+.registered_table1{width:100%; margin-top:15px; text-align: center;}
 .registered_table1 table{border:1px solid #60aad2!important;}
 .registered_table1 table tr td{padding:3px 10px 3px 10px; color:#000; font-size:14px;}
 .cross_btn1{float:right; margin:10px;}
-
+.register_top{ margin-top: 15px;}
+.sub_header{ color: #008080!important; font-weight: bold; font-size: 16px!important; }
+.charge_tr{ font-size: 18px!important; font-weight: bold; color: #000;}
+.normal_p{color: #000;font-size: 14px; font-weight: normal;}
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){

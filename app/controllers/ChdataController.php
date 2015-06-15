@@ -41,33 +41,71 @@ class ChdataController extends BaseController {
 		$registered_office 	= Common::getRegisteredOffice($number);
 		$officers 			= Common::getOfficerDetails($number);
 		$filling_history 	= Common::getFillingHistory($number);
+		//$insolvency 		= Common::getInsolvency($number);
 
 		$data['details']			= $details->primaryTopic;
 		$data['officers']			= $officers->items;
 		$data['filling_history']	= $filling_history->items;
 		$data['registered_office']	= $registered_office;
-		//print_r($data['officers']);die;
+
+		$data['nature_of_business']	= $this->getSicDescription($details->primaryTopic->SICCodes->SicText);
+		$data['client_data']		= $this->getRegisteredIn($details->primaryTopic->CompanyNumber);
+		$data['insolvency']			= Common::getInsolvency($number);
+		$data['charges']			= Common::getCharges($number);
+
+		//print_r($data['charges']->items);die;
 		return View::make("ch_data.chdata_details", $data);
+	}
+
+	private function getSicDescription($sic_codes)
+	{
+		$text = "";
+		if(isset($sic_codes) && count($sic_codes) >0 ){
+			$text = implode(",", $sic_codes);
+		}
+		return $text;
+	}
+
+	private function getRegisteredIn($company_no)
+	{
+		$array = array();
+		$details = StepsFieldsClient::where("field_value", "=", $company_no)->where("step_id", "=", 1)->where("field_name", "=", "registration_number")->first();
+		if( isset($details) && count($details) >0 ){
+			$all_details = StepsFieldsClient::where("client_id", "=", $details['client_id'])->where("step_id", "=", 1)->get();
+			foreach ($all_details as $key => $value) {
+				if(isset($value->field_name) && $value->field_name == "registered_in"){
+					$array['registered_in'] = $value->field_value;
+				}
+				if(isset($value->field_name) && $value->field_name == "ch_auth_code"){
+					$array['ch_auth_code'] = $value->field_value;
+				}
+			}
+
+		}
+		//print_r($array);die;
+		//echo $this->last_query();die;
+		return $array;
 	}
 
 	public function officers_details()
 	{
 		$number = Input::get("number");
 		$key 	= Input::get("key");
-		$data = array();
-		$off_data = array();
+		$data 		= array();
+		$off_data 	= array();
 
 		$officers 			= Common::getOfficerDetails($number);
 		
-		$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[0]->date_of_birth:"";
-		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[0]->nationality:"";
-		$off_data['officer_role'] 			= isset($officers->items[$key]->officer_role)?$officers->items[0]->officer_role:"";
-		$off_data['name'] 					= isset($officers->items[$key]->name)?$officers->items[0]->name:"";
-		$off_data['occupation'] 			= isset($officers->items[$key]->occupation)?$officers->items[0]->occupation:"";
-		$off_data['appointed_on'] 			= isset($officers->items[$key]->appointed_on)?$officers->items[0]->appointed_on:"";
-		$off_data['country_of_residence'] 	= isset($officers->items[$key]->country_of_residence)?$officers->items[0]->country_of_residence:"";
-		$off_data['address'] 				= isset($officers->items[$key]->address)?$officers->items[0]->address:"";
-		$off_data['links'] 					= isset($officers->items[$key]->links)?$officers->items[0]->links:"";
+		$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[$key]->date_of_birth:"";
+		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[$key]->nationality:"";
+		$off_data['officer_role'] 			= isset($officers->items[$key]->officer_role)?$officers->items[$key]->officer_role:"";
+		$off_data['name'] 					= isset($officers->items[$key]->name)?$officers->items[$key]->name:"";
+		$off_data['occupation'] 			= isset($officers->items[$key]->occupation)?$officers->items[$key]->occupation:"";
+		$off_data['appointed_on'] 			= isset($officers->items[$key]->appointed_on)?$officers->items[$key]->appointed_on:"";
+		$off_data['resigned_on'] 			= isset($officers->items[$key]->resigned_on)?$officers->items[$key]->resigned_on:"";
+		$off_data['country_of_residence'] 	= isset($officers->items[$key]->country_of_residence)?$officers->items[$key]->country_of_residence:"";
+		$off_data['address'] 				= isset($officers->items[$key]->address)?$officers->items[$key]->address:"";
+		$off_data['links'] 					= isset($officers->items[$key]->links)?$officers->items[$key]->links:"";
 
 		$data['officers'] = $off_data;
 

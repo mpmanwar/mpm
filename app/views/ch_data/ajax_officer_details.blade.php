@@ -3,22 +3,28 @@
     <td colspan="2"><span class="table_tead_t">PERSONAL DETAILS</span></td>
   </tr>
   <tr>
-    <td class="td_color">Name :</td><td>{{ $officers['name'] or "" }}</td>
+    <td class="td_color" align="left"><strong>Name</strong></td><td align="left">{{ $officers['name'] or "" }}</td>
   </tr>
   <tr>
-    <td class="td_color">DOB :</td><td>{{ $officers['date_of_birth'] or "" }}</td>
+    <td class="td_color" align="left"><strong>DOB</strong></td><td align="left">{{ date("d F Y", strtotime($officers['date_of_birth'])) }}</td>
   </tr>
   <tr>
-    <td class="td_color">Nationality :</td><td>{{ $officers['nationality'] or "" }}</td>
+    <td class="td_color" align="left"><strong>Nationality</strong></td><td align="left">{{ $officers['nationality'] or "" }}</td>
   </tr>
   <tr>
-    <td class="td_color">Occupation :</td><td>{{ $officers['occupation'] or "" }}</td>
+    <td class="td_color" align="left"><strong>Occupation</strong></td><td align="left">{{ $officers['occupation'] or "" }}</td>
   </tr>
     <tr>
-        <td class="td_color">Country of residence :</td><td>{{ $officers['country_of_residence'] or "" }}</td>
+        <td class="td_color" align="left"><strong>Country of residence</strong></td><td align="left">{{ $officers['country_of_residence'] or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color">Officer Role :</td><td>{{ $officers['officer_role'] or "" }}</td>
+        <td class="td_color" align="left"><strong>Officer Role</strong></td><td align="left">{{ $officers['officer_role'] or "" }}</td>
+    </tr>
+    <tr>
+        <td class="td_color" align="left"><strong>Appointed on</strong></td><td align="left">{{ date("d F Y", strtotime($officers['appointed_on'])) }}</td>
+    </tr>
+    <tr>
+        <td class="td_color" align="left"><strong>Resigned on</strong></td><td align="left">{{ date("d F Y", strtotime($officers['resigned_on'])) }}</td>
     </tr>
  
     <tr class="td_color">
@@ -26,18 +32,18 @@
     </tr>
 
     <tr>
-        <td class="td_color">Address 1 :</td><td>{{ $officers['address']->address_line_1 or "" }}</td>
+        <td class="td_color" align="left"><strong>Address</strong></td><td align="left">{{ $officers['address']->address_line_1 or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color">Premises :</td><td>{{ $officers['address']->premises or "" }}</td>
+        <td class="td_color" align="left"><strong>Premises</strong></td><td align="left">{{ $officers['address']->premises or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color">Town :</td><td>{{ $officers['address']->locality or "" }}</td>
+        <td class="td_color" align="left"><strong>Town</strong></td><td align="left">{{ $officers['address']->locality or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color">Post Code :</td><td>{{ $officers['address']->postal_code or "" }}</td>
+        <td class="td_color" align="left"><strong>Post Code</strong></td><td align="left">{{ $officers['address']->postal_code or "" }}</td>
     </tr>
     <tr>
-        <td class="td_color">Country :</td><td>{{ $officers['address']->country or "" }}</td>
+        <td class="td_color" align="left"><strong>Country</strong></td><td align="left">{{ $officers['address']->country or "" }}</td>
     </tr>
 </table>
