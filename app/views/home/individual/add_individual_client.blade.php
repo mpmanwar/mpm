@@ -556,8 +556,8 @@ $(document).ready(function(){
          <option value="">-- Select Address --</option>
          @if(!empty($cont_address))
             @foreach($cont_address as $key=>$address_row)
-                @if (isset($address_row['reg_addr_line1']) && $address_row['reg_addr_line1'] !="")
-                    <option value="{{ $address_row['client_id'] }}"> {{ $address_row['reg_addr_line1'] }}</option>
+                @if (isset($address_row['res_addr_line1']) && $address_row['res_addr_line1'] !="")
+                    <option value="{{ $address_row['client_id'] }}"> {{ $address_row['res_addr_line1'] }}</option>
                @endif
             @endforeach
          @endif

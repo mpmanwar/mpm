@@ -329,7 +329,7 @@ class HomeController extends BaseController {
 					foreach ($client_details as $client_row) {
 						if (isset($client_row['field_name']) && ($client_row['field_name'] == "res_addr_line1")) //corres_cont_addr_line2
                         {
-					       $client_data[$i]['reg_addr_line1'] = $client_row['field_value'];
+					       $client_data[$i]['res_addr_line1'] = $client_row['field_value'];
                         }
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "serv_addr_line1")) //corres_cont_addr_line2
                         {
