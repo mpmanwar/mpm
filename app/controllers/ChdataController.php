@@ -53,7 +53,7 @@ class ChdataController extends BaseController {
 		$data['insolvency']			= Common::getInsolvency($number);
 		$data['charges']			= Common::getCharges($number);
 
-		//print_r($data['charges']->items);die;
+		//print_r($data['officers']);die;
 		return View::make("ch_data.chdata_details", $data);
 	}
 

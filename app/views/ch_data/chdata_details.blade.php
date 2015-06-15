@@ -177,11 +177,13 @@
 
           @if(isset($officers) && count($officers)>0)
             @foreach($officers as $key=>$field_row)
+              @if(!isset($field_row->resigned_on))
               <tr>
                 <td align="left"><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ ucwords($field_row->name) }}</a></td>
                 <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td>
                 <td align="left">{{ ucwords(str_replace("-", " ", $field_row->officer_role)) }}</td>
               </tr>
+              @endif
             @endforeach
           @endif
             
