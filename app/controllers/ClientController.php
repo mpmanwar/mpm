@@ -186,11 +186,49 @@ class ClientController extends BaseController {
 	}
 
 	public function get_oldcont_address() {
+    //die('ddd');
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
+        
 		$groupUserId = $admin_s['group_users'];
 
 		$client_id = Input::get("client_id");
+        
+		$client_data = array();
+		if (Request::ajax()) {
+			$client_ids = Client::whereIn("user_id", $groupUserId)->where('type', '=', "ind")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
+			//echo $this->last_query();die;
+			$i = 0;
+			if (isset($client_ids) && count($client_ids) > 0) {
+				foreach ($client_ids as $client_id) {
+					$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+					$client_data[$i]['client_id'] = $client_id->client_id;
+
+					if (isset($client_details) && count($client_details) > 0) {
+						foreach ($client_details as $client_row) {
+							$client_data[$i][$client_row['field_name']] = $client_row['field_value'];
+						}
+
+						$i++;
+					}
+				}
+			}
+		}
+		echo json_encode($client_data);
+		exit;
+	}
+    
+    
+    
+    public function get_orgoldcont_address() {
+    //die('orgort');
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+        
+		$groupUserId = $admin_s['group_users'];
+
+		$client_id = Input::get("client_id");
+        
 		$client_data = array();
 		if (Request::ajax()) {
 			$client_ids = Client::whereIn("user_id", $groupUserId)->where('type', '=', "org")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();

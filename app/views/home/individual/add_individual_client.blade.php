@@ -545,19 +545,23 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-xs-6">
                     <div class="col_m2">  
 <h3 class="box-title">Residential Address</h3>  
+<?php
+//echo '<pre>';
+//print_r($cont_address);
 
+?>
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
-    <option value="">-- Select Address --</option>
-      @if(!empty($cont_address))
-        @foreach($cont_address as $key=>$address_row)
-          @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
-            <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
-          @endif
-        @endforeach
-      @endif 
-    </select>
+         <option value="">-- Select Address --</option>
+         @if(!empty($cont_address))
+            @foreach($cont_address as $key=>$address_row)
+                @if (isset($address_row['reg_addr_line1']) && $address_row['reg_addr_line1'] !="")
+                    <option value="{{ $address_row['client_id'] }}"> {{ $address_row['reg_addr_line1'] }}</option>
+               @endif
+            @endforeach
+         @endif
+     </select>
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line1</label>
@@ -644,14 +648,16 @@ $(document).ready(function(){
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldserv_address" data-type="serv">
-    <option value="">-- Select Address --</option><option value="1">1</option>
-      @if(!empty($cont_address))
+    <option value="">-- Select Address --</option>
+    
+    @if(!empty($cont_address))
         @foreach($cont_address as $key=>$address_row)
-          @if( (isset($address_row['client_id']) && $address_row['client_id'] != "") && (isset($address_row['cont_addr_line1']) && $address_row['cont_addr_line1'] != ""))
-            <option value="{{ $address_row['client_id'] or '' }}">{{ $address_row['cont_addr_line1'] or "" }}, {{ $address_row['cont_addr_line2'] or "" }}</option>
-          @endif
+            @if (isset($address_row['serv_addr_line1']) && $address_row['serv_addr_line1'] !="")
+                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['serv_addr_line1'] }}</option>
+           @endif
         @endforeach
-      @endif 
+     @endif
+        
     </select>
 </div>
 <div class="form-group">
@@ -693,6 +699,7 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Country</label>
   <select class="form-control service_country" name="serv_country" id="serv_country">
+ 
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -908,7 +915,7 @@ $(document).ready(function(){
       <select class="form-control" name="rel_type_id" id="rel_type_id">
           @if(!empty($rel_types))
             @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+                <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
             @endforeach
           @endif
         </select>

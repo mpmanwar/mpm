@@ -651,9 +651,56 @@ $('.toUpperCase').keyup(function() {
 
 
 //Show old Contact address while adding client start
+//$(".get_oldcont_address").change(function(){
+////alert('sds');
+//  var client_id   = $(this).val();
+//  var type   = $(this).data("type");
+//  if(client_id != "")
+//  {
+//    $.ajax({
+//      type: "POST",
+//      dataType: "json",
+//      url: '/client/get-oldcont-address',
+//      data: { 'client_id' : client_id },
+//      success : function(resp){
+//        //var value = $.parseJSON(resp);
+//        //alert(value.client_code);
+//        if (resp.length != 0) {
+//          $.each(resp, function(key){
+//            //console.log(resp[key].client_id); 
+//            $("#"+type+"_addr_line1").val(resp[key].cont_addr_line1);
+//            $("#"+type+"_addr_line2").val(resp[key].cont_addr_line2);
+//            $("#"+type+"_city").val(resp[key].cont_city);
+//            $("#"+type+"_county").val(resp[key].cont_county);
+//            $("#"+type+"_postcode").val(resp[key].cont_postcode);
+//            
+//          });
+//
+//        }
+//
+//      }
+//    });
+//  }else{
+//    $("#"+type+"_addr_line1").val("");
+//    $("#"+type+"_addr_line2").val("");
+//    $("#"+type+"_city").val("");
+//    $("#"+type+"_county").val("");
+//    $("#"+type+"_postcode").val("");
+//  }
+//  
+//}); 
+//Show old Contact address while adding client end
+
+
+
+
+//new address
 $(".get_oldcont_address").change(function(){
+
   var client_id   = $(this).val();
+  //alert(client_id);
   var type   = $(this).data("type");
+  //alert(type);
   if(client_id != "")
   {
     $.ajax({
@@ -662,16 +709,34 @@ $(".get_oldcont_address").change(function(){
       url: '/client/get-oldcont-address',
       data: { 'client_id' : client_id },
       success : function(resp){
+       
+        //alert(resp);
         //var value = $.parseJSON(resp);
         //alert(value.client_code);
         if (resp.length != 0) {
           $.each(resp, function(key){
-            //console.log(resp[key].client_id); 
-            $("#"+type+"_addr_line1").val(resp[key].cont_addr_line1);
-            $("#"+type+"_addr_line2").val(resp[key].cont_addr_line2);
-            $("#"+type+"_city").val(resp[key].cont_city);
-            $("#"+type+"_county").val(resp[key].cont_county);
-            $("#"+type+"_postcode").val(resp[key].cont_postcode);
+            
+            console.log(resp[key].client_id); 
+            if(type == "res"){
+                $("#"+type+"_addr_line1").val(resp[key].res_addr_line1);
+                $("#"+type+"_addr_line2").val(resp[key].res_addr_line2);
+                $("#"+type+"_city").val(resp[key].res_city);
+                $("#"+type+"_county").val(resp[key].res_county);
+                $("#"+type+"_postcode").val(resp[key].res_postcode);
+                $("#"+type+"_country").val(resp[key].res_country);
+                
+            }
+            
+            if(type == "serv"){
+                $("#"+type+"_addr_line1").val(resp[key].serv_addr_line1);
+                $("#"+type+"_addr_line2").val(resp[key].serv_addr_line2);
+                $("#"+type+"_city").val(resp[key].serv_city);
+                $("#"+type+"_county").val(resp[key].serv_county);
+                $("#"+type+"_postcode").val(resp[key].serv_postcode);
+                $("#"+type+"_country").val(resp[key].serv_country);
+            }
+            
+            
             
           });
 
@@ -688,7 +753,154 @@ $(".get_oldcont_address").change(function(){
   }
   
 }); 
-//Show old Contact address while adding client end
+//new address
+
+//new org
+
+$(".get_orgoldcont_address").change(function(){
+//alert('get_orgoldcont_address');
+  var client_id   = $(this).val();
+  //alert(client_id);
+  var type   = $(this).data("type");
+  //alert(type);
+  if(client_id != "")
+  {
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/client/get-orgoldcont-address',
+      data: { 'client_id' : client_id },
+      success : function(resp){
+       
+        //alert(resp);
+        //var value = $.parseJSON(resp);
+        //alert(value.client_code);
+        if (resp.length != 0) {
+          $.each(resp, function(key){
+            
+            console.log(resp[key].client_id); 
+            if(type == "trad"){
+                
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                //alert('trad');
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].trad_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].trad_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].trad_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].trad_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].trad_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].trad_cont_country);
+            }
+            
+            if(type == "reg"){
+                //alert('reg');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].reg_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].reg_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].reg_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].reg_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].reg_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].reg_cont_country);
+            }
+            
+            
+             if(type == "corres"){
+                //alert('corres');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].corres_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].corres_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].corres_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].corres_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].corres_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].corres_cont_country);
+            }
+            
+            if(type == "banker"){
+                //alert('banker');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].banker_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].banker_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].banker_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].banker_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].banker_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].banker_cont_country);
+            }
+            
+            if(type == "oldacc"){
+                //alert('oldacc');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].oldacc_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].oldacc_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].oldacc_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].oldacc_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].oldacc_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].oldacc_cont_country);
+            }
+            
+            
+            
+             if(type == "auditors"){
+                //alert('auditors');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].auditors_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].auditors_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].auditors_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].auditors_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].auditors_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].auditors_cont_country);
+            }
+            
+            
+            if(type == "solicitors"){
+                //alert('solicitors');
+                //$("#trad_cont_city").val(resp[key].corres_cont_city);
+                
+                
+                
+                $("#"+type+"_cont_addr_line1").val(resp[key].solicitors_cont_addr_line1);
+                $("#"+type+"_cont_addr_line2").val(resp[key].solicitors_cont_addr_line2);
+                $("#"+type+"_cont_city").val(resp[key].solicitors_cont_city);
+                $("#"+type+"_cont_county").val(resp[key].solicitors_cont_county);
+                $("#"+type+"_cont_postcode").val(resp[key].solicitors_cont_postcode);
+                $("#"+type+"_cont_country").val(resp[key].solicitors_cont_country);
+            }
+            
+            
+            
+          });
+
+        }
+
+      }
+    });
+  }else{
+    $("#"+type+"_cont_addr_line1").val("");
+    $("#"+type+"_cont_addr_line2").val("");
+    $("#"+type+"_cont_city").val("");
+    $("#"+type+"_cont_county").val("");
+    $("#"+type+"_cont_postcode").val("");
+    $("#"+type+"_cont_country").val("");
+    
+  }
+  
+}); 
+//new org
 
 // Select title for gender change while adding client start //
 $(".select_title").change(function(){
