@@ -23,9 +23,9 @@
     <tr>
         <td class="td_color" align="left"><strong>Appointed on</strong></td><td align="left">{{ date("d F Y", strtotime($officers['appointed_on'])) }}</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td class="td_color" align="left"><strong>Resigned on</strong></td><td align="left">{{ date("d F Y", strtotime($officers['resigned_on'])) }}</td>
-    </tr>
+    </tr> -->
  
     <tr class="td_color">
         <td colspan="2"><span class="table_tead_t">ADDRESS</span></td>
