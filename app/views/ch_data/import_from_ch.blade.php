@@ -1,0 +1,85 @@
+@extends('layouts.layout')
+
+@section('myjsfile')
+<script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
+@stop
+
+@section('content')
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas {{ $left_class }}">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            @include('layouts.inner_leftside')
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side {{ $right_class }}">
+    <!-- Content Header (Page header) -->
+    @include('layouts.below_header')
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="practice_mid">
+        <form>
+          <div class="chdata_main">
+            <div class="tab_topcon">
+              <div class="import_search">
+                <div class="import_search_box">
+                  <input type="text" class="form-control" name="search_value" id="search_value" placeholder="Search company name or number">
+                </div>
+                <div class="import_search_btn">
+                  <button type="button" name="search_company" class="btn btn-warning search_company">Search</button>
+                </div>
+                <div class="top_search_con">
+                  <button type="button" class="btn btn-info import_client">IMPORT</button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <h2>Results</h2>
+            <div class="details_table">
+              <div class="registered_table">
+                <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;" id="result">
+                  <tr class="td_color">
+                    <td colspan="3"><span class="sub_header">COMPANY NAME</span></td>
+                  </tr>
+                                    
+                  <!-- <tr class="td_color">
+                    <td colspan="3"><span class="sub_header">OFFICERS</span></td>
+                  </tr>
+                  <tr>
+                    <td class="sub_h">Name</td>
+                    <td class="sub_h">Appointment Date</td>
+                    <td class="sub_h">Role</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="left">POLLARD, Stephen Michael-</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="left">GORDON POLLARD, Alison Ruth</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="left">GORDON POLLARD, Alison Ruth</td>
+                  </tr> -->
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+
+</aside><!-- /.right-side -->
+            
+        
+      
+@stop
+
+
+

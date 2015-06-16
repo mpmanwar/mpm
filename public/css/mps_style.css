@@ -257,6 +257,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .charge_tr{ font-size: 18px!important; font-weight: bold; color: #000;}
 .normal_p{color: #000;font-size: 14px; font-weight: normal;}
 
+/*============import from ch =============*/
+.import_search{float:left; width:100%; margin-bottom:15px;}
+.import_search_box{float:left; width:50%;}
+.import_search_btn{float:left; margin-left:20px;}
+.sub_h{ color: #008080!important; font-weight: bold; font-size: 14px!important; }
+.chdata_main {margin:25px auto; width: 50%;}
+.ch_chkbox{float:right; margin-right:15px;}
+
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .logo_controlar, .col_display{width:100%;}

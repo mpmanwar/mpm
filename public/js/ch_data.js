@@ -18,6 +18,39 @@ $(document).ready(function(){
         });
     });
 
+    $(".search_company").click(function(){
+        var value = $("#search_value").val();
+        $.ajax({
+            url : "/company-search",
+            type : "POST",
+            data : { 'value' : value},
+            beforeSend : function(){
+                $("#result").html("");
+                var result = '<tr class="td_color"><td colspan="3"><span class="sub_header">COMPANY NAME</span></td></tr><tr><td colspan="3" align="center"><img src="/img/spinner.gif"></td></tr>';
+                $("#result").html(result);
+            },
+            success : function(resp){
+                $("#result").html(resp);
+                $("[type='checkbox']").closest("div").trigger("create"); 
+            }
+        });
+    });
+
+    $(".import_client").click(function(){
+        var val = [];
+        $("input[name='company_number[]']").each( function (i) {
+            if($(this).is(':checked')){
+                val[i] = $(this).val();
+                console.log($(this).val());
+            }
+        });
 
 
-});//end of main document ready
+        //alert(val.length);return false;
+
+        
+    });
+
+
+
+});//end of main document ready 

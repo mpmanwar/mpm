@@ -96,7 +96,7 @@ $(function() {
                     <button class="btn btn-danger">MANAGE TASKS</button>
                   </li>
                   <li>
-                    <button class="btn btn-info">IMPORT FROM CH</button>
+                    <a href="/import-from-ch" class="btn btn-info">IMPORT FROM CH</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -115,35 +115,6 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-            <!-- <div class="tab_topcon">
-            
-            
-            <table width="100%" border="0">
-              <tr>
-            <td width="25%"> <div class="form-group">
-            <label for="exampleInputPassword1">Search</label>
-            <input type="text" id="" class="form-control">
-            </div></td>
-                <td width="10%">&nbsp;</td>
-                <td width="3%"><input type="checkbox"/></td>
-                <td width="8%">Send to Tasks</td>
-                <td width="5%"><input type="text" id="" class="form-control" value="10"></td>
-                <td width="15%">days before deadline</td>
-                <td width="9%">&nbsp;</td>
-                <td width="4%">Show</td>
-                <td width="9%"><select class="form-control">
-                                    <option>10</option>
-                                    <option>20</option>
-                                  </select></td>
-                <td width="5%">entries</td>
-                <td width="1%">&nbsp;</td>
-              </tr>
-            </table>
-            
-            
-            
-            </div> -->
-
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr role="row">

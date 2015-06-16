@@ -3,6 +3,11 @@ class Common extends Eloquent {
 
 	public $timestamps = false;
 	
+	private function getApiKey()
+	{
+		$API_KEY = "hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj";
+		return $API_KEY;
+	}
 	public static function getGroupId($user_id)
 	{
 		$users	= User::where('user_id', '=', $user_id)->select("parent_id")->first();
@@ -96,6 +101,12 @@ class Common extends Eloquent {
 	public static function getInsolvency($int)
 	{
 		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/company/".$int."/insolvency");
+		return json_decode($jsontoken);
+	}
+
+	public static function getSearchCompany($value)
+	{
+		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/search?q=".$value);
 		return json_decode($jsontoken);
 	}
 

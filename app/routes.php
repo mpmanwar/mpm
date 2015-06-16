@@ -129,5 +129,7 @@ Route::any('/client/save-database-relationship', array("as"=>"save_database_rela
 Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
 Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'ChdataController@chdata_details'));
 Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataController@officers_details'));
+Route::any('/import-from-ch', array("as"=>"import_from_ch", "uses"=>'ChdataController@import_from_ch'));
+Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
 ## Company House Data End ##
 

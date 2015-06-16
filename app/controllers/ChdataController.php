@@ -113,4 +113,31 @@ class ChdataController extends BaseController {
 		
 	}
 
+	public function import_from_ch()
+	{
+		$data['title'] = "";
+		$data['heading'] = "";
+
+		return View::make("ch_data.import_from_ch", $data);
+	}
+
+	public function search_company()
+	{
+		$company = array();
+		$value = Input::get("value");
+		//$value = "alex";
+		$compamy_details	= Common::getSearchCompany($value);
+		if(isset($compamy_details->items) && count($compamy_details->items) >0 )
+		{
+			foreach ($compamy_details->items as $key => $value) {
+				$company[$key]['company_name'] 		= $value->title;
+				$company[$key]['company_number'] 	= $value->description_values->company_number;
+			}
+		}
+		$data['company_details'] 	= $company;
+		//print_r($data);die;
+
+		echo View::make("ch_data.ajax_company_search_result", $data);
+	}
+
 }
