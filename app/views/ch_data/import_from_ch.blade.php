@@ -41,7 +41,7 @@
               </div>
               <div class="clearfix"></div>
             </div>
-            <h2>Results</h2>
+            <!-- <h2>Results</h2> -->
             <div class="details_table">
               <div class="registered_table">
                 <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;" id="result">
