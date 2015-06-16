@@ -105,7 +105,7 @@ class Common extends Eloquent {
 	}
 
 	public static function getSearchCompany($value)
-	{
+	{//&items_per_page=5&start_index=2
 		$jsontoken = shell_exec("curl -XGET -u hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj: https://api.companieshouse.gov.uk/search?q=".$value);
 		return json_decode($jsontoken);
 	}

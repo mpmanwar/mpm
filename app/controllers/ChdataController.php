@@ -115,7 +115,7 @@ class ChdataController extends BaseController {
 
 	public function import_from_ch()
 	{
-		$data['title'] = "";
+		$data['title'] = "Import from CH";
 		$data['heading'] = "";
 
 		return View::make("ch_data.import_from_ch", $data);
@@ -124,8 +124,8 @@ class ChdataController extends BaseController {
 	public function search_company()
 	{
 		$company = array();
-		$value = Input::get("value");
-		//$value = "alex";
+		$value = str_replace(" ", "+", Input::get("value"));
+		//$value = "Alexander+Rosse";
 		$compamy_details	= Common::getSearchCompany($value);
 		if(isset($compamy_details->items) && count($compamy_details->items) >0 )
 		{
