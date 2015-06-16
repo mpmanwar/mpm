@@ -31,21 +31,9 @@ $(document).ready(function(){
             },
             success : function(resp){
                 $("#result").html(resp);
-                $("[type='checkbox']").closest("div").trigger("create"); 
             }
         });
     });
-
-    $(".import_client").click(function(){
-        var val = [];
-        $("input[name='company_number[]']").each( function (i) {
-            if($(this).is(':checked')){
-                val[i] = $(this).val();
-                console.log($(this).val());
-            }
-        });
-    });
-
 
     $("#result").on("click", ".get_company_details", function(){//popup_align
         var number = $(this).data("number");
@@ -63,6 +51,28 @@ $(document).ready(function(){
             }
         });
     });
+
+    $("#company_details_div").on("click", ".import_client", function(){
+        var number = $(this).data("number");
+        $.ajax({
+            type: "POST",
+            url: "/import-company-details",
+            data: { 'number': number },
+            beforeSend: function() {
+                $("#message_div").html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp == 1){
+                    $("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
+                }else{
+                    $("#message_div").html("<p style='color:red;font-size:16px'>There are some error to importing data</p>");
+                }
+            }
+        });
+    });
+
+
+    
 
 
 

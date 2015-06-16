@@ -162,4 +162,10 @@ class ChdataController extends BaseController {
 		
 	}
 
+	public function import_company_details()
+	{
+		$number = Input::get("number");
+		echo 1;
+	}
+
 }
