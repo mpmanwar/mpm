@@ -256,7 +256,7 @@
           @foreach($charges->items as $key=>$charge_row)
           <tr>
             <td colspan="3" align="left" class="sub_header" width="70%">Charge Code : 
-              <span class="normal_p">{{ $charge_row->charge_code }}</span></td>
+              <span class="normal_p">{{ $charge_row->charge_code  or "" }}</span></td>
             <td align="left" class="sub_header">Transaction filed</td>
           </tr>
           <tr>
@@ -267,12 +267,12 @@
           </tr>
           <tr>
             <td colspan="4" align="left" class="sub_header">Persons entitled : 
-             <span class="normal_p">{{ $charge_row->persons_entitled[0]->name }}</span></td>
+             <span class="normal_p">{{ $charge_row->persons_entitled[0]->name or "" }}</span></td>
           </tr>
 
           <tr>
             <td colspan="4" align="left" class="sub_header">Brief description <br>
-              <p class="normal_p">{{ $charge_row->particulars->description }}</p>
+              <p class="normal_p">{{ $charge_row->particulars->description or "" }}</p>
             </td>
           </tr>
           @endforeach

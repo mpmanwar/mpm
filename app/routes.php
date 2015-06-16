@@ -131,5 +131,6 @@ Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'Ch
 Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataController@officers_details'));
 Route::any('/import-from-ch', array("as"=>"import_from_ch", "uses"=>'ChdataController@import_from_ch'));
 Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
+Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
 ## Company House Data End ##
 

@@ -140,4 +140,22 @@ class ChdataController extends BaseController {
 		echo View::make("ch_data.ajax_company_search_result", $data);
 	}
 
+	public function company_details()
+	{
+		$number = Input::get("number");
+		$data 		= array();
+		
+		$details 			= Common::getCompanyDetails($number);
+		$registered_office 	= Common::getRegisteredOffice($number);
+		$officers 			= Common::getOfficerDetails($number);
+
+		$data['details']			= $details->primaryTopic;
+		$data['officers']			= $officers->items;
+		$data['registered_office']	= $registered_office;
+		$data['nature_of_business']	= $this->getSicDescription($details->primaryTopic->SICCodes->SicText);
+
+		echo View::make("ch_data.ajax_company_details", $data);
+		
+	}
+
 }

@@ -44,11 +44,24 @@ $(document).ready(function(){
                 console.log($(this).val());
             }
         });
+    });
 
 
-        //alert(val.length);return false;
-
+    $("#result").on("click", ".get_company_details", function(){//popup_align
+        var number = $(this).data("number");
         
+        $.ajax({
+            type: "POST",
+            url: "/company-details",
+            data: { 'number': number },
+            beforeSend: function() {
+                $("#company_details_div").html('<img src="/img/ajax-loader1.gif" />');
+                $("#company_details-modal").modal('show');//return false;
+            },
+            success: function (resp) {
+                $("#company_details_div").html(resp);
+            }
+        });
     });
 
 

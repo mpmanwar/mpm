@@ -35,7 +35,7 @@
                   <button type="button" name="search_company" class="btn btn-warning search_company">Search</button>
                 </div>
                 <div class="top_search_con">
-                  <button type="button" class="btn btn-info import_client">IMPORT</button>
+                  <!-- <button type="button" class="btn btn-info import_client">IMPORT</button> -->
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -78,7 +78,23 @@
 </aside><!-- /.right-side -->
             
         
-      
+<!-- popup content -->
+<div class="modal fade" id="company_details-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <div class="cross_btn1"><button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button></div>
+      <div class="registered_table1 popup_align" id="company_details_div">
+     
+      <!-- Company Details Show -->
+        
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
 @stop
 
 
