@@ -1,4 +1,4 @@
-<div style="float: left; margin-bottom: 5px;"><button type="button" class="btn btn-info import_client">IMPORT</button></div>
+<div style="float: center; margin-bottom: 5px;"><button type="button" class="btn btn-info import_client">IMPORT</button></div>
 <table width="100%" border="1" bordercolor="60aad2">
           <tr class="td_color">
             <td colspan="2" align="center"><span class="table_tead_t">OVERVIEW</span></td>

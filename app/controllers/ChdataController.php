@@ -144,13 +144,17 @@ class ChdataController extends BaseController {
 	{
 		$number = Input::get("number");
 		$data 		= array();
+		$data['officers']	= array();
 		
 		$details 			= Common::getCompanyDetails($number);
 		$registered_office 	= Common::getRegisteredOffice($number);
 		$officers 			= Common::getOfficerDetails($number);
+		if(isset($officers->items) && count($officers->items) > 0){
+			$data['officers']	= $officers->items;
+		}
 
 		$data['details']			= $details->primaryTopic;
-		$data['officers']			= $officers->items;
+		
 		$data['registered_office']	= $registered_office;
 		$data['nature_of_business']	= $this->getSicDescription($details->primaryTopic->SICCodes->SicText);
 
