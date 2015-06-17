@@ -99,7 +99,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
+		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -153,6 +153,7 @@ class HomeController extends BaseController {
 
 	function getDayCount($from)
 	{
+		//$from = str_replace("/", "-", $from);
 		$arr = explode('-', $from);
 		$date1 = $arr[2].'-'.$arr[1].'-'.$arr[0];
 		$date2 = date("Y-m-d");
@@ -275,6 +276,7 @@ class HomeController extends BaseController {
 		}
 		$data['subsections'] = $this->buildtree($steps, "org");
 		//###########User added section and sub section start##########//
+		$data['months'] =	array("01"=>"JAN", "02"=>"FEB", "03"=>"MAR", "04"=>"APR", "05"=>"MAY", "06"=>"JUN","07"=>"JUL", "08"=>"AUG", "09"=>"SEPT", "10"=>"OCT", "11"=>"NOV", "12"=>"DEC");
 
 		return View::make('home.organisation.add_organisation_client', $data);
 
@@ -853,7 +855,13 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
 
-		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+		if(isset($postData['client_id']) && $postData['client_id'] == "new"){
+			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+		}else{
+			$client_id = $postData['client_id'];
+			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
+			ClientRelationship::where("client_id", "=", $client_id)->delete();
+		}
 
 //#############BUSINESS INFORMATION START###################//
 		$step_id = 1;

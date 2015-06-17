@@ -19,8 +19,8 @@
 ### Routes for Dashboard related URL's start ###
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
-Route::any('organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
-Route::any('individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
+Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
+Route::any('/individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
 Route::post('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
 Route::any('/individual/get-office-address', array("as"=>"get_office_address", "uses"=>'HomeController@get_office_address'));
@@ -130,6 +130,10 @@ Route::any('/client/save-database-relationship', array("as"=>"save_database_rela
 Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
 Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'ChdataController@chdata_details'));
 Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataController@officers_details'));
+Route::any('/import-from-ch/{back_url}', array("as"=>"import_from_ch", "uses"=>'ChdataController@import_from_ch'));
+Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
+Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
+Route::any('/import-company-details', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
 ## Company House Data End ##
 
 
