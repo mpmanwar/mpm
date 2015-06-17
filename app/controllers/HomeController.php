@@ -218,6 +218,7 @@ class HomeController extends BaseController {
 	}
 
 	public function add_organisation_client() {
+	   
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
@@ -843,6 +844,8 @@ class HomeController extends BaseController {
 	}*/
 
 	public function insert_organisation_client() {
+	   
+       
 		$postData = Input::all();
 		$data = array();
 		$arrData = array();
@@ -1291,4 +1294,8 @@ if(isset($field_added) && count($field_added) > 0){
         die('edit');
     }*/
 
+
+
+
+	
 }

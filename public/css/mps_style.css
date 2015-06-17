@@ -208,7 +208,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .circle_icons_inner{float:left; width:100%;} 
 .circle_icon{float:left; margin-right:15px;}
 .circle_icon img{text-align:center; width:100%;}
-.c_tagline{color:#0080ff; font-size:18px; text-transform:uppercase; text-align:left; padding-top:12px; line-height:20px; font-weight:bold; float:left;}
+.c_tagline{color:#0080ff; font-size:17px; text-transform:uppercase; text-align:left; padding-top:12px; line-height:20px; font-weight:bold; float:left;}
 .c_tagline2{color:#0080ff; font-size:18px; text-transform:uppercase; text-align:left; padding-top:19px; line-height:20px; font-weight:bold; float:left;}
 .small_tagline{color:#0080ff; font-size:13px; text-transform:uppercase; text-align:left; padding-top:12px; line-height:20px; font-weight:bold; float:left;}
 .col-4 {width: 33.3333%; float:left;}
@@ -256,6 +256,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .sub_header{ color: #008080!important; font-weight: bold; font-size: 16px!important; }
 .charge_tr{ font-size: 18px!important; font-weight: bold; color: #000;}
 .normal_p{color: #000;font-size: 14px; font-weight: normal;}
+
+
+/*==============client portal ==============*/
+.slide_content{width:100%;}
+.slide_content ul{list-style:none; padding:0;}
+.slide_content ul li{float:left; border:1px solid #c1c1c1; position:relative; padding:15px; width:24.5%; margin-right:0.5%;}
+.cross_icon{position:absolute; top:10px; right:10px;}
+.next_prev_btn{float:right;}
+.next_prev_btn ul{list-style:none;}
+.next_prev_btn ul li{float:left; margin-left:10px;}
+.next_prev_btn ul li a{color:#000; font-size:14px; text-align:center;}
+.business_table{margin-top:25px;}
+.vat_maincon{margin:25px 0 25px 0;}
+
+
+.vat_section{width:100%; text-align:center;}
+.vat_section ul{list-style:none; padding:0;}
+.vat_section ul li{position:relative; width:32.5%; vertical-align: middle; display: inline-block;}
+.vat_section ul li:last-child{margin-right:0;}
+.vat_section_main{  width:98%; float:left; margin:0 0px 10px 0; }
+.head_section{width:100%; text-align:center; padding:5px 0 5px 0; color:#fff; font-size:16px; background:#3c8dbc; text-decoration:underline;}
+.vat_section_content{border:1px solid #c1c1c1; width:100%; float:left; padding:10px;}
+.vat_section_content ul{list-style:none; padding:0;}
+.vat_section_content ul li{float:left; padding-bottom:0px; margin:0; width:100%; text-align:left;}
+.edit_icon{position:absolute; right:10px; bottom:0px;}
+
+
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
@@ -326,6 +353,73 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
   }
 }
 
+/*=========others tab==========*/
+
+.others_topcon{width:100%;}
+
+.other_left{float:left; width:75%;}
+
+.other_mid{width:100%;}
+
+.other_left_sec{float:left; margin:31px 10px 0 0; width:57%;}
+
+.other_right_sec{float:right;}
+.download_icon{background:url(../img/download_icon.png) no-repeat; width:120px; height:30px;}
+.download_pdf{float:left; margin:1px 15px 0 0;}
+
+.select_business{width:58%; float: left;}
+
+.select_t{font-weight:bold; text-align:center;}
+
+
+
+
+
+.btn-file {
+
+    position: relative;
+
+    overflow: hidden;
+
+ color:#707070;
+
+ font-size:16px;
+
+ font-weight:bold;
+
+ margin-bottom:10px;
+
+}
+
+.btn-file input[type=file] {
+
+    position: absolute;
+
+    top: 0;
+
+    right: 0;
+
+    min-width: 100%;
+
+    min-height: 100%;
+
+    font-size: 100px;
+
+    text-align: right;
+
+    filter: alpha(opacity=0);
+
+    opacity: 0;
+
+    outline: none;
+
+    background: white;
+
+    cursor: inherit;
+
+    display: block;
+
+}
 
 
 

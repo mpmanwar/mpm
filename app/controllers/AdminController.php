@@ -162,6 +162,8 @@ class AdminController extends BaseController {
 					}
 					
 				}
+                
+                
 				//############### Check user free time limit end ##############//
 
 				$arr['id'] 			= $admin['user_id'];
@@ -176,8 +178,16 @@ class AdminController extends BaseController {
 				Session::put('admin_details', $arr);
 
 				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin['user_id']));
-
-				return Redirect::to('/dashboard');
+                
+                	if($admin['user_type'] == "C")
+                        {
+                        return Redirect::to('/invitedclient-dashboard');
+                        }
+                    
+                    else{
+				        return Redirect::to('/dashboard');
+                        }
+                
 			} else {
 				Session::flash('message', 'Your username/password doesn`t match');
 				return Redirect::to('/');

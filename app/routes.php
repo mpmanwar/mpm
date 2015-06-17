@@ -125,9 +125,19 @@ Route::any('/client/save-database-relationship', array("as"=>"save_database_rela
 
 
 
+
 ## Company House Data Start ##
 Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
 Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'ChdataController@chdata_details'));
 Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataController@officers_details'));
 ## Company House Data End ##
 
+
+##Invitedclient
+Route::get('/invitedclient-dashboard', 'InvitedclientController@Invitedclient_dashboard');
+Route::get('/invitedclient-details', 'InvitedclientController@my_details');
+Route::post('/invitedclient/insert-client-details', array("as"=>"insert_invitedclient_client", "uses"=>'InvitedclientController@insert_invitedclient_client'));
+Route::get('/invitedclient-relationship', 'InvitedclientController@relationship');
+Route::post('/relationship/insert-client-relationship', array("as"=>"insert_relationship_client", "uses"=>'InvitedclientController@insert_relationship_client'));
+Route::get('/search-invited-client', 'InvitedclientController@search_invited_client');
+##Invitedclient
