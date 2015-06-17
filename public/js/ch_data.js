@@ -54,6 +54,7 @@ $(document).ready(function(){
 
     $("#company_details_div").on("click", ".import_client", function(){
         var number = $(this).data("number");
+        var back_url = $("#back_url").val();
         $.ajax({
             type: "POST",
             url: "/import-company-details",
@@ -63,7 +64,14 @@ $(document).ready(function(){
             },
             success: function (resp) {
                 if(resp == 1){
-                    $("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
+                    //$("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
+                    if(back_url == 'ch_list'){
+                        window.location.href='/chdata/index';
+                    }
+                    if(back_url == 'org_list'){
+                        window.location.href='/organisation/add-client';
+                    }
+                        
                 }else{
                     $("#message_div").html("<p style='color:red;font-size:16px'>There are some error to importing data</p>");
                 }

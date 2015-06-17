@@ -96,7 +96,7 @@ $(function() {
                     <button class="btn btn-danger">MANAGE TASKS</button>
                   </li>
                   <li>
-                    <a href="/import-from-ch" class="btn btn-info">IMPORT FROM CH</a>
+                    <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -115,43 +115,45 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-        <table id="example2" class="table table-bordered table-hover">
-            <thead>
-                <tr role="row">
-                    <th><input type="checkbox"/></th>
-                    <th>D01</th>
-                    <th>CRN</th>
-                    <th>NAME</th>
-                    <th>YEAR END</th>
-                    <th>AUTHEN CODE</th>
-                    <th>LAST RETURN DATE</th>
-                    <th>NEXT RETURN DATE</th>
-                    <th>COUNT DOWN</th>
-                    <th>SEND TO TASKS</th>
-                    <th>NOTES</th>
-                </tr>
-            </thead>
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-                @if(isset($company_details) && count($company_details) >0)
-                    @foreach($company_details as $key=>$details)
-                        <tr class="even">
-                            <td><input type="checkbox"/></td>
-                            <td class="sorting_1" align="center">{{$details['incorporation_date'] or ""}}</td>
-                            <td align="center">{{ $details['company_number'] or "" }}</td>
-                            <td align="left"><a href="/chdata-details/{{ $details['company_number'] }}">{{ $details['company_name'] or "" }}</a></td>
-                            <td align="center">{{ $details['acc_ref_date'] or "" }}</td>
-                            <td align="center">{{ $details['auth_code'] or "" }}</td>
-                            <td align="center">{{ $details['last_ret_made_date'] or "" }}</td>
-                            <td align="center">{{ $details['next_due_date'] or "" }}</td>
-                            <td align="center">{{ $details['count_down'] or "" }}</td>
-                            <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
-                            <td align="center">+</td>
-                        </tr>
-                    @endforeach
-                @endif
-              
-            </tbody>
-          </table>
+  <table id="example2" class="table table-bordered table-hover">
+    <thead>
+      <tr role="row">
+          <th><input type="checkbox"/></th>
+          <th>D01</th>
+          <th>CRN</th>
+          <th>NAME</th>
+          <th>YEAR END</th>
+          <th>AUTHEN CODE</th>
+          <th>LAST RETURN DATE</th>
+          <th>NEXT RETURN DATE</th>
+          <th>COUNT DOWN</th>
+          <th>SEND TO TASKS</th>
+          <th>NOTES</th>
+      </tr>
+    </thead>
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      @if(isset($company_details) && count($company_details) >0)
+        @foreach($company_details as $key=>$details)
+          @if(isset($details['registration_number']) && $details['registration_number']!= "")
+            <tr class="even">
+                <td><input type="checkbox"/></td>
+                <td class="sorting_1" align="center">{{$details['incorporation_date'] or ""}}</td>
+                <td align="center">{{ $details['registration_number'] or "" }}</td>
+                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="center">{{ $details['acc_ref_day'] or "" }}/{{ $details['acc_ref_month'] or "" }}</td>
+                <td align="center">{{ $details['auth_code'] or "" }}</td>
+                <td align="center">{{ $details['last_acc_madeup_date'] or "" }}</td>
+                <td align="center">{{ $details['next_ret_due'] or "" }}</td>
+                <td align="center">{{ $details['count_down'] or "" }}</td>
+                <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
+                <td align="center">+</td>
+            </tr>
+          @endif 
+        @endforeach
+      @endif
+      
+    </tbody>
+  </table>
             
             
           </div>

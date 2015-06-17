@@ -48,24 +48,7 @@
                   <tr class="td_color">
                     <td colspan="3"><span class="sub_header">COMPANY NAME</span></td>
                   </tr>
-                                    
-                  <!-- <tr class="td_color">
-                    <td colspan="3"><span class="sub_header">OFFICERS</span></td>
-                  </tr>
-                  <tr>
-                    <td class="sub_h">Name</td>
-                    <td class="sub_h">Appointment Date</td>
-                    <td class="sub_h">Role</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" align="left">POLLARD, Stephen Michael-</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" align="left">GORDON POLLARD, Alison Ruth</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" align="left">GORDON POLLARD, Alison Ruth</td>
-                  </tr> -->
+                  
                 </table>
               </div>
             </div>
@@ -80,6 +63,7 @@
         
 <!-- popup content -->
 <div class="modal fade" id="company_details-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <input type="hidden" name="back_url" id="back_url" value="{{ $back_url }}">
   <div class="modal-dialog">
     <div class="modal-content">
        <div class="cross_btn1"><button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button></div>

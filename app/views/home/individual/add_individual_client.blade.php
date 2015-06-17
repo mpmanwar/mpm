@@ -71,12 +71,12 @@ $(document).ready(function(){
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
-            <li>
+            <!-- <li>
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
+            </li> -->
             <div class="clearfix"></div>
           </ul>
         </div>

@@ -112,6 +112,7 @@ class Common extends Eloquent {
 
 	public static function getDayCount($from)
 	{
+		$from = str_replace("/", "-", $from);
 		$arr = explode('/', $from);
 		$days = 0;
 		if( $from != "" ){

@@ -48,22 +48,23 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
+    <input name="client_id" type="hidden" value="new">
     <section class="content">
       <div class="row">
         <div class="top_bts">
           <ul>
             <li>
-              <button class="btn btn-info">IMPORT FROM CH</button>
+              <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
             </li>
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
-            <li>
+            <!-- <li>
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
+            </li> -->
             <div class="clearfix"></div>
           </ul>
         </div>
@@ -251,19 +252,9 @@ $(document).ready(function(){
             <div class="form-group">
 
               <select class="form-control" name="acc_ref_month" id="acc_ref_month">
-
-                <option value="JAN">JAN</option>
-                <option value="FEB">FEB</option>
-                <option value="MAR">MAR</option>
-                <option value="APR">APR</option>
-                <option value="MAY">MAY</option>
-                <option value="JUN">JUN</option>
-                <option value="JUL">JUL</option>
-                <option value="AUG">AUG</option>
-                <option value="SEPT">SEPT</option>
-                <option value="OCT">OCT</option>
-                <option value="NOV">NOV</option>
-                <option value="DEC">DEC</option>            
+          @foreach($months as $key=>$row)
+            <option value="{{ $key }}">{{ $row }}</option>
+          @endforeach    
                 
               </select>
             </div>
