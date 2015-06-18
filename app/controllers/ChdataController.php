@@ -120,11 +120,13 @@ class ChdataController extends BaseController {
 	{
 		$array = array();
 		$details = StepsFieldsClient::where("field_value", "=", $company_no)->where("step_id", "=", 1)->where("field_name", "=", "registration_number")->first();
+		//print_r($details);echo $this->last_query();die;
 		if( isset($details) && count($details) >0 ){
 			$all_details = StepsFieldsClient::where("client_id", "=", $details['client_id'])->where("step_id", "=", 1)->get();
 			foreach ($all_details as $key => $value) {
 				if(isset($value->field_name) && $value->field_name == "registered_in"){
-					$array['registered_in'] = $value->field_value;
+					$reg_in = RegisteredAddress::where("reg_id", "=", $value->field_value)->first();
+					$array['registered_in'] = $reg_in['reg_name'];
 				}
 				if(isset($value->field_name) && $value->field_name == "ch_auth_code"){
 					$array['ch_auth_code'] = $value->field_value;
@@ -250,6 +252,15 @@ class ChdataController extends BaseController {
 		if (isset($details->jurisdiction)) {
 			$reg_in = RegisteredAddress::where("reg_name", "=", ucwords(str_replace("-", " ", $details->jurisdiction)))->select("reg_id")->first();
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'registered_in', $reg_in['reg_id']);
+		}
+		if (isset($details->sic_codes) && count($details->sic_codes) >0 ) {
+			$codes_data = "";
+			foreach ($details->sic_codes as $key => $value) {
+				$sic_codes = SicCodesDescription::where("sic_codes", "=", $value)->first();
+				$codes_data .= $sic_codes['description'].", ";
+			}
+			$codes_data = substr($codes_data, 0, -2);
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_desc', $codes_data);
 		}
 		if (isset($details->annual_return->next_due)) {
 			$ret_check = 1;

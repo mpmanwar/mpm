@@ -127,10 +127,10 @@ $(function() {
               <div class="top_bts">
                 <ul style="padding:0;">
                   <li>
-                    <a href="/organisation/add-client" class="btn btn-info">ADD CLIENT</a>
+                    <a href="/organisation/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
-                    <button class="btn btn-success">BULK CSV IMPORT</button>
+                    <button class="btn btn-success">CSV import</button>
                   </li>
                   <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
