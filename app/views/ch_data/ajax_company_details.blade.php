@@ -1,4 +1,4 @@
-<div style="float: center; margin-bottom: 5px;"><a href="javascript:void()" data-number="{{ $details->CompanyNumber or "" }}" class="btn btn-info import_client">IMPORT</a></div>
+<div style="float: center; margin-bottom: 5px;"><a href="javascript:void(0)" data-number="{{ $details->CompanyNumber or "" }}" class="btn btn-info import_client">IMPORT</a></div>
 <div id="message_div"></div>
 <table width="100%" border="1" bordercolor="60aad2">
   <tr class="td_color">

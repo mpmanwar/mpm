@@ -52,6 +52,7 @@ class ClientController extends BaseController {
 		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
             ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id')->get();
+
         if(isset($relationship) && count($relationship) >0 )
         {
         	foreach ($relationship as $key => $row) {
@@ -117,7 +118,7 @@ class ClientController extends BaseController {
 		}
 
 		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("organisation_id")->get();
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
@@ -163,10 +164,10 @@ class ClientController extends BaseController {
 		//###########User added section and sub section start##########//
 
 		//############# Get client data start ################//
-		//############# Get client data start ################//
 		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id')->get();
+            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
+        //echo $this->last_query();die;
         if(isset($relationship) && count($relationship) >0 )
         {
         	foreach ($relationship as $key => $row) {
@@ -179,6 +180,10 @@ class ClientController extends BaseController {
         			if(isset($client_details) && count($client_details) >0 ){
         				$name = "";
         				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
         					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
 	        					$name .= $client_name->field_value." ";
 	        				}
@@ -190,13 +195,16 @@ class ClientController extends BaseController {
 	        				}
         				}
         				$data['relationship'][$key]['name'] = trim($name);
+        				
+        				        				
         			}
         			
         		}
         		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
-        		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
+        		$data['relationship'][$key]['appointment_date'] 		= date("d-m-Y", strtotime($row->appointment_date));
         		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
         		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
+        		$data['relationship'][$key]['acting'] 					= $row->acting;
         	}
         }
         //echo $this->last_query();die;
@@ -475,24 +483,60 @@ class ClientController extends BaseController {
 	public function save_database_relationship()
 	{
 		$data = array();
-		$type = "";
-		$edit_id = Input::get("edit_id");
-		//$date = explode("-", Input::get("app_date"));
-		$date = date("Y-m-d", strtotime(Input::get("app_date")));
+		$type = "aa";
+		$edit_id 		= Input::get("edit_id");
+		$client_type 	= Input::get("client_type");
+		$client_id 		= Input::get("client_id");
+		$name 			= Input::get("name");
+		$acting 		= Input::get("acting");
+		$rel_type_id 	= Input::get("rel_type_id");
+		$date 			= date("Y-m-d", strtotime(Input::get("app_date")));
 
+		
 		if(Input::get("rel_client_id") != ""){
 			$data['appointment_with'] = Input::get("rel_client_id");
 		}
 		//$data['appointment_date'] = $date[2]."-".$date[1]."-".$date[0];
-		$data['appointment_date'] = $date;
-		$data['relationship_type_id'] = Input::get("rel_type_id");
+		$data['appointment_date'] 		= $date;
+		$data['relationship_type_id'] 	= Input::get("rel_type_id");
+		$data['acting'] 				= $acting;
 		
 		$resp = ClientRelationship::where("client_relationship_id", "=", $edit_id)->update($data);
 		//echo $this->last_query();die;
-		if($resp){
+		//if($resp){
 			$relationship = RelationshipType::where("relation_type_id", "=", $data['relationship_type_id'])->first();
 			$type = $relationship['relation_type'];
-		}
+
+			//################# Change Officers Type Start #################//
+			if($client_type == "change"){
+				if (strpos($type, 'Corporate') !== false){
+					$cl_data["type"] = "org";
+					$getData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "client_name")->first();
+					$clin_data['user_id'] 		= $getData['user_id'];
+					$clin_data['client_id'] 	= $getData['client_id'];
+					$clin_data['step_id'] 		= $getData['step_id'];
+					$clin_data['field_name'] 	= "business_name";
+					$clin_data['field_value'] 	= $getData['field_value'];
+
+					$checkData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "business_name")->first();
+					if(!isset($checkData)){
+						StepsFieldsClient::insert($clin_data);
+					}else{
+						StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "business_name")->update(array("field_value"=>$name));
+					}
+				
+				}else{
+					$cl_data["type"] = "ind";
+				}
+			}else{
+				$cl_data["type"] = "chd";
+			}
+			Client::where("client_id", "=", $client_id)->update($cl_data);
+			//echo $this->last_query();die;
+			//################# Change Officers Type End #################//
+
+		//}
+			//echo $this->last_query();die;
 		echo $type;
 	}
 

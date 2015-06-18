@@ -232,7 +232,7 @@ class HomeController extends BaseController {
 		$data['title'] 			= "Add Client";
 
 		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("organisation_id")->get();
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
@@ -768,10 +768,31 @@ class HomeController extends BaseController {
 		//echo $this->last_query();die;
 		$org_client = $this->getOrgClient($clients, $search_value);
 		$ind_client = $this->getIndClient($clients, $search_value);
-		$client_details = array_merge($org_client, $ind_client);
+		//$chd_client = $this->getChdClient($clients, $search_value);
+		$client_details = array_merge($org_client, $ind_client);//print_r($client_details);die;
+		//$client_details = $this->getUniqueArray($client_details);
 
 		echo json_encode($client_details);
 		exit();
+	}
+
+	function getUniqueArray($data)
+	{
+		$data1 = array();
+	    $data1 = $data;
+	    for($q=0;$q<count($data);$q++)
+	    {
+            for($p=0;$p<count($data1);$p++)
+            {
+                if ($data[$q]["client_name"] != $data1[$p]["client_name"])
+                {
+                        $data1[$p]["client_id"] 	= $data[$q]["client_id"];
+                        $data1[$p]["client_name"] 	= $data[$q]["client_name"];
+                }
+            }
+	    }
+	    $data1 = array_values(array_map("unserialize", array_unique(array_map("serialize", $data1))));
+	    return $data1;
 	}
 
 	function getOrgClient($client_ids, $search_value)
