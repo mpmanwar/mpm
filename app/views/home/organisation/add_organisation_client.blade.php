@@ -1828,7 +1828,17 @@ $(document).ready(function(){
     
   </tr>
 
+
+
+
+
   </table>
+
+
+
+
+
+
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
@@ -1958,6 +1968,21 @@ $(document).ready(function(){
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
   </table>
 
