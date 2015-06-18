@@ -422,7 +422,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
-                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['incorporation_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
+                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
