@@ -153,6 +153,7 @@ $(document).ready(function(){
               <div class="form-group">
                 <label for="exampleInputPassword1">Registered In</label>
                 <select class="form-control" name="registered_in" id="registered_in">
+                  <option value="">NONE</option>
                  @if(!empty($reg_address))
                     @foreach($reg_address as $key=>$reg_row)
                     <option value="{{ $reg_row->reg_id }}" {{ (isset($client_details['registered_in']) && $client_details['registered_in'] == $reg_row->reg_id)?"selected":""}}>{{ $reg_row->reg_name }}</option>

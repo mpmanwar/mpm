@@ -118,7 +118,7 @@ $(function() {
               <div class="top_bts">
                 <ul style="padding:0;">
                   <li>
-                    <a href="/individual/add-client" class="btn btn-info">ADD CLIENT</a>
+                    <a href="/individual/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
                     <button class="btn btn-success">BULK CSV IMPORT</button>
