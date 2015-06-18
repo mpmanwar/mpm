@@ -137,13 +137,13 @@ $(function() {
           @if(isset($details['registration_number']) && $details['registration_number']!= "")
             <tr class="even">
                 <td><input type="checkbox"/></td>
-                <td class="sorting_1" align="center">{{$details['incorporation_date'] or ""}}</td>
+                <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="center">{{ $details['registration_number'] or "" }}</td>
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="center">{{ $details['acc_ref_day'] or "" }}/{{ $details['acc_ref_month'] or "" }}</td>
                 <td align="center">{{ $details['auth_code'] or "" }}</td>
-                <td align="center">{{ $details['last_acc_madeup_date'] or "" }}</td>
-                <td align="center">{{ $details['next_ret_due'] or "" }}</td>
+                <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+                <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">{{ $details['count_down'] or "" }}</td>
                 <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
                 <td align="center">+</td>

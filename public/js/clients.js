@@ -269,7 +269,7 @@ $(".back").click(function(){
         url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
-          if (resp.length != 0) {
+          if (resp.length > 0) {
             var content = '<ul>';
             $.each(resp, function(key){
               content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
@@ -1115,31 +1115,36 @@ $(".delete_database_rel").click(function(){
 
 // Edit relationship while edit client start //
 $("#myRelTable").on("click", ".edit_database_rel", function(){
-  var edit_index  = $(this).data("edit_index");
+  var edit_index    = $(this).data("edit_index");
+  var client_id     = $(this).data("officer_id");
   var client_type   = $("#search_client_type").val();
   if(client_type == 'org'){
-    var text_class = 'org_relclient_search';
+    var text_class  = 'org_relclient_search';
   }else{
-    var text_class = 'all_relclient_search';
+    var text_class  = 'all_relclient_search';
   }
 
-  var first_value = $("#database_tr"+edit_index+" td:nth-child(1)").html();
-  var second_value = $("#database_tr"+edit_index+" td:nth-child(2)").html();
-  var third_value = $("#database_tr"+edit_index+" td:nth-child(3)").html();
+  var name      = $("#database_tr"+edit_index+" td:nth-child(1)").html();
+  var app_date  = $("#database_tr"+edit_index+" td:nth-child(2)").html();
+  var rel_type  = $("#database_tr"+edit_index+" td:nth-child(3)").html();
+  //var acting    = $("#database_tr"+edit_index+" td:nth-child(4)").html();
 
-  var first = '<input type="text" placeholder="Search..." value="'+first_value+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
-  var second = '<input type="text" id="edit_app_date" value="'+second_value+'" name="edit_app_date" class="form-control app_date edit_app_date">';
-  var fourth = '<button class="btn btn-success database_rel_save" data-edit_index="'+edit_index+'" type="button">Save</button>';
+  var first_name = '<input type="text" placeholder="Search..." value="'+name+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
+  var second_date = '<input type="text" id="edit_app_date" value="'+app_date+'" name="edit_app_date" class="form-control app_date edit_app_date">';
+  var action = '<button class="btn btn-success database_rel_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
 
   $.ajax({
       type: "POST",
       url: '/client/edit-relation-type',
-      data: { 'relation_type' : third_value, 'client_type' : client_type },
+      data: { 'relation_type' : rel_type, 'client_type' : client_type },
       success : function(resp){
-        $("#database_tr"+edit_index+" td:nth-child(1)").html(first);
-        $("#database_tr"+edit_index+" td:nth-child(2)").html(second);
+        $("#database_tr"+edit_index+" td:nth-child(1)").html(first_name);
+        $("#database_tr"+edit_index+" td:nth-child(2)").html(second_date);
         $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-        $("#database_tr"+edit_index+" td:nth-child(4)").html(fourth);
+        //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
+        $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+
+        $("#rel_acting_"+client_id).iCheck('enable');
       }
   });
 
@@ -1150,26 +1155,41 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
 // Save relationship while edit client start //
 $("#myRelTable").on("click", ".database_rel_save", function(){
   var edit_index    = $(this).data("edit_index");
+  var client_id = $(this).data("client_id");
   var first_value   = $("#editrelname").val();
   var rel_type_id   = $("#edit_rel_type_id").val();
-  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>'
+  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>'
 
   var rel_client_id = $("#rel_client_id").val();
   var app_date      = $(".edit_app_date").val();
   var type_id       = $("#edit_rel_type_id").val();
+  //var acting    = $("#database_tr"+edit_index+" td:nth-child(4)").html();
 
+  
+  var client_type = "chd";
+  var acting = "N";
+  if($('#rel_acting_'+client_id).prop("checked") == true){
+    client_type = "change";
+    var acting = "Y";
+  }
+//alert(client_id+", "+client_type);return false;
   $.ajax({
     type: "POST",
     url: '/client/save-database-relationship',
-    data: { 'edit_id':edit_index, 'app_date':app_date, 'rel_client_id':rel_client_id, "rel_type_id":rel_type_id },
-    success : function(resp){
+    data: { 'acting':acting, 'client_type':client_type, "name":first_value, 'client_id':client_id, 'edit_id':edit_index, 'app_date':app_date, 'rel_client_id':rel_client_id, "rel_type_id":rel_type_id },
+    success : function(resp){//alert(client_type);return false;
       $("#database_tr"+edit_index+" td:nth-child(1)").html(first_value);
       $("#database_tr"+edit_index+" td:nth-child(2)").html(app_date);
       $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-      $("#database_tr"+edit_index+" td:nth-child(4)").html(fourth);
+      //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
+      $("#database_tr"+edit_index+" td:nth-child(5)").html(fourth);
+
+      $("#rel_acting_"+client_id).iCheck('disable');
     }
   });
-  
+
+
+
     
 });
 // Save relationship while edit client end //
