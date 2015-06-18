@@ -1,9 +1,11 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
+
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <!-- Date picker script -->
+
 @stop
 
 @section('myjsfile')
@@ -554,6 +556,7 @@ $(document).ready(function(){
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
          <option value="">-- Select Address --</option>
+        
          @if(!empty($cont_address))
             @foreach($cont_address as $key=>$address_row)
                 @if (isset($address_row['res_addr_line1']) && $address_row['res_addr_line1'] !="")
@@ -561,6 +564,7 @@ $(document).ready(function(){
                @endif
             @endforeach
          @endif
+         
      </select>
 </div>
 <div class="form-group">
