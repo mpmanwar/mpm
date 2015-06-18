@@ -145,7 +145,7 @@ $(document).ready(function(){
             <div class="threebox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Incorporation Date</label>
-                <input type="text" id="incorporation_date" name="incorporation_date" value="{{ $client_details['incorporation_date'] or "" }}" class="form-control">
+                <input type="text" id="incorporation_date" name="incorporation_date" value="{{ isset($client_details['incorporation_date'])?date("d-m-Y", strtotime($client_details['incorporation_date'])):"" }}" class="form-control">
               </div>
             </div>
 
@@ -196,13 +196,13 @@ $(document).ready(function(){
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Made up Date</label>
-              <input type="text" id="made_up_date" name="made_up_date" value="{{ $client_details['made_up_date'] or "" }}" class="form-control">
+              <input type="text" id="made_up_date" name="made_up_date" value="{{ isset($client_details['made_up_date'])?date("d-m-Y", strtotime($client_details['made_up_date'])):"" }}" class="form-control">
             </div>
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Next Return Due</label>
-              <input type="text" id="next_ret_due" name="next_ret_due" value="{{ $client_details['next_ret_due'] or "" }}" class="form-control">
+              <input type="text" id="next_ret_due" name="next_ret_due"  value="{{ isset($client_details['next_ret_due'])?date("d-m-Y", strtotime($client_details['next_ret_due'])):"" }}" class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -268,7 +268,7 @@ $(document).ready(function(){
            <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Last Account Made Up Date</label>
-              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value="{{ $client_details['last_acc_madeup_date'] or "" }}" class="form-control">
+              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value="{{ isset($client_details['next_ret_due'])?date("d-m-Y", strtotime($client_details['next_ret_due'])):"" }}" class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -414,20 +414,21 @@ $(document).ready(function(){
                             <h3 class="box-title">TAX INFORMATION</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Registered for Vat</label>
-                              <input type="checkbox" name="reg_for_vat" id="reg_for_vat" value="1" />
+                              <input type="checkbox" name="reg_for_vat" id="reg_for_vat"{{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?"checked":""}} value="1" />
                             </div>
-                            <div class="registered_vat" id="show_reg_for_vat" style="display:none">
+                            
+                            <div class="registered_vat" id="show_reg_for_vat" style="display: {{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?"block":"none"}};">
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
-                                  <input type="text" id="effective_date" name="effective_date" class="form-control">
+                                  <input type="text" id="effective_date" name="effective_date" value="{{ $client_details['effective_date'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Number</label>
-                                  <input type="text" id="vat_number" name="vat_number" class="form-control">
+                                  <input type="text" id="vat_number" name="vat_number" value="{{ $client_details['vat_number'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -441,7 +442,7 @@ $(document).ready(function(){
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
                                     @if(!empty($vat_schemes))
                                       @foreach($vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}">{{ $scheme_row->vat_scheme_name }}</option>
+                                        <option value="{{ $scheme_row->vat_scheme_id }}"> {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $org_row->vat_scheme_id)?"selected":""}}{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
                                   <!--  <option value="11">Others - specify</option> -->
@@ -457,13 +458,13 @@ $(document).ready(function(){
                                  
                                 
                                     <label for="exampleInputPassword1">Cash</label>
-                                    <input type="radio" name="vat_scheme" value="cash" />
+                                    <input type="radio" name="vat_scheme" value="cash"  {{ (isset($client_details['vat_scheme']) && $client_details['vat_scheme'] == "cash")?"checked":""}}  />
                                   </div>
                                 </div>
                                 <div class="add_ch2">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Accrual</label>
-                                    <input type="radio" name="vat_scheme" value="accrual" checked />
+                                    <input type="radio" name="vat_scheme" value="accrual" {{ (isset($client_details['vat_scheme']) && $client_details['vat_scheme'] == "accrual")?"checked":""}}  />
                                   </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -475,9 +476,11 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Return Frequency</label>
                                   <select class="form-control frequency_change" name="ret_frequency" id="ret_frequency">
-                                    <option value="quarterly">Quarterly</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="yearly">Yearly</option>
+                                    
+                                    <option value="quarterly" {{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "quarterly")?"selected":""}}>Quarterly</option>
+                                    <option value="monthly"{{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "monthly")?"selected":""}}> Monthly</option>
+                                    <option value="yearly" {{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "yearly")?"selected":""}}> Yearly</option>
+                                    
                                   </select>
                                 </div>
                               </div>
@@ -486,9 +489,9 @@ $(document).ready(function(){
                                   <label for="exampleInputPassword1">Vat Stagger</label>
                                   <select class="form-control" name="vat_stagger" id="vat_stagger">
                                     <option>Choose One</option>
-                                    <option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option>
-                                    <option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option>
-                                    <option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>
+                                    
+                                     <option value="monthly"{{ (isset($client_details['vat_stagger']) && $client_details['vat_stagger'] == "monthly")?"selected":""}}> Monthly</option>
+                                    
                                   </select>
                                 </div>
                               </div>
@@ -496,22 +499,23 @@ $(document).ready(function(){
                             </div>
                             </div>
                             
+                            
                             <div class="form-group">
                               <label for="exampleInputPassword1">EC Sales List</label>
-                                <input type="checkbox" name="ec_scale_list" id="ec_scale_list"/>
+                                <input type="checkbox" name="ec_scale_list" id="ec_scale_list"{{ (isset($client_details['ec_scale_list']) && $client_details['ec_scale_list'] == "on" )?"checked":""}} />
 
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Tax</label>
-                               <input type="checkbox" id="tax_div" name="tax_div" value="1" >
+                               <input type="checkbox" id="tax_div" name="tax_div" {{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?"checked":""}}  value="1" >
                             </div>
                           
-                          <div id="show_tax_div" style="display:none;"> 
+                          <div id="show_tax_div" style="display:{{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?"block":"none"}};"> 
                             <div class="tax_utr_con">
                             <div class="tax_utr">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Tax Reference(UTR)</label>
-                              <input type="text" id="tax_reference" name="tax_reference" class="form-control">
+                              <input type="text" id="tax_reference" name="tax_reference"  value="{{ $client_details['tax_reference'] or "" }}" class="form-control">
                             </div>
                             </div>
 
@@ -524,9 +528,9 @@ $(document).ready(function(){
             <label for="exampleInputPassword1">Tax Type</label>
 
             <select class="form-control org_tax_reference" name="tax_reference_type" id="tax_reference_type">
-              <option value="N">None</option>
-              <option value="I">Income Tax</option>
-              <option value="C">Corporation Tax</option>
+              <option value="N" {{ (isset($client_details['tax_reference_type']) && $client_details['tax_reference_type'] == "N")?"selected":""}}>None</option>
+              <option value="I"{{ (isset($client_details['tax_reference_type']) && $client_details['tax_reference_type'] == "I")?"selected":""}}>Income Tax</option>
+              <option value="C"{{ (isset($client_details['tax_reference_type']) && $client_details['tax_reference_type'] == "C")?"selected":""}}>Corporation Tax</option>
             </select>
 
           </div>
@@ -541,7 +545,7 @@ $(document).ready(function(){
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Tax District</label>
-               <select class="form-control" name="tax_office_id" id="tax_office_id">
+               <select class="form-control" name="tax_office_id" id="tax_office_id" >
                   <!-- @if(!empty($tax_office))
                     @foreach($tax_office as $key=>$office_row)
                       @if($office_row->parent_id == 0)
@@ -549,24 +553,63 @@ $(document).ready(function(){
                       @endif
                     @endforeach
                   @endif -->
-                    <option value="">-- Select Address --</option>
+                    <option value="">-- Select AddresS --</option>
+                    @if(!empty($tax_office))
+                    @foreach($tax_office as $key=>$office_row)
+                      @if($office_row->parent_id == 0)
+                        <option value="{{ $office_row->office_id }}" {{ (isset($client_details['tax_office_id']) && $client_details['tax_office_id'] == $office_row->office_id)?"selected":""}} >{{ $office_row->office_name }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                 </select>
             </div>
           </div>
           <div class="twobox_2" id="show_other_office" style="display:none;">
             <div class="form-group">
               <label for="exampleInputPassword1">Other Address</label>
+              
+              
               <select class="form-control" name="other_office_id" id="other_office_id">
                 <option value="">-- Select Address --</option>
                   @if(!empty($tax_office))
                     @foreach($tax_office as $key=>$office_row)
                       @if($office_row->parent_id != 0)
-                        <option value="{{ $office_row->office_id }}">{{ $office_row->office_name }}</option>
+                        <option value="{{ $office_row->office_id }}" {{ (isset($client_details['tax_office_id']) && $client_details['tax_office_id'] == $office_row->office_id)?"selected":""}}>     {{ $office_row->office_name }}</option>
                       @endif
                     @endforeach
                   @endif
                     
                 </select>
+                
+                
+                
+                
+                <!--
+                
+                
+                     
+                    <select class="form-control" id="trad_cont_country" name="trad_cont_country">
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['trad_cont_country']) && $client_details['trad_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif
+                      @if(!empty($countries))
+                        @foreach($countries as $key=>$country_row)
+                        @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+                          <option value="{{ $country_row->country_id }}"  {{ (isset($client_details['trad_cont_country']) && $client_details['trad_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
+                        @endif
+                        @endforeach
+                      @endif   
+                    </select>
+                
+                -->
+                
+                
+                
+                
             </div>
           </div>
           <div class="clearfix"></div>
@@ -574,20 +617,20 @@ $(document).ready(function(){
 
           <div class="form-group">
             <label for="exampleInputPassword1">Postal Address</label>
-            <textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $tax_office_by_id->address  or "" }}</textarea>
+            <textarea id="tax_address" name="tax_address" class="form-control" rows="3">{{ $client_details['tax_address'] or "" }} </textarea>
           </div>
 
           <div class="twobox">
             <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Post Code</label>
-                <input type="text" id="tax_zipcode" name="tax_zipcode" class="form-control">
+                <input type="text" id="tax_zipcode" name="tax_zipcode" value="{{ $client_details['tax_zipcode'] or "" }}" class="form-control">
               </div>
             </div>
             <div class="twobox_2">
               <div class="form-group">
                 <label for="exampleInputPassword1">Telephone</label>
-                <input type="text" id="tax_telephone" name="tax_telephone" class="form-control">
+                <input type="text" id="tax_telephone" name="tax_telephone" value="{{ $client_details['tax_telephone'] or "" }}" class="form-control">
               </div>
             </div>
             </div>
@@ -598,15 +641,15 @@ $(document).ready(function(){
                             
           <div class="form-group">
             <label for="exampleInputPassword1">PAYE Registered</label>
-            <input type="checkbox" class="org_tax_payee_address" id="paye_reg" name="paye_reg" value="1" />
+            <input type="checkbox" class="org_tax_payee_address" id="paye_reg" name="paye_reg" {{ (isset($client_details['paye_reg']) && $client_details['paye_reg'] == 1)?"checked":""}}   value="1" />
           </div>
                         
                         
                         
-                        <div id="show_paye_reg" style="display:none;">    
+                        <div id="show_paye_reg" style="display:{{ (isset($client_details['paye_reg']) && $client_details['paye_reg'] == 1)?"block":"none"}};">    
                             <div class="form-group">
                               <label for="exampleInputPassword1">CIS Registered</label>
-                              <input type="checkbox" name="cis_registered" name="cis_registered" />
+                              <input type="checkbox" name="cis_registered" name="cis_registered" {{ (isset($client_details['cis_registered']) && $client_details['cis_registered'] == "on" )?"checked":""}}   />
                             </div>
 
                             
@@ -616,14 +659,14 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Account Office Reference</label>
-                                  <input type="text" id="acc_office_ref" name="acc_office_ref" class="form-control">
+                                  <input type="text" id="acc_office_ref" name="acc_office_ref" value="{{ $client_details['acc_office_ref'] or "" }}"  class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
 
                                   <label for="exampleInputPassword1">PAYE Reference</label>
-                                  <input type="text" id="paye_reference" name="paye_reference" class="form-control">
+                                  <input type="text" id="paye_reference" name="paye_reference" value="{{ $client_details['paye_reference'] or "" }}" class="form-control">
 
                                 </div>
                               </div>
@@ -633,7 +676,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">PAYE District</label>
-                                  <input type="text" id="paye_district" name="paye_district" class="form-control">
+                                  <input type="text" id="paye_district" name="paye_district" value="{{ $client_details['paye_district'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               <!-- <div class="twobox_2">
@@ -650,20 +693,20 @@ $(document).ready(function(){
 
                             <div class="form-group">
                               <label for="exampleInputPassword1">Employer Office</label>
-                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office"></textarea>
+                              <textarea class="form-control" cols="30" rows="3" id="employer_office" name="employer_office">{{ $client_details['employer_office'] or "" }}</textarea>
                             </div>
 
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Post Code</label>
-                                  <input type="text" name="employer_postcode" id="employer_postcode" class="form-control">
+                                  <input type="text" name="employer_postcode" id="employer_postcode" value="{{ $client_details['employer_postcode'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Telephone</label>
-                                  <input type="text" id="employer_telephone" name="employer_telephone" class="form-control">
+                                  <input type="text" id="employer_telephone" name="employer_telephone" value="{{ $client_details['employer_telephone'] or "" }}" class="form-control">
                                 </div>
                               </div>
 
@@ -788,55 +831,66 @@ $(document).ready(function(){
             <div class="col_m2">
               <h3 class="box-title">CONTACT INFORMATION</h3>
 
+
+
+
+           
+
+
+
+
+
               <div class="form-group">
                 <label for="exampleInputPassword1">Trading Address</label>
-                <input type="checkbox" class="cont_all_addr" value="trad" name="cont_trad_addr" />
+                <input type="checkbox" class="cont_all_addr" value="trad" {{ (isset($client_details['cont_trad_addr']) && $client_details['cont_trad_addr'] == "trad")?"checked":""}} name="cont_trad_addr" />
               </div>
+                       
+                             
                             
-            <div class="address_type" id="show_trad_office_addr">
+            <div class="address_type" id="show_trad_office_addr" style="display: {{ (isset($client_details['cont_trad_addr']) && $client_details['cont_trad_addr'] == "trad")?"block":"none"}};"> 
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="trad_name_check" value="trad_cont" />
+                <input type="checkbox" class="cont_name_check" name="trad_name_check" value="trad_cont"  {{ (isset($client_details['trad_name_check']) && $client_details['trad_name_check'] == "trad_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_trad_cont" style="display:none;">
+            <div id="show_trad_cont" style="display: {{ (isset($client_details['trad_name_check']) && $client_details['trad_name_check'] == "trad_cont")?"block":"none"}};">
               <div class="form-group">
-                <input type="text" id="trad_cont_name" name="trad_cont_name" class="form-control">
+                <input type="text" id="trad_cont_name" name="trad_cont_name" value="{{ $client_details['trad_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="trad_cont_tele_code" name="trad_cont_tele_code" class="form-control">
+                  <input type="text" id="trad_cont_tele_code" name="trad_cont_tele_code" value="{{ $client_details['trad_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="trad_cont_telephone" name="trad_cont_telephone" class="form-control"></div>
+                    <input type="text" id="trad_cont_telephone" name="trad_cont_telephone" value="{{ $client_details['trad_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="trad_cont_mobile_code" name="trad_cont_mobile_code" class="form-control">
+                    <input type="text" id="trad_cont_mobile_code" name="trad_cont_mobile_code" value="{{ $client_details['trad_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="trad_cont_mobile" name="trad_cont_mobile" class="form-control"></div>
+                      <input type="text" id="trad_cont_mobile" name="trad_cont_mobile" value="{{ $client_details['trad_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="trad_cont_email" name="trad_cont_email" class="form-control">
+                  <input type="text" id="trad_cont_email" name="trad_cont_email" value="{{ $client_details['trad_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="trad_cont_website" name="trad_cont_website" class="form-control">
+                  <input type="text" id="trad_cont_website" name="trad_cont_website" value="{{ $client_details['trad_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="trad_cont_skype" name="trad_cont_skype" class="form-control">
+                  <input type="text" id="trad_cont_skype" name="trad_cont_skype" value="{{ $client_details['trad_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -866,23 +920,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="trad_cont_addr_line1" name="trad_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="trad_cont_addr_line1" name="trad_cont_addr_line1" value="{{ $client_details['trad_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="trad_cont_addr_line2" name="trad_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="trad_cont_addr_line2" name="trad_cont_addr_line2"  value="{{ $client_details['trad_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="trad_cont_city" name="trad_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_city" name="trad_cont_city" value="{{ $client_details['trad_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="trad_cont_county" name="trad_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_county" name="trad_cont_county" value="{{ $client_details['trad_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -891,29 +945,46 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="trad_cont_postcode" name="trad_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="trad_cont_postcode" name="trad_cont_postcode" value="{{ $client_details['trad_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
+                 
                   <div class="form-group">
+                    
+                    
+                    
+                    
                     <label for="exampleInputPassword1">Country</label>
+                    
+                    
+                         
                     <select class="form-control" id="trad_cont_country" name="trad_cont_country">
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['trad_cont_country']) && $client_details['trad_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}"  {{ (isset($client_details['trad_cont_country']) && $client_details['trad_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
                     </select>
+                  
+                  
+                  
+                  
+                  
                   </div>
+                  
+                  
+                  
+                  
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -923,53 +994,53 @@ $(document).ready(function(){
 
             <div class="form-group">
               <label for="exampleInputPassword1">Registered Office Address</label>
-              <input type="checkbox" class="cont_all_addr" value="reg" name="cont_reg_addr" />
+              <input type="checkbox" class="cont_all_addr" value="reg" name="cont_reg_addr" {{ (isset($client_details['cont_reg_addr']) && $client_details['cont_reg_addr'] == "reg")?"checked":""}}  />
             </div>
 
-            <div class="address_type" id="show_reg_office_addr">
+            <div class="address_type" id="show_reg_office_addr" style="display: {{ (isset($client_details['cont_reg_addr']) && $client_details['cont_reg_addr'] == "reg")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="reg_name_check" value="reg_cont" />
+                <input type="checkbox" class="cont_name_check" name="reg_name_check" value="reg_cont" {{ (isset($client_details['reg_name_check']) && $client_details['reg_name_check'] == "reg_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_reg_cont" style="display:none;">
+            <div id="show_reg_cont" style="display: {{ (isset($client_details['reg_name_check']) && $client_details['reg_name_check'] == "reg_cont")?"block":"none"}};">
               <div class="form-group">
-                <input type="text" id="reg_cont_name" name="reg_cont_name" class="form-control">
+                <input type="text" id="reg_cont_name" name="reg_cont_name" value="{{ $client_details['reg_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="reg_cont_tele_code" name="reg_cont_tele_code" class="form-control">
+                  <input type="text" id="reg_cont_tele_code" name="reg_cont_tele_code" value="{{ $client_details['reg_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="reg_cont_telephone" name="reg_cont_telephone" class="form-control"></div>
+                    <input type="text" id="reg_cont_telephone" name="reg_cont_telephone" value="{{ $client_details['reg_cont_telephone'] or "" }}"  class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="reg_cont_mobile_code" name="reg_cont_mobile_code" class="form-control">
+                    <input type="text" id="reg_cont_mobile_code" name="reg_cont_mobile_code" value="{{ $client_details['reg_cont_mobile_code'] or "" }}"  class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="reg_cont_mobile" name="reg_cont_mobile" class="form-control"></div>
+                      <input type="text" id="reg_cont_mobile" name="reg_cont_mobile" value="{{ $client_details['reg_cont_name'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="reg_cont_email" name="reg_cont_email" class="form-control">
+                  <input type="text" id="reg_cont_email" name="reg_cont_email" value="{{ $client_details['reg_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="reg_cont_website" name="reg_cont_website" class="form-control">
+                  <input type="text" id="reg_cont_website" name="reg_cont_website" value="{{ $client_details['reg_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="reg_cont_skype" name="reg_cont_skype" class="form-control">
+                  <input type="text" id="reg_cont_skype" name="reg_cont_skype" value="{{ $client_details['reg_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -993,23 +1064,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="reg_cont_addr_line1" name="reg_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="reg_cont_addr_line1" name="reg_cont_addr_line1" value="{{ $client_details['reg_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="reg_cont_addr_line2" name="reg_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="reg_cont_addr_line2" name="reg_cont_addr_line2" value="{{ $client_details['reg_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="reg_cont_city" name="reg_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_city" name="reg_cont_city" value="{{ $client_details['reg_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="reg_cont_county" name="reg_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_county" name="reg_cont_county" value="{{ $client_details['reg_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1018,24 +1089,27 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="reg_cont_postcode" name="reg_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="reg_cont_postcode" name="reg_cont_postcode" value="{{ $client_details['reg_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Country</label>
+                    
+                    
+                    
                     <select class="form-control" id="reg_cont_country" name="reg_cont_country">
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['reg_cont_country']) && $client_details['reg_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['reg_cont_country']) && $client_details['reg_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1050,54 +1124,54 @@ $(document).ready(function(){
             
             <div class="form-group">
               <label for="exampleInputPassword1">Correspondence Address</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_corres_addr" value="corres" />
+              <input type="checkbox" class="cont_all_addr" name="cont_corres_addr" value="corres" {{ (isset($client_details['cont_corres_addr']) && $client_details['cont_corres_addr'] == "corres")?"checked":""}} />
             </div>
 
-            <div class="address_type" id="show_corres_office_addr">
+            <div class="address_type" id="show_corres_office_addr" style="display: {{ (isset($client_details['cont_corres_addr']) && $client_details['cont_corres_addr'] == "corres")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="corres_name_check" value="corres_cont" />
+                <input type="checkbox" class="cont_name_check" name="corres_name_check" value="corres_cont"  {{ (isset($client_details['corres_name_check']) && $client_details['corres_name_check'] == "corres_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_corres_cont" style="display:none;">
+            <div id="show_corres_cont" style="display: {{ (isset($client_details['corres_name_check']) && $client_details['corres_name_check'] == "corres_cont")?"block":"none"}};">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="corres_name" name="corres_cont_name" class="form-control">
+                <input type="text" id="corres_name" name="corres_cont_name" value="{{ $client_details['corres_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="corres_cont_tele_code" name="corres_cont_tele_code" class="form-control">
+                  <input type="text" id="corres_cont_tele_code" name="corres_cont_tele_code" value="{{ $client_details['corres_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="corres_cont_telephone" name="corres_cont_telephone" class="form-control"></div>
+                    <input type="text" id="corres_cont_telephone" name="corres_cont_telephone"  value="{{ $client_details['corres_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="corres_cont_mobile_code" name="corres_cont_mobile_code" class="form-control">
+                    <input type="text" id="corres_cont_mobile_code" name="corres_cont_mobile_code" value="{{ $client_details['corres_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="corres_cont_mobile" name="corres_cont_mobile" class="form-control"></div>
+                      <input type="text" id="corres_cont_mobile" name="corres_cont_mobile" value="{{ $client_details['corres_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="corres_cont_email" name="corres_cont_email" class="form-control">
+                  <input type="text" id="corres_cont_email" name="corres_cont_email" value="{{ $client_details['corres_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="corres_cont_website" name="corres_cont_website" class="form-control">
+                  <input type="text" id="corres_cont_website" name="corres_cont_website" value="{{ $client_details['corres_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="corres_cont_skype" name="corres_cont_skype" class="form-control">
+                  <input type="text" id="corres_cont_skype" name="corres_cont_skype" value="{{ $client_details['corres_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -1119,23 +1193,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="corres_cont_addr_line1" name="corres_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="corres_cont_addr_line1" name="corres_cont_addr_line1" value="{{ $client_details['corres_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="corres_cont_addr_line2" name="corres_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="corres_cont_addr_line2" name="corres_cont_addr_line2" value="{{ $client_details['corres_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="corres_cont_city" name="corres_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="corres_cont_city" name="corres_cont_city" value="{{ $client_details['corres_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="corres_cont_county" name="corres_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="corres_cont_county" name="corres_cont_county" value="{{ $client_details['corres_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1144,7 +1218,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="corres_cont_postcode" name="corres_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="corres_cont_postcode" name="corres_cont_postcode" value="{{ $client_details['corres_cont_postcode'] or "" }}"  class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -1154,14 +1228,14 @@ $(document).ready(function(){
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['corres_cont_country']) && $client_details['corres_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['corres_cont_country']) && $client_details['corres_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1174,53 +1248,53 @@ $(document).ready(function(){
             
             <div class="form-group">
               <label for="exampleInputPassword1">Banker</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_banker_addr" value="banker" />
+              <input type="checkbox" class="cont_all_addr" name="cont_banker_addr"  value="banker" {{ (isset($client_details['cont_banker_addr']) && $client_details['cont_banker_addr'] == "banker")?"checked":""}} />
             </div>
 
-            <div class="address_type" id="show_banker_office_addr">
+            <div class="address_type" id="show_banker_office_addr" style="display: {{ (isset($client_details['cont_banker_addr']) && $client_details['cont_banker_addr'] == "banker")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="banker_name_check" value="banker_cont" />
+                <input type="checkbox" class="cont_name_check" name="banker_name_check"  value="banker_cont" {{ (isset($client_details['banker_name_check']) && $client_details['banker_name_check'] == "banker_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_banker_cont" style="display:none;">
+            <div id="show_banker_cont" style="display: {{ (isset($client_details['banker_name_check']) && $client_details['banker_name_check'] == "banker_cont")?"block":"none"}};">
               <div class="form-group">
-                <input type="text" id="banker_cont_name" name="banker_cont_name" class="form-control">
+                <input type="text" id="banker_cont_name" name="banker_cont_name" value="{{ $client_details['banker_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="banker_cont_tele_code" name="banker_cont_tele_code" class="form-control">
+                  <input type="text" id="banker_cont_tele_code" name="banker_cont_tele_code" value="{{ $client_details['banker_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="banker_cont_telephone" name="banker_cont_telephone" class="form-control"></div>
+                    <input type="text" id="banker_cont_telephone" name="banker_cont_telephone" value="{{ $client_details['banker_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="banker_cont_mobile_code" name="banker_cont_mobile_code" class="form-control">
+                    <input type="text" id="banker_cont_mobile_code" name="banker_cont_mobile_code" value="{{ $client_details['banker_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="banker_cont_mobile" name="banker_cont_mobile" class="form-control"></div>
+                      <input type="text" id="banker_cont_mobile" name="banker_cont_mobile" value="{{ $client_details['banker_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="banker_cont_email" name="banker_cont_email" class="form-control">
+                  <input type="text" id="banker_cont_email" name="banker_cont_email" value="{{ $client_details['banker_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="banker_cont_website" name="banker_cont_website" class="form-control">
+                  <input type="text" id="banker_cont_website" name="banker_cont_website" value="{{ $client_details['banker_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="banker_cont_skype" name="banker_cont_skype" class="form-control">
+                  <input type="text" id="banker_cont_skype" name="banker_cont_skype" value="{{ $client_details['banker_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -1242,23 +1316,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="banker_cont_addr_line1" name="banker_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="banker_cont_addr_line1" name="banker_cont_addr_line1" value="{{ $client_details['banker_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="banker_cont_addr_line2" name="banker_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="banker_cont_addr_line2" name="banker_cont_addr_line2" value="{{ $client_details['banker_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="banker_cont_city" name="banker_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="banker_cont_city" name="banker_cont_city" value="{{ $client_details['banker_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="banker_cont_county" name="banker_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="banker_cont_county" name="banker_cont_county" value="{{ $client_details['banker_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1267,7 +1341,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="banker_cont_postcode" name="banker_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="banker_cont_postcode" name="banker_cont_postcode" value="{{ $client_details['banker_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -1277,14 +1351,14 @@ $(document).ready(function(){
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['banker_cont_country']) && $client_details['banker_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['banker_cont_country']) && $client_details['banker_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1302,53 +1376,53 @@ $(document).ready(function(){
                 
             <div class="form-group">
               <label for="exampleInputPassword1">Old Accountants</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_oldacc_addr" value="oldacc" />
+              <input type="checkbox" class="cont_all_addr" name="cont_oldacc_addr" value="oldacc" {{ (isset($client_details['cont_oldacc_addr']) && $client_details['cont_oldacc_addr'] == "oldacc")?"checked":""}} />
             </div>
 
-            <div class="address_type" id="show_oldacc_office_addr">
+            <div class="address_type" id="show_oldacc_office_addr" style="display: {{ (isset($client_details['cont_oldacc_addr']) && $client_details['cont_oldacc_addr'] == "oldacc")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="oldacc_name_check" value="oldacc_cont" />
+                <input type="checkbox" class="cont_name_check" name="oldacc_name_check" value="oldacc_cont" {{ (isset($client_details['oldacc_name_check']) && $client_details['oldacc_name_check'] == "oldacc_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_oldacc_cont" style="display:none;">
+            <div id="show_oldacc_cont" style="display: {{ (isset($client_details['oldacc_name_check']) && $client_details['oldacc_name_check'] == "oldacc_cont")?"block":"none"}};">
               <div class="form-group">
-                <input type="text" id="banker_cont_name" name="oldacc_cont_name" class="form-control">
+                <input type="text" id="banker_cont_name" name="oldacc_cont_name" value="{{ $client_details['oldacc_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="oldacc_cont_tele_code" name="oldacc_cont_tele_code" class="form-control">
+                  <input type="text" id="oldacc_cont_tele_code" name="oldacc_cont_tele_code"  value="{{ $client_details['oldacc_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="oldacc_cont_telephone" name="oldacc_cont_telephone" class="form-control"></div>
+                    <input type="text" id="oldacc_cont_telephone" name="oldacc_cont_telephone" value="{{ $client_details['oldacc_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="oldacc_cont_mobile_code" name="oldacc_cont_mobile_code" class="form-control">
+                    <input type="text" id="oldacc_cont_mobile_code" name="oldacc_cont_mobile_code" value="{{ $client_details['oldacc_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="oldacc_cont_mobile" name="oldacc_cont_mobile" class="form-control"></div>
+                      <input type="text" id="oldacc_cont_mobile" name="oldacc_cont_mobile" value="{{ $client_details['oldacc_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="oldacc_cont_email" name="oldacc_cont_email" class="form-control">
+                  <input type="text" id="oldacc_cont_email" name="oldacc_cont_email" value="{{ $client_details['oldacc_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="oldacc_cont_website" name="oldacc_cont_website" class="form-control">
+                  <input type="text" id="oldacc_cont_website" name="oldacc_cont_website" value="{{ $client_details['oldacc_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="oldacc_cont_skype" name="oldacc_cont_skype" class="form-control">
+                  <input type="text" id="oldacc_cont_skype" name="oldacc_cont_skype" value="{{ $client_details['oldacc_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -1370,23 +1444,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="oldacc_cont_addr_line1" name="oldacc_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="oldacc_cont_addr_line1" name="oldacc_cont_addr_line1" value="{{ $client_details['oldacc_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="oldacc_cont_addr_line2" name="oldacc_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="oldacc_cont_addr_line2" name="oldacc_cont_addr_line2" value="{{ $client_details['oldacc_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="oldacc_cont_city" name="oldacc_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="oldacc_cont_city" name="oldacc_cont_city" value="{{ $client_details['oldacc_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="oldacc_cont_county" name="oldacc_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="oldacc_cont_county" name="oldacc_cont_county" value="{{ $client_details['oldacc_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1395,7 +1469,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="oldacc_cont_postcode" name="oldacc_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="oldacc_cont_postcode" name="oldacc_cont_postcode" value="{{ $client_details['oldacc_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -1405,14 +1479,14 @@ $(document).ready(function(){
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['oldacc_cont_country']) && $client_details['oldacc_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['oldacc_cont_country']) && $client_details['oldacc_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1425,54 +1499,54 @@ $(document).ready(function(){
             
             <div class="form-group">
               <label for="exampleInputPassword1">Auditors</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_auditors_addr" value="auditors" />
+              <input type="checkbox" class="cont_all_addr" name="cont_auditors_addr" value="auditors" {{ (isset($client_details['cont_auditors_addr']) && $client_details['cont_auditors_addr'] == "auditors")?"checked":""}} />
             </div>
 
-            <div class="address_type" id="show_auditors_office_addr">
+            <div class="address_type" id="show_auditors_office_addr" style="display: {{ (isset($client_details['cont_auditors_addr']) && $client_details['cont_auditors_addr'] == "auditors")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="auditors_name_check" value="auditors_cont" />
+                <input type="checkbox" class="cont_name_check" name="auditors_name_check" value="auditors_cont" {{ (isset($client_details['auditors_name_check']) && $client_details['auditors_name_check'] == "auditors_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_auditors_cont" style="display:none;">
+            <div id="show_auditors_cont" style="display: {{ (isset($client_details['auditors_name_check']) && $client_details['auditors_name_check'] == "auditors_cont")?"block":"none"}};">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="auditors_cont_name" name="auditors_cont_name" class="form-control">
+                <input type="text" id="auditors_cont_name" name="auditors_cont_name" value="{{ $client_details['auditors_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="auditors_cont_tele_code" name="auditors_cont_tele_code" class="form-control">
+                  <input type="text" id="auditors_cont_tele_code" name="auditors_cont_tele_code" value="{{ $client_details['auditors_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="auditors_cont_telephone" name="auditors_cont_telephone" class="form-control"></div>
+                    <input type="text" id="auditors_cont_telephone" name="auditors_cont_telephone" value="{{ $client_details['auditors_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="auditors_cont_mobile_code" name="auditors_cont_mobile_code" class="form-control">
+                    <input type="text" id="auditors_cont_mobile_code" name="auditors_cont_mobile_code" value="{{ $client_details['auditors_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="auditors_cont_mobile" name="auditors_cont_mobile" class="form-control"></div>
+                      <input type="text" id="auditors_cont_mobile" name="auditors_cont_mobile" value="{{ $client_details['auditors_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="auditors_cont_email" name="auditors_cont_email" class="form-control">
+                  <input type="text" id="auditors_cont_email" name="auditors_cont_email" value="{{ $client_details['auditors_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="auditors_cont_website" name="auditors_cont_website" class="form-control">
+                  <input type="text" id="auditors_cont_website" name="auditors_cont_website" value="{{ $client_details['auditors_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="auditors_cont_skype" name="auditors_cont_skype" class="form-control">
+                  <input type="text" id="auditors_cont_skype" name="auditors_cont_skype" value="{{ $client_details['auditors_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -1494,23 +1568,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="auditors_cont_addr_line1" name="auditors_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="auditors_cont_addr_line1" name="auditors_cont_addr_line1" value="{{ $client_details['auditors_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="auditors_cont_addr_line2" name="auditors_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="auditors_cont_addr_line2" name="auditors_cont_addr_line2" value="{{ $client_details['auditors_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="auditors_cont_city" name="auditors_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="auditors_cont_city" name="auditors_cont_city" value="{{ $client_details['auditors_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="auditors_cont_county" name="auditors_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="auditors_cont_county" name="auditors_cont_county" value="{{ $client_details['auditors_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1519,7 +1593,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="auditors_cont_postcode" name="auditors_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="auditors_cont_postcode" name="auditors_cont_postcode" value="{{ $client_details['auditors_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -1529,14 +1603,14 @@ $(document).ready(function(){
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['auditors_cont_country']) && $client_details['auditors_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['auditors_cont_country']) && $client_details['auditors_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1549,54 +1623,54 @@ $(document).ready(function(){
             
             <div class="form-group">
               <label for="exampleInputPassword1">Solicitors</label>
-              <input type="checkbox" class="cont_all_addr" name="cont_solicitors_addr" value="solicitors" />
+              <input type="checkbox" class="cont_all_addr" name="cont_solicitors_addr" value="solicitors" {{ (isset($client_details['cont_solicitors_addr']) && $client_details['cont_solicitors_addr'] == "solicitors")?"checked":""}} />
             </div>
 
-            <div class="address_type" id="show_solicitors_office_addr">
+            <div class="address_type" id="show_solicitors_office_addr" style="display: {{ (isset($client_details['cont_solicitors_addr']) && $client_details['cont_solicitors_addr'] == "solicitors")?"block":"none"}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
-                <input type="checkbox" class="cont_name_check" name="solicitors_name_check" value="solicitors_cont" />
+                <input type="checkbox" class="cont_name_check" name="solicitors_name_check" value="solicitors_cont" {{ (isset($client_details['solicitors_name_check']) && $client_details['solicitors_name_check'] == "solicitors_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_solicitors_cont" style="display:none;">
+            <div id="show_solicitors_cont" style="display: {{ (isset($client_details['solicitors_name_check']) && $client_details['solicitors_name_check'] == "solicitors_cont")?"block":"none"}};">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="solicitors_cont_name" name="solicitors_cont_name" class="form-control">
+                <input type="text" id="solicitors_cont_name" name="solicitors_cont_name" value="{{ $client_details['solicitors_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
                   <label for="exampleInputPassword1">Country Code</label>
-                  <input type="text" id="solicitors_cont_tele_code" name="solicitors_cont_tele_code" class="form-control">
+                  <input type="text" id="solicitors_cont_tele_code" name="solicitors_cont_tele_code" value="{{ $client_details['solicitors_cont_tele_code'] or "" }}" class="form-control">
                 </div>
 
                 <div class="telbox">
                   <label for="exampleInputPassword1">Telephone</label>
-                    <input type="text" id="solicitors_cont_telephone" name="solicitors_cont_telephone" class="form-control"></div>
+                    <input type="text" id="solicitors_cont_telephone" name="solicitors_cont_telephone" value="{{ $client_details['solicitors_cont_telephone'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
 
                 <div class="form-group">
                   <div class="n_box01">
                     <label for="exampleInputPassword1">Country Code</label>
-                    <input type="text" id="solicitors_cont_mobile_code" name="solicitors_cont_mobile_code" class="form-control">
+                    <input type="text" id="solicitors_cont_mobile_code" name="solicitors_cont_mobile_code" value="{{ $client_details['solicitors_cont_mobile_code'] or "" }}" class="form-control">
                   </div>
                   <div class="telbox">
                   <label for="exampleInputPassword1">Mobile</label>
-                      <input type="text" id="solicitors_cont_mobile" name="solicitors_cont_mobile" class="form-control"></div>
+                      <input type="text" id="solicitors_cont_mobile" name="solicitors_cont_mobile" value="{{ $client_details['solicitors_cont_mobile'] or "" }}" class="form-control"></div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Email</label>
-                  <input type="text" id="solicitors_cont_email" name="solicitors_cont_email" class="form-control">
+                  <input type="text" id="solicitors_cont_email" name="solicitors_cont_email" value="{{ $client_details['solicitors_cont_email'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="solicitors_cont_website" name="solicitors_cont_website" class="form-control">
+                  <input type="text" id="solicitors_cont_website" name="solicitors_cont_website" value="{{ $client_details['solicitors_cont_website'] or "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
-                  <input type="text" id="solicitors_cont_skype" name="solicitors_cont_skype" class="form-control">
+                  <input type="text" id="solicitors_cont_skype" name="solicitors_cont_skype" value="{{ $client_details['solicitors_cont_skype'] or "" }}" class="form-control">
                 </div>
             </div>
               <!-- Contact address expand end-->
@@ -1618,23 +1692,23 @@ $(document).ready(function(){
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
-                <input type="text" id="solicitors_cont_addr_line1" name="solicitors_cont_addr_line1" class="form-control toUpperCase">
+                <input type="text" id="solicitors_cont_addr_line1" name="solicitors_cont_addr_line1" value="{{ $client_details['solicitors_cont_addr_line1'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line2</label>
-                <input type="text" id="solicitors_cont_addr_line2" name="solicitors_cont_addr_line2" class="form-control toUpperCase">
+                <input type="text" id="solicitors_cont_addr_line2" name="solicitors_cont_addr_line2" value="{{ $client_details['solicitors_cont_addr_line2'] or "" }}" class="form-control toUpperCase">
               </div>
               <div class="twobox">
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">City/Town</label>
-                    <input type="text" id="solicitors_cont_city" name="solicitors_cont_city" class="form-control toUpperCase">
+                    <input type="text" id="solicitors_cont_city" name="solicitors_cont_city" value="{{ $client_details['solicitors_cont_city'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
                   <div class="form-group">
                     <label for="exampleInputPassword1">County</label>
-                    <input type="text" id="solicitors_cont_county" name="solicitors_cont_county" class="form-control toUpperCase">
+                    <input type="text" id="solicitors_cont_county" name="solicitors_cont_county" value="{{ $client_details['solicitors_cont_county'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -1643,7 +1717,7 @@ $(document).ready(function(){
                 <div class="twobox_1">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Postcode</label>
-                    <input type="text" id="solicitors_cont_postcode" name="solicitors_cont_postcode" class="form-control toUpperCase">
+                    <input type="text" id="solicitors_cont_postcode" name="solicitors_cont_postcode" value="{{ $client_details['solicitors_cont_postcode'] or "" }}" class="form-control toUpperCase">
                   </div>
                 </div>
                 <div class="twobox_2">
@@ -1653,14 +1727,14 @@ $(document).ready(function(){
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['solicitors_cont_country']) && $client_details['solicitors_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif
                       @if(!empty($countries))
                         @foreach($countries as $key=>$country_row)
                         @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-                          <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                          <option value="{{ $country_row->country_id }}" {{ (isset($client_details['solicitors_cont_country']) && $client_details['solicitors_cont_country'] == $country_row->country_id)?"selected":""}}>{{ $country_row->country_name }}</option>
                         @endif
                         @endforeach
                       @endif   
@@ -1848,6 +1922,10 @@ $(document).ready(function(){
 
   </table>
 
+
+
+
+
   <div class="contain_tab4" id="new_relationship" style="display:none;">
     <div class="contain_search">
       <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
@@ -1911,7 +1989,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Bank Name</label>
-                                  <input type="text" id="bank_name" name="bank_name" class="form-control">
+                                  <input type="text" id="bank_name" name="bank_name" value="{{ $client_details['bank_name'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               <!-- <div class="twobox_2">
@@ -1927,14 +2005,14 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Sort Code</label>
-                                  <input type="text" id="bank_short_code" name="bank_short_code" class="form-control">
+                                  <input type="text" id="bank_short_code" name="bank_short_code" value="{{ $client_details['bank_short_code'] or "" }}" class="form-control">
                                   
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Account Number</label>
-                                  <input type="text" id="bank_acc_no" name="bank_acc_no" class="form-control">
+                                  <input type="text" id="bank_acc_no" name="bank_acc_no" value="{{ $client_details['bank_acc_no'] or "" }}" class="form-control">
                                   
                                 </div>
                               </div>
@@ -1945,7 +2023,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
+                                  <input type="text" id="bank_mark_source" name="bank_mark_source" value="{{ $client_details['bank_mark_source'] or "" }}" class="form-control">
                                 </div>
                               </div>
                               
