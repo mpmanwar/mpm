@@ -421,7 +421,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
-                                  <input type="text" id="effective_date" name="effective_date" value="{{ $client_details['effective_date'] or "" }}" class="form-control">
+                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['incorporation_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
@@ -438,12 +438,14 @@ $(document).ready(function(){
                                   <label for="exampleInputPassword1">Vat Scheme</label>
                                   
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
+                                  
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
                                     @if(!empty($vat_schemes))
                                       @foreach($vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}"> {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $org_row->vat_scheme_id)?"selected":""}}{{ $scheme_row->vat_scheme_name }}</option>
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":""}}>{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
+                                    
                                   <!--  <option value="11">Others - specify</option> -->
 
                                     
