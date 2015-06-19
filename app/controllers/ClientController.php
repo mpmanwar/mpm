@@ -484,7 +484,7 @@ class ClientController extends BaseController {
 	public function save_database_relationship()
 	{
 		$data = array();
-		$type = "aa";
+		$type = "";
 		$edit_id 		= Input::get("edit_id");
 		$client_type 	= Input::get("client_type");
 		$client_id 		= Input::get("client_id");
@@ -539,6 +539,45 @@ class ClientController extends BaseController {
 		//}
 			//echo $this->last_query();die;
 		echo $type;
+	}
+
+	public function save_acting_relationship()
+	{
+		$client_type 	= Input::get("client_type");
+		$client_id 		= Input::get("client_id");
+		$acting 		= Input::get("acting");
+		$type 			= Input::get("rel_type");
+		$edit_id 		= Input::get("edit_id");
+
+		$data['acting'] 				= $acting;
+		ClientRelationship::where("client_relationship_id", "=", $edit_id)->update($data);
+		//################# Change Officers Type Start #################//
+		if($client_type == "change"){
+			if (strpos($type, 'Corporate') !== false){
+				$cl_data["type"] = "org";
+				$getData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "client_name")->first();
+				$clin_data['user_id'] 		= $getData['user_id'];
+				$clin_data['client_id'] 	= $getData['client_id'];
+				$clin_data['step_id'] 		= $getData['step_id'];
+				$clin_data['field_name'] 	= "business_name";
+				$clin_data['field_value'] 	= $getData['field_value'];
+
+				$checkData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "business_name")->first();
+				if(!isset($checkData)){
+					StepsFieldsClient::insert($clin_data);
+				}
+			
+			}else{
+				$cl_data["type"] = "ind";
+			}
+		}else{
+			$cl_data["type"] = "chd";
+		}
+		$success = Client::where("client_id", "=", $client_id)->update($cl_data);
+		//echo $this->last_query();die;
+		//################# Change Officers Type End #################//
+
+		echo $success;
 	}
 
 }

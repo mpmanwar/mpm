@@ -1914,7 +1914,7 @@ $(document).ready(function(){
         <td width="25%">{{ $relation_row['name'] or "" }}</td>
         <td width="26%" align="center">{{ $relation_row['appointment_date'] }}</td>
         <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
-        <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}" disabled  /></td>
+        <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
         <td width="13%" align="center">
           <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
         </td>

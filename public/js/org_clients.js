@@ -205,6 +205,51 @@ $("#myServTable").on("click", ".delete_service", function(){
   
 });
 // Delete Allocate Serveces while adding organisation client end //
+
+
+$('.rel_acting').on('ifChecked', function(event){
+  $('input').iCheck('check');//rel_acting_94
+  var edit_index  = $(this).data("edit_index");
+  var client_id   = $(this).data("officer_id");
+  var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
+  $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+
+});
+
+$('.rel_acting').on('ifUnchecked', function(event){
+  $('input').iCheck('uncheck');
+  var edit_index  = $(this).data("edit_index");
+  var client_id   = $(this).data("officer_id");
+  var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+  $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+
+});
+
+// Save Acting while edit client start //
+$("#myRelTable").on("click", ".rel_acting_save", function(){
+    var edit_index  = $(this).data("edit_index");
+    var client_id   = $(this).data("client_id");
+    var rel_type    = $("#database_tr"+edit_index+" td:nth-child(3)").html();
+
+    var client_type = "chd";
+    var acting = "N";
+    if($('#rel_acting_'+client_id).prop("checked") == true){
+      client_type = "change";
+      var acting = "Y";
+    }
+  //alert(client_id+", "+client_type);return false;
+    $.ajax({
+      type: "POST",
+      url: '/client/save-acting-relationship',
+      data: { 'acting':acting, 'client_type':client_type, 'client_id':client_id, 'edit_id':edit_index, 'rel_type':rel_type },
+      success : function(resp){//alert(client_type);return false;
+        var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+        $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+      }
+    });
+});
+// Save Acting while edit client end //
+
 	
  	
 });//end of main document ready

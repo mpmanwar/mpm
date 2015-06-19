@@ -324,31 +324,6 @@ class ChdataController extends BaseController {
 		}
 		//print_r($arrData);die;
 
-		/*if(isset($client_id) && $client_id >0){
-			$org_inserted = StepsFieldsClient::insert($org_data);
-		}*/
-
-		/*$officers 	= Common::getOfficerDetails($number);
-		if(isset($officers->items) && count($officers->items) > 0){
-			foreach ($officers->items as $key => $row) {
-				if(!isset($row->resigned_on)){
-					$app_client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd'));
-					if (isset($row->name) && $row->name != "") {
-						$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'name', $row->name);
-
-						$relationship_type = RelationshipType::where("relation_type", "=", ucwords($row->officer_role))->first();
-						$relData[] = array(
-							'client_id' => $client_id,
-							'appointment_with' => $app_client_id,
-							'appointment_date' => str_replace("/", "-", $row->appointed_on),
-							'relationship_type_id' => isset($relationship_type['relation_type_id'])?$relationship_type['relation_type_id']:"1",
-						);
-						
-					}
-				}
-			}
-		}*/
-
 		if(isset($details->officer_summary->officers) && count($details->officer_summary->officers) > 0){
 			foreach ($details->officer_summary->officers as $key => $row) {
 				$app_client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd'));
@@ -376,7 +351,7 @@ class ChdataController extends BaseController {
 		$inserted = StepsFieldsClient::insert($arrData);
 
 		if($inserted){
-			echo 1;
+			echo $client_id;
 		}else{
 			echo 0;
 		}

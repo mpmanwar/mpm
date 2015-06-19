@@ -63,14 +63,14 @@ $(document).ready(function(){
             beforeSend: function() {
                 $("#message_div").html('<img src="/img/spinner.gif" />');
             },
-            success: function (resp) {
-                if(resp == 1){
+            success: function (client_id) {
+                if(client_id > 0){
                     //$("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
                     if(back_url == 'ch_list'){
                         window.location.href='/chdata/index';
                     }
                     if(back_url == 'org_list'){
-                        window.location.href='/organisation-clients';
+                        window.location.href='/client/edit-org-client/'+client_id;
                     }
                         
                 }else{

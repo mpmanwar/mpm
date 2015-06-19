@@ -1162,7 +1162,7 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
   var client_id = $(this).data("client_id");
   var first_value   = $("#editrelname").val();
   var rel_type_id   = $("#edit_rel_type_id").val();
-  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>'
+  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
 
   var rel_client_id = $("#rel_client_id").val();
   var app_date      = $(".edit_app_date").val();

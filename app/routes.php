@@ -121,6 +121,7 @@ Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "us
 Route::any('/client/edit-relation-type', array("as"=>"edit_relation_type", "uses"=>'ClientController@edit_relation_type'));
 Route::any('/client/delete-relationship', array("as"=>"delete_relationship", "uses"=>'ClientController@delete_relationship'));
 Route::any('/client/save-database-relationship', array("as"=>"save_database_relationship", "uses"=>'ClientController@save_database_relationship'));
+Route::any('/client/save-acting-relationship', array("as"=>"save_acting_relationship", "uses"=>'ClientController@save_acting_relationship'));
 ### Routes for Client URL's end ###
 
 
