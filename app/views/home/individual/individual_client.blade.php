@@ -121,7 +121,7 @@ $(function() {
                     <a href="/individual/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
-                    <button class="btn btn-success">BULK CSV IMPORT</button>
+                    <button type="button" class="btn btn-info">BULK CSV IMPORT</button>
                   </li>
                   <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
