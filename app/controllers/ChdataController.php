@@ -357,9 +357,10 @@ class ChdataController extends BaseController {
 
 				//StepsFieldsClient::insert($chData);
 			}
+			ClientRelationship::insert($relData);
 		}
 
-		ClientRelationship::insert($relData);
+		
 		$inserted = StepsFieldsClient::insert($arrData);
 
 		if($inserted){

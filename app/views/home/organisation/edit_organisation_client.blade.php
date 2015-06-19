@@ -268,7 +268,7 @@ $(document).ready(function(){
            <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Last Account Made Up Date</label>
-              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value="{{ isset($client_details['next_ret_due'])?date("d-m-Y", strtotime($client_details['next_ret_due'])):"" }}" class="form-control">
+              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value="{{ isset($client_details['last_acc_madeup_date'])?date("d-m-Y", strtotime($client_details['last_acc_madeup_date'])):"" }}" class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -277,7 +277,7 @@ $(document).ready(function(){
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Next Account Due</label>
-              <input type="text" id="next_acc_due" name="next_acc_due" value="{{ $client_details['next_acc_due'] or "" }}" class="form-control">
+              <input type="text" id="next_acc_due" name="next_acc_due" value="{{ isset($client_details['next_acc_due'])?date("d-m-Y", strtotime($client_details['next_acc_due'])):"" }}" class="form-control">
             </div>
           </div>
 

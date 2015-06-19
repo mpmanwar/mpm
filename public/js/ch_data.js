@@ -55,6 +55,7 @@ $(document).ready(function(){
     $("#company_details_div").on("click", ".import_client", function(){
         var number = $(this).data("number");
         var back_url = $("#back_url").val();
+
         $.ajax({
             type: "POST",
             url: "/import-company-details",
@@ -69,7 +70,7 @@ $(document).ready(function(){
                         window.location.href='/chdata/index';
                     }
                     if(back_url == 'org_list'){
-                        window.location.href='/organisation/add-client';
+                        window.location.href='/organisation-clients';
                     }
                         
                 }else{
