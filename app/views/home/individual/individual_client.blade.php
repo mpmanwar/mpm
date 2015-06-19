@@ -259,7 +259,7 @@ $(function() {
                     <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" id="client_delete_id"/>
                   </td>
                   <td align="left">{{ $client_row['staff_name'] or "" }}</td>
-                  <td align="center">{{ (!empty($client_row['dob']))? $client_row['dob']: '' }}</td>
+                  <td align="center">{{ isset($client_row['dob'])?date("d-m-Y", strtotime($client_row['dob'])):"" }}</td>
                   <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['title']))? $client_row['title']: '' }} {{ (!empty($client_row['client_name']))? $client_row['client_name']: '' }}</a></td>
                   <td align="left">{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
