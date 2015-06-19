@@ -51,7 +51,7 @@ $(document).ready(function(){
         <div class="top_bts">
           <ul>
             
-            <li>
+            <!-- <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
             <li>
@@ -59,7 +59,7 @@ $(document).ready(function(){
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
+            </li>-->
             <div class="clearfix"></div>
           </ul>
         </div>

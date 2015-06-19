@@ -133,7 +133,7 @@ $(function() {
                     <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
                   </li>
                   <li>
-                    <button type="button" class="btn btn-info">CSV import</button>
+                    <button type="button" class="btn btn-info">CSV IMPORT</button>
                   </li>
                   <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>

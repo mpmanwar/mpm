@@ -69,10 +69,10 @@ $(document).ready(function(){
             </li>
             <li>
               <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
+            </li>
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
-            </li>
+            </li> -->
             <!-- <li>
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li>

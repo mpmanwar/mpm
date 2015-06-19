@@ -72,6 +72,9 @@ $(document).ready(function(){
                     if(back_url == 'org_list'){
                         window.location.href='/client/edit-org-client/'+client_id;
                     }
+                    if(back_url == 'ind_list'){
+                        window.location.href='/client/edit-ind-client/'+client_id;
+                    }
                         
                 }else{
                     $("#message_div").html("<p style='color:red;font-size:16px'>There are some error to importing data</p>");

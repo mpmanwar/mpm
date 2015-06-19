@@ -121,7 +121,10 @@ $(function() {
                     <a href="/individual/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
-                    <button type="button" class="btn btn-info">BULK CSV IMPORT</button>
+                    <a href="/import-from-ch/{{ base64_encode('ind_list') }}" class="btn btn-info">IMPORT FROM CH</a>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-info">CSV IMPORT</button>
                   </li>
                   <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
