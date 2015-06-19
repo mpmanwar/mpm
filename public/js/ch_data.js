@@ -58,12 +58,12 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: "/import-company-details",
-            data: { 'number': number },
+            url: "/import-company-details/"+number,
+            //data: { 'number': number },
             beforeSend: function() {
                 $("#message_div").html('<img src="/img/spinner.gif" />');
             },
-            success: function (client_id) {
+            success: function (client_id) {return false;
                 if(client_id > 0){
                     //$("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
                     if(back_url == 'ch_list'){

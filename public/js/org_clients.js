@@ -208,21 +208,24 @@ $("#myServTable").on("click", ".delete_service", function(){
 
 
 $('.rel_acting').on('ifChecked', function(event){
-  $('input').iCheck('check');//rel_acting_94
+  event.preventDefault();
   var edit_index  = $(this).data("edit_index");
-  var client_id   = $(this).data("officer_id");
+  var client_id   = $(this).data("officer_id");alert(edit_index);
   var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
   $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
 
+  $("#rel_acting_"+client_id).iCheck('check');//rel_acting_94
 });
 
 $('.rel_acting').on('ifUnchecked', function(event){
-  $('input').iCheck('uncheck');
+  event.preventDefault();
   var edit_index  = $(this).data("edit_index");
   var client_id   = $(this).data("officer_id");
-  var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+  //var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+  var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
   $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
 
+  $("#rel_acting_"+client_id).iCheck('uncheck');
 });
 
 // Save Acting while edit client start //

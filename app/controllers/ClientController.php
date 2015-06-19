@@ -99,7 +99,7 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
 
-		//print_r($data['relationship']);die;
+		//print_r($data['titles']);die;
 		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);

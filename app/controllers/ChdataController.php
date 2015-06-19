@@ -205,7 +205,7 @@ class ChdataController extends BaseController {
 		if(isset($officers->items) && count($officers->items) > 0){
 			$data['officers']	= $officers->items;
 		}
-
+//print_r($data['officers']);die;
 		$data['details']			= $details->primaryTopic;
 		
 		$data['registered_office']	= $registered_office;
@@ -215,9 +215,9 @@ class ChdataController extends BaseController {
 		
 	}
 
-	public function import_company_details()
+	public function import_company_details($number)
 	{
-		$number = Input::get("number");
+		//$number = Input::get("number");
 		//$number = "05244480";
 		$data = array();
 		//$details 			= Common::getCompanyDetails($number);
@@ -323,12 +323,14 @@ class ChdataController extends BaseController {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_country', $country['country_id']);
 		}
 		//print_r($arrData);die;
+		$inserted = StepsFieldsClient::insert($arrData);
 
-		if(isset($details->officer_summary->officers) && count($details->officer_summary->officers) > 0){
-			foreach ($details->officer_summary->officers as $key => $row) {
+		$officers 			= Common::getOfficerDetails($number);
+		if(isset($officers->items) && count($officers->items) > 0){
+			foreach ($officers->items as $key => $row) {
 				$app_client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd'));
-				if (isset($row->name) && $row->name != "") {
-					$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'client_name', $row->name);
+				if (isset($row->officer_role) && $row->officer_role != "") {
+
 					$relationship_type = RelationshipType::where("relation_type", "=", ucwords($row->officer_role))->first();
 					$relData[] = array(
 						'client_id' => $client_id,
@@ -336,19 +338,15 @@ class ChdataController extends BaseController {
 						'appointment_date' => str_replace("/", "-", $row->appointed_on),
 						'relationship_type_id' => isset($relationship_type['relation_type_id'])?$relationship_type['relation_type_id']:"0",
 					);
+					ClientRelationship::insert($relData);
 				}
-
-				if (isset($row->date_of_birth) && $row->date_of_birth != "") {
-					$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'dob', $row->date_of_birth);
-				}
-
-				//StepsFieldsClient::insert($chData);
+				$insert_client = $this->insertClientDetails($row, $app_client_id);
 			}
-			ClientRelationship::insert($relData);
+			
 		}
 
 		
-		$inserted = StepsFieldsClient::insert($arrData);
+		
 
 		if($inserted){
 			echo $client_id;
@@ -356,6 +354,48 @@ class ChdataController extends BaseController {
 			echo 0;
 		}
 		exit;
+	}
+
+	public function insertClientDetails($row, $app_client_id)
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		if(strpos($row->officer_role, 'corporate') !== false){
+			$name = str_replace(" ", "+", $row->name);
+			$details = Common::getSearchCompany($name);
+			$company_number = $details->items[0]->description_values->company_number;
+			//echo $company_number;die;
+			if(isset($company_number) && $company_number != ""){
+				$this->import_company_details($company_number);
+			}
+			
+		}else{
+
+			$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'client_name', $row->name);
+
+			$full_name = explode(" ", $row->name);
+			if (isset($full_name[0]) && $full_name[0] != "") {
+				$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'fname', $full_name[0]);
+			}
+			if (isset($full_name[1]) && $full_name[1] != "") {
+				$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'mname', $full_name[0]);
+			}
+			if (isset($full_name[2]) && $full_name[2] != "") {
+				$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'lname', $full_name[0]);
+			}
+			if (isset($row->date_of_birth) && $row->date_of_birth != "") {
+				$arrData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'dob', $row->date_of_birth);
+			}
+
+			$inserted = StepsFieldsClient::insert($arrData);
+
+		}
+		
+		
+
+
+		
 	}
 
 }

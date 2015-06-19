@@ -111,9 +111,9 @@ $(document).ready(function(){
 <div class="n_box1">
 <label for="exampleInputPassword1">Title</label>
 <select class="form-control select_title" id="title" name="title">
-  @if(!empty($titles))
+  @if( isset($titles) && count($titles) >0 )
     @foreach($titles as $key=>$title_row)
-    <option value="{{ $title_row->title_name }}" {{ ($title_row->title_name == $client_details['title'])?"selected":"" }}>{{ $title_row->title_name }}</option>
+    <option value="{{ $title_row->title_name }}" {{ (isset($client_details['title']) && ($title_row->title_name == $client_details['title']))?"selected":"" }}>{{ $title_row->title_name }}</option>
     @endforeach
   @endif
 </select></div>
@@ -134,8 +134,8 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Gender</label>
 <select class="form-control" name="gender" id="gender">
-  <option value="Male" {{ ($client_details['gender'] == "Male")?"selected":"" }}>Male</option>
-  <option value="Female" {{ ($client_details['gender'] == "Female")?"selected":"" }}>Female</option>
+  <option value="Male" {{ (isset($client_details['gender']) && $client_details['gender'] == "Male")?"selected":"" }}>Male</option>
+  <option value="Female" {{ (isset($client_details['gender']) && $client_details['gender'] == "Female")?"selected":"" }}>Female</option>
 </select>
 </div>
 </div>
@@ -143,7 +143,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="dob" name="dob" value="{{ $client_details['dob'] or "" }}" class="form-control">
+<input type="text" id="dob" name="dob" value="{{ (isset($client_details['dob']))?date('d-m-Y', strtotime($client_details['dob'])):"" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -166,7 +166,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Spouse Date of Birth</label>
-<input type="text" id="spouse_dob" name="spouse_dob" value="{{ $client_details['spouse_dob'] or "" }}" class="form-control">
+<input type="text" id="spouse_dob" name="spouse_dob" value="{{ (isset($client_details['spouse_dob']))?date('d-m-Y', strtotime($client_details['spouse_dob'])):"" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
