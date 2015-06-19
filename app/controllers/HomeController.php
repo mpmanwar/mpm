@@ -881,7 +881,7 @@ class HomeController extends BaseController {
 		}else{
 			$client_id = $postData['client_id'];
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
-			ClientRelationship::where("client_id", "=", $client_id)->delete();
+			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}
 
 //#############BUSINESS INFORMATION START###################//

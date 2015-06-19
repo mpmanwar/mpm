@@ -81,6 +81,7 @@ class ClientController extends BaseController {
         		}
         		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
+        		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
         		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
         	}
         }

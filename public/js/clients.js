@@ -233,8 +233,8 @@ $(".back").click(function(){
       $.ajax({
         type: "POST",
         dataType: "json",
-        //url: '/search/search-client',
-        url: '/search/search-all-client',
+        url: '/search/search-client',
+        //url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
           if (resp.length != 0) {
@@ -1127,7 +1127,6 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
   var name      = $("#database_tr"+edit_index+" td:nth-child(1)").html();
   var app_date  = $("#database_tr"+edit_index+" td:nth-child(2)").html();
   var rel_type  = $("#database_tr"+edit_index+" td:nth-child(3)").html();
-  //var acting    = $("#database_tr"+edit_index+" td:nth-child(4)").html();
 
   var first_name = '<input type="text" placeholder="Search..." value="'+name+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
   var second_date = '<input type="text" id="edit_app_date" value="'+app_date+'" name="edit_app_date" class="form-control app_date edit_app_date">';
@@ -1141,10 +1140,14 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
         $("#database_tr"+edit_index+" td:nth-child(1)").html(first_name);
         $("#database_tr"+edit_index+" td:nth-child(2)").html(second_date);
         $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-        //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
-        $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
 
-        $("#rel_acting_"+client_id).iCheck('enable');
+        if(client_type == 'ind'){
+          $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+          $("#rel_acting_"+client_id).iCheck('enable');
+        }else{
+          $("#database_tr"+edit_index+" td:nth-child(4)").html(action);
+        }
+
       }
   });
 
@@ -1181,10 +1184,14 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
       $("#database_tr"+edit_index+" td:nth-child(1)").html(first_value);
       $("#database_tr"+edit_index+" td:nth-child(2)").html(app_date);
       $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-      //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
-      $("#database_tr"+edit_index+" td:nth-child(5)").html(fourth);
-
-      $("#rel_acting_"+client_id).iCheck('disable');
+      
+      if(client_type == 'ind'){
+        $("#database_tr"+edit_index+" td:nth-child(5)").html(fourth);
+        $("#rel_acting_"+client_id).iCheck('disable');
+      }else{
+        $("#database_tr"+edit_index+" td:nth-child(4)").html(fourth);
+      }
+      
     }
   });
 
