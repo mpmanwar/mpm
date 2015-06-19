@@ -63,7 +63,7 @@ $(document).ready(function(){
             beforeSend: function() {
                 $("#message_div").html('<img src="/img/spinner.gif" />');
             },
-            success: function (client_id) {return false;
+            success: function (client_id) {//return false;
                 if(client_id > 0){
                     //$("#message_div").html("<p style='color:#3c8dbc;font-size:16px'>Company details successfully imported</p>");
                     if(back_url == 'ch_list'){
