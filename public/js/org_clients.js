@@ -210,7 +210,7 @@ $("#myServTable").on("click", ".delete_service", function(){
 $('.rel_acting').on('ifChecked', function(event){
   event.preventDefault();
   var edit_index  = $(this).data("edit_index");
-  var client_id   = $(this).data("officer_id");alert(edit_index);
+  var client_id   = $(this).data("officer_id");
   var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
   $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
 
