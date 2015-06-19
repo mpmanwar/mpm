@@ -237,18 +237,17 @@ $(".back").click(function(){
         //url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
+          var content = '<ul>';
           if (resp.length != 0) {
-            var content = '<ul>';
             $.each(resp, function(key){
               content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
-              //console.log(resp[key].client_name); 
             });
-
-            content+= '</ul>';
-
-            $("#show_search_client").html(content);
-            $("#show_search_client").show();
+          }else{
+            content+= "<li>No result found...</li>";
           }
+          content+= '</ul>';
+          $("#show_search_client").html(content);
+          $("#show_search_client").show();
           
         }
       });
@@ -269,18 +268,20 @@ $(".back").click(function(){
         url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
+          var content = '<ul>';
           if (resp.length > 0) {
-            var content = '<ul>';
+            
             $.each(resp, function(key){
               content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
               //console.log(resp[key].client_name); 
             });
-
-            content+= '</ul>';
-
-            $("#show_search_client").html(content);
-            $("#show_search_client").show();
+          }else{
+            content+= "<li>No result found...</li>";
           }
+          content+= '</ul>';
+
+          $("#show_search_client").html(content);
+          $("#show_search_client").show();
           
         }
       });
