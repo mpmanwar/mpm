@@ -53,13 +53,13 @@ $(document).ready(function(){
       <div class="row">
         <div class="top_bts">
           <ul>
-            <li>
+            <!-- <li>
               <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
             </li>
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
-            <!-- <li>
+            <li>
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li>
             <li>
