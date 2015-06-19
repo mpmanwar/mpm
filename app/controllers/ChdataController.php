@@ -225,8 +225,20 @@ class ChdataController extends BaseController {
 		//print_r($details);die;
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
+
+		//################# If company number exists Start ##################//
+		$client_data = StepsFieldsClient::where("field_name", "=", "registration_number")->where("field_value", "=", $details->company_number)->first();
+		//echo $this->last_query();die;
+		if(isset($client_data) && count($client_data) >0 ){
+			$client_id = $client_data['client_id'];
+			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
+			ClientRelationship::where("client_id", "=", $client_id)->delete();
+		}else{
+			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+		}
+		//################# If company number exists End ##################//
 		
-		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+		
 
 		$ret_check = 0;
 		$acc_check = 0;
