@@ -244,14 +244,18 @@ class HomeController extends BaseController {
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
-		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
+		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
+		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
+		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
         
@@ -637,13 +641,13 @@ class HomeController extends BaseController {
 		}
 
 		//################## USER ADDED FIELD START ###############//
-		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->get();
 		//echo $this->last_query();die;
 		if(isset($field_added) && count($field_added) > 0){
 			foreach ($field_added as $key => $value) {
 				$field_name = strtolower($value->field_name);
 				if (isset($postData[$field_name]) && $postData[$field_name] != "") {
-					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+					$arrData[] = $this->save_client($user_id, $client_id, $value->step_id, $field_name, $postData[$field_name]);
 				}
 			}
 		}
@@ -691,7 +695,7 @@ class HomeController extends BaseController {
 		$data['user_id'] 		= $admin_s['id'];
 		$data['step_id'] 		= Input::get("step_id");
 		$data['substep_id'] 	= Input::get("substep_id");
-		$data['field_name'] 	= Input::get("field_name");
+		$data['field_name'] 	= str_replace(" ", "_", Input::get("field_name"));
 		$data['field_type'] 	= Input::get("field_type");
 		$data['client_type'] 	= Input::get("client_type");
 		$data['select_option'] 	= Input::get("select_option");
@@ -1139,13 +1143,13 @@ class HomeController extends BaseController {
 //############# SERVICES END ###################//
 
 //################## USER ADDED FIELD START ###############//
-$field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+$field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->get();
 //echo $this->last_query();die;
 if(isset($field_added) && count($field_added) > 0){
 	foreach ($field_added as $key => $value) {
 		$field_name = strtolower($value->field_name);
 		if (isset($postData[$field_name]) && $postData[$field_name] != "") {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+			$arrData[] = $this->save_client($user_id, $client_id, $value->step_id, $field_name, $postData[$field_name]);
 		}
 	}
 }

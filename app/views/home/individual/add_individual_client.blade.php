@@ -19,6 +19,8 @@ $(document).ready(function(){
     $(".app_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
     $("#spouse_dob").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 
+    $(".user_added_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+
 });
 
 </script>
@@ -248,7 +250,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -295,7 +297,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -450,7 +452,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -496,7 +498,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -795,7 +797,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      </div>
@@ -840,7 +842,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -1037,7 +1039,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -1083,7 +1085,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          

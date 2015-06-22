@@ -24,6 +24,7 @@ $(document).ready(function(){
 
     $("#effective_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
 
+    $(".user_added_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
     
 })
 </script>
@@ -309,7 +310,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }}
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -326,7 +327,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -346,7 +347,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "1")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -373,7 +374,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -390,9 +391,9 @@ $(document).ready(function(){
       
 
       <div class="add_client_btn">
-          <button class="btn btn-info open" data-id="2" type="button">Next</button>
-          <!-- <button class="btn btn-success" type="button">Save</button> -->
-          <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
+        <button class="btn btn-info open" data-id="2" type="button">Next</button>
+        <button type="submit" class="btn btn-success">Save</button>
+        <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
       </div>
       <div class="clearfix"></div>
 
@@ -445,14 +446,17 @@ $(document).ready(function(){
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
                                     <option value="">None</option>
-                                    @if(!empty($vat_schemes))
-                                      @foreach($vat_schemes as $key=>$scheme_row)
+                                    @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
+                                      @foreach($old_vat_schemes as $key=>$scheme_row)
                                         <option value="{{ $scheme_row->vat_scheme_id }}">{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
-                                  <!--  <option value="11">Others - specify</option> -->
-
-                                    
+                                    @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
+                                      @foreach($new_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}">{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
+                                   
                                   </select>
                                 </div>
                               </div>
@@ -685,7 +689,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -702,7 +706,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -721,7 +725,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "2")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -748,7 +752,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -767,7 +771,7 @@ $(document).ready(function(){
                             
 <div class="add_client_btn">
   <button class="btn btn-info open"data-id="3" type="button">Next</button>
-  <!-- <button class="btn btn-success" type="button">Save</button> -->
+  <button class="btn btn-success" type="submit">Save</button>
   <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
 </div>
                              <div class="clearfix"></div>
@@ -1694,7 +1698,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "3")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -1711,7 +1715,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      </div>
@@ -1739,7 +1743,7 @@ $(document).ready(function(){
       @foreach($row_section['children'] as $row_fields)
         <div class="form-group">
           <div class="twobox_2">
-          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+          <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields['field_name'])) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
           @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
             <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
@@ -1756,7 +1760,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -1775,9 +1779,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="4" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="4" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
                             <div class="clearfix"></div>
                           </div>
@@ -1876,9 +1880,9 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="5" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="5" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -1990,9 +1994,14 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-        <option value=""></option>
-          @if(!empty($services))
-            @foreach($services as $key=>$service_row)
+        <option value="">None</option>
+          @if( isset($old_services) && count($old_services)>0 )
+            @foreach($old_services as $key=>$service_row)
+              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+            @endforeach
+          @endif
+          @if( isset($new_services) && count($new_services)>0 )
+            @foreach($new_services as $key=>$service_row)
               <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
             @endforeach
           @endif
@@ -2027,7 +2036,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -2044,7 +2053,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -2063,7 +2072,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "5")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -2090,7 +2099,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -2181,7 +2190,7 @@ $(document).ready(function(){
         </div>
         <div class="input-group show_new_div" style="display:none;">
             <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org"><i class="fa fa-plus"></i></a></span>
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org">Save<!-- <i class="fa fa-plus"></i> --></a></span>
         </div>
 
         <div class="form-group">
@@ -2286,21 +2295,31 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
+        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
       </div>
+      
+      <div id="append_vat_scheme">
+        @if( isset($old_vat_schemes) && count($old_vat_schemes) )
+          @foreach($old_vat_schemes as $key=>$scheme_row)
+            <div class="form-group">
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
 
-      @if(!empty($vat_schemes))
-        @foreach($vat_schemes as $key=>$scheme_row)
-          <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
-          </div>
-        @endforeach
-      @endif
+        @if( isset($new_vat_schemes) && count($new_vat_schemes) )
+          @foreach($new_vat_schemes as $key=>$scheme_row)
+            <div class="form-group" id="hide_vat_div_{{ $scheme_row->vat_scheme_id }}">
+              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="add_vat_scheme" data-client_type="org" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2327,21 +2346,30 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+        <input type="text" name="service_name" id="service_name" placeholder="Service Name" class="form-control">
       </div>
 
-      @if(!empty($services))
-        @foreach($services as $key=>$service_row)
+      <div id="append_services">
+      @if( isset($old_services) && count($old_services)>0 )
+        @foreach($old_services as $key=>$service_row)
           <div class="form-group">
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+          </div>
+        @endforeach
+      @endif
+      @if( isset($new_services) && count($new_services)>0 )
+        @foreach($new_services as $key=>$service_row)
+          <div class="form-group" id="hide_service_div_{{ $service_row->service_id }}">
             <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
             <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
           </div>
         @endforeach
       @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="save_services" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>

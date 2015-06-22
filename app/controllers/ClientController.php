@@ -224,7 +224,7 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
 
-		//print_r($data['relationship']);die;
+		//print_r($data['steps_fields_users']);die;
 		//############# Get client data end ################//
 
 		return View::make('home.organisation.edit_organisation_client', $data);
@@ -301,8 +301,9 @@ class ClientController extends BaseController {
 		$data['vat_scheme_name'] 	= Input::get("vat_scheme_name");
 		$data['user_id'] 			= $session_data['id'];
 		$data['status'] 			= "new";
-		VatScheme::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = VatScheme::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_vat_scheme() {
@@ -387,8 +388,9 @@ class ClientController extends BaseController {
 		$data['service_name'] = Input::get("service_name");
 		$data['user_id'] 			= $session_data['id'];
 		$data['status'] 			= "new";
-		Service::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = Service::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_services() {
