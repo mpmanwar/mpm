@@ -1156,7 +1156,8 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="add_ind" />
+    <input type="hidden" name="client_type" value="ind" />
+    <input type="hidden" name="back_url" value="add_ind" />
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>

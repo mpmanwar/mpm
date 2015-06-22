@@ -690,6 +690,7 @@ class HomeController extends BaseController {
 		$data = array();
 
 		$admin_s = Session::get('admin_details'); // session
+		$back_url = Input::get("back_url");
 
 		$data['user_id'] 		= $admin_s['id'];
 		$data['step_id'] 		= Input::get("step_id");
@@ -700,13 +701,13 @@ class HomeController extends BaseController {
 		$data['select_option'] 	= Input::get("select_option");
 
 		$field_id = StepsFieldsAddedUser::insertGetId($data);
-		if ($data['client_type'] == "add_ind") {
+		if ($back_url == "add_ind") {
 			return Redirect::to('/individual/add-client');
-		}else if ($data['client_type'] == "edit_ind") {
+		}else if ($back_url == "edit_ind") {
 			return Redirect::to('/client/edit-ind-client/'.Input::get("client_id"));
-		}else if ($data['client_type'] == "add_org") {
+		}else if ($back_url == "add_org") {
 			return Redirect::to('/organisation/add-client');
-		} else if ($data['client_type'] == "edit_org") {
+		} else if ($back_url == "edit_org") {
 			return Redirect::to('/client/edit-org-client/'.Input::get("client_id"));
 		}
 

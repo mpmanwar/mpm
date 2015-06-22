@@ -2242,7 +2242,8 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="edit_org" />
+    <input type="hidden" name="client_type" value="org" />
+    <input type="hidden" name="back_url" value="edit_org" />
     <input type="hidden" name="client_id" value="{{ $client_details['client_id'] }}">
       <div class="modal-body">
         <div class="form-group">
