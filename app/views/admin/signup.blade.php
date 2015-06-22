@@ -64,14 +64,18 @@
                     </div>
                     
                     <div class="firstname_con">
-                              <div class="firstname">
-                                  <input type="password" name="password" id="password" class="form-control1" placeholder="Password"/>
-                              </div>
-                              <div class="lastname">
-                                   <input type="password" name="confirmation_password" id="confirmation_password" class="form-control1" placeholder="Confirm Password"/>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
+                      <div class="firstname">
+                          <input type="password" name="password" id="password" class="form-control1" placeholder="Password"/>
+                      </div>
+                      <div class="lastname">
+                           <input type="password" name="confirmation_password" id="confirmation_password" class="form-control1" placeholder="Confirm Password"/>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="practice_name" id="practice_name" class="form-control1" placeholder="Practice Name"/>
+                    </div>
                     
                     <div class="form-group">
                         <input type="text" name="phone" id="phone" class="form-control1" placeholder="Phone"/>
@@ -117,13 +121,13 @@
             {{ Form::close() }}
 
             @if(!Session::has('message'))
-                <div class="margin text-center">
+                <!-- <div class="margin text-center">
                     <span>Register using social networks</span>
                     <br/>
                     <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
                     <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
                     <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
-                </div>
+                </div> -->
                 @endif
           
 

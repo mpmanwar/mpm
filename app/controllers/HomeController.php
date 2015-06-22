@@ -234,7 +234,6 @@ class HomeController extends BaseController {
 		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
 		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
 		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
-		//echo $this->last_query();die;
 		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 
@@ -261,7 +260,7 @@ class HomeController extends BaseController {
         
         //print_r($data['cont_address'] );die();
         
-		$data['reg_address'] 	= RegisteredAddress::get();
+		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_name")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -701,10 +700,14 @@ class HomeController extends BaseController {
 		$data['select_option'] 	= Input::get("select_option");
 
 		$field_id = StepsFieldsAddedUser::insertGetId($data);
-		if ($data['client_type'] == "ind") {
+		if ($data['client_type'] == "add_ind") {
 			return Redirect::to('/individual/add-client');
-		} else {
+		}else if ($data['client_type'] == "edit_ind") {
+			return Redirect::to('/client/edit-ind-client/'.Input::get("client_id"));
+		}else if ($data['client_type'] == "add_org") {
 			return Redirect::to('/organisation/add-client');
+		} else if ($data['client_type'] == "edit_org") {
+			return Redirect::to('/client/edit-org-client/'.Input::get("client_id"));
 		}
 
 	}

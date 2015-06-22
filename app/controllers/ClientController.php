@@ -118,8 +118,10 @@ class ClientController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
+		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
+		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
+		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
@@ -127,20 +129,24 @@ class ClientController extends BaseController {
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
-		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
+		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
+		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
+		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= App::make("HomeController")->get_orgcontact_address();
         
         //print_r($data['cont_address'] );die();
         
-		$data['reg_address'] 	= RegisteredAddress::get();
+		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_name")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {

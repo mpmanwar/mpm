@@ -117,11 +117,18 @@ $(document).ready(function(){
                    <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
                       
                     <select class="form-control" name="business_type" id="business_type">
-                     @if(!empty($org_types))
-                        @foreach($org_types as $key=>$org_row)
-                        <option value="{{ $org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $org_row->organisation_id)?"selected":""}}>{{ $org_row->name }}</option>
+                      @if( isset($old_org_types) && count($old_org_types) >0 )
+                        @foreach($old_org_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $old_org_row->organisation_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
                         @endforeach
                       @endif
+
+                      @if( isset($new_org_types) && count($new_org_types) >0 )
+                        @foreach($new_org_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $new_org_row->organisation_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
+                        @endforeach
+                      @endif
+                     
                     </select>
                 </div>
               </div>
@@ -443,15 +450,18 @@ $(document).ready(function(){
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
                                   
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
-                                    @if(!empty($vat_schemes))
-                                      @foreach($vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":""}}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    <option value="">None</option>
+                                    @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
+                                      @foreach($old_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
-                                    
-                                  <!--  <option value="11">Others - specify</option> -->
-
-                                    
+                                    @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
+                                      @foreach($new_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
+                                   
                                   </select>
                                 </div>
                               </div>
@@ -2067,9 +2077,14 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-        <option value=""></option>
-          @if(!empty($services))
-            @foreach($services as $key=>$service_row)
+        <option value="">None</option>
+          @if( isset($old_services) && count($old_services)>0 )
+            @foreach($old_services as $key=>$service_row)
+              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+            @endforeach
+          @endif
+          @if( isset($new_services) && count($new_services)>0 )
+            @foreach($new_services as $key=>$service_row)
               <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
             @endforeach
           @endif
@@ -2227,7 +2242,8 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org" />
+    <input type="hidden" name="client_type" value="edit_org" />
+    <input type="hidden" name="client_id" value="{{ $client_details['client_id'] }}">
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
@@ -2258,7 +2274,7 @@ $(document).ready(function(){
         </div>
         <div class="input-group show_new_div" style="display:none;">
             <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org"><i class="fa fa-plus"></i></a></span>
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org">Save</a></span>
         </div>
 
         <div class="form-group">
@@ -2309,24 +2325,35 @@ $(document).ready(function(){
       </div>
     {{ Form::open(array('url' => '/client/add-business-type', 'id'=>'field_form')) }}
     <input type="hidden" name="client_type" value="org">
+
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
       </div>
       
-      @if(!empty($org_types))
-        @foreach($org_types as $key=>$org_row)
+      <div id="append_bussiness_type">
+      @if( isset($old_org_types) && count($old_org_types) >0 )
+        @foreach($old_org_types as $key=>$old_org_row)
         <div class="form-group">
-        <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
-        <label for="{{ $org_row->name }}">{{ $org_row->name }}</label>
-      </div>
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
         @endforeach
       @endif
+
+      @if( isset($new_org_types) && count($new_org_types) >0 )
+        @foreach($new_org_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->organisation_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
       
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2353,21 +2380,31 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
+        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
       </div>
 
-      @if(!empty($vat_schemes))
-        @foreach($vat_schemes as $key=>$scheme_row)
-          <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
-          </div>
-        @endforeach
-      @endif
+      <div id="append_vat_scheme">
+        @if( isset($old_vat_schemes) && count($old_vat_schemes) )
+          @foreach($old_vat_schemes as $key=>$scheme_row)
+            <div class="form-group">
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
+
+        @if( isset($new_vat_schemes) && count($new_vat_schemes) )
+          @foreach($new_vat_schemes as $key=>$scheme_row)
+            <div class="form-group" id="hide_vat_div_{{ $scheme_row->vat_scheme_id }}">
+              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="add_vat_scheme" data-client_type="org" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2394,21 +2431,30 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+        <input type="text" name="service_name" id="service_name" placeholder="Service Name" class="form-control">
       </div>
 
-      @if(!empty($services))
-        @foreach($services as $key=>$service_row)
+      <div id="append_services">
+      @if( isset($old_services) && count($old_services)>0 )
+        @foreach($old_services as $key=>$service_row)
           <div class="form-group">
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+          </div>
+        @endforeach
+      @endif
+      @if( isset($new_services) && count($new_services)>0 )
+        @foreach($new_services as $key=>$service_row)
+          <div class="form-group" id="hide_service_div_{{ $service_row->service_id }}">
             <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
             <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
           </div>
         @endforeach
       @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="save_services" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>

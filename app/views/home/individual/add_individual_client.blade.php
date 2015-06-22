@@ -233,7 +233,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }}
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -270,7 +270,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "1")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -433,9 +433,9 @@ $(document).ready(function(){
 @if(!empty($steps_fields_users) && count($steps_fields_users) > 0)
   @foreach($steps_fields_users as $row_fields)
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
-      <div class="form-group">
+     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -471,7 +471,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "2")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -498,7 +498,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -780,7 +780,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "3")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -825,7 +825,7 @@ $(document).ready(function(){
       @foreach($row_section['children'] as $row_fields)
         <div class="form-group">
           <div class="twobox_2">
-          <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
+          <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields['field_name'])) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
           @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
             <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
@@ -842,7 +842,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -1022,7 +1022,7 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
         <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
@@ -1039,7 +1039,7 @@ $(document).ready(function(){
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -1058,7 +1058,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "5")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -1085,7 +1085,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="text" class="form-control user_added_date" name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -1156,7 +1156,7 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="ind" />
+    <input type="hidden" name="client_type" value="add_ind" />
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
