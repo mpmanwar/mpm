@@ -282,8 +282,9 @@ class ClientController extends BaseController {
 		$data['client_type'] 	= Input::get("client_type");
 		$data['user_id'] 		= $session_data['id'];
 		$data['status'] 		= "new";
-		OrganisationType::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = OrganisationType::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_org_name() {

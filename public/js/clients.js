@@ -108,11 +108,7 @@ $(".open").click(function(){
 
 ///////////Validation//////////////
 if(data_id == 2){
-  if($("#client_code").val() == ""){
-    alert("Client code can not be null");
-    $("#client_code").focus();
-    return false;
-  }else if($("#fname").val() == ""){
+  if($("#fname").val() == ""){
     alert("First name can not be null");
     $("#fname").focus();
     return false;
@@ -140,11 +136,7 @@ $(".open_header").click(function(){
   var data_id = $(this).data('id');
   ///////////Validation//////////////
   if(data_id == 2){
-    if($("#client_code").val() == ""){
-      alert("Client code can not be null");
-      $("#client_code").focus();
-      return false;
-    }else if($("#fname").val() == ""){
+    if($("#fname").val() == ""){
       alert("First name can not be null");
       $("#fname").focus();
       return false;

@@ -115,11 +115,18 @@ $(document).ready(function(){
                    <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
                       
                     <select class="form-control" name="business_type" id="business_type">
-                     @if(!empty($org_types))
-                        @foreach($org_types as $key=>$org_row)
-                        <option value="{{ $org_row->organisation_id }}">{{ $org_row->name }}</option>
+                      @if( isset($old_org_types) && count($old_org_types) >0 )
+                        @foreach($old_org_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
                         @endforeach
                       @endif
+
+                      @if( isset($new_org_types) && count($new_org_types) >0 )
+                        @foreach($new_org_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
+                        @endforeach
+                      @endif
+                     
                     </select>
                 </div>
               </div>
@@ -153,6 +160,7 @@ $(document).ready(function(){
               <div class="form-group">
                 <label for="exampleInputPassword1">Registered In</label>
                 <select class="form-control" name="registered_in" id="registered_in">
+                  <option value="">None</option>
                  @if(!empty($reg_address))
                     @foreach($reg_address as $key=>$reg_row)
                     <option value="{{ $reg_row->reg_id }}">{{ $reg_row->reg_name }}</option>
@@ -436,6 +444,7 @@ $(document).ready(function(){
                                   
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
+                                    <option value="">None</option>
                                     @if(!empty($vat_schemes))
                                       @foreach($vat_schemes as $key=>$scheme_row)
                                         <option value="{{ $scheme_row->vat_scheme_id }}">{{ $scheme_row->vat_scheme_name }}</option>
@@ -2222,25 +2231,35 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/client/add-business-type', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org">
+    <input type="hidden" name="client_type" id="client_type" value="org">
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
       </div>
       
-      @if(!empty($org_types))
-        @foreach($org_types as $key=>$org_row)
+      <div id="append_bussiness_type">
+      @if( isset($old_org_types) && count($old_org_types) >0 )
+        @foreach($old_org_types as $key=>$old_org_row)
         <div class="form-group">
-        <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
-        <label for="{{ $org_row->name }}">{{ $org_row->name }}</label>
-      </div>
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
         @endforeach
       @endif
+
+      @if( isset($new_org_types) && count($new_org_types) >0 )
+        @foreach($new_org_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->organisation_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
       
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>

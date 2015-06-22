@@ -75,7 +75,7 @@
                             <div class="circle_icon">
                                 <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
                             </div>
-                        <p class="c_tagline2">ADD USER</p>
+                        <p class="c_tagline2">MANAGE USERS</p>
                         <div class="clearfix"></div>
                         </div>
                     </a>

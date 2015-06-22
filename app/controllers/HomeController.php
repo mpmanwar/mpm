@@ -231,8 +231,12 @@ class HomeController extends BaseController {
 		$data['heading'] 		= "ADD CLIENT";
 		$data['title'] 			= "Add Client";
 
-		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
+		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
+		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
+		//echo $this->last_query();die;
+		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
