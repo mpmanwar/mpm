@@ -353,21 +353,22 @@ $(document).ready(function(){
           <div class="twobox_2">
           <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
-          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
+          @if(isset($row_fields['field_type']) && $row_fields['field_type'] == "1")
             <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">
+            </textarea>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
             <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
-              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+              @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
                 @foreach($row_fields['select_option'] as $key=>$value)
                   <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
               @endif
             </select>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
             <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
@@ -422,7 +423,7 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
-                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['incorporation_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
+                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
@@ -1895,6 +1896,7 @@ $(document).ready(function(){
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+
 <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
 <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
 <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
@@ -1916,8 +1918,13 @@ $(document).ready(function(){
         <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}" disabled  /></td>
         <td width="13%" align="center">
-          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+        
+          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i>
+          
+          </a>
+      
         </td>
+     
       </tr>
     @endforeach
   @endif
@@ -2056,8 +2063,38 @@ $(document).ready(function(){
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>
-    
+    <?php
+            //echo '<pre>';
+            //print_r($servicessss);
+            $arr = array();
+            $arr1 = array();
+            $i=0;
+            if(!empty($servicessss )){
+            foreach($servicessss as $key=>$val){
+            
+            $arr[$key] = $val->servicedetails; 
+            $arr1[$key] = $val->staffcedetails; 
+            ?>
+            <tr id="added_service_tr<?php echo $key; ?>">
+            <td align="center"><?php echo $arr[$key]->service_name; ?></td>
+            <td align="center"><?php echo $arr1[$key]->fname." ".$arr1[$key]->lname; ?></td>
+            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="<?php echo $key; ?>" id="<?php echo $key; ?>"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="<?php echo $key; ?>" id="<?php echo $val->client_service_id.'*'.$val->client_id; ?>"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="<?php echo $arr[$key]->service_id; ?>" id="stafftxt_id<?php echo $key; ?>"><input type="hidden" value="<?php echo $arr1[$key]->user_id; ?>" id="servicetxt_id<?php echo $key; ?>"></td>
+            </tr>
+            <?php
+               $i++;
+               
+               }
+            }else{
+?>
+            <!--<tr>
+            <td align="center" colspan="3">No Records Found !!</td>
+            </tr>-->
+
+<?php       } ?>
+
   </table>
+  <input type="hidden" id="countedit" value="<?php echo $i; ?>">
+
 
 
 
@@ -2065,9 +2102,9 @@ $(document).ready(function(){
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
         <option value=""></option>
-          @if(!empty($services))
+          @if(!empty($services) && count($services) >0 )
             @foreach($services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+              <option value="{{ $service_row->service_id or "" }}">{{ $service_row->service_name or "" }}</option>
             @endforeach
           @endif
             
@@ -2077,16 +2114,16 @@ $(document).ready(function(){
     <div class="service">
       <select class="form-control" name="staff_id" id="staff_id">
         <option value="">None</option>
-          @if(!empty($staff_details))
+          @if(!empty($staff_details) && count($staff_details) >0)
             @foreach($staff_details as $key=>$staff_row)
-            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+            <option value="{{ $staff_row->user_id or "" }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
             @endforeach
           @endif
         </select>
       
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="editServices()" type="button">Add</button></div>
   </div>
 
 
@@ -2117,6 +2154,7 @@ $(document).ready(function(){
             @endforeach
           @endif
         </select>
+        
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
         <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
       @endif

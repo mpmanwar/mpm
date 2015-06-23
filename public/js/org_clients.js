@@ -146,6 +146,36 @@ $(".delete_vat_scheme").click(function(){
 }); 
 //Delete organisation name while add individual/organisation user end
 
+$(".delete_client_service").click(function(){
+    var id = $(this).attr('id');
+    var str = new Array();
+        str = id.split('*');
+        delete_id = str[0];
+        client_id = str[1];
+        //alert(delete_id);
+    if (confirm("Do you want to delete this section ?")) {
+    //alert(delete_id);
+    
+    $.ajax({
+      type: "POST",
+      dataType: "html",
+      url: '/organisation/delete-editservices',
+      data: { 'delete_id' : delete_id,'client_id' : client_id },
+      success : function(resp){
+        //alert(resp);
+         //console.log(resp);
+           $("#myServTable").replaceWith(resp);
+        //location.reload(); 
+      }
+        
+    
+     });
+    
+    }
+    
+    
+});
+
 //Delete services name while add individual/organisation user start
 $(".delete_services").click(function(){
   var field_id = $(this).data('field_id');
@@ -183,6 +213,8 @@ $(".frequency_change").change(function(){
     $("#vat_stagger").html(option);
      
 }); 
+
+
 //Delete services name while add individual/organisation user end
 
 // Delete Allocate Serveces while adding organisation client start //
@@ -206,8 +238,120 @@ $("#myServTable").on("click", ".delete_service", function(){
 });
 // Delete Allocate Serveces while adding organisation client end //
 	
- 	
+  
+
+    
+    
+    
+    //after add edit
+    
+ $("#myServTable").on("click", ".serviceclass", function(){
+    var id = $(this).attr('id');
+    var option = $("#"+id+" option:selected").val();
+    var num = id.match(/[\d\.]+/g);
+    $("#servicetxt_id"+num).val(option);
+    //alert(num);
+    })
+ $("#myServTable").on("click", ".staffclass", function(){
+    var id = $(this).attr('id');
+    var option = $("#"+id+" option:selected").val();
+    var num = id.match(/[\d\.]+/g);
+    $("#stafftxt_id"+num).val(option);
+    //alert(num);
+    })
+ $("#myServTable").on("click", ".edit_service", function(){
+  
+  var id = $(this).attr('id');
+  //alert(id);
+  //alert($(this).attr('id'));
+  
+  //$("#added_service_tr'+service+'").hide('slow');
+  var servicetxt_id = $("#servicetxt_id"+id).val();
+  var stafftxt_id = $("#stafftxt_id"+id).val();
+  //alert(servicetxt_id);
+  //alert(stafftxt_id);
+  
+  //$('#service_id').contents().unwrap();
+  
+  //$("#added_service_tr'+id+'").html();
+  
+  
+  $.ajax({
+      type: "POST",
+      dataType: "html",
+      url: '/organisation/editserv-services',
+      data: { 'servicetxt_id' : servicetxt_id, 'stafftxt_id' : stafftxt_id, 'id' : id },
+      success : function(resp){
+                //alert("#added_service_tr"+id);
+                var arr = new Array();
+                
+                arr  = resp.split("*");
+                //alert($("#serviceselect_id"+id).val());
+                $("#added_service_tr"+id).find("td:eq(0)").html(arr[0]);
+                $("#added_service_tr"+id).find("td:eq(1)").html(arr[1]);
+                $("#added_service_tr"+id).find("td:eq(2)").html('<button class="btn btn-success saveclass" id="'+id+'" type="button" >save</button><input type="hidden" value="'+servicetxt_id+'" id="servicetxt_id'+id+'"><input type="hidden" value="'+stafftxt_id+'" id="stafftxt_id'+id+'">');
+                
+                //console.log(resp);
+        }
+        
+      }); 
+  
+  
+ // alert('resp');
+  
+  //var edit_index    = $(this).data("edit_index");
+  //var service     = $("#service_tr"+edit_index+" td:nth-child(1)").html();
+  //var staff     = $("#service_tr"+edit_index+" td:nth-child(2)").html();
+  /* var second_staff = '<input type="text" id="edit_staff" value="'+staff+'" name="edit_staff" class="form-control staff edit_staff">';
+  $('#save' + id).html('<input type="text" id="edit_staff" value="'+staff+'" name="edit_staff" class="form-control staff edit_staff">');  
+  //alert(second_staff);
+  }); */
+  
+  });
+  
+   $("#myServTable").on("click", ".saveclass", function(){
+        var id = $(this).attr('id');
+      //alert();
+        
+        //alert(added_service_tr1);
+        
+        var service = $("#serviceselect_id"+id+" option:selected" ).text()
+        
+        $("#serviceselect_id"+id).remove();
+        $("#added_service_tr"+id).find("td:eq(0)").html(service);
+        
+        var staff = $("#staffselect_id"+id+" option:selected" ).text()
+        
+        $("#staffselect_id"+id).remove();
+        $("#added_service_tr"+id).find("td:eq(1)").html(staff);
+        
+        $("#added_service_tr"+id).find("td:eq(2)").html('<a href="javascript:void(0)" class="edit_service" data-edit_index="'+id+'" id="'+id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void()" class="delete_service" data-delete_index="'+id+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+$("#stafftxt_id"+id).val()+'" id="stafftxt_id'+id+'"><input type="hidden" value="'+$("#servicetxt_id"+id).val()+'" id="servicetxt_id'+id+'">');
+        //alert(id);
+        //$("#serviceselect_id"+id).prop("selectedIndex", );
+         // $("#serviceselect_id"+id+" option[value='"+$("#servicetxt_id"+id).val()+"']").attr('selected','selected');
+        
+    });
+     
+  
+  //$("#sedit").click(function(){
+//    
+//        alert('dgeddh');
+//    });
+  
 });//end of main document ready
+
+
+
+
+function new_save(){
+    alert('dffgaga');
+    var id = $(this).attr('id');
+    alert(id);
+    
+    $("#added_service_tr"+id).hide('slow');
+}
+
+
 
 function show_org_other_div()
 {
@@ -218,18 +362,20 @@ function show_org_other_div()
 
 var service_array = [];
 var service = 0;
+
 function saveServices()
 {
     var service_id  = $('#service_id').val();
     var staff_id    = $('#staff_id').val();
 
-    $.ajax({
+      $.ajax({
       type: "POST",
       dataType: "json",
       url: '/organisation/save-services',
       data: { 'service_id' : service_id, 'staff_id' : staff_id },
       success : function(resp){
-        var content = '<tr id="added_service_tr'+service+'"><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href="javascript:void()" class="edit_service" data-edit_index="'+service+'"><i class="fa fa-edit"></i></a> <a href="javascript:void()" class="delete_service" data-delete_index="'+service+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+        
+        var content = '<tr id="added_service_tr'+service+'"><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'+service+'" id="'+service+'"><i class="fa fa-edit"></i></a> <a href="javascript:void()" class="delete_service" data-delete_index="'+service+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+staff_id+'" id="stafftxt_id'+service+'"><input type="hidden" value="'+service_id+'" id="servicetxt_id'+service+'"></a></td></tr>';
         $("#myServTable").last().append(content);
 
         var itemselected = service_id+"mpm"+staff_id+"mpm"+service;
@@ -239,12 +385,65 @@ function saveServices()
 
         $('#serv_hidd_array').val(service_array);
         $("#add_services_div").hide('slow');
-
+        
         service++;
       }
+      
     });
-
+        
     
     
 }
+
+//edit when edit
+
+var editservice_array = [];
+var editservice;
+
+var countedit = $('#countedit').val();
+
+if(countedit!=0){
+    
+    editservice = countedit;
+    
+}else{
+    
+    editservice = 0;
+}
+function editServices()
+{
+    
+    var service_id  = $('#service_id').val();
+    var staff_id    = $('#staff_id').val();
+
+      $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: '/organisation/save-services',
+      data: { 'service_id' : service_id, 'staff_id' : staff_id },
+      success : function(resp){
+        
+        var content = '<tr id="added_service_tr'+editservice+'"><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'+editservice+'" id="'+editservice+'"><i class="fa fa-edit"></i></a> <a href="javascript:void()" class="delete_service" data-delete_index="'+editservice+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+staff_id+'" id="stafftxt_id'+editservice+'"><input type="hidden" value="'+service_id+'" id="servicetxt_id'+editservice+'"></a></td></tr>';
+        $("#myServTable").last().append(content);
+
+        var itemselected = service_id+"mpm"+staff_id+"mpm"+editservice;
+        if(itemselected !== undefined && itemselected !== null){
+            service_array.push(itemselected);
+        }
+
+        $('#serv_hidd_array').val(service_array);
+        $("#add_services_div").hide('slow');
+        
+        editservice++;
+      }
+      
+    });
+        
+    
+    
+}
+
+
+
+
 

@@ -993,6 +993,7 @@ $("#myRelTable").on("click", ".edit_rel", function(){
   var second_value = $("#added_tr"+edit_index+" td:nth-child(2)").html();
   var third_value = $("#added_tr"+edit_index+" td:nth-child(3)").html();
 
+
   var first = '<input type="text" placeholder="Search..." value="'+first_value+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
   var second = '<input type="text" id="edit_app_date" value="'+second_value+'" name="edit_app_date" class="form-control app_date">';
   var fourth = '<button class="btn btn-success rel_save"data-edit_index="'+edit_index+'" type="button">Save</button>';
@@ -1226,6 +1227,7 @@ function saveRelationship()
         url: '/individual/save-relationship',
         data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id },
         success : function(resp){
+            
           var content = '<tr id="added_tr'+i+'"><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
           $("#myRelTable").last().append(content);
 

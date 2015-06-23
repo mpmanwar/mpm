@@ -168,6 +168,7 @@ class HomeController extends BaseController {
 
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
+        //print_r($user_id);die();
 		$groupUserId = $admin_s['group_users'];
 
 		if (empty($user_id)) {
@@ -187,7 +188,7 @@ class HomeController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
-        
+        //echo $this->last_query();die;
         //print_r($data['cont_address']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
@@ -309,14 +310,18 @@ class HomeController extends BaseController {
 
 	public function get_contact_address() {
 		$client_data = array();
-
+        //die('sff');
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
 		$groupUserId = $admin_s['group_users'];
-
+        //print_r($groupUserId);die();
+        //die('sff');
+        if(isset($groupUserId)){
 		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
- 	$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
-		//echo $this->last_query();die;
+ 	      $client_ids = Client::select("client_id")->where("type", "=", "ind")->whereIn('user_id', $groupUserId)->get();
+        }
+	//
+    	//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
@@ -700,7 +705,69 @@ class HomeController extends BaseController {
 		}
 
 	}
-
+    
+    
+   
+    
+    
+    public function edit_services(){
+        
+        $servicetxt_id = Input::get("servicetxt_id");
+        $id = Input::get("id");
+        $admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+        $first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+        
+      $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+      $str = '';
+      $str = '<select class="form-control serviceclass" name="serviceselect_id'.$id .'" id="serviceselect_id'.$id .'">';
+      $str .= '<option value=""></option>'; 
+        if(!empty($data['services'])){
+            
+            foreach($data['services'] as $key=>$service_row){
+                
+                if($servicetxt_id==$service_row->service_id){
+                    $val="selected='selected'";
+                    }else{
+                        echo $val=" ";
+                        }
+                $str .= '<option value="'.$service_row->service_id.'" '.$val.'>'.$service_row->service_name.'</option>'; 
+            
+             }
+          }
+       $str .= '</select>';   
+       
+     // echo $str;  
+         $str1 = '';     
+           $stafftxt_id = Input::get("stafftxt_id"); 
+            $data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+            
+            $str1 = '<select class="form-control staffclass" name="staffselect_id'.$id .'" id="staffselect_id'.$id .'">';
+              $str1 .= '<option value="">None</option>'; 
+                if(!empty($data['staff_details'])){
+                  
+                    foreach($data['staff_details'] as $key=>$staff_row){
+                        if($stafftxt_id==$staff_row->user_id){
+                            $val="selected='selected'";
+                            }else{
+                                echo $val=" ";
+                            }
+                        $str1 .= '<option value="'.$staff_row->user_id.'" '.$val.'>'.$staff_row->fname.' '.$staff_row->lname.'</option>'; 
+                    
+                     }
+                  }
+               $str1 .= '</select>';
+        
+        echo $str.'*'.$str1;    
+        //echo '<pre>';
+        //print_r($data['services']);
+        
+    }
+    
+    
+    
+    
 	function save_services() {
 		$rel_types = array();
 		$admin_s = Session::get('admin_details');
@@ -870,6 +937,7 @@ class HomeController extends BaseController {
 	   
        
 		$postData = Input::all();
+       //echo"<pre>"; print_r($postData);die();
 		$data = array();
 		$arrData = array();
 		$admin_s = Session::get('admin_details');
