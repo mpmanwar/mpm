@@ -530,7 +530,7 @@ class HomeController extends BaseController {
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 		}
 		
-
+echo $this->last_query();die;
 //################ GENERAL SECTION START #################//
 		$step_id = 1;
 		if (!empty($postData['client_code'])) {
