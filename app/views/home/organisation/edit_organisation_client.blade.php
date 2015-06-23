@@ -24,6 +24,8 @@ $(document).ready(function(){
 
     $("#effective_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
 
+    $(".user_added_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
+
     
 })
 </script>
@@ -48,18 +50,18 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
-    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
+    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <section class="content">
       <div class="row">
         <div class="top_bts">
           <ul>
-            <li>
+            <!-- <li>
               <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
             </li>
             <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
-            <!-- <li>
+            <li>
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li>
             <li>
@@ -115,11 +117,18 @@ $(document).ready(function(){
                    <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
                       
                     <select class="form-control" name="business_type" id="business_type">
-                     @if(!empty($org_types))
-                        @foreach($org_types as $key=>$org_row)
-                        <option value="{{ $org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $org_row->organisation_id)?"selected":""}}>{{ $org_row->name }}</option>
+                      @if( isset($old_org_types) && count($old_org_types) >0 )
+                        @foreach($old_org_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $old_org_row->organisation_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
                         @endforeach
                       @endif
+
+                      @if( isset($new_org_types) && count($new_org_types) >0 )
+                        @foreach($new_org_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $new_org_row->organisation_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
+                        @endforeach
+                      @endif
+                     
                     </select>
                 </div>
               </div>
@@ -154,7 +163,7 @@ $(document).ready(function(){
                 <label for="exampleInputPassword1">Registered In</label>
                 <select class="form-control" name="registered_in" id="registered_in">
                   <option value="">NONE</option>
-                 @if(!empty($reg_address))
+                 @if(isset($reg_address) && count($reg_address)>0)
                     @foreach($reg_address as $key=>$reg_row)
                     <option value="{{ $reg_row->reg_id }}" {{ (isset($client_details['registered_in']) && $client_details['registered_in'] == $reg_row->reg_id)?"selected":""}}>{{ $reg_row->reg_name }}</option>
                     @endforeach
@@ -191,18 +200,18 @@ $(document).ready(function(){
       </div>
 
 
-      <div id="show_ann_ret" style="display: {{ (isset($client_details['ann_ret_check']) && $client_details['ann_ret_check'] == 1)?"block":"none"}};">
+      <div id="show_ann_ret" style="display: {{ (isset($client_details['ann_ret_check']) && $client_details['ann_ret_check'] == 1)?'block':'none'}};">
         <div class="twobox">
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Made up Date</label>
-              <input type="text" id="made_up_date" name="made_up_date" value="{{ isset($client_details['made_up_date'])?date("d-m-Y", strtotime($client_details['made_up_date'])):"" }}" class="form-control">
+              <input type="text" id="made_up_date" name="made_up_date" value="{{ isset($client_details['made_up_date'])?date('d-m-Y', strtotime($client_details['made_up_date'])):'' }}" class="form-control">
             </div>
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Next Return Due</label>
-              <input type="text" id="next_ret_due" name="next_ret_due"  value="{{ isset($client_details['next_ret_due'])?date("d-m-Y", strtotime($client_details['next_ret_due'])):"" }}" class="form-control">
+              <input type="text" id="next_ret_due" name="next_ret_due"  value="{{ isset($client_details['next_ret_due'])?date('d-m-Y', strtotime($client_details['next_ret_due'])):'' }}" class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -213,7 +222,7 @@ $(document).ready(function(){
             <div class="form-group">
               <label for="exampleInputPassword1">CH Authentication Code</label>
 
-              <input type="text" id="ch_auth_code" name="ch_auth_code" value="{{ $client_details['ch_auth_code'] or "" }}" class="form-control">
+              <input type="text" id="ch_auth_code" name="ch_auth_code" value="{{ $client_details['ch_auth_code'] or '' }}" class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -268,7 +277,7 @@ $(document).ready(function(){
            <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Last Account Made Up Date</label>
-              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value="{{ isset($client_details['next_ret_due'])?date("d-m-Y", strtotime($client_details['next_ret_due'])):"" }}" class="form-control">
+              <input type="text" id="last_acc_madeup_date" name="last_acc_madeup_date" value='{{ isset($client_details['last_acc_madeup_date'])?date("d-m-Y", strtotime($client_details['last_acc_madeup_date'])):"" }}' class="form-control">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -277,7 +286,7 @@ $(document).ready(function(){
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Next Account Due</label>
-              <input type="text" id="next_acc_due" name="next_acc_due" value="{{ $client_details['next_acc_due'] or "" }}" class="form-control">
+              <input type="text" id="next_acc_due" name="next_acc_due" value='{{ isset($client_details['next_acc_due'])?date("d-m-Y", strtotime($client_details['next_acc_due'])):"" }}' class="form-control">
             </div>
           </div>
 
@@ -304,24 +313,24 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "1")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" value="{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}</textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"checked":"" }}/>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
         <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
           @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
             @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
+              <option value="{{ $value }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"selected":"" }}>{{ $value }}</option>
             @endforeach
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields->field_name)])?date('d-m-Y', strtotime($client_details[strtolower($row_fields->field_name)])):"" }}" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -341,7 +350,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "1")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -360,16 +369,25 @@ $(document).ready(function(){
             </textarea>
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
             <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
+           
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}" class="form-control">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}</textarea>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" {{ isset($client_details[strtolower($row_fields['field_name'])])?"checked":"" }}/>
+            
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
               @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
                 @foreach($row_fields['select_option'] as $key=>$value)
-                  <option value="{{ $value }}">{{ $value }}</option>
+                  <option value="{{ $value }}" {{ (isset($client_details[strtolower($row_fields['field_name'])]) && $client_details[strtolower($row_fields['field_name'])] == $value)?"selected":"" }}>{{ $value }}</option>
                 @endforeach
               @endif
             </select>
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
             <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+            <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?date('d-m-Y', strtotime($client_details[strtolower($row_fields['field_name'])])):"" }}" name="{{ strtolower($row_fields['field_name']) }}">
+
           @endif
          
          
@@ -387,7 +405,7 @@ $(document).ready(function(){
 
       <div class="add_client_btn">
           <button class="btn btn-info open" data-id="2" type="button">Next</button>
-          <!-- <button class="btn btn-success" type="button">Save</button> -->
+          <button class="btn btn-success" type="submit">Save</button>
           <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
       </div>
       <div class="clearfix"></div>
@@ -415,21 +433,24 @@ $(document).ready(function(){
                             <h3 class="box-title">TAX INFORMATION</h3>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Registered for Vat</label>
-                              <input type="checkbox" name="reg_for_vat" id="reg_for_vat"{{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?"checked":""}} value="1" />
+                              <input type="checkbox" name="reg_for_vat" id="reg_for_vat" {{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?"checked":""}} value="1" />
                             </div>
                             
-                            <div class="registered_vat" id="show_reg_for_vat" style="display: {{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?"block":"none"}};">
+                            <div class="registered_vat" id="show_reg_for_vat" style="display: {{ (isset($client_details['reg_for_vat']) && $client_details['reg_for_vat'] == 1)?'block':'none' }};">
                             <div class="twobox">
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
+
                                   <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
+
+                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date('d-m-Y', strtotime($client_details['effective_date'])):'' }}" class="form-control">
                                 </div>
                               </div>
                               <div class="twobox_2">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Number</label>
-                                  <input type="text" id="vat_number" name="vat_number" value="{{ $client_details['vat_number'] or "" }}" class="form-control">
+                                  <input type="text" id="vat_number" name="vat_number" value="{{ $client_details['vat_number'] or '' }}" class="form-control">
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -442,15 +463,18 @@ $(document).ready(function(){
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
                                   
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
-                                    @if(!empty($vat_schemes))
-                                      @foreach($vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":""}}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    <option value="">None</option>
+                                    @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
+                                      @foreach($old_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
-                                    
-                                  <!--  <option value="11">Others - specify</option> -->
-
-                                    
+                                    @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
+                                      @foreach($new_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
+                                   
                                   </select>
                                 </div>
                               </div>
@@ -505,7 +529,7 @@ $(document).ready(function(){
                             
                             <div class="form-group">
                               <label for="exampleInputPassword1">EC Sales List</label>
-                                <input type="checkbox" name="ec_scale_list" id="ec_scale_list"{{ (isset($client_details['ec_scale_list']) && $client_details['ec_scale_list'] == "on" )?"checked":""}} />
+                                <input type="checkbox" name="ec_scale_list" id="ec_scale_list" {{ (isset($client_details['ec_scale_list']) && $client_details['ec_scale_list'] == "on" )?"checked":""}} value="on" />
 
                             </div>
                             <div class="form-group">
@@ -513,12 +537,12 @@ $(document).ready(function(){
                                <input type="checkbox" id="tax_div" name="tax_div" {{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?"checked":""}}  value="1" >
                             </div>
                           
-                          <div id="show_tax_div" style="display:{{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?"block":"none"}};"> 
+                          <div id="show_tax_div" style="display:{{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?'block':'none'}};"> 
                             <div class="tax_utr_con">
                             <div class="tax_utr">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Tax Reference(UTR)</label>
-                              <input type="text" id="tax_reference" name="tax_reference"  value="{{ $client_details['tax_reference'] or "" }}" class="form-control">
+                              <input type="text" id="tax_reference" name="tax_reference"  value="{{ $client_details['tax_reference'] or '' }}" class="form-control">
                             </div>
                             </div>
 
@@ -557,7 +581,7 @@ $(document).ready(function(){
                     @endforeach
                   @endif -->
                     <option value="">-- Select AddresS --</option>
-                    @if(!empty($tax_office))
+                    @if(isset($tax_office) && count($tax_office) >0)
                     @foreach($tax_office as $key=>$office_row)
                       @if($office_row->parent_id == 0)
                         <option value="{{ $office_row->office_id }}" {{ (isset($client_details['tax_office_id']) && $client_details['tax_office_id'] == $office_row->office_id)?"selected":""}} >{{ $office_row->office_name }}</option>
@@ -725,24 +749,24 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "2")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" value="{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}</textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"checked":"" }}/>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
         <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
           @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
             @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
+              <option value="{{ $value }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"selected":"" }}>{{ $value }}</option>
             @endforeach
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields->field_name)])?date('d-m-Y', strtotime($client_details[strtolower($row_fields->field_name)])):"" }}" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -761,7 +785,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "2")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -773,22 +797,22 @@ $(document).ready(function(){
           <div class="twobox_2">
           <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
-          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
-            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
-            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+          @if(isset($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}" class="form-control">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}</textarea>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" {{ isset($client_details[strtolower($row_fields['field_name'])])?"checked":"" }}/>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
-              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+              @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
                 @foreach($row_fields['select_option'] as $key=>$value)
-                  <option value="{{ $value }}">{{ $value }}</option>
+                  <option value="{{ $value }}" {{ (isset($client_details[strtolower($row_fields['field_name'])]) && $client_details[strtolower($row_fields['field_name'])] == $value)?"selected":"" }}>{{ $value }}</option>
                 @endforeach
               @endif
             </select>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?date('d-m-Y', strtotime($client_details[strtolower($row_fields['field_name'])])):"" }}" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -807,7 +831,7 @@ $(document).ready(function(){
                             
 <div class="add_client_btn">
   <button class="btn btn-info open"data-id="3" type="button">Next</button>
-  <!-- <button class="btn btn-success" type="button">Save</button> -->
+  <button class="btn btn-success" type="submit">Save</button>
   <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
 </div>
                              <div class="clearfix"></div>
@@ -850,14 +874,14 @@ $(document).ready(function(){
                        
                              
                             
-            <div class="address_type" id="show_trad_office_addr" style="display: {{ (isset($client_details['cont_trad_addr']) && $client_details['cont_trad_addr'] == "trad")?"block":"none"}};"> 
+            <div class="address_type" id="show_trad_office_addr" style="display: {{ (isset($client_details['cont_trad_addr']) && $client_details['cont_trad_addr'] == 'trad')?'block':'none' }};"> 
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
                 <input type="checkbox" class="cont_name_check" name="trad_name_check" value="trad_cont"  {{ (isset($client_details['trad_name_check']) && $client_details['trad_name_check'] == "trad_cont")?"checked":""}} />
               </div>
 
               <!-- Contact address expand start-->
-            <div id="show_trad_cont" style="display: {{ (isset($client_details['trad_name_check']) && $client_details['trad_name_check'] == "trad_cont")?"block":"none"}};">
+            <div id="show_trad_cont" style="display: {{ (isset($client_details['trad_name_check']) && $client_details['trad_name_check'] == 'trad_cont')?'block':'none'}};">
               <div class="form-group">
                 <input type="text" id="trad_cont_name" name="trad_cont_name" value="{{ $client_details['trad_cont_name'] or "" }}" class="form-control">
               </div>
@@ -908,7 +932,7 @@ $(document).ready(function(){
                   
                   
                   
-                  @if(!empty($cont_address))
+                  @if(isset($cont_address) && count($cont_address) >0)
                     @foreach($cont_address as $key=>$address_row)
                         @if (isset($address_row['trad_cont_addr_line1']) && $address_row['trad_cont_addr_line1'] !="")
                             <option value="{{ $address_row['client_id'] }}"> {{ $address_row['trad_cont_addr_line1'] }}</option>
@@ -1000,7 +1024,7 @@ $(document).ready(function(){
               <input type="checkbox" class="cont_all_addr" value="reg" name="cont_reg_addr" {{ (isset($client_details['cont_reg_addr']) && $client_details['cont_reg_addr'] == "reg")?"checked":""}}  />
             </div>
 
-            <div class="address_type" id="show_reg_office_addr" style="display: {{ (isset($client_details['cont_reg_addr']) && $client_details['cont_reg_addr'] == "reg")?"block":"none"}};">
+            <div class="address_type" id="show_reg_office_addr" style="display: {{ (isset($client_details['cont_reg_addr']) && $client_details['cont_reg_addr'] == 'reg')?'block':'none'}};">
               <div class="form-group">
                 <label for="exampleInputPassword1">Contact Name</label>
                 <input type="checkbox" class="cont_name_check" name="reg_name_check" value="reg_cont" {{ (isset($client_details['reg_name_check']) && $client_details['reg_name_check'] == "reg_cont")?"checked":""}} />
@@ -1765,29 +1789,30 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "3")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" value="{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}</textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"checked":"" }}/>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
         <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
           @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
             @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
+              <option value="{{ $value }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"selected":"" }}>{{ $value }}</option>
             @endforeach
           @endif
         </select>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields->field_name)])?date('d-m-Y', strtotime($client_details[strtolower($row_fields->field_name)])):"" }}" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
-     </div>
+     
+      </div>
 
-      <div class="clearfix"></div>
+        <div class="clearfix"></div>
       </div>
     @endif
   @endforeach
@@ -1800,7 +1825,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "3")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -1812,22 +1837,22 @@ $(document).ready(function(){
           <div class="twobox_2">
           <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
-          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
-            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
-            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+          @if(isset($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}" class="form-control">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}</textarea>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" {{ isset($client_details[strtolower($row_fields['field_name'])])?"checked":"" }}/>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
-              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+              @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
                 @foreach($row_fields['select_option'] as $key=>$value)
-                  <option value="{{ $value }}">{{ $value }}</option>
+                  <option value="{{ $value }}" {{ (isset($client_details[strtolower($row_fields['field_name'])]) && $client_details[strtolower($row_fields['field_name'])] == $value)?"selected":"" }}>{{ $value }}</option>
                 @endforeach
               @endif
             </select>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?date('d-m-Y', strtotime($client_details[strtolower($row_fields['field_name'])])):"" }}" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -1846,9 +1871,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="4" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="4" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
                             <div class="clearfix"></div>
                           </div>
@@ -1916,7 +1941,7 @@ $(document).ready(function(){
         <td width="25%">{{ $relation_row['name'] or "" }}</td>
         <td width="26%" align="center">{{ $relation_row['appointment_date'] }}</td>
         <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
-        <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}" disabled  /></td>
+        <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
         <td width="13%" align="center">
         
           <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i>
@@ -1962,9 +1987,9 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="5" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="5" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -2101,10 +2126,22 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
+
         <option value=""></option>
           @if(!empty($services) && count($services) >0 )
             @foreach($services as $key=>$service_row)
               <option value="{{ $service_row->service_id or "" }}">{{ $service_row->service_name or "" }}</option>
+
+        <option value="">None</option>
+          @if( isset($old_services) && count($old_services)>0 )
+            @foreach($old_services as $key=>$service_row)
+              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+            @endforeach
+          @endif
+          @if( isset($new_services) && count($new_services)>0 )
+            @foreach($new_services as $key=>$service_row)
+              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+
             @endforeach
           @endif
             
@@ -2114,7 +2151,10 @@ $(document).ready(function(){
     <div class="service">
       <select class="form-control" name="staff_id" id="staff_id">
         <option value="">None</option>
+
           @if(!empty($staff_details) && count($staff_details) >0)
+
+          @if(isset($staff_details) && count($staff_details) >0)
             @foreach($staff_details as $key=>$staff_row)
             <option value="{{ $staff_row->user_id or "" }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
             @endforeach
@@ -2138,25 +2178,25 @@ $(document).ready(function(){
     @if(!empty($row_fields->step_id) && $row_fields->step_id == "5")
       <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_fields->field_name) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_fields->field_name)) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields->field_id }}"><img src="/img/cross.png" width="12"></a></label>
       @if(!empty($row_fields->field_type) && $row_fields->field_type == "1")
-        <input type="text" name="{{ strtolower($row_fields->field_name) }}" class="form-control">
+        <input type="text" name="{{ strtolower($row_fields->field_name) }}" value="{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}" class="form-control">
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "2")
-        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39"></textarea>
+        <textarea  name="{{ strtolower($row_fields->field_name) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields->field_name)])?$client_details[strtolower($row_fields->field_name)]:"" }}</textarea>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "3")
-        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" />
+        <input type="checkbox"  name="{{ strtolower($row_fields->field_name) }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"checked":"" }}/>
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == 4)
         <select class="form-control"  name="{{ strtolower($row_fields->field_name) }}" >
           @if(!empty($row_fields->select_option) && count($row_fields->select_option) > 0)
             @foreach($row_fields->select_option as $key=>$value)
-              <option value="{{ $value }}">{{ $value }}</option>
+              <option value="{{ $value }}" {{ isset($client_details[strtolower($row_fields->field_name)])?"selected":"" }}>{{ $value }}</option>
             @endforeach
           @endif
         </select>
         
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
-        <input type="date"  name="{{ strtolower($row_fields->field_name) }}">
+        <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields->field_name)])?date('d-m-Y', strtotime($client_details[strtolower($row_fields->field_name)])):"" }}" name="{{ strtolower($row_fields->field_name) }}">
       @endif
      
      
@@ -2175,7 +2215,7 @@ $(document).ready(function(){
     @if(!empty($row_section['parent_id']) && $row_section['parent_id'] == "5")
     <div class="form-group">
       <div class="twobox_2">
-      <label for="exampleInputPassword1">{{ ucwords($row_section['title']) }} 
+      <label for="exampleInputPassword1">{{ ucwords(str_replace("_", " ", $row_section['title'])) }} 
         &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_section" data-step_id="{{ $row_section['step_id'] }}"><img src="/img/cross.png" width="12"></a></label>
       </div>
       <div class="clearfix"></div>
@@ -2187,22 +2227,22 @@ $(document).ready(function(){
           <div class="twobox_2">
           <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
-          @if(!empty($row_fields['field_type']) && $row_fields['field_type'] == "1")
-            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39"></textarea>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "3")
-            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == 4)
+          @if(isset($row_fields['field_type']) && $row_fields['field_type'] == "1")
+            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}" class="form-control">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
+            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}</textarea>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
+            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" {{ isset($client_details[strtolower($row_fields['field_name'])])?"checked":"" }}/>
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
-              @if(!empty($row_fields['select_option']) && count($row_fields['select_option']) > 0)
+              @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
                 @foreach($row_fields['select_option'] as $key=>$value)
-                  <option value="{{ $value }}">{{ $value }}</option>
+                  <option value="{{ $value }}" {{ (isset($client_details[strtolower($row_fields['field_name'])]) && $client_details[strtolower($row_fields['field_name'])] == $value)?"selected":"" }}>{{ $value }}</option>
                 @endforeach
               @endif
             </select>
-          @elseif(!empty($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
+          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
+            <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?date('d-m-Y', strtotime($client_details[strtolower($row_fields['field_name'])])):"" }}" name="{{ strtolower($row_fields['field_name']) }}">
           @endif
          
          
@@ -2263,6 +2303,8 @@ $(document).ready(function(){
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
     <input type="hidden" name="client_type" value="org" />
+    <input type="hidden" name="back_url" value="edit_org" />
+    <input type="hidden" name="client_id" value="{{ $client_details['client_id'] }}">
       <div class="modal-body">
         <div class="form-group">
           <label for="exampleInputPassword1">Select Section</label>
@@ -2281,11 +2323,9 @@ $(document).ready(function(){
           <label for="exampleInputPassword1">Subsection Name</label>
           <select class="form-control subsec_change" name="substep_id" id="substep_id">
             <option value="">-- Select sub section --</option>
-            @if( isset($steps) && count($steps) >0 )
-              @foreach($steps as $key=>$step_row)
-                @if($step_row->status == "new" && $step_row->parent_id == 1)
-                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
-                @endif
+            @if( isset($substep) && count($substep) >0 )
+              @foreach($substep as $key=>$step_row)
+                <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
               @endforeach
             @endif
             <option value="new">Add new ...</option>
@@ -2293,7 +2333,7 @@ $(document).ready(function(){
         </div>
         <div class="input-group show_new_div" style="display:none;">
             <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org"><i class="fa fa-plus"></i></a></span>
+           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org">Save</a></span>
         </div>
 
         <div class="form-group">
@@ -2304,7 +2344,7 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="exampleInputPassword1">Field Type</label>
           <select class="form-control user_field_type" name="field_type" id="field_type">
-            @if(!empty($field_types))
+            @if( isset($field_types) && count($field_types)>0 )
               @foreach($field_types as $key=>$field_row)
                 <option value="{{ $field_row->field_type_id }}">{{ $field_row->field_type_name }}</option>
               @endforeach
@@ -2344,24 +2384,35 @@ $(document).ready(function(){
       </div>
     {{ Form::open(array('url' => '/client/add-business-type', 'id'=>'field_form')) }}
     <input type="hidden" name="client_type" value="org">
+
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
       </div>
       
-      @if(!empty($org_types))
-        @foreach($org_types as $key=>$org_row)
+      <div id="append_bussiness_type">
+      @if( isset($old_org_types) && count($old_org_types) >0 )
+        @foreach($old_org_types as $key=>$old_org_row)
         <div class="form-group">
-        <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
-        <label for="{{ $org_row->name }}">{{ $org_row->name }}</label>
-      </div>
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
         @endforeach
       @endif
+
+      @if( isset($new_org_types) && count($new_org_types) >0 )
+        @foreach($new_org_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->organisation_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
       
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2388,21 +2439,31 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
+        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
       </div>
 
-      @if(!empty($vat_schemes))
-        @foreach($vat_schemes as $key=>$scheme_row)
-          <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
-          </div>
-        @endforeach
-      @endif
+      <div id="append_vat_scheme">
+        @if( isset($old_vat_schemes) && count($old_vat_schemes) )
+          @foreach($old_vat_schemes as $key=>$scheme_row)
+            <div class="form-group">
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
+
+        @if( isset($new_vat_schemes) && count($new_vat_schemes) )
+          @foreach($new_vat_schemes as $key=>$scheme_row)
+            <div class="form-group" id="hide_vat_div_{{ $scheme_row->vat_scheme_id }}">
+              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
+              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+            </div>
+          @endforeach
+        @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="add_vat_scheme" data-client_type="org" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2429,21 +2490,30 @@ $(document).ready(function(){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
+        <input type="text" name="service_name" id="service_name" placeholder="Service Name" class="form-control">
       </div>
 
-      @if(!empty($services))
-        @foreach($services as $key=>$service_row)
+      <div id="append_services">
+      @if( isset($old_services) && count($old_services)>0 )
+        @foreach($old_services as $key=>$service_row)
           <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+            <label for="{{ $service_row->service_id or "" }}">{{ $service_row->service_name or "" }}</label>
           </div>
         @endforeach
       @endif
+      @if( isset($new_services) && count($new_services)>0 )
+        @foreach($new_services as $key=>$service_row)
+          <div class="form-group" id="hide_service_div_{{ $service_row->service_id }}">
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id or "" }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $service_row->service_id or "" }}">{{ $service_row->service_name or "" }}</label>
+          </div>
+        @endforeach
+      @endif
+      </div>
      
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
+          <button type="button" class="btn btn-primary pull-left save_t" id="save_services" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -2473,11 +2543,11 @@ $(document).ready(function(){
         <input type="text" name="service_name" placeholder="Service Name" class="form-control">
       </div>
 
-      @if(!empty($services))
+      @if(isset($services) && count($services)>0)
         @foreach($services as $key=>$service_row)
           <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
+            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id or "" }}"><img src="/img/cross.png" width="12"></a>
+            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name or "" }}</label>
           </div>
         @endforeach
       @endif
@@ -2496,13 +2566,6 @@ $(document).ready(function(){
   <!-- /.modal-dialog -->
 </div>
 <!-- Add Subsec Modal End-->
-
-
-
-
-
-
-
 
 
 @stop

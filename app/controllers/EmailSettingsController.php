@@ -5,20 +5,24 @@
 class EmailSettingsController extends BaseController {
 
 	public function index() {
-		$data['heading'] = "EMAIL SETTINGS";
-		if (Cache::has('template_list')) {
+		$data['heading'] = "EMAIL & LETTER TEMPLATES";
+
+		$session = Session::get('admin_details');
+		$groupUserId = $session['group_users'];
+		
+		/*if (Cache::has('template_list')) {
 			$data = Cache::get('template_list');
-		} else {
-			$data['title'] = "Email Settings";
-			$data['template_types'] = TemplateType::orderBy("template_type_name", "ASC")->get();
-			$data['email_templates'] = EmailTemplate::orderBy("email_template_id", "DESC")->get();
+		} else {*/
+			$data['title'] = "Email & Letter Templates";
+			$data['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
+			$data['email_templates'] 	= EmailTemplate::orderBy("email_template_id", "DESC")->get();
 
 			$data['email_templates'] = DB::table('email_templates')
 				->join('template_types', 'email_templates.template_type_id', '=', 'template_types.template_type_id')
-				->select('email_templates.*', 'template_types.template_type_name')->orderBy("email_template_id", "Desc")->get();
-			Cache::put('template_list', $data, 10);
+				->select('email_templates.*', 'template_types.template_type_name')->whereIn("user_id", $groupUserId)->orderBy("email_template_id", "Desc")->get();
+			//Cache::put('template_list', $data, 10);
 
-		}
+		//}
 
 		//echo $this->last_query();die;
 		//echo "<pre>";print_r($data);die;
@@ -79,12 +83,14 @@ class EmailSettingsController extends BaseController {
 	public function add_email_template() {
 		$tmpl_data = array();
 		$postData = Input::all();
+		$session = Session::get('admin_details');
 
-		$tmpl_data['name'] = $postData['add_name'];
-		$tmpl_data['template_type_id'] = $postData['add_template_type'];
-		$tmpl_data['title'] = $postData['add_title'];
-		$tmpl_data['message'] = $postData['add_message'];
-		$tmpl_data['created'] = date("Y-m-d H:i:s");
+		$tmpl_data['user_id'] 			= $session['id'];
+		$tmpl_data['name'] 				= $postData['add_name'];
+		$tmpl_data['template_type_id'] 	= $postData['add_template_type'];
+		$tmpl_data['title'] 			= $postData['add_title'];
+		$tmpl_data['message'] 			= $postData['add_message'];
+		$tmpl_data['created'] 			= date("Y-m-d H:i:s");
 		$pd_id = EmailTemplate::insertGetId($tmpl_data);
 		if ($pd_id) {
 			//////////////////file upload start//////////////////

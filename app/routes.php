@@ -122,6 +122,7 @@ Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "us
 Route::any('/client/edit-relation-type', array("as"=>"edit_relation_type", "uses"=>'ClientController@edit_relation_type'));
 Route::any('/client/delete-relationship', array("as"=>"delete_relationship", "uses"=>'ClientController@delete_relationship'));
 Route::any('/client/save-database-relationship', array("as"=>"save_database_relationship", "uses"=>'ClientController@save_database_relationship'));
+Route::any('/client/save-acting-relationship', array("as"=>"save_acting_relationship", "uses"=>'ClientController@save_acting_relationship'));
 ### Routes for Client URL's end ###
 
 
@@ -134,7 +135,7 @@ Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataC
 Route::any('/import-from-ch/{back_url}', array("as"=>"import_from_ch", "uses"=>'ChdataController@import_from_ch'));
 Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
 Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
-Route::any('/import-company-details', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
+Route::any('/import-company-details/{number}', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
 ## Company House Data End ##
 
 

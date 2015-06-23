@@ -1,7 +1,7 @@
 <h2>MPM New Account</h2>
-<p>Dear User,</p>
-<p>You have been sent this email to verify your email address and create a password for your account.</p>
-<p>Select the link below, or copy it into your browser's address bar, to verify your email address and create a password for your account.</p>
+<p>Dear {{ $fname }},</p>
+<p>You have been sent this email to verify your email address.</p>
+<p>Select the link below, or copy it into your browser's address bar, to verify your email address for your account.</p>
 
 <p><a href="{{ $link }}" target="_blank">{{ $link }}</a></p>
 

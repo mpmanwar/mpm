@@ -19,7 +19,7 @@ class ClientController extends BaseController {
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
-		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
+		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();
 		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
@@ -81,6 +81,7 @@ class ClientController extends BaseController {
         		}
         		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
+        		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
         		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
         	}
         }
@@ -98,7 +99,7 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
 
-		//print_r($data['relationship']);die;
+		//print_r($data['titles']);die;
 		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);
@@ -117,31 +118,42 @@ class ClientController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
+		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
+		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
+		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
-		$data['subsections'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->orderBy("step_id")->get();
+		$data['substep'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
+
 
 		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
 		
         $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
 
+		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
+		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
+
+
         //echo "<pre>";print_r($data['services']);die();
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
+		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
+		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= App::make("HomeController")->get_orgcontact_address();
         
         //print_r($data['cont_address'] );die();
         
-		$data['reg_address'] 	= RegisteredAddress::get();
+		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -163,6 +175,7 @@ class ClientController extends BaseController {
 
 		}
 		$data['subsections'] = App::make("HomeController")->buildtree($steps, "org");
+		//print_r($data['subsections']);die;
 		//###########User added section and sub section start##########//
 
 		//############# Get client data start ################//
@@ -230,7 +243,7 @@ class ClientController extends BaseController {
         
       // echo "<pre>"; print_r($client_data);
 
-		//print_r($data['relationship']);die;
+		//print_r($data['subsections']);die;
 		//############# Get client data end ################//
         
         //service
@@ -338,8 +351,9 @@ class ClientController extends BaseController {
 		$data['client_type'] 	= Input::get("client_type");
 		$data['user_id'] 		= $session_data['id'];
 		$data['status'] 		= "new";
-		OrganisationType::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = OrganisationType::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_org_name() {
@@ -356,8 +370,9 @@ class ClientController extends BaseController {
 		$data['vat_scheme_name'] 	= Input::get("vat_scheme_name");
 		$data['user_id'] 			= $session_data['id'];
 		$data['status'] 			= "new";
-		VatScheme::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = VatScheme::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_vat_scheme() {
@@ -442,8 +457,9 @@ class ClientController extends BaseController {
 		$data['service_name'] = Input::get("service_name");
 		$data['user_id'] 			= $session_data['id'];
 		$data['status'] 			= "new";
-		Service::insert($data);
-		return Redirect::to('/organisation/add-client');
+		$insert_id = Service::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 	}
 
 	public function delete_services() {
@@ -540,7 +556,7 @@ class ClientController extends BaseController {
 	public function save_database_relationship()
 	{
 		$data = array();
-		$type = "aa";
+		$type = "";
 		$edit_id 		= Input::get("edit_id");
 		$client_type 	= Input::get("client_type");
 		$client_id 		= Input::get("client_id");
@@ -643,5 +659,44 @@ class ClientController extends BaseController {
         echo $str;
         
     }
+
+	public function save_acting_relationship()
+	{
+		$client_type 	= Input::get("client_type");
+		$client_id 		= Input::get("client_id");
+		$acting 		= Input::get("acting");
+		$type 			= Input::get("rel_type");
+		$edit_id 		= Input::get("edit_id");
+
+		$data['acting'] 				= $acting;
+		ClientRelationship::where("client_relationship_id", "=", $edit_id)->update($data);
+		//################# Change Officers Type Start #################//
+		if($client_type == "change"){
+			if (strpos($type, 'Corporate') !== false){
+				$cl_data["type"] = "org";
+				$getData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "client_name")->first();
+				$clin_data['user_id'] 		= $getData['user_id'];
+				$clin_data['client_id'] 	= $getData['client_id'];
+				$clin_data['step_id'] 		= $getData['step_id'];
+				$clin_data['field_name'] 	= "business_name";
+				$clin_data['field_value'] 	= $getData['field_value'];
+
+				$checkData = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "business_name")->first();
+				if(!isset($checkData)){
+					StepsFieldsClient::insert($clin_data);
+				}
+			
+			}else{
+				$cl_data["type"] = "ind";
+			}
+		}else{
+			$cl_data["type"] = "chd";
+		}
+		$success = Client::where("client_id", "=", $client_id)->update($cl_data);
+		//echo $this->last_query();die;
+		//################# Change Officers Type End #################//
+
+		echo $success;
+	}
 
 }

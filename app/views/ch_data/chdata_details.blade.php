@@ -42,7 +42,7 @@
           <div class="top_bts">
             <ul style="padding:0;">
               <li>
-                <button class="btn btn-success">GENERATE PDF</button>
+                <button type="button" class="btn btn-success"><i class="fa fa-download"></i> GENERATE PDF</button>
               </li>
               <!-- <li>
                 <button class="btn btn-info">WEBCHECK</button>

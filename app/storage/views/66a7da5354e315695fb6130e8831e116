@@ -1,4 +1,0 @@
-
-<h1>Hi, <?php echo $fname; ?>!</h1>
- 
-<p>You are now MPM user! <br> If you want to create your password please <a href="<?php echo $link; ?>" target="_blank">Click here</a></p>

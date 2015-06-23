@@ -232,29 +232,36 @@ class HomeController extends BaseController {
 		$data['heading'] 		= "ADD CLIENT";
 		$data['title'] 			= "Add Client";
 
-		$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();
+		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
+		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
+		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
-		$data['subsections'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->orderBy("step_id")->get();
+		$data['substep'] 		= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
-		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
+		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();
+		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
+		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
+		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
         
         //print_r($data['cont_address'] );die();
         
-		$data['reg_address'] 	= RegisteredAddress::get();
+		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -638,13 +645,13 @@ class HomeController extends BaseController {
 		}
 
 		//################## USER ADDED FIELD START ###############//
-		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->get();
 		//echo $this->last_query();die;
 		if(isset($field_added) && count($field_added) > 0){
 			foreach ($field_added as $key => $value) {
 				$field_name = strtolower($value->field_name);
 				if (isset($postData[$field_name]) && $postData[$field_name] != "") {
-					$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+					$arrData[] = $this->save_client($user_id, $client_id, $value->step_id, $field_name, $postData[$field_name]);
 				}
 			}
 		}
@@ -688,20 +695,25 @@ class HomeController extends BaseController {
 		$data = array();
 
 		$admin_s = Session::get('admin_details'); // session
+		$back_url = Input::get("back_url");
 
 		$data['user_id'] 		= $admin_s['id'];
 		$data['step_id'] 		= Input::get("step_id");
 		$data['substep_id'] 	= Input::get("substep_id");
-		$data['field_name'] 	= Input::get("field_name");
+		$data['field_name'] 	= str_replace(" ", "_", Input::get("field_name"));
 		$data['field_type'] 	= Input::get("field_type");
 		$data['client_type'] 	= Input::get("client_type");
 		$data['select_option'] 	= Input::get("select_option");
 
 		$field_id = StepsFieldsAddedUser::insertGetId($data);
-		if ($data['client_type'] == "ind") {
+		if ($back_url == "add_ind") {
 			return Redirect::to('/individual/add-client');
-		} else {
+		}else if ($back_url == "edit_ind") {
+			return Redirect::to('/client/edit-ind-client/'.Input::get("client_id"));
+		}else if ($back_url == "add_org") {
 			return Redirect::to('/organisation/add-client');
+		} else if ($back_url == "edit_org") {
+			return Redirect::to('/client/edit-org-client/'.Input::get("client_id"));
 		}
 
 	}
@@ -949,7 +961,7 @@ class HomeController extends BaseController {
 		}else{
 			$client_id = $postData['client_id'];
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
-			ClientRelationship::where("client_id", "=", $client_id)->delete();
+			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}
 
 //#############BUSINESS INFORMATION START###################//
@@ -1203,13 +1215,13 @@ class HomeController extends BaseController {
 //############# SERVICES END ###################//
 
 //################## USER ADDED FIELD START ###############//
-$field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->select("field_value", "field_name")->get();
+$field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->get();
 //echo $this->last_query();die;
 if(isset($field_added) && count($field_added) > 0){
 	foreach ($field_added as $key => $value) {
 		$field_name = strtolower($value->field_name);
 		if (isset($postData[$field_name]) && $postData[$field_name] != "") {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, $field_name, $postData[$field_name]);
+			$arrData[] = $this->save_client($user_id, $client_id, $value->step_id, $field_name, $postData[$field_name]);
 		}
 	}
 }

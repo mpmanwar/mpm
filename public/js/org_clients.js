@@ -107,7 +107,7 @@ $(".org_tax_reference").change(function(){
 //Show organisation tax address type while adding client end
 
 //Delete organisation name while add individual/organisation user start
-$(".delete_org_name").click(function(){
+$("#append_bussiness_type").on("click", ".delete_org_name", function(){
   var field_id = $(this).data('field_id');
   if (confirm("Do you want to delete this field ?")) {
     $.ajax({
@@ -117,7 +117,11 @@ $(".delete_org_name").click(function(){
       data: { 'field_id' : field_id },
       success : function(resp){//console.log(resp);return false;
         if(resp != ""){
-          location.reload();
+          //location.reload();
+          $("#hide_div_"+field_id).hide();
+          $("#business_type option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this type, Please try again");
         }
       }
     });
@@ -126,8 +130,28 @@ $(".delete_org_name").click(function(){
 }); 
 //Delete organisation name while add individual/organisation user end
 
+//Add Vat Scheme while add individual/organisation user start
+$("#add_vat_scheme").click(function(){
+    var vat_scheme_name  = $("#vat_scheme_name").val();
+
+    $.ajax({
+      type: "POST",
+      url: '/client/add-vat-scheme',
+      data: { 'vat_scheme_name' : vat_scheme_name },
+      success : function(field_id){//alert(client_type);return false;
+        var append = '<div class="form-group" id="hide_vat_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+field_id+'">'+vat_scheme_name+'</label></div>';
+        $("#append_vat_scheme").append(append);
+
+        $("#vat_scheme_name").val("");
+        $("#vat_scheme_type").append('<option value="'+field_id+'">'+vat_scheme_name+'</option>');
+
+      }
+    });
+});
+//Add Vat Scheme while add individual/organisation user end
+
 //Delete organisation name while add individual/organisation user start
-$(".delete_vat_scheme").click(function(){
+$("#append_vat_scheme").on("click", ".delete_vat_scheme", function(){
   var field_id = $(this).data('field_id');
   if (confirm("Do you want to delete this field ?")) {
     $.ajax({
@@ -137,7 +161,10 @@ $(".delete_vat_scheme").click(function(){
       data: { 'field_id' : field_id },
       success : function(resp){//console.log(resp);return false;
         if(resp != ""){
-          location.reload();
+          $("#hide_vat_div_"+field_id).hide();
+          $("#vat_scheme_type option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this scheme, Please try again");
         }
       }
     });
@@ -176,18 +203,41 @@ $(".delete_client_service").click(function(){
     
 });
 
+//Add Services while add individual/organisation user start
+$("#save_services").click(function(){
+    var service_name  = $("#service_name").val();
+
+    $.ajax({
+      type: "POST",
+      url: '/client/add-services',
+      data: { 'service_name' : service_name },
+      success : function(field_id){
+        var append = '<div class="form-group" id="hide_service_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+field_id+'">'+service_name+'</label></div>';
+        $("#append_services").append(append);
+
+        $("#service_name").val("");
+        $("#service_id").append('<option value="'+field_id+'">'+service_name+'</option>');
+
+      }
+    });
+});
+//Add Services while add individual/organisation user end
+
+
 //Delete services name while add individual/organisation user start
-$(".delete_services").click(function(){
+$("#append_services").on("click", ".delete_services", function(){
   var field_id = $(this).data('field_id');
   if (confirm("Do you want to delete this field ?")) {
     $.ajax({
       type: "POST",
-      //dataType: "json",
       url: '/client/delete-services',
       data: { 'field_id' : field_id },
-      success : function(resp){//console.log(resp);return false;
+      success : function(resp){
         if(resp != ""){
-          location.reload();
+          $("#hide_service_div_"+field_id).hide();
+          $("#service_id option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this service, Please try again");
         }
       }
     });
@@ -237,6 +287,75 @@ $("#myServTable").on("click", ".delete_service", function(){
   
 });
 // Delete Allocate Serveces while adding organisation client end //
+
+
+$('.rel_acting').on('ifChecked', function(event){
+  event.preventDefault();
+  var edit_index  = $(this).data("edit_index");
+  var client_id   = $(this).data("officer_id");
+  var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
+  $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+
+  $("#rel_acting_"+client_id).iCheck('check');//rel_acting_94
+});
+
+$('.rel_acting').on('ifUnchecked', function(event){
+  event.preventDefault();
+  var edit_index  = $(this).data("edit_index");
+  var client_id   = $(this).data("officer_id");
+  //var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+  var action = '<button class="btn btn-success rel_acting_save" data-edit_index="'+edit_index+'" data-client_id="'+client_id+'" type="button">Save</button>';
+  $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+
+  $("#rel_acting_"+client_id).iCheck('uncheck');
+});
+
+// Save Acting while edit client start //
+$("#myRelTable").on("click", ".rel_acting_save", function(){
+    var edit_index  = $(this).data("edit_index");
+    var client_id   = $(this).data("client_id");
+    var rel_type    = $("#database_tr"+edit_index+" td:nth-child(3)").html();
+
+    var client_type = "chd";
+    var acting = "N";
+    if($('#rel_acting_'+client_id).prop("checked") == true){
+      client_type = "change";
+      var acting = "Y";
+    }
+  //alert(client_id+", "+client_type);return false;
+    $.ajax({
+      type: "POST",
+      url: '/client/save-acting-relationship',
+      data: { 'acting':acting, 'client_type':client_type, 'client_id':client_id, 'edit_id':edit_index, 'rel_type':rel_type },
+      success : function(resp){//alert(client_type);return false;
+        var action  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+        $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+      }
+    });
+});
+// Save Acting while edit client end //
+
+// Save Business type while add organization client start //
+$("#add_business_type").click(function(){
+    var org_name      = $("#org_name").val();
+    var client_type   = $(this).data("client_type");
+    
+    $.ajax({
+      type: "POST",
+      url: '/client/add-business-type',
+      data: { 'org_name':org_name, 'client_type' : client_type },
+      success : function(field_id){
+        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+org_name+'">'+org_name+'</label></div>';
+        $("#append_bussiness_type").append(append);
+
+        $("#org_name").val("");
+        $("#business_type").append('<option value="'+field_id+'">'+org_name+'</option>');
+
+      }
+    });
+});
+// Save Business type while add organization client end //
+
 	
   
 

@@ -7,8 +7,11 @@ class UserController extends BaseController {
 	public function user_list(){
 		$data['title'] = "User List";
 		$data['heading'] = "USER LIST";
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+
+		
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -21,7 +24,7 @@ class UserController extends BaseController {
 
 			//$user_lists	= User::where('user_id', '=', $user_id)->first();
 			
-			$parentId = array();
+			/*$parentId = array();
 			$childId = array();
 
 			$parentId = $this->getParentId($user_id, $admin_s['group_id']);
@@ -31,9 +34,9 @@ class UserController extends BaseController {
 			}
 			
 			//print_r($parentId);die;
-			$groupId = array_merge($parentId,$childId);
+			$groupId = array_merge($parentId,$childId);*/
 						
-			$data['user_lists']	= User::whereIn('user_id', $groupId)->get();
+			$data['user_lists']	= User::whereIn("user_id", $groupUserId)->get();
 			//echo $this->last_query();die;
 
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
@@ -174,8 +177,8 @@ class UserController extends BaseController {
 
 	private function send_mail($data) {
 		Mail::send('emails.add_user', $data, function ($message) use ($data) {
-			$message->from('anwar.khan@appsbee.com', 'MPM');
-			$message->to($data['email'], $data['fname'] . ' ' . $data['lname'])->subject("Welcome to MPM");
+			$message->from('abel02@icloud.com', 'MPM');
+			$message->to($data['email'], $data['fname'].' '.$data['lname'])->subject("Welcome to MPM");
 
 		});
 	}
@@ -296,18 +299,21 @@ class UserController extends BaseController {
 
 	public function pdf() {
 		$data['title'] = "User List";
-		$data['user_lists'] = User::get();
+		$session = Session::get('admin_details');
+        $groupUserId = $session['group_users'];
+
+		$data['user_lists'] = User::whereIn("user_id", $groupUserId)->get();
 		if (isset($data['user_lists']) && count($data['user_lists']) > 0) {
 			$i = 0;
+			$i = 0;
 			foreach ($data['user_lists'] as $user_list) {
-				$permissions = DB::table("user_permissions")->leftJoin('permissions', 'user_permissions.permission_id', '=', 'permissions.permission_id')
-				                                            ->where('user_permissions.user_id', '=', $user_list->user_id)->select('permissions.name', 'permissions.permission_id')->get();
+				$access = DB::table("user_accesses")->leftJoin('accesses', 'user_accesses.access_id', '=', 'accesses.access_id')->where('user_accesses.user_id', '=', $user_list->user_id)->select('accesses.access_name', 'accesses.access_id')->get();
 				//echo $this->last_query();die;
 				//print_r($permissions);die;
 				$permission = "";
-				if (isset($permissions) && count($permissions) > 0) {
-					foreach ($permissions as $usr_perission) {
-						$permission .= $usr_perission->name . " + ";
+				if (isset($access) && count($access) > 0) {
+					foreach ($access as $usr_perission) {
+						$permission .= $usr_perission->access_name . " + ";
 					}
 					$permission = substr($permission, 0, -3);
 				}
@@ -360,8 +366,10 @@ class UserController extends BaseController {
 		if ($validator->fails()) {
 			return Redirect::to('/user/create-password/'.$postData['user_id'])->withErrors($validator)->withInput();
 		} else {
+			$change_data['status'] = "A";
+			$change_data['password'] = md5($postData['password']);
 			Session::flash('success', 'You have successfully created your password');
-			User::where('user_id', '=', base64_decode($postData['user_id']))->update(array("password"=>md5($postData['password'])));
+			User::where('user_id', '=', base64_decode($postData['user_id']))->update($change_data);
 			//echo $this->last_query();die;
 		}
 

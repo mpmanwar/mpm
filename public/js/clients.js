@@ -108,11 +108,7 @@ $(".open").click(function(){
 
 ///////////Validation//////////////
 if(data_id == 2){
-  if($("#client_code").val() == ""){
-    alert("Client code can not be null");
-    $("#client_code").focus();
-    return false;
-  }else if($("#fname").val() == ""){
+  if($("#fname").val() == ""){
     alert("First name can not be null");
     $("#fname").focus();
     return false;
@@ -140,11 +136,7 @@ $(".open_header").click(function(){
   var data_id = $(this).data('id');
   ///////////Validation//////////////
   if(data_id == 2){
-    if($("#client_code").val() == ""){
-      alert("Client code can not be null");
-      $("#client_code").focus();
-      return false;
-    }else if($("#fname").val() == ""){
+    if($("#fname").val() == ""){
       alert("First name can not be null");
       $("#fname").focus();
       return false;
@@ -233,22 +225,21 @@ $(".back").click(function(){
       $.ajax({
         type: "POST",
         dataType: "json",
-        //url: '/search/search-client',
-        url: '/search/search-all-client',
+        url: '/search/search-client',
+        //url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
+          var content = '<ul>';
           if (resp.length != 0) {
-            var content = '<ul>';
             $.each(resp, function(key){
               content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
-              //console.log(resp[key].client_name); 
             });
-
-            content+= '</ul>';
-
-            $("#show_search_client").html(content);
-            $("#show_search_client").show();
+          }else{
+            content+= "<li>No result found...</li>";
           }
+          content+= '</ul>';
+          $("#show_search_client").html(content);
+          $("#show_search_client").show();
           
         }
       });
@@ -269,18 +260,20 @@ $(".back").click(function(){
         url: '/search/search-all-client',
         data: { 'search_value' : search_value, 'client_type' : client_type },
         success : function(resp){
+          var content = '<ul>';
           if (resp.length > 0) {
-            var content = '<ul>';
+            
             $.each(resp, function(key){
               content+= "<li class='putClientName' data-client_name='"+resp[key].client_name+"' data-client_id='"+resp[key].client_id+"'>"+resp[key].client_name+"</li>";
               //console.log(resp[key].client_name); 
             });
-
-            content+= '</ul>';
-
-            $("#show_search_client").html(content);
-            $("#show_search_client").show();
+          }else{
+            content+= "<li>No result found...</li>";
           }
+          content+= '</ul>';
+
+          $("#show_search_client").html(content);
+          $("#show_search_client").show();
           
         }
       });
@@ -1128,7 +1121,6 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
   var name      = $("#database_tr"+edit_index+" td:nth-child(1)").html();
   var app_date  = $("#database_tr"+edit_index+" td:nth-child(2)").html();
   var rel_type  = $("#database_tr"+edit_index+" td:nth-child(3)").html();
-  //var acting    = $("#database_tr"+edit_index+" td:nth-child(4)").html();
 
   var first_name = '<input type="text" placeholder="Search..." value="'+name+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
   var second_date = '<input type="text" id="edit_app_date" value="'+app_date+'" name="edit_app_date" class="form-control app_date edit_app_date">';
@@ -1142,10 +1134,14 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
         $("#database_tr"+edit_index+" td:nth-child(1)").html(first_name);
         $("#database_tr"+edit_index+" td:nth-child(2)").html(second_date);
         $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-        //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
-        $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
 
-        $("#rel_acting_"+client_id).iCheck('enable');
+        if(client_type == 'ind'){
+          $("#database_tr"+edit_index+" td:nth-child(5)").html(action);
+          $("#rel_acting_"+client_id).iCheck('enable');
+        }else{
+          $("#database_tr"+edit_index+" td:nth-child(4)").html(action);
+        }
+
       }
   });
 
@@ -1159,7 +1155,7 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
   var client_id = $(this).data("client_id");
   var first_value   = $("#editrelname").val();
   var rel_type_id   = $("#edit_rel_type_id").val();
-  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>'
+  var fourth  = '<a href="javascript:void(0)" class="edit_database_rel" data-edit_index="'+edit_index+'" data-officer_id="'+client_id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
 
   var rel_client_id = $("#rel_client_id").val();
   var app_date      = $(".edit_app_date").val();
@@ -1182,10 +1178,14 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
       $("#database_tr"+edit_index+" td:nth-child(1)").html(first_value);
       $("#database_tr"+edit_index+" td:nth-child(2)").html(app_date);
       $("#database_tr"+edit_index+" td:nth-child(3)").html(resp);
-      //$("#database_tr"+edit_index+" td:nth-child(4)").html(acting);
-      $("#database_tr"+edit_index+" td:nth-child(5)").html(fourth);
-
-      $("#rel_acting_"+client_id).iCheck('disable');
+      
+      if(client_type == 'ind'){
+        $("#database_tr"+edit_index+" td:nth-child(5)").html(fourth);
+        $("#rel_acting_"+client_id).iCheck('disable');
+      }else{
+        $("#database_tr"+edit_index+" td:nth-child(4)").html(fourth);
+      }
+      
     }
   });
 

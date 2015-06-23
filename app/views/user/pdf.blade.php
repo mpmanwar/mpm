@@ -20,9 +20,9 @@
                 <td class=" ">{{ $user_row->permission or "" }}</td>
                 <td class=" ">
                     @if($user_row->status == 'I')
-                        <a href="#" class="active_t">Active</a>
-                    @else
                         <a href="#" class="active_t">Inactive</a>
+                    @else
+                        <a href="#" class="active_t">Active</a>
                     @endif
                 </td>
                 <td class=" ">{{ $user_row->last_login or '' }}<!-- 1 May 2013 9:13 p.m. --></td>
