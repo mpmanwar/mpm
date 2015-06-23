@@ -115,7 +115,7 @@
                 @if(!Session::has('message'))
                     <div class="footer">                    
                         <button type="submit" class="btn bg-olive btn-block">Get Started Now!</button>
-                        <a href='/' class="text-center">I already have a membership</a>
+                        <a href='/' class="text-center">I already have an account</a>
                     </div>
                  @endif
             {{ Form::close() }}

@@ -177,8 +177,8 @@ class UserController extends BaseController {
 
 	private function send_mail($data) {
 		Mail::send('emails.add_user', $data, function ($message) use ($data) {
-			$message->from('anwar.khan@appsbee.com', 'MPM');
-			$message->to($data['email'], $data['fname'] . ' ' . $data['lname'])->subject("Welcome to MPM");
+			$message->from('abel02@icloud.com', 'MPM');
+			$message->to($data['email'], $data['fname'].' '.$data['lname'])->subject("Welcome to MPM");
 
 		});
 	}
@@ -366,8 +366,10 @@ class UserController extends BaseController {
 		if ($validator->fails()) {
 			return Redirect::to('/user/create-password/'.$postData['user_id'])->withErrors($validator)->withInput();
 		} else {
+			$change_data['status'] = "A";
+			$change_data['password'] = md5($postData['password']);
 			Session::flash('success', 'You have successfully created your password');
-			User::where('user_id', '=', base64_decode($postData['user_id']))->update(array("password"=>md5($postData['password'])));
+			User::where('user_id', '=', base64_decode($postData['user_id']))->update($change_data);
 			//echo $this->last_query();die;
 		}
 
