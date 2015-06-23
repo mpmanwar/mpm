@@ -355,7 +355,7 @@ class HomeController extends BaseController {
              	$client_data[$i]['client_id'] = $client_id->client_id;
 				//echo $this->last_query();//die;
 
-				if (isset($client_details) && count($client_details) > 0) {echo "foreach if";
+				if (isset($client_details) && count($client_details) > 0) {
 				    foreach ($client_details as $client_row) {
 						if(isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1"){
 					       $client_data[$i]['res_addr_line1'] = $client_row['field_value'];
