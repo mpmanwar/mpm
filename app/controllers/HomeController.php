@@ -349,7 +349,7 @@ class HomeController extends BaseController {
 		echo $this->last_query();//die;
 		$i = 0;
 		if (isset($client_ids)) {echo "Anwar";
-			foreach ($client_ids as $client_id) {echo "foreach";
+			foreach($client_ids as $key=>$client_id) {echo "foreach";
 			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
              
              	$client_data[$i]['client_id'] = $client_id->client_id;
