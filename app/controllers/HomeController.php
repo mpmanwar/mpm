@@ -260,7 +260,7 @@ class HomeController extends BaseController {
         
         //print_r($data['cont_address'] );die();
         
-		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_name")->get();
+		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {

@@ -35,14 +35,15 @@ class AdminController extends BaseController {
 			if ($validator->fails()) {
 				return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
 			} else {
-				$insert_data['fname'] 		= $postData['fname'];
-				$insert_data['lname'] 		= $postData['lname'];
-				$insert_data['email'] 		= $postData['email'];
-				$insert_data['password'] 	= md5($postData['password']);
-				$insert_data['phone'] 		= $postData['phone'];
-				$insert_data['website'] 	= $postData['website'];
-				$insert_data['country'] 	= $postData['country'];
-				$insert_data['user_type'] 	= "R";
+				$insert_data['fname'] 			= $postData['fname'];
+				$insert_data['lname'] 			= $postData['lname'];
+				$insert_data['email'] 			= $postData['email'];
+				$insert_data['password'] 		= md5($postData['password']);
+				$insert_data['practice_name'] 	= $postData['practice_name'];
+				$insert_data['phone'] 			= $postData['phone'];
+				$insert_data['website'] 		= $postData['website'];
+				$insert_data['country'] 		= $postData['country'];
+				$insert_data['user_type'] 		= "R";
 
 				$email_check = User::where('email', $postData['email'])->first();
 				//echo $this->last_query();die;
