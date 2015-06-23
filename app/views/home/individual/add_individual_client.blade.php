@@ -549,12 +549,6 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-xs-6">
                     <div class="col_m2">  
 <h3 class="box-title">Service Address</h3>  
-<?php
-//echo '<pre>';
-//print_r($cont_address);
-
-?>
-
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldserv_address" data-type="serv">
@@ -659,7 +653,7 @@ $(document).ready(function(){
    <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
       <option value="">-- Select Address --</option>
       
-      @if( isset($cont_address) && count($cont_address)>0 )
+      @if( isset($cont_address) )
         @foreach($cont_address as $key=>$address_row)
           @if (isset($address_row['serv_addr_line1']) && $address_row['serv_addr_line1'] !="")
             <option value="{{ $address_row['client_id'] }}_serv">{{$address_row['serv_addr_line1']}}</option>
