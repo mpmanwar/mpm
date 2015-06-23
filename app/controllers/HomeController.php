@@ -346,9 +346,9 @@ class HomeController extends BaseController {
 
 		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
  	$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
-		//echo $this->last_query();die;
+		echo $this->last_query();//die;
 		$i = 0;
-		if (isset($client_ids) && count($client_ids) > 0) {echo "Anwar";
+		if (isset($client_ids)) {echo "Anwar";
 			foreach ($client_ids as $client_id) {echo "foreach";
 			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
              
