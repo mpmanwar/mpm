@@ -339,21 +339,21 @@ class HomeController extends BaseController {
 
 	public function get_contact_address() {
 		$client_data = array();
-
+		
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
 		$groupUserId = $admin_s['group_users'];
 
-		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
- 	$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
-		echo $this->last_query();//die;
+		$client_ids = Client::where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+ 		//$client_array = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
+		//echo $this->last_query();//die;
 		$i = 0;
-		if (isset($client_ids)) {print_r($client_ids);
-			foreach($client_ids as $key=>$client_id) {echo "foreach";
+		if (isset($client_ids)) {
+			foreach($client_array as $key=>$client_id) {
 			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
              
              	$client_data[$i]['client_id'] = $client_id->client_id;
-				echo $this->last_query();//die;
+				//echo $this->last_query();//die;
 
 				if (isset($client_details) && count($client_details) > 0) {echo "foreach if";
 				    foreach ($client_details as $client_row) {
