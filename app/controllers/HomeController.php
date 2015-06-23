@@ -348,19 +348,19 @@ class HomeController extends BaseController {
  	$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
-		if (isset($client_ids) && count($client_ids) > 0) {
-			foreach ($client_ids as $client_id) {
+		if (isset($client_ids) && count($client_ids) > 0) {echo "Anwar";
+			foreach ($client_ids as $client_id) {echo "foreach";
 			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
              
              	$client_data[$i]['client_id'] = $client_id->client_id;
 				echo $this->last_query();//die;
 
-				if (isset($client_details) && count($client_details) > 0) {
+				if (isset($client_details) && count($client_details) > 0) {echo "foreach if";
 				    foreach ($client_details as $client_row) {
-						if(isset($client_row['field_name']) && $client_row['field_name']=="res_addr_line1"){
+						if(isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1"){
 					       $client_data[$i]['res_addr_line1'] = $client_row['field_value'];
                         }
-                        if(isset($client_row['field_name']) && $client_row['field_name']=="serv_addr_line1"){
+                        if(isset($client_row['field_name']) && $client_row['field_name'] == "serv_addr_line1"){
 					       $client_data[$i]['serv_addr_line1'] = $client_row['field_value'];
                         }
                        
