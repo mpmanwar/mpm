@@ -315,9 +315,9 @@ $(document).ready(function(){
 
 
                 <div class="add_client_btn">
-                    <button class="btn btn-info open" data-id="2" type="button">Next</button>
-                    <button class="btn btn-success" type="submit">Save</button>
-                    <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
+                  <!-- <button class="btn btn-danger back" data-id="1" type="button">Prev</button> -->
+                  <button class="btn btn-danger" type="submit">Save</button>
+                  <button class="btn btn-info open" data-id="2" type="button">Next</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -515,9 +515,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
+  <button class="btn btn-info back" data-id="1" type="button">Prev</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open"data-id="3" type="button">Next</button>
-  <button class="btn btn-success" type="submit">Save</button>
-  <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
                    </div>                  
@@ -548,108 +548,12 @@ $(document).ready(function(){
                     
                     <div class="col-xs-12 col-xs-6">
                     <div class="col_m2">  
-<h3 class="box-title">Residential Address</h3>  
+<h3 class="box-title">Service Address</h3>  
 <?php
 //echo '<pre>';
 //print_r($cont_address);
 
 ?>
-<div class="form-group">
-  <label for="exampleInputPassword1">Select or Add</label>
-   <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
-         <option value="">-- Select Address --</option>
-        
-         @if(!empty($cont_address))
-            @foreach($cont_address as $key=>$address_row)
-                @if (isset($address_row['res_addr_line1']) && $address_row['res_addr_line1'] !="")
-                    <option value="{{ $address_row['client_id'] }}"> {{ $address_row['res_addr_line1'] }}</option>
-               @endif
-            @endforeach
-         @endif
-         
-     </select>
-</div>
-<div class="form-group">
-<label for="exampleInputPassword1">Address Line1</label>
-<input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control" />
-
-</div>
-
-<div class="form-group">
-<label for="exampleInputPassword1">Address Line2</label>
-<input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control" />
-
-</div>
-
-<div class="twobox">
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">City/Town</label>
-<input type="text" id="res_city" name="res_city" class="form-control">
-</div>
-</div>
-
-<div class="twobox_2">
-<div class="form-group">
-<label for="exampleInputPassword1">County</label>
-<input type="text" id="res_county" name="res_county" class="form-control">
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
-
-<div class="twobox">
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="res_postcode" name="res_postcode" class="form-control">
-</div>
-</div>
-
-<div class="twobox_2">
-<div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-  <select class="form-control" name="res_country" id="res_country">
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
-  </select>
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
-
-<!-- <div>
-<h3 class="box-title">Service Address</h3> <p>Copy Residential address <input type="checkbox" name="res_service_same" id="res_service_same"> </p>
-</div> -->
-
-<div class="twobox">
-<div class="twobox_1">
-<div class="form-group">
-<h3 class="box-title">Service Address</h3>
-</div>
-</div>
-
-<div class="twobox_2" style="margin-top: 25px;">
-<div class="form-group">
-<label for="exampleInputPassword1"></label>
-  Copy Residential address <input type="checkbox" name="res_service_same" id="res_service_same">
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
-
 
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
@@ -659,7 +563,10 @@ $(document).ready(function(){
     @if(!empty($cont_address))
         @foreach($cont_address as $key=>$address_row)
             @if (isset($address_row['serv_addr_line1']) && $address_row['serv_addr_line1'] !="")
-                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['serv_addr_line1'] }}</option>
+              <option value="{{ $address_row['client_id'] }}_serv"> {{ $address_row['serv_addr_line1'] }}</option>
+           @endif
+           @if (isset($address_row['res_addr_line1']) && $address_row['res_addr_line1'] !="")
+                <option value="{{ $address_row['client_id'] }}_res"> {{ $address_row['res_addr_line1'] }}</option>
            @endif
         @endforeach
      @endif
@@ -725,6 +632,108 @@ $(document).ready(function(){
 </div>
 <div class="clearfix"></div>
 </div>
+
+
+<!-- <div>
+<h3 class="box-title">Service Address</h3> <p>Copy Residential address <input type="checkbox" name="res_service_same" id="res_service_same"> </p>
+</div> -->
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<h3 class="box-title">Residential Address</h3>
+</div>
+</div>
+
+<div class="twobox_2" style="margin-top: 25px;">
+<div class="form-group">
+<label for="exampleInputPassword1"></label>
+  Copy Service address <input type="checkbox" name="res_service_same" id="res_service_same">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputPassword1">Select or Add</label>
+   <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
+      <option value="">-- Select Address --</option>
+      
+      @if( isset($cont_address) && count($cont_address)>0 )
+        @foreach($cont_address as $key=>$address_row)
+          @if (isset($address_row['serv_addr_line1']) && $address_row['serv_addr_line1'] !="")
+            <option value="{{ $address_row['client_id'] }}_serv">{{$address_row['serv_addr_line1']}}</option>
+          @endif
+          @if(isset($address_row['res_addr_line1']) && $address_row['res_addr_line1'] !="")
+            <option value="{{ $address_row['client_id'] }}_res">{{ $address_row['res_addr_line1'] }}</option>
+          @endif
+           
+        @endforeach
+       @endif
+       
+   </select>
+</div>
+<div class="form-group">
+<label for="exampleInputPassword1">Address Line1</label>
+<input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control" />
+
+</div>
+
+<div class="form-group">
+<label for="exampleInputPassword1">Address Line2</label>
+<input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control" />
+
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">City/Town</label>
+<input type="text" id="res_city" name="res_city" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">County</label>
+<input type="text" id="res_county" name="res_county" class="form-control">
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Postcode</label>
+<input type="text" id="res_postcode" name="res_postcode" class="form-control">
+</div>
+</div>
+
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Country</label>
+  <select class="form-control" name="res_country" id="res_country">
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+    @if(!empty($countries))
+      @foreach($countries as $key=>$country_row)
+      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+        <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+      @endif
+      @endforeach
+    @endif
+  </select>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+
 
 <div class="form-group">
 
@@ -860,9 +869,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
+  <button class="btn btn-info back" data-id="2" type="button">Prev</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open" data-id="4" type="button">Next</button>
-  <button class="btn btn-success" type="submit">Save</button>
-  <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 
@@ -934,9 +943,9 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
+  <button class="btn btn-info back" data-id="3" type="button">Prev</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open" data-id="5" type="button">Next</button>
-  <button class="btn btn-success" type="submit">Save</button>
-  <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -1104,8 +1113,9 @@ $(document).ready(function(){
 
 <div class="add_client_btn">
 <!-- <button class="btn btn-info">Next</button> -->
-<button class="btn btn-success save" type="submit">Save</button>
-<button class="btn btn-danger back" data-id="4" type="button">Cancel</button>
+<button class="btn btn-info back" data-id="4" type="button">Prev</button>
+<button class="btn btn-danger save" type="submit">Save</button>
+
 </div>
 <div class="clearfix"></div>
 </div>

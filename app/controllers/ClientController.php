@@ -142,6 +142,7 @@ class ClientController extends BaseController {
 		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
 		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
+		//$data['cont_address'] 	 = App::make("HomeController")->getAllOrgContactAddress();
 		$data['cont_address'] 	= App::make("HomeController")->get_orgcontact_address();
         
         //print_r($data['cont_address'] );die();

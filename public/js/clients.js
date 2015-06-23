@@ -494,19 +494,19 @@ $(".service_country").change(function(){
 //Get same address as residential address start
 $('#res_service_same').on('ifChecked', function(event){
   $(this).iCheck('check');
-  $("#serv_addr_line1").val($("#res_addr_line1").val()); 
-  $("#serv_addr_line2").val($("#res_addr_line2").val());
-  $("#serv_city").val($("#res_city").val());
-  $("#serv_county").val($("#res_county").val());
-  $("#serv_postcode").val($("#res_postcode").val());
+  $("#res_addr_line1").val($("#serv_addr_line1").val()); 
+  $("#res_addr_line2").val($("#serv_addr_line2").val());
+  $("#res_city").val($("#serv_city").val());
+  $("#res_county").val($("#serv_county").val());
+  $("#res_postcode").val($("#serv_postcode").val());
 });
 
 $('#res_service_same').on('ifUnchecked', function(event){
-  $("#serv_addr_line1").val(""); 
-  $("#serv_addr_line2").val("");
-  $("#serv_city").val("");
-  $("#serv_county").val("");
-  $("#serv_postcode").val("");
+  $("#res_addr_line1").val(""); 
+  $("#res_addr_line2").val("");
+  $("#res_city").val("");
+  $("#res_county").val("");
+  $("#res_postcode").val("");
   $(this).iCheck('uncheck');
 });
 //Get same address as residential address start
@@ -689,10 +689,12 @@ $('.toUpperCase').keyup(function() {
 
 //new address
 $(".get_oldcont_address").change(function(){
+  var value   = $(this).val();
+  var type    = $(this).data("type");
+  split_value = value.split("_");
 
-  var client_id   = $(this).val();
-  //alert(client_id);
-  var type   = $(this).data("type");
+  var client_id   = split_value[0];
+  var address_type   = split_value[1];
   //alert(type);
   if(client_id != "")
   {
@@ -700,37 +702,26 @@ $(".get_oldcont_address").change(function(){
       type: "POST",
       dataType: "json",
       url: '/client/get-oldcont-address',
-      data: { 'client_id' : client_id },
+      data: { 'client_id' : client_id, 'address_type':address_type },
       success : function(resp){
-       
-        //alert(resp);
-        //var value = $.parseJSON(resp);
-        //alert(value.client_code);
-        if (resp.length != 0) {
+       if (resp.length != 0) {
           $.each(resp, function(key){
-            
-            console.log(resp[key].client_id); 
-            if(type == "res"){
+            if(address_type == "res"){
                 $("#"+type+"_addr_line1").val(resp[key].res_addr_line1);
                 $("#"+type+"_addr_line2").val(resp[key].res_addr_line2);
                 $("#"+type+"_city").val(resp[key].res_city);
                 $("#"+type+"_county").val(resp[key].res_county);
                 $("#"+type+"_postcode").val(resp[key].res_postcode);
                 $("#"+type+"_country").val(resp[key].res_country);
-                
             }
-            
-            if(type == "serv"){
-                $("#"+type+"_addr_line1").val(resp[key].serv_addr_line1);
-                $("#"+type+"_addr_line2").val(resp[key].serv_addr_line2);
-                $("#"+type+"_city").val(resp[key].serv_city);
-                $("#"+type+"_county").val(resp[key].serv_county);
-                $("#"+type+"_postcode").val(resp[key].serv_postcode);
-                $("#"+type+"_country").val(resp[key].serv_country);
+            if(address_type == "serv"){
+              $("#"+type+"_addr_line1").val(resp[key].serv_addr_line1);
+              $("#"+type+"_addr_line2").val(resp[key].serv_addr_line2);
+              $("#"+type+"_city").val(resp[key].serv_city);
+              $("#"+type+"_county").val(resp[key].serv_county);
+              $("#"+type+"_postcode").val(resp[key].serv_postcode);
+              $("#"+type+"_country").val(resp[key].serv_country);
             }
-            
-            
-            
           });
 
         }

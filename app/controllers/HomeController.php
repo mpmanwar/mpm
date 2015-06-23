@@ -49,6 +49,7 @@ class HomeController extends BaseController {
 				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
 
 				if (isset($client_details) && count($client_details) > 0) {
+					$address = "";
 					foreach ($client_details as $client_row) {
 						//get staff name start
 						if (!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff") {
@@ -62,8 +63,26 @@ class HomeController extends BaseController {
 						if (!empty($relation_name['field_value'])) {
 							$client_data[$i]['business_name'] = $relation_name['field_value'];
 						}
-
 						//get business name end
+
+
+						//get residencial address
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line2") {
+							$address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_city") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_county") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_postcode") {
+							$address .= $client_row->field_value.", ";
+						}			
+
 
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") {
 							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
@@ -74,8 +93,11 @@ class HomeController extends BaseController {
 
 					}
 
+					$client_data[$i]['address'] = substr($address, 0, -2);
 					$i++;
 				}
+
+				
 
 			}
 		}
@@ -257,6 +279,7 @@ class HomeController extends BaseController {
 		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
+		//$data['cont_address'] 	 = $this->getAllOrgContactAddress();
         
         //print_r($data['cont_address'] );die();
         
@@ -329,27 +352,19 @@ class HomeController extends BaseController {
 			foreach ($client_ids as $client_id) {
 			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
              
-             
-              
-				$client_data[$i]['client_id'] = $client_id->client_id;
+             	$client_data[$i]['client_id'] = $client_id->client_id;
 				//echo $this->last_query();die;
 
 				if (isset($client_details) && count($client_details) > 0) {
-				    
-					foreach ($client_details as $client_row) {
-						if (isset($client_row['field_name']) && ($client_row['field_name'] == "res_addr_line1")) //corres_cont_addr_line2
-                        {
+				    foreach ($client_details as $client_row) {
+						if(isset($client_row['field_name']) && $client_row['field_name']=="res_addr_line1"){
 					       $client_data[$i]['res_addr_line1'] = $client_row['field_value'];
                         }
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "serv_addr_line1")) //corres_cont_addr_line2
-                        {
+                        if(isset($client_row['field_name']) && $client_row['field_name']=="serv_addr_line1"){
 					       $client_data[$i]['serv_addr_line1'] = $client_row['field_value'];
                         }
                        
 					}
-
-					
-                           //res_addr_line1
 				}
                 $i++;
 			}
@@ -357,7 +372,6 @@ class HomeController extends BaseController {
 		//echo "<pre>";print_r($client_data);die;
 		return $client_data;
 	}
-    
     
     public function get_orgcontact_address() {
 		$client_data = array();
@@ -371,65 +385,46 @@ class HomeController extends BaseController {
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
-		  
-			foreach ($client_ids as $client_id) {
-			 
-			$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
-             
-             
-              
-				$client_data[$i]['client_id'] = $client_id->client_id;
+		  	foreach ($client_ids as $client_id) {
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+
+             	$client_data[$i]['client_id'] = $client_id->client_id;
 				//echo $this->last_query();die;
 
 				if (isset($client_details) && count($client_details) > 0) {
-				   
-					foreach ($client_details as $client_row) {
+				   	foreach ($client_details as $client_row) {
 					   
-						if (isset($client_row['field_name']) && ($client_row['field_name'] == "trad_cont_addr_line1" )) 
-                                //corres_cont_addr_line2
-                        {
+						if (isset($client_row['field_name']) && ($client_row['field_name'] == "trad_cont_addr_line1" )){
 					
                             $client_data[$i]['trad_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                       	if (isset($client_row['field_name']) && ($client_row['field_name'] == "reg_cont_addr_line1" )) 
-                                
-                        {
+                       	if (isset($client_row['field_name']) && ($client_row['field_name'] == "reg_cont_addr_line1" )){
 					
                             $client_data[$i]['reg_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" )) 
-                                
-                        {
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" )){
 					
                             $client_data[$i]['corres_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "banker_cont_addr_line1" )) 
-                                
-                        {
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "banker_cont_addr_line1" )){
 					
                             $client_data[$i]['banker_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "oldacc_cont_addr_line1" )) 
-                                
-                        {
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "oldacc_cont_addr_line1" )){
 					
                             $client_data[$i]['oldacc_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "auditors_cont_addr_line1" )) 
-                                
-                        {
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "auditors_cont_addr_line1" )){
 					
                             $client_data[$i]['auditors_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "solicitors_cont_addr_line1" )) 
-                                
-                        {
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "solicitors_cont_addr_line1" )){
 					
                             $client_data[$i]['solicitors_cont_addr_line1'] = $client_row['field_value'];
                         }
@@ -443,7 +438,80 @@ class HomeController extends BaseController {
                 $i++;
 			}
 		}
-	//	echo "<pre>";print_r($client_data);die;
+		//echo "<pre>";print_r($client_data);die;
+		return $client_data;
+	}
+    public function getAllOrgContactAddress() {
+		$client_data = array();
+
+		$admin_s = Session::get('admin_details'); // session
+		$user_id = $admin_s['id']; //session user id
+        $groupUserId = $admin_s['group_users'];
+
+		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+
+		//echo $this->last_query();die;
+		$i = 0;
+		if (isset($client_ids) && count($client_ids) > 0) {
+		  	foreach ($client_ids as $client_id) {
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+
+             	
+				//echo $this->last_query();die;
+
+				if (isset($client_details) && count($client_details) > 0) {
+					
+					$j=0;
+				   	foreach ($client_details as $client_row) {
+
+						if (isset($client_row['field_name']) && ($client_row['field_name'] == "trad_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                       	if (isset($client_row['field_name']) && ($client_row['field_name'] == "reg_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "banker_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "oldacc_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "auditors_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        if (isset($client_row['field_name']) && ($client_row['field_name'] == "solicitors_cont_addr_line1" )){
+					
+                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                        }
+                        
+                        $j++;
+                        
+					}
+
+					$client_data[$i]['client_id'] = $client_id->client_id;
+
+					
+                           //res_addr_line1
+				}
+                $i++;
+			}
+		}
+		//echo "<pre>";print_r($client_data);die;
 		return $client_data;
 	}
 
