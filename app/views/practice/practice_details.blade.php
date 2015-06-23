@@ -126,7 +126,7 @@
 <div class="col-lg-3 col-xs-12">
 <div class="form-group">
 <label for="registration_no">Registration Number</label>
-<input type="text" placeholder="Registration Number" value="{{ $practice_details->registration_no or '' }}" id="registration_no" name="registration_no" class="form-control">
+<input type="text" placeholder="Registration Number" value="{{ (isset($practice_details->registration_no) && $practice_details->registration_no != 0)?$practice_details->registration_no:'' }}" id="registration_no" name="registration_no" class="form-control">
 </div>
 </div>
 <div class="col-lg-3 col-xs-12">

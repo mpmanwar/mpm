@@ -316,7 +316,7 @@ $(document).ready(function(){
 
                 <div class="add_client_btn">
                     <button class="btn btn-info open" data-id="2" type="button">Next</button>
-                    <!-- <button class="btn btn-success" type="button">Save</button> -->
+                    <button class="btn btn-success" type="submit">Save</button>
                     <button class="btn btn-danger back" data-id="1" type="button">Cancel</button>
                 </div>
                 <div class="clearfix"></div>
@@ -515,9 +515,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open"data-id="3" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
+  <button class="btn btn-info open"data-id="3" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back"data-id="1" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
                    </div>                  
@@ -860,9 +860,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="4" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="4" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 
@@ -934,9 +934,9 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
-<button class="btn btn-info open" data-id="5" type="button">Next</button>
-<!-- <button class="btn btn-success" type="button">Save</button> -->
-<button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
+  <button class="btn btn-info open" data-id="5" type="button">Next</button>
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 </div>

@@ -39,7 +39,6 @@ class AdminController extends BaseController {
 				$insert_data['lname'] 			= $postData['lname'];
 				$insert_data['email'] 			= $postData['email'];
 				$insert_data['password'] 		= md5($postData['password']);
-				$insert_data['practice_name'] 	= $postData['practice_name'];
 				$insert_data['phone'] 			= $postData['phone'];
 				$insert_data['website'] 		= $postData['website'];
 				$insert_data['country'] 		= $postData['country'];
@@ -53,6 +52,11 @@ class AdminController extends BaseController {
 				}
 
 				$last_id = User::insertGetId($insert_data);
+
+				$pd_data['user_id'] 		= $last_id;
+				$pd_data['display_name'] 	= $postData['practice_name'];
+				PracticeDetail::insertGetId($pd_data);
+
 				$insert_data['link'] = url()."/admin/activation/".base64_encode($last_id);
 				
 				$this->send_registration($insert_data);

@@ -854,24 +854,16 @@ $(document).ready(function(){
 
               <div class="form-group">
                 <label for="exampleInputPassword1">Select or Add</label>
-                 <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="trad">
+                <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="trad">
                   <option value="">-- Select Address --</option>
-                  
-                  
-                  
-                  
-                  
                   @if(!empty($cont_address))
                     @foreach($cont_address as $key=>$address_row)
                         @if (isset($address_row['trad_cont_addr_line1']) && $address_row['trad_cont_addr_line1'] !="")
                             <option value="{{ $address_row['client_id'] }}"> {{ $address_row['trad_cont_addr_line1'] }}</option>
                        @endif
                     @endforeach
-                 @endif
-                  
-                  
-                  
-                  </select>
+                  @endif
+                </select>
               </div>
                             
               <div class="form-group">
