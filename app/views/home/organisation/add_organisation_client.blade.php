@@ -391,7 +391,7 @@ $(document).ready(function(){
       
 
       <div class="add_client_btn">
-        <button class="btn btn-info back" data-id="1" type="button">Prev</button>
+        <!-- <button class="btn btn-info back" data-id="1" type="button">Prev</button> -->
         <button type="submit" class="btn btn-danger">Save</button>
         <button class="btn btn-info open" data-id="2" type="button">Next</button>
       </div>
@@ -1904,9 +1904,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
+  <button class="btn btn-info back" data-id="2" type="button">Prev</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open" data-id="4" type="button">Next</button>
-  <button class="btn btn-success" type="submit">Save</button>
-  <button class="btn btn-danger back" data-id="2" type="button">Cancel</button>
 </div>
                             <div class="clearfix"></div>
                           </div>
@@ -2005,9 +2005,9 @@ $(document).ready(function(){
 </div>
 
 <div class="add_client_btn">
+  <button class="btn btn-info back" data-id="3" type="button">Prev</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open" data-id="5" type="button">Next</button>
-  <button class="btn btn-success" type="submit">Save</button>
-  <button class="btn btn-danger back" data-id="3" type="button">Cancel</button>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -2242,8 +2242,9 @@ $(document).ready(function(){
 
 <div class="add_client_btn">
 <!-- <button class="btn btn-info">Next</button> -->
-<button class="btn btn-success save" type="submit">Save</button>
-<button class="btn btn-danger back" data-id="4" type="button">Cancel</button>
+<button class="btn btn-info back" data-id="4" type="button">Prev</button>
+<button class="btn btn-danger save" type="submit">Save</button>
+
 </div>
                               <div class="clearfix"></div>
                             </div>
