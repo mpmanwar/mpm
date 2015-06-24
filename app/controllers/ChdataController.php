@@ -262,7 +262,8 @@ class ChdataController extends BaseController {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_type', $type);
 		}
 		if (isset($details->jurisdiction)) {
-			$reg_in = RegisteredAddress::where("reg_name", "=", ucwords(str_replace("-", " ", $details->jurisdiction)))->select("reg_id")->first();
+			//$reg_in = RegisteredAddress::where("reg_name", "=", ucwords(str_replace("-", " ", $details->jurisdiction)))->select("reg_id")->first();
+			$reg_in = RegisteredAddress::where("reg_name", "=", ucwords($details->jurisdiction))->select("reg_id")->first();
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'registered_in', $reg_in['reg_id']);
 		}
 		if (isset($details->sic_codes) && count($details->sic_codes) >0 ) {
@@ -306,7 +307,7 @@ class ChdataController extends BaseController {
 		}
 
 		//$registered_office 				= Common::getRegisteredOffice($number);
-		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'reg_name_check', 'reg');
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'cont_reg_addr', 'reg');
 		if (isset($details->registered_office_address->address_line_1)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
 		}
@@ -341,7 +342,7 @@ class ChdataController extends BaseController {
 					);
 					ClientRelationship::insert($relData);
 				}
-				$insert_client = $this->insertClientDetails($row, $app_client_id);
+				//$insert_client = $this->insertClientDetails($row, $app_client_id);
 			}
 			
 		}
@@ -484,7 +485,7 @@ class ChdataController extends BaseController {
 		}
 
 		//$registered_office 				= Common::getRegisteredOffice($number);
-		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'reg_name_check', 'reg');
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'cont_reg_addr', 'reg');
 		if (isset($details->registered_office_address->address_line_1)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
 		}

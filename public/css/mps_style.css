@@ -166,8 +166,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .address_type{ display:none;}
 .registered_vat{display:block;}
 .tax_utr_con{display:block;}
-.tax_utr{float:left; width:65%;}
-.tax_utr_drop{float:left; width:33%; margin-right: 10px;}
+.tax_utr{float:left; width:72%;}
+.tax_utr_drop{float:left; width:25%; margin-right: 15px;}
 .threebox_1{width:32.5%; float:left; margin-right:10px;}
 .threebox_2{width:30%; float:left;}
 .small_box{width: 55%;}

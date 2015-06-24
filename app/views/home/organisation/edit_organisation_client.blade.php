@@ -491,7 +491,7 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Return Frequency</label>
                                   <select class="form-control frequency_change" name="ret_frequency" id="ret_frequency">
-                                    
+                                    <option value="">Choose One</option>
                                     <option value="quarterly" {{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "quarterly")?"selected":""}}>Quarterly</option>
                                     <option value="monthly"{{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "monthly")?"selected":""}}> Monthly</option>
                                     <option value="yearly" {{ (isset($client_details['ret_frequency']) && $client_details['ret_frequency'] == "yearly")?"selected":""}}> Yearly</option>
