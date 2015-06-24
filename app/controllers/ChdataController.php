@@ -306,7 +306,7 @@ class ChdataController extends BaseController {
 		}
 
 		//$registered_office 				= Common::getRegisteredOffice($number);
-		$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'reg_name_check', 'reg');
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'reg_name_check', 'reg');
 		if (isset($details->registered_office_address->address_line_1)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
 		}
@@ -484,7 +484,7 @@ class ChdataController extends BaseController {
 		}
 
 		//$registered_office 				= Common::getRegisteredOffice($number);
-		$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'reg_name_check', 'reg');
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'reg_name_check', 'reg');
 		if (isset($details->registered_office_address->address_line_1)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
 		}
