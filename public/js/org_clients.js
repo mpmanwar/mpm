@@ -130,6 +130,19 @@ $("#append_bussiness_type").on("click", ".delete_org_name", function(){
 }); 
 //Delete organisation name while add individual/organisation user end
 
+// Vat Scheme change function start //
+$("#vat_scheme_type").change(function(){
+  var vat_scheme_type  = $(this).val();
+  if(vat_scheme_type == 2){
+    $("#ret_frequency").html('<option>Choose One</option><option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option>');
+  }else{
+    $("#ret_frequency").html('<option>Choose One</option><option value="quarterly">Quarterly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option>');
+  }
+});
+//Vat Scheme change function start end //
+
 //Add Vat Scheme while add individual/organisation user start
 $("#add_vat_scheme").click(function(){
     var vat_scheme_name  = $("#vat_scheme_name").val();

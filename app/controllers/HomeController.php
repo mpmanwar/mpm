@@ -340,8 +340,8 @@ class HomeController extends BaseController {
 	public function get_contact_address() {
 		$client_data = array();
 		
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
 
 		$client_ids = Client::where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
@@ -456,54 +456,49 @@ class HomeController extends BaseController {
 		  	foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 
-             	
+             	$client_data[$i]['client_id'] = $client_id->client_id;
 				//echo $this->last_query();die;
 
 				if (isset($client_details) && count($client_details) > 0) {
-					
-					$j=0;
 				   	foreach ($client_details as $client_row) {
-
+					   
 						if (isset($client_row['field_name']) && ($client_row['field_name'] == "trad_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['trad_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                        	if (isset($client_row['field_name']) && ($client_row['field_name'] == "reg_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['reg_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "corres_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['corres_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "banker_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['banker_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "oldacc_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['oldacc_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "auditors_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['auditors_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
                         if (isset($client_row['field_name']) && ($client_row['field_name'] == "solicitors_cont_addr_line1" )){
 					
-                            $client_data[$i]['address'][$j] = $client_row['field_value'];
+                            $client_data[$i]['solicitors_cont_addr_line1'] = $client_row['field_value'];
                         }
                         
-                        $j++;
                         
 					}
-
-					$client_data[$i]['client_id'] = $client_id->client_id;
 
 					
                            //res_addr_line1
@@ -511,6 +506,9 @@ class HomeController extends BaseController {
                 $i++;
 			}
 		}
+
+
+
 		//echo "<pre>";print_r($client_data);die;
 		return $client_data;
 	}
@@ -1099,6 +1097,10 @@ class HomeController extends BaseController {
 			if (!empty($postData['employer_telephone'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'employer_telephone', $postData['employer_telephone']);
 			}
+		}
+
+		if (!empty($postData['hmrc_login_details'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'hmrc_login_details', $postData['hmrc_login_details']);
 		}
 
 //#############TAX INFORMATION END###################//

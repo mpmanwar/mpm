@@ -485,6 +485,7 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Return Frequency</label>
                                   <select class="form-control frequency_change" name="ret_frequency" id="ret_frequency">
+                                    <option>Choose One</option>
                                     <option value="quarterly">Quarterly</option>
                                     <option value="monthly">Monthly</option>
                                     <option value="yearly">Yearly</option>
@@ -517,32 +518,31 @@ $(document).ready(function(){
                             </div>
                           
                           <div id="show_tax_div" style="display:none;"> 
+
+                            <div class="tax_utr_drop">
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Tax Type</label>
+
+                                <select class="form-control org_tax_reference" name="tax_reference_type" id="tax_reference_type">
+                                  <option value="N">None</option>
+                                  <option value="I">Income Tax</option>
+                                  <option value="C">Corporation Tax</option>
+                                </select>
+
+                              </div>
+                            </div>
+
                             <div class="tax_utr_con">
-                            <div class="tax_utr">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Tax Reference(UTR)</label>
-                              <input type="text" id="tax_reference" name="tax_reference" class="form-control">
-                            </div>
-                            </div>
+                              <div class="tax_utr">
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Tax Reference(UTR)</label>
+                                <input type="text" id="tax_reference" name="tax_reference" class="form-control">
+                              </div>
+                              </div>
 
                             </div>
-
-
-                            
-          <div class="tax_utr_drop">
-          <div class="form-group">
-            <label for="exampleInputPassword1">Tax Type</label>
-
-            <select class="form-control org_tax_reference" name="tax_reference_type" id="tax_reference_type">
-              <option value="N">None</option>
-              <option value="I">Income Tax</option>
-              <option value="C">Corporation Tax</option>
-            </select>
-
-          </div>
-          </div>
-          <div class="clearfix"></div>
-                            
+                            <div class="clearfix"></div>
+                                              
                                                        
 
                             
@@ -677,9 +677,16 @@ $(document).ready(function(){
                                 </div>
                               </div>
 
-                        </div>
-                              <div class="clearfix"></div>
                             </div>
+                            <div class="clearfix"></div>
+
+                          </div>
+
+                           <div class="form-group">
+                            <label for="exampleInputPassword1">HMRC Log-in Details</label>
+                            <textarea class="form-control" cols="30" rows="3" id="hmrc_login_details" name="hmrc_login_details"></textarea>
+                          </div>
+                          <div class="clearfix"></div>
 
 
 
@@ -853,14 +860,32 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                 <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="trad">
                   <option value="">-- Select Address --</option>
-                  @if(!empty($cont_address))
+                  @if(isset($cont_address) && count($cont_address)>0)
                     @foreach($cont_address as $key=>$address_row)
-                        @if (isset($address_row['trad_cont_addr_line1']) && $address_row['trad_cont_addr_line1'] !="")
-                            <option value="{{ $address_row['client_id'] }}"> {{ $address_row['trad_cont_addr_line1'] }}</option>
-                       @endif
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
                     @endforeach
                   @endif
                 </select>
@@ -978,18 +1003,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="reg">
                   <option value="">-- Select Address --</option>
-                      
-                      @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['reg_cont_addr_line1']) && $address_row['reg_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['reg_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                 @endif
-                      
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             
@@ -1106,16 +1147,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="corres">
-                  <option value="">-- Select Address --</option>
-                      @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['corres_cont_addr_line1']) && $address_row['corres_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['corres_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                    @endif
+                    <option value="">-- Select Address --</option>
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             
@@ -1229,16 +1288,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="banker">
-                  <option value="">-- Select Address --</option>
-                       @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['banker_cont_addr_line1']) && $address_row['banker_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['banker_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                    @endif
+                    <option value="">-- Select Address --</option>
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             
@@ -1357,16 +1434,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="oldacc">
-                  <option value="">-- Select Address --</option>
-                      @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['oldacc_cont_addr_line1']) && $address_row['oldacc_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['oldacc_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                    @endif
+                    <option value="">-- Select Address --</option>
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             
@@ -1481,16 +1576,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="auditors">
-                  <option value="">-- Select Address --</option>
-                       @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['auditors_cont_addr_line1']) && $address_row['auditors_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['auditors_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                    @endif
+                    <option value="">-- Select Address --</option>
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             
@@ -1605,16 +1718,34 @@ $(document).ready(function(){
 
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Select or Add</label>
+                <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="solicitors">
-                  <option value="">-- Select Address --</option>
-                       @if(!empty($cont_address))
-                        @foreach($cont_address as $key=>$address_row)
-                            @if (isset($address_row['solicitors_cont_addr_line1']) && $address_row['solicitors_cont_addr_line1'] !="")
-                                <option value="{{ $address_row['client_id'] }}"> {{ $address_row['solicitors_cont_addr_line1'] }}</option>
-                           @endif
-                        @endforeach
-                    @endif
+                    <option value="">-- Select Address --</option>
+                    @if(isset($cont_address) && count($cont_address)>0)
+                    @foreach($cont_address as $key=>$address_row)
+                      @if(isset($address_row['trad_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_trad">{{ $address_row['trad_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['reg_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_reg">{{ $address_row['reg_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['corres_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_corres">{{ $address_row['corres_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['banker_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_banker">{{ $address_row['banker_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['oldacc_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_oldacc">{{ $address_row['oldacc_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['auditors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_auditors">{{ $address_row['auditors_cont_addr_line1'] }}</option>
+                      @endif
+                      @if(isset($address_row['solicitors_cont_addr_line1']))
+                        <option value="{{ $address_row['client_id'] }}_solicitors">{{ $address_row['solicitors_cont_addr_line1'] }}</option>
+                      @endif
+                    @endforeach
+                  @endif
                   </select>
               </div>
                             

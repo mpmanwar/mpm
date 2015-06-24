@@ -171,30 +171,54 @@ $(".back").click(function(){
  
     
   $("#tax_office_id").change(function(){
+    var tax_ref_type   = $('#tax_reference_type').val();
     var office_id   = $(this).val();
-    var tax_type   = $('#tax_reference_type').val();
-    if(office_id == "4"){
-      $('#tax_address').val("");
-      $('#tax_zipcode').val("");
-      $('#tax_telephone').val("");
 
-      $('#show_other_office').fadeIn();
-    }else{
+    if(tax_ref_type == "I"){
+      var tax_type   = $('#tax_reference_type').val();
+      if(office_id == "4"){
+        $('#tax_address').val("");
+        $('#tax_zipcode').val("");
+        $('#tax_telephone').val("");
+
+        $('#show_other_office').fadeIn();
+      }else{
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: '/individual/get-office-address',
+          data: { 'office_id' : office_id },
+          success : function(resp){
+            $('#show_other_office').fadeOut();
+
+            $('#tax_address').val(resp['address']);
+            $('#tax_zipcode').val(resp['zipcode']);
+            $('#tax_telephone').val(resp['telephone']);
+          }
+        });
+
+      }
+    }
+
+    if(tax_ref_type == "C"){
       $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/individual/get-office-address',
+        url: '/client/get-corporation-address',
         data: { 'office_id' : office_id },
         success : function(resp){
-          $('#show_other_office').fadeOut();
+          //$('#show_other_office').fadeOut();
 
           $('#tax_address').val(resp['address']);
           $('#tax_zipcode').val(resp['zipcode']);
           $('#tax_telephone').val(resp['telephone']);
         }
       });
-
     }
+
+
+
+
   });
 
   $("#other_office_id").change(function(){
@@ -742,10 +766,12 @@ $(".get_oldcont_address").change(function(){
 //new org
 
 $(".get_orgoldcont_address").change(function(){
-//alert('get_orgoldcont_address');
-  var client_id   = $(this).val();
-  //alert(client_id);
-  var type   = $(this).data("type");
+  var value   = $(this).val();
+  var type    = $(this).data("type");
+  split_value = value.split("_");
+
+  var client_id   = split_value[0];
+  var address_type   = split_value[1];
   //alert(type);
   if(client_id != "")
   {
@@ -756,18 +782,10 @@ $(".get_orgoldcont_address").change(function(){
       data: { 'client_id' : client_id },
       success : function(resp){
        
-        //alert(resp);
-        //var value = $.parseJSON(resp);
-        //alert(value.client_code);
         if (resp.length != 0) {
           $.each(resp, function(key){
             
-            console.log(resp[key].client_id); 
-            if(type == "trad"){
-                
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                //alert('trad');
+            if(address_type == "trad"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].trad_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].trad_cont_addr_line2);
@@ -777,11 +795,7 @@ $(".get_orgoldcont_address").change(function(){
                 $("#"+type+"_cont_country").val(resp[key].trad_cont_country);
             }
             
-            if(type == "reg"){
-                //alert('reg');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+            if(address_type == "reg"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].reg_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].reg_cont_addr_line2);
@@ -792,11 +806,7 @@ $(".get_orgoldcont_address").change(function(){
             }
             
             
-             if(type == "corres"){
-                //alert('corres');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+             if(address_type == "corres"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].corres_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].corres_cont_addr_line2);
@@ -806,11 +816,7 @@ $(".get_orgoldcont_address").change(function(){
                 $("#"+type+"_cont_country").val(resp[key].corres_cont_country);
             }
             
-            if(type == "banker"){
-                //alert('banker');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+            if(address_type == "banker"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].banker_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].banker_cont_addr_line2);
@@ -820,11 +826,7 @@ $(".get_orgoldcont_address").change(function(){
                 $("#"+type+"_cont_country").val(resp[key].banker_cont_country);
             }
             
-            if(type == "oldacc"){
-                //alert('oldacc');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+            if(address_type == "oldacc"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].oldacc_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].oldacc_cont_addr_line2);
@@ -836,11 +838,7 @@ $(".get_orgoldcont_address").change(function(){
             
             
             
-             if(type == "auditors"){
-                //alert('auditors');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+             if(address_type == "auditors"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].auditors_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].auditors_cont_addr_line2);
@@ -851,11 +849,7 @@ $(".get_orgoldcont_address").change(function(){
             }
             
             
-            if(type == "solicitors"){
-                //alert('solicitors');
-                //$("#trad_cont_city").val(resp[key].corres_cont_city);
-                
-                
+            if(address_type == "solicitors"){
                 
                 $("#"+type+"_cont_addr_line1").val(resp[key].solicitors_cont_addr_line1);
                 $("#"+type+"_cont_addr_line2").val(resp[key].solicitors_cont_addr_line2);

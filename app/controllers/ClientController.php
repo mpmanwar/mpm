@@ -591,4 +591,16 @@ class ClientController extends BaseController {
 		echo $success;
 	}
 
+	public function get_corporation_address() {
+		$office_address = array();
+		$office_id = Input::get("office_id");
+		if (Request::ajax()) {
+			$office_address = CorporationTaxOffice::where("corp_tax_id", "=", $office_id)->first();
+			//echo $this->last_query();die;
+		}
+
+		echo json_encode($office_address);
+		exit();
+	}
+
 }
