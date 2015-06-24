@@ -232,15 +232,15 @@ $("#append_services").on("click", ".delete_services", function(){
 //Delete services name while add individual/organisation user start
 $(".frequency_change").change(function(){
     var value = $(this).val();
-    var option = "";
+    var option = "<option>Choose One</option>";
     if(value == "quarterly"){
-      option+='<option>Choose One</option><option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>';
+      option+='<option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>';
     }
     if(value == "monthly"){
-      option+='<option>Choose One</option><option value="monthly">Monthly</option>';
+      option+='<option value="monthly">Monthly</option>';
     }
     if(value == "yearly"){
-      option+='<option>Choose One</option><option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>';
+      option+='<option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>';
     }
     $("#vat_stagger").html(option);
      
