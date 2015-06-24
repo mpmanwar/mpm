@@ -525,15 +525,8 @@ $(document).ready(function(){
                             </div>
                           
                           <div id="show_tax_div" style="display:{{ (isset($client_details['tax_div']) && $client_details['tax_div'] == 1)?'block':'none'}};"> 
-                            <div class="tax_utr_con">
-                            <div class="tax_utr">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Tax Reference(UTR)</label>
-                              <input type="text" id="tax_reference" name="tax_reference"  value="{{ $client_details['tax_reference'] or '' }}" class="form-control">
-                            </div>
-                            </div>
 
-                            </div>
+                            
 
 
                             
@@ -549,6 +542,16 @@ $(document).ready(function(){
 
           </div>
           </div>
+
+          <div class="tax_utr_con">
+            <div class="tax_utr">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tax Reference(UTR)</label>
+              <input type="text" id="tax_reference" name="tax_reference"  value="{{ $client_details['tax_reference'] or '' }}" class="form-control">
+            </div>
+            </div>
+
+            </div>
           <div class="clearfix"></div>
                             
                                                        
