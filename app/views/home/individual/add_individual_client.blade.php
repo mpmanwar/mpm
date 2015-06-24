@@ -930,7 +930,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('add_ind')" type="button">Add</button></div>
   </div>
 
 </div>

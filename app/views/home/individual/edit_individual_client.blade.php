@@ -894,7 +894,7 @@ $(document).ready(function(){
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="25%">{{ $relation_row['name'] or "" }}</td>
+        <td width="25%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
         <td width="30%" align="center">{{ isset($relation_row['appointment_date'])?date("d-m-Y", strtotime($relation_row['appointment_date'])):"" }}</td>
         <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="15%" align="center">
@@ -924,7 +924,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('edit_ind')" type="button">Add</button></div>
   </div>
     
 

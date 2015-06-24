@@ -1996,7 +1996,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button></div>
   </div>
     
 

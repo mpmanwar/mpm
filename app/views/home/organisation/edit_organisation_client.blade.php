@@ -2052,7 +2052,7 @@ $(document).ready(function(){
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="25%">{{ $relation_row['name'] or "" }}</td>
+        <td width="25%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
         <td width="26%" align="center">{{ $relation_row['appointment_date'] }}</td>
         <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
@@ -2087,7 +2087,7 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('edit_org')" type="button">Add</button></div>
   </div>
     
 
