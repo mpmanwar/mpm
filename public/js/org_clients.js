@@ -134,11 +134,11 @@ $("#append_bussiness_type").on("click", ".delete_org_name", function(){
 $("#vat_scheme_type").change(function(){
   var vat_scheme_type  = $(this).val();
   if(vat_scheme_type == 2){
-    $("#ret_frequency").html('<option>Choose One</option><option value="yearly">Yearly</option>');
-    $("#vat_stagger").html('<option>Choose One</option>');
+    $("#ret_frequency").html('<option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option><option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>');
   }else{
-    $("#ret_frequency").html('<option>Choose One</option><option value="quarterly">Quarterly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>');
-    $("#vat_stagger").html('<option>Choose One</option>');
+    $("#ret_frequency").html('<option value="quarterly">Quarterly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option><option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>');
   }
 });
 //Vat Scheme change function start end //

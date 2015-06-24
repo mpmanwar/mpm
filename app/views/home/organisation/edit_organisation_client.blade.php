@@ -53,6 +53,7 @@ $(document).ready(function(){
     <input name="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <section class="content">
       <div class="row">
+        <p class="business_p">{{ $client_details['business_name'] or "" }}</p>
         <div class="top_bts">
           <ul>
             <!-- <li>
@@ -67,6 +68,7 @@ $(document).ready(function(){
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
             </li> -->
+            
             <div class="clearfix"></div>
           </ul>
         </div>

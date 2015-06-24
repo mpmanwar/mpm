@@ -188,6 +188,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .service_t{float:left;}
 .add_edit{float: left; margin-left:20px; padding-top:25px;}
 .save{margin-right: 10px;}
+.business_p{text-align: center; font-size: 18px; font-weight: bold;}
 
 .search_relation{width:22.5%; border:1px solid #ddd; display:none; position: absolute; z-index: 10; background: #fff;}
 .search_relation ul{list-style:none; margin:0; padding:0;}
