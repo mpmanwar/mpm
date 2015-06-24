@@ -730,7 +730,7 @@ $(document).ready(function(){
 
                             <div class="form-group">
                             <label for="exampleInputPassword1">HMRC Log-in Details</label>
-                            <textarea class="form-control" cols="30" rows="3" id="hmrc_login_details" name="hmrc_login_details">{{ $client_details['hmrc_login_details'] or "" }}/textarea>
+                            <textarea class="form-control" cols="30" rows="3" id="hmrc_login_details" name="hmrc_login_details">{{ $client_details['hmrc_login_details'] or "" }}</textarea>
                           </div>
                           <div class="clearfix"></div>
 
