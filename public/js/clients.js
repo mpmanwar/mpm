@@ -1209,9 +1209,9 @@ function saveRelationship()
         type: "POST",
         dataType: "json",
         url: '/individual/save-relationship',
-        data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id },
+        data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id, 'rel_client_id' : rel_client_id },
         success : function(resp){
-          var content = '<tr id="added_tr'+i+'"><td width="25%">'+name+'</td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          var content = '<tr id="added_tr'+i+'"><td width="25%"><a href="'+resp['link']+'" target="_blank">'+name+'</a></td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
           $("#myRelTable").last().append(content);
 
           var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id+"mpm"+i;

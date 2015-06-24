@@ -738,7 +738,9 @@ class HomeController extends BaseController {
 
 	function save_relationship() {
 		$rel_types = array();
-		$rel_type_id = Input::get("rel_type_id");
+		$rel_type_id 	= Input::get("rel_type_id");
+		$rel_client_id 	= Input::get("rel_client_id");
+
 		if (Request::ajax()) {
 			$rel_types = RelationshipType::where("relation_type_id", "=", $rel_type_id)->first();
 			//echo $this->last_query();die;
@@ -746,6 +748,21 @@ class HomeController extends BaseController {
 
 		//$rel_types['appointment_date'] = date("m/d/Y", strtotime(Input::get('app_date')));
 		$rel_types['appointment_date'] = Input::get('app_date');
+
+		//######## get client type #########//
+		$client_data = Client::where("client_id", "=", $rel_client_id)->first();
+		if(isset($client_data) && count($client_data) >0){
+			if($client_data['type'] == "ind"){
+				$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+			}
+			else if($client_data['type'] == "org"){
+				$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+			}else{
+				$rel_types['link'] = "";
+			}
+			
+		}
+		//######## get client type #########//
 
 		echo json_encode($rel_types);
 		exit();
