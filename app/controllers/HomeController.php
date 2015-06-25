@@ -190,6 +190,7 @@ class HomeController extends BaseController {
 
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
+        //print_r($user_id);die();
 		$groupUserId = $admin_s['group_users'];
 
 		if (empty($user_id)) {
@@ -209,9 +210,14 @@ class HomeController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
+
 		//$data['allClients'] 		= $this->get_all_clients();
         
         //print_r($data['allClients']);die;
+
+        //echo $this->last_query();die;
+        //print_r($data['cont_address']);die;
+
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -341,6 +347,20 @@ class HomeController extends BaseController {
 
 	public function get_contact_address() {
 		$client_data = array();
+
+        //die('sff');
+		$admin_s = Session::get('admin_details'); // session
+		$user_id = $admin_s['id']; //session user id
+		$groupUserId = $admin_s['group_users'];
+        //print_r($groupUserId);die();
+        //die('sff');
+        if(isset($groupUserId)){
+		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+ 	      $client_ids = Client::select("client_id")->where("type", "=", "ind")->whereIn('user_id', $groupUserId)->get();
+        }
+	//
+    	//echo $this->last_query();die;
+
 		
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
@@ -349,6 +369,7 @@ class HomeController extends BaseController {
 		$client_ids = Client::where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
  		//$client_array = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();//die;
+
 		$i = 0;
 		if (isset($client_ids)) {
 			foreach($client_ids as $key=>$client_id) {
@@ -796,7 +817,39 @@ class HomeController extends BaseController {
 		}
 
 	}
-
+    
+    
+   
+    
+    
+    public function edit_services(){
+        
+        $servicetxt_id = Input::get("servicetxt_id");
+        $id = Input::get("id");
+        $admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+        $first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+        
+      $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+       
+       
+       $stafftxt_id = Input::get("stafftxt_id"); 
+            $data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+       $data['stafftxt_id']=$stafftxt_id ;
+       $data['id'] =$id;
+       $data['user_id'] =$user_id;
+       $data['first_serv'] =$first_serv;
+       $data['servicetxt_id'] =$servicetxt_id;
+       
+        //echo '<pre>';
+        //print_r($data['services']);
+        return View::make('home.organisation.edit_service', $data);
+        
+    }
+     
+    
+    
 	function save_services() {
 		$rel_types = array();
 		$admin_s = Session::get('admin_details');
@@ -994,6 +1047,7 @@ class HomeController extends BaseController {
 	   
        
 		$postData = Input::all();
+       //echo"<pre>"; print_r($postData);die();
 		$data = array();
 		$arrData = array();
 		$admin_s = Session::get('admin_details');
@@ -1229,6 +1283,12 @@ class HomeController extends BaseController {
 		}
 //#############RELATIONSHIP END ###################//
 
+
+
+
+
+
+
 //############# OTHERS INFORMATION START ###################//
 		$step_id = 5;
 		if (!empty($postData['bank_name'])) {
@@ -1245,7 +1305,14 @@ class HomeController extends BaseController {
 		}
 //############# OTHERS INFORMATION END ###################//
 
+
+
+
+
 //############# SERVICES START ###################//
+	
+    
+    //############# SERVICES START ###################//
 		if (!empty($postData['serv_hidd_array'])) {
 			$relData = array();
 			$serv_hidd_array = explode(",", $postData['serv_hidd_array']); //print_r($serv_hidd_array);
@@ -1261,6 +1328,69 @@ class HomeController extends BaseController {
 
 		}
 //############# SERVICES END ###################//
+    
+    
+    	if (!empty($postData['servicetxt_id']) && !empty($postData['stafftxt_id']) && !empty($postData['countedit'])) {
+        	   //print_r($client_id);die();
+               //echo '<pre>';
+               //print_r($postData);die();
+               //print_r($postData['servicetxt_id']);
+               //print_r($postData['stafftxt_id']);
+               //print_r($postData['countedit']);
+               //die();
+    			/* $relData = array();
+    			$serv_hidd_array = explode(",", $postData['serv_hidd_array']); //print_r($serv_hidd_array);
+    			foreach ($serv_hidd_array as $row) {
+    				$rel_row = explode("mpm", $row);
+    				$relData[] = array(
+    					'client_id' => $client_id,
+    					'service_id' => $rel_row['0'],
+    					'staff_id' => $rel_row['1'],
+    				);
+    			}*/
+    			//ClientService::insert($relData);
+               
+                //if(isset($postData['client_id']) && $postData['client_id'] == "new"){
+        		//	$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+        		//  }
+                //  else{
+        		//	$client_id = $postData['client_id'];
+                    
+        			ClientService::where("client_id", "=", $client_id)->delete();
+                    
+        			//ClientRelationship::where("client_id", "=", $client_id)->delete();
+        		     // }
+                    
+                    
+                $relData = array();
+                
+                for($i=1;$i<=$postData['countedit'];$i++){
+                
+                $relData[$i-1] = array(
+    					'client_id' => $client_id,
+    					'service_id' => $postData['servicetxt_id'][$i-1],
+    					'staff_id' => $postData['stafftxt_id'][$i-1]
+    				);
+                  /*$relData['client_id'][$i] = $client_id;
+                  $relData['service_id'][$i] = $postData['servicetxt_id'][$i];
+                  $relData['staff_id'][$i] = $postData['stafftxt_id'][$i];*/
+                  
+                   
+                //echo '<br />';
+                 ClientService::insert($relData[$i-1]);
+                 //echo $this->last_query();
+               }  
+               
+               //echo '<pre>';
+               //print_r($relData);  
+                
+                //die();
+		}
+//############# SERVICES END ###################//
+
+
+
+
 
 //################## USER ADDED FIELD START ###############//
 $field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->get();

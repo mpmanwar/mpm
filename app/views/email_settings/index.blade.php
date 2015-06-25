@@ -168,6 +168,7 @@
         <div class="form-group">
             <textarea name="add_message" id="add_message" class="form-control" placeholder="Message" style="height: 250px;"></textarea>
         </div>
+        
       </div>
       <div class="modal-footer clearfix">
         <div class="form-group new_temp">                                

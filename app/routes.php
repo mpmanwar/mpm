@@ -115,6 +115,7 @@ Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'Clie
 Route::any('/client/get-subsection', array("as"=>"get_subsection", "uses"=>'ClientController@get_subsection'));
 Route::any('/client/edit-org-client/{id}', array("as"=>"edit_org_client", "uses"=>'ClientController@edit_org_client'));
 Route::any('/client/edit-ind-client/{id}', array("as"=>"edit_ind_client", "uses"=>'ClientController@edit_ind_client'));
+
 Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
 Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
 Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "uses"=>'ClientController@show_archive_client'));
@@ -148,3 +149,18 @@ Route::get('/invitedclient-relationship', 'InvitedclientController@relationship'
 Route::post('/relationship/insert-client-relationship', array("as"=>"insert_relationship_client", "uses"=>'InvitedclientController@insert_relationship_client'));
 Route::get('/search-invited-client', 'InvitedclientController@search_invited_client');
 ##Invitedclient
+
+
+##
+Route::any('/organisation/editserv-services', array("as"=>"edit_services", "uses"=>'HomeController@edit_services'));
+Route::any('/organisation/delete-editservices', array("as"=>"delete_editservices",  "uses"=>'ClientController@delete_editservices'));
+
+
+##
+
+
+
+
+Route::any('/noticeboard', array("as"=>"edit_services", "uses"=>'NoticeboardController@notice_board'));
+
+Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'NoticeboardController@insert_noticeboard'));

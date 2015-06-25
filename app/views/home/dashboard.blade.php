@@ -79,15 +79,15 @@ AUTHORISATIONS</p>
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/noticeboard">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-<p class="c_tagline2">NOTICEBOARD</p>
+<p class="c_tagline2">NOTICE BOARD</p>
 <div class="clearfix"></div>
 </div></a>
 </li>
 
-
+   
 
 <li class="hvr-grow">
 <a  href="/chdata/index">

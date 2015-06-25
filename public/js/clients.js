@@ -976,6 +976,7 @@ $("#myRelTable").on("click", ".edit_rel", function(){
   name_dropdown += first_value+"</select>";
 
   var second_value  = $("#added_tr"+edit_index+" td:nth-child(2)").html();
+
   var fourth = '<button class="btn btn-success rel_save" data-edit_index="'+edit_index+'" data-link="'+link+'" type="button">Save</button>';
 
   $.ajax({
@@ -1223,20 +1224,13 @@ $("#myActTable").on("click", ".delete_acting", function(){
 
 function show_div()
 {
-  
-$("#new_relationship input[type=checkbox]").iCheck('enable');
-  $(".org_relclient_search").val('');
-  $(".all_relclient_search").val('');
-  $("#rel_type_id").val('1');
+  $("#rel_type_id").val($("#rel_type_id option:first").val());
+  $("#rel_client_id").val($("#rel_client_id option:first").val());
   $("#new_relationship").show();
-  $("#new_relationship input[type=checkbox]").iCheck('uncheck');
 }
 
 function hide_relationship_div()
 {
-  $(".org_relclient_search").val('');
-  $(".all_relclient_search").val('');
-  $("#rel_type_id").val('1');
   $("#new_relationship").hide();
 }
 
@@ -1272,6 +1266,7 @@ function saveRelationship(process_type)
           content += '<td width="35%" align="center">'+resp['relation_type']+'</td>';
           content += '<td width="10%" align="center">'+checkbox+'</td>';
           content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+
 
           $("#myRelTable").last().append(content);
           //$('input[type=checkbox]').prop('disabled', false);

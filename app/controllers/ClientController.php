@@ -146,11 +146,18 @@ class ClientController extends BaseController {
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
+
+		$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+		
+        $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+
 		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
 		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
+
+        //echo "<pre>";print_r($data['services']);die();
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
@@ -193,6 +200,8 @@ class ClientController extends BaseController {
 		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
             ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
+            
+            //echo "<pre>";print_r($relationship);
         //echo $this->last_query();die;
         if(isset($relationship) && count($relationship) >0 )
         {
@@ -219,17 +228,18 @@ class ClientController extends BaseController {
 	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
 	        					$name .= $client_name->field_value." ";
 	        				}
-        				}
+        				
+                        }
         				$data['relationship'][$key]['name'] = trim($name);
         				
         				        				
         			}
         			
         		}
-        		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
+       		    $data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data['relationship'][$key]['appointment_date'] 		= date("d-m-Y", strtotime($row->appointment_date));
-        		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
-        		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
+        	 	$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
+        	 	$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
         		$data['relationship'][$key]['acting'] 					= $row->acting;
 
         		//######## get client type #########//
@@ -265,9 +275,62 @@ class ClientController extends BaseController {
 		$data['months'] =	array("01"=>"JAN", "02"=>"FEB", "03"=>"MAR", "04"=>"APR", "05"=>"MAY", "06"=>"JUN","07"=>"JUL", "08"=>"AUG", "09"=>"SEPT", "10"=>"OCT", "11"=>"NOV", "12"=>"DEC");
 
 		$data['client_details'] 	=	$client_data;
+        
+      // echo "<pre>"; print_r($client_data);
 
 		//print_r($data['subsections']);die;
 		//############# Get client data end ################//
+        
+        //service
+        
+     /*   $first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
+        
+      $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
+      
+      
+       $data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+      
+      */
+      $arr = array();
+      $arr['service'] =   DB::table('client_services')->where("client_id", "=", $client_id)->get();
+   
+      //echo "<pre>";print_r($arr['service']);die;
+      //echo $this->last_query();die;
+      
+      foreach($arr['service'] as $key=>$service_row){
+                
+
+               $arr['service'][$key]->servicedetails =  DB::table('services')->where("service_id", "=", $service_row->service_id)->first();
+               //echo $this->last_query();
+               $arr['service'][$key]->staffcedetails =  DB::table('users')->where("user_id", "=", $service_row->staff_id)->first();   
+      }
+      $data['servicessss']=$arr['service'];
+      
+      //echo "<pre>";print_r($data['servicessss']);die;
+      //echo $this->last_query();die;
+      
+      
+      //$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+      
+    //echo "<pre>";print_r($data['staff_details']);die;
+      //echo $this->last_query();die;
+      
+      
+      
+      
+      
+      
+      
+      
+        //
+        
+        
+        
+        
+        
+        
+        
+        
 
 		return View::make('home.organisation.edit_organisation_client', $data);
 	}
@@ -585,6 +648,55 @@ class ClientController extends BaseController {
 			//echo $this->last_query();die;
 		echo $type;
 	}
+    
+    
+    
+    
+    public function delete_editservices(){
+        //die('asfafa');
+        //echo $client_id;
+         $delete_id = Input::get("delete_id");
+         $client_id= Input::get("client_id");
+        
+        $row= ClientService::where("client_service_id", "=", $delete_id)->delete();
+        
+        $str = '<table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+                  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+                    <tr>
+                      <td align="center"><strong>Service</strong></td>
+                      <td align="center"><strong>Staff</strong></td>
+                      <td align="center"><strong>Action</strong></td>
+                    </tr>';
+        $arr = array();
+        $arr['service'] =   DB::table('client_services')->where("client_id", "=", $client_id)->get();
+        
+        foreach($arr['service'] as $key=>$service_row){
+                        
+                $arr['service'][$key]->servicedetails =  DB::table('services')->where("service_id", "=", $service_row->service_id)->first();
+                $arr['service'][$key]->staffcedetails =  DB::table('users')->where("user_id", "=", $service_row->staff_id)->first();   
+        }
+        $data['servicessss']=$arr['service']; 
+        $arr = array();
+            $arr1 = array();
+            $i=0;
+            if(!empty($data['servicessss'] )){
+            foreach($data['servicessss'] as $key=>$val){
+            
+            $arr[$key] = $val->servicedetails; 
+            $arr1[$key] = $val->staffcedetails;
+            $str .= '<tr id="added_service_tr'.$key.'">
+            <td align="center">'.$arr[$key]->service_name.'</td>
+            <td align="center">'.$arr1[$key]->fname.' '.$arr1[$key]->lname.'</td>
+            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'.$key.'" id="'.$key.'"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="'.$key.'" id="'.$val->client_service_id.'*'.$val->client_id.'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'.$arr[$key]->service_id.'" id="stafftxt_id'.$key.'" name="stafftxt_id[]"><input type="hidden" value="'.$arr1[$key]->user_id.'" id="servicetxt_id'.$key.'" name="servicetxt_id[]"></td>
+            </tr>';
+            $i++;
+            }
+        }  
+        $str .= '</table>';   
+        //$str1 = count($data['servicessss']);   
+        echo $str;
+        
+    }
 
 	public function save_acting_relationship()
 	{

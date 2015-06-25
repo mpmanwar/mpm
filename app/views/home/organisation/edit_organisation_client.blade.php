@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 
+
 @section('mycssfile')
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -2191,21 +2192,53 @@ $(document).ready(function(){
                                     <div class="col-xs-6"></div>
                                   </div>
   <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+  <input type="text" id="serv_hidd_array" name="serv_hidd_array" value="">
     <tr>
       <td align="center"><strong>Service</strong></td>
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>
     
+    
+    <?php
+            //echo '<pre>';
+            //print_r($servicessss);
+            $arr = array();
+            $arr1 = array();
+            $i=0;//edit
+            if(!empty($servicessss )){
+                foreach($servicessss as $key=>$val){
+                
+                if((!empty($val->servicedetails) || !empty($val->staffcedetails)) || (!empty($val->servicedetails) || !empty($val->staffcedetails))){
+                $arr[$key] = $val->servicedetails; 
+                $arr1[$key] = $val->staffcedetails; 
+            
+                //echo 'xxxxxxxxx';
+            ?>
+            <tr id="added_service_tr<?php echo $key; ?>">
+            <td align="center"><?php if($val->service_id !=0){ echo $arr[$key]->service_name;}else{ echo " " ;} ?></td>
+            <td align="center"><?php if($val->staff_id !=0){ echo $arr1[$key]->fname." ".$arr1[$key]->lname;} else { echo " ";} ?></td>
+            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="<?php echo $key; ?>" id="<?php echo $key; ?>"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="<?php echo $key; ?>" id="<?php echo $val->client_service_id.'*'.$val->client_id; ?>"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="<?php echo $val->staff_id; ?>" id="stafftxt_id<?php echo $key; ?>" name="stafftxt_id[]"><input type="hidden" value="<?php echo $val->service_id; ?>" id="servicetxt_id<?php echo $key; ?>" name="servicetxt_id[]"></td>
+            </tr>
+            <?php
+                  }
+               $i++;
+            
+               }
+            } ?>
+
   </table>
+  <input type="hidden" id="countedit" name="countedit" value="<?php echo $i; ?>" >
+ 
+
+
 
 
 
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-        <option value="">None</option>
+        <option value="" >None</option>
           @if( isset($old_services) && count($old_services)>0 )
             @foreach($old_services as $key=>$service_row)
               <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
@@ -2222,7 +2255,7 @@ $(document).ready(function(){
 
     <div class="service">
       <select class="form-control" name="staff_id" id="staff_id">
-        <option value="">None</option>
+        <option value="" >None</option>
           @if(isset($staff_details) && count($staff_details) >0)
             @foreach($staff_details as $key=>$staff_row)
             <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
@@ -2232,7 +2265,7 @@ $(document).ready(function(){
       
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="editServices()" type="button">Add</button></div>
   </div>
 
 

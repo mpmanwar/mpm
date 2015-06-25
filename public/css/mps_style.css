@@ -294,7 +294,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .sub_h{ color: #008080!important; font-weight: bold; font-size: 14px!important; }
 .chdata_main {margin:25px auto; width: 50%;}
 .ch_chkbox{float:right; margin-right:15px;}
->>>>>>> 6b7ef8e10fcabfa73d72c1473d911987fbea3611
+
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
@@ -460,14 +460,25 @@ padding-left: 25px;
 
 
 
-
-
-
-
-
-
-
-
+/*============notice board========*/
+.notice_board{width:100%;}
+.notice_upbg{background:url(../img/top_bg.png) no-repeat; width:100%; height:34px;}
+.notice_midbg{background:url(../img/mid_bg.png) repeat-y; width:100%; height:auto; margin-top: -2px;}
+.notice_downbg{background:url(../img/down_bg.png) no-repeat; width:100%; height:34px; }
+.notice_baordbg{background:url(../img/notice_2.png) no-repeat; width:447px; height:243px; position:relative; margin-left: 15px;}
+.bottom_content{position:absolute; bottom:5px; text-align:center; right:30px;}
+.posted_t{float:left; color:#808080; font-size:12px; font-style:italic;}
+.new_btn{float:right; margin:5px;}
+.edit_controlar{float:right; margin-left:20px;}
+.padding_space{padding:15px;}
+.baord_content{padding:15px; border:1px solid #ccc; margin:15px 0 0 15px; position:relative;}
+/*.baord_content p{color:#000; font-size:14px;}*/
+.baord_content span{color:#000; font-size:14px; font-weight:bold;}
+.notify_users{ margin-top:10px;}
+.notify_users label{padding-left:12px;}
+.notify_con{margin-top:15px;}
+.notice_board_content{padding-bottom:30px;}
+.email_btns1{float:right; width:54%;}
 
 
 
