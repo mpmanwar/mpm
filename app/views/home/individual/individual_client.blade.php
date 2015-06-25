@@ -265,7 +265,11 @@ $(function() {
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
-                  <td align="left"><span title="{{ $client_row['address'] }}">{{ (strlen($client_row['address']) > 45)? substr($client_row['address'], 0, 42)."...": $client_row['address'] }}</span></td>
+                  <td align="left">
+                    @if(isset($client_row['address']) && $client_row['address'] != "" )
+                    <span title="{{ $client_row['address'] }}">{{ (strlen($client_row['address']) > 45)? substr($client_row['address'], 0, 42)."...": $client_row['address'] }}</span>
+                    @endif
+                  </td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach
