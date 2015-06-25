@@ -901,8 +901,8 @@ $(document).ready(function(){
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
 <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
-<input type="hidden" id="search_client_type" name="search_client_type" value="org">
-<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
+<!-- <input type="hidden" id="search_client_type" name="search_client_type" value="org">
+<input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
     <td width="40%"><strong>Business Name</strong></td>

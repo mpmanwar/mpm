@@ -209,8 +209,9 @@ class HomeController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
+		//$data['allClients'] 		= $this->get_all_clients();
         
-        //print_r($data['cont_address']);die;
+        //print_r($data['allClients']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -280,8 +281,9 @@ class HomeController extends BaseController {
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
 		//$data['cont_address'] 	 = $this->getAllOrgContactAddress();
+		$data['allClients'] 		= $this->get_all_clients();
         
-        //print_r($data['cont_address'] );die();
+        //print_r($data['allClients']);die;
         
 		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
@@ -746,9 +748,8 @@ class HomeController extends BaseController {
 			//echo $this->last_query();die;
 		}
 
-		//$rel_types['appointment_date'] = date("m/d/Y", strtotime(Input::get('app_date')));
-		$rel_types['appointment_date'] = Input::get('app_date');
-
+		$rel_types['client_details'] = Common::clientDetailsById($rel_client_id);
+		//print_r($client_details);die;
 		//######## get client type #########//
 		$client_data = Client::where("client_id", "=", $rel_client_id)->first();
 		if(isset($client_data) && count($client_data) >0){
@@ -842,6 +843,33 @@ class HomeController extends BaseController {
 		}
 
 		echo json_encode($client_details);
+		exit();
+	}
+
+	public function get_all_clients() {
+		$client_details = array();
+		$clients = array();
+
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
+		$search_value = Input::get("search_value");
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where("type", "!=", "chd")->select("client_id")->get();
+		//echo $this->last_query();die;
+		if(isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $key=>$client_id){
+				$clients[$key]['client_id']	= $client_id->client_id;
+			}
+		}
+		//echo $this->last_query();die;
+		$org_client = $this->getOrgClient($clients, $search_value);
+		$ind_client = $this->getIndClient($clients, $search_value);
+		//$chd_client = $this->getChdClient($clients, $search_value);
+		$client_details = array_merge($org_client, $ind_client);//print_r($client_details);die;
+		//$client_details = $this->getUniqueArray($client_details);
+
+		return $client_details;
 		exit();
 	}
 

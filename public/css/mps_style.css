@@ -159,8 +159,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .contain_search{float:left; margin-right: 10px; width:32%; position:relative;}
 .contain_type{float:left; margin-right: 10px; width:32%; margin-left: 10px;}
 .contain_date{float:left; margin-right: 10px; width:30%;}
-.contain_action{float:left; margin-left: 0px;}
+.contain_action{float:left; margin-left: 50px;}
 .contain_acting{ float: left; margin: 5px 20px 5px 38px; width: 10%;}
+.acting_select{width: 63%; float: left;}
 .accountcon{float:left; width:50%;}
 .accountbox1{width:47%; float:left; margin-right:10px;}
 .accountbox2{width:48%; float:left;}
@@ -431,6 +432,31 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
     display: block;
 
 }
+
+
+/* Checkbox design start */
+.custom_chk input[type=checkbox] {
+display:none;
+}
+ 
+.custom_chk input[type=checkbox] + label
+{
+background:url(../img/checkbox.png) no-repeat 0 0;
+height: 18px;
+width: 18px;
+display:inline-block;
+padding-left: 25px;
+cursor: pointer;
+}
+.custom_chk input[type=checkbox]:checked + label
+{
+background:url(../img/checkbox.png) no-repeat 0 -48px;
+height: 18px;
+width: 18px;
+display:inline-block;
+padding-left: 25px;
+}
+/* Checkbox design end */
 
 
 

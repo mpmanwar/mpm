@@ -637,4 +637,36 @@ class ClientController extends BaseController {
 		exit();
 	}
 
+	public function acting_relationship() {
+		$return_data = array();
+		$client_details = array();
+		$acting_client_id = Input::get("acting_client_id");
+		$client_details = Common::clientDetailsById($acting_client_id);
+
+		if(isset($client_details['business_name']) && $client_details['business_name'] != "" ){
+        	$name = $client_details['business_name'];
+      	}else{
+        	$name = $client_details['client_name'];
+      	}
+
+
+      	$client_data = Client::where("client_id", "=", $acting_client_id)->first();
+		if(isset($client_data) && count($client_data) >0){
+			if($client_data['type'] == "ind"){
+				$link = "/client/edit-ind-client/".$acting_client_id;
+			}
+			else if($client_data['type'] == "org"){
+				$link = "/client/edit-org-client/".$acting_client_id;
+			}else{
+				$link = "";
+			}
+			
+		}
+
+		$return_data['name'] = $name;
+		$return_data['link'] = $link;
+		echo json_encode($return_data);
+		exit();
+	}
+
 }
