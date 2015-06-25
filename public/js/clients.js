@@ -960,6 +960,8 @@ $("#myRelTable").on("click", ".delete_rel", function(){
 
 $("#myRelTable").on("click", ".edit_rel", function(){
   var edit_index  = $(this).data("edit_index");
+  var link  = $(this).data("link");
+
   var client_type   = $("#search_client_type").val();
   if(client_type == 'org'){
     var text_class = 'org_relclient_search';
@@ -967,23 +969,24 @@ $("#myRelTable").on("click", ".edit_rel", function(){
     var text_class = 'all_relclient_search';
   }
 
-  var first_value = $("#added_tr"+edit_index+" td:nth-child(1)").html();
-  var second_value = $("#added_tr"+edit_index+" td:nth-child(2)").html();
-  var third_value = $("#added_tr"+edit_index+" td:nth-child(3)").html();
+  var first_value   = $("#added_tr"+edit_index+" td:nth-child(1)").html();
+  var second_value  = $("#added_tr"+edit_index+" td:nth-child(2)").html();
+  var third_value   = $("#added_tr"+edit_index+" td:nth-child(3)").html();
 
   var first = '<input type="text" placeholder="Search..." value="'+first_value+'" class="form-control '+text_class+'" id="editrelname" name="editrelname"><div class="search_relation show_search_client" id="show_search_client"></div>';
   var second = '<input type="text" id="edit_app_date" value="'+second_value+'" name="edit_app_date" class="form-control app_date">';
-  var fourth = '<button class="btn btn-success rel_save"data-edit_index="'+edit_index+'" type="button">Save</button>';
+  var fourth = '<button class="btn btn-success rel_save" data-edit_index="'+edit_index+'" data-link="'+link+'" type="button">Save</button>';
 
   $.ajax({
       type: "POST",
       //dataType: "json",
       url: '/client/edit-relation-type',
-      data: { 'relation_type' : third_value, 'client_type' : client_type },
+      data: { 'relation_type' : second_value, 'client_type' : client_type },
       success : function(resp){
         $("#added_tr"+edit_index+" td:nth-child(1)").html(first);
-        $("#added_tr"+edit_index+" td:nth-child(2)").html(second);
-        $("#added_tr"+edit_index+" td:nth-child(3)").html(resp);
+        //$("#added_tr"+edit_index+" td:nth-child(2)").html(second);
+        $("#added_tr"+edit_index+" td:nth-child(2)").html(resp);
+        $("#added_tr"+edit_index+" td:nth-child(3)").html(third_value);
         $("#added_tr"+edit_index+" td:nth-child(4)").html(fourth);
       }
   });
@@ -1027,10 +1030,14 @@ $("#myRelTable").keyup(".org_relclient_search", function(){
   });
 
 $("#myRelTable").on("click", ".rel_save", function(){
-  var edit_index       = $(this).data("edit_index");
+  var edit_index  = $(this).data("edit_index");
+  var link        = $(this).data("link");
+
   var first_value = $("#editrelname").val();
   var third_value = $("#edit_rel_type_id").val();
   var fourth  = '<a href="javascript:void(0)" class="edit_rel" data-edit_index="'+edit_index+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>'
+  //var name_link = '<a href="'+link+'" target="_blank">'+first_value+'</a>';
+  var checkbox   = $("#added_tr"+edit_index+" td:nth-child(3)").html();
 
   var rel_client_id = $("#rel_client_id").val();
   var app_date = $("#edit_app_date").val();
@@ -1059,8 +1066,9 @@ $("#myRelTable").on("click", ".rel_save", function(){
     success : function(resp){
       $('#app_hidd_array').val(relationship_array);
       $("#added_tr"+edit_index+" td:nth-child(1)").html(first_value);
-      $("#added_tr"+edit_index+" td:nth-child(2)").html(app_date);
-      $("#added_tr"+edit_index+" td:nth-child(3)").html(resp['relation_type']);
+      //$("#added_tr"+edit_index+" td:nth-child(2)").html(app_date);
+      $("#added_tr"+edit_index+" td:nth-child(2)").html(resp['relation_type']);
+      $("#added_tr"+edit_index+" td:nth-child(3)").html(checkbox);
       $("#added_tr"+edit_index+" td:nth-child(4)").html(fourth);
     }
   });
@@ -1184,22 +1192,37 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
 
 function show_div()
 {
+  
+
   $(".org_relclient_search").val('');
   $(".all_relclient_search").val('');
   $("#rel_type_id").val('1');
-  $("#new_relationship").show('slow');
+  $("#new_relationship").show();
+  $("#new_relationship input[type=checkbox]").iCheck('uncheck');
+}
+
+function hide_relationship_div()
+{
+  $(".org_relclient_search").val('');
+  $(".all_relclient_search").val('');
+  $("#rel_type_id").val('1');
+  $("#new_relationship").hide();
 }
 
 var relationship_array = [];
 var i = 0;
 function saveRelationship(process_type)
 {
+  
+  //$('input[type="checkbox"]').iCheck('enabled');
+
     var name = $('#relname').val();
-    var app_date = $('#app_date').val();
+    //var app_date = $('#app_date').val();
     var rel_type_id = $('#rel_type_id').val();
     var rel_client_id = $('#rel_client_id').val();
 
     //var i = Math.floor((Math.random() * 100) + 1);
+    var checkbox = $(".contain_acting").html();
 
     if(rel_client_id == ""){
       alert("Please search and select business name/name");
@@ -1209,15 +1232,17 @@ function saveRelationship(process_type)
         type: "POST",
         dataType: "json",
         url: '/individual/save-relationship',
-        data: { 'name' : name, 'app_date' : app_date, 'rel_type_id' : rel_type_id, 'rel_client_id' : rel_client_id },
+        data: { 'name' : name, 'rel_type_id' : rel_type_id, 'rel_client_id' : rel_client_id },
         success : function(resp){
-          if(process_type == "edit_org"){
-            var content = '<tr id="added_tr'+i+'"><td width="25%"><a href="'+resp['link']+'" target="_blank">'+name+'</a></td><td width="26%" align="center">'+resp['appointment_date']+'</td><td width="26%" align="center">'+resp['relation_type']+'</td><td width="10%" align="center"></td><td width="13%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          /*if(process_type == "edit_org"){
+            var content = '<tr id="added_tr'+i+'"><td width="25%"><a href="'+resp['link']+'" target="_blank">'+name+'</a></td><td width="26%" align="center">'+resp['appointment_date']+'</td><td width="26%" align="center">'+resp['relation_type']+'</td><td width="10%" align="center"></td><td width="13%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
           }else{
-            var content = '<tr id="added_tr'+i+'"><td width="25%"><a href="'+resp['link']+'" target="_blank">'+name+'</a></td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
-          }
+            var content = '<tr id="added_tr'+i+'"><td width="25%"><a href="'+resp['link']+'" target="_blank">'+name+'</a></td><td width="30%" align="center">'+resp['appointment_date']+'</td><td width="30%" align="center">'+resp['relation_type']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          }*/
+          var content = '<tr id="added_tr'+i+'"><td width="35%">'+name+'</td><td width="35%" align="center">'+resp['relation_type']+'</td><td width="10%" align="center">'+checkbox+'</td><td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
 
           $("#myRelTable").last().append(content);
+          //$('input[type=checkbox]').prop('disabled', false);
 
           var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id+"mpm"+i;
           if(itemselected !== undefined && itemselected !== null){
@@ -1228,7 +1253,7 @@ function saveRelationship(process_type)
 
           $('#relname').val("");
           $('#app_date').val("");
-          $("#new_relationship").hide('slow');
+          $("#new_relationship").hide();
 
           i++;
         }

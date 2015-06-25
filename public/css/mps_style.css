@@ -128,7 +128,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 }
 
 /*===========add client or 1============*/
-.director_table{width:100%;}
+.director_table{width:85%;}
 .search_box{width:190px;}
 .table_top_box{width:100%; display: none;}
 
@@ -156,10 +156,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .box_right{float:right; width:48%;}
 
 .contain_tab4{ width: 100%; border: 1px solid #ddd; padding: 10px; float: left;}
-.contain_search{float:left; margin-right: 10px; width:24%; position:relative;}
-.contain_type{float:left; margin-right: 10px; width:30%;}
+.contain_search{float:left; margin-right: 10px; width:32%; position:relative;}
+.contain_type{float:left; margin-right: 10px; width:32%; margin-left: 10px;}
 .contain_date{float:left; margin-right: 10px; width:30%;}
-.contain_action{float:left; margin-left: 27px;}
+.contain_action{float:left; margin-left: 0px;}
+.contain_acting{ float: left; margin: 5px 20px 5px 38px; width: 10%;}
 .accountcon{float:left; width:50%;}
 .accountbox1{width:47%; float:left; margin-right:10px;}
 .accountbox2{width:48%; float:left;}

@@ -1939,7 +1939,7 @@ $(document).ready(function(){
   <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
 </div>
 </li>
-<li>
+<!-- <li>
 <div class="form-group">
   <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
 </div>
@@ -1948,60 +1948,82 @@ $(document).ready(function(){
 <div class="form-group">
   <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
 </div>
+</li> -->
+<li>
+<div class="form-group">
+  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
+</div>
 </li>
+<li>
 </ul>  
 </div> 
 
 <div class="box-body table-responsive">
-<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-<input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
-<input type="hidden" id="search_client_type" name="search_client_type" value="ind">
-<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
-<table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
-  <tr>
-    <td width="25%"><strong>Name</strong></td>
-    <td width="30%" align="center"><strong>Appointment Date</strong></td>
-    <td width="30%" align="center"><strong>Relationship Type</strong></td>
-    <td width="15%" align="center"><strong>Action</strong></td>
-    
-  </tr>
-
-
-
-
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+  <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
+  <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
+  <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+    <tr>
+      <td width="30%"><strong>Name</strong></td>
+      <!-- <td width="30%" align="center"><strong>Appointment Date</strong></td> -->
+      <td width="30%" align="center"><strong>Relationship Type</strong></td>
+      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="20%" align="center"><strong>Action</strong></td>
+    </tr>
 
   </table>
 
+    <div class="contain_tab4" id="new_relationship" style="display:none;">
+      <div class="contain_search">
+        <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
+        <div class="search_value show_search_client" id="show_search_client"></div>
+      </div>
 
+      <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div> -->
 
+      <div class="contain_type">
+        <select class="form-control" name="rel_type_id" id="rel_type_id">
+            @if(!empty($rel_types))
+              @foreach($rel_types as $key=>$rel_row)
+              <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+              @endforeach
+            @endif
+          </select>
+      </div>
 
-
-
-
-  <div class="contain_tab4" id="new_relationship" style="display:none;">
-    <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-      <div class="search_value show_search_client" id="show_search_client"></div>
+      <div class="contain_acting"><input type="checkbox" name="acting[]" id="acting" value="" /></div>
+      
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button>
+      <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
+      </div>
     </div>
-
-    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
-
-    <div class="contain_type">
-      <select class="form-control" name="rel_type_id" id="rel_type_id">
-          @if(!empty($rel_types))
-            @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
-            @endforeach
-          @endif
-        </select>
-    </div>
-    
-    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button></div>
+      
   </div>
-    
-
-
 </div>
+
+<div class="box-body table-responsive" style="width:50%;">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+    <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
+  
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+    <tr>
+      <td width="35%"><strong>Name</strong></td>
+      <td width="15%" align="center"><strong>Action</strong></td>
+    </tr>
+
+  </table>
+
+    <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
+      <div class="contain_search">
+        <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
+        <div class="search_value show_search_client" id="show_search_client"></div>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button></div>
+    </div>
+      
+  </div>
 </div>
 
 <div class="add_client_btn">
@@ -2547,6 +2569,49 @@ $(document).ready(function(){
   <!-- /.modal-dialog -->
 </div>
 <!-- Add Subsec Modal End-->
+
+
+<!-- Relationship Add To List Modal Start-->
+<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:354px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Type</label>
+        <select class="form-control" name="add_to_type" id="add_to_type">
+          @if(!empty($rel_types))
+            @foreach($rel_types as $key=>$rel_row)
+            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+            @endforeach
+          @endif
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+      </div>
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="submit" class="btn btn-primary pull-left save_t" id="add_to_save" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Relationship Add To List Modal End-->
 
 
 

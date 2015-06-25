@@ -342,7 +342,7 @@ class ChdataController extends BaseController {
 					);
 					ClientRelationship::insert($relData);
 				}
-				//$insert_client = $this->insertClientDetails($row, $app_client_id);
+				$insert_client = $this->insertClientDetails($row, $app_client_id);
 			}
 			
 		}

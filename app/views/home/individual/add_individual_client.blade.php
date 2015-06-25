@@ -905,10 +905,10 @@ $(document).ready(function(){
 <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
-    <td width="25%"><strong>Business Name</strong></td>
-    <td width="30%" align="center"><strong>Appointment Date</strong></td>
-    <td width="30%" align="center"><strong>Relationship Type</strong></td>
-    <td width="15%" align="center"><strong>Action</strong></td>
+    <td width="40%"><strong>Business Name</strong></td>
+    <!-- <td width="30%" align="center"><strong>Appointment Date</strong></td> -->
+    <td width="40%" align="center"><strong>Relationship Type</strong></td>
+    <td width="20%" align="center"><strong>Action</strong></td>
   </tr>
 </table>
 
@@ -918,7 +918,7 @@ $(document).ready(function(){
       <div class="search_value show_search_client" id="show_search_client"></div>
     </div>
 
-    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control app_date"></div>
+    <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control app_date"></div> -->
 
     <div class="contain_type">
       <select class="form-control" name="rel_type_id" id="rel_type_id">
