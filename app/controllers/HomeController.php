@@ -340,7 +340,7 @@ class HomeController extends BaseController {
 
 	public function get_contact_address() {
 		$client_data = array();
-<<<<<<< HEAD
+
         //die('sff');
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
@@ -353,7 +353,7 @@ class HomeController extends BaseController {
         }
 	//
     	//echo $this->last_query();die;
-=======
+
 		
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
@@ -362,7 +362,7 @@ class HomeController extends BaseController {
 		$client_ids = Client::where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
  		//$client_array = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();//die;
->>>>>>> ade1f69c122b6910c79eff5c131fb3590c2768ac
+
 		$i = 0;
 		if (isset($client_ids)) {
 			foreach($client_ids as $key=>$client_id) {
