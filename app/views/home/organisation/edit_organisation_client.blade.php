@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 
+
 @section('mycssfile')
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -363,19 +364,11 @@ $(document).ready(function(){
           <label for="exampleInputPassword1">{{ ucwords($row_fields['field_name']) }} 
             &nbsp;<a href="javascript:void(0)" title="Delete Field ?" class="delete_user_field" data-field_id="{{ $row_fields['field_id'] }}"><img src="/img/cross.png" width="12"></a></label>
           @if(isset($row_fields['field_type']) && $row_fields['field_type'] == "1")
-            <input type="text" name="{{ strtolower($row_fields['field_name']) }}" class="form-control">
-          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
-            <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">
-            </textarea>
-          @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
-            <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" />
-           
             <input type="text" name="{{ strtolower($row_fields['field_name']) }}" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}" class="form-control">
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "2")
             <textarea  name="{{ strtolower($row_fields['field_name']) }}" rows="3" cols="39">{{ isset($client_details[strtolower($row_fields['field_name'])])?$client_details[strtolower($row_fields['field_name'])]:"" }}</textarea>
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "3")
             <input type="checkbox"  name="{{ strtolower($row_fields['field_name']) }}" {{ isset($client_details[strtolower($row_fields['field_name'])])?"checked":"" }}/>
-            
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == 4)
             <select class="form-control"  name="{{ strtolower($row_fields['field_name']) }}" >
               @if(isset($row_fields['select_option']) && count($row_fields['select_option']) > 0)
@@ -385,9 +378,7 @@ $(document).ready(function(){
               @endif
             </select>
           @elseif(isset($row_fields['field_type']) && $row_fields['field_type'] == "5")   
-            <input type="date"  name="{{ strtolower($row_fields['field_name']) }}">
             <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields['field_name'])])?date('d-m-Y', strtotime($client_details[strtolower($row_fields['field_name'])])):"" }}" name="{{ strtolower($row_fields['field_name']) }}">
-
           @endif
          
          
@@ -441,9 +432,6 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Effective Date of Registration</label>
-
-                                  <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date("d-m-Y", strtotime($client_details['effective_date'])):"" }}" class="form-control">
-
                                   <input type="text" id="effective_date" name="effective_date" value="{{ isset($client_details['effective_date'])?date('d-m-Y', strtotime($client_details['effective_date'])):'' }}" class="form-control">
                                 </div>
                               </div>
@@ -1921,7 +1909,6 @@ $(document).ready(function(){
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-
 <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
 <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
 <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
@@ -1943,13 +1930,8 @@ $(document).ready(function(){
         <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
         <td width="13%" align="center">
-        
-          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i>
-          
-          </a>
-      
+          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
         </td>
-     
       </tr>
     @endforeach
   @endif
@@ -2082,43 +2064,45 @@ $(document).ready(function(){
                                     <div class="col-xs-6"></div>
                                   </div>
   <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+  <input type="text" id="serv_hidd_array" name="serv_hidd_array" value="">
     <tr>
       <td align="center"><strong>Service</strong></td>
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>
+    
+    
     <?php
             //echo '<pre>';
             //print_r($servicessss);
             $arr = array();
             $arr1 = array();
-            $i=0;
+            $i=0;//edit
             if(!empty($servicessss )){
-            foreach($servicessss as $key=>$val){
+                foreach($servicessss as $key=>$val){
+                
+                if((!empty($val->servicedetails) || !empty($val->staffcedetails)) || (!empty($val->servicedetails) || !empty($val->staffcedetails))){
+                $arr[$key] = $val->servicedetails; 
+                $arr1[$key] = $val->staffcedetails; 
             
-            $arr[$key] = $val->servicedetails; 
-            $arr1[$key] = $val->staffcedetails; 
+                //echo 'xxxxxxxxx';
             ?>
             <tr id="added_service_tr<?php echo $key; ?>">
-            <td align="center"><?php echo $arr[$key]->service_name; ?></td>
-            <td align="center"><?php echo $arr1[$key]->fname." ".$arr1[$key]->lname; ?></td>
-            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="<?php echo $key; ?>" id="<?php echo $key; ?>"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="<?php echo $key; ?>" id="<?php echo $val->client_service_id.'*'.$val->client_id; ?>"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="<?php echo $arr[$key]->service_id; ?>" id="stafftxt_id<?php echo $key; ?>"><input type="hidden" value="<?php echo $arr1[$key]->user_id; ?>" id="servicetxt_id<?php echo $key; ?>"></td>
+            <td align="center"><?php if($val->service_id !=0){ echo $arr[$key]->service_name;}else{ echo " " ;} ?></td>
+            <td align="center"><?php if($val->staff_id !=0){ echo $arr1[$key]->fname." ".$arr1[$key]->lname;} else { echo " ";} ?></td>
+            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="<?php echo $key; ?>" id="<?php echo $key; ?>"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="<?php echo $key; ?>" id="<?php echo $val->client_service_id.'*'.$val->client_id; ?>"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="<?php echo $val->staff_id; ?>" id="stafftxt_id<?php echo $key; ?>" name="stafftxt_id[]"><input type="hidden" value="<?php echo $val->service_id; ?>" id="servicetxt_id<?php echo $key; ?>" name="servicetxt_id[]"></td>
             </tr>
             <?php
+                  }
                $i++;
-               
+            
                }
-            }else{
-?>
-            <!--<tr>
-            <td align="center" colspan="3">No Records Found !!</td>
-            </tr>-->
-
-<?php       } ?>
+            } ?>
 
   </table>
-  <input type="hidden" id="countedit" value="<?php echo $i; ?>">
+  <input type="hidden" id="countedit" name="countedit" value="<?php echo $i; ?>" >
+ 
+
 
 
 
@@ -2126,13 +2110,7 @@ $(document).ready(function(){
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
-
-        <option value=""></option>
-          @if(!empty($services) && count($services) >0 )
-            @foreach($services as $key=>$service_row)
-              <option value="{{ $service_row->service_id or "" }}">{{ $service_row->service_name or "" }}</option>
-
-        <option value="">None</option>
+        <option value="" >None</option>
           @if( isset($old_services) && count($old_services)>0 )
             @foreach($old_services as $key=>$service_row)
               <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
@@ -2141,7 +2119,6 @@ $(document).ready(function(){
           @if( isset($new_services) && count($new_services)>0 )
             @foreach($new_services as $key=>$service_row)
               <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-
             @endforeach
           @endif
             
@@ -2150,13 +2127,10 @@ $(document).ready(function(){
 
     <div class="service">
       <select class="form-control" name="staff_id" id="staff_id">
-        <option value="">None</option>
-
-          @if(!empty($staff_details) && count($staff_details) >0)
-
+        <option value="" >None</option>
           @if(isset($staff_details) && count($staff_details) >0)
             @foreach($staff_details as $key=>$staff_row)
-            <option value="{{ $staff_row->user_id or "" }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
             @endforeach
           @endif
         </select>
@@ -2194,7 +2168,6 @@ $(document).ready(function(){
             @endforeach
           @endif
         </select>
-        
       @elseif(!empty($row_fields->field_type) && $row_fields->field_type == "5")   
         <input type="text" class="form-control user_added_date" value="{{ isset($client_details[strtolower($row_fields->field_name)])?date('d-m-Y', strtotime($client_details[strtolower($row_fields->field_name)])):"" }}" name="{{ strtolower($row_fields->field_name) }}">
       @endif
@@ -2566,6 +2539,13 @@ $(document).ready(function(){
   <!-- /.modal-dialog -->
 </div>
 <!-- Add Subsec Modal End-->
+
+
+
+
+
+
+
 
 
 @stop

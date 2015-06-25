@@ -155,3 +155,10 @@ Route::any('/organisation/delete-editservices', array("as"=>"delete_editservices
 
 
 ##
+
+
+
+
+Route::any('/noticeboard', array("as"=>"edit_services", "uses"=>'NoticeboardController@notice_board'));
+
+Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'NoticeboardController@insert_noticeboard'));

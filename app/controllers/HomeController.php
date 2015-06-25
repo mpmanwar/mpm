@@ -732,52 +732,22 @@ class HomeController extends BaseController {
         $first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
         
       $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
-      $str = '';
-      $str = '<select class="form-control serviceclass" name="serviceselect_id'.$id .'" id="serviceselect_id'.$id .'">';
-      $str .= '<option value=""></option>'; 
-        if(!empty($data['services'])){
-            
-            foreach($data['services'] as $key=>$service_row){
-                
-                if($servicetxt_id==$service_row->service_id){
-                    $val="selected='selected'";
-                    }else{
-                        echo $val=" ";
-                        }
-                $str .= '<option value="'.$service_row->service_id.'" '.$val.'>'.$service_row->service_name.'</option>'; 
-            
-             }
-          }
-       $str .= '</select>';   
        
-     // echo $str;  
-         $str1 = '';     
-           $stafftxt_id = Input::get("stafftxt_id"); 
+       
+       $stafftxt_id = Input::get("stafftxt_id"); 
             $data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
-            
-            $str1 = '<select class="form-control staffclass" name="staffselect_id'.$id .'" id="staffselect_id'.$id .'">';
-              $str1 .= '<option value="">None</option>'; 
-                if(!empty($data['staff_details'])){
-                  
-                    foreach($data['staff_details'] as $key=>$staff_row){
-                        if($stafftxt_id==$staff_row->user_id){
-                            $val="selected='selected'";
-                            }else{
-                                echo $val=" ";
-                            }
-                        $str1 .= '<option value="'.$staff_row->user_id.'" '.$val.'>'.$staff_row->fname.' '.$staff_row->lname.'</option>'; 
-                    
-                     }
-                  }
-               $str1 .= '</select>';
-        
-        echo $str.'*'.$str1;    
+       $data['stafftxt_id']=$stafftxt_id ;
+       $data['id'] =$id;
+       $data['user_id'] =$user_id;
+       $data['first_serv'] =$first_serv;
+       $data['servicetxt_id'] =$servicetxt_id;
+       
         //echo '<pre>';
         //print_r($data['services']);
+        return View::make('home.organisation.edit_service', $data);
         
     }
-    
-    
+     
     
     
 	function save_services() {
@@ -1181,6 +1151,12 @@ class HomeController extends BaseController {
 		}
 //#############RELATIONSHIP END ###################//
 
+
+
+
+
+
+
 //############# OTHERS INFORMATION START ###################//
 		$step_id = 5;
 		if (!empty($postData['bank_name'])) {
@@ -1197,7 +1173,14 @@ class HomeController extends BaseController {
 		}
 //############# OTHERS INFORMATION END ###################//
 
+
+
+
+
 //############# SERVICES START ###################//
+	
+    
+    //############# SERVICES START ###################//
 		if (!empty($postData['serv_hidd_array'])) {
 			$relData = array();
 			$serv_hidd_array = explode(",", $postData['serv_hidd_array']); //print_r($serv_hidd_array);
@@ -1213,6 +1196,69 @@ class HomeController extends BaseController {
 
 		}
 //############# SERVICES END ###################//
+    
+    
+    	if (!empty($postData['servicetxt_id']) && !empty($postData['stafftxt_id']) && !empty($postData['countedit'])) {
+        	   //print_r($client_id);die();
+               //echo '<pre>';
+               //print_r($postData);die();
+               //print_r($postData['servicetxt_id']);
+               //print_r($postData['stafftxt_id']);
+               //print_r($postData['countedit']);
+               //die();
+    			/* $relData = array();
+    			$serv_hidd_array = explode(",", $postData['serv_hidd_array']); //print_r($serv_hidd_array);
+    			foreach ($serv_hidd_array as $row) {
+    				$rel_row = explode("mpm", $row);
+    				$relData[] = array(
+    					'client_id' => $client_id,
+    					'service_id' => $rel_row['0'],
+    					'staff_id' => $rel_row['1'],
+    				);
+    			}*/
+    			//ClientService::insert($relData);
+               
+                //if(isset($postData['client_id']) && $postData['client_id'] == "new"){
+        		//	$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+        		//  }
+                //  else{
+        		//	$client_id = $postData['client_id'];
+                    
+        			ClientService::where("client_id", "=", $client_id)->delete();
+                    
+        			//ClientRelationship::where("client_id", "=", $client_id)->delete();
+        		     // }
+                    
+                    
+                $relData = array();
+                
+                for($i=1;$i<=$postData['countedit'];$i++){
+                
+                $relData[$i-1] = array(
+    					'client_id' => $client_id,
+    					'service_id' => $postData['servicetxt_id'][$i-1],
+    					'staff_id' => $postData['stafftxt_id'][$i-1]
+    				);
+                  /*$relData['client_id'][$i] = $client_id;
+                  $relData['service_id'][$i] = $postData['servicetxt_id'][$i];
+                  $relData['staff_id'][$i] = $postData['stafftxt_id'][$i];*/
+                  
+                   
+                //echo '<br />';
+                 ClientService::insert($relData[$i-1]);
+                 //echo $this->last_query();
+               }  
+               
+               //echo '<pre>';
+               //print_r($relData);  
+                
+                //die();
+		}
+//############# SERVICES END ###################//
+
+
+
+
 
 //################## USER ADDED FIELD START ###############//
 $field_added = StepsFieldsAddedUser::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->get();

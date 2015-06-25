@@ -266,6 +266,7 @@ class ClientController extends BaseController {
                 
 
                $arr['service'][$key]->servicedetails =  DB::table('services')->where("service_id", "=", $service_row->service_id)->first();
+               //echo $this->last_query();
                $arr['service'][$key]->staffcedetails =  DB::table('users')->where("user_id", "=", $service_row->staff_id)->first();   
       }
       $data['servicessss']=$arr['service'];
@@ -623,6 +624,7 @@ class ClientController extends BaseController {
          $client_id= Input::get("client_id");
         
         $row= ClientService::where("client_service_id", "=", $delete_id)->delete();
+        
         $str = '<table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
                   <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
                     <tr>
@@ -632,6 +634,7 @@ class ClientController extends BaseController {
                     </tr>';
         $arr = array();
         $arr['service'] =   DB::table('client_services')->where("client_id", "=", $client_id)->get();
+        
         foreach($arr['service'] as $key=>$service_row){
                         
                 $arr['service'][$key]->servicedetails =  DB::table('services')->where("service_id", "=", $service_row->service_id)->first();
@@ -649,13 +652,13 @@ class ClientController extends BaseController {
             $str .= '<tr id="added_service_tr'.$key.'">
             <td align="center">'.$arr[$key]->service_name.'</td>
             <td align="center">'.$arr1[$key]->fname.' '.$arr1[$key]->lname.'</td>
-            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'.$key.'" id="'.$key.'"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="'.$key.'" id="'.$val->client_service_id.'*'.$val->client_id.'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'.$arr[$key]->service_id.'" id="stafftxt_id'.$key.'"><input type="hidden" value="'.$arr1[$key]->user_id.'" id="servicetxt_id'.$key.'"></td>
+            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'.$key.'" id="'.$key.'"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="'.$key.'" id="'.$val->client_service_id.'*'.$val->client_id.'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'.$arr[$key]->service_id.'" id="stafftxt_id'.$key.'" name="stafftxt_id[]"><input type="hidden" value="'.$arr1[$key]->user_id.'" id="servicetxt_id'.$key.'" name="servicetxt_id[]"></td>
             </tr>';
             $i++;
             }
         }  
-        $str .= '</table>';      
-        
+        $str .= '</table>';   
+        //$str1 = count($data['servicessss']);   
         echo $str;
         
     }
