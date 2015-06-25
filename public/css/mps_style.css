@@ -128,7 +128,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 }
 
 /*===========add client or 1============*/
-.director_table{width:100%;}
+.director_table{width:85%;}
 .search_box{width:190px;}
 .table_top_box{width:100%; display: none;}
 
@@ -156,18 +156,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .box_right{float:right; width:48%;}
 
 .contain_tab4{ width: 100%; border: 1px solid #ddd; padding: 10px; float: left;}
-.contain_search{float:left; margin-right: 10px; width:24%; position:relative;}
-.contain_type{float:left; margin-right: 10px; width:30%;}
+.contain_search{float:left; margin-right: 10px; width:32%; position:relative;}
+.contain_type{float:left; margin-right: 10px; width:32%; margin-left: 10px;}
 .contain_date{float:left; margin-right: 10px; width:30%;}
-.contain_action{float:left; margin-left: 27px;}
+.contain_action{float:left; margin-left: 0px;}
+.contain_acting{ float: left; margin: 5px 20px 5px 38px; width: 10%;}
 .accountcon{float:left; width:50%;}
 .accountbox1{width:47%; float:left; margin-right:10px;}
 .accountbox2{width:48%; float:left;}
 .address_type{ display:none;}
 .registered_vat{display:block;}
 .tax_utr_con{display:block;}
-.tax_utr{float:left; width:63%; margin-right:10px;}
-.tax_utr_drop{float:left; width:33%; margin-top:5px;}
+.tax_utr{float:left; width:72%;}
+.tax_utr_drop{float:left; width:25%; margin-right: 15px;}
 .threebox_1{width:32.5%; float:left; margin-right:10px;}
 .threebox_2{width:30%; float:left;}
 .small_box{width: 55%;}
@@ -188,6 +189,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .service_t{float:left;}
 .add_edit{float: left; margin-left:20px; padding-top:25px;}
 .save{margin-right: 10px;}
+.business_p{text-align: center; font-size: 18px; font-weight: bold;}
 
 .search_relation{width:22.5%; border:1px solid #ddd; display:none; position: absolute; z-index: 10; background: #fff;}
 .search_relation ul{list-style:none; margin:0; padding:0;}

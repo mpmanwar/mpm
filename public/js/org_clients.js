@@ -138,6 +138,19 @@ $("#append_bussiness_type").on("click", ".delete_org_name", function(){
 }); 
 //Delete organisation name while add individual/organisation user end
 
+// Vat Scheme change function start //
+$("#vat_scheme_type").change(function(){
+  var vat_scheme_type  = $(this).val();
+  if(vat_scheme_type == 2){
+    $("#ret_frequency").html('<option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option><option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>');
+  }else{
+    $("#ret_frequency").html('<option value="quarterly">Quarterly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>');
+    $("#vat_stagger").html('<option>Choose One</option><option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>');
+  }
+});
+//Vat Scheme change function start end //
+
 //Add Vat Scheme while add individual/organisation user start
 $("#add_vat_scheme").click(function(){
     var vat_scheme_name  = $("#vat_scheme_name").val();
@@ -275,15 +288,15 @@ $("#append_services").on("click", ".delete_services", function(){
 //Delete services name while add individual/organisation user start
 $(".frequency_change").change(function(){
     var value = $(this).val();
-    var option = "";
+    var option = "<option>Choose One</option>";
     if(value == "quarterly"){
-      option+='<option>Choose One</option><option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>';
+      option+='<option value="Jan-April-Jul-Oct">Jan-April-Jul-Oct</option><option value="Feb-May-Aug-Nov">Feb-May-Aug-Nov</option><option value="Mar-Jun-Sept-Dec">Mar-Jun-Sept-Dec</option>';
     }
     if(value == "monthly"){
-      option+='<option>Choose One</option><option value="monthly">Monthly</option>';
+      option+='<option value="monthly">Monthly</option>';
     }
     if(value == "yearly"){
-      option+='<option>Choose One</option><option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>';
+      option+='<option value="jan">JAN</option><option value="feb">FEB</option><option value="mar">MAR</option><option value="apr">APR</option><option value="may">MAY</option><option value="jun">JUN</option><option value="jul">JUL</option><option value="aug">AUG</option><option value="sept">SEPT</option><option value="oct">OCT</option><option value="nov">NOV</option><option value="dec">DEC</option>';
     }
     $("#vat_stagger").html(option);
      

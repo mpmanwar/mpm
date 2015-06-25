@@ -83,6 +83,23 @@ class ClientController extends BaseController {
         		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
         		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
         		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data['relationship'][$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data['relationship'][$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else{
+						$data['relationship'][$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
+
+
         	}
         }
         //echo $this->last_query();die;
@@ -99,7 +116,7 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
 
-		//print_r($data['titles']);die;
+		//print_r($data['relationship']);die;
 		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);
@@ -149,6 +166,7 @@ class ClientController extends BaseController {
 		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
 		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
+		//$data['cont_address'] 	 = App::make("HomeController")->getAllOrgContactAddress();
 		$data['cont_address'] 	= App::make("HomeController")->get_orgcontact_address();
         
         //print_r($data['cont_address'] );die();
@@ -223,6 +241,23 @@ class ClientController extends BaseController {
         	 	$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
         	 	$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
         		$data['relationship'][$key]['acting'] 					= $row->acting;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data['relationship'][$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data['relationship'][$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else{
+						$data['relationship'][$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
+
+
         	}
         }
         //echo $this->last_query();die;
@@ -700,6 +735,18 @@ class ClientController extends BaseController {
 		//################# Change Officers Type End #################//
 
 		echo $success;
+	}
+
+	public function get_corporation_address() {
+		$office_address = array();
+		$office_id = Input::get("office_id");
+		if (Request::ajax()) {
+			$office_address = CorporationTaxOffice::where("corp_tax_id", "=", $office_id)->first();
+			//echo $this->last_query();die;
+		}
+
+		echo json_encode($office_address);
+		exit();
 	}
 
 }
