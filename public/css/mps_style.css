@@ -476,7 +476,7 @@ padding-left: 25px;
 .baord_content{padding:15px; border:1px solid #ccc; margin:15px 0 0 15px; position:relative;}
 /*.baord_content p{color:#000; font-size:14px;}*/
 .baord_content span{color:#000; font-size:14px; font-weight:bold;}
-.notify_users{ margin-top:10px;}
+.notify_users{ margin-top:10px; margin-right: 20px; float: left;}
 .notify_users label{padding-left:12px;}
 .notify_con{margin-top:15px;}
 .notice_board_content{padding-bottom:30px;}

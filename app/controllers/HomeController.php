@@ -1291,6 +1291,7 @@ class HomeController extends BaseController {
 					$acting = "Y";
 				}else{
 					$acting = "N";
+
 				}
 				$relData[] = array(
 					'client_id' 			=> $client_id,

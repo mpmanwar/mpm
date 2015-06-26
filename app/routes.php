@@ -179,9 +179,6 @@ Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'Staffman
 Route::any('/staff-data', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
 
 
-
-
-
 Route::any('/staff-holidays', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
 
 
