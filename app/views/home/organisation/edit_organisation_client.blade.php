@@ -2001,6 +2001,7 @@ $(document).ready(function(){
                   </div>
                 </div>
 
+
                 <div id="step4" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
@@ -2022,7 +2023,7 @@ $(document).ready(function(){
   <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
 </div>
 </li>
-<li>
+<!-- <li>
 <div class="form-group">
   <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
 </div>
@@ -2031,33 +2032,36 @@ $(document).ready(function(){
 <div class="form-group">
   <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
 </div>
+</li> -->
+<li>
+<div class="form-group">
+  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
+</div>
 </li>
+<li>
 </ul>  
 </div> 
 
 <div class="box-body table-responsive">
-<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-<input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
-<input type="hidden" id="search_client_type" name="search_client_type" value="ind">
-<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
-<table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
-  <tr>
-    <td width="25%"><strong>Name</strong></td>
-    <td width="26%" align="center"><strong>Appointment Date</strong></td>
-    <td width="26%" align="center"><strong>Relationship Type</strong></td>
-    <td width="10%" align="center"><strong>Acting</strong></td>
-    <td width="13%" align="center"><strong>Action</strong></td>
-    
-  </tr>
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
+  <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
+  <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
+  <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+    <tr>
+      <td width="30%"><strong>Name</strong></td>
+      <td width="30%" align="center"><strong>Relationship Type</strong></td>
+      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="20%" align="center"><strong>Action</strong></td>
+    </tr>
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="25%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
-        <td width="26%" align="center">{{ $relation_row['appointment_date'] }}</td>
-        <td width="26%" align="center">{{ $relation_row['relation_type'] }}</td>
+        <td width="30%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
+        <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
-        <td width="13%" align="center">
+        <td width="20%" align="center">
           <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
         </td>
       </tr>
@@ -2066,34 +2070,63 @@ $(document).ready(function(){
 
   </table>
 
+    <div class="contain_tab4" id="new_relationship" style="display:none;">
+      <div class="contain_search" id="client_dropdown">
+        <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
+        <div class="search_value show_search_client" id="show_search_client"></div> -->
+        <select class="form-control" name="rel_client_id" id="rel_client_id">
+            @if(isset($allClients) && count($allClients)>0)
+              @foreach($allClients as $key=>$client_row)
+              <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+              @endforeach
+            @endif
+          </select>
+      </div>
 
+      <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div> -->
 
+      <div class="contain_type">
+        <select class="form-control" name="rel_type_id" id="rel_type_id">
+            @if(!empty($rel_types))
+              @foreach($rel_types as $key=>$rel_row)
+              <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+              @endforeach
+            @endif
+          </select>
+      </div>
 
-
-  <div class="contain_tab4" id="new_relationship" style="display:none;">
-    <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-      <div class="search_value show_search_client" id="show_search_client"></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button>
+      <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
+      </div>
     </div>
-
-    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
-
-    <div class="contain_type">
-      <select class="form-control" name="rel_type_id" id="rel_type_id">
-          @if(!empty($rel_types))
-            @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
-            @endforeach
-          @endif
-        </select>
-    </div>
-    
-    <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('edit_org')" type="button">Add</button></div>
+      
   </div>
-    
-
-
 </div>
+
+<div class="box-body table-responsive" style="width:50%;">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+    <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
+    <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
+    <tr>
+      <td width="32%"><strong>Name</strong></td>
+      <td width="18%" align="center"><strong>Action</strong></td>
+    </tr>
+
+  </table>
+
+    <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
+      <div class="acting_select">
+        <select class="form-control" name="acting_client_id" id="acting_client_id">
+          
+        </select>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
+    </div>
+      
+  </div>
 </div>
 
 <div class="add_client_btn">
@@ -2115,6 +2148,8 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
+
+                
 
                 <div id="step5" class="tab-pane" style="display:none;">
                   <div class="box-body table-responsive">
