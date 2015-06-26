@@ -692,7 +692,7 @@
 <div class="clearfix"></div>
 </div>
                      
-     hfjskhfsklgsk
+     
             <!-- New popup -->
           
           <!--<div class="modal-footer clearfix">
