@@ -1962,11 +1962,10 @@ $(document).ready(function(){
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
   <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
   <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
-  <input type="hidden" id="rel_client_id" name="rel_client_id" value="">
+  <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
       <td width="30%"><strong>Name</strong></td>
-      <!-- <td width="30%" align="center"><strong>Appointment Date</strong></td> -->
       <td width="30%" align="center"><strong>Relationship Type</strong></td>
       <td width="10%" align="center"><strong>Acting</strong></td>
       <td width="20%" align="center"><strong>Action</strong></td>
@@ -1975,9 +1974,16 @@ $(document).ready(function(){
   </table>
 
     <div class="contain_tab4" id="new_relationship" style="display:none;">
-      <div class="contain_search">
-        <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-        <div class="search_value show_search_client" id="show_search_client"></div>
+      <div class="contain_search" id="client_dropdown">
+        <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
+        <div class="search_value show_search_client" id="show_search_client"></div> -->
+        <select class="form-control" name="rel_client_id" id="rel_client_id">
+            @if(isset($allClients) && count($allClients)>0)
+              @foreach($allClients as $key=>$client_row)
+              <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+              @endforeach
+            @endif
+          </select>
       </div>
 
       <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div> -->
@@ -1992,8 +1998,6 @@ $(document).ready(function(){
           </select>
       </div>
 
-      <div class="contain_acting"><input type="checkbox" name="acting[]" id="acting" value="" /></div>
-      
       <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button>
       <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
       </div>
@@ -2005,22 +2009,24 @@ $(document).ready(function(){
 <div class="box-body table-responsive" style="width:50%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
-  
-  <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
+    <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
     <tr>
-      <td width="35%"><strong>Name</strong></td>
-      <td width="15%" align="center"><strong>Action</strong></td>
+      <td width="32%"><strong>Name</strong></td>
+      <td width="18%" align="center"><strong>Action</strong></td>
     </tr>
 
   </table>
 
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
-      <div class="contain_search">
-        <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-        <div class="search_value show_search_client" id="show_search_client"></div>
+      <div class="acting_select">
+        <select class="form-control" name="acting_client_id" id="acting_client_id">
+          
+        </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
     </div>
       
   </div>
@@ -2584,32 +2590,30 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Type</label>
-        <select class="form-control" name="add_to_type" id="add_to_type">
-          @if(!empty($rel_types))
-            @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
-            @endforeach
-          @endif
-        </select>
-      </div>
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" type="text" name="add_to_name" id="add_to_name">
-      </div>
-     
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" id="add_to_save" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
+      
     </div>
-    
-  </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->

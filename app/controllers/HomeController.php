@@ -34,7 +34,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$client_ids = Client::where("type", "=", "ind")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
+		$client_ids = Client::where("type", "=", "ind")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -121,7 +121,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -210,8 +210,14 @@ class HomeController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
+
+		//$data['allClients'] 		= $this->get_all_clients();
+        
+        //print_r($data['allClients']);die;
+
         //echo $this->last_query();die;
         //print_r($data['cont_address']);die;
+
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -281,8 +287,9 @@ class HomeController extends BaseController {
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
 		//$data['cont_address'] 	 = $this->getAllOrgContactAddress();
+		$data['allClients'] 		= $this->get_all_clients();
         
-        //print_r($data['cont_address'] );die();
+        //print_r($data['allClients']);die;
         
 		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
@@ -697,7 +704,6 @@ class HomeController extends BaseController {
 				$relData[] = array(
 					'client_id' => $client_id,
 					'appointment_with' => $rel_row['0'],
-					'appointment_date' => $app_date[2]."-".$app_date[1]."-".$app_date[0],
 					'relationship_type_id' => $rel_row['2'],
 				);
 			}
@@ -705,6 +711,23 @@ class HomeController extends BaseController {
 
 		}
 //#############RELATIONSHIP END ###################//
+
+//############# ACTING SECTION START ###################//
+		if (!empty($postData['acting_hidd_array'])) {
+			$actData = array();
+			$acting_hidd_array = explode(",", $postData['acting_hidd_array']); print_r($acting_hidd_array);die;
+			foreach ($acting_hidd_array as $row) {
+				$actData[] = array(
+					'user_id' => $user_id,
+					'client_id' => $client_id,
+					'acting_client_id' => $acting_hidd_array['1'],
+					'relation_client_id' => $acting_hidd_array['2'],
+				);
+			}
+			ClientActing::insert($actData);
+
+		}
+//############# ACTING SECTION END ###################//
 
 //################ OTHERS SECTION END #################//
 		$step_id = 5;
@@ -762,9 +785,8 @@ class HomeController extends BaseController {
 			//echo $this->last_query();die;
 		}
 
-		//$rel_types['appointment_date'] = date("m/d/Y", strtotime(Input::get('app_date')));
-		$rel_types['appointment_date'] = Input::get('app_date');
-
+		$rel_types['client_details'] = Common::clientDetailsById($rel_client_id);
+		//print_r($client_details);die;
 		//######## get client type #########//
 		$client_data = Client::where("client_id", "=", $rel_client_id)->first();
 		if(isset($client_data) && count($client_data) >0){
@@ -890,6 +912,33 @@ class HomeController extends BaseController {
 		}
 
 		echo json_encode($client_details);
+		exit();
+	}
+
+	public function get_all_clients() {
+		$client_details = array();
+		$clients = array();
+
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
+		$search_value = Input::get("search_value");
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where("type", "!=", "chd")->select("client_id")->get();
+		//echo $this->last_query();die;
+		if(isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $key=>$client_id){
+				$clients[$key]['client_id']	= $client_id->client_id;
+			}
+		}
+		//echo $this->last_query();die;
+		$org_client = $this->getOrgClient($clients, $search_value);
+		$ind_client = $this->getIndClient($clients, $search_value);
+		//$chd_client = $this->getChdClient($clients, $search_value);
+		$client_details = array_merge($org_client, $ind_client);//print_r($client_details);die;
+		//$client_details = $this->getUniqueArray($client_details);
+
+		return $client_details;
 		exit();
 	}
 
@@ -1239,10 +1288,10 @@ class HomeController extends BaseController {
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
 				$relData[] = array(
-					'client_id' => $client_id,
-					'appointment_with' => $rel_row['0'],
-					'appointment_date' => date("Y-m-d H:i:s", strtotime($rel_row['1'])),
-					'relationship_type_id' => $rel_row['2'],
+					'client_id' 			=> $client_id,
+					'appointment_with' 		=> $rel_row['2'],
+					'relationship_type_id' 	=> $rel_row['1'],
+					'acting' 				=> !empty(Input::get('acting_'.$rel_row['0']))?"Y":"N"
 				);
 			}
 			ClientRelationship::insert($relData);
@@ -1251,7 +1300,25 @@ class HomeController extends BaseController {
 //#############RELATIONSHIP END ###################//
 
 
+//############# ACTING SECTION START ###################//
+		if (!empty($postData['acting_hidd_array'])) {
+			$actData = array();
+			$acting_hidd_array = explode(",", $postData['acting_hidd_array']); //print_r($acting_hidd_array);die;
+			foreach ($acting_hidd_array as $row) {
+				$act_row = explode("mpm", $row);
+				$actData[] = array(
+					'user_id' 				=> $user_id,
+					'client_id' 			=> $client_id,
+					'acting_client_id' 		=> $act_row['1'],
+					'relation_client_id' 	=> $act_row['2'],
+				);
 
+				Client::where("client_id", "=", $act_row['1'])->update(array('is_relation_add'=>'N'));
+			}
+			ClientActing::insert($actData);
+
+		}
+//############# ACTING SECTION END ###################//
 
 
 

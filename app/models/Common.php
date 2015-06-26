@@ -127,4 +127,68 @@ class Common extends Eloquent {
 		return $days;
 	}
 
+	public static function clientDetailsById($client_id)
+	{
+		$client_data = array();
+		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+
+		$client_data['client_id'] 		= $client_id;
+
+		$appointment_name = ClientRelationship::where('client_id', '=', $client_id)->select("appointment_with")->first();
+		//echo $this->last_query();//die;
+		$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
+
+		if (isset($client_details) && count($client_details) > 0) {
+			$address = "";
+
+			foreach ($client_details as $client_row) {
+				//get staff name start
+				if (!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff") {
+					$staff_name = User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
+					//echo $this->last_query();die;
+					$client_data['staff_name'] = strtoupper(substr($staff_name['fname'], 0, 1)) . " " . strtoupper(substr($staff_name['lname'], 0, 1));
+				}
+				//get staff name end
+
+				//get business name start
+				if (!empty($relation_name['field_value'])) {
+					$client_data['business_name'] = $relation_name['field_value'];
+				}
+				//get business name end
+
+
+				//get residencial address
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1") {
+					$address .= $client_row->field_value.", ";
+				}	
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line2") {
+					$address .= $client_row->field_value.", ";
+				}
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "res_city") {
+					$address .= $client_row->field_value.", ";
+				}	
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "res_county") {
+					$address .= $client_row->field_value.", ";
+				}	
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "res_postcode") {
+					$address .= $client_row->field_value.", ";
+				}			
+
+
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") {
+					$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
+					$client_data[$client_row['field_name']] = $business_type['name'];
+				} else {
+					$client_data[$client_row['field_name']] = $client_row->field_value;
+				}
+
+			}
+
+			$client_data['address'] = substr($address, 0, -2);
+			
+		}
+
+		return $client_data;
+	}
+
 }
