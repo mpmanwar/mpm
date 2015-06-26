@@ -1287,13 +1287,9 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
-                
-                if(Input::get('acting_'.$rel_row['0']) == 'Y'){
-
+				if(Input::get('acting_'.$rel_row['0']) == 'Y'){
 					$acting = "Y";
-
 				}else{
-
 					$acting = "N";
 
 				}
