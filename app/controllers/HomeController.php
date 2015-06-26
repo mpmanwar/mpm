@@ -9,10 +9,10 @@ class HomeController extends BaseController {
 		}
 	}
 
-	public function dashboard() {
+	public function dashboard() {die("Anwar");
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
-		print_r($admin_s);die;
+		//print_r($admin_s);die;
 		if (!isset($user_id) && $user_id == "") {
 			return Redirect::to('/');
 		}
