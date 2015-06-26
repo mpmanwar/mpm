@@ -127,6 +127,7 @@ Route::any('/client/get-corporation-address', array("as"=>"get_corporation_addre
 Route::any('/client/acting-relationship', array("as"=>"acting_relationship", "uses"=>'ClientController@acting_relationship'));
 Route::any('/client/add-to-client', array("as"=>"add_to_client", "uses"=>'ClientController@add_to_client'));
 Route::any('/client/delete-acting', array("as"=>"delete_acting", "uses"=>'ClientController@delete_acting'));
+Route::any('/client/save-database-acting', array("as"=>"save_database_acting", "uses"=>'ClientController@save_database_acting'));
 ### Routes for Client URL's end ###
 
 

@@ -831,4 +831,26 @@ class ClientController extends BaseController {
 		$resp = ClientActing::where("acting_id", "=", $delete_index)->delete();
 		echo $resp;
 	}
+
+	public function save_database_acting()
+	{
+		$acting_client_id 	= Input::get("acting_client_id");
+		$acting_id 			= Input::get("acting_id");
+
+		$data['acting_client_id'] 	= $acting_client_id;
+		ClientActing::where("acting_id", "=", $acting_id)->update($data);
+		
+		$client_details = Common::clientDetailsById($acting_client_id);
+
+		if(isset($client_details['business_name']) && $client_details['business_name'] != "" ){
+        	$name = $client_details['business_name'];
+      	}else{
+        	$name = $client_details['client_name'];
+      	}
+
+		$return_data['name'] = $name;
+		echo json_encode($return_data);
+		exit();
+
+	}
 }

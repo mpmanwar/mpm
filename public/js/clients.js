@@ -1240,6 +1240,27 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
 });
 // Save relationship while edit client end //
 
+// Save Acting while edit client start //
+$("#myActTable").on("click", ".database_acting_save", function(){
+  var edit_index  = $(this).data("edit_index");
+  var link  = $(this).data("link");
+  var acting_client_id  = $("#edit_act_client_id").val();
+  var action  = '<a href="javascript:void(0)" class="edit_database_acting" data-acting_client_id="'+acting_client_id+'" data-edit_index="'+edit_index+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
+
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: '/client/save-database-acting',
+    data: { 'acting_client_id' : acting_client_id, 'acting_id' : edit_index },
+    success : function(resp){
+      $("#database_acting_tr"+edit_index+" td:nth-child(1)").html('<a href="'+link+'" target="_blank">'+resp['name']+'</a>');
+      $("#database_acting_tr"+edit_index+" td:nth-child(2)").html(action);
+    }
+  });
+
+});
+// Save Acting while edit client end //
+
 
 // Relationship checkbox click to open acting function start //
   $("#myRelTable").on("click", ".acting_check", function(){
