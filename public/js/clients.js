@@ -938,6 +938,7 @@ $(".show_subsec").change(function(){
 // Delete relationship while adding client start //
 $("#myRelTable").on("click", ".delete_rel", function(){
   var delete_index       = $(this).data("delete_index");
+  var rel_client_id      = $(this).data("rel_client_id");
 
   if(relationship_array.length > 0){
     for (var j = 0; j < relationship_array.length; j++) { 
@@ -954,6 +955,8 @@ $("#myRelTable").on("click", ".delete_rel", function(){
   
   $('#app_hidd_array').val(relationship_array);
   $("#added_tr"+delete_index).hide();
+
+  $("#acting_client_id option[value='"+rel_client_id+"']").remove();
   
 });
 // Delete relationship while adding client end //
@@ -977,7 +980,7 @@ $("#myRelTable").on("click", ".edit_rel", function(){
 
   var second_value  = $("#added_tr"+edit_index+" td:nth-child(2)").html();
 
-  var fourth = '<button class="btn btn-success rel_save" data-edit_index="'+edit_index+'" data-link="'+link+'" type="button">Save</button>';
+  var fourth = '<button class="btn btn-success rel_save" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+edit_index+'" data-link="'+link+'" type="button">Save</button>';
 
   $.ajax({
       type: "POST",
@@ -1032,6 +1035,12 @@ $("#myRelTable").keyup(".org_relclient_search", function(){
 
 $("#myRelTable").on("click", ".rel_save", function(){
   var edit_index  = $(this).data("edit_index");
+
+  // Edit client option dropdown start //
+  var edit_client_id  = $(this).data("rel_client_id");
+  $("#acting_client_id option[value='" + edit_client_id + "']").remove();
+  // Edit client option dropdown start //
+
   var app_date = "";
 
   var rel_client_id = $("#edit_rel_client_id").val();
@@ -1045,8 +1054,6 @@ $("#myRelTable").on("click", ".rel_save", function(){
         var rand_value  = element.split("mpm");
         if(rand_value[3] == edit_index){
           var string = rel_client_id+"mpm"+app_date+"mpm"+type_id+"mpm"+edit_index;
-          //relationship_array.splice(j, 1);
-          //relationship_array.splice(j, 0, string);
           relationship_array[j] = string;
           break;
         }
@@ -1069,6 +1076,12 @@ $("#myRelTable").on("click", ".rel_save", function(){
       $("#added_tr"+edit_index+" td:nth-child(1)").html(name);
       $("#added_tr"+edit_index+" td:nth-child(2)").html(resp['relation_type']);
       $("#added_tr"+edit_index+" td:nth-child(4)").html(action);
+
+      $('#acting_client_id').append($('<option>', {
+          value: rel_client_id,
+          text: name
+      }));
+
     }
   });
   
@@ -1318,22 +1331,24 @@ function saveRelationship(process_type)
           content += '<tr id="added_tr'+i+'"><td width="35%">'+name+'</td>';
           content += '<td width="35%" align="center">'+resp['relation_type']+'</td>';
           content += '<td width="10%" align="center">'+checkbox+'</td>';
-          content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" data-rel_client_id="'+rel_client_id+'" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
 
 
           $("#myRelTable").last().append(content);
-          //$('input[type=checkbox]').prop('disabled', false);
-
+          
           var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id+"mpm"+i;
           if(itemselected !== undefined && itemselected !== null){
               relationship_array.push(itemselected);
           }
         
           $('#app_hidd_array').val(relationship_array);
-
           $('#relname').val("");
-          //$('#app_date').val("");
           $("#new_relationship").hide();
+
+          $('#acting_client_id').append($('<option>', {
+              value: rel_client_id,
+              text: name
+          }));
 
           i++;
         }

@@ -128,7 +128,7 @@ $(function() {
           <th>NEXT RETURN DATE</th>
           <th>COUNT DOWN</th>
           <th>SEND TO TASKS</th>
-          <th>NOTES</th>
+          <th>STAFF</th>
       </tr>
     </thead>
     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -146,7 +146,7 @@ $(function() {
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">{{ $details['count_down'] or "" }}</td>
                 <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
-                <td align="center">+</td>
+                <td align="center"></td>
             </tr>
           @endif 
         @endforeach
