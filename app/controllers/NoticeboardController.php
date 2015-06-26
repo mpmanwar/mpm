@@ -9,14 +9,21 @@ class NoticeboardController extends BaseController {
         //die('NoticeboardController');
        	$data['heading'] = "Notice BOARD";
 		$data['title'] = "Notice Board";
+        $admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+        //print_r($user_id);die();
+		$groupUserId = $admin_s['group_users'];
         
-        $data['user']= User::select("fname", "lname","user_id")->get();
+        
+        
+        
+        $data['user']= User::whereIn("user_id", $groupUserId)->select("fname", "lname","user_id")->get();
         $arr = array();
         foreach($data['user'] as $key=>$val){
                 
                 $arr[$key]['user_id'] = $data['user'][$key]->user_id;
                 $arr[$key]['fname'] = $this->getInitials($data['user'][$key]->fname);
-                $arr[$key]['lname'] = $this->getInitials($data['user'][$key]->lname);
+                $arr[$key]['lname'] = $data['user'][$key]->lname;
                 
             
         }
