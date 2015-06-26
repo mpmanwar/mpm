@@ -668,10 +668,10 @@
 
                                     @foreach($username as $key=>$val)
                                     
-                                    <div class="notify_users">
-                                    <input type="checkbox"/>
-                                    <label>{{ ucfirst($val['fname']).' '.ucfirst($val['lname'])}}</label>
-                                    </div>
+                                        <div class="notify_users">
+                                        <input type="checkbox" name="arr[];" value="{{ $val['user_id'] }}"/>
+                                        <label>{{ $val['fname'].' '.$val['lname']}}</label>
+                                        </div>
                                     @endforeach
                                                                                                             
 <!--<div class="notify_users">

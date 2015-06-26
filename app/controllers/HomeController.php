@@ -1287,11 +1287,21 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
+                
+                if(Input::get('acting_'.$rel_row['0']) == 'Y'){
+
+					$acting = "Y";
+
+				}else{
+
+					$acting = "N";
+
+				}
 				$relData[] = array(
 					'client_id' 			=> $client_id,
 					'appointment_with' 		=> $rel_row['2'],
 					'relationship_type_id' 	=> $rel_row['1'],
-					'acting' 				=> !empty(Input::get('acting_'.$rel_row['0']))?"Y":"N"
+					'acting' 				=> $acting
 				);
 			}
 			ClientRelationship::insert($relData);
