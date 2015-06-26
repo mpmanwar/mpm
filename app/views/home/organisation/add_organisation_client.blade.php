@@ -2010,6 +2010,7 @@ $(document).ready(function(){
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
   <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
     <tr>
       <td width="32%"><strong>Name</strong></td>
@@ -2589,32 +2590,30 @@ $(document).ready(function(){
         <div class="clearfix"></div>
       </div>
     
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Type</label>
-        <select class="form-control" name="add_to_type" id="add_to_type">
-          @if(!empty($rel_types))
-            @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
-            @endforeach
-          @endif
-        </select>
-      </div>
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" type="text" name="add_to_name" id="add_to_name">
-      </div>
-     
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" id="add_to_save" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
+      
     </div>
-    
-  </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->

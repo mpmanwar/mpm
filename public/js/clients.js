@@ -945,7 +945,7 @@ $("#myRelTable").on("click", ".delete_rel", function(){
         //console.log(relationship_array[j]) + "<br>";
         var element     = relationship_array[j];
         var rand_value  = element.split("mpm");
-        if(rand_value[3] == delete_index){
+        if(rand_value[0] == delete_index){
         //  var index = relationship_array.indexOf(relationship_array[j]);
           relationship_array.splice(j, 1);
           break;
@@ -1052,8 +1052,8 @@ $("#myRelTable").on("click", ".rel_save", function(){
         //console.log(relationship_array[j]) + "<br>";
         var element     = relationship_array[j];
         var rand_value  = element.split("mpm");
-        if(rand_value[3] == edit_index){
-          var string = rel_client_id+"mpm"+app_date+"mpm"+type_id+"mpm"+edit_index;
+        if(rand_value[0] == edit_index){
+          var string = edit_index+"mpm"+type_id+"mpm"+rel_client_id;
           relationship_array[j] = string;
           break;
         }
@@ -1199,14 +1199,16 @@ $("#myRelTable").on("click", ".database_rel_save", function(){
 
 // Relationship checkbox click to open acting function start //
   $("#myRelTable").on("click", ".acting_check", function(){
-    if($(".acting_check").is(':checked')){
+    if($(this).is(':checked')){
       $("#new_relationship_acting").show();
       $("#acting_client_id").val($("#acting_client_id option:first").val());
+      $("#relation_index").val($(this).data("edit_index"));
     }else{
       $("#new_relationship_acting").hide();
     }
   });
 // Relationship checkbox click to open acting function end //  
+
 
 // Delete Acting while adding client start //
 $("#myActTable").on("click", ".delete_acting", function(){
@@ -1216,7 +1218,7 @@ $("#myActTable").on("click", ".delete_acting", function(){
     for (var k = 0; k < acting_array.length; k++) { 
         var element     = acting_array[k];
         var rand_value  = element.split("mpm");
-        if(rand_value[1] == delete_index){
+        if(rand_value[0] == delete_index){
           acting_array.splice(k, 1);
           break;
         }
@@ -1235,7 +1237,7 @@ $("#myActTable").on("click", ".edit_acting", function(){
   var link  = $(this).data("link");
   var acting_client_id  = $(this).data("acting_client_id");
 
-  var first_value = $("#client_dropdown #rel_client_id").html();
+  var first_value = $("#new_relationship_acting #acting_client_id").html();
   var name_dropdown = '<select class="form-control" name="edit_act_client_id" id="edit_act_client_id">';
   name_dropdown += first_value+"</select>";
 
@@ -1252,6 +1254,9 @@ $("#myActTable").on("click", ".edit_acting", function(){
 $("#myActTable").on("click", ".acting_save", function(){
   var edit_index  = $(this).data("edit_index");
 
+  var relation_index      = $('#relation_index').val();
+  var relation_client_id  = $('#acting_'+relation_index).data('rel_client_id');
+
   var acting_client_id = $("#edit_act_client_id").val();
   var action  = '<a href="javascript:void(0)" class="edit_acting" data-acting_client_id="'+acting_client_id+'" data-edit_index="'+edit_index+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_acting" data-delete_index="'+edit_index+'"><i class="fa fa-trash-o fa-fw"></i></a>';
 
@@ -1259,8 +1264,8 @@ $("#myActTable").on("click", ".acting_save", function(){
     for (var j = 0; j < acting_array.length; j++) { 
         var element     = acting_array[j];
         var rand_value  = element.split("mpm");
-        if(rand_value[1] == edit_index){
-          var string = acting_client_id+"mpm"+edit_index;
+        if(rand_value[0] == edit_index){
+          var string = edit_index+"mpm"+acting_client_id+"mpm"+relation_client_id;
           acting_array[j] = string;
           break;
         }
@@ -1282,7 +1287,36 @@ $("#myActTable").on("click", ".acting_save", function(){
     
 });
 // Edit Acting Save End //
-    
+
+
+// Add to list in relationship section start //
+$(".relation_add_client").click(function(){
+  var add_to_type = $("#add_to_type").val();
+  var add_to_name = $("#add_to_name").val();
+
+  $.ajax({
+      type: "POST",
+      url: "/client/add-to-client",
+      data: { 'add_to_type': add_to_type, 'add_to_name': add_to_name },
+      beforeSend: function() {
+          $("#add_to_msg_div").html('<img src="/img/spinner.gif" />');
+      },
+      success: function (resp) {
+        if(resp != 0){
+          $("#add_to_msg_div").html("Your details has been added.");
+          $('#rel_client_id').append($('<option>', {
+              value: resp,
+              text: add_to_name
+          }));
+        }else{
+          $("#add_to_msg_div").html("There are some errot to add the client");
+        }
+        
+      }
+  });
+
+});
+// Add to list in relationship section end //   
 
 
 
@@ -1309,7 +1343,7 @@ function saveRelationship(process_type)
 
     var rel_type_id = $('#rel_type_id').val();
     var rel_client_id = $('#rel_client_id').val();
-    var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" name="acting" id="acting_'+i+'" data-name="anwar"/><label for="acting_'+i+'"></label></span>';
+    var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';
 
     if(rel_client_id == ""){
       alert("Please select business name/name");
@@ -1336,7 +1370,7 @@ function saveRelationship(process_type)
 
           $("#myRelTable").last().append(content);
           
-          var itemselected = rel_client_id+"mpm"+resp['appointment_date']+"mpm"+rel_type_id+"mpm"+i;
+          var itemselected = i+"mpm"+rel_type_id+"mpm"+rel_client_id;
           if(itemselected !== undefined && itemselected !== null){
               relationship_array.push(itemselected);
           }
@@ -1361,7 +1395,10 @@ acting_array = [];
 var act_i = 0;
 function saveActing(process_type)
 {
-  var acting_client_id = $('#acting_client_id').val();
+  var acting_client_id    = $('#acting_client_id').val();
+  var relation_index      = $('#relation_index').val();
+  var relation_client_id  = $('#acting_'+relation_index).data('rel_client_id');
+  
   $.ajax({
     type: "POST",
     dataType: "json",
@@ -1374,7 +1411,7 @@ function saveActing(process_type)
 
       $("#myActTable").last().append(content);
 
-      var itemselected = acting_client_id+"mpm"+act_i;
+      var itemselected = act_i+"mpm"+acting_client_id+"mpm"+relation_client_id;
       if(itemselected !== undefined && itemselected !== null){
           acting_array.push(itemselected);
       }
