@@ -1,10 +1,14 @@
-@extends('layouts.layout') @section('mycssfile')
+@extends('layouts.layout')
+ @section('mycssfile')
 
 @stop
  @section('myjsfile')
-  <script type="text/javascript" src="js/email_settings.js"></script>
+  
+ 
+  <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+  <script type="text/javascript" src="js/notice_board.js"></script>
 @stop
- @stop
+
  
   @section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -51,14 +55,20 @@
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">1</a></li>
-                <li class=""><a data-toggle="tab" href="#tab_2">wqdfwed</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_1">Board 1</a></li>
+                <li class=""><a data-toggle="tab" href="#tab_2">Board 2</a></li>
                 <li class=""><a data-toggle="tab" href="#tab_3">Staff Holiday/Course</a></li>
-                <li class=""><a data-toggle="tab" href="#tab_4">Excel</a></li>
-                <li class=""><a data-toggle="tab" href="#tab_5">Upload PDF</a></li>
+                <li class=""><a data-toggle="tab" href="#tab_4">PDF Viewer</a></li>
+                <li class=""><a href="#tab_5" data-toggle="modal" data-target="#compose-modal">NEW</a></li>
+                
+                
+                
+                
+                
+                
                 <!--<li><a href="#" class=" btn-block btn-primary "> Add </a></li>-->
               </ul>
-              <div class="tab-content">
+              <div class="tab-content" style="padding:10px 0 0 0;">
                 <div id="tab_1" class="tab-pane active">
                   <!--table area-->
                   <div class="box-body table-responsive">
@@ -106,7 +116,7 @@
                         <div class="col-xs-6">
                         <div class="new_btn">
                         
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#compose-modal">NEW</button>
+                        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#compose-modal">NEW</button>-->
                         <!--<button class="btn btn-primary">NEW</button>--></div>
                         </div>
                         
@@ -576,9 +586,15 @@
   </aside>
   <!-- /.right-side -->
 </div>
-<!-- ./wrapper -->
+<!-- ./wrapper --> 
+
+
 <!-- COMPOSE MESSAGE MODAL -->
+{{ Form::open(array('url' => '/notice-template', 'files' => true)) }}
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+
+
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -626,9 +642,17 @@
    </div>
                             
 <div class="twobox">
+
 <div class="twobox_1">
-<button class="btn btn-success"><i class="fa fa-attach"></i> Attachment</button>
+<i class="fa fa-attach"></i> Attachment
+<input type="file" name="add_file" id="add_file" />
+
 </div>
+
+
+
+
+
 <div class="twobox_2">
 <div class="email_btns1">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -640,7 +664,17 @@
 
 <div class="notify_con">
 <h4 class="modal-title">Notify Users</h4>
-<div class="notify_users">
+
+
+                                    @foreach($username as $key=>$val)
+                                    
+                                    <div class="notify_users">
+                                    <input type="checkbox"/>
+                                    <label>{{ ucfirst($val['fname']).' '.ucfirst($val['lname'])}}</label>
+                                    </div>
+                                    @endforeach
+                                                                                                            
+<!--<div class="notify_users">
 <input type="checkbox"/>
 <label>AA</label>
 </div>
@@ -653,7 +687,7 @@
  <div class="notify_users">
 <input type="checkbox"/>
 <label>RK</label>
-</div>             
+</div>-->            
 
 <div class="clearfix"></div>
 </div>
@@ -673,7 +707,9 @@
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+  
+  {{ Form :: close() }}
 </div>
-<script src="ckeditor/ckeditor.js"></script>
+
 
 @stop

@@ -114,6 +114,7 @@
 
         <!-- ./wrapper --> 
 
+
 <!-- COMPOSE MESSAGE MODAL -->
 {{ Form::open(array('url' => '/template/add_template', 'files' => true)) }}
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -189,6 +190,12 @@
 
 </div>
 {{ Form :: close() }}
+
+
+
+
+
+
 
 <!-- Edit MESSAGE MODAL -->
 <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">

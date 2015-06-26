@@ -160,6 +160,32 @@ Route::any('/organisation/delete-editservices', array("as"=>"delete_editservices
 
 
 
-Route::any('/noticeboard', array("as"=>"edit_services", "uses"=>'NoticeboardController@notice_board'));
+Route::any('/noticeboard', array("as"=>"notice_board", "uses"=>'NoticeboardController@notice_board'));
+
+Route::any('/index_template', array("as"=>"index_template", "uses"=>'NoticeboardController@index_template'));
+
 
 Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'NoticeboardController@insert_noticeboard'));
+
+Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
+
+
+Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
+
+
+Route::any('/staff-data', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
+
+
+
+
+
+Route::any('/staff-holidays', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
+
+
+Route::any('/time-sheet-reports', array("as"=>"time_sheet_reports", "uses"=>'TimesheetController@time_sheet_reports'));
+
+
+
+
+Route::any('/cpd-and-courses', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
+
