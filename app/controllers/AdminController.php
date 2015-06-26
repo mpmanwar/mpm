@@ -189,7 +189,7 @@ class AdminController extends BaseController {
                         return Redirect::to('/invitedclient-dashboard');
                         }
                     
-                    else{die("ss");
+                    else{
 				        return Redirect::to('/dashboard');
                         }
                 
