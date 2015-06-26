@@ -1111,6 +1111,29 @@ $(".delete_database_rel").click(function(){
 });
 // Delete relationship while edit client end //
 
+// Delete Acting Client while edit client start //
+$(".delete_database_acting").click(function(){
+  var delete_index  = $(this).data("delete_index");
+  if(confirm("Do you want to delete?"))
+  {
+    $.ajax({
+      type: "POST",
+      url: '/client/delete-acting',
+      data: { 'delete_index' : delete_index },
+      success : function(resp){
+        if(resp > 0){
+          $("#database_acting_tr"+delete_index).hide();
+        }else{
+          alert("Acting client is not deleted");
+        }
+          
+      }
+    });
+  }
+  
+});
+// Delete Acting Client while edit client end //
+
 // Edit relationship while edit client start //
 $("#myRelTable").on("click", ".edit_database_rel", function(){
   var edit_index    = $(this).data("edit_index");
@@ -1152,6 +1175,27 @@ $("#myRelTable").on("click", ".edit_database_rel", function(){
 
 });
 // Edit relationship while edit client end //
+
+
+// Edit Acting client while edit client start //
+$("#myActTable").on("click", ".edit_database_acting", function(){
+  var link              = $(this).data("link");
+  var edit_index        = $(this).data("edit_index");
+  var acting_client_id  = $(this).data("acting_client_id");
+  
+  var first_value = $("#new_relationship_acting #acting_client_id").html();
+  var name_dropdown = '<select class="form-control" name="edit_act_client_id" id="edit_act_client_id">';
+  name_dropdown += first_value+"</select>";
+
+  var action = '<button class="btn btn-success database_acting_save" data-edit_index="'+edit_index+'" data-link="'+link+'" type="button">Save</button>';
+  
+  $("#database_acting_tr"+edit_index+" td:nth-child(1)").html(name_dropdown);
+  $("#database_acting_tr"+edit_index+" td:nth-child(1) > select").val(acting_client_id)
+  $("#database_acting_tr"+edit_index+" td:nth-child(2)").html(action);
+
+
+});
+// Edit acting client while edit client end //
 
 // Save relationship while edit client start //
 $("#myRelTable").on("click", ".database_rel_save", function(){

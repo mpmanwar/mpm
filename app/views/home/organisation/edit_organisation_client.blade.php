@@ -2058,7 +2058,7 @@ $(document).ready(function(){
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="30%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
+        <td width="30%">{{ $relation_row['name'] or "" }}</td>
         <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
         <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
         <td width="20%" align="center">
@@ -2114,12 +2114,27 @@ $(document).ready(function(){
       <td width="18%" align="center"><strong>Action</strong></td>
     </tr>
 
+    @if(isset($acting) && count($acting) >0 )
+    @foreach($acting as $key=>$acting_row)
+      <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
+        <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
+        <td width="18%" align="center">
+          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="{{ $acting_row['acting_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+        </td>
+      </tr>
+    @endforeach
+  @endif
+
   </table>
 
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
       <div class="acting_select">
         <select class="form-control" name="acting_client_id" id="acting_client_id">
-          
+          @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              <option value="{{ $relation_row['appointment_with'] }}">{{ $relation_row['name'] }}</option>
+            @endforeach
+          @endif
         </select>
       </div>
 
