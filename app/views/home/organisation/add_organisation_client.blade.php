@@ -2028,7 +2028,7 @@ $(function () {
 </div>
 
 
-<div class="box-body table-responsive" style="width:65%;">
+<div class="box-body table-responsive" style="width:63%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">

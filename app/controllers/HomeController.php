@@ -940,7 +940,7 @@ class HomeController extends BaseController {
 
 		/*========================Short By Create Time Portion==============================*/
 		foreach ($client_details as $value){
-		$client_name[]  = $value['client_name']; //Creates $volume, $edition, $name and $type arrays.
+		$client_name[]  = strtolower($value['client_name']); //Creates $volume, $edition, $name and $type arrays.
 		} 
 		array_multisort($client_name, SORT_ASC, $client_details);
 		//print_r($client_details);die;
