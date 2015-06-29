@@ -260,8 +260,6 @@ class HomeController extends BaseController {
 		$data['heading'] 		= "ADD CLIENT";
 		$data['title'] 			= "Add Client";
 
-		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
 		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
 		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
@@ -272,26 +270,21 @@ class HomeController extends BaseController {
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
-		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 		$data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
 		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
 		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
 		//$data['cont_address'] 	 = $this->getAllOrgContactAddress();
-		$data['allClients'] 		= $this->get_all_clients();
-        
-        //print_r($data['allClients']);die;
-        
-		$data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
+		//$data['allClients'] 		= $this->get_all_clients();
+
+
+        $data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "org")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -1317,14 +1310,13 @@ class HomeController extends BaseController {
 //############# ACTING SECTION START ###################//
 		if (!empty($postData['acting_hidd_array'])) {
 			$actData = array();
-			$acting_hidd_array = explode(",", $postData['acting_hidd_array']); //print_r($acting_hidd_array);die;
+			$acting_hidd_array = explode(",", $postData['acting_hidd_array']);
 			foreach ($acting_hidd_array as $row) {
 				$act_row = explode("mpm", $row);
 				$actData[] = array(
 					'user_id' 				=> $user_id,
 					'client_id' 			=> $client_id,
-					'acting_client_id' 		=> $act_row['1'],
-					'relation_client_id' 	=> $act_row['2'],
+					'acting_client_id' 		=> $act_row['1']
 				);
 
 				Client::where("client_id", "=", $act_row['1'])->update(array('is_relation_add'=>'N'));

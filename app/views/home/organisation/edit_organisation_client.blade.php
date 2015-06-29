@@ -2016,31 +2016,31 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="top_bts">
-<ul style="padding: 0;">  
-<li>
+<div class="demoTarget">
+  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
+  <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
+    <option value="">ADD NEW ENTITY</option>
+    <option value="non">NON - CLIENT</option>
+    <option value="org">CLIENT - ORG</option>
+    <option value="ind">CLIENT - IND</option>
+  </select>
+  <div class="clr"></div>
+</div>
+<!--<ul style="padding: 0;">  
+ <li>
 <div class="form-group">
   <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
 </div>
-</li>
-<!-- <li>
-<div class="form-group">
-  <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
-</div>
-</li>
-<li>
-<div class="form-group">
-  <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
-</div>
 </li> -->
-<li>
+
+<!-- <li>
 <div class="form-group">
   <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
 </div>
 </li>
 <li>
-</ul>  
-</div> 
+</ul>   -->
+ 
 
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -2049,20 +2049,21 @@ $(document).ready(function(){
   <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
-      <td width="30%"><strong>Name</strong></td>
-      <td width="30%" align="center"><strong>Relationship Type</strong></td>
-      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="40%"><strong>Name</strong></td>
+      <td width="40%" align="center"><strong>Relationship Type</strong></td>
+      <!-- <td width="10%" align="center"><strong>Acting</strong></td> -->
       <td width="20%" align="center"><strong>Action</strong></td>
     </tr>
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="30%">{{ $relation_row['name'] or "" }}</td>
-        <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
-        <td width="10%" align="center"><input type="checkbox" class="acting_check" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
+        <td width="40%">{{ $relation_row['name'] or "" }}</td>
+        <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
+        
         <td width="20%" align="center">
-          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+          
+          <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach
@@ -2103,6 +2104,10 @@ $(document).ready(function(){
   </div>
 </div>
 
+<div style="margin-top: 10px;">
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div>
+
 <div class="box-body table-responsive" style="width:50%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
@@ -2119,7 +2124,8 @@ $(document).ready(function(){
       <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
         <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
         <td width="18%" align="center">
-          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="{{ $acting_row['acting_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+          <!-- <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>  -->
+          <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach
@@ -2130,11 +2136,7 @@ $(document).ready(function(){
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
       <div class="acting_select">
         <select class="form-control" name="acting_client_id" id="acting_client_id">
-          @if(isset($relationship) && count($relationship) >0 )
-            @foreach($relationship as $key=>$relation_row)
-              <option value="{{ $relation_row['appointment_with'] }}">{{ $relation_row['name'] }}</option>
-            @endforeach
-          @endif
+         
         </select>
       </div>
 
@@ -2142,6 +2144,10 @@ $(document).ready(function(){
     </div>
       
   </div>
+</div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
 
 <div class="add_client_btn">
@@ -2720,7 +2726,45 @@ $(document).ready(function(){
 <!-- Add Subsec Modal End-->
 
 
+<!-- Relationship Add To List Modal Start-->
+<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:354px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
 
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Relationship Add To List Modal End-->
 
 
 

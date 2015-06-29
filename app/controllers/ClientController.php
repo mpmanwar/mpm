@@ -135,8 +135,6 @@ class ClientController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		/*$first = DB::table('organisation_types')->where("client_type", "=", "all")->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['org_types'] = OrganisationType::where("client_type", "=", "org")->where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first)->orderBy("name")->get();*/
 		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
 		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
@@ -151,18 +149,13 @@ class ClientController extends BaseController {
 		
         $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
 
-		/*$first_serv = DB::table('services')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();*/
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 
-        //echo "<pre>";print_r($data['services']);die();
-		$data['countries'] 		= Country::orderBy('country_name')->get();
+        $data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
-		/*$first_vat = DB::table('vat_schemes')->where("status", "=", "old")->where("user_id", "=", 0);
-		$data['vat_schemes'] 	= VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_vat)->orderBy("vat_scheme_id")->get();*/
 		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
 		$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("vat_scheme_name")->get();
 		//echo $this->last_query();die;
@@ -195,119 +188,17 @@ class ClientController extends BaseController {
 		}
 		$data['subsections'] = App::make("HomeController")->buildtree($steps, "org");
 		//print_r($data['subsections']);die;
-		//###########User added section and sub section start##########//
+		//###########User added section and sub section end##########//
 
-		//############# Get client data start ################//
-		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
-            ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
-            
-            //echo "<pre>";print_r($relationship);
-        //echo $this->last_query();die;
-        if(isset($relationship) && count($relationship) >0 )
-        {
-        	foreach ($relationship as $key => $row) {
-        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->client_id)->first();
-        		if(isset($client_name) && count($client_name) >0 ){
-        			$data['relationship'][$key]['name'] = $client_name['field_value'];
-        		}else{
-        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->client_id)->get();
-        			//echo $this->last_query();die;
-        			if(isset($client_details) && count($client_details) >0 ){
-        				$name = "";
-        				foreach($client_details as $client_name){
-        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
-	        					$name = $client_name->field_value;
-	        					break;
-	        				}
-        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-        				
-                        }
-        				$data['relationship'][$key]['name'] = trim($name);
-        				
-        				        				
-        			}
-        			
-        		}
-       		    $data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
-        		$data['relationship'][$key]['appointment_date'] 		= date("d-m-Y", strtotime($row->appointment_date));
-        	 	$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
-        	 	$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
-        		$data['relationship'][$key]['acting'] 					= $row->acting;
+		//############# Get relationship client data start ################//
+		$data['relationship'] = Common::get_relationship_client($client_id);
+		//echo $this->last_query();
+		//print_r($data['relationship']);die;
+		//############# Get relationship client data end ################//
 
-        		
-
-
-        	}
-        }
-
+		// ############## Get Acting Client Start ################ //
+        $data['acting'] = Common::get_acting_client($client_id);
         // ############## Get Acting Client Start ################ //
-        $acting_client = ClientActing::where("client_id", "=", $client_id)->get();
-        if(isset($acting_client) && count($acting_client)){
-        	foreach ($acting_client as $key => $row) {
-        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->acting_client_id)->first();
-        		if(isset($client_name) && count($client_name) >0 ){
-        			$data['acting'][$key]['name'] = $client_name['field_value'];
-        		}else{
-        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->acting_client_id)->get();
-        			//echo $this->last_query();die;
-        			if(isset($client_details) && count($client_details) >0 ){
-        				$name = "";
-        				foreach($client_details as $client_name){
-        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
-	        					$name = $client_name->field_value;
-	        					break;
-	        				}
-        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-        				
-                        }
-        				$data['acting'][$key]['name'] = trim($name);
-        				
-        			}
-        			
-        		}
-        		$data['acting'][$key]['acting_id'] 			= $row->acting_id;
-        		$data['acting'][$key]['user_id'] 			= $row->relation_client_id;
-        		$data['acting'][$key]['client_id'] 			= $row->relation_client_id;
-        		$data['acting'][$key]['relation_client_id'] = $row->relation_client_id;
-        		$data['acting'][$key]['acting_client_id'] 	= $row->acting_client_id;
-
-        		//######## get client type #########//
-				$client_data = Client::where("client_id", "=", $row->acting_client_id)->first();
-				if(isset($client_data) && count($client_data) >0){
-					if($client_data['type'] == "ind"){
-						$data['acting'][$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
-					}
-					else if($client_data['type'] == "org"){
-						$data['acting'][$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
-					}else{
-						$data['acting'][$key]['link'] = "";
-					}
-					
-				}
-				//######## get client type #########//
-
-        	}
-        }
-        //print_r($data['acting']);die;
-        // ############## Get Acting Client Start ################ //
-        //echo $this->last_query();die;
 
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 

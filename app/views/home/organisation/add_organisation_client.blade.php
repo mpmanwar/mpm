@@ -4,6 +4,9 @@
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <!-- Date picker script -->
+
+<link rel="stylesheet" type="text/css" media="all" href="{{ URL :: asset('css/jquery.selectbox.css') }}" />
+
 @stop
 
 @section('myjsfile')
@@ -30,11 +33,15 @@ $(document).ready(function(){
 </script>
 
 <!-- for select dropdown -->
-<script src="{{ URL :: asset('js/jquery.selectbox-0.2.js') }}" type="text/javascript"></script>
+
+<!-- <script type="text/javascript" src="{{ URL :: asset('js/jquery-1.2.6.pack.js') }}"></script> -->
+<script type="text/javascript" src="{{ URL :: asset('js/jquery.selectbox-0.6.1.js') }}"></script>
 <script type="text/javascript">
-$(function () {
-  $("#add_new_entity").selectbox();
-});
+  $("#add_new_entity").selectbox().bind('change', function(){
+      $('<div>Value of #add_new_entity changed to: '+$(this).val()+'</div>').appendTo('#demo-default-usage .demoTarget').fadeOut(5000, function(){
+        $(this).remove();
+      });
+    });
 </script>
 <!-- for select dropdown -->
 @stop
@@ -1943,7 +1950,7 @@ $(function () {
 <h3 class="box-title">RELATIONSHIP</h3> 
 <div class="relation_dropdown">
 
-<div class="form-group">
+<div class="demoTarget">
   <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
   <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
     <option value="">ADD NEW ENTITY</option>
@@ -1951,7 +1958,9 @@ $(function () {
     <option value="org">CLIENT - ORG</option>
     <option value="ind">CLIENT - IND</option>
   </select>
+  <div class="clr"></div>
 </div>
+
 
 <!-- <li>
 <div class="form-group">
@@ -1992,11 +2001,11 @@ $(function () {
         <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
         <div class="search_value show_search_client" id="show_search_client"></div> -->
         <select class="form-control" name="rel_client_id" id="rel_client_id">
-            @if(isset($allClients) && count($allClients)>0)
+            <!-- @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
               <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
               @endforeach
-            @endif
+            @endif -->
           </select>
       </div>
 
@@ -2024,7 +2033,8 @@ $(function () {
 
 
 <div style="margin-top: 10px;">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> Add new line</a>
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> Add new line</a> -->
 </div>
 
 
@@ -2058,7 +2068,8 @@ $(function () {
 </div>
 
 <div style="margin-top: 10px;">
-  <a href="javascript:void(0)" class="btn btn-info open_acting"><i class="fa fa-plus"></i> Add new line</a>
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+  <!-- <a href="javascript:void(0)" class="btn btn-info open_acting"><i class="fa fa-plus"></i> Add new line</a> -->
 </div>
 
 <div class="add_client_btn">
