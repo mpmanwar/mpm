@@ -938,6 +938,14 @@ class HomeController extends BaseController {
 		$client_details = array_merge($org_client, $ind_client);//print_r($client_details);die;
 		//$client_details = $this->getUniqueArray($client_details);
 
+		/*========================Short By Create Time Portion==============================*/
+		foreach ($client_details as $value){
+		$client_name[]  = $value['client_name']; //Creates $volume, $edition, $name and $type arrays.
+		} 
+		array_multisort($client_name, SORT_ASC, $client_details);
+		//print_r($client_details);die;
+		/*=======================Short By Create Time Portion===============================*/
+
 		return $client_details;
 		exit();
 	}

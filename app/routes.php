@@ -128,6 +128,8 @@ Route::any('/client/acting-relationship', array("as"=>"acting_relationship", "us
 Route::any('/client/add-to-client', array("as"=>"add_to_client", "uses"=>'ClientController@add_to_client'));
 Route::any('/client/delete-acting', array("as"=>"delete_acting", "uses"=>'ClientController@delete_acting'));
 Route::any('/client/save-database-acting', array("as"=>"save_database_acting", "uses"=>'ClientController@save_database_acting'));
+Route::any('/client/get-name-and-type', array("as"=>"get_name_and_type", "uses"=>'ClientController@get_name_and_type'));
+Route::any('/client/delete-addtolist-client', array("as"=>"delete_addtolist_client", "uses"=>'ClientController@delete_addtolist_client'));
 ### Routes for Client URL's end ###
 
 

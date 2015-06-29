@@ -128,7 +128,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 }
 
 /*===========add client or 1============*/
-.director_table{width:85%;}
+.director_table{width:70%;}
 .search_box{width:190px;}
 .table_top_box{width:100%; display: none;}
 
@@ -295,6 +295,110 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .chdata_main {margin:25px auto; width: 50%;}
 .ch_chkbox{float:right; margin-right:15px;}
 
+
+/*=========custom selectbox=======*/
+.sbHolder{
+  background-color: #fff;
+  border: solid 1px #cbcbcb;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  height: 30px;
+  position: relative;
+  width: 200px;
+}
+.sbHolder:focus .sbSelector{
+  
+}
+.sbSelector{
+  display: block;
+  height: 30px;
+  left: 0;
+  line-height: 30px;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 10px;
+  top: 0;
+  width: 170px;
+}
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover{
+  color: #7a7977;
+  outline: none;
+  text-decoration: none;
+}
+.sbToggle{
+  background: url(../img/select-icons.png) no-repeat;
+  display: block;
+  height: 30px;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+}
+.sbHolderDisabled{
+  background-color: #fff;
+  border: solid 1px #cbcbcb;
+}
+.sbOptions{
+  background-color: #fff;
+  border: solid 1px #cbcbcb;
+  list-style: none;
+  left: -1px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 30px;
+  width: 200px;
+  z-index: 1;
+  overflow-y: auto;
+}
+.sbOptions li{
+  padding: 0 7px;
+}
+.sbOptions a{
+  border-bottom: dotted 1px #cbcbcb;
+  display: block;
+  outline: none;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions a:link, .sbOptions a:visited{
+  color: #7a7977;
+  text-decoration: none;
+}
+.sbOptions a:hover,
+.sbOptions a:focus,
+.sbOptions a.sbFocus{
+  color: #378fbf;
+}
+.sbOptions li.last a{
+  border-bottom: none;
+}
+.sbOptions .sbDisabled{
+  border-bottom: dotted 1px #515151;
+  color: #999;
+  display: block;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions .sbGroup{
+  border-bottom: dotted 1px #515151;
+  color: #EBB52D;
+  display: block;
+  font-weight: bold;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions .sbSub{
+  padding-left: 17px;
+}
+
+.relation_dropdown{position: relative; display: inline-block; vertical-align: middle;}
+.relation_dropdown ul{list-style:none;}
+.relation_dropdown ul li{float:left; margin-right:15px; margin-bottom:10px; width: 100%;}
+.relation_dropdown ul li:last-child{margin-right:0;}
+
+#myRelTable{ margin-bottom: 10px!important;}
+#myActTable{ margin-bottom: 10px!important;}
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){

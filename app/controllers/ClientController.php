@@ -853,4 +853,24 @@ class ClientController extends BaseController {
 		exit();
 
 	}
+
+	public function get_name_and_type()
+	{
+		$data['allClients'] 	= App::make("HomeController")->get_all_clients();
+		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
+
+		echo json_encode($data);
+		exit();
+	}
+
+	public function delete_addtolist_client()
+	{
+		$client_id 	= Input::get("client_id");
+		$client_details = Client::where("is_relation_add", "=", "Y")->where("client_id", "=", $client_id)->first();
+		if(isset($client_details) && count($client_details) >0 )
+		{
+			Client::where("client_id", "=", $client_id)->delete();
+		}
+		echo 1;
+	}
 }

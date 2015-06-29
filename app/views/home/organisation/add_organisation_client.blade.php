@@ -28,6 +28,15 @@ $(document).ready(function(){
     
 })
 </script>
+
+<!-- for select dropdown -->
+<script src="{{ URL :: asset('js/jquery.selectbox-0.2.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+  $("#add_new_entity").selectbox();
+});
+</script>
+<!-- for select dropdown -->
 @stop
 
 @section('content')
@@ -1932,13 +1941,18 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="top_bts">
-<ul style="padding: 0;">  
-<li>
+<div class="relation_dropdown">
+
 <div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
+  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
+  <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
+    <option value="">ADD NEW ENTITY</option>
+    <option value="non">NON - CLIENT</option>
+    <option value="org">CLIENT - ORG</option>
+    <option value="ind">CLIENT - IND</option>
+  </select>
 </div>
-</li>
+
 <!-- <li>
 <div class="form-group">
   <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
@@ -1949,13 +1963,13 @@ $(document).ready(function(){
   <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
 </div>
 </li> -->
-<li>
+<!-- <li>
 <div class="form-group">
   <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
 </div>
-</li>
-<li>
-</ul>  
+</li> -->
+
+ 
 </div> 
 
 <div class="box-body table-responsive">
@@ -1965,9 +1979,9 @@ $(document).ready(function(){
   <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
-      <td width="30%"><strong>Name</strong></td>
-      <td width="30%" align="center"><strong>Relationship Type</strong></td>
-      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="40%"><strong>Name</strong></td>
+      <td width="40%" align="center"><strong>Relationship Type</strong></td>
+      <!-- <td width="10%" align="center"><strong>Acting</strong></td> -->
       <td width="20%" align="center"><strong>Action</strong></td>
     </tr>
 
@@ -2002,11 +2016,19 @@ $(document).ready(function(){
       <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
       </div>
     </div>
+
+    <div class="clearfix"></div>
       
   </div>
 </div>
 
-<div class="box-body table-responsive" style="width:50%;">
+
+<div style="margin-top: 10px;">
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> Add new line</a>
+</div>
+
+
+<div class="box-body table-responsive" style="width:65%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -2026,10 +2048,17 @@ $(document).ready(function(){
         </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
     </div>
+
+    <div class="clearfix"></div>
+    
       
   </div>
+</div>
+
+<div style="margin-top: 10px;">
+  <a href="javascript:void(0)" class="btn btn-info open_acting"><i class="fa fa-plus"></i> Add new line</a>
 </div>
 
 <div class="add_client_btn">

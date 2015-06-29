@@ -952,7 +952,19 @@ $("#myRelTable").on("click", ".delete_rel", function(){
         }
     }
   }
-  
+
+  // delete added from add to list client start //
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: '/client/delete-addtolist-client',
+    data: { 'client_id' : rel_client_id },
+    success : function(resp){
+      
+    }
+  });
+  // delete added from add to list client end //
+
   $('#app_hidd_array').val(relationship_array);
   $("#added_tr"+delete_index).hide();
 
@@ -1279,6 +1291,13 @@ $("#myActTable").on("click", ".database_acting_save", function(){
 $("#myActTable").on("click", ".delete_acting", function(){
   var delete_index       = $(this).data("delete_index");
 
+  var acting_client_id = $(this).data('acting_client_id');
+  var client_name = $("#rel_client_id option[value='"+acting_client_id+"']").text();//alert(client_name)
+  $('#acting_client_id').append($('<option>', {
+      value: acting_client_id,
+      text: client_name
+  }));
+
   if(acting_array.length > 0){
     for (var k = 0; k < acting_array.length; k++) { 
         var element     = acting_array[k];
@@ -1381,14 +1400,82 @@ $(".relation_add_client").click(function(){
   });
 
 });
-// Add to list in relationship section end //   
+// Add to list in relationship section end // 
 
+
+// Click Add To Link button to open acting function start //
+  $(".open_acting").click(function(){
+    $("#new_relationship_acting").show();
+
+    /*var first_value = $("#new_relationship_acting #acting_client_id").html();
+    var name_dropdown = '<select class="form-control" name="edit_act_client_id" id="edit_act_client_id">';
+    name_dropdown += first_value+"</select>";*/
+
+    if(acting_array.length > 0){
+      for (var j = 0; j < acting_array.length; j++) { 
+          var element     = acting_array[j];
+          var rand_value  = element.split("mpm");
+          $('#acting_client_id option[value="'+rand_value[1]+'"]').remove();
+      }
+    }
+    
+
+      $("#new_relationship_acting #acting_client_id").val($("#acting_client_id option:first").val());
+      $("#relation_index").val($(this).data("edit_index"));
+  });
+// Click Add To Link button to open acting function end //   
+
+// Click Add To Link button to close acting function start //
+  $(".close_acting").click(function(){
+    $("#acting_client_id").val($("#acting_client_id option:first").val());
+    $("#new_relationship_acting").hide();
+  });
+// Click Add To Link button to close acting function end // 
+
+
+// Add new entity dropdown start //
+  $(".add_new_entity").change(function(){
+    var value = $(this).val();
+    if (value == "org") {
+      window.open('/organisation-clients', '_blank');
+    }else if(value == "ind"){
+      window.open('/individual-clients', '_blank');
+    }else if(value == "non"){
+      $('#add_to_list-modal').modal("show");
+    }
+  });
+// Add new entity dropdown end // 
 
 
 });//end of main document ready
 
 function show_div()
 {
+
+  $.ajax({
+    type: "POST",
+    url: "/client/get-name-and-type",
+    dataType: "json",
+    //data: { 'add_to_type': add_to_type, 'add_to_name': add_to_name },
+    beforeSend: function() {
+        //$("#add_to_msg_div").html('<img src="/img/spinner.gif" />');
+    },
+    success: function (resp) {
+      if(resp['allClients'].length > 0){
+        var option = '';
+        for (var j = 0; j < resp['allClients'].length; j++) { 
+          var client_id     = resp['allClients'][j].client_id;
+          var client_name   = resp['allClients'][j].client_name;
+          if(client_id != "" && client_name != ""){
+            option += '<option value="'+client_id+'">'+client_name+'</option>';
+          }
+        }
+      }
+      $("#rel_client_id").html(option);
+      
+    }
+  });
+
   $("#rel_type_id").val($("#rel_type_id option:first").val());
   $("#rel_client_id").val($("#rel_client_id option:first").val());
   $("#new_relationship").show();
@@ -1408,7 +1495,7 @@ function saveRelationship(process_type)
 
     var rel_type_id = $('#rel_type_id').val();
     var rel_client_id = $('#rel_client_id').val();
-    var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';
+    //var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';
 
     if(rel_client_id == ""){
       alert("Please select business name/name");
@@ -1427,11 +1514,11 @@ function saveRelationship(process_type)
             name = resp['client_details']['client_name'];
           }
           var content = "";
-          content += '<tr id="added_tr'+i+'"><td width="35%">'+name+'</td>';
-          content += '<td width="35%" align="center">'+resp['relation_type']+'</td>';
-          content += '<td width="10%" align="center">'+checkbox+'</td>';
-          content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" data-rel_client_id="'+rel_client_id+'" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
-
+          content += '<tr id="added_tr'+i+'"><td width="40%">'+name+'</td>';
+          content += '<td width="40%" align="center">'+resp['relation_type']+'</td>';
+          //content += '<td width="10%" align="center">'+checkbox+'</td>';
+          //content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_rel" data-rel_client_id="'+rel_client_id+'" data-edit_index="'+i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" data-rel_client_id="'+rel_client_id+'" class="delete_rel" data-delete_index="'+i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+          content += '<td width="20%" align="center"><a href="javascript:void(0)" data-rel_client_id="'+rel_client_id+'" class="delete_rel" data-delete_index="'+i+'"><img src="/img/cross.png" height="15"></a></td>';
 
           $("#myRelTable").last().append(content);
           
@@ -1462,7 +1549,7 @@ function saveActing(process_type)
 {
   var acting_client_id    = $('#acting_client_id').val();
   var relation_index      = $('#relation_index').val();
-  var relation_client_id  = $('#acting_'+relation_index).data('rel_client_id');
+  //var relation_client_id  = $('#acting_'+relation_index).data('rel_client_id');
   
   $.ajax({
     type: "POST",
@@ -1472,11 +1559,12 @@ function saveActing(process_type)
     success : function(resp){
       var content = "";
       content += '<tr id="added_acting_tr'+act_i+'"><td width="35%"><a href="'+resp['link']+'" target="_blank">'+resp['name']+'</a></td>';
-      content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_acting" data-acting_client_id="'+acting_client_id+'" data-edit_index="'+act_i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_acting" data-delete_index="'+act_i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
-
+      //content += '<td width="20%" align="center"><a href="javascript:void(0)" class="edit_acting" data-acting_client_id="'+acting_client_id+'" data-edit_index="'+act_i+'" data-link="'+resp['link']+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_acting" data-delete_index="'+act_i+'"><i class="fa fa-trash-o fa-fw"></i></a></td></tr>';
+      content += '<td width="20%" align="center"><a href="javascript:void(0)" class="delete_acting" data-acting_client_id="'+acting_client_id+'" data-delete_index="'+act_i+'"><img src="/img/cross.png" height="15"></a></td>';
       $("#myActTable").last().append(content);
 
-      var itemselected = act_i+"mpm"+acting_client_id+"mpm"+relation_client_id;
+      //var itemselected = act_i+"mpm"+acting_client_id+"mpm"+relation_client_id;
+      var itemselected = act_i+"mpm"+acting_client_id;
       if(itemselected !== undefined && itemselected !== null){
           acting_array.push(itemselected);
       }
