@@ -2100,6 +2100,8 @@ $(document).ready(function(){
       <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
       </div>
     </div>
+
+    <div class="clearfix"></div>
       
   </div>
 </div>
@@ -2140,9 +2142,12 @@ $(document).ready(function(){
         </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button>
+      </div>
     </div>
       
+      <div class="clearfix"></div>
+
   </div>
 </div>
 
