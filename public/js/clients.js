@@ -2,6 +2,8 @@ $('body').on('focus',".app_date", function(){
     $(this).datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 });
 
+
+
 $(document).ready(function(){
 
 	$('#allCheckSelect').on('ifChecked', function(event){
@@ -1434,8 +1436,27 @@ $(".relation_add_client").click(function(){
 
 
 // Add new entity dropdown start //
-  $(".add_new_entity").change(function(){
+  /*$(".add_new_entity").change(function(){
     var value = $(this).val();
+    if (value == "org") {
+      window.open('/organisation-clients', '_blank');
+    }else if(value == "ind"){
+      window.open('/individual-clients', '_blank');
+    }else if(value == "non"){
+      $('#add_to_list-modal').modal("show");
+    }
+  });*/
+
+  $(document).click(function() {
+    $(".open_toggle").hide();
+  });
+  $(".select_icon").click(function(event) {
+      //$(".open_toggle").toggle();
+      //event.stopPropagation();
+  });
+
+  $(".open_toggle li").click(function(event) {
+    var value = $(this).data("value");
     if (value == "org") {
       window.open('/organisation-clients', '_blank');
     }else if(value == "ind"){

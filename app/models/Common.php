@@ -194,27 +194,19 @@ class Common extends Eloquent {
 	public static function get_acting_client($client_id)
 	{
 		$acting_client = array();
-		$data = array();
-		$check  = 0;
+		$data1 = array();
+		$data2 = array();
 
-		$acting_client = ClientActing::where("client_id", "=", $client_id)->get();
-		if($acting_client->isEmpty()){
-			$check  = 1;
-			$acting_client = ClientActing::where("acting_client_id", "=", $client_id)->get();
-		}
-
-        if(isset($acting_client) && count($acting_client) >0 ){
-        	foreach ($acting_client as $key => $row) {
-        		if($check  == 0){
-        			$clientId =  $row->acting_client_id;
-        		}else{
-        			$clientId =  $row->client_id;
-        		}
-
+		$acting_client1 = ClientActing::where("client_id", "=", $client_id)->get();
+		
+        if(isset($acting_client1) && count($acting_client1) >0 ){
+        	foreach ($acting_client1 as $key => $row) {
+        		$clientId =  $row->acting_client_id;
+        		
         		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $clientId)->first();
         		
         		if(isset($client_name) && count($client_name) >0 ){
-        			$data[$key]['name'] = $client_name['field_value'];
+        			$data1[$key]['name'] = $client_name['field_value'];
         		}else{
         			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $clientId)->get();
 	        		
@@ -237,27 +229,26 @@ class Common extends Eloquent {
 	        				}
         				
                         }
-        				$data[$key]['name'] = trim($name);
+        				$data1[$key]['name'] = trim($name);
         				
         			}
         			
         		}
-        		$data[$key]['acting_id'] 			= $row->acting_id;
-        		$data[$key]['user_id'] 			= $row->relation_client_id;
-        		$data[$key]['client_id'] 			= $row->relation_client_id;
-        		$data[$key]['relation_client_id'] = $row->relation_client_id;
-        		$data[$key]['acting_client_id'] 	= $row->acting_client_id;
+        		$data1[$key]['acting_id'] 			= $row->acting_id;
+        		$data1[$key]['user_id'] 			= $row->user_id;
+        		$data1[$key]['client_id'] 			= $row->client_id;
+        		$data1[$key]['acting_client_id'] 	= $row->acting_client_id;
 
         		//######## get client type #########//
 				$client_data = Client::where("client_id", "=", $row->acting_client_id)->first();
 				if(isset($client_data) && count($client_data) >0){
 					if($client_data['type'] == "ind"){
-						$data[$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
+						$data1[$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
 					}
 					else if($client_data['type'] == "org"){
-						$data[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
+						$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
 					}else{
-						$data[$key]['link'] = "";
+						$data1[$key]['link'] = "";
 					}
 					
 				}
@@ -266,6 +257,79 @@ class Common extends Eloquent {
         	}
         }
 
+
+        $acting_client2 = ClientActing::where("acting_client_id", "=", $client_id)->get();
+        if(isset($acting_client2) && count($acting_client2) >0 ){
+        	foreach ($acting_client2 as $key => $row) {
+        		$clientId =  $row->client_id;
+        		
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $clientId)->first();
+        		
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data2[$key]['name'] = $client_name['field_value'];
+        		}else{
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $clientId)->get();
+	        		
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				
+                        }
+        				$data2[$key]['name'] = trim($name);
+        				
+        			}
+        			
+        		}
+        		$data2[$key]['acting_id'] 			= $row->acting_id;
+        		$data2[$key]['user_id'] 			= $row->user_id;
+        		$data2[$key]['client_id'] 			= $row->acting_client_id;
+        		$data2[$key]['acting_client_id'] 	= $row->client_id;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else{
+						$data2[$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
+
+        	}
+        }
+
+        $acting = array_merge($data1, $data2);//print_r($relationship);
+        $i = 0;
+        foreach ($acting as $key => $value) {
+        	if(isset($value['name']) && $value['name'] != ""){
+        		$data[$i]['name'] 					= $value['name'];
+        		$data[$key]['acting_id'] 			= $value['acting_id'];
+        		$data[$key]['user_id'] 				= $value['user_id'];
+        		$data[$key]['client_id'] 			= $value['client_id'];
+        		$data[$key]['acting_client_id'] 	= $value['acting_client_id'];
+        		$data[$key]['link'] 				= $value['link'];
+        		$i++;
+        	}
+        }
         return $data;
 	}
 

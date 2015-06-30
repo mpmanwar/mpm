@@ -2016,15 +2016,17 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="demoTarget">
-  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
-  <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
-    <option value="">ADD NEW ENTITY</option>
-    <option value="non">NON - CLIENT</option>
-    <option value="org">CLIENT - ORG</option>
-    <option value="ind">CLIENT - IND</option>
-  </select>
-  <div class="clr"></div>
+<div class="j_selectbox">
+<span>ADD NEW ENTITY</span>
+<div class="select_icon" id="select_icon"></div>
+<div class="clr"></div>
+<div class="open_toggle">
+  <ul>
+    <li data-value="non">NON - CLIENT</li>
+    <li data-value="org">CLIENT - ORG</li>
+    <li data-value="ind">CLIENT - IND</li>
+  </ul>
+</div>
 </div>
 <!--<ul style="padding: 0;">  
  <li>

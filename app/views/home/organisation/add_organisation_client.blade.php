@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <!-- Date picker script -->
 
-<link rel="stylesheet" type="text/css" media="all" href="{{ URL :: asset('css/jquery.selectbox.css') }}" />
-
 @stop
 
 @section('myjsfile')
@@ -33,20 +31,30 @@ $(document).ready(function(){
 </script>
 
 <!-- for select dropdown -->
-
-<!-- <script type="text/javascript" src="{{ URL :: asset('js/jquery-1.2.6.pack.js') }}"></script> -->
-<script type="text/javascript" src="{{ URL :: asset('js/jquery.selectbox-0.6.1.js') }}"></script>
 <script type="text/javascript">
-  $("#add_new_entity").selectbox().bind('change', function(){
-      $('<div>Value of #add_new_entity changed to: '+$(this).val()+'</div>').appendTo('#demo-default-usage .demoTarget').fadeOut(5000, function(){
-        $(this).remove();
-      });
-    });
+$(document).ready(function(){
+  $(".select_icon").click(function(event) {
+      $(".open_toggle").toggle();
+      event.stopPropagation();
+  });
+
+  $(".open_toggle li").click(function(event) {
+    var value = $(this).data("value");
+  });
+
+
+});
+
+$(document).click(function() {
+     $(".open_toggle").hide();
+});
 </script>
+
 <!-- for select dropdown -->
 @stop
 
 @section('content')
+
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
@@ -1948,17 +1956,28 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="relation_dropdown">
 
-<div class="demoTarget">
+
+
   <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
-  <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
+  <!-- <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
     <option value="">ADD NEW ENTITY</option>
     <option value="non">NON - CLIENT</option>
     <option value="org">CLIENT - ORG</option>
     <option value="ind">CLIENT - IND</option>
-  </select>
-  <div class="clr"></div>
+  </select> -->
+
+<div class="j_selectbox">
+<span>ADD NEW ENTITY</span>
+<div class="select_icon" id="select_icon"></div>
+<div class="clr"></div>
+<div class="open_toggle">
+  <ul>
+    <li data-value="non">NON - CLIENT</li>
+    <li data-value="org">CLIENT - ORG</li>
+    <li data-value="ind">CLIENT - IND</li>
+  </ul>
+</div>
 </div>
 
 
@@ -1979,7 +1998,7 @@ $(document).ready(function(){
 </li> -->
 
  
-</div> 
+
 
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
