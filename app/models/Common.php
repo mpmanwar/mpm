@@ -439,15 +439,14 @@ class Common extends Eloquent {
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){
-        		$client_value = Client::where("client_id", "=", $value['client_id'])->first();
-        		if(isset($client_value['is_archive']) && $client_value['is_archive'] == "N"){
-	        		$data[$i]['name'] 					= $value['name'];
-	        		$data[$i]['client_relationship_id'] = $value['client_relationship_id'];
-	        		$data[$i]['relation_type'] 			= $value['relation_type'];
-	        		$data[$i]['acting'] 				= $value['acting'];
-	        		$data[$i]['client_id'] 				= $value['client_id'];
-	        		$i++;
-	        	}
+        		
+        		$data[$i]['name'] 					= $value['name'];
+        		$data[$i]['client_relationship_id'] = $value['client_relationship_id'];
+        		$data[$i]['relation_type'] 			= $value['relation_type'];
+        		$data[$i]['acting'] 				= $value['acting'];
+        		$data[$i]['client_id'] 				= $value['client_id'];
+        		$i++;
+	        	
         	}
         }
         return $data;
