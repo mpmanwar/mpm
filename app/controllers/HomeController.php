@@ -34,7 +34,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$client_ids = Client::where("type", "=", "ind")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "ind")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -121,7 +121,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -348,8 +348,8 @@ class HomeController extends BaseController {
         //print_r($groupUserId);die();
         //die('sff');
         if(isset($groupUserId)){
-		//$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
- 	      $client_ids = Client::select("client_id")->where("type", "=", "ind")->whereIn('user_id', $groupUserId)->get();
+		//$client_ids = Client::where('is_deleted', '=', "N")->where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+ 	      $client_ids = Client::select("client_id")->where('is_deleted', '=', "N")->where("type", "=", "ind")->whereIn('user_id', $groupUserId)->get();
         }
 	//
     	//echo $this->last_query();die;
@@ -359,7 +359,7 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
 
-		$client_ids = Client::where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where('type', '=', "ind")->whereIn('user_id', $groupUserId)->select("client_id")->get();
  		//$client_array = Client::where("type", "=", "ind")->where('user_id', '=', $groupUserId)->select("client_id")->get();
 		//echo $this->last_query();//die;
 
@@ -396,7 +396,7 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id']; //session user id
         $groupUserId = $admin_s['group_users'];
 
-		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
 
 		//echo $this->last_query();die;
 		$i = 0;
@@ -464,7 +464,7 @@ class HomeController extends BaseController {
 		$user_id = $admin_s['id']; //session user id
         $groupUserId = $admin_s['group_users'];
 
-		$client_ids = Client::where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where('type', '=', "org")->whereIn('user_id', $groupUserId)->select("client_id")->get();
 
 		//echo $this->last_query();die;
 		$i = 0;
@@ -895,7 +895,7 @@ class HomeController extends BaseController {
 		
 		$search_value = Input::get("search_value");
 		$client_type = Input::get("client_type");
-		$client_ids = Client::where("type", "=", $client_type)->where('user_id', '=', $user_id)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where("type", "=", $client_type)->where('user_id', '=', $user_id)->select("client_id")->get();
 		if ($client_type == "org") {
 			$field_name = 'business_name';
 		} else {
@@ -926,7 +926,7 @@ class HomeController extends BaseController {
 		$groupUserId = $admin_s['group_users'];
 		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::whereIn('user_id', $groupUserId)->where("is_archive", "=", "N")->where("type", "!=", "chd")->select("client_id")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "!=", "chd")->select("client_id")->get();
 		//echo $this->last_query();die;
 		if(isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $key=>$client_id){
@@ -961,7 +961,7 @@ class HomeController extends BaseController {
 		$groupUserId = $admin_s['group_users'];
 		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::whereIn('user_id', $groupUserId)->where("type", "!=", "chd")->select("client_id")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("type", "!=", "chd")->select("client_id")->get();
 		//echo $this->last_query();die;
 		if(isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $key=>$client_id){
@@ -1485,7 +1485,7 @@ if(isset($field_added) && count($field_added) > 0){
 		$admin_s = Session::get('admin_details'); // session
 		$user_id = $admin_s['id']; //session user id
 		//$user_id = 1;
-		$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
@@ -1546,7 +1546,7 @@ if(isset($field_added) && count($field_added) > 0){
 		$postData = Input::all();
 		$search_value = $postData['search_value'];
 
-		$client_ids = Client::where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
+		$client_ids = Client::where('is_deleted', '=', "N")->where("type", "=", "ind")->where('user_id', '=', $user_id)->select("client_id")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {

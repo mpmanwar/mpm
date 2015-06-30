@@ -1409,6 +1409,15 @@ $(".relation_add_client").click(function(){
               value: resp,
               text: add_to_name
           }));
+
+
+          $("#add_to_name").val("");
+          $("#add_to_title").val($("#add_to_title option:first").val());
+          $("#add_to_fname").val("");
+          $("#add_to_mname").val("");
+          $("#add_to_lname").val("");
+
+
         }else{
           $("#add_to_msg_div").html("There are some errot to add the client");
         }

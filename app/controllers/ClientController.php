@@ -198,8 +198,10 @@ class ClientController extends BaseController {
 		$client_delete_id = Input::get("client_delete_id");
 		//print_r($client_delete_id);die;
 		foreach ($client_delete_id as $client_id) {
-			Client::where('client_id', '=', $client_id)->delete();
-			StepsFieldsClient::where('client_id', '=', $client_id)->delete();
+			$del_data['is_deleted'] = "Y";
+			Client::where('client_id', '=', $client_id)->update($del_data);
+			//Client::where('client_id', '=', $client_id)->delete();
+			//StepsFieldsClient::where('client_id', '=', $client_id)->delete();
 		}
 	}
 
@@ -267,7 +269,7 @@ class ClientController extends BaseController {
         
 		$client_data = array();
 		if (Request::ajax()) {
-			$client_ids = Client::whereIn("user_id", $groupUserId)->where('type', '=', "ind")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
+			$client_ids = Client::where('is_deleted', '=', "N")->whereIn("user_id", $groupUserId)->where('type', '=', "ind")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
 			//echo $this->last_query();die;
 			$i = 0;
 			if (isset($client_ids) && count($client_ids) > 0) {
@@ -302,7 +304,7 @@ class ClientController extends BaseController {
         
 		$client_data = array();
 		if (Request::ajax()) {
-			$client_ids = Client::whereIn("user_id", $groupUserId)->where('type', '=', "org")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
+			$client_ids = Client::where('is_deleted', '=', "N")->whereIn("user_id", $groupUserId)->where('type', '=', "org")->where('client_id', '=', $client_id)->where('user_id', '=', $user_id)->select("client_id")->get();
 			//echo $this->last_query();die;
 			$i = 0;
 			if (isset($client_ids) && count($client_ids) > 0) {
