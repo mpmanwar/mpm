@@ -893,10 +893,24 @@ $(document).ready(function(){
                    <div class="col-xs-12">
  <div class="col_m2"> 
  <div class="director_table"> 
-<h3 class="box-title">RELATIONSHIP</h3>      
-<div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
+<h3 class="box-title">RELATIONSHIP</h3> 
+
+<div class="j_selectbox">
+<span>ADD NEW ENTITY</span>
+<div class="select_icon" id="select_icon"></div>
+<div class="clr"></div>
+<div class="open_toggle">
+  <ul>
+    <li data-value="non">NON - CLIENT</li>
+    <li data-value="org">CLIENT - ORG</li>
+    <li data-value="ind">CLIENT - IND</li>
+  </ul>
 </div>
+</div>  
+
+<!-- <div class="form-group">
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
+</div> -->
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -913,12 +927,9 @@ $(document).ready(function(){
 </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
-    <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
-      <div class="search_value show_search_client" id="show_search_client"></div>
+    <div class="contain_search" id="client_dropdown">
+      <select class="form-control" name="rel_client_id" id="rel_client_id"></select>
     </div>
-
-    <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control app_date"></div> -->
 
     <div class="contain_type">
       <select class="form-control" name="rel_type_id" id="rel_type_id">
@@ -930,11 +941,50 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('add_ind')" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('add_ind')" type="button">Add</button>
+    <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button></div>
   </div>
+<div class="clearfix"></div>
+</div>
+</div>
 
+<div style="margin-top: 10px;">
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
+
+<div class="box-body table-responsive" style="width:63%;">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+    <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
+    <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
+    <tr>
+      <td width="32%"><strong>Name</strong></td>
+      <td width="18%" align="center"><strong>Action</strong></td>
+    </tr>
+
+  </table>
+
+    <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
+      <div class="acting_select">
+        <select class="form-control" name="acting_client_id" id="acting_client_id">
+          
+        </select>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
+    </div>
+
+    <div class="clearfix"></div>
+    
+      
+  </div>
 </div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div>
+
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -1228,5 +1278,46 @@ $(document).ready(function(){
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+<!-- Relationship Add To List Modal Start-->
+<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:354px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Relationship Add To List Modal End-->
 
 @stop

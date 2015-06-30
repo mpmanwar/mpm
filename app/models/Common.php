@@ -194,8 +194,9 @@ class Common extends Eloquent {
 	public static function get_acting_client($client_id)
 	{
 		$acting_client = array();
-		$data1 = array();
-		$data2 = array();
+		$data 	= array();
+		$data1 	= array();
+		$data2 	= array();
 
 		$acting_client1 = ClientActing::where("client_id", "=", $client_id)->get();
 		
@@ -317,16 +318,16 @@ class Common extends Eloquent {
         	}
         }
 
-        $acting = array_merge($data1, $data2);//print_r($relationship);
+        $acting = array_merge($data1, $data2);//print_r($acting);
         $i = 0;
         foreach ($acting as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){
-        		$data[$i]['name'] 					= $value['name'];
-        		$data[$key]['acting_id'] 			= $value['acting_id'];
-        		$data[$key]['user_id'] 				= $value['user_id'];
-        		$data[$key]['client_id'] 			= $value['client_id'];
-        		$data[$key]['acting_client_id'] 	= $value['acting_client_id'];
-        		$data[$key]['link'] 				= $value['link'];
+        		$data[$i]['name'] 				= $value['name'];
+        		$data[$i]['acting_id'] 			= $value['acting_id'];
+        		$data[$i]['user_id'] 			= $value['user_id'];
+        		$data[$i]['client_id'] 			= $value['client_id'];
+        		$data[$i]['acting_client_id'] 	= $value['acting_client_id'];
+        		$data[$i]['link'] 				= $value['link'];
         		$i++;
         	}
         }
@@ -432,7 +433,7 @@ class Common extends Eloquent {
 			}
         }
 
-        $relationship = array_merge($data1, $data2);
+        $relationship = array_merge($data1, $data2);//print_r($data2);
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){

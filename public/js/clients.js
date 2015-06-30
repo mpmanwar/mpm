@@ -1451,8 +1451,8 @@ $(".relation_add_client").click(function(){
     $(".open_toggle").hide();
   });
   $(".select_icon").click(function(event) {
-      //$(".open_toggle").toggle();
-      //event.stopPropagation();
+      $(".open_toggle").toggle();
+      event.stopPropagation();
   });
 
   $(".open_toggle li").click(function(event) {

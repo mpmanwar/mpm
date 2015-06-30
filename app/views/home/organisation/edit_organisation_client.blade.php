@@ -53,11 +53,12 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
     <input name="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <section class="content">
-      <div class="row">
-        <p class="business_p">{{ $client_details['business_name'] or "" }}</p>
+      <p class="business_p">{{ $client_details['business_name'] or "" }}</p>
+      <!-- <div class="row">
+        
         <div class="top_bts">
           <ul>
-            <!-- <li>
+            <li>
               <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
             </li>
             <li>
@@ -68,12 +69,12 @@ $(document).ready(function(){
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li> -->
+            </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
-      </div>
+      </div> -->
       <div class="practice_mid">
         
           <div class="tabarea">

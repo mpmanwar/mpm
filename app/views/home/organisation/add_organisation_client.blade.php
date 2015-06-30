@@ -30,27 +30,6 @@ $(document).ready(function(){
 })
 </script>
 
-<!-- for select dropdown -->
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".select_icon").click(function(event) {
-      $(".open_toggle").toggle();
-      event.stopPropagation();
-  });
-
-  $(".open_toggle li").click(function(event) {
-    var value = $(this).data("value");
-  });
-
-
-});
-
-$(document).click(function() {
-     $(".open_toggle").hide();
-});
-</script>
-
-<!-- for select dropdown -->
 @stop
 
 @section('content')

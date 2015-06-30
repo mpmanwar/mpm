@@ -48,61 +48,10 @@ class ClientController extends BaseController {
 		$data['subsections'] = App::make('HomeController')->buildtree($steps, "ind");
 		//###########User added section and sub section start##########//
 
-		//############# Get client data start ################//
-		$relationship = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
-            ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'cr.appointment_date', 'rt.relation_type', 'cr.appointment_with as client_id')->get();
-
-        if(isset($relationship) && count($relationship) >0 )
-        {
-        	foreach ($relationship as $key => $row) {
-        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->client_id)->first();
-        		if(isset($client_name) && count($client_name) >0 ){
-        			$data['relationship'][$key]['name'] = $client_name['field_value'];
-        		}else{
-        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->client_id)->get();
-        			//echo $this->last_query();die;
-        			if(isset($client_details) && count($client_details) >0 ){
-        				$name = "";
-        				foreach($client_details as $client_name){
-        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
-	        					$name .= $client_name->field_value." ";
-	        				}
-        				}
-        				$data['relationship'][$key]['name'] = trim($name);
-        			}
-        			
-        		}
-        		$data['relationship'][$key]['client_relationship_id'] 	= $row->client_relationship_id;
-        		$data['relationship'][$key]['appointment_date'] 		= $row->appointment_date;
-        		$data['relationship'][$key]['appointment_with'] 		= $row->client_id;
-        		$data['relationship'][$key]['relation_type'] 			= $row->relation_type;
-
-        		//######## get client type #########//
-				$client_data = Client::where("client_id", "=", $row->client_id)->first();
-				if(isset($client_data) && count($client_data) >0){
-					if($client_data['type'] == "ind"){
-						$data['relationship'][$key]['link'] = "/client/edit-ind-client/".$row->client_id;
-					}
-					else if($client_data['type'] == "org"){
-						$data['relationship'][$key]['link'] = "/client/edit-org-client/".$row->client_id;
-					}else{
-						$data['relationship'][$key]['link'] = "";
-					}
-					
-				}
-				//######## get client type #########//
-
-
-        	}
-        }
-        //echo $this->last_query();die;
+		
+		$data['relationship'] 	= Common::get_relationship_client($client_id);
+		$data['acting'] 		= Common::get_acting_client($client_id);
+        
 
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 
