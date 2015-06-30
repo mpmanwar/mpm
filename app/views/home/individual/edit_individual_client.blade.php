@@ -980,7 +980,13 @@ $(document).ready(function(){
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
       <div class="acting_select">
         <select class="form-control" name="acting_client_id" id="acting_client_id">
-         
+         @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              @if (!in_array($relation_row['client_id'], $acting_dropdown))
+                <option value="{{ $relation_row['client_id'] }}">{{ $relation_row['name'] }}</option>
+              @endif
+            @endforeach
+          @endif
         </select>
       </div>
 

@@ -2054,7 +2054,6 @@ $(document).ready(function(){
     <tr>
       <td width="40%"><strong>Name</strong></td>
       <td width="40%" align="center"><strong>Relationship Type</strong></td>
-      <!-- <td width="10%" align="center"><strong>Acting</strong></td> -->
       <td width="20%" align="center"><strong>Action</strong></td>
     </tr>
 
@@ -2065,7 +2064,6 @@ $(document).ready(function(){
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">
-          
           <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
@@ -2076,8 +2074,6 @@ $(document).ready(function(){
 
     <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
-        <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-        <div class="search_value show_search_client" id="show_search_client"></div> -->
         <select class="form-control" name="rel_client_id" id="rel_client_id">
             @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
@@ -2086,8 +2082,6 @@ $(document).ready(function(){
             @endif
           </select>
       </div>
-
-      <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div> -->
 
       <div class="contain_type">
         <select class="form-control" name="rel_type_id" id="rel_type_id">
@@ -2141,7 +2135,13 @@ $(document).ready(function(){
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
       <div class="acting_select">
         <select class="form-control" name="acting_client_id" id="acting_client_id">
-         
+          @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              @if (!in_array($relation_row['client_id'], $acting_dropdown))
+                <option value="{{ $relation_row['client_id'] }}">{{ $relation_row['name'] }}</option>
+              @endif
+            @endforeach
+          @endif
         </select>
       </div>
 

@@ -49,8 +49,9 @@ class ClientController extends BaseController {
 		//###########User added section and sub section start##########//
 
 		
-		$data['relationship'] 	= Common::get_relationship_client($client_id);
-		$data['acting'] 		= Common::get_acting_client($client_id);
+		$data['relationship'] 	 = Common::get_relationship_client($client_id);
+		$data['acting'] 		 = Common::get_acting_client($client_id);
+		$data['acting_dropdown'] = $this->get_acting_dropdown( $data['relationship'], $data['acting'] );
         
 
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
@@ -137,17 +138,11 @@ class ClientController extends BaseController {
 		}
 		$data['subsections'] = App::make("HomeController")->buildtree($steps, "org");
 		//print_r($data['subsections']);die;
-		//###########User added section and sub section end##########//
-
-		//############# Get relationship client data start ################//
-		$data['relationship'] = Common::get_relationship_client($client_id);
-		//echo $this->last_query();
-		//print_r($data['relationship']);die;
-		//############# Get relationship client data end ################//
-
-		// ############## Get Acting Client Start ################ //
-        $data['acting'] = Common::get_acting_client($client_id);
-        // ############## Get Acting Client Start ################ //
+		
+		$data['relationship'] 		= Common::get_relationship_client($client_id);
+		$data['acting'] 			= Common::get_acting_client($client_id);
+		$data['acting_dropdown'] 	= $this->get_acting_dropdown( $data['relationship'], $data['acting'] );
+		//print_r($data['acting_dropdown']);die;
 
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 
@@ -712,5 +707,37 @@ class ClientController extends BaseController {
 			Client::where("client_id", "=", $client_id)->delete();
 		}
 		echo 1;
+	}
+
+	public function get_acting_dropdown($relationship, $acting)
+	{
+		$acting_dropdown = array();
+		if(isset($relationship) && count($relationship)){
+			foreach ($relationship as $key => $value) {
+				$getValue = $this->is_in_array($acting, 'acting_client_id', $value['client_id']);
+				if($getValue == "yes"){
+					$acting_dropdown[] = $value['client_id'];
+				}
+			}
+		}
+		return $acting_dropdown;
+	}
+
+	public function is_in_array($array, $key, $key_value){
+		$within_array = 'no';
+		foreach( $array as $k=>$v ){
+	        if( is_array($v) ){
+	            $within_array = $this->is_in_array($v, $key, $key_value);
+	            if( $within_array == 'yes' ){
+	                break;
+	            }
+	        } else {
+                if( $v == $key_value && $k == $key ){
+                    $within_array = 'yes';
+                    break;
+                }
+	        }
+        }
+      return $within_array;
 	}
 }

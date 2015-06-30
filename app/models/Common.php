@@ -381,11 +381,9 @@ class Common extends Eloquent {
        		    $data1[$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data1[$key]['relation_type'] 			= $row->relation_type;
         		$data1[$key]['acting'] 					= $row->acting;
-
+        		$data1[$key]['client_id'] 				= $row->client_id;
         		
-
-
-        	}
+			}
         }
 
         $relationship2 = DB::table('client_relationships as cr')->where("cr.appointment_with", "=", $client_id)
@@ -428,12 +426,12 @@ class Common extends Eloquent {
        		    $data2[$key]['client_relationship_id'] 	= $row->client_relationship_id;
         		$data2[$key]['relation_type'] 			= $row->relation_type;
         		$data2[$key]['acting'] 					= $row->acting;
-
+        		$data2[$key]['client_id'] 				= $row->client_id;
         		
 			}
         }
 
-        $relationship = array_merge($data1, $data2);//print_r($data2);
+        $relationship = array_merge($data1, $data2);//print_r($data2);die;
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){
@@ -441,10 +439,12 @@ class Common extends Eloquent {
         		$data[$i]['client_relationship_id'] = $value['client_relationship_id'];
         		$data[$i]['relation_type'] 			= $value['relation_type'];
         		$data[$i]['acting'] 				= $value['acting'];
+        		$data[$i]['client_id'] 				= $value['client_id'];
         		$i++;
         	}
         }
         return $data;
 	}
 
+	
 }
