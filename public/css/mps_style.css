@@ -325,7 +325,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 
 
 /* Select box design in organisation page start */
-.j_selectbox {position: relative; height: 29px; border: 1px solid #cbcbcb; width: 158px!important; z-index: 0; float: left; display: inline; margin: 4px 4px 8px 0; font-size: 14px; font-family: Arial; color: #444; padding: 0;}
+.j_selectbox {position: relative; height: 29px; border: 1px solid #cbcbcb; border-radius: 4px; width: 158px!important; z-index: 0; float: left; display: inline; margin: 4px 4px 8px 0; font-size: 14px; font-family: Arial; color: #444; padding: 0;}
 .j_selectbox span{color:#999; font-size:14px; text-align:left; padding:4px 5px 0 8px; float:left;}
 .select_icon{float: right; background: url("../img/select-icons.png"); width: 23px; height: 27px; cursor: pointer;}
 .open_toggle{width:100%; position:absolute; top:27px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
