@@ -693,11 +693,17 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
-				$app_date = explode("-", $rel_row['1']);
+				if(Input::get('acting_'.$rel_row['0']) == 'Y'){
+					$acting = "Y";
+				}else{
+					$acting = "N";
+
+				}
 				$relData[] = array(
-					'client_id' => $client_id,
-					'appointment_with' => $rel_row['0'],
-					'relationship_type_id' => $rel_row['2'],
+					'client_id' 			=> $client_id,
+					'appointment_with' 		=> $rel_row['2'],
+					'relationship_type_id' 	=> $rel_row['1'],
+					'acting' 				=> $acting
 				);
 			}
 			ClientRelationship::insert($relData);
@@ -705,17 +711,20 @@ class HomeController extends BaseController {
 		}
 //#############RELATIONSHIP END ###################//
 
+
 //############# ACTING SECTION START ###################//
 		if (!empty($postData['acting_hidd_array'])) {
 			$actData = array();
-			$acting_hidd_array = explode(",", $postData['acting_hidd_array']); print_r($acting_hidd_array);die;
+			$acting_hidd_array = explode(",", $postData['acting_hidd_array']);
 			foreach ($acting_hidd_array as $row) {
+				$act_row = explode("mpm", $row);
 				$actData[] = array(
-					'user_id' => $user_id,
-					'client_id' => $client_id,
-					'acting_client_id' => $acting_hidd_array['1'],
-					'relation_client_id' => $acting_hidd_array['2'],
+					'user_id' 				=> $user_id,
+					'client_id' 			=> $client_id,
+					'acting_client_id' 		=> $act_row['1']
 				);
+
+				Client::where("client_id", "=", $act_row['1'])->update(array('is_relation_add'=>'N'));
 			}
 			ClientActing::insert($actData);
 

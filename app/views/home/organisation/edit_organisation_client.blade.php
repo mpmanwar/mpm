@@ -2064,7 +2064,7 @@ $(document).ready(function(){
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">
-          <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach
@@ -2075,11 +2075,11 @@ $(document).ready(function(){
     <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
         <select class="form-control" name="rel_client_id" id="rel_client_id">
-            @if(isset($allClients) && count($allClients)>0)
+            <!-- @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
               <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
               @endforeach
-            @endif
+            @endif -->
           </select>
       </div>
 
@@ -2124,7 +2124,7 @@ $(document).ready(function(){
         <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
         <td width="18%" align="center">
           <!-- <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>  -->
-          <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach

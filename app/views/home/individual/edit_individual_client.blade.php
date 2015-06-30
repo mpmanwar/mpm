@@ -897,7 +897,7 @@ $(document).ready(function(){
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
 <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
 <input type="hidden" id="search_client_type" name="search_client_type" value="org">
-<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
+
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
     <td width="40%"><strong>Name</strong></td>
@@ -913,7 +913,7 @@ $(document).ready(function(){
         
         <td width="20%" align="center">
           
-          <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach
@@ -923,7 +923,9 @@ $(document).ready(function(){
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
-        <select class="form-control" name="rel_client_id" id="rel_client_id"></select>
+        <select class="form-control" name="rel_client_id" id="rel_client_id">
+        
+        </select>
       </div>
 
       <div class="contain_type">
@@ -969,7 +971,7 @@ $(document).ready(function(){
         <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
         <td width="18%" align="center">
           <!-- <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>  -->
-          <a href="javascript:void(0)" class="delete_database_acting" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach

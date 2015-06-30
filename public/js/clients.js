@@ -1107,6 +1107,8 @@ $("#myRelTable").on("click", ".rel_save", function(){
 $(".delete_database_rel").click(function(){
   var delete_index  = $(this).data("delete_index");
   var client_type   = $("#search_client_type").val();
+  var rel_client_id      = $(this).data("rel_client_id");
+
   if(confirm("Do you want to delete?"))
   {
     $.ajax({
@@ -1116,6 +1118,7 @@ $(".delete_database_rel").click(function(){
       success : function(resp){
         if(resp > 0){
           $("#database_tr"+delete_index).hide();
+          $("#acting_client_id option[value='"+rel_client_id+"']").remove();
         }
           
       }
@@ -1128,6 +1131,10 @@ $(".delete_database_rel").click(function(){
 // Delete Acting Client while edit client start //
 $(".delete_database_acting").click(function(){
   var delete_index  = $(this).data("delete_index");
+
+  var acting_client_id = $(this).data('acting_client_id');
+  var client_name = $("#rel_client_id option[value='"+acting_client_id+"']").text();
+  
   if(confirm("Do you want to delete?"))
   {
     $.ajax({
@@ -1136,7 +1143,11 @@ $(".delete_database_acting").click(function(){
       data: { 'delete_index' : delete_index },
       success : function(resp){
         if(resp > 0){
-          $("#database_acting_tr"+delete_index).hide();
+          $("#database_acting_tr"+delete_index).hide(); 
+          $('#acting_client_id').append($('<option>', {
+              value: acting_client_id,
+              text: client_name
+          })); 
         }else{
           alert("Acting client is not deleted");
         }
@@ -1491,7 +1502,7 @@ function show_div()
             option += '<option value="'+client_id+'">'+client_name+'</option>';
           }
         }
-      }
+      }//alert(option);
       $("#rel_client_id").html(option);
       
     }
