@@ -1322,7 +1322,7 @@ $(document).ready(function(){
         <div class="form-group" id="add_to_client_text">
 
 <div class="clearfix"></div>
-<div class="n_box1">
+<div class="n_box18_18">
 <label for="exampleInputPassword1">Title</label>
 <select class="form-control select_title" id="add_to_title" name="add_to_title">
           <option value="Mr" selected="">Mr</option>
@@ -1339,13 +1339,13 @@ $(document).ready(function(){
         <option value="The Hon">The Hon</option>
         <option value="Other">Other</option>
       </select></div>
-<div class="n_box2">
+<div class="n_box27_27">
     <label for="exampleInputPassword1">First Name</label>
     <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
-<div class="n_box3">
+<div class="n_box22_22">
     <label for="exampleInputPassword1">Middle Name</label>
     <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
-<div class="n_box4">
+<div class="n_box27_27">
     <label for="exampleInputPassword1">Last Name</label>
     <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
 <div class="clearfix"></div>

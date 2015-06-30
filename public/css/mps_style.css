@@ -325,13 +325,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 
 
 /* Select box design in organisation page start */
-.j_selectbox {position: relative; height: 29px; border: 1px solid #cbcbcb; border-radius: 4px; width: 150px!important; z-index: 0; float: left; display: inline; margin: 4px 4px 8px 0; font-size: 14px; font-family: Arial; color: #444; padding: 0;}
+.j_selectbox {position: relative; height: 29px; border: 1px solid #cbcbcb; border-radius: 4px; width: 155px!important; z-index: 0; float: left; display: inline; margin: 4px 4px 8px 0; font-size: 14px; font-family: Arial; color: #444; padding: 0;}
 .j_selectbox span{color:#999; font-size:13px; text-align:left; padding:4px 5px 0 8px; float:left;}
 .select_icon{float: right; background: url("../img/select-icons.png"); width: 23px; height: 27px; cursor: pointer;}
 .open_toggle{width:100%; position:absolute; top:27px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
 .open_toggle ul{list-style:none; padding:0; margin:0;}
 .open_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer;}
 /* Select box design in organisation page end */
+
+.n_box22_22{float:left; margin-right:5px; width:22%;}
+.n_box18_18{float:left; margin-right:5px; width:18%;}
+.n_box27_27{float:left; margin-right:5px; width:27%;}
+
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
