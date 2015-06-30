@@ -2056,7 +2056,7 @@ $(document).ready(function(){
         </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('by_click', 'add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
     </div>
 
     <div class="clearfix"></div>

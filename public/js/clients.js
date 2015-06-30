@@ -1596,6 +1596,14 @@ function saveRelationship(process_type)
           }));
 
           i++;
+
+
+
+saveActing("by_own", rel_client_id);
+
+
+
+
         }
       });
     }
@@ -1604,9 +1612,14 @@ function saveRelationship(process_type)
 
 acting_array = [];
 var act_i = 0;
-function saveActing(process_type)
+function saveActing(status, rel_client_id)
 {
-  var acting_client_id    = $('#acting_client_id').val();
+  if(status == "by_own"){
+    var acting_client_id    = rel_client_id;
+  }else{
+    var acting_client_id    = $('#acting_client_id').val();
+  }
+  
   var relation_index      = $('#relation_index').val();
   //var relation_client_id  = $('#acting_'+relation_index).data('rel_client_id');
   
