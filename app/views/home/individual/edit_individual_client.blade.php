@@ -1301,7 +1301,7 @@ $(document).ready(function(){
 
 <!-- Relationship Add To List Modal Start-->
 <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:354px;">
+  <div class="modal-dialog" style="width:404px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1311,7 +1311,7 @@ $(document).ready(function(){
     
       <div class="modal-body">
         <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
-        <div class="form-group">
+        <div class="form-group" style="width:70%">
           <label for="name">Type</label>
           <select class="form-control" name="add_to_type" id="add_to_type">
             <option value="ind">Individual</option>
@@ -1319,8 +1319,40 @@ $(document).ready(function(){
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="name">Name</label>
+        <div class="form-group" id="add_to_client_text">
+
+<div class="clearfix"></div>
+<div class="n_box1">
+<label for="exampleInputPassword1">Title</label>
+<select class="form-control select_title" id="add_to_title" name="add_to_title">
+          <option value="Mr" selected="">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+        <option value="Professor">Professor</option>
+        <option value="Rev">Rev</option>
+        <option value="Sir">Sir</option>
+        <option value="Dame">Dame</option>
+        <option value="Lord">Lord</option>
+        <option value="Lady">Lady</option>
+        <option value="Captain">Captain</option>
+        <option value="The Hon">The Hon</option>
+        <option value="Other">Other</option>
+      </select></div>
+<div class="n_box2">
+    <label for="exampleInputPassword1">First Name</label>
+    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
+<div class="n_box3">
+    <label for="exampleInputPassword1">Middle Name</label>
+    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
+<div class="n_box4">
+    <label for="exampleInputPassword1">Last Name</label>
+    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
+<div class="clearfix"></div>
+</div>
+
+        <div class="form-group" style="width:70%; display:none;" id="add_to_business">
+          <label for="name">Business Name</label>
           <input class="form-control" type="text" name="add_to_name" id="add_to_name">
         </div>
        

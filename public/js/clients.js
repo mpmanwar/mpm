@@ -1388,13 +1388,17 @@ $("#myActTable").on("click", ".acting_save", function(){
 
 // Add to list in relationship section start //
 $(".relation_add_client").click(function(){
-  var add_to_type = $("#add_to_type").val();
-  var add_to_name = $("#add_to_name").val();
+  var type   = $("#add_to_type").val();
+  var name   = $("#add_to_name").val();
+  var title  = $("#add_to_title").val();
+  var fname  = $("#add_to_fname").val();
+  var mname  = $("#add_to_mname").val();
+  var lname  = $("#add_to_lname").val();
 
   $.ajax({
       type: "POST",
       url: "/client/add-to-client",
-      data: { 'add_to_type': add_to_type, 'add_to_name': add_to_name },
+      data: { 'type': type, 'name': name, 'title': title, 'fname': fname, 'mname': mname, 'lname': lname },
       beforeSend: function() {
           $("#add_to_msg_div").html('<img src="/img/spinner.gif" />');
       },
@@ -1477,6 +1481,20 @@ $(".relation_add_client").click(function(){
     }
   });
 // Add new entity dropdown end // 
+
+
+// Add to client from relationship non client select start //
+$("#add_to_type").change(function(){
+    var value = $(this).val();
+    if (value == "org") {
+      $("#add_to_client_text").hide();
+      $("#add_to_business").show();
+    }else if(value == "ind"){
+      $("#add_to_business").hide();
+      $("#add_to_client_text").show();
+    }
+  });
+// Add to client from relationship non client select end //
 
 
 });//end of main document ready

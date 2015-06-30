@@ -623,31 +623,45 @@ class ClientController extends BaseController {
 		$session 		= Session::get('admin_details');
 		$user_id 		= $session['id'];
 
-		$add_to_type = Input::get("add_to_type");
-		$add_to_name = Input::get("add_to_name");
+		$type = Input::get("type");
+		
 
-		$date_add['type'] 				= $add_to_type;
+		$date_add['type'] 				= $type;
 		$date_add['user_id'] 			= $user_id;
 		$date_add['is_relation_add'] 	= "Y";
 
 		$client_id = Client::insertGetId($date_add);
-		$full_name = explode(" ", $add_to_name);
+		
 		$step_id = 1;
-		if(isset($add_to_type) && $add_to_type == 'ind'){
-			if (isset($full_name[0]) && $full_name[0] != "") {
-				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'fname', $full_name[0]);
+		if(isset($type) && $type == 'ind'){
+			$title = Input::get("title");
+			$fname = Input::get("fname");
+			$mname = Input::get("mname");
+			$lname = Input::get("lname");
+
+			$client_name = "";
+			if (isset($title) && $title != "") {
+				$client_name.=$title." ";
+				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'title', $title);
 			}
-			if (isset($full_name[1]) && $full_name[1] != "") {
-				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'mname', $full_name[1]);
+			if (isset($fname) && $fname != "") {
+				$client_name.=$fname." ";
+				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'fname', $fname);
 			}
-			if (isset($full_name[2]) && $full_name[2] != "") {
-				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'lname', $full_name[2]);
+			if (isset($mname) && $mname != "") {
+				$client_name.=$mname." ";
+				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'mname', $mname);
 			}
-			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'client_name', $add_to_name);
+			if (isset($lname) && $lname != "") {
+				$client_name.=$lname;
+				$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'lname', $lname);
+			}
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'client_name', trim($client_name));
 		}
 
-		if(isset($add_to_type) && $add_to_type == 'org'){
-			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'business_name', $add_to_name);
+		if(isset($type) && $type == 'org'){
+			$name = Input::get("name");
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'business_name', $name);
 		}
 		
 		$query = StepsFieldsClient::insert($arrData);
