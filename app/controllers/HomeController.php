@@ -788,7 +788,7 @@ class HomeController extends BaseController {
 		}
 
 		$rel_types['client_details'] = Common::clientDetailsById($rel_client_id);
-		//print_r($client_details);die;
+		//print_r($rel_types['client_details']);die;
 		//######## get client type #########//
 		$client_data = Client::where("client_id", "=", $rel_client_id)->first();
 		if(isset($client_data) && count($client_data) >0){

@@ -130,6 +130,15 @@ class Common extends Eloquent {
 	public static function clientDetailsById($client_id)
 	{
 		$client_data = array();
+
+		$clients = Client::where('client_id', '=', $client_id)->first();
+		$client_data['is_archive'] 		= $clients['is_archive'];
+		$client_data['is_relation_add'] = $clients['is_relation_add'];
+		$client_data['type'] 			= $clients['type'];
+		$client_data['user_id'] 		= $clients['user_id'];
+		$client_data['is_deleted'] 		= $clients['is_deleted'];
+
+
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 
 		$client_data['client_id'] 		= $client_id;

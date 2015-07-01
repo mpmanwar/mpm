@@ -1565,7 +1565,7 @@ function saveRelationship(process_type)
         dataType: "json",
         url: '/individual/save-relationship',
         data: { 'rel_type_id' : rel_type_id, 'rel_client_id' : rel_client_id },
-        success : function(resp){//console.log(resp['client_details']['business_name'])
+        success : function(resp){ //console.log(resp['client_details']['business_name'])
           var name = "";
           if(resp['client_details']['business_name'] !== undefined ){
             name = resp['client_details']['business_name'];
@@ -1590,18 +1590,17 @@ function saveRelationship(process_type)
           $('#relname').val("");
           $("#new_relationship").hide();
 
-          $('#acting_client_id').append($('<option>', {
-              value: rel_client_id,
-              text: name
-          }));
-
           i++;
 
 
-
-saveActing("by_own", rel_client_id);
-
-
+          if(resp['client_details']['is_relation_add'] == "Y" ){
+            $('#acting_client_id').append($('<option>', {
+              value: rel_client_id,
+              text: name
+            }));
+          }else{
+            saveActing("by_own", rel_client_id);
+          }
 
 
         }
