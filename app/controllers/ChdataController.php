@@ -47,7 +47,7 @@ class ChdataController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 
 		$i = 0;
@@ -146,7 +146,7 @@ class ChdataController extends BaseController {
 		$data 		= array();
 		$off_data 	= array();
 
-		$officers 			= Common::getOfficerDetails($number);
+		$officers 	= Common::getOfficerDetails($number);
 		
 		$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[$key]->date_of_birth:"";
 		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[$key]->nationality:"";

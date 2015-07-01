@@ -2672,7 +2672,7 @@ $(document).ready(function(){
 
         <div class="form-group" style="width:70%; display:none;" id="add_to_business">
           <label for="name">Business Name</label>
-          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
+          <input class="form-control toUpperCase" type="text" name="add_to_name" id="add_to_name">
         </div>
        
         <div class="modal-footer1 clearfix">

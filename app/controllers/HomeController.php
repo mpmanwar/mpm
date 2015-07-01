@@ -541,6 +541,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
 		}else{
 			$client_id = $postData['client_id'];
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 		}
 		
@@ -1084,6 +1085,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
 		}else{
 			$client_id = $postData['client_id'];
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}
