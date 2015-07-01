@@ -158,16 +158,9 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
        
-      $arr = array();
-      $arr['service'] =   DB::table('client_services')->where("client_id", "=", $client_id)->get();
-   
-      foreach($arr['service'] as $key=>$service_row){
-        $arr['service'][$key]->servicedetails =  DB::table('services')->where("service_id", "=", $service_row->service_id)->first();
-       //echo $this->last_query();
-       $arr['service'][$key]->staffcedetails =  DB::table('users')->where("user_id", "=", $service_row->staff_id)->first();   
-      }
-      $data['servicessss']=$arr['service'];
-      
+       	$data['services_table'] 	=   Common::get_services_client($client_id);;
+      	//echo $this->last_query();
+   		//print_r($data['services']);die;      
 
 		return View::make('home.organisation.edit_organisation_client', $data);
 	}
@@ -341,6 +334,14 @@ class ClientController extends BaseController {
 		$field_id = Input::get("field_id");
 		if (Request::ajax()) {
 			$data = Service::where("service_id", "=", $field_id)->delete();
+			echo $data;
+		}
+	}
+
+	public function delete_client_services() {
+		$client_service_id = Input::get("client_service_id");
+		if (Request::ajax()) {
+			$data = ClientService::where("client_service_id", "=", $client_service_id)->delete();
 			echo $data;
 		}
 	}

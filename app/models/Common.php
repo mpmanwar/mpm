@@ -461,5 +461,29 @@ class Common extends Eloquent {
         return $data;
 	}
 
+	public static function get_services_client($client_id)
+	{
+		$data2 = array();
+		$service = DB::table('client_services as cs')->where("cs.client_id", "=", $client_id)
+            ->join('services as s', 'cs.service_id', '=', 's.service_id')
+            ->join('users as u', 'cs.staff_id', '=', 'u.user_id')
+            ->select('cs.*', 'u.fname', 'u.lname', 's.service_name')->get();
+        if(isset($service) && count($service) >0 )
+        {
+        	foreach ($service as $key => $row) {
+        		$data2[$key]['client_service_id'] 	= $row->client_service_id;
+        		$data2[$key]['client_id'] 			= $row->client_id;
+        		$data2[$key]['service_id'] 			= $row->service_id;
+        		$data2[$key]['user_id'] 			= $row->staff_id;
+        		$data2[$key]['name'] 				= $row->fname." ".$row->fname;
+        		$data2[$key]['service_name'] 		= $row->service_name;
+        		
+        	}
+        }
+        return $data2;
+        exit;
+
+	}
+
 	
 }
