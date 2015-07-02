@@ -603,12 +603,20 @@ class ClientController extends BaseController {
 
 
       	$client_data = Client::where("client_id", "=", $acting_client_id)->first();
+      	//print_r($client_data['chd_type']);die;
 		if(isset($client_data) && count($client_data) >0){
 			if($client_data['type'] == "ind"){
 				$link = "/client/edit-ind-client/".$acting_client_id;
 			}
 			else if($client_data['type'] == "org"){
 				$link = "/client/edit-org-client/".$acting_client_id;
+			}else if($client_data['type'] == "chd"){
+				if($client_data['chd_type'] == "ind"){
+					$link = "/client/edit-ind-client/".$acting_client_id;
+				}
+				else if($client_data['chd_type'] == "org"){
+					$link = "/client/edit-org-client/".$acting_client_id;
+				}
 			}else{
 				$link = "";
 			}
@@ -714,6 +722,7 @@ class ClientController extends BaseController {
 		echo json_encode($data);
 		exit();
 	}
+
 
 	public function delete_addtolist_client()
 	{

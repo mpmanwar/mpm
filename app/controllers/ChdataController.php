@@ -231,6 +231,7 @@ class ChdataController extends BaseController {
 		//echo $this->last_query();die;
 		if(isset($client_data) && count($client_data) >0 ){
 			$client_id = $client_data['client_id'];
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}else{
@@ -369,6 +370,8 @@ class ChdataController extends BaseController {
 		$user_id = $admin_s['id'];
 
 		if(strpos($row->officer_role, 'corporate') !== false){
+			Client::where("client_id", "=", $app_client_id)->update(array('chd_type' => 'org'));
+
 			if (isset($row->name) && $row->name != "") {
 				$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'business_name', $row->name);
 			}
@@ -395,6 +398,7 @@ class ChdataController extends BaseController {
 			}
 			
 		}else{
+			Client::where("client_id", "=", $app_client_id)->update(array('chd_type' => 'ind'));
 
 			$client_name = "";
 			$mname ="";

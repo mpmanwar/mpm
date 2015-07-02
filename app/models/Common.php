@@ -257,6 +257,13 @@ class Common extends Eloquent {
 					}
 					else if($client_data['type'] == "org"){
 						$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+						}
 					}else{
 						$data1[$key]['link'] = "";
 					}
@@ -317,6 +324,13 @@ class Common extends Eloquent {
 					}
 					else if($client_data['type'] == "org"){
 						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+						}
 					}else{
 						$data2[$key]['link'] = "";
 					}

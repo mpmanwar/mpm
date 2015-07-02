@@ -541,7 +541,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
 		}else{
 			$client_id = $postData['client_id'];
-			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'ind'));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 		}
 		
@@ -554,7 +554,7 @@ class HomeController extends BaseController {
 
 		$client_name = "";
 		if (!empty($postData['title'])) {
-			$client_name.=$postData['title']." ";
+			//$client_name.=$postData['title']." ";
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'title', $postData['title']);
 		}
                 
@@ -798,6 +798,13 @@ class HomeController extends BaseController {
 			}
 			else if($client_data['type'] == "org"){
 				$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+			}else if($client_data['type'] == "chd"){
+				if($client_data['chd_type'] == "ind"){
+					$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+				}
+				else if($client_data['chd_type'] == "org"){
+					$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+				}
 			}else{
 				$rel_types['link'] = "";
 			}
@@ -1016,7 +1023,8 @@ class HomeController extends BaseController {
 	function getIndClient($client_ids, $search_value)
 	{
 		$clients = array();
-		$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'client_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+		//$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'client_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+		$client_name = StepsFieldsClient::where('field_name', '=', 'client_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
 
 		if(isset($client_name) && count($client_name) >0 ){
 			foreach($client_name as $key=>$name){
@@ -1085,7 +1093,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
 		}else{
 			$client_id = $postData['client_id'];
-			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'org'));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}
