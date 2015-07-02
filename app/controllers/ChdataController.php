@@ -373,7 +373,7 @@ class ChdataController extends BaseController {
 		if(strpos($row->officer_role, 'corporate') !== false){
 
 			//////////////Check the officer is exists or not/////////////
-			$exists_client = Client::where("field_name", "=", "business_name")->where("field_value", "=", $row->name)->first();
+			$exists_client = StepsfieldsClient::where("field_name", "=", "business_name")->where("field_value", "=", $row->name)->first();
 			/*if(isset($exists_client) && count($exists_client) > 0){
 				$actData['user_id'] 			= $user_id;
 				$actData['client_id'] 			= $client_id;
@@ -445,7 +445,7 @@ class ChdataController extends BaseController {
 			$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'client_name', trim($client_name));
 
 			//////////////Check the officer is exists or not/////////////
-			$exists_client = Client::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name))->first();
+			$exists_client = StepsfieldsClient::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name))->first();//echo $this->last_query();die;
 			//////////////Check the officer is exists or not////////////
 
 		}
