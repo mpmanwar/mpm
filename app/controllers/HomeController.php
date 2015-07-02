@@ -211,7 +211,7 @@ class HomeController extends BaseController {
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
 
-		//$data['allClients'] 		= $this->get_all_clients();
+		$data['allClients'] 		= $this->get_all_clients();
         
         //print_r($data['allClients']);die;
 
@@ -281,7 +281,7 @@ class HomeController extends BaseController {
 		//echo $this->last_query();die;
 		$data['cont_address'] 	= $this->get_orgcontact_address();
 		//$data['cont_address'] 	 = $this->getAllOrgContactAddress();
-		//$data['allClients'] 		= $this->get_all_clients();
+		$data['allClients'] 		= $this->get_all_clients();
 
 
         $data['reg_address'] 	= RegisteredAddress::orderBy("reg_id")->get();
@@ -934,7 +934,7 @@ class HomeController extends BaseController {
 		$groupUserId = $admin_s['group_users'];
 		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "!=", "chd")->select("client_id")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->select("client_id")->get();
 		//echo $this->last_query();die;
 		if(isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $key=>$client_id){

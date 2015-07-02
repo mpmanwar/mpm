@@ -924,7 +924,11 @@ $(document).ready(function(){
   <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
         <select class="form-control" name="rel_client_id" id="rel_client_id">
-        
+        @if(isset($allClients) && count($allClients)>0)
+          @foreach($allClients as $key=>$client_row)
+          <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+          @endforeach
+        @endif    
         </select>
       </div>
 

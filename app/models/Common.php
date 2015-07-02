@@ -458,7 +458,7 @@ class Common extends Eloquent {
 			}
         }
 
-        $relationship = array_merge($data1, $data2);//print_r($data2);die;
+        $relationship = array_merge($data1, $data2);//print_r($relationship);die;
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){

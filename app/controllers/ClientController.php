@@ -24,6 +24,7 @@ class ClientController extends BaseController {
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
+		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -160,7 +161,7 @@ class ClientController extends BaseController {
        
        	$data['services_table'] 	=   Common::get_services_client($client_id);;
       	//echo $this->last_query();
-   		//print_r($data['services']);die;      
+   		//print_r($data['relationship']);die;      
 
 		return View::make('home.organisation.edit_organisation_client', $data);
 	}

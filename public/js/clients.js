@@ -1305,7 +1305,7 @@ $("#myActTable").on("click", ".delete_acting", function(){
   var delete_index       = $(this).data("delete_index");
 
   var acting_client_id = $(this).data('acting_client_id');
-  var client_name = $("#rel_client_id option[value='"+acting_client_id+"']").text();//alert(client_name)
+  var client_name = $("#rel_client_id option[value='"+acting_client_id+"']").text();console.log(client_name)
   $('#acting_client_id').append($('<option>', {
       value: acting_client_id,
       text: client_name

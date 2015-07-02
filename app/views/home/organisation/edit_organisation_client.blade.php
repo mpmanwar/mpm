@@ -2049,7 +2049,7 @@ $(document).ready(function(){
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
   <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
   <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
-  <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
+  
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
       <td width="40%"><strong>Name</strong></td>
@@ -2075,11 +2075,13 @@ $(document).ready(function(){
     <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
         <select class="form-control" name="rel_client_id" id="rel_client_id">
-            <!-- @if(isset($allClients) && count($allClients)>0)
+            @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
-              <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+                @if($client_row['client_id'] != $client_details['client_id'])
+                  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+                @endif
               @endforeach
-            @endif -->
+            @endif
           </select>
       </div>
 
