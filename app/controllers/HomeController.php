@@ -729,7 +729,8 @@ class HomeController extends BaseController {
 				$data_client = Client::where("client_id", "=", $act_row['1'])->first();
 				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "ind"){
 					$update_data['type'] = "ind";
-				}else{
+				}
+				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "org"){
 					$update_data['type'] = "org";
 				}
 				Client::where("client_id", "=", $act_row['1'])->update($update_data);
@@ -1350,7 +1351,8 @@ class HomeController extends BaseController {
 				$data_client = Client::where("client_id", "=", $act_row['1'])->first();
 				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "ind"){
 					$update_data['type'] = "ind";
-				}else{
+				}
+				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "org"){
 					$update_data['type'] = "org";
 				}
 				Client::where("client_id", "=", $act_row['1'])->update($update_data);
