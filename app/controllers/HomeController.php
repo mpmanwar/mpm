@@ -725,7 +725,15 @@ class HomeController extends BaseController {
 					'acting_client_id' 		=> $act_row['1']
 				);
 
-				Client::where("client_id", "=", $act_row['1'])->update(array('is_relation_add'=>'N'));
+				$update_data['is_relation_add'] = "N";
+				$data_client = Client::where("client_id", "=", $act_row['1'])->first();
+				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "ind"){
+					$update_data['type'] = "ind";
+				}else{
+					$update_data['type'] = "org";
+				}
+				Client::where("client_id", "=", $act_row['1'])->update($update_data);
+
 			}
 			ClientActing::insert($actData);
 
@@ -1338,7 +1346,14 @@ class HomeController extends BaseController {
 					'acting_client_id' 		=> $act_row['1']
 				);
 
-				Client::where("client_id", "=", $act_row['1'])->update(array('is_relation_add'=>'N'));
+				$update_data['is_relation_add'] = "N";
+				$data_client = Client::where("client_id", "=", $act_row['1'])->first();
+				if(isset($data_client['chd_type']) && $data_client['chd_type'] == "ind"){
+					$update_data['type'] = "ind";
+				}else{
+					$update_data['type'] = "org";
+				}
+				Client::where("client_id", "=", $act_row['1'])->update($update_data);
 			}
 			ClientActing::insert($actData);
 
