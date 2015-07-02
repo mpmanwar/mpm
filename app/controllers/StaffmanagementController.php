@@ -7,7 +7,7 @@ class StaffmanagementController extends BaseController {
     public function staff_management()
     {
         //die('staffmanagement');
-       	$data['heading'] = "StaffManagement";
+       	$data['heading'] = "Staff Management";
 		$data['title'] = "Staff Management";
       
         

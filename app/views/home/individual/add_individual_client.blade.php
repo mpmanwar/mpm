@@ -51,7 +51,7 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
-    <input name="client_id" type="hidden" value="new">
+    <input name="client_id" id="client_id" type="hidden" value="new">
     <section class="content">
 
       <div class="row">

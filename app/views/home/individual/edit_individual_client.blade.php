@@ -46,7 +46,7 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
-    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
+    <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
     <section class="content">
 <p class="business_p">{{ $client_details['client_name'] or "" }}</p>
       <!-- <div class="row">

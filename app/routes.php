@@ -177,7 +177,7 @@ Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'Not
 Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
 
 
-Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
+Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
 
 
 Route::any('/staff-data', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));

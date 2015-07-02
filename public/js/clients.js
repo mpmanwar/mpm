@@ -1510,7 +1510,7 @@ $("#add_to_type").change(function(){
 
 function show_div()
 {
-
+  var edit_client_id = $("#client_id").val();
   $.ajax({
     type: "POST",
     url: "/client/get-name-and-type",
