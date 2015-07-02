@@ -215,6 +215,37 @@ class ChdataController extends BaseController {
 		
 	}
 
+	public function update_existing_client($client_id)
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		$client_value = Client::where("client_id", "=", $client_id)->first();
+		if(isset($client_value) && count($client_value) >0 ){
+			$update['type'] = $client_value['chd_type'];
+		}
+		$update['is_deleted'] = "N";
+
+		Client::where("client_id", "=", $client_id)->update($update);
+		StepsFieldsClient::where("client_id", "=", $client_id)->delete();
+
+
+		$appointment = ClientRelationship::where('appointment_with', '=', $client_id)->select("client_id", "relationship_type_id")->first();
+		if(isset($appointment) && count($appointment) >0 ){
+			$rel_data['appointment_with'] 		= $appointment['client_id'];
+			$rel_data['relationship_type_id'] 	= $appointment['relationship_type_id'];
+			$rel_data['client_id'] 				= $client_id;
+			ClientRelationship::insert($rel_data);
+
+
+			$act_data['user_id'] 			= $user_id;
+			$act_data['client_id'] 			= $client_id;
+			$act_data['acting_client_id'] 	= $appointment['client_id'];
+			ClientActing::insert($act_data);
+		}
+
+	}
+
 	public function import_company_details($number)
 	{
 		//$number = Input::get("number");
@@ -231,9 +262,8 @@ class ChdataController extends BaseController {
 		//echo $this->last_query();die;
 		if(isset($client_data) && count($client_data) >0 ){
 			$client_id = $client_data['client_id'];
-			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N"));
-			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
-			//ClientRelationship::where("client_id", "=", $client_id)->delete();
+			$this->update_existing_client($client_id);
+			
 		}else{
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
 		}
@@ -371,23 +401,19 @@ class ChdataController extends BaseController {
 		$user_id = $admin_s['id'];
 
 		if(strpos($row->officer_role, 'corporate') !== false){
+			$name = str_replace(" ", "+", $row->name);
+			$details = Common::getSearchCompany($name);
+			//echo $details->items[0]->company_number;die;
 
 			//////////////Check the officer is exists or not/////////////
 			$exists_client = StepsfieldsClient::where("field_name", "=", "business_name")->where("field_value", "=", $row->name)->first();
-			/*if(isset($exists_client) && count($exists_client) > 0){
-				$actData['user_id'] 			= $user_id;
-				$actData['client_id'] 			= $client_id;
-				$actData['acting_client_id'] 	= $exists_client['client_id'];
-				ClientActing::insert($actData);
-				/////////////////////////////////
-				Client::where("client_id", "=", $app_client_id)->delete();
-				////////////////////////////////
-				ClientRelationship::where('appointment_with', "=", $app_client_id)->update(array("appointment_with", "=", $exists_client['client_id']));
-			}else{*/
 			//////////////Check the officer is exists or not////////////
 
 				Client::where("client_id", "=", $app_client_id)->update(array('chd_type' => 'org'));
 
+				if (isset($details->items[0]->company_number)) {
+					$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'registration_number', $details->items[0]->company_number);
+				}
 				if (isset($row->name) && $row->name != "") {
 					$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'business_name', $row->name);
 				}
@@ -450,8 +476,9 @@ class ChdataController extends BaseController {
 
 		}
 
+		StepsFieldsClient::insert($arrNewData);
 
-		if(isset($exists_client) && count($exists_client) > 0){
+		/*if(isset($exists_client) && count($exists_client) > 0){
 			$actData['user_id'] 			= $user_id;
 			$actData['client_id'] 			= $client_id;
 			$actData['acting_client_id'] 	= $exists_client['client_id'];
@@ -462,8 +489,8 @@ class ChdataController extends BaseController {
 			ClientRelationship::where('client_relationship_id', "=", $relation_id)->update(array("appointment_with" => $exists_client['client_id']));//echo $this->last_query();die;
 		}else{
 		
-			StepsFieldsClient::insert($arrNewData);//echo $this->last_query();die;
-		}
+			StepsFieldsClient::insert($arrNewData);
+		}*/
 
 		
 	}
