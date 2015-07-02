@@ -259,10 +259,12 @@ class Common extends Eloquent {
 						$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
 					}else if($client_data['type'] == "chd"){
 						if($client_data['chd_type'] == "ind"){
-							$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+							$data1[$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
 						}
 						else if($client_data['chd_type'] == "org"){
-							$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+							$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
+						}else{
+							$data1[$key]['link'] = "";
 						}
 					}else{
 						$data1[$key]['link'] = "";
@@ -326,10 +328,12 @@ class Common extends Eloquent {
 						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
 					}else if($client_data['type'] == "chd"){
 						if($client_data['chd_type'] == "ind"){
-							$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+							$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
 						}
 						else if($client_data['chd_type'] == "org"){
-							$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+							$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data2[$key]['link'] = "";
 						}
 					}else{
 						$data2[$key]['link'] = "";
@@ -341,7 +345,7 @@ class Common extends Eloquent {
         	}
         }
 
-        $acting = array_merge($data1, $data2);//print_r($acting);
+        $acting = array_merge($data1, $data2);//print_r($acting);die;
         $i = 0;
         foreach ($acting as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){

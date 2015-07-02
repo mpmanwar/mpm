@@ -342,14 +342,14 @@ class ChdataController extends BaseController {
 					$relData['client_id'] 			 = $client_id;
 					$relData['appointment_with'] 	 = $app_client_id;
 					$relData['relationship_type_id'] = isset($rel_type)?$rel_type:"0";
-					ClientRelationship::insert($relData);
+					$relation_id = ClientRelationship::insertGetId($relData);
 
 					/*$actData['user_id'] = $user_id;
 					$actData['client_id'] = $client_id;
 					$actData['acting_client_id'] = isset($app_client_id)?$app_client_id:"0";
 					ClientActing::insert($actData);*/
 
-					$getReturn = $this->insertClientDetails($client_id, $row, $app_client_id);
+					$getReturn = $this->insertClientDetails($relation_id, $client_id, $row, $app_client_id);
 					//$this->insertClientDetails($row);
 				}
 				
@@ -365,7 +365,7 @@ class ChdataController extends BaseController {
 		exit;
 	}
 
-	public function insertClientDetails($client_id, $row, $app_client_id)
+	public function insertClientDetails($relation_id, $client_id, $row, $app_client_id)
 	{
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
@@ -459,7 +459,7 @@ class ChdataController extends BaseController {
 			/////////////////////////////////
 			Client::where("client_id", "=", $app_client_id)->delete();
 			////////////////////////////////
-			ClientRelationship::where('appointment_with', "=", $app_client_id)->update(array("appointment_with", "=", $exists_client['client_id']));
+			ClientRelationship::where('client_relationship_id', "=", $relation_id)->update(array("appointment_with" => $exists_client['client_id']));//echo $this->last_query();die;
 		}else{
 		
 			StepsFieldsClient::insert($arrNewData);//echo $this->last_query();die;
