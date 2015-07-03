@@ -84,6 +84,26 @@ $(document).ready(function(){
     });
 
 
+$("#company_details_div").on("click", ".add_client_officers", function(){
+    var key = $(this).data("key");
+    var company_number = $(this).data("company_number");
+
+    $.ajax({
+            type: "POST",
+            url: "/goto-edit-client",
+            dataType: "json",
+            data: { 'company_number': company_number, 'key' : key },
+            beforeSend: function() {
+                $("#goto"+key).html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {//console.log(resp['link']);return false;
+                window.location.href=resp['link'];
+            }
+        });
+
+});
+
+
     
 
 

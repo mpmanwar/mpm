@@ -386,9 +386,10 @@ class ChdataController extends BaseController {
 			}
 			
 		}
-//die("ss");die;
+
 		if($inserted){
 			echo $client_id;
+						
 		}else{
 			echo 0;
 		}
@@ -463,12 +464,29 @@ class ChdataController extends BaseController {
 				$client_name.=$half_name[2]." ";
 				$mname.=$half_name[2]." ";
 			}
-			$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'mname', $mname);
+			if (isset($mname) && $mname != "") {
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'mname', $mname);
+			}
+
 			if (isset($full_name[0]) && $full_name[0] != "") {
 				$client_name.=$full_name[0];
 				$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'lname', $full_name[0]);
 			}
 			$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'client_name', trim($client_name));
+
+			/*############### Address ###############*/
+			if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', $row->address->address_line_1);
+			}
+			if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line2', $row->address->address_line_2);
+			}
+			if (isset($row->address->postal_code) && $row->address->postal_code != "") {
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_postcode', $row->address->postal_code);
+			}
+			if (isset($row->address->locality) && $row->address->locality != "") {
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_city', $row->address->locality);
+			}
 
 			//////////////Check the officer is exists or not/////////////
 			$exists_client = StepsfieldsClient::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name))->first();//echo $this->last_query();die;
@@ -681,6 +699,242 @@ class ChdataController extends BaseController {
 		}
 		
 
+	}
+
+	public function insert_individual_client($row)
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		$client_name = "";
+		$mname ="";
+		$full_name = explode(",", $row->name);
+		$half_name = explode(" ", trim($full_name[1]));
+
+		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd', 'chd_type' => 'ind'));
+
+		if (isset($half_name[0]) && $half_name[0] != "") {
+			$client_name.=$half_name[0]." ";
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'fname', $half_name[0]);
+		}
+		if (isset($half_name[1]) && $half_name[1] != "") {
+			$client_name.=$half_name[1]." ";
+			$mname.=$half_name[1]." ";
+		}
+		if (isset($half_name[2]) && $half_name[2] != "") {
+			$client_name.=$half_name[2]." ";
+			$mname.=$half_name[2]." ";
+		}
+		if (isset($mname) && $mname != "") {
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'mname', $mname);
+		}
+		
+		if (isset($full_name[0]) && $full_name[0] != "") {
+			$client_name.=$full_name[0];
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'lname', $full_name[0]);
+		}
+		$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'client_name', trim($client_name));
+
+		/*############### Address ###############*/
+		if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', $row->address->address_line_1);
+		}
+		if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line2', $row->address->address_line_2);
+		}
+		if (isset($row->address->postal_code) && $row->address->postal_code != "") {
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_postcode', $row->address->postal_code);
+		}
+		if (isset($row->address->locality) && $row->address->locality != "") {
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_city', $row->address->locality);
+		}
+
+		StepsFieldsClient::insert($arrNewData);
+
+		return $client_id;
+	}
+
+	public function goto_edit_client()
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		$company_number = Input::get("company_number");
+		$key = Input::get("key");
+		$data 	= array();
+		
+		$officers 			= Common::getOfficerDetails($company_number);
+		if(isset($officers->items[$key]) && count($officers->items[$key]) > 0){
+			$officer = $officers->items[$key];
+
+			//$insert_data[''] = $officer[''];
+
+			if(strpos($officer->officer_role, 'corporate') !== false){
+				$name 		= str_replace(" ", "+", $officer->name);
+				$details 	= Common::getSearchCompany($name);
+				$company_number = $details->items[0]->company_number;
+
+				$client_id = $this->insert_org_client($company_number);
+				$data['link'] = "/client/edit-org-client/".$client_id;
+			}else{
+				$client_id = $this->insert_individual_client($officer);
+				$data['link'] = "/client/edit-ind-client/".$client_id;
+			}
+			
+		}
+
+		echo json_encode($data);
+		exit;
+	}
+
+	public function insert_org_client($number)
+	{
+		//$number = Input::get("number");
+		//$number = "05244480";
+		$data = array();
+		//$details 			= Common::getCompanyDetails($number);
+		$details 			= Common::getCompanyData($number);
+		//print_r($details);die;
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		//################# If company number exists Start ##################//
+		$client_data = StepsFieldsClient::where("field_name", "=", "registration_number")->where("field_value", "=", $details->company_number)->first();
+		//echo $this->last_query();die;
+		if(isset($client_data) && count($client_data) >0 ){
+			$client_id = $client_data['client_id'];
+			$this->update_existing_client($client_id);
+			
+		}else{
+			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
+		}
+		//################# If company number exists End ##################//
+		
+		
+
+		$ret_check = 0;
+		$acc_check = 0;
+		if (isset($details->company_name)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_name', $details->company_name);
+		}
+		if (isset($details->company_number)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'registration_number', $details->company_number);
+		}
+		if (isset($details->date_of_creation)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'incorporation_date', $details->date_of_creation);
+		}
+		if (isset($details->type)) {
+			if($details->type == "ltd" || $details->type == "limited"){
+				$type = 2;
+			}else if($details->type == "llp"){
+				$type = 1;
+			}else{
+				$type = "";
+			}
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_type', $type);
+		}
+		if (isset($details->jurisdiction)) {
+			//$reg_in = RegisteredAddress::where("reg_name", "=", ucwords(str_replace("-", " ", $details->jurisdiction)))->select("reg_id")->first();
+			$reg_in = RegisteredAddress::where("reg_name", "=", ucwords($details->jurisdiction))->select("reg_id")->first();
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'registered_in', $reg_in['reg_id']);
+		}
+		if (isset($details->sic_codes) && count($details->sic_codes) >0 ) {
+			$codes_data = "";
+			foreach ($details->sic_codes as $key => $value) {
+				$sic_codes = SicCodesDescription::where("sic_codes", "=", $value)->first();
+				$codes_data .= $sic_codes['description'].", ";
+			}
+			$codes_data = substr($codes_data, 0, -2);
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_desc', $codes_data);
+		}
+		if (isset($details->annual_return->next_due)) {
+			$ret_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'next_ret_due', str_replace("/", "-", $details->annual_return->next_due));
+		}
+		if (isset($details->annual_return->last_made_up_to)) {
+			$ret_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'made_up_date', $details->annual_return->last_made_up_to);
+		}
+		if (isset($details->accounts->last_accounts->made_up_to)) {
+			$acc_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'last_acc_madeup_date', $details->accounts->last_accounts->made_up_to);
+		}
+		if (isset($details->accounts->next_due)) {
+			$acc_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'next_acc_due', $details->accounts->next_due);
+		}
+		if (isset($details->accounts->accounting_reference_date->day)) {
+			$acc_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'acc_ref_day', $details->accounts->accounting_reference_date->day);
+		}
+		if (isset($details->accounts->accounting_reference_date->month)) {
+			$acc_check = 1;
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'acc_ref_month', $details->accounts->accounting_reference_date->month);
+		}
+		if($ret_check == 1){
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'ann_ret_check', 1);
+		}
+		if($acc_check == 1){
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'yearend_acc_check', 1);
+		}
+
+		//$registered_office 				= Common::getRegisteredOffice($number);
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'cont_reg_addr', 'reg');
+		if (isset($details->registered_office_address->address_line_1)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
+		}
+		if (isset($details->registered_office_address->address_line_2)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line2', $details->registered_office_address->address_line_2);
+		}
+		if (isset($details->registered_office_address->locality)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_city', $details->registered_office_address->locality);
+		}
+		if (isset($details->registered_office_address->postal_code)) {
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_postcode', $details->registered_office_address->postal_code);
+		}
+		if (isset($details->registered_office_address->country)) {
+			$country = Country::where("country_name", "=", $details->registered_office_address->country)->select("country_id")->first();
+			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_country', $country['country_id']);
+		}
+		//print_r($arrData);die;
+		$inserted = StepsFieldsClient::insert($arrData);
+
+		$officers 	= Common::getOfficerDetails($number);//print_r($officers);die;
+		if(isset($officers->items) && count($officers->items) > 0){
+			foreach ($officers->items as $key => $row) {
+				if(!isset($row->resigned_on)){
+
+					$app_client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd'));
+					if (isset($row->officer_role) && $row->officer_role != "") {
+						$relationship_type = RelationshipType::where("relation_type", "=", ucwords($row->officer_role))->first();
+						$rel_type = $relationship_type['relation_type_id'];
+					}
+
+					$relData['client_id'] 			 = $client_id;
+					$relData['appointment_with'] 	 = $app_client_id;
+					$relData['relationship_type_id'] = isset($rel_type)?$rel_type:"0";
+					$relation_id = ClientRelationship::insertGetId($relData);
+
+					/*$actData['user_id'] = $user_id;
+					$actData['client_id'] = $client_id;
+					$actData['acting_client_id'] = isset($app_client_id)?$app_client_id:"0";
+					ClientActing::insert($actData);*/
+
+					$getReturn = $this->insertClientDetails($relation_id, $client_id, $row, $app_client_id);
+					//$this->insertClientDetails($row);
+				}
+				
+			}
+			
+		}
+
+		if($inserted){
+			return $client_id;
+						
+		}else{
+			return 0;
+		}
+		exit;
 	}
 
 }
