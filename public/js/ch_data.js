@@ -100,10 +100,14 @@ $("#company_details_div").on("click", ".add_client_officers", function(){
             success: function (resp) {//console.log(resp['link']);return false;
             $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
                 if(resp['link'] == 'org'){
-                     window.open(resp['base_url']+'/client/edit-org-client/'+resp['client_id'], '_blank');
+                    var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                    var myWindow = window.open(url , '_blank');
+                    myWindow.focus();
                 }
                 if(resp['link'] == 'ind'){
-                    window.open(resp['base_url']+'/client/edit-ind-client/'+resp['client_id'], '_blank');
+                    var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                    var myWindow = window.open(url, '_blank');
+                    myWindow.focus();
                 }
             }
         });
