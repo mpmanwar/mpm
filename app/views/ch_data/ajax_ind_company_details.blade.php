@@ -30,7 +30,7 @@
         <td align="left"><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ ucwords($field_row->name) }}</a></td>
         <!-- <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td> -->
         <td align="left">{{ ucwords(str_replace("-", " ", $field_row->officer_role)) }}</td>
-        <td align="center"><a href="javascript:void(0)" class="add_client_officers" id="goto{{ $key }}" data-role="{{ $field_row->officer_role or "" }}" data-key="{{ $key }}" data-company_number="{{ $details->CompanyNumber or "" }}" target="_blank"><button class="btn btn-default btn-sm imp_but" type="button">+ Add</button></a></td>
+        <td align="center"><a href="javascript:void(0)" class="add_client_officers" id="goto{{ $key }}" data-role="{{ $field_row->officer_role or "" }}" data-key="{{ $key }}" data-company_number="{{ $details->CompanyNumber or "" }}"><button class="btn btn-default btn-sm imp_but" type="button">+ Add</button></a></td>
       </tr>
       @endif
     @endforeach

@@ -84,9 +84,9 @@
   </tr>
   <tr class="td_color">
     <td align="left" class="sub_header">Name</td>
-    <!-- <td align="left" class="sub_header">Appointment Date</td> -->
+    <td align="left" class="sub_header">Appointment Date</td>
     <td align="left" class="sub_header">Role</td>
-    <td align="center" class="sub_header">Client List</td>
+    <!-- <td align="center" class="sub_header">Client List</td> -->
   </tr>
 
   @if(isset($officers) && count($officers)>0)

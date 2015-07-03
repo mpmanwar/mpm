@@ -98,7 +98,13 @@ $("#company_details_div").on("click", ".add_client_officers", function(){
                 $("#goto"+key).html('<img src="/img/spinner.gif" />');
             },
             success: function (resp) {//console.log(resp['link']);return false;
-                window.location.href=resp['link'];
+            $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
+                if(resp['link'] == 'org'){
+                     window.open('/client/edit-org-client/'+resp['client_id'], '_blank');
+                }
+                if(resp['link'] == 'ind'){
+                    window.open('/client/edit-ind-client/'+resp['client_id'], '_blank');
+                }
             }
         });
 

@@ -781,11 +781,14 @@ class ChdataController extends BaseController {
 				$company_number = $details->items[0]->company_number;
 
 				$client_id = $this->insert_org_client($company_number);
-				$data['link'] = "/client/edit-org-client/".$client_id;
+				//$data['link'] = "/client/edit-org-client/".$client_id;
+				$data['link'] = "org";
 			}else{
 				$client_id = $this->insert_individual_client($officer);
-				$data['link'] = "/client/edit-ind-client/".$client_id;
+				//$data['link'] = "/client/edit-ind-client/".$client_id;
+				$data['link'] = "ind";
 			}
+			$data['client_id'] = $client_id;
 			
 		}
 
