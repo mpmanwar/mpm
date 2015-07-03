@@ -232,10 +232,10 @@ class ChdataController extends BaseController {
 
 		$appointment = ClientRelationship::where('appointment_with', '=', $client_id)->select("client_id", "relationship_type_id")->first();
 		if(isset($appointment) && count($appointment) >0 ){
-			$rel_data['appointment_with'] 		= $appointment['client_id'];
+			/*$rel_data['appointment_with'] 		= $appointment['client_id'];
 			$rel_data['relationship_type_id'] 	= $appointment['relationship_type_id'];
 			$rel_data['client_id'] 				= $client_id;
-			ClientRelationship::insert($rel_data);
+			ClientRelationship::insert($rel_data);*/
 
 
 			$act_data['user_id'] 			= $user_id;
