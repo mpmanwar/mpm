@@ -37,11 +37,12 @@ $(document).ready(function(){
 
     $("#result").on("click", ".get_company_details", function(){//popup_align
         var number = $(this).data("number");
+        var back_url = $("#back_url").val();
         
         $.ajax({
             type: "POST",
             url: "/company-details",
-            data: { 'number': number },
+            data: { 'number': number, 'back_url' : back_url },
             beforeSend: function() {
                 $("#company_details_div").html('<img src="/img/ajax-loader1.gif" />');
                 $("#company_details-modal").modal('show');//return false;

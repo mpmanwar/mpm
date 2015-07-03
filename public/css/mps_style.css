@@ -336,6 +336,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 .n_box22_22{float:left; margin-right:5px; width:22%;}
 .n_box18_18{float:left; margin-right:5px; width:18%;}
 .n_box27_27{float:left; margin-right:5px; width:27%;}
+.imp_but{background: #efefef; width: 90%; border: 1px solid #60aad2 !important; height: 25px; padding: 0 10px!important;
+background: -moz-linear-gradient(top,  #efefef 0%, #dadde0 60%); 
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efefef), color-stop(60%,#dadde0)); 
+background: -webkit-linear-gradient(top,  #efefef 0%,#dadde0 60%);
+background: -o-linear-gradient(top,  #efefef 0%,#dadde0 60%); 
+background: -ms-linear-gradient(top,  #efefef 0%,#dadde0 60%); 
+background: linear-gradient(to bottom,  #efefef 0%,#dadde0 60%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#dadde0',GradientType=0 );}
 
 
 @media only screen and (min-width : 320px) and (max-width : 480px),

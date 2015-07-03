@@ -195,7 +195,8 @@ class ChdataController extends BaseController {
 
 	public function company_details()
 	{
-		$number = Input::get("number");
+		$number 	= Input::get("number");
+		$back_url 	= Input::get("back_url");
 		$data 		= array();
 		$data['officers']	= array();
 		
@@ -211,7 +212,12 @@ class ChdataController extends BaseController {
 		$data['registered_office']	= $registered_office;
 		$data['nature_of_business']	= $this->getSicDescription($details->primaryTopic->SICCodes->SicText);
 
-		echo View::make("ch_data.ajax_company_details", $data);
+		if($back_url == "ind_list"){
+			echo View::make("ch_data.ajax_ind_company_details", $data);
+		}else{
+			echo View::make("ch_data.ajax_company_details", $data);
+		}
+		
 		
 	}
 
