@@ -789,6 +789,7 @@ class ChdataController extends BaseController {
 				$data['link'] = "ind";
 			}
 			$data['client_id'] = $client_id;
+			$data['base_url'] = url();
 			
 		}
 
