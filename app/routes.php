@@ -131,6 +131,7 @@ Route::any('/client/delete-acting', array("as"=>"delete_acting", "uses"=>'Client
 Route::any('/client/save-database-acting', array("as"=>"save_database_acting", "uses"=>'ClientController@save_database_acting'));
 Route::any('/client/get-name-and-type', array("as"=>"get_name_and_type", "uses"=>'ClientController@get_name_and_type'));
 Route::any('/client/delete-addtolist-client', array("as"=>"delete_addtolist_client", "uses"=>'ClientController@delete_addtolist_client'));
+Route::any('/client/get-officers-client', array("as"=>"get_officers_client", "uses"=>'ClientController@get_officers_client'));
 ### Routes for Client URL's end ###
 
 
@@ -145,6 +146,8 @@ Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataContr
 Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
 Route::any('/import-company-details/{number}', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
 Route::any('/goto-edit-client', array("as"=>"goto_edit_client", "uses"=>'ChdataController@goto_edit_client'));
+
+
 ## Company House Data End ##
 
 

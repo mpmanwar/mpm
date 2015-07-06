@@ -494,7 +494,7 @@ class ChdataController extends BaseController {
 			//echo $details->items[0]->company_number;die;
 
 			//////////////Check the officer is exists or not/////////////
-			$exists_client = StepsfieldsClient::where("field_name", "=", "business_name")->where("field_value", "=", $row->name)->first();
+			//$exists_client = StepsfieldsClient::where("field_name", "=", "business_name")->where("field_value", "=", $row->name)->first();
 			//////////////Check the officer is exists or not////////////
 
 				Client::where("client_id", "=", $app_client_id)->update(array('chd_type' => 'org'));
@@ -589,7 +589,7 @@ class ChdataController extends BaseController {
 			}
 
 				//////////////Check the officer is exists or not/////////////
-				$exists_client = StepsfieldsClient::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name))->first();//echo $this->last_query();die;
+				//$exists_client = StepsfieldsClient::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name))->first();//echo $this->last_query();die;
 				//////////////Check the officer is exists or not////////////
 
 			}
@@ -827,5 +827,7 @@ class ChdataController extends BaseController {
 	}
 
 	
+
+
 
 }

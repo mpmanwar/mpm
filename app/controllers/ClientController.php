@@ -768,4 +768,13 @@ class ClientController extends BaseController {
         }
       return $within_array;
 	}
+
+	function get_officers_client()
+	{
+		echo "Anwar";
+	}
+
+
+
+	
 }
