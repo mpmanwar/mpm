@@ -197,8 +197,8 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Nationality</label>
-<select class="form-control" name="nationality" id="nationality">
+<label for="exampleInputPassword1">Country</label>
+<select class="form-control" name="country_id" id="country_id">
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -223,6 +223,29 @@ $(document).ready(function(){
 <input type="text" id="occupation" name="occupation" class="form-control">
 </div>
 </div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Nationality</label>
+<select class="form-control" name="nationality_id" id="nationality_id">
+@if(!empty($nationalities))
+  @foreach($nationalities as $key=>$nationality_row)
+    <option value="{{ $nationality_row->nationality_id }}">{{ $nationality_row->nationality_name }}</option>
+  @endforeach
+@endif
+</select>
+</div>
+</div>
+
+<!-- <div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Occupation</label>
+<input type="text" id="occupation" name="occupation" class="form-control">
+</div>
+</div> -->
 <div class="clearfix"></div>
 </div>
 

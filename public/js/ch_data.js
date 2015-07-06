@@ -59,7 +59,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: "/import-company-details/"+number,
+            url: "/import-company-details/"+number+"=ajax",
             //data: { 'number': number },
             beforeSend: function() {
                 $("#message_div").html('<img src="/img/spinner.gif" />');

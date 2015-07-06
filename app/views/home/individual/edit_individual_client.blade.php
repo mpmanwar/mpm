@@ -179,19 +179,19 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Nationality</label>
-<select class="form-control" name="nationality" id="nationality">
+<label for="exampleInputPassword1">Country</label>
+<select class="form-control" name="country" id="country">
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['country']) && $country_row->country_id == $client_details['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['country_id']) && $country_row->country_id == $client_details['country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
@@ -205,6 +205,29 @@ $(document).ready(function(){
 <input type="text" id="occupation" name="occupation" value="{{ $client_details['occupation'] or "" }}" class="form-control">
 </div>
 </div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Nationality</label>
+<select class="form-control" name="nationality" id="nationality">
+@if(!empty($nationalities))
+  @foreach($nationalities as $key=>$nationality_row)
+    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($client_details['nationality_id']) && $nationality_row->nationality_id == $client_details['nationality_id'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
+  @endforeach
+@endif
+</select>
+</div>
+</div>
+
+<!-- <div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Occupation</label>
+<input type="text" id="occupation" name="occupation" class="form-control">
+</div>
+</div> -->
 <div class="clearfix"></div>
 </div>
 

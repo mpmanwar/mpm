@@ -22,6 +22,7 @@ class ClientController extends BaseController {
 		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();
 		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
+		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
 		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();

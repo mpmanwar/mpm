@@ -22,7 +22,7 @@ class HomeController extends BaseController {
 		return View::make('home.dashboard', $data);
 	}
 
-	public function individual_clients() {
+	public function individual_clients() {//$details 	= Common::getCompanyDetails("07188775");print_r($details);die;
 		$client_data 		= array();
 		$data['heading'] 	= "CLIENT LIST - INDIVIDUALS";
 		$data['title'] 		= "Individual Clients List";
@@ -208,6 +208,7 @@ class HomeController extends BaseController {
 		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
 		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
+		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= $this->get_contact_address();
 
@@ -587,11 +588,14 @@ class HomeController extends BaseController {
 		if (!empty($postData['spouse_dob'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'spouse_dob', $postData['spouse_dob']);
 		}
-		if (!empty($postData['nationality'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'nationality', $postData['nationality']);
+		if (!empty($postData['country_id'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'country_id', $postData['country_id']);
 		}
 		if (!empty($postData['occupation'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'occupation', $postData['occupation']);
+		}
+		if (!empty($postData['nationality_id'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'nationality_id', $postData['nationality_id']);
 		}
 //################ GENERAL SECTION END #################//
 

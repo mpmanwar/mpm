@@ -1946,6 +1946,7 @@ $(document).ready(function(){
     <option value="ind">CLIENT - IND</option>
   </select> -->
 
+<div style="width:100%;">
 <div class="j_selectbox">
 <span>ADD NEW ENTITY</span>
 <div class="select_icon" id="select_icon"></div>
@@ -1959,7 +1960,9 @@ $(document).ready(function(){
 </div>
 </div>
 
+<div style="float: left; margin-top: 5px;"><button type="button" class="imported_officers">VIEW/ADD IMPORTED OFFICERS</button></div>
 
+</div>
 <!-- <li>
 <div class="form-group">
   <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
