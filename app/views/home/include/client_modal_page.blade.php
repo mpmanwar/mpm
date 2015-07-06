@@ -348,10 +348,10 @@
 <div class="modal fade" id="officers_details-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:70%;">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: none;">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
-        <div class="clearfix"></div>
+        <!-- <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div> -->
       </div>
 
     <div class="modal-body">
@@ -365,38 +365,28 @@
             <td align="center" width="20%" class="sub_header">Add to Relationships</td>
           </tr>
 
-          <tr>
-            <td align="left">fgf</td>
-            <!-- <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td> -->
-            <td align="left">dgdfg</td>
-            <td align="center">
-                <div class="officer_selectbox">
-                    <span>+ Add</span>
-                    <div class="small_icon" data-id="1"></div>
-                    <div class="clr"></div>
-                    <div class="select_toggle" id="status1">
-                      <ul>
-                        <li data-value="org">NEW CLIENT</li>
-                        <li data-value="non">NON - CLIENT</li>
-                      </ul>
+        @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
+                <td width="40%">{{ $relation_row['name'] or "" }}</td>
+                <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
+                
+                <td width="20%" align="center">
+                    <div class="officer_selectbox">
+                        <span>+ Add</span>
+                        <div class="small_icon" data-id="{{ $relation_row['client_relationship_id'] }}"></div>
+                        <div class="clr"></div>
+                        <div class="select_toggle" id="status{{ $relation_row['client_relationship_id'] }}">
+                          <ul>
+                            <li data-value="org"><a href="{{ $relation_row['link'] }}" target="_blank">NEW CLIENT</a></li>
+                            <li data-value="non"><a href="javascript:void(0)" data-relation_id="{{ $relation_row['client_relationship_id'] }}" class="officer_addto_relation">NON - CLIENT</a></li>
+                          </ul>
+                        </div>
                     </div>
-                </div>
-            </td>
-          </tr>
-
-
-          @if(isset($officers) && count($officers)>0)
-            @foreach($officers as $key=>$field_row)
-              @if(!isset($field_row->resigned_on))
-              <tr>
-                <td align="left"><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ ucwords($field_row->name) }}</a></td>
-                <!-- <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td> -->
-                <td align="left">{{ ucwords(str_replace("-", " ", $field_row->officer_role)) }}</td>
-                <td align="center"><a href="javascript:void(0)" class="add_client_officers" id="goto{{ $key }}" data-role="{{ $field_row->officer_role or "" }}" data-key="{{ $key }}" data-company_number="{{ $details->CompanyNumber or "" }}"><button class="btn btn-default btn-sm imp_but" type="button">+ Add</button></a></td>
+                </td>
               </tr>
-              @endif
             @endforeach
-          @endif
+        @endif
         </table>
     </div>
 

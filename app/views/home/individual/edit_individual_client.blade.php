@@ -8,6 +8,7 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->

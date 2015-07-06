@@ -333,7 +333,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 .open_toggle ul{list-style:none; padding:0; margin:0;}
 .open_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer;}
 
-.officer_selectbox {position: relative; height: 20px; border: 1px solid #388ebd; border-radius: 4px; width: 80px!important; z-index: 0; float: left; display: inline; margin: 6px 4px 6px 40px; font-size: 14px; font-family: Arial; color: #444; padding: 0;
+.officer_selectbox {position: relative; height: 20px; border: 1px solid #388ebd; border-radius: 4px; width: 90px!important; float: left; display: inline; margin: 6px 4px 6px 40px; font-size: 14px; font-family: Arial; color: #444; padding: 0;
 background: #f6f7f8;
 background: -moz-linear-gradient(top,  #f6f7f8 0%, #e7ebed 65%, #e7ebed 65%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f7f8), color-stop(65%,#e7ebed), color-stop(65%,#e7ebed));
@@ -344,7 +344,7 @@ background: linear-gradient(to bottom,  #f6f7f8 0%,#e7ebed 65%,#e7ebed 65%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', endColorstr='#e7ebed',GradientType=0 );}
 .officer_selectbox span{color:#808080; font-size:13px; font-weight: bold; text-align:left; padding:1px 5px 0 10px; float:left;}
 .small_icon{float: right; background: url("../img/select-icons.png") 0 -3px; width: 23px; height: 18px; cursor: pointer;}
-.select_toggle{width:100%; position:absolute; top:20px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
+.select_toggle{width:100%; position:absolute; z-index:999; top:20px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
 .select_toggle ul{list-style:none; padding:0; margin:0;}
 .select_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer; font-size: 10px;}
 /* Select box design in organisation page end */

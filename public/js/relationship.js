@@ -2,21 +2,22 @@ $(document).ready(function (e) {
 
 	// Get all the officers in the relationship section start //
 	$(".imported_officers").click(function(){
-	    
-	    $.ajax({
+	    var client_id = $("#client_id").val();
+	    $("#officers_details-modal").modal('show');
+	    /*$.ajax({
 	        type: "POST",
 	        url: "/chdata/get-officers-client",
 	        dataType: "json",
-	        //data: { 'company_number': company_number, 'key' : key },
+	        data: { 'client_id': client_id },
 	        beforeSend: function() {
 	            $("#officers_details-modal").modal('show');//return false;
 	            //$("#officers_details-modal .modal-body").html('<img src="/img/spinner.gif" />');
 	        },
 	        success: function (resp) {//console.log(resp['link']);return false;
-	            $("#officers_details-modal").modal('show');//return false;
+	            
 	        }
 	        
-	    });
+	    });*/
 
 	});
 	// Get all the officers in the relationship section End //
@@ -43,6 +44,24 @@ $(document).ready(function (e) {
 	    
 	});
 // ################Officers dropdown toggle in relationship section end ################### //
+
+
+$(".officer_addto_relation").click(function(){
+	var relation_id = $(this).data("relation_id");
+	$.ajax({
+        type: "POST",
+        url: "/client/save-officers-into-relation",
+        dataType: "json",
+        data: { 'relation_id': relation_id },
+        
+        success: function (resp) {//console.log(resp['name']);return false;
+            $('#rel_type_id').val(resp['relationship_type_id']);
+    		$('#rel_client_id').val(resp['client_id']);
+    		saveRelationship('add_org');
+        }
+        
+    });
+});
 
 
 

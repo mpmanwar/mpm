@@ -10,6 +10,7 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -2017,6 +2018,9 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
+
+
+<div style="width:100%;">
 <div class="j_selectbox">
 <span>ADD NEW ENTITY</span>
 <div class="select_icon" id="select_icon"></div>
@@ -2029,6 +2033,11 @@ $(document).ready(function(){
   </ul>
 </div>
 </div>
+
+<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers">VIEW/ADD IMPORTED OFFICERS</button></div>
+
+</div>
+
 <!--<ul style="padding: 0;">  
  <li>
 <div class="form-group">
@@ -2109,7 +2118,7 @@ $(document).ready(function(){
   <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
 
-<div class="box-body table-responsive" style="width:50%;">
+<!-- <div class="box-body table-responsive" style="width:50%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -2125,7 +2134,7 @@ $(document).ready(function(){
       <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
         <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
         <td width="18%" align="center">
-          <!-- <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>  -->
+          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>
           <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
@@ -2158,7 +2167,7 @@ $(document).ready(function(){
 
 <div style="margin-top: 10px;">
   <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
-</div>
+</div> -->
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -2436,7 +2445,7 @@ $(document).ready(function(){
 
 
 
-<!-- COMPOSE MESSAGE MODAL -->
+<!-- COMPOSE MESSAGE MODAL
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
@@ -2511,13 +2520,13 @@ $(document).ready(function(){
       </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- add/edit list -->
+add/edit list
 <div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
@@ -2563,13 +2572,13 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- Vat Scheme Modal -->
+Vat Scheme Modal
 <div class="modal fade" id="vatScheme-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2614,13 +2623,13 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- Services Modal Start-->
+Services Modal Start
 <div class="modal fade" id="services-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2664,14 +2673,14 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
-<!-- Services Modal End-->
+Services Modal End
 
 
-<!-- Add Subsec Modal Start-->
+Add Subsec Modal Start
 <div class="modal fade" id="addsubsec-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2705,14 +2714,14 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
-<!-- Add Subsec Modal End-->
+Add Subsec Modal End
 
 
-<!-- Relationship Add To List Modal Start-->
+Relationship Add To List Modal Start
 <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:404px;">
     <div class="modal-content">
@@ -2778,14 +2787,14 @@ $(document).ready(function(){
       </div>
       
     </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
-<!-- Relationship Add To List Modal End-->
+Relationship Add To List Modal End -->
 
 
-
+@include("home.include.client_modal_page")
 
 
 

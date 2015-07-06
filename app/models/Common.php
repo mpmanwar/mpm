@@ -413,6 +413,30 @@ class Common extends Eloquent {
         		$data1[$key]['relation_type'] 			= $row->relation_type;
         		$data1[$key]['acting'] 					= $row->acting;
         		$data1[$key]['client_id'] 				= $row->client_id;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data1[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data1[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data1[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data1[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data1[$key]['link'] = "";
+						}
+					}else{
+						$data1[$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
         		
 			}
         }
@@ -458,6 +482,29 @@ class Common extends Eloquent {
         		$data2[$key]['relation_type'] 			= $row->relation_type;
         		$data2[$key]['acting'] 					= $row->acting;
         		$data2[$key]['client_id'] 				= $row->client_id;
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data2[$key]['link'] = "";
+						}
+					}else{
+						$data2[$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
         		
 			}
         }
@@ -472,6 +519,7 @@ class Common extends Eloquent {
         		$data[$i]['relation_type'] 			= $value['relation_type'];
         		$data[$i]['acting'] 				= $value['acting'];
         		$data[$i]['client_id'] 				= $value['client_id'];
+        		$data[$i]['link'] 					= $value['link'];
         		$i++;
 	        	
         	}
