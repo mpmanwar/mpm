@@ -285,12 +285,24 @@
       <div class="modal-body">
         <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
         <div class="form-group" style="width:70%">
-          <label for="name">Type</label>
+          <label for="name">Entity Type</label>
           <select class="form-control" name="add_to_type" id="add_to_type">
             <option value="ind">Individual</option>
             <option value="org">Organisation</option>
           </select>
         </div>
+
+        <div class="form-group" style="width:70%">
+            <label for="name">Relationship Type</label>
+        <select class="form-control" name="rel_type_id" id="rel_type_id">
+            @if(!empty($rel_types))
+              @foreach($rel_types as $key=>$rel_row)
+              <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+              @endforeach
+            @endif
+          </select>
+        </div>
+
 
         <div class="form-group" id="add_to_client_text">
 
