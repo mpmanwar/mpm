@@ -517,7 +517,7 @@ class Common extends Eloquent {
 			}
         }
 
-        $relationship = array_merge($data1, $data2);//print_r($relationship);die;
+        $relationship = array_merge($data1, $data2);//print_r($data1);die;
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){
@@ -527,8 +527,8 @@ class Common extends Eloquent {
         		$data[$i]['relation_type'] 			= $value['relation_type'];
         		$data[$i]['acting'] 				= $value['acting'];
         		$data[$i]['client_id'] 				= $value['client_id'];
-        		$data[$i]['link'] 					= $value['link'];
-        		$data[$i]['type'] 					= $value['type'];
+        		$data[$i]['link'] 					= isset($value['link'])?$value['link']:"";
+        		$data[$i]['type'] 					= isset($value['type'])?$value['type']:"";
 				$data[$i]['chd_type'] 				= $value['chd_type'];
 				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
         		$i++;

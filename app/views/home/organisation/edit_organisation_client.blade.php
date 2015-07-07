@@ -2073,14 +2073,14 @@ $(document).ready(function(){
           @if(isset($relation_row['type']) && $relation_row['type'] == "non" )
             {{ $relation_row['name'] or "" }}
           @else
-            <a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
+            <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
           @endif
 
         </td>
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">
-          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] or "" }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] or "" }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
     @endforeach

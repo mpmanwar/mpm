@@ -10,7 +10,12 @@ $(document).ready(function (e) {
 	        data: { 'company_number': company_number },
 	        beforeSend: function() {
 	            $("#officers_details-modal").modal('show');
-	            $("#officers_details-modal .officer_table").last().append('<tr><td colspan="3" align="center"><img src="/img/spinner.gif" /></td></tr>');
+	            var loder = "";
+	            loder +='<tr class="td_color"><td align="center" colspan="3">';
+	            loder +='<span class="table_tead_t">OFFICERS</span></td></tr>';
+		        loder +='<tr class="td_color"><td align="left" class="sub_header">Name</td><td align="left" class="sub_header">Role</td><td align="center" width="20%" class="sub_header">Add to Relationships</td></tr>';
+	            loder +='<tr><td colspan="3" align="center"><img src="/img/spinner.gif" /></td></tr>';
+	            //$("#officers_details-modal .officer_table").html(loder);
 	        	//return false;
 	        },
 	        success: function (resp) {//console.log(resp['link']);return false;
