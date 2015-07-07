@@ -2068,14 +2068,14 @@ $(document).ready(function(){
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
-      <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
+      <!-- <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
         <td width="40%">{{ $relation_row['name'] or "" }}</td>
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">
           <a href="javascript:void(0)" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
-      </tr>
+      </tr> -->
     @endforeach
   @endif
 

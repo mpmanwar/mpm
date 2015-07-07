@@ -947,7 +947,7 @@ class HomeController extends BaseController {
 		$groupUserId = $admin_s['group_users'];
 		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->select("client_id")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "!=", "chd")->select("client_id")->get();
 		//echo $this->last_query();die;
 		if(isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $key=>$client_id){
@@ -1022,7 +1022,8 @@ class HomeController extends BaseController {
 	function getOrgClient($client_ids, $search_value)
 	{
 		$clients = array();
-		$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'business_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+		//$client_name = StepsFieldsClient::where("field_value", "like", '%' . $search_value . '%')->where('field_name', '=', 'business_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
+		$client_name = StepsFieldsClient::where('field_name', '=', 'business_name')->whereIn('client_id', $client_ids)->select("field_value", "client_id")->get();
 
 		if(isset($client_name) && count($client_name) >0 ){
 			foreach($client_name as $key=>$name){

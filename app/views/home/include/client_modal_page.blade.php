@@ -294,7 +294,7 @@
 
         <div class="form-group" style="width:70%">
             <label for="name">Relationship Type</label>
-        <select class="form-control" name="rel_type_id" id="rel_type_id">
+        <select class="form-control" name="officer_rel__type_id" id="officer_rel__type_id">
             @if(!empty($rel_types))
               @foreach($rel_types as $key=>$rel_row)
               <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
@@ -306,35 +306,31 @@
 
         <div class="form-group" id="add_to_client_text">
 
-<div class="clearfix"></div>
-<div class="n_box18_18">
-<label for="exampleInputPassword1">Title</label>
-<select class="form-control select_title" id="add_to_title" name="add_to_title">
-          <option value="Mr" selected="">Mr</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Miss">Miss</option>
-        <option value="Dr">Dr</option>
-        <option value="Professor">Professor</option>
-        <option value="Rev">Rev</option>
-        <option value="Sir">Sir</option>
-        <option value="Dame">Dame</option>
-        <option value="Lord">Lord</option>
-        <option value="Lady">Lady</option>
-        <option value="Captain">Captain</option>
-        <option value="The Hon">The Hon</option>
-        <option value="Other">Other</option>
-      </select></div>
-<div class="n_box27_27">
-    <label for="exampleInputPassword1">First Name</label>
-    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
-<div class="n_box22_22">
-    <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
-<div class="n_box27_27">
-    <label for="exampleInputPassword1">Last Name</label>
-    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
-<div class="clearfix"></div>
-</div>
+          <div class="clearfix"></div>
+          <div class="n_box18_18">
+          <label for="exampleInputPassword1">Title</label>
+            <select class="form-control select_title" id="add_to_title" name="add_to_title">
+              @if(!empty($titles))
+                @foreach($titles as $key=>$title_row)
+                  <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
+                @endforeach
+              @endif
+            </select>
+          </div>
+          <div class="n_box27_27">
+            <label for="exampleInputPassword1">First Name</label>
+            <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase">
+          </div>
+          <div class="n_box22_22">
+            <label for="exampleInputPassword1">Middle Name</label>
+            <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase">
+          </div>
+          <div class="n_box27_27">
+            <label for="exampleInputPassword1">Last Name</label>
+            <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase">
+          </div>
+          <div class="clearfix"></div>
+          </div>
 
         <div class="form-group" style="width:70%; display:none;" id="add_to_business">
           <label for="name">Business Name</label>
