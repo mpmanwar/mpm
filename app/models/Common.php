@@ -374,7 +374,7 @@ class Common extends Eloquent {
 
 		$relationship1 = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
             ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
-            ->select('cr.client_relationship_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
+            ->select('cr.client_relationship_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();//print_r($relationship1);die;
 
 		if(isset($relationship1) && count($relationship1) >0 )
         {

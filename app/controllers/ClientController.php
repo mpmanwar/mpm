@@ -25,7 +25,8 @@ class ClientController extends BaseController {
 		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
-		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
+		$data['allIndClients'] 	 	= App::make("HomeController")->get_all_ind_clients();
+		//print_r($data['allIndClients']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -52,6 +53,7 @@ class ClientController extends BaseController {
 
 		
 		$data['relationship'] 	 = Common::get_relationship_client($client_id);
+		//echo $this->last_query();die;
 		$data['acting'] 		 = Common::get_acting_client($client_id);
 		$data['acting_dropdown'] = $this->get_acting_dropdown( $data['relationship'], $data['acting'] );
         

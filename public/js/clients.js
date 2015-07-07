@@ -1567,7 +1567,7 @@ function saveRelationship(process_type)
     }else{
       var rel_client_id = $('#rel_client_id').val();
     }
-
+//alert(rel_client_id+"etet");
     var rel_type_id = $('#rel_type_id').val();
     //var rel_client_id = $('#rel_client_id').val();
     //var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';

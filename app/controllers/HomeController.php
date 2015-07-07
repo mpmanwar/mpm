@@ -977,6 +977,44 @@ class HomeController extends BaseController {
 		exit();
 	}
 
+	public function get_all_ind_clients() {
+		$client_details = array();
+		$clients = array();
+
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
+		$search_value = Input::get("search_value");
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "=", "ind")->select("client_id")->get();
+		//echo $this->last_query();die;
+		if(isset($client_ids) && count($client_ids) >0 ){
+			foreach($client_ids as $key=>$client_id){
+				$clients[$key]['client_id']	= $client_id->client_id;
+			}
+		}
+		//echo $this->last_query();die;
+		//$org_client = $this->getOrgClient($clients, $search_value);
+		$client_details = $this->getIndClient($clients, $search_value);
+		//$chd_client = $this->getChdClient($clients, $search_value);
+		//$client_details = array_merge($org_client, $ind_client);//print_r($client_details);die;
+		//$client_details = $this->getUniqueArray($client_details);
+
+		/*========================Short By Create Time Portion==============================*/
+		if(isset($client_details) && count($client_details) >0){
+			foreach ($client_details as $value){
+			$client_name[]  = strtolower($value['client_name']); //Creates $volume, $edition, $name and $type arrays.
+			} 
+			array_multisort($client_name, SORT_ASC, $client_details);
+		}
+		
+		//print_r($client_details);die;
+		/*=======================Short By Create Time Portion===============================*/
+
+		return $client_details;
+		exit();
+	}
+
 	public function search_all_client() {
 		$client_details = array();
 		$clients = array();

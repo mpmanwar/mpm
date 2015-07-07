@@ -559,7 +559,11 @@ class ChdataController extends BaseController {
 
 			/*############### Address ###############*/
 			if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
-				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', $row->address->address_line_1);
+				$house_no = "";
+				if (isset($row->address->premises) && $row->address->premises != "") {
+					$house_no = $row->address->premises;
+				}
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', trim($house_no." ".$row->address->address_line_1));
 			}
 			if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
 				$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line2', $row->address->address_line_2);
@@ -828,7 +832,11 @@ class ChdataController extends BaseController {
 
 		/*############### Address Start ###############*/
 		if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
-			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', $row->address->address_line_1);
+			$house_no = "";
+			if (isset($row->address->premises) && $row->address->premises != "") {
+				$house_no = $row->address->premises;
+			}
+			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line1', trim($house_no." ".$row->address->address_line_1));
 		}
 		if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
 			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'serv_addr_line2', $row->address->address_line_2);
@@ -891,7 +899,11 @@ class ChdataController extends BaseController {
 
 		/*############### Address Start ###############*/
 		if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
-			$this->updateQuery($client_id, $user_id, "serv_addr_line1", $row->address->address_line_1);
+			$house_no = "";
+			if (isset($row->address->premises) && $row->address->premises != "") {
+				$house_no = $row->address->premises;
+			}
+			$this->updateQuery($client_id, $user_id, "serv_addr_line1", trim($house_no." ".$row->address->address_line_1));
 		}
 		if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
 			$this->updateQuery($client_id, $user_id, "serv_addr_line2", $row->address->address_line_2);
