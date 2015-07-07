@@ -72,9 +72,26 @@ $("#officers_details-modal").on("click", ".officer_addto_relation", function(){
             $('#rel_client_id').val("");
         },
         success: function (resp) {//console.log(resp['relation_type_id']);return false;
-            $('#rel_type_id').val(resp['relation_type_id']);
-    		$('#non_rel_client_id').val(resp['client_id']);
-    		saveRelationship('add_org');
+        	var url, name;
+        	if(resp['link'] == 'org'){
+                url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>';
+            }
+            else if(resp['link'] == 'ind'){
+                url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>'
+            }else{
+            	url = "";
+            	name = resp['appointment_name'];
+            }
+
+        	var relcontent = "";
+			relcontent += '<tr id="database_tr'+resp['relation_id']+'"><td width="40%">'+name+'</td>';
+			relcontent += '<td width="40%" align="center">'+resp['relationship_type']+'</td>';
+			relcontent += '<td width="20%" align="center"><a href="javascript:void(0)" data-link="'+url+'" data-rel_client_id="'+resp['rel_client_id']+'" class="delete_database_rel" data-delete_index="'+resp['relation_id']+'"><img src="/img/cross.png" height="15"></a></td>';
+
+			$("#myRelTable").last().append(relcontent);
+            
         }
         
     });

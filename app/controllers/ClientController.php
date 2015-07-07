@@ -845,14 +845,19 @@ class ClientController extends BaseController {
 		if(isset($rel_client) && count($rel_client) >0){
 			$rel_data['relationship_type_id'] = $relation_type;
 			ClientRelationship::where("client_id", "=", $relation_client_id)->where("appointment_with", "=", $client_id)->update($rel_data);
+			$relation_id = $rel_client['client_relationship_id'];
 		}else{
 			$rel_data['client_id'] 				= $relation_client_id;
 			$rel_data['appointment_with'] 		= $client_id;
 			$rel_data['relationship_type_id'] 	= $relation_type;
-			ClientRelationship::insert($rel_data);
+			$relation_id = ClientRelationship::insert($rel_data);
 		}
 		// ############# RELATIONSHIP SECTION END ############## //
 
+		$data['appointment_name'] 	= $officer->name;
+		$data['rel_client_id'] 		= $client_id;
+		$data['relation_id'] 		= $relation_id;
+		$data['relationship_type'] 	= ucwords($officer->officer_role);
 
 		//$relation_id = Input::get("relation_id");
 		/*$relationship = DB::table('client_relationships as cr')->where("cr.client_relationship_id", "=", $relation_id)->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')->select('cr.client_relationship_id', 'cr.relationship_type_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
