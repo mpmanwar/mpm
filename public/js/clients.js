@@ -1104,7 +1104,8 @@ $("#myRelTable").on("click", ".rel_save", function(){
 
 
 // Delete relationship while edit client start //
-$(".delete_database_rel").click(function(){
+$("#myRelTable").on("click", ".delete_database_rel", function(){
+//$(".delete_database_rel").click(function(){
   var delete_index  = $(this).data("delete_index");
   var client_type   = $("#search_client_type").val();
   var rel_client_id      = $(this).data("rel_client_id");
@@ -1395,28 +1396,34 @@ $(".relation_add_client").click(function(){
   var mname         = $("#add_to_mname").val();
   var lname         = $("#add_to_lname").val();
   var relation_type = $("#officer_rel__type_id").val();
+  var client_id     = $("#client_id").val();
 
   $.ajax({
       type: "POST",
       url: "/client/add-to-client",
-      data: { 'type': type, 'name': name, 'title': title, 'fname': fname, 'mname': mname, 'lname': lname, 'relation_type': relation_type },
+      data: { 'client_id': client_id, 'type': type, 'name': name, 'title': title, 'fname': fname, 'mname': mname, 'lname': lname, 'relation_type': relation_type },
       beforeSend: function() {
           $("#add_to_msg_div").html('<img src="/img/spinner.gif" />');
       },
       success: function (resp) {
         if(resp != 0){
           $("#add_to_msg_div").html("Your details has been added.");
-          $('#rel_client_id').append($('<option>', {
+
+          /*$('#rel_client_id').append($('<option>', {
               value: resp,
               text: add_to_name
-          }));
-
+          }));*/
 
           $("#add_to_name").val("");
           $("#add_to_title").val($("#add_to_title option:first").val());
           $("#add_to_fname").val("");
           $("#add_to_mname").val("");
           $("#add_to_lname").val("");
+
+
+          $('#rel_type_id').val(relation_type);
+          $('#non_rel_client_id').val(resp);
+          saveRelationship('add_org');
 
 
         }else{
@@ -1555,8 +1562,14 @@ function saveRelationship(process_type)
   
   //$('input[type="checkbox"]').iCheck('enabled');
 
+    if($('#non_rel_client_id').val() != ""){
+      var rel_client_id = $('#non_rel_client_id').val();
+    }else{
+      var rel_client_id = $('#rel_client_id').val();
+    }
+
     var rel_type_id = $('#rel_type_id').val();
-    var rel_client_id = $('#rel_client_id').val();
+    //var rel_client_id = $('#rel_client_id').val();
     //var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';
 
     if(rel_client_id == ""){

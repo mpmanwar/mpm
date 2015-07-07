@@ -61,16 +61,19 @@ $(document).ready(function (e) {
 $("#officers_details-modal").on("click", ".officer_addto_relation", function(){
 	var key = $(this).data("key");
     var company_number = $(this).data("company_number");
+    var client_id = $("#client_id").val();
 
 	$.ajax({
         type: "POST",
         url: "/client/save-officers-into-relation",
         dataType: "json",
-        data: { 'company_number': company_number, 'key': key },
-        
+        data: { 'company_number': company_number, 'key': key, 'client_id' : client_id },
+        beforeSend: function() {
+            $('#rel_client_id').val("");
+        },
         success: function (resp) {//console.log(resp['relation_type_id']);return false;
             $('#rel_type_id').val(resp['relation_type_id']);
-    		$('#rel_client_id').val(resp['client_id']);
+    		$('#non_rel_client_id').val(resp['client_id']);
     		saveRelationship('add_org');
         }
         
@@ -90,8 +93,22 @@ $("#officers_details-modal").on("click", ".add_client_officers", function(){
             data: { 'company_number': company_number, 'key' : key, 'client_id' : client_id },
             beforeSend: function() {
                 $("#goto"+key).html('<img src="/img/spinner.gif" />');
+                $('#rel_client_id').val("");
             },
             success: function (resp) {//console.log(resp['link']);return false;
+            	var url, name;
+            	if(resp['link'] == 'org'){
+                    url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                    name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>';
+                }
+                else if(resp['link'] == 'ind'){
+                    url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                    name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>'
+                }else{
+                	url = "";
+                	name = resp['appointment_name'];
+                }
+
             	var content = "";
 	            content += '<div class="officer_selectbox"><span>+ Add</span><div class="small_icon" data-id="'+key+'"></div><div class="clr"></div>';
 	            content += '<div class="select_toggle" id="status'+key+'" style="display: none;"><ul>';
@@ -99,16 +116,20 @@ $("#officers_details-modal").on("click", ".add_client_officers", function(){
 	            content += '<li data-value="non"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="officer_addto_relation">NON - CLIENT</a></li>';
 	            content += '</ul></div></div>';
             	$("#goto"+key).html(content);
-                if(resp['link'] == 'org'){
-                    var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
-                    var myWindow = window.open(url , '_blank');
-                    myWindow.focus();
-                }
-                if(resp['link'] == 'ind'){
-                    var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
-                    var myWindow = window.open(url, '_blank');
-                    myWindow.focus();
-                }
+
+
+            	var relcontent = "";
+				relcontent += '<tr id="database_tr'+resp['relation_id']+'"><td width="40%">'+name+'</td>';
+				relcontent += '<td width="40%" align="center">'+resp['relationship_type']+'</td>';
+				relcontent += '<td width="20%" align="center"><a href="javascript:void(0)" data-link="'+url+'" data-rel_client_id="'+resp['rel_client_id']+'" class="delete_database_rel" data-delete_index="'+resp['relation_id']+'"><img src="/img/cross.png" height="15"></a></td>';
+
+				$("#myRelTable").last().append(relcontent);
+
+            	
+				var myWindow = window.open(url , '_blank');
+                myWindow.focus();
+
+                
             }
         });
 

@@ -764,11 +764,16 @@ class ChdataController extends BaseController {
 		//echo $this->last_query();die;
 		if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
 			$rel_data['relationship_type_id'] = $relation['relation_type_id'];
+			$data['relationship_type'] = ucwords($officer->officer_role);
 		}else{
 			$rel_data['relationship_type_id'] = 0;
+			$data['relationship_type'] = "";
 		}
-		ClientRelationship::insert($rel_data);
+		$relation_id = ClientRelationship::insertGetId($rel_data);
 		// ############# RELATIONSHIP SECTION END ############## //
+		$data['appointment_name'] 	= $officer->name;
+		$data['rel_client_id'] 		= $client_id;
+		$data['relation_id'] 		= $relation_id;
 
 		echo json_encode($data);
 		exit;

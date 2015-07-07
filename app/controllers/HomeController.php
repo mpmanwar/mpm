@@ -542,7 +542,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
 		}else{
 			$client_id = $postData['client_id'];
-			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'ind'));
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'ind', 'is_relation_add' => 'N'));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 		}
 		
@@ -698,20 +698,21 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
-				if(Input::get('acting_'.$rel_row['0']) == 'Y'){
-					$acting = "Y";
-				}else{
-					$acting = "N";
+				
+				$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->first();
 
+				if(isset($rel_client) && count($rel_client) >0){
+					$relData['relationship_type_id'] = $rel_row['1'];
+					ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->update($relData);
+				}else{
+					$relData['client_id'] = $client_id;
+					$relData['appointment_with'] = $rel_row['2'];
+					$relData['relationship_type_id'] = $rel_row['1'];
+					ClientRelationship::insert($relData);
 				}
-				$relData[] = array(
-					'client_id' 			=> $client_id,
-					'appointment_with' 		=> $rel_row['2'],
-					'relationship_type_id' 	=> $rel_row['1'],
-					'acting' 				=> $acting
-				);
+				
 			}
-			ClientRelationship::insert($relData);
+			//ClientRelationship::insert($relData);
 
 		}
 //#############RELATIONSHIP END ###################//
@@ -947,7 +948,7 @@ class HomeController extends BaseController {
 		$groupUserId = $admin_s['group_users'];
 		
 		$search_value = Input::get("search_value");
-		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "!=", "chd")->select("client_id")->get();
+		$client_ids = Client::whereIn('user_id', $groupUserId)->where('is_deleted', '=', "N")->where("is_archive", "=", "N")->where("type", "!=", "non")->select("client_id")->get();
 		//echo $this->last_query();die;
 		if(isset($client_ids) && count($client_ids) >0 ){
 			foreach($client_ids as $key=>$client_id){
@@ -1107,7 +1108,7 @@ class HomeController extends BaseController {
 			$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'org'));
 		}else{
 			$client_id = $postData['client_id'];
-			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'org'));
+			Client::where("client_id", "=", $client_id)->update(array("is_deleted"=>"N", 'type' => 'org', 'is_relation_add' => 'N'));
 			StepsFieldsClient::where("client_id", "=", $client_id)->delete();
 			//ClientRelationship::where("client_id", "=", $client_id)->delete();
 		}
@@ -1321,20 +1322,19 @@ class HomeController extends BaseController {
 			$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
-				if(Input::get('acting_'.$rel_row['0']) == 'Y'){
-					$acting = "Y";
+				$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->first();
+				
+				if(isset($rel_client) && count($rel_client) >0){
+					$relData['relationship_type_id'] = $rel_row['1'];
+					ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->update($relData);
 				}else{
-					$acting = "N";
-
+					$relData['client_id'] = $client_id;
+					$relData['appointment_with'] = $rel_row['2'];
+					$relData['relationship_type_id'] = $rel_row['1'];
+					ClientRelationship::insert($relData);
 				}
-				$relData[] = array(
-					'client_id' 			=> $client_id,
-					'appointment_with' 		=> $rel_row['2'],
-					'relationship_type_id' 	=> $rel_row['1'],
-					'acting' 				=> $acting
-				);
 			}
-			ClientRelationship::insert($relData);
+			//ClientRelationship::insert($relData);
 
 		}
 //#############RELATIONSHIP END ###################//

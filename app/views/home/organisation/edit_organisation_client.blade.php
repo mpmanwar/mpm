@@ -2069,7 +2069,14 @@ $(document).ready(function(){
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="40%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
+        <td width="40%">
+          @if(isset($relation_row['type']) && $relation_row['type'] == "non" )
+            {{ $relation_row['name'] or "" }}
+          @else
+            <a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
+          @endif
+
+        </td>
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">

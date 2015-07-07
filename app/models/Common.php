@@ -434,6 +434,10 @@ class Common extends Eloquent {
 					}else{
 						$data1[$key]['link'] = "";
 					}
+
+					$data1[$key]['type'] 			= $client_data['type'];
+					$data1[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data1[$key]['is_relation_add'] = $client_data['is_relation_add'];
 					
 				}
 				//######## get client type #########//
@@ -502,6 +506,10 @@ class Common extends Eloquent {
 					}else{
 						$data2[$key]['link'] = "";
 					}
+
+					$data2[$key]['type'] 			= $client_data['type'];
+					$data2[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data2[$key]['is_relation_add'] = $client_data['is_relation_add'];
 					
 				}
 				//######## get client type #########//
@@ -520,10 +528,13 @@ class Common extends Eloquent {
         		$data[$i]['acting'] 				= $value['acting'];
         		$data[$i]['client_id'] 				= $value['client_id'];
         		$data[$i]['link'] 					= $value['link'];
+        		$data[$i]['type'] 					= $value['type'];
+				$data[$i]['chd_type'] 				= $value['chd_type'];
+				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
         		$i++;
 	        	
         	}
-        }
+        }//print_r($data);die;
         return $data;
 	}
 

@@ -91,6 +91,7 @@ class ClientController extends BaseController {
 		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
+		$data['titles'] 		= Title::orderBy("title_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
@@ -636,12 +637,15 @@ class ClientController extends BaseController {
 		$session 		= Session::get('admin_details');
 		$user_id 		= $session['id'];
 
-		$type = Input::get("type");
+		$type 					= Input::get("type");
+		$relation_type 			= Input::get("relation_type");
+		$relation_client_id 	= Input::get("client_id");
 		
 
 		$date_add['type'] 				= $type;
 		$date_add['user_id'] 			= $user_id;
 		$date_add['is_relation_add'] 	= "Y";
+		$date_add['type'] 				= "non";
 
 		$client_id = Client::insertGetId($date_add);
 		
@@ -676,6 +680,21 @@ class ClientController extends BaseController {
 			$name = Input::get("name");
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'business_name', $name);
 		}
+
+
+		// ############# RELATIONSHIP SECTION START ############## //
+		$rel_client = ClientRelationship::where("client_id", "=", $relation_client_id)->where("appointment_with", "=", $client_id)->first();
+		if(isset($rel_client) && count($rel_client) >0){
+			$rel_data['relationship_type_id'] = $relation_type;
+			ClientRelationship::where("client_id", "=", $relation_client_id)->where("appointment_with", "=", $client_id)->update($rel_data);
+		}else{
+			$rel_data['client_id'] 			= $relation_client_id;
+			$rel_data['appointment_with'] 	= $client_id;
+			$rel_data['relationship_type_id'] = $relation_type;
+			ClientRelationship::insert($rel_data);
+		}
+		// ############# RELATIONSHIP SECTION END ############## //
+
 		
 		$query = StepsFieldsClient::insert($arrData);
 		if($query){
@@ -772,8 +791,9 @@ class ClientController extends BaseController {
 	public function save_officers_into_relation()
 	{
 		$data = array();
-		$company_number = Input::get("company_number");
-		$key = Input::get("key");
+		$company_number 	= Input::get("company_number");
+		$key 				= Input::get("key");
+		$relation_client_id = Input::get("client_id");
 
 		// ################# INSERT CLIENT START ################### //
 		$officers 	= Common::getOfficerDetails($company_number);//print_r($officers->items[$key]);die;
@@ -798,6 +818,7 @@ class ClientController extends BaseController {
 				$data['link'] = "/client/edit-ind-client/".$client_id;
 			}
 			$data['client_id'] = $client_id;
+			Client::where("client_id", "=", $client_id)->update(array("is_relation_add" => "Y", 'type'=>'non'));
 			//$data['base_url'] = url();
 
 			$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
@@ -810,6 +831,27 @@ class ClientController extends BaseController {
 			
 		}
 		// ################# INSERT CLIENT END ################### //
+
+		// ############# RELATIONSHIP SECTION START ############## //
+		$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
+		//echo $this->last_query();die;
+		if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
+			$relation_type = $relation['relation_type_id'];
+		}else{
+			$relation_type = 0;
+		}
+
+		$rel_client = ClientRelationship::where("client_id", "=", $relation_client_id)->where("appointment_with", "=", $client_id)->first();
+		if(isset($rel_client) && count($rel_client) >0){
+			$rel_data['relationship_type_id'] = $relation_type;
+			ClientRelationship::where("client_id", "=", $relation_client_id)->where("appointment_with", "=", $client_id)->update($rel_data);
+		}else{
+			$rel_data['client_id'] 				= $relation_client_id;
+			$rel_data['appointment_with'] 		= $client_id;
+			$rel_data['relationship_type_id'] 	= $relation_type;
+			ClientRelationship::insert($rel_data);
+		}
+		// ############# RELATIONSHIP SECTION END ############## //
 
 
 		//$relation_id = Input::get("relation_id");

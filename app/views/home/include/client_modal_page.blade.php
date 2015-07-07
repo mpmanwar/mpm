@@ -281,7 +281,7 @@
         <h4 class="modal-title">Add to Relationships</h4>
         <div class="clearfix"></div>
       </div>
-    
+    <input type="hidden" id="non_rel_client_id" value="">
       <div class="modal-body">
         <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
         <div class="form-group" style="width:70%">
