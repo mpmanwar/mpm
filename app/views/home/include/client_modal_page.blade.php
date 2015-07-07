@@ -368,8 +368,8 @@
             <td align="center" colspan="3"><span class="table_tead_t">OFFICERS</span></td>
           </tr>
           <tr class="td_color">
-            <td align="left" class="sub_header">Name</td>
-            <td align="left" class="sub_header">Role</td>
+            <td align="center" class="sub_header">Name</td>
+            <td align="center" class="sub_header">Role</td>
             <td align="center" width="20%" class="sub_header">Add to Relationships</td>
           </tr>
 
