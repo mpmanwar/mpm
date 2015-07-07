@@ -976,7 +976,7 @@ $(document).ready(function(){
   <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
 
-<div class="box-body table-responsive" style="width:63%;">
+<!-- <div class="box-body table-responsive" style="width:63%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -1007,7 +1007,7 @@ $(document).ready(function(){
 
 <div style="margin-top: 10px;">
   <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
-</div>
+</div> -->
 
 
 <div class="add_client_btn">

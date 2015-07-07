@@ -735,7 +735,13 @@ class ChdataController extends BaseController {
 			if(strpos($officer->officer_role, 'corporate') !== false){
 				$name 		= str_replace(" ", "+", $officer->name);
 				$details 	= Common::getSearchCompany($name);
-				$company_number = $details->items[0]->company_number."=function";
+				if(isset($details->items[0]->company_number)){
+					$company_number = $details->items[0]->company_number."=function";
+				}else{
+					echo 0;
+					exit;
+				}
+				
 
 				//$client_id = $this->insert_org_client($company_number);
 				$client_id = $this->import_company_details($company_number);
@@ -758,22 +764,27 @@ class ChdataController extends BaseController {
 		}
 
 		// ############# RELATIONSHIP SECTION START ############## //
-		$rel_data['client_id'] 			= $relation_client_id;
-		$rel_data['appointment_with'] 	= $client_id;
-		$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
-		//echo $this->last_query();die;
-		if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
-			$rel_data['relationship_type_id'] = $relation['relation_type_id'];
-			$data['relationship_type'] = ucwords($officer->officer_role);
-		}else{
-			$rel_data['relationship_type_id'] = 0;
-			$data['relationship_type'] = "";
+		if(isset($relation_client_id) && $relation_client_id != ""){
+			$rel_data['client_id'] 			= $relation_client_id;
+			$rel_data['appointment_with'] 	= $client_id;
+			$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
+			//echo $this->last_query();die;
+			if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
+				$rel_data['relationship_type_id'] = $relation['relation_type_id'];
+				$data['relationship_type'] = ucwords($officer->officer_role);
+			}else{
+				$rel_data['relationship_type_id'] = 0;
+				$data['relationship_type'] = "";
+			}
+			$relation_id = ClientRelationship::insertGetId($rel_data);
+
+			$data['appointment_name'] 	= $officer->name;
+			$data['rel_client_id'] 		= $client_id;
+			$data['relation_id'] 		= $relation_id;
 		}
-		$relation_id = ClientRelationship::insertGetId($rel_data);
+		
 		// ############# RELATIONSHIP SECTION END ############## //
-		$data['appointment_name'] 	= $officer->name;
-		$data['rel_client_id'] 		= $client_id;
-		$data['relation_id'] 		= $relation_id;
+
 
 		echo json_encode($data);
 		exit;

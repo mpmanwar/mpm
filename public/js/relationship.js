@@ -122,6 +122,19 @@ $("#officers_details-modal").on("click", ".add_client_officers", function(){
                 $('#rel_client_id').val("");
             },
             success: function (resp) {//console.log(resp['link']);return false;
+            	var content = "";
+	            content += '<div class="officer_selectbox"><span>+ Add</span><div class="small_icon" data-id="'+key+'"></div><div class="clr"></div>';
+	            content += '<div class="select_toggle" id="status'+key+'" style="display: none;"><ul>';
+	            content += '<li data-value="org"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="add_client_officers">NEW CLIENT</a></li>';
+	            content += '<li data-value="non"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="officer_addto_relation">NON - CLIENT</a></li>';
+	            content += '</ul></div></div>';
+            	$("#goto"+key).html(content);
+            	
+            	if(resp == 0){
+            		alert("This company can not import...");
+            		return false;
+            	}
+
             	var url, name;
             	if(resp['link'] == 'org'){
                     url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
@@ -135,13 +148,7 @@ $("#officers_details-modal").on("click", ".add_client_officers", function(){
                 	name = resp['appointment_name'];
                 }
 
-            	var content = "";
-	            content += '<div class="officer_selectbox"><span>+ Add</span><div class="small_icon" data-id="'+key+'"></div><div class="clr"></div>';
-	            content += '<div class="select_toggle" id="status'+key+'" style="display: none;"><ul>';
-	            content += '<li data-value="org"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="add_client_officers">NEW CLIENT</a></li>';
-	            content += '<li data-value="non"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="officer_addto_relation">NON - CLIENT</a></li>';
-	            content += '</ul></div></div>';
-            	$("#goto"+key).html(content);
+            	
 
 
             	var relcontent = "";
