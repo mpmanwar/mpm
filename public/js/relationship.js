@@ -2,7 +2,11 @@ $(document).ready(function (e) {
 
 	// Get all the officers in the relationship section start //
 	$(".imported_officers").click(function(){
-	    var company_number = $(this).data("company_number");
+		var company_number = $("#registration_number").val();
+
+	    //var company_number = $(this).data("company_number");
+	    	    
+	    //alert(company_number);
 	    $.ajax({
 	        type: "POST",
 	        url: "/client/get-officers-client",
@@ -15,7 +19,7 @@ $(document).ready(function (e) {
 	            loder +='<span class="table_tead_t">OFFICERS</span></td></tr>';
 		        loder +='<tr class="td_color"><td align="left" class="sub_header">Name</td><td align="left" class="sub_header">Role</td><td align="center" width="20%" class="sub_header">Add to Relationships</td></tr>';
 	            loder +='<tr><td colspan="3" align="center"><img src="/img/spinner.gif" /></td></tr>';
-	            //$("#officers_details-modal .officer_table").html(loder);
+	            $("#officers_details-modal .officer_table").html(loder);
 	        	//return false;
 	        },
 	        success: function (resp) {//console.log(resp['link']);return false;

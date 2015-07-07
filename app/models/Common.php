@@ -529,7 +529,7 @@ class Common extends Eloquent {
         		$data[$i]['client_id'] 				= $value['client_id'];
         		$data[$i]['link'] 					= isset($value['link'])?$value['link']:"";
         		$data[$i]['type'] 					= isset($value['type'])?$value['type']:"";
-				$data[$i]['chd_type'] 				= $value['chd_type'];
+				//$data[$i]['chd_type'] 				= $value['chd_type'];
 				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
         		$i++;
 	        	
