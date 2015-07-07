@@ -2034,7 +2034,7 @@ $(document).ready(function(){
 </div>
 </div>
 
-<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers">VIEW/ADD IMPORTED OFFICERS</button></div>
+<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers" data-company_number="{{ $client_details['registration_number'] or "" }}">VIEW/ADD IMPORTED OFFICERS</button></div>
 
 </div>
 
@@ -2068,14 +2068,14 @@ $(document).ready(function(){
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
-      <!-- <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="40%">{{ $relation_row['name'] or "" }}</td>
+      <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
+        <td width="40%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
         <td width="20%" align="center">
-          <a href="javascript:void(0)" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
-      </tr> -->
+      </tr>
     @endforeach
   @endif
 

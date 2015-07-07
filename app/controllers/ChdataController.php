@@ -231,12 +231,11 @@ class ChdataController extends BaseController {
 			$update['type'] = $client_value['chd_type'];
 		}
 		$update['is_deleted'] = "N";
+		$update['is_archive'] = "N";
 
 		Client::where("client_id", "=", $client_id)->where("user_id", "=", $user_id)->update($update);
 
 		/* ############## Update Client details Start ################ */
-		/*StepsFieldsClient::where("client_id", "=", $client_id)->where("user_id", "=", $user_id)->where("field_name", "=", "business_name")->delete();*/
-
 		if (isset($details->company_name)) {
 			StepsFieldsClient::where("client_id", "=", $client_id)->where("user_id", "=", $user_id)->where("field_name", "=", "business_name")->update(array("field_value" => $details->company_name));
 		}
@@ -312,27 +311,25 @@ class ChdataController extends BaseController {
 		/* ############## Update Client details End ################ */
 
 
-		$appointment = ClientRelationship::where('appointment_with', '=', $client_id)->select("client_id", "relationship_type_id")->first();
+		/*$appointment = ClientRelationship::where('appointment_with', '=', $client_id)->select("client_id", "relationship_type_id")->first();
 		if(isset($appointment) && count($appointment) >0 ){
 			
 			$act_data['user_id'] 			= $user_id;
 			$act_data['client_id'] 			= $client_id;
 			$act_data['acting_client_id'] 	= $appointment['client_id'];
 			ClientActing::insert($act_data);
-		}
+		}*/
 
 	}
 
 	public function import_company_details($value)
-	{//echo $number;die;
+	{
 		$value = explode("=", $value);
 		$number = $value[0];
 		$function_type = $value[1];
 
 		$data = array();
-		//$details 			= Common::getCompanyDetails($number);
-		$details 			= Common::getCompanyData($number);
-		//print_r($details);die;
+		$details 	= Common::getCompanyData($number);
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 
@@ -388,7 +385,7 @@ class ChdataController extends BaseController {
 			}
 			$codes_data = substr($codes_data, 0, -2);
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_desc', $codes_data);
-		}//
+		}
 		if (isset($details->annual_return->next_due)) {
 			$ret_check = 1;
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'next_ret_due', str_replace("/", "-", $details->annual_return->next_due));
@@ -420,7 +417,6 @@ class ChdataController extends BaseController {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'yearend_acc_check', 1);
 		}
 
-		//$registered_office 				= Common::getRegisteredOffice($number);
 		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3,'cont_reg_addr', 'reg');
 		if (isset($details->registered_office_address->address_line_1)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'reg_cont_addr_line1', $details->registered_office_address->address_line_1);
@@ -441,7 +437,7 @@ class ChdataController extends BaseController {
 		//print_r($arrData);die;
 		$inserted = StepsFieldsClient::insert($arrData);
 
-		$officers 	= Common::getOfficerDetails($number);//print_r($officers);die;
+		/*$officers 	= Common::getOfficerDetails($number);//print_r($officers);die;
 		if(isset($officers->items) && count($officers->items) > 0){
 			foreach ($officers->items as $key => $row) {
 				if(!isset($row->resigned_on)){
@@ -458,12 +454,12 @@ class ChdataController extends BaseController {
 					$relation_id = ClientRelationship::insertGetId($relData);
 
 					$getReturn = $this->insertClientDetails($relation_id, $client_id, $row, $app_client_id);
-					//$this->insertClientDetails($row);
+					
 				}
 				
 			}
 			
-		}
+		}*/
 
 		if($function_type == "ajax"){
 			if($inserted){
@@ -729,13 +725,12 @@ class ChdataController extends BaseController {
 
 		$company_number = Input::get("company_number");
 		$key = Input::get("key");
+		$relation_client_id = Input::get("client_id");
 		$data 	= array();
 		
-		$officers 	= Common::getOfficerDetails($company_number);
+		$officers 	= Common::getOfficerDetails($company_number);//print_r($officers->items[$key]);die;
 		if(isset($officers->items[$key]) && count($officers->items[$key]) > 0){
 			$officer = $officers->items[$key];
-
-			//$insert_data[''] = $officer[''];
 
 			if(strpos($officer->officer_role, 'corporate') !== false){
 				$name 		= str_replace(" ", "+", $officer->name);
@@ -747,7 +742,13 @@ class ChdataController extends BaseController {
 				//$data['link'] = "/client/edit-org-client/".$client_id;
 				$data['link'] = "org";
 			}else{
-				$client_id = $this->insert_individual_client($officer);
+				$client_id = $this->checkClientExists($officer->name);
+				if($client_id != ""){
+					$this->update_individual_client($officer, $client_id);
+				}else{
+					$client_id = $this->insert_individual_client($officer);
+				}
+				
 				//$data['link'] = "/client/edit-ind-client/".$client_id;
 				$data['link'] = "ind";
 			}
@@ -755,6 +756,19 @@ class ChdataController extends BaseController {
 			$data['base_url'] = url();
 			
 		}
+
+		// ############# RELATIONSHIP SECTION START ############## //
+		$rel_data['client_id'] 			= $relation_client_id;
+		$rel_data['appointment_with'] 	= $client_id;
+		$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
+		//echo $this->last_query();die;
+		if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
+			$rel_data['relationship_type_id'] = $relation['relation_type_id'];
+		}else{
+			$rel_data['relationship_type_id'] = 0;
+		}
+		ClientRelationship::insert($rel_data);
+		// ############# RELATIONSHIP SECTION END ############## //
 
 		echo json_encode($data);
 		exit;
@@ -765,12 +779,14 @@ class ChdataController extends BaseController {
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 
-		$client_name = "";
 		$mname ="";
+		$client_name = "";
 		$full_name = explode(",", $row->name);
 		$half_name = explode(" ", trim($full_name[1]));
 
-		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd', 'chd_type' => 'ind'));
+		//$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'chd', 'chd_type' => 'ind'));
+		//$client_name = $this->checkClientExists($row->name);
+		$client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind', 'chd_type' => 'ind'));
 
 		if (isset($half_name[0]) && $half_name[0] != "") {
 			$client_name.=$half_name[0]." ";
@@ -792,7 +808,7 @@ class ChdataController extends BaseController {
 			$client_name.=$full_name[0];
 			$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'lname', $full_name[0]);
 		}
-		$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'client_name', trim($client_name));
+		$arrNewData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'client_name', $client_name);
 
 		/*############### Address Start ###############*/
 		if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
@@ -822,6 +838,102 @@ class ChdataController extends BaseController {
 		}
 
 		StepsFieldsClient::insert($arrNewData);
+
+		return $client_id;
+	}
+
+	public function update_individual_client($row, $client_id)
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+
+		$full_name = explode(",", $row->name);
+		$half_name = explode(" ", trim($full_name[1]));
+
+		$client_name = "";
+		if (isset($half_name[0]) && $half_name[0] != "") {
+			$client_name.=$half_name[0]." ";
+			$this->updateQuery($client_id, $user_id, "fname", $half_name[0]);
+		}
+		if (isset($half_name[1]) && $half_name[1] != "") {
+			$client_name.=$half_name[1]." ";
+			$mname.=$half_name[1]." ";
+		}
+		if (isset($half_name[2]) && $half_name[2] != "") {
+			$client_name.=$half_name[2]." ";
+			$mname.=$half_name[2]." ";
+		}
+		if (isset($mname) && $mname != "") {
+			$this->updateQuery($client_id, $user_id, "mname", $mname);
+		}
+		
+		if (isset($full_name[0]) && $full_name[0] != "") {
+			$client_name.=$full_name[0];
+			$this->updateQuery($client_id, $user_id, "lname", $full_name[0]);
+		}
+		$this->updateQuery($client_id, $user_id, "client_name", $client_name);
+
+		/*############### Address Start ###############*/
+		if (isset($row->address->address_line_1) && $row->address->address_line_1 != "") {
+			$this->updateQuery($client_id, $user_id, "serv_addr_line1", $row->address->address_line_1);
+		}
+		if (isset($row->address->address_line_2) && $row->address->address_line_2 != "") {
+			$this->updateQuery($client_id, $user_id, "serv_addr_line2", $row->address->address_line_2);
+		}
+		if (isset($row->address->postal_code) && $row->address->postal_code != "") {
+			$this->updateQuery($client_id, $user_id, "serv_postcode", $row->address->postal_code);
+		}
+		if (isset($row->address->locality) && $row->address->locality != "") {
+			$this->updateQuery($client_id, $user_id, "serv_city", $row->address->locality);
+		}
+		
+		/*############### Address End ###############*/
+		if (isset($row->country_of_residence) && $row->country_of_residence != "") {
+			$country = Country::where("country_name", "=", ucwords($row->country_of_residence))->select("country_id")->first();
+			$this->updateQuery($client_id, $user_id, "country_id", $country['country_id']);
+		}
+		if (isset($row->nationality) && $row->nationality != "") {
+			$nationality = Nationality::where("nationality_name", "=", ucwords($row->nationality))->select("nationality_id")->first();
+			$this->updateQuery($client_id, $user_id, "nationality_id", $nationality['nationality_id']);
+		}
+		if (isset($row->occupation) && $row->occupation != "") {
+			$this->updateQuery($client_id, $user_id, "occupation", $row->occupation);
+		}
+	}
+
+	public function updateQuery($client_id, $user_id, $field_name, $field_value)
+	{
+		StepsFieldsClient::where("client_id", "=", $client_id)->where("user_id", "=", $user_id)->where("field_name", "=", $field_name)->update(array("field_value" => $field_value ));
+	}
+
+	public function checkClientExists($name)
+	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$client_name = "";
+		$client_id = "";
+		$full_name = explode(",", $name);
+		$half_name = explode(" ", trim($full_name[1]));
+
+		if (isset($half_name[0]) && $half_name[0] != "") {
+			$client_name.=$half_name[0]." ";
+		}
+		if (isset($half_name[1]) && $half_name[1] != "") {
+			$client_name.=$half_name[1]." ";
+		}
+		if (isset($half_name[2]) && $half_name[2] != "") {
+			$client_name.=$half_name[2]." ";
+		}
+				
+		if (isset($full_name[0]) && $full_name[0] != "") {
+			$client_name.=$full_name[0];
+		}
+
+		$client_data = StepsFieldsClient::where("field_name", "=", "client_name")->where("field_value", "=", trim($client_name) )->where("user_id", "=", $user_id)->select("client_id")->first();
+		//echo $this->last_query();die;
+		if(isset($client_data) && count($client_data) >0 ){
+			$client_id = $client_data['client_id'];
+		}
 
 		return $client_id;
 	}

@@ -1388,17 +1388,18 @@ $("#myActTable").on("click", ".acting_save", function(){
 
 // Add to list in relationship section start //
 $(".relation_add_client").click(function(){
-  var type   = $("#add_to_type").val();
-  var name   = $("#add_to_name").val();
-  var title  = $("#add_to_title").val();
-  var fname  = $("#add_to_fname").val();
-  var mname  = $("#add_to_mname").val();
-  var lname  = $("#add_to_lname").val();
+  var type          = $("#add_to_type").val();
+  var name          = $("#add_to_name").val();
+  var title         = $("#add_to_title").val();
+  var fname         = $("#add_to_fname").val();
+  var mname         = $("#add_to_mname").val();
+  var lname         = $("#add_to_lname").val();
+  var relation_type = $("#officer_rel__type_id").val();
 
   $.ajax({
       type: "POST",
       url: "/client/add-to-client",
-      data: { 'type': type, 'name': name, 'title': title, 'fname': fname, 'mname': mname, 'lname': lname },
+      data: { 'type': type, 'name': name, 'title': title, 'fname': fname, 'mname': mname, 'lname': lname, 'relation_type': relation_type },
       beforeSend: function() {
           $("#add_to_msg_div").html('<img src="/img/spinner.gif" />');
       },

@@ -772,9 +772,48 @@ class ClientController extends BaseController {
 	public function save_officers_into_relation()
 	{
 		$data = array();
+		$company_number = Input::get("company_number");
+		$key = Input::get("key");
 
-		$relation_id = Input::get("relation_id");
-		$relationship = DB::table('client_relationships as cr')->where("cr.client_relationship_id", "=", $relation_id)->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')->select('cr.client_relationship_id', 'cr.relationship_type_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
+		// ################# INSERT CLIENT START ################### //
+		$officers 	= Common::getOfficerDetails($company_number);//print_r($officers->items[$key]);die;
+		if(isset($officers->items[$key]) && count($officers->items[$key]) > 0){
+			$officer = $officers->items[$key];
+
+			if(strpos($officer->officer_role, 'corporate') !== false){
+				$name 		= str_replace(" ", "+", $officer->name);
+				$details 	= Common::getSearchCompany($name);
+				$company_number = $details->items[0]->company_number."=function";
+
+				$client_id = App::make('ChdataController')->import_company_details($company_number);
+				$data['link'] = "/client/edit-org-client/".$client_id;
+			}else{
+				$client_id = App::make('ChdataController')->checkClientExists($officer->name);
+				if($client_id != ""){
+					App::make('ChdataController')->update_individual_client($officer, $client_id);
+				}else{
+					$client_id = App::make('ChdataController')->insert_individual_client($officer);
+				}
+				
+				$data['link'] = "/client/edit-ind-client/".$client_id;
+			}
+			$data['client_id'] = $client_id;
+			//$data['base_url'] = url();
+
+			$relation = RelationshipType::where("relation_type", "=", ucwords($officer->officer_role))->select("relation_type_id")->first();
+			//echo $this->last_query();die;
+			if(isset($relation['relation_type_id']) && $relation['relation_type_id'] != ""){
+				$data['relation_type_id'] = $relation['relation_type_id'];
+			}else{
+				$data['relation_type_id'] = "";
+			}
+			
+		}
+		// ################# INSERT CLIENT END ################### //
+
+
+		//$relation_id = Input::get("relation_id");
+		/*$relationship = DB::table('client_relationships as cr')->where("cr.client_relationship_id", "=", $relation_id)->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')->select('cr.client_relationship_id', 'cr.relationship_type_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();
 
 		if(isset($relationship) && count($relationship) >0 )
         {
@@ -840,8 +879,24 @@ class ClientController extends BaseController {
 			}
         }
 		
-		//echo $this->last_query();die;
-		echo json_encode($data1);
+		echo json_encode($data1);*/
+		echo json_encode($data);
+		exit();
+	}
+
+	public function get_officers_client()
+	{
+		$data = array();
+		$company_number = Input::get("company_number");
+		$officers = Common::getOfficerDetails($company_number);//print_r($officers);die;
+		if(isset($officers->items) && count($officers->items) >0 )
+		{
+			foreach ($officers->items as $key => $value) {
+				$data[$key]['client_name'] 		= $value->name;
+				$data[$key]['officer_role'] 	= $value->officer_role;
+			}
+		}
+		echo json_encode($data);
 		exit();
 	}
 

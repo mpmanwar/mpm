@@ -278,7 +278,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
+        <h4 class="modal-title">Add to Relationships</h4>
         <div class="clearfix"></div>
       </div>
     
@@ -373,7 +373,7 @@
             <td align="center" width="20%" class="sub_header">Add to Relationships</td>
           </tr>
 
-        @if(isset($relationship) && count($relationship) >0 )
+        <!-- @if(isset($relationship) && count($relationship) >0 )
             @foreach($relationship as $key=>$relation_row)
               <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
                 <td width="40%">{{ $relation_row['name'] or "" }}</td>
@@ -394,7 +394,7 @@
                 </td>
               </tr>
             @endforeach
-        @endif
+        @endif -->
         </table>
     </div>
 
