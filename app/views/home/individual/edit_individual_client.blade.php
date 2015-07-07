@@ -982,7 +982,7 @@ $(document).ready(function(){
   <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
 
-<div class="box-body table-responsive" style="width:50%;">
+<!-- <div class="box-body table-responsive" style="width:50%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -998,7 +998,7 @@ $(document).ready(function(){
       <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
         <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
         <td width="18%" align="center">
-          <!-- <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>  -->
+          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>
           <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
         </td>
       </tr>
@@ -1031,7 +1031,7 @@ $(document).ready(function(){
 
 <div style="margin-top: 10px;">
   <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
-</div>
+</div> -->
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
