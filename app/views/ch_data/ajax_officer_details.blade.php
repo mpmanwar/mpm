@@ -6,7 +6,11 @@
     <td class="td_color" align="left"><strong>Name</strong></td><td align="left">{{ $officers['name'] or "" }}</td>
   </tr>
   <tr>
-    <td class="td_color" align="left"><strong>DOB</strong></td><td align="left">{{ date("d F Y", strtotime($officers['date_of_birth'])) }}</td>
+    <td class="td_color" align="left"><strong>DOB</strong></td><td align="left">
+    @if(isset($officers['date_of_birth']) && $officers['date_of_birth'] != "")
+      {{ date("d F Y", strtotime($officers['date_of_birth'])) }}
+    @endif
+  </td>
   </tr>
   <tr>
     <td class="td_color" align="left"><strong>Nationality</strong></td><td align="left">{{ $officers['nationality'] or "" }}</td>

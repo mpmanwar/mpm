@@ -146,9 +146,9 @@ class ChdataController extends BaseController {
 		$data 		= array();
 		$off_data 	= array();
 
-		$officers 	= Common::getOfficerDetails($number);
+		$officers 	= Common::getOfficerDetails($number);//print_r($officers);die;
 		
-		$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[$key]->date_of_birth:"";
+		//$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[$key]->date_of_birth:"";
 		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[$key]->nationality:"";
 		$off_data['officer_role'] 			= isset($officers->items[$key]->officer_role)?$officers->items[$key]->officer_role:"";
 		$off_data['name'] 					= isset($officers->items[$key]->name)?$officers->items[$key]->name:"";
@@ -160,7 +160,7 @@ class ChdataController extends BaseController {
 		$off_data['links'] 					= isset($officers->items[$key]->links)?$officers->items[$key]->links:"";
 
 		$data['officers'] = $off_data;
-
+		//print_r($data['officers']);die;
 		echo View::make("ch_data.ajax_officer_details", $data);
 		
 	}

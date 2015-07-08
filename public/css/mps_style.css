@@ -250,6 +250,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .registered_table{width:100%;}
 .table_tead_t{color:#008080; font-size:18px;}
 .link_color{color:#000!important;}
+.officer_link{ text-decoration: underline;}
 .popup_align{padding:15px;}
 .registered_table1{width:100%; margin-top:15px; text-align: center;}
 .registered_table1 table{border:1px solid #60aad2!important;}
