@@ -101,6 +101,7 @@ class HomeController extends BaseController {
 
 			}
 		}
+		//print_r($client_data);die;
 		$data['client_details'] = $client_data;
 
 		$data['client_fields'] = ClientField::where("field_type", "=", "ind")->get();
@@ -135,6 +136,7 @@ class HomeController extends BaseController {
 				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();
 
 				if (isset($client_details) && count($client_details) > 0) {
+					$corres_address = "";
 					foreach ($client_details as $client_row) {
 						//get business name start
 						if (!empty($relation_name['field_value'])) {
@@ -156,7 +158,19 @@ class HomeController extends BaseController {
 							$client_data[$i][$client_row['field_name']] = $client_row->field_value;
 						}
 
+						// ############### GET CORRESPONDENSE ADDRESS START ################## //
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line1"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line2"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_county"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						// ############### GET CORRESPONDENSE ADDRESS END ################## //
 					}
+					$client_data[$i]['corres_address'] = substr($corres_address, 0 ,-2);
 
 					$i++;
 				}
@@ -181,8 +195,13 @@ class HomeController extends BaseController {
 		$date2 = date("Y-m-d");
 		//echo $date2;die;
 
-		$diff = abs(strtotime($date2) - strtotime($date1));
-		$days = round($diff/86400);
+		if(strtotime($date2) > strtotime($date1)){
+			$days = "OVER DUE";
+		}else{
+			$diff = abs(strtotime($date1) - strtotime($date2));
+			$days = round($diff/86400);
+		}
+		
 		return $days;
 	}
 
@@ -802,29 +821,30 @@ class HomeController extends BaseController {
 			//echo $this->last_query();die;
 		}
 
-		$rel_types['client_details'] = Common::clientDetailsById($rel_client_id);
+		$client_details = Common::clientDetailsById($rel_client_id);
 		//print_r($rel_types['client_details']);die;
 		//######## get client type #########//
-		$client_data = Client::where("client_id", "=", $rel_client_id)->first();
-		if(isset($client_data) && count($client_data) >0){
-			if($client_data['type'] == "ind"){
-				$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+		//$client_data = Client::where("client_id", "=", $rel_client_id)->first();
+		if(isset($client_details) && count($client_details) >0){
+			if($client_details['type'] == "ind"){
+				$client_details['link'] = "/client/edit-ind-client/".$rel_client_id;
 			}
-			else if($client_data['type'] == "org"){
-				$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
-			}else if($client_data['type'] == "chd"){
-				if($client_data['chd_type'] == "ind"){
-					$rel_types['link'] = "/client/edit-ind-client/".$rel_client_id;
+			else if($client_details['type'] == "org"){
+				$client_details['link'] = "/client/edit-org-client/".$rel_client_id;
+			}else if($client_details['type'] == "chd"){
+				if($client_details['chd_type'] == "ind"){
+					$client_details['link'] = "/client/edit-ind-client/".$rel_client_id;
 				}
-				else if($client_data['chd_type'] == "org"){
-					$rel_types['link'] = "/client/edit-org-client/".$rel_client_id;
+				else if($client_details['chd_type'] == "org"){
+					$client_details['link'] = "/client/edit-org-client/".$rel_client_id;
 				}
 			}else{
-				$rel_types['link'] = "";
+				$client_details['link'] = "";
 			}
 			
 		}
 		//######## get client type #########//
+		$rel_types['client_details'] = $client_details;
 
 		echo json_encode($rel_types);
 		exit();

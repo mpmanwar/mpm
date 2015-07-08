@@ -508,9 +508,12 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Stagger</label>
                                   <select class="form-control" name="vat_stagger" id="vat_stagger">
-                                    <option>Choose One</option>
-                                    
-                                     <option value="monthly"{{ (isset($client_details['vat_stagger']) && $client_details['vat_stagger'] == "monthly")?"selected":""}}> Monthly</option>
+                                    <!-- <option>Choose One</option> -->
+                                    @if(isset($client_details['vat_stagger']) && $client_details['vat_stagger'] != "")
+                                      <option value="{{ $client_details['vat_stagger'] }}">{{ $client_details['vat_stagger'] }}</option>
+                                    @else
+                                      <option>Choose One</option>
+                                    @endif
                                     
                                   </select>
                                 </div>
@@ -2070,7 +2073,7 @@ $(document).ready(function(){
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
         <td width="40%">
-          @if(isset($relation_row['type']) && $relation_row['type'] == "non" )
+          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") )
             {{ $relation_row['name'] or "" }}
           @else
             <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>

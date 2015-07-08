@@ -932,6 +932,26 @@ $(document).ready(function(){
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
+        <td width="40%">
+          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") )
+            {{ $relation_row['name'] or "" }}
+          @else
+            <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
+          @endif
+
+        </td>
+        <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
+        
+        <td width="20%" align="center">
+          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] or "" }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] or "" }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+        </td>
+      </tr>
+    @endforeach
+  @endif
+
+  <!-- @if(isset($relationship) && count($relationship) >0 )
+    @foreach($relationship as $key=>$relation_row)
+      <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
         <td width="40%">{{ $relation_row['name'] or "" }}</td>
         <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
         
@@ -941,7 +961,7 @@ $(document).ready(function(){
         </td>
       </tr>
     @endforeach
-  @endif
+  @endif -->
 
 </table>
 
@@ -1247,7 +1267,7 @@ $(document).ready(function(){
 
 
 <!-- COMPOSE MESSAGE MODAL -->
-<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -1321,13 +1341,13 @@ $(document).ready(function(){
       </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- Relationship Add To List Modal Start-->
+Relationship Add To List Modal Start
 <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:404px;">
     <div class="modal-content">
@@ -1393,10 +1413,12 @@ $(document).ready(function(){
       </div>
       
     </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
-</div>
+  /.modal-dialog
+</div> -->
 <!-- Relationship Add To List Modal End-->
+
+@include("home.include.client_modal_page")
 
 @stop

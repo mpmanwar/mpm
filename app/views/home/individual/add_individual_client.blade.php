@@ -393,6 +393,7 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Office</label>
+<input type="hidden" id="tax_reference_type" value="I">
 <select class="form-control" id="tax_office_id" name="tax_office_id">
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
@@ -1305,7 +1306,7 @@ $(document).ready(function(){
 
 
 <!-- Relationship Add To List Modal Start-->
-<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:404px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -1370,10 +1371,12 @@ $(document).ready(function(){
       </div>
       
     </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
-</div>
+  /.modal-dialog
+</div> -->
 <!-- Relationship Add To List Modal End-->
+
+@include("home.include.client_modal_page")
 
 @stop

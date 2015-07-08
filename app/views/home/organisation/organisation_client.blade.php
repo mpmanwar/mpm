@@ -22,10 +22,8 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
-
-
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
         "aoColumns":[
             {"bSortable": false},
             {"bSortable": true},
@@ -40,6 +38,7 @@ $(function() {
         ]
 
     });
+    oTable.fnSort( [ [2,'asc'] ] );
 
 });
 
@@ -195,11 +194,24 @@ $(function() {
                     <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
                     <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['acc_ref_month'] or "" }}</td>
                     <td align="center">{{ isset($client_row['next_acc_due'])?date("d-m-Y", strtotime($client_row['next_acc_due'])):"" }}</td>
-                    <td align="center">{{ $client_row['deadacc_count'] or "" }}</td>
+                    <td align="center">
+                      @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
+                        <span style="background:red">{{ $client_row['deadacc_count'] or "" }}</span>
+                      @else
+                         {{ $client_row['deadacc_count'] or "" }}
+                      @endif
+                    </td>
                     <td align="center">{{ isset($client_row['next_ret_due'])?date("d-m-Y", strtotime($client_row['next_ret_due'])):"" }}</td>
-                    <td align="center">{{ $client_row['deadret_count'] or "" }}</td>
+                    <td align="center">
+                      @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
+                        <span style="background:red">{{ $client_row['deadret_count'] or "" }}</span>
+                      @else
+                         {{ $client_row['deadret_count'] or "" }}
+                      @endif
+                    </td>
                     <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td align="left">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_city'])) ? $client_row['corres_cont_city']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county']."," : '' }} {{ (!empty($client_row['corres_cont_postcode'])) ? $client_row['corres_cont_postcode'] : '' }}</td>
+                    <td align="left">{{ (strlen($client_row['corres_address']) > 32)? substr($client_row['corres_address'], 0, 30)."...": $client_row['corres_address'] }}</td>
+                    <!-- <td align="left">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county'] : '' }}</td> -->
                   </tr>
                 <?php $i++; ?>
               @endforeach

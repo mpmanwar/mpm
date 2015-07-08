@@ -21,8 +21,8 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[25, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
         "language": {
             "lengthMenu": "Show _MENU_ entries",
             "zeroRecords": "Nothing found - sorry",
@@ -45,6 +45,8 @@ $(function() {
         ]
 
     });
+
+   oTable.fnSort( [ [3,'asc'] ] );
 
 });
 

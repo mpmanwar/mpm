@@ -25,7 +25,8 @@ class ClientController extends BaseController {
 		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
-		$data['allIndClients'] 	 	= App::make("HomeController")->get_all_ind_clients();
+		//$data['allIndClients'] 	 	= App::make("HomeController")->get_all_ind_clients();
+		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
 		//print_r($data['allIndClients']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
@@ -941,8 +942,10 @@ class ClientController extends BaseController {
 		if(isset($officers->items) && count($officers->items) >0 )
 		{
 			foreach ($officers->items as $key => $value) {
-				$data[$key]['client_name'] 		= $value->name;
-				$data[$key]['officer_role'] 	= $value->officer_role;
+				if(!isset($value->resigned_on)){
+					$data[$key]['client_name'] 		= $value->name;
+					$data[$key]['officer_role'] 	= $value->officer_role;
+				}
 			}
 		}
 		echo json_encode($data);

@@ -875,6 +875,7 @@ class ChdataController extends BaseController {
 		$half_name = explode(" ", trim($full_name[1]));
 
 		$client_name = "";
+		$mname = "";
 		if (isset($half_name[0]) && $half_name[0] != "") {
 			$client_name.=$half_name[0]." ";
 			$this->updateQuery($client_id, $user_id, "fname", $half_name[0]);

@@ -174,7 +174,7 @@ $(".back").click(function(){
     
   $("#tax_office_id").change(function(){
     var tax_ref_type   = $('#tax_reference_type').val();
-    var office_id   = $(this).val();
+    var office_id   = $(this).val();//alert(tax_ref_type);
 
     if(tax_ref_type == "I"){
       var tax_type   = $('#tax_reference_type').val();
@@ -939,6 +939,12 @@ $(".show_subsec").change(function(){
 
 // Delete relationship while adding client start //
 $("#myRelTable").on("click", ".delete_rel", function(){
+
+  if(confirm("Do you want to delete this relationship ?") === false){
+    return false;
+  }
+
+
   var delete_index       = $(this).data("delete_index");
   var rel_client_id      = $(this).data("rel_client_id");
 
@@ -970,7 +976,7 @@ $("#myRelTable").on("click", ".delete_rel", function(){
   $('#app_hidd_array').val(relationship_array);
   $("#added_tr"+delete_index).hide();
 
-  $("#acting_client_id option[value='"+rel_client_id+"']").remove();
+  //$("#acting_client_id option[value='"+rel_client_id+"']").remove();
   
 });
 // Delete relationship while adding client end //
@@ -1567,8 +1573,9 @@ function saveRelationship(process_type)
     }else{
       var rel_client_id = $('#rel_client_id').val();
     }
-//alert(rel_client_id+"etet");
+
     var rel_type_id = $('#rel_type_id').val();
+    //alert(rel_client_id+"etet"+rel_type_id);
     //var rel_client_id = $('#rel_client_id').val();
     //var checkbox = '<span class="custom_chk"><input type="checkbox" class="acting_check" value="Y" name="acting_'+i+'" id="acting_'+i+'" data-edit_index="'+i+'" data-rel_client_id="'+rel_client_id+'"/><label for="acting_'+i+'"></label></span>';
 
@@ -1581,12 +1588,19 @@ function saveRelationship(process_type)
         dataType: "json",
         url: '/individual/save-relationship',
         data: { 'rel_type_id' : rel_type_id, 'rel_client_id' : rel_client_id },
+        beforeSend: function() {
+            $('#non_rel_client_id').val("");
+        },
         success : function(resp){ //console.log(resp['client_details']['business_name'])
           var name = "";
           if(resp['client_details']['business_name'] !== undefined ){
             name = resp['client_details']['business_name'];
           }else{
             name = resp['client_details']['client_name'];
+          }
+
+          if(resp['client_details']['type'] != "non"){
+            name = '<a href="'+resp['client_details']['link']+'" target="_blank">'+name+'</a>';
           }
           var content = "";
           content += '<tr id="added_tr'+i+'"><td width="40%">'+name+'</td>';
@@ -1609,14 +1623,14 @@ function saveRelationship(process_type)
           i++;
 
 
-          if(resp['client_details']['is_relation_add'] == "Y" ){
+          /*if(resp['client_details']['is_relation_add'] == "Y" ){
             $('#acting_client_id').append($('<option>', {
               value: rel_client_id,
               text: name
             }));
           }else{
             saveActing("by_own", rel_client_id);
-          }
+          }*/
 
 
         }

@@ -437,6 +437,7 @@ class Common extends Eloquent {
 
 					$data1[$key]['type'] 			= $client_data['type'];
 					$data1[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data1[$key]['is_archive'] 		= $client_data['is_archive'];
 					$data1[$key]['is_relation_add'] = $client_data['is_relation_add'];
 					
 				}
@@ -509,6 +510,7 @@ class Common extends Eloquent {
 
 					$data2[$key]['type'] 			= $client_data['type'];
 					$data2[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data2[$key]['is_archive'] 		= $client_data['is_archive'];
 					$data2[$key]['is_relation_add'] = $client_data['is_relation_add'];
 					
 				}
@@ -517,7 +519,8 @@ class Common extends Eloquent {
 			}
         }
 
-        $relationship = array_merge($data1, $data2);//print_r($data1);die;
+        $relationship = array_merge($data1, $data2);
+        $relationship = array_unique($relationship, SORT_REGULAR);//print_r($relationship);die;
         $i = 0;
         foreach ($relationship as $key => $value) {
         	if(isset($value['name']) && $value['name'] != ""){
@@ -529,7 +532,7 @@ class Common extends Eloquent {
         		$data[$i]['client_id'] 				= $value['client_id'];
         		$data[$i]['link'] 					= isset($value['link'])?$value['link']:"";
         		$data[$i]['type'] 					= isset($value['type'])?$value['type']:"";
-				//$data[$i]['chd_type'] 				= $value['chd_type'];
+				$data[$i]['is_archive'] 			= $value['is_archive'];
 				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
         		$i++;
 	        	
