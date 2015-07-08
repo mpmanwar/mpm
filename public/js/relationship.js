@@ -79,8 +79,17 @@ $("#officers_details-modal").on("click", ".officer_addto_relation", function(){
         data: { 'company_number': company_number, 'key': key, 'client_id' : client_id },
         beforeSend: function() {
             $('#rel_client_id').val("");
+            $("#goto"+key).html('<img src="/img/spinner.gif" />');
         },
         success: function (resp) {//console.log(resp['relation_type_id']);return false;
+        	var content = "";
+            content += '<div class="officer_selectbox"><span>+ Add</span><div class="small_icon" data-id="'+key+'"></div><div class="clr"></div>';
+            content += '<div class="select_toggle" id="status'+key+'" style="display: none;"><ul>';
+            content += '<li data-value="org"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="add_client_officers">NEW CLIENT</a></li>';
+            content += '<li data-value="non"><a href="javascript:void(0)" data-company_number="'+company_number+'" data-key="'+key+'" class="officer_addto_relation">NON - CLIENT</a></li>';
+            content += '</ul></div></div>';
+        	$("#goto"+key).html(content);
+
         	var url, name;
         	if(resp['link'] == 'org'){
                 url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];

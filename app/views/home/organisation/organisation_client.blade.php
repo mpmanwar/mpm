@@ -196,7 +196,7 @@ $(function() {
                     <td align="center">{{ isset($client_row['next_acc_due'])?date("d-m-Y", strtotime($client_row['next_acc_due'])):"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
-                        <span style="background:red">{{ $client_row['deadacc_count'] or "" }}</span>
+                        <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
                       @else
                          {{ $client_row['deadacc_count'] or "" }}
                       @endif
@@ -204,13 +204,13 @@ $(function() {
                     <td align="center">{{ isset($client_row['next_ret_due'])?date("d-m-Y", strtotime($client_row['next_ret_due'])):"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
-                        <span style="background:red">{{ $client_row['deadret_count'] or "" }}</span>
+                        <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>
                       @else
                          {{ $client_row['deadret_count'] or "" }}
                       @endif
                     </td>
                     <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td align="left">{{ (strlen($client_row['corres_address']) > 32)? substr($client_row['corres_address'], 0, 30)."...": $client_row['corres_address'] }}</td>
+                    <td align="left">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...": $client_row['corres_address'] }}</td>
                     <!-- <td align="left">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county'] : '' }}</td> -->
                   </tr>
                 <?php $i++; ?>

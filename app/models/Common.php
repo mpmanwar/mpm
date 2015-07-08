@@ -439,6 +439,7 @@ class Common extends Eloquent {
 					$data1[$key]['chd_type'] 		= $client_data['chd_type'];
 					$data1[$key]['is_archive'] 		= $client_data['is_archive'];
 					$data1[$key]['is_relation_add'] = $client_data['is_relation_add'];
+					$data1[$key]['is_deleted'] 		= $client_data['is_deleted'];
 					
 				}
 				//######## get client type #########//
@@ -512,6 +513,7 @@ class Common extends Eloquent {
 					$data2[$key]['chd_type'] 		= $client_data['chd_type'];
 					$data2[$key]['is_archive'] 		= $client_data['is_archive'];
 					$data2[$key]['is_relation_add'] = $client_data['is_relation_add'];
+					$data2[$key]['is_deleted'] 		= $client_data['is_deleted'];
 					
 				}
 				//######## get client type #########//
@@ -534,6 +536,7 @@ class Common extends Eloquent {
         		$data[$i]['type'] 					= isset($value['type'])?$value['type']:"";
 				$data[$i]['is_archive'] 			= $value['is_archive'];
 				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
+				$data[$i]['is_deleted'] 			= $value['is_deleted'];
         		$i++;
 	        	
         	}

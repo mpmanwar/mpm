@@ -2073,7 +2073,7 @@ $(document).ready(function(){
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
         <td width="40%">
-          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") )
+          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") || (isset($relation_row['is_deleted']) && $relation_row['is_deleted'] == "Y") )
             {{ $relation_row['name'] or "" }}
           @else
             <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
