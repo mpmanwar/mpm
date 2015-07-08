@@ -139,6 +139,52 @@ class ChdataController extends BaseController {
 		return $array;
 	}
 
+	public function getMonthName($month)
+	{
+		switch ($month) {
+			case '1':
+				return "January";
+				break;
+			case '2':
+				return "February";
+				break;
+			case '3':
+				return "March";
+				break;
+			case '4':
+				return "April";
+				break;
+			case '5':
+				return "May";
+				break;
+			case '6':
+				return "June";
+				break;
+			case '7':
+				return "July";
+				break;
+			case '8':
+				return "August";
+				break;
+			case '9':
+				return "September";
+				break;
+			case '10':
+				return "October";
+				break;
+			case '11':
+				return "November";
+				break;
+			case '12':
+				return "December";
+				break;
+			
+			default:
+				return $month;
+				break;
+		}
+	}
+
 	public function officers_details()
 	{
 		$number = Input::get("number");
@@ -148,7 +194,12 @@ class ChdataController extends BaseController {
 
 		$officers 	= Common::getOfficerDetails($number);//print_r($officers);die;
 		
-		//$off_data['date_of_birth'] 			= isset($officers->items[$key]->date_of_birth)?$officers->items[$key]->date_of_birth:"";
+		if(isset($officers->items[$key]->date_of_birth)){
+			$month = $this->getMonthName($officers->items[$key]->date_of_birth->month);
+			$year = $officers->items[$key]->date_of_birth->year;
+			$off_data['dob'] = $month.", ".$year;
+		}
+		
 		$off_data['nationality'] 			= isset($officers->items[$key]->nationality)?$officers->items[$key]->nationality:"";
 		$off_data['officer_role'] 			= isset($officers->items[$key]->officer_role)?$officers->items[$key]->officer_role:"";
 		$off_data['name'] 					= isset($officers->items[$key]->name)?$officers->items[$key]->name:"";
