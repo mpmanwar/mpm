@@ -63,6 +63,7 @@ Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=
 Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "uses"=>'UserController@create_user_password'));
 Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
 Route::any('/update-status', array("as"=>"update_status", "uses"=>'UserController@update_status'));
+Route::any('/user/get-relation-client/{id}', array("as"=>"get_relation_client", "uses"=>'UserController@get_relation_client'));
 ### Routes for user related URL's end ###
 
 
@@ -133,6 +134,7 @@ Route::any('/client/get-name-and-type', array("as"=>"get_name_and_type", "uses"=
 Route::any('/client/delete-addtolist-client', array("as"=>"delete_addtolist_client", "uses"=>'ClientController@delete_addtolist_client'));
 Route::any('/client/save-officers-into-relation', array("as"=>"save_officers_into_relation", "uses"=>'ClientController@save_officers_into_relation'));
 Route::any('/client/get-officers-client', array("as"=>"get_officers_client", "uses"=>'ClientController@get_officers_client'));
+Route::any('/client/client-details-by-client_id/{client_id}', array("as"=>"client_details_by_client_id", "uses"=>'ClientController@client_details_by_client_id'));
 
 ### Routes for Client URL's end ###
 

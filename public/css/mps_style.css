@@ -143,7 +143,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .twobox{width:100%;}
 .twobox_1{width:48.7%; float:left; margin-right:10px;}
 .twobox_2{width:48%; float:left;}
-.icheckbox_minimal{margin-left:5px;}
+.icheckbox_minimal{margin-left:5px; margin-right: 5px;}
 .telbox{float:left; width:72%;}
 .twobox_01{float:left; width:35%; margin-right:10px;}
 .twobox_02{float:left; width:20%; margin-right:10px;}
@@ -181,6 +181,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .jobs_chkbox{width:75%}
 .jobs_chkbox ul{list-style:none; margin:0; padding:0;}
 .jobs_chkbox ul li{float:left; width:27%; margin-bottom:10px;}
+.client_chkbox{width:100%}
+.client_chkbox ul{list-style:none; margin:0; padding:0;}
+.client_chkbox ul li{float:left; width:100%; margin-bottom:0px;}
 .job_checkbox{float:left; }
 .add_to_list{ margin-left: 20px; }
 .modal-footer1 {padding: 19px 0px 20px; margin-top: 15px; text-align: right; border-top: 1px solid #e5e5e5;}
@@ -502,7 +505,7 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 
 
 /* Checkbox design start */
-.custom_chk input[type=checkbox] {
+/* .custom_chk input[type=checkbox] {
 display:none;
 }
  
@@ -510,7 +513,7 @@ display:none;
 {
 background:url(../img/checkbox.png) no-repeat 0 0;
 height: 18px;
-width: 18px;
+width: 100%;
 display:inline-block;
 padding-left: 25px;
 cursor: pointer;
@@ -522,7 +525,7 @@ height: 18px;
 width: 18px;
 display:inline-block;
 padding-left: 25px;
-}
+} */
 /* Checkbox design end */
 
 

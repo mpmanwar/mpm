@@ -58,28 +58,68 @@
  <div class="clearfix"></div>
 </div>
 
-<div class="user_account">
- <div class="user_ncon">
-<div class="form-group">
-<label for="f_name">First Name</label>
-<input type="text" placeholder="First Name" id="fname" name="fname" class="form-control">
-</div>
+<div class="user_account" id="staff_user_div">
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="f_name">First Name</label>
+      <input type="text" placeholder="First Name" id="fname" name="fname" class="form-control">
+    </div>
+  </div>
+
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="l_name">Last Name</label>
+      <input type="text" placeholder="Last Name" id="lname" name="lname" class="form-control">
+    </div>
+  </div>
+
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" placeholder="Email" id="email" name="email" class="form-control">
+    </div>
+  </div>
+  <div class="clearfix"></div>
 </div>
 
- <div class="user_ncon">
-<div class="form-group">
-<label for="l_name">Last Name</label>
-<input type="text" placeholder="Last Name" id="lname" name="lname" class="form-control">
-</div>
-</div>
+<div class="user_account" style="display: none;" id="client_user_div">
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="f_name">Select Client</label>
+      <select class="form-control get_relation_client" name="client_id">
+        <option value="">-- Please Select --</option>
+        @if(!empty($individual_client) && count($individual_client) > 0)
+          @foreach($individual_client as $key=>$list)
+            <option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
+          @endforeach
+        @endif
+      </select>
+    </div>
+  </div>
 
- <div class="user_ncon"><!--u-->
-<div class="form-group">
-<label for="email">Email</label>
-<input type="text" placeholder="Email" id="email" name="email" class="form-control">
-</div>
-</div>
-<div class="clearfix"></div>
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="l_name">Email</label>
+      <input type="text" placeholder="Email" id="client_email" name="client_email" class="form-control">
+    </div>
+  </div>
+
+  <div class="user_ncon">
+    <div class="form-group">
+      <label for="email">Related Companies</label>
+      <div class="clearfix"></div>
+        <div class="client_chkbox show_org_client">
+          <ul>
+            <!-- @if(!empty($relation_list) && count($relation_list) > 0)
+              @foreach($relation_list as $key=>$list)
+                <li><div class="job_checkbox"><label><input type="checkbox" value="{{ $list['client_id'] }}" name="related_client[]" />{{ $list['client_name'] }}</label></div></li>
+              @endforeach
+            @endif -->
+          </ul>
+        </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
 </div>
 
 <div class="tabarea">

@@ -5,15 +5,8 @@ $(document).ready(function(){
 		var value = $(this).find(".handle-change-user").data('type');
 	  	if(value == "admin"){
 			$("#user_permissions").show();
-			/*$("input[name='permission[]']").each( function (i) {
-				$(this).attr('checked', 'checked');
-				$(this).prop('disabled', true);
-       		});*/
 		}else if(value == "staff"){
 			$("#user_permissions").show();
-			/*$("input[name='permission[]']").each( function (i) {
-				$(this).removeAttr('disabled');
-       		});*/
 		}else{
 			$("#user_permissions").hide();
 		}
@@ -21,9 +14,8 @@ $(document).ready(function(){
 
 
 	$('.handle-change-user').on('ifChecked', function(event){
-		var value = $(this).data('type');//
+		var value = $(this).data('type');
 	  	if(value == "client"){
-			//$("#user_permissions").show();
 			$("input[name='user_access[]']").each( function (i) {
 				$(this).parent().addClass("check_gray");
 				$(this).iCheck('uncheck');
@@ -35,8 +27,14 @@ $(document).ready(function(){
        			$(this).parent().addClass("check_gray");
 				$(this).iCheck('uncheck');
 				$(this).iCheck('disable');
-				//$(this).prop('disabled', true);
-       		});
+			});
+
+       		<!-- SHOW CLIENT USER FIELD START -->
+       		$("#staff_user_div").hide();
+       		$("#client_user_div").show();
+       		<!-- SHOW CLIENT USER FIELD END -->
+
+
 
 		}else if(value == "staff"){
 			$("input[name='user_access[]']").each( function (i) {
@@ -50,6 +48,11 @@ $(document).ready(function(){
 				$(this).iCheck('check');
 				$(this).iCheck('enable');
 			});
+
+			<!-- SHOW CLIENT USER FIELD START -->
+       		$("#staff_user_div").show();
+       		$("#client_user_div").hide();
+       		<!-- SHOW CLIENT USER FIELD END -->
 		}
 	});
 
@@ -147,6 +150,36 @@ $(document).ready(function(){
  	});
  	//##############User active/Inactive Portion start ################//
 
+
+ 	//############## Get relationship client portion start ################//
+ 	$('.get_relation_client').change(function() {
+ 		var client_id = $(this).val();
+ 		if(client_id != "" ){
+ 			$.ajax({
+			    type: "GET",
+			    dataType: "json",
+			    url: '/user/get-relation-client/'+client_id+"=ajax",
+			    //data: { 'client_id' : client_id },
+			    success : function(resp){
+			    	if(resp.length > 0){
+			    		var content = '';
+			    		$.each(resp, function(key){
+			    			content += '<li><div class="job_checkbox">';
+			    			content += '<span class="custom_chk"><input type="checkbox" value="'+resp[key]['client_id']+'" name="related_client[]" id="'+resp[key]['client_id']+'" />';
+			    			content += '<label for="'+resp[key]['client_id']+'"><a href="#" class="hover">'+resp[key]['client_name']+'</a></label></span></div></li>'
+			    		});
+
+			    		$(".show_org_client ul").html(content);
+			    	}else{
+			    		$(".show_org_client ul").html("");
+			    	}
+			    }
+			});
+ 		}else{
+    		$(".show_org_client ul").html("");
+    	}
+ 	});
+ 	//############## Get relationship client portion end ################//
 
 
 });

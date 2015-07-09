@@ -120,10 +120,12 @@ class UserController extends BaseController {
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
-		$data['title'] = "Add User";
-		$data['heading'] = "ADD USER DETAILS";
-		$data['permission_list'] = Permission::get();
-		$data['access_list'] = Access::get();
+		$data['title'] 		= "Add User";
+		$data['heading'] 	= "ADD USER DETAILS";
+		$data['permission_list'] 	= Permission::get();
+		$data['access_list'] 		= Access::get();
+		$data['individual_client'] 	= App::make("HomeController")->get_all_ind_clients();
+		//print_r($data['relation_list']);die;
 		return View::make('user.add_user', $data);
 	}
 
@@ -138,16 +140,15 @@ class UserController extends BaseController {
 		if ($validator->passes()) {
 			$usr_data['parent_id'] 	= $admin_s['id'];
 			$usr_data['group_id'] 	= $admin_s['group_id'];
-			$usr_data['fname'] 		= $postData['fname'];
-			$usr_data['lname'] 		= $postData['lname'];
-			$usr_data['email'] 		= $postData['email'];
-			$usr_data['user_type'] 	= $postData['user_type'];
 			$usr_data['created'] 	= date("Y-m-d H:i:s");
-			$usr_id = User::insertGetId($usr_data);
-			$usr_data['user_id'] 	= $usr_id;
-			$usr_data['link'] = url()."/user/create-password/".base64_encode($usr_id);
+			$usr_data['user_type'] 	= $postData['user_type'];
+			
+			if ($postData['user_type'] == "S") {
 
-			if ($postData['user_type'] != "C") {
+				$usr_data['fname'] 		= $postData['fname'];
+				$usr_data['lname'] 		= $postData['lname'];
+				$usr_data['email'] 		= $postData['email'];				
+
 				if (!empty($postData['permission']) && count($postData['permission']) > 0) {
 					foreach ($postData['permission'] as $value) {
 						$usrp_data['user_id'] = $usr_id;
@@ -156,19 +157,33 @@ class UserController extends BaseController {
 					}
 				}
 
+				if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
+					foreach ($postData['user_access'] as $value) {
+						$usracc_data['user_id'] = $usr_id;
+						$usracc_data['access_id'] = $value;
+						UserAccess::insert($usracc_data);
+					}
+				}
+
+			}else{
+				$usr_data['email'] 				= $postData['client_email'];
+				$usr_data['client_id'] 			= $postData['client_id'];
+				$usr_data['related_company_id'] = serialize($postData['related_client']);
 			}
 
-			if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
-				foreach ($postData['user_access'] as $value) {
-					$usracc_data['user_id'] = $usr_id;
-					$usracc_data['access_id'] = $value;
-					UserAccess::insert($usracc_data);
-				}
+			$usr_id = User::insertGetId($usr_data);
+			$usr_data['user_id'] 	= $usr_id;
+			$usr_data['link'] = url()."/user/create-password/".base64_encode($usr_id);
+			if ($postData['user_type'] == "C") {
+				$client_name = Common::clientDetailsById($postData['client_id']);
+				$usr_data['fname'] 		= $client_name['fname'];
+				$usr_data['lname'] 		= $client_name['lname'];
 			}
+			
 
 			$this->send_mail($usr_data);
 			Session::flash('message', 'The email has been sent to the new user.');
-			Cache::flush();
+			//Cache::flush();
 			return Redirect::to('/user-list');
 		} else {
 			return Redirect::to('/add-user')->withInput()->withErrors($validator);
@@ -184,15 +199,27 @@ class UserController extends BaseController {
 	}
 
 	public function validateChinForm($postData) {
-		$messages = array(
-			'fname.required' => 'Please enter first name',
-			'email.required' => 'Please enter email address',
-		);
+		if ($postData['user_type'] == "S") {
+			$messages = array(
+				'fname.required' => 'Please enter first name',
+				'email.required' => 'Please enter email address',
+			);
 
-		$rules = array(
-			'fname' => 'required|alpha',
-			'email' => 'required|email',
-		);
+			$rules = array(
+				'fname' => 'required|alpha',
+				'email' => 'required|email',
+			);
+		}else{
+			$messages = array(
+				'client_id.required' => 'Please select client name',
+				'client_email.required' => 'Please enter email address',
+			);
+
+			$rules = array(
+				'client_id' => 'required',
+				'client_email' => 'required|email',
+			);
+		}
 
 		return Validator::make($postData, $rules, $messages);
 	}
@@ -396,6 +423,38 @@ class UserController extends BaseController {
 			//echo $this->last_query();die;
 			
 			echo $ret;
+		}
+	}
+
+	function get_relation_client($value)
+	{
+		$relation_client = array();
+		$value 			 = explode("=", $value);
+		$client_id 		 = $value[0];
+		$calling_type 	 = $value[1];
+
+		$clients = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
+        	->join('clients as c', 'c.client_id', '=', 'cr.appointment_with')
+        	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
+        	->where('sfc.field_name', '=', 'business_name')
+        	->where("c.type", "=", "org")
+        	->select('cr.appointment_with as client_id', 'sfc.field_value as client_name')->get();
+        //echo $this->last_query();die;
+        if( isset($clients) && count($clients) >0 ){
+        	foreach ($clients as $key => $value) {
+        		$relation_client[$key]['client_id'] 	= $value->client_id;
+        		$relation_client[$key]['client_name'] 	= $value->client_name;
+        	}
+        	
+        }
+		
+		//print_r($relation_client);die;
+		if ($calling_type == "ajax") {
+			echo json_encode($relation_client);
+			exit;
+		}else{
+			return $relation_client;
+			exit;
 		}
 	}
 

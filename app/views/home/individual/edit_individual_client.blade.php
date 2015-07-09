@@ -376,6 +376,7 @@ $(document).ready(function(){
 <label for="exampleInputPassword1">Tax Office</label>
 <input type="hidden" id="tax_reference_type" value="I">
 <select class="form-control" id="tax_office_id" name="tax_office_id">
+  <option value="">Choose Office</option>
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
       @if($office_row->parent_id == 0)

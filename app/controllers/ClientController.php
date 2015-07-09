@@ -952,6 +952,25 @@ class ClientController extends BaseController {
 		exit();
 	}
 
+	public function client_details_by_client_id($value)
+	{
+		$client_details 	= array();
+		$value 			 	= explode("=", $value);
+		$client_id 		 	= $value[0];
+		$calling_type 	 	= $value[1];
+		$client_details 	= Common::clientDetailsById($client_id);
+
+		//print_r($client_details);die;
+		if ($calling_type == "ajax") {
+			echo View::make("Invitedclient.ajax_organisation_details", $client_details);
+			//echo json_encode($client_details);
+			exit;
+		}else{
+			return $client_details;
+			exit;
+		}
+	}
+
 
 
 
