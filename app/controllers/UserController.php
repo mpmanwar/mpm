@@ -435,12 +435,23 @@ class UserController extends BaseController {
 		$client_id 		 = $value[0];
 		$calling_type 	 = $value[1];
 
-		$clients = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
+		$clients1 = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
         	->join('clients as c', 'c.client_id', '=', 'cr.appointment_with')
         	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
         	->where('sfc.field_name', '=', 'business_name')
         	->where("c.type", "=", "org")
         	->select('cr.appointment_with as client_id', 'sfc.field_value as client_name')->get();
+
+       	$clients2 = DB::table('client_relationships as cr')->where("cr.appointment_with", "=", $client_id)
+        	->join('clients as c', 'c.client_id', '=', 'cr.appointment_with')
+        	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
+        	->where('sfc.field_name', '=', 'business_name')
+        	->where("c.type", "=", "org")
+        	->select('cr.client_id', 'sfc.field_value as client_name')->get();
+
+        $clients = array_merge($clients1, $clients2);
+        $clients = array_unique($clients, SORT_REGULAR);//print_r($relationship);die;
+        
         //echo $this->last_query();die;
         if( isset($clients) && count($clients) >0 ){
         	foreach ($clients as $key => $value) {
