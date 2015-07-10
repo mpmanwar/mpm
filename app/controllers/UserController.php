@@ -168,7 +168,9 @@ class UserController extends BaseController {
 			}else{
 				$usr_data['email'] 				= $postData['client_email'];
 				$usr_data['client_id'] 			= $postData['client_id'];
-				$usr_data['related_company_id'] = serialize($postData['related_client']);
+				if(isset($postData['related_client']) && count($postData['related_client']) > 0){
+					$usr_data['related_company_id'] = serialize($postData['related_client']);
+				}
 			}
 
 			$usr_id = User::insertGetId($usr_data);
