@@ -429,7 +429,7 @@ class UserController extends BaseController {
 	}
 
 	function get_relation_client($value)
-	{
+	{echo $value;
 		$relation_client = array();
 		$relation_client1 = array();
 		$relation_client2 = array();
