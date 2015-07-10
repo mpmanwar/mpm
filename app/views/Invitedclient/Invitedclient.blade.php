@@ -33,10 +33,10 @@
                     
 						<ul>
 							<li class="hvr-grow" style="margin-right:100px;">
-								<a href="/invitedclient-details">
+								<a href="/client/edit-ind-client/{{ $client_id or "" }}">
 								<div class="circle_icons_inner">
 								<div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
-								<p class="c_tagline2"><a href="/client/edit-ind-client/{{ $client_id or "" }}">MY DETAILS</a></p>
+								<p class="c_tagline2">MY DETAILS</p>
 								<div class="clearfix"></div>
 								</div></a>
 							</li>
@@ -65,7 +65,7 @@
 					<div class="col-xs-9" style="padding:0;">
 						<p>
 							<strong>
-								In job email section shoild show here
+								In job email section-should show here
 							</strong>
 						</p>
 					</div>
@@ -182,14 +182,12 @@
 							</td>
 							<td width="2%">
 								&nbsp;
-							</td>
-							<td width="3%">
-								<button class="btn btn-info">
-									Add New Business
-								</button>
 							</td> -->
-							<td width="26%">
-								&nbsp;
+							<td width="6%">
+								
+							</td>
+							<td width="20%">
+								<a href="/organisation/add-client" class="btn btn-info">Add New Business</a>
 							</td>
 						</tr>
 					</table>

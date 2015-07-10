@@ -75,39 +75,38 @@ $(document).ready(function(){
 <div class="tabarea">
   
   <div class="nav-tabs-custom">
-      <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
-        <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
-        <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
-        <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
-        <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
-        <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
-         
-        <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field
-         
-        </a></li>
+    <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
+      <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
+      <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
+      <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
+      <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
+      <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+      @if(isset($user_type) && $user_type != "C")
+      <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+      @endif
+    </ul>
+  <div class="tab-content">
+
+    <div id="step1" class="tab-pane active" style="display:block;">
+      <!--table area-->
+      <div class="box-body table-responsive">
+        <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+          <div class="row">
+            <div class="col-xs-6"></div>
+            <div class="col-xs-6"></div>
+          </div>
+<div class="row">  
         
-      </ul>
-      <div class="tab-content">
-
-          <div id="step1" class="tab-pane active" style="display:block;">
-                  <!--table area-->
-                  <div class="box-body table-responsive">
-                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                      <div class="row">
-                        <div class="col-xs-6"></div>
-                        <div class="col-xs-6"></div>
-                      </div>
-                      <div class="row">  
-                    
-                    <div class="col-xs-12 col-xs-6">
+<div class="col-xs-12 col-xs-6">
  <div class="col_m2">  
-                
-<div class="form-group">
-
-<div class="n_box1">
-<label for="exampleInputPassword1">Client Code</label>
-  <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase"></div>
-</div>
+  @if(isset($user_type) && $user_type != "C")              
+  <div class="form-group">
+    <div class="n_box1">
+      <label for="exampleInputPassword1">Client Code</label>
+      <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase">
+    </div>
+  </div>
+  @endif
 
 <div class="form-group">
 

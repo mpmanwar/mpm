@@ -85,7 +85,11 @@ $(document).ready(function(){
           <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+          @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+          @endif
+          
+
         </ul>
               <div class="tab-content">
                 <div id="step1" class="tab-pane active">
@@ -100,43 +104,43 @@ $(document).ready(function(){
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
 
-                      <div class="twobox">
-                        <div class="twobox_1">
-                          <div class="small_box">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Client Code</label>
-                
-                              <input type="text" id="client_code" name="client_code" class="form-control toUpperCase">
 
-                            </div>
-                          </div>
-                        </div>
-                        <div class="twobox_2">
-                        
-                        
-                        
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Business Type</label>
-                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-                      
-                    <select class="form-control" name="business_type" id="business_type">
-                      @if( isset($old_org_types) && count($old_org_types) >0 )
-                        @foreach($old_org_types as $key=>$old_org_row)
-                        <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
-                        @endforeach
-                      @endif
+<div class="twobox">
+  @if(isset($user_type) && $user_type != "C")
+  <div class="twobox_1">
+    <div class="small_box">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Client Code</label>
+          <input type="text" id="client_code" name="client_code" class="form-control toUpperCase">
+        </div>
+    </div>
+  </div>
+  @endif
+  <div class="twobox_2">
+    <div class="form-group">
+      <label for="exampleInputPassword1">Business Type</label>
+      @if(isset($user_type) && $user_type != "C")
+      <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+      @endif
+      <select class="form-control" name="business_type" id="business_type">
+        @if( isset($old_org_types) && count($old_org_types) >0 )
+          @foreach($old_org_types as $key=>$old_org_row)
+          <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
+          @endforeach
+        @endif
 
-                      @if( isset($new_org_types) && count($new_org_types) >0 )
-                        @foreach($new_org_types as $key=>$new_org_row)
-                        <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
-                        @endforeach
-                      @endif
-                     
-                    </select>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+        @if( isset($new_org_types) && count($new_org_types) >0 )
+          @foreach($new_org_types as $key=>$new_org_row)
+          <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
+          @endforeach
+        @endif
+       
+      </select>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
 
 
                             
@@ -2140,92 +2144,82 @@ $(document).ready(function(){
                               </div>
                               <div class="clearfix"></div>
                             </div>
-                            
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
-                                </div>
-                              </div>
-                              
-                              <div class="clearfix"></div>
-                            </div>
 
-                            <div class="director_table">
-                            <div class="service_t">
-                              <h3 class="box-title">Services</h3></div>
-                              
-                              <div class="add_edit">
-                              <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
-                              </div>
-                              <div class="box-body table-responsive">
-                                <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                                  <div class="row">
-                                    <div class="col-xs-6"></div>
-                                    <div class="col-xs-6"></div>
-                                  </div>
-  <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
-    <tr>
-      <td align="center"><strong>Service</strong></td>
-      <td align="center"><strong>Staff</strong></td>
-      <td align="center"><strong>Action</strong></td>
-    </tr>
-    
-    
-    
-    
-    
-    
-  </table>
+  @if(isset($user_type) && $user_type != "C")                      
+      <div class="twobox">
+        <div class="twobox_1">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Marketing Source</label>
+            <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
+          </div>
+        </div>
+        
+        <div class="clearfix"></div>
+      </div>
+  @endif
 
+      <div class="other_table">
+  @if(isset($user_type) && $user_type != "C")
+      <div class="service_t"><h3 class="box-title">Services</h3></div>
+      <div class="add_edit">
+        <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
+      </div>
+      <div class="clearfix"></div>
+      <div class="form-group">
+        <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
+      </div>
+      <div class="box-body table-responsive">
+        <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+          <div class="row">
+            <div class="col-xs-6"></div>
+            <div class="col-xs-6"></div>
+          </div>
+          <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+            <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+            <tr>
+              <td align="center"><strong>Service</strong></td>
+              <td align="center"><strong>Staff</strong></td>
+              <td align="center"><strong>Action</strong></td>
+            </tr>
+          </table>
 
+          <div class="contain_tab4" id="add_services_div" style="display:none;">
+          <div class="services_search">
+            <select class="form-control" name="service_id" id="service_id">
+              <option value="">None</option>
+                @if( isset($old_services) && count($old_services)>0 )
+                  @foreach($old_services as $key=>$service_row)
+                    <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  @endforeach
+                @endif
+                @if( isset($new_services) && count($new_services)>0 )
+                  @foreach($new_services as $key=>$service_row)
+                    <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  @endforeach
+                @endif
+                  
+              </select>
+          </div>
 
-<div class="contain_tab4" id="add_services_div" style="display:none;">
-    <div class="services_search">
-      <select class="form-control" name="service_id" id="service_id">
-        <option value="">None</option>
-          @if( isset($old_services) && count($old_services)>0 )
-            @foreach($old_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
-          @if( isset($new_services) && count($new_services)>0 )
-            @foreach($new_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
+          <div class="service">
+            <select class="form-control" name="staff_id" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select>
             
-        </select>
-    </div>
-
-    <div class="service">
-      <select class="form-control" name="staff_id" id="staff_id">
-        <option value="">None</option>
-          @if(!empty($staff_details))
-            @foreach($staff_details as $key=>$staff_row)
-            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-            @endforeach
-          @endif
-        </select>
-      
-    </div>
-    
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
-  </div>
+          </div>
+          
+          <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
+          </div>
 
 
-
-
-
-
-                                </div>
-                              </div>
+        </div>
+      </div>
+    @endif
 
 
 <!-- This portion is for user created field -->

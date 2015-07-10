@@ -32,6 +32,13 @@ class BaseController extends Controller {
 
             $user_access   = Common::getUserAccess($admin_s['id']);
             View::share('manage_user', $user_access);
+
+            if(isset($admin_s['user_type']) && $admin_s['user_type'] == "C"){
+                $dashboard_url = '/invitedclient-dashboard';
+            }else{
+                $dashboard_url = '/dashboard';
+            }
+            View::share('dashboard_url', $dashboard_url);
             
         }
 

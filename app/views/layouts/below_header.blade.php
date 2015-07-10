@@ -10,7 +10,7 @@
     
         <div class="home_right">
         <ol class="breadcrumb ">
-            <li><a href="/dashboard"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="{{ $dashboard_url }}"><i class="fa fa-home"></i> Home</a></li>
             <li class="active">{{ $title }}</li>
         </ol>
         </div>

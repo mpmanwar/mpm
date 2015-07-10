@@ -1,15 +1,15 @@
 <header class="headermain">
 <div class="logo_controlar">
-<a href="/dashboard">
-      <img src="{{ URL :: asset('img/logo.png') }}" class="" alt="" width="100"/>
-    </a>
+<a href="{{ $dashboard_url }}">
+  <img src="{{ URL :: asset('img/logo.png') }}" class="" alt="" width="100"/>
+</a>
 </div>
 <div class="col_display">
     <p class="display_name">{{ $practice_name }}</p>
 </div>
 <nav class="navbar" role="navigation">
-<div class="navbar-right">
-      <ul class="nav navbar-nav">
+    <div class="navbar-right">
+        <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

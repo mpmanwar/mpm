@@ -129,6 +129,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 
 /*===========add client or 1============*/
 .director_table{width:75%;}
+.other_table{width: 100%;}
 .search_box{width:190px;}
 .table_top_box{width:100%; display: none;}
 

@@ -3,11 +3,12 @@
 class ClientController extends BaseController {
 	public function edit_ind_client($client_id)
 	{
-		$data['title'] = "Edit Client";
-        $data['heading'] = "";
+		$data['title'] 		= "Edit Client";
+        $data['heading'] 	= "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
-        $groupUserId = $session['group_users'];
+        $data['user_type'] 	= $session['user_type'];
+        $groupUserId 		= $session['group_users'];
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
