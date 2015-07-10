@@ -22,7 +22,12 @@ class BaseController extends Controller {
             $groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
             $practice_details = PracticeDetail::whereIn("user_id", $groupUserId)->first();
 
-            View::share('practice_name', $practice_details['display_name']);
+            if($admin_s['user_type'] == "C"){
+                $display_name = $practice_details['display_name']." - Client Portal";
+            }else{
+                $display_name = $practice_details['display_name'];
+            }
+            View::share('practice_name', $display_name);
             if (File::exists("practice_logo/".$practice_details['practice_logo']) && $practice_details['practice_logo'] != ""){
                 $practice_logo = "<img src='/practice_logo/".$practice_details['practice_logo']."' class='browse_img'>";
             }else{
