@@ -955,19 +955,23 @@ class ClientController extends BaseController {
 
 	public function client_details_by_client_id($value)
 	{
-		$client_details 	= array();
+		$session 			= Session::get('admin_details');
+		$user_id 			= $session['client_id'];
+
+		$data 				= array();
 		$value 			 	= explode("=", $value);
 		$client_id 		 	= $value[0];
 		$calling_type 	 	= $value[1];
-		$client_details 	= Common::clientDetailsById($client_id);
+		$data['client_details'] 		= Common::clientDetailsById($client_id);
+		$data['logged_client_details'] 	= Common::clientDetailsById($user_id);
 
-		//print_r($client_details);die;
+		//print_r($data['client_details']);die;
 		if ($calling_type == "ajax") {
-			echo View::make("Invitedclient.ajax_organisation_details", $client_details);
+			echo View::make("Invitedclient.ajax_organisation_details", $data);
 			//echo json_encode($client_details);
 			exit;
 		}else{
-			return $client_details;
+			return $data;
 			exit;
 		}
 	}

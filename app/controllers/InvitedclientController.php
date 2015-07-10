@@ -13,7 +13,7 @@ class InvitedclientController extends BaseController {
 		}
 		//print_r(unserialize($session['related_company_id']));die;
 
-		$data['heading'] 		= "Invited Client";
+		$data['heading'] 		= "";
 		$data['title'] 			= "Invited Client";
 		$data['client_id'] 		= $session['client_id'];
 		$value = $data['client_id']."="."function";

@@ -445,10 +445,7 @@ class UserController extends BaseController {
         	->select('cr.appointment_with as client_id', 'sfc.field_value as client_name')->get();
 
        	
-
-        
-
-        //echo $this->last_query();//die;
+		//echo $this->last_query();//die;
         if( isset($clients1) && count($clients1) >0 ){
         	foreach ($clients1 as $key => $value) {
         		$relation_client1[$key]['client_id'] 	= $value->client_id;

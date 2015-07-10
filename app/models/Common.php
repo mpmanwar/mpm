@@ -191,6 +191,19 @@ class Common extends Eloquent {
 					$client_data[$client_row['field_name']] = $client_row->field_value;
 				}
 
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "vat_scheme_type") {
+					$business_type = VatScheme::where('vat_scheme_id', '=', $client_row->field_value)->first();
+					$client_data[$client_row['field_name']] = $business_type['vat_scheme_name'];
+				}
+
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
+					$client_data['deadacc_count'] = App::make("HomeController")->getDayCount($client_row->field_value);
+				}
+
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
+					$client_data['deadret_count'] = App::make("HomeController")->getDayCount($client_row->field_value);
+				}
+
 			}
 
 			$client_data['address'] = substr($address, 0, -2);
