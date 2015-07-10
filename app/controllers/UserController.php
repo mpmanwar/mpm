@@ -448,7 +448,7 @@ class UserController extends BaseController {
 
         
 
-        //echo $this->last_query();die;
+        echo $this->last_query();//die;
         if( isset($clients1) && count($clients1) >0 ){
         	foreach ($clients1 as $key => $value) {
         		$relation_client1[$key]['client_id'] 	= $value->client_id;
@@ -463,7 +463,7 @@ class UserController extends BaseController {
         	->where('sfc.field_name', '=', 'business_name')
         	->where("c.type", "=", "org")
         	->select('cr.client_id', 'sfc.field_value as client_name')->get();
-
+echo $this->last_query();//die;
         if( isset($clients2) && count($clients2) >0 ){
         	foreach ($clients2 as $key => $value) {
         		$relation_client2[$key]['client_id'] 	= $value->client_id;
@@ -476,7 +476,7 @@ class UserController extends BaseController {
         $relation_client = array_unique($relation_client, SORT_REGULAR);//print_r($relationship);die;
 
 		
-		//print_r($relation_client);die;
+		print_r($relation_client);die;
 		if ($calling_type == "ajax") {
 			echo json_encode($relation_client);
 			exit;
