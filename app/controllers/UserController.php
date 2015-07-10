@@ -431,6 +431,8 @@ class UserController extends BaseController {
 	function get_relation_client($value)
 	{
 		$relation_client = array();
+		$relation_client1 = array();
+		$relation_client2 = array();
 		$value 			 = explode("=", $value);
 		$client_id 		 = $value[0];
 		$calling_type 	 = $value[1];
@@ -442,24 +444,37 @@ class UserController extends BaseController {
         	->where("c.type", "=", "org")
         	->select('cr.appointment_with as client_id', 'sfc.field_value as client_name')->get();
 
-       	$clients2 = DB::table('client_relationships as cr')->where("cr.appointment_with", "=", $client_id)
-        	->join('clients as c', 'c.client_id', '=', 'cr.appointment_with')
+       	
+
+        
+
+        //echo $this->last_query();die;
+        if( isset($clients1) && count($clients1) >0 ){
+        	foreach ($clients1 as $key => $value) {
+        		$relation_client1[$key]['client_id'] 	= $value->client_id;
+        		$relation_client1[$key]['client_name'] 	= $value->client_name;
+        	}
+        	
+        }
+
+        $clients2 = DB::table('client_relationships as cr')->where("cr.appointment_with", "=", $client_id)
+        	->join('clients as c', 'c.client_id', '=', 'cr.client_id')
         	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
         	->where('sfc.field_name', '=', 'business_name')
         	->where("c.type", "=", "org")
         	->select('cr.client_id', 'sfc.field_value as client_name')->get();
 
-        $clients = array_merge($clients1, $clients2);
-        $clients = array_unique($clients, SORT_REGULAR);//print_r($relationship);die;
-        
-        //echo $this->last_query();die;
-        if( isset($clients) && count($clients) >0 ){
-        	foreach ($clients as $key => $value) {
-        		$relation_client[$key]['client_id'] 	= $value->client_id;
-        		$relation_client[$key]['client_name'] 	= $value->client_name;
+        if( isset($clients2) && count($clients2) >0 ){
+        	foreach ($clients2 as $key => $value) {
+        		$relation_client2[$key]['client_id'] 	= $value->client_id;
+        		$relation_client2[$key]['client_name'] 	= $value->client_name;
         	}
         	
         }
+
+        $relation_client = array_merge($relation_client1, $relation_client2);
+        $relation_client = array_unique($relation_client, SORT_REGULAR);//print_r($relationship);die;
+
 		
 		//print_r($relation_client);die;
 		if ($calling_type == "ajax") {
