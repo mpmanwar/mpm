@@ -133,7 +133,7 @@
             <a href="#">Add</a>
           </li>
           <li>
-            <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
+            <!-- <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a> -->
           </li>
         </ul>
       </div>
