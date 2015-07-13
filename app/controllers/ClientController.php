@@ -3,13 +3,19 @@
 class ClientController extends BaseController {
 	public function edit_ind_client($client_id)
 	{
-		$data['title'] 		= "Edit Client";
-        $data['heading'] 	= "";
+		$data['heading'] 	= "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] 	= $session['user_type'];
         $groupUserId 		= $session['group_users'];
 
+        if($data['user_type'] != "C"){
+        	$data['title'] 		= "Edit Client";
+        	$data['previous_page'] = '<a href="/individual-clients">Individual Client List</a>';
+        }else{
+        	$data['title'] 		= "Manage User";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        }
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
@@ -21,7 +27,7 @@ class ClientController extends BaseController {
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();
-		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
+		$data['responsible_staff'] 	= App::make('HomeController')->get_responsible_staff();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
@@ -81,11 +87,18 @@ class ClientController extends BaseController {
 
    	public function edit_org_client($client_id)
 	{
-		$data['title'] = "Edit Client";
-        $data['heading'] = "";
+		$data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
         $groupUserId = $session['group_users'];
+        if($data['user_type'] != "C"){
+        	$data['title'] 		= "Edit Client";
+        	$data['previous_page'] = '<a href="/organisation-clients">Organisation Client List</a>';
+        }else{
+        	$data['title'] 		= "Manage User";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        }
 
 		if (empty($user_id)) {
 			return Redirect::to('/');

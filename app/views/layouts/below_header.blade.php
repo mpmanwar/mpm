@@ -10,7 +10,13 @@
     
         <div class="home_right">
         <ol class="breadcrumb ">
-            <li><a href="{{ $dashboard_url }}"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="{{ $dashboard_url }}"><i class="fa fa-home"></i> HOME</a></li>
+            @if(isset($previous_page))
+            <li>{{ $previous_page }}</li>
+            @endif
+            @if(isset($sub_url))
+            <li>{{ $sub_url }}</li>
+            @endif
             <li class="active">{{ $title }}</li>
         </ol>
         </div>

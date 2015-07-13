@@ -221,6 +221,14 @@ class ChdataController extends BaseController {
 		$data['title'] = "Import from CH";
 		$data['heading'] = "";
 		$data['back_url'] = base64_decode($back_url);
+
+		if($data['back_url'] == "ind_list"){
+			$data['previous_page'] = '<a href="/individual-clients">Individual Clients List</a>';
+		}else if($data['back_url'] == "org_list"){
+			$data['previous_page'] = '<a href="/organisation-clients">Organisation Clients List</a>';
+		}else{
+			$data['previous_page'] = '<a href="/chdata/index">Ch Data List</a>';
+		}
 		//echo $data['back_url'];die;
 		return View::make("ch_data.import_from_ch", $data);
 	}

@@ -5,13 +5,12 @@
 class UserController extends BaseController {
 	
 	public function user_list(){
-		$data['title'] = "User List";
+		$data['title'] = 'Manage User';
+		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
 		$data['heading'] = "USER LIST";
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
-
-		
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -121,6 +120,8 @@ class UserController extends BaseController {
 			return Redirect::to('/');
 		}
 		$data['title'] 		= "Add User";
+		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
+		$data['sub_url'] = '<a href="/user-list">Manage User</a>';
 		$data['heading'] 	= "ADD USER DETAILS";
 		$data['permission_list'] 	= Permission::get();
 		$data['access_list'] 		= Access::get();
@@ -244,7 +245,9 @@ class UserController extends BaseController {
 
 	public function edit_user($id) {
 		$peruser_per = array();
-		$data['title'] = "User Edit";
+		$data['title'] = "Edit User";
+		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
+		$data['sub_url'] = '<a href="/user-list">Manage User</a>';
 		$data['heading'] = "EDIT USER";
 
 		if (Cache::has('edit_user')) {

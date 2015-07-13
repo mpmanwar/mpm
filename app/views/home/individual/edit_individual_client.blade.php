@@ -1115,7 +1115,7 @@ $(document).ready(function(){
   <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row->user_id }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row->user_id )?"selected":"" }}>{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
     @endforeach
   @endif
 

@@ -22,9 +22,9 @@ class HomeController extends BaseController {
 		return View::make('home.dashboard', $data);
 	}
 
-	public function individual_clients() {//$details 	= Common::getCompanyDetails("07188775");print_r($details);die;
+	public function individual_clients() {
 		$client_data 		= array();
-		$data['heading'] 	= "CLIENT LIST - INDIVIDUALS";
+		$data['heading'] 	= "";
 		$data['title'] 		= "Individual Clients List";
 		$admin_s 			= Session::get('admin_details');
 		$user_id 			= $admin_s['id'];
@@ -112,7 +112,7 @@ class HomeController extends BaseController {
 
 	public function organisation_clients() {
 		$client_data 		= array();
-		$data['heading'] 	= "CLIENTS LIST - ORGANISATIONS";
+		$data['heading'] 	= "";
 		$data['title'] 		= "Organisation Clients List";
 		$admin_s 			= Session::get('admin_details'); // session
 		$user_id 			= $admin_s['id']; //session user id
@@ -216,8 +216,10 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] 	= "ADD CLIENT";
+		$data['heading'] 	= "";
 		$data['title'] 		= "Add Client";
+		$data['previous_page'] = '<a href="/individual-clients">Individual Clients List</a>';
+
 		$data['rel_types'] 	= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 		$data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
 		$data['titles'] 		= Title::orderBy("title_id")->get();
@@ -225,7 +227,7 @@ class HomeController extends BaseController {
 		$data['tax_office_by_id'] 	= TaxOfficeAddress::where("office_id", "=", 1)->first();
 		$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 			= Step::whereIn("user_id", $groupUserId)->where("client_type", "=", "ind")->where("parent_id", "=", 1)->orderBy("step_id")->get();//echo $this->last_query();
-		$data['responsible_staff'] 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id')->get();
+		$data['responsible_staff'] 	= $this->get_responsible_staff();
 		$data['countries'] 			= Country::orderBy('country_name')->get();
 		$data['nationalities'] 		= Nationality::get();
 		$data['field_types'] 		= FieldType::get();
@@ -278,8 +280,9 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$data['heading'] 		= "ADD CLIENT";
+		$data['heading'] 		= "";
 		$data['title'] 			= "Add Client";
+		$data['previous_page'] = '<a href="/organisation-clients">Organisation Clients List</a>';
 
 		$data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
 		$data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
@@ -1670,6 +1673,31 @@ if(isset($field_added) && count($field_added) > 0){
         echo "<pre>";print_r($client_details);
         die('edit');
     }*/
+
+    public function get_responsible_staff()
+    {
+    	$session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		$groupUserId 	= $session['group_users'];
+
+    	$resp_staff 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id', 'client_id')->get();
+    	foreach ($resp_staff as $key => $value) {
+    		$data[$key]['user_id'] 	= $value->user_id;
+    		if(isset($value->client_id) && $value->client_id != 0){
+    			$text = $value->client_id."="."function";
+    			$details = App::make('ClientController')->client_details_by_client_id($text);
+    			//print_r($details);die;
+    			$data[$key]['fname'] 	= $details['client_details']['fname'];
+    			$data[$key]['lname'] 	= $details['client_details']['lname'];
+    		}else{
+    			$data[$key]['fname'] 	= $value->fname;
+    			$data[$key]['lname'] 	= $value->lname;
+    		}
+    		
+    	}
+
+    	return $data;
+    }
 
 
 

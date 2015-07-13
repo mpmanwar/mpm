@@ -47,7 +47,7 @@
       <div class="head_section">COMPANIE'S HOUSE ANNUAL RETURNS</div>
       <div class="vat_section_content">
         <ul>
-          <li>Authetication Code : {{ $client_details['ch_auth_code'] or "" }}</li>
+          <li>Authentication Code : {{ $client_details['ch_auth_code'] or "" }}</li>
           <li>Companies House Number : {{ $client_details['registration_number'] or "" }}</li>
           <li>Annual Return Date : {{ $client_details['next_ret_due'] or "" }}</li>
           <li>Filing Deadline : {{ $client_details['next_acc_due'] or "" }}</li>

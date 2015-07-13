@@ -7,13 +7,10 @@ class StaffholidaysController extends BaseController {
     public function staff_holidays()
     {
         //die('staffmanagement');
-       	$data['heading'] = "STAFF HOLIDAYS";
-		$data['title'] = "STAFF HOLIDAYS";
+       	$data['heading'] = "";
+		$data['title'] = "Staff Holidays";
+		$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
       
-        
-       
-      
-                
         return View::make('staff.staffholidays.staff_holidays',$data);
        
     }

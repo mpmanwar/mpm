@@ -7,9 +7,9 @@ class TimesheetController extends BaseController {
     public function time_sheet_reports()
     {
         //die('staffmanagement');
-       	$data['heading'] = "TIME SHEET";
-		$data['title'] = "TIME SHEET";
-      
+       	$data['heading'] = "";
+		$data['title'] = "Time Sheet Reports";
+      	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
         
        
       
