@@ -6,6 +6,8 @@ function openModal( template_id )
 	    url: '/template/edit_template',
 	    data: { 'template_id' : template_id },
 	    success : function(resp){
+	       console.log(resp);
+           
 			$('#edit_email_template_id').val(resp['email_template_id']);
 	    	$('#edit_name').val(resp['name']);
 	    	$('#edit_title').empty().val(resp['title']);
@@ -90,7 +92,8 @@ $(document).ready(function(){
 	});
 
 
-//###################Delete Template Attach File Start ###########################//
+//################### Delete Template Attach File Start ###########################//
+
 	$('.deleteTemplateFile').click(function(event){
 		var eml_tmpl_id = $(this).data('eml_tmpl_id');
 		var file = $(this).data('file');
@@ -110,6 +113,7 @@ $(document).ready(function(){
 		}
 		
 	});
+    
 //###################Delete Template Attach File Start ###########################//
 
 

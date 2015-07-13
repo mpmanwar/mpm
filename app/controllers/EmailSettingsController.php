@@ -99,6 +99,7 @@ class EmailSettingsController extends BaseController {
 				$file = Input::file('add_file');
 				$destinationPath = "uploads/emailTemplates/";
 				$fileName = Input::file('add_file')->getClientOriginalName();
+                
 				$fileName = $pd_id.$fileName;
 				$result = Input::file('add_file')->move($destinationPath, $fileName);
 

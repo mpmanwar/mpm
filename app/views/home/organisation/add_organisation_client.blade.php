@@ -400,6 +400,7 @@ $(document).ready(function(){
 
       <div class="add_client_btn">
         <!-- <button class="btn btn-info back" data-id="1" type="button">Prev</button> -->
+        
         <button type="submit" class="btn btn-danger">Save</button>
         <button class="btn btn-info open" data-id="2" type="button">Next</button>
       </div>
