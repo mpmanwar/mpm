@@ -187,7 +187,8 @@
 								
 							</td>
 							<td width="20%">
-								<a href="/organisation/add-client" class="btn btn-info">Add New Business</a>
+								<!-- <a href="/organisation/add-client" class="btn btn-info">Add New Business</a> -->
+								<button type="button" id="view_edit_company" class="btn btn-info">View/Edit Company</button>
 							</td>
 						</tr>
 					</table>

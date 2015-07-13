@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 //############## Get Client details portion start ################//
     $('#getClientDetails').change(function() {
         var client_id = $(this).val();
@@ -21,5 +22,18 @@ $(document).ready(function(){
         }
     });
     //############## Get Client details portion end ################//
+
+    //############## Go to view/edit details portion start ################//
+    $('#view_edit_company').click(function() {
+        var client_id = $("#getClientDetails").val();
+        if(client_id == ""){
+            alert("Please select client first");
+            //return false;
+        }else{
+            window.location.href = "/client/edit-org-client/"+client_id;
+        }
+    });
+    //############## Go to view/edit details portion end ################//
+
     
 });

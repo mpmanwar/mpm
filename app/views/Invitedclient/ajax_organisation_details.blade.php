@@ -9,7 +9,7 @@
           <li>Scheme : {{ $client_details['vat_scheme_type'] or "" }}</li>
           <li>Cycle : {{ $client_details['ret_frequency'] or "" }}</li>
           <li>Vat Months (Stagger) : {{ $client_details['vat_stagger'] or "" }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -23,7 +23,7 @@
           <li>Year End Accounts Date : {{ $client_details['acc_ref_day'] or "" }}/{{ $client_details['acc_ref_month'] or "" }}</li>
           <li>Accounts Filing Deadline : {{ $client_details['next_acc_due'] or "" }}</li>
           <li>Days to Deadline : {{ $client_details['deadacc_count'] or "" }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <li>First Payment on Account : 31st January {{ date('Y', strtotime('+1 year')); }}</li>
           <li>Second Payment on Account : 31st July {{ date('Y', strtotime('+1 year')); }}</li>
           <li>Balancing Payment : 31st January {{ date('Y', strtotime('+2 year')); }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -52,7 +52,7 @@
           <li>Annual Return Date : {{ $client_details['next_ret_due'] or "" }}</li>
           <li>Filing Deadline : {{ $client_details['next_acc_due'] or "" }}</li>
           <li>Days to Deadline : {{ $client_details['deadret_count'] or "" }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -65,7 +65,7 @@
           <li>Unique Taxpayer Reference (UTR) Number : {{ $client_details['tax_reference'] or "" }}</li>
           <li>Tax Return Filing Date (Online) : 31/01/{{ date('Y', strtotime('+1 year')); }}</li>
           <li>Tax Return Filing Date (Paper) : 31/10/{{ date('Y') }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -79,7 +79,7 @@
           <li>Accounts Office Reference : {{ $client_details['acc_office_ref'] or "" }}</li>
           <li>Online Payment Due Date : 22nd of {{ date("F") }}</li>
           <li>Cheque Payment Due Date : 19th of {{ date("F") }}</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -93,7 +93,7 @@
           <li>Accounts Office Reference : {{ $client_details['acc_office_ref'] or "" }}</li>
           <li>P11D Return Date : 7th of July</li>
           <li>Class 1A Payment Date : 22nd of July</li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
@@ -106,7 +106,7 @@
           <li>Tax Reference Number : {{ $client_details['tax_reference'] or "" }}</li>
           <li>Tax Return Date : </li>
           <li>Tax Due Date : </li>
-          <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li>
+          <!-- <li><a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a></li> -->
         </ul>
       </div>
     </div>
