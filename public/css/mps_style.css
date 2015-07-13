@@ -301,10 +301,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .ch_chkbox{float:right; margin-right:15px;}
 
 
-<<<<<<< HEAD
+
 
 
 /*============notice board new==========*/
+
 .noticeboard_leftside{width:100%; height:380px; background:#fff; border:1px solid #e2e4e6; position:relative; margin-bottom:15px;}
 .add_new{float:right; padding:10px;}
 .holidays_h{color:#000; font-size:20px; font-weight:bold;}
@@ -352,7 +353,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', end
 .notice_board_tab ul li a:hover{background:#dadada;}
 .notice_board_tab ul li a.tab_active{background:#dadada; }
 
-=======
+
 .addnew_line{
 border:1px solid #ccc;
 height:32px;
@@ -417,7 +418,7 @@ background: -o-linear-gradient(top,  #efefef 0%,#dadde0 60%);
 background: -ms-linear-gradient(top,  #efefef 0%,#dadde0 60%); 
 background: linear-gradient(to bottom,  #efefef 0%,#dadde0 60%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#dadde0',GradientType=0 );}
->>>>>>> 6e3db7c95f78425e60255dfc38b9294502040eae
+
 
 
 @media only screen and (min-width : 320px) and (max-width : 480px),
@@ -600,12 +601,20 @@ padding-left: 25px;
 
 
 /*============notice board========*/
+.noticeboard_leftside {
+width: 100%;
+height: 380px;
+background: #fff;
+border: 1px solid #e2e4e6;
+position: relative;
+margin-bottom: 15px;
+}
 .notice_board{width:100%;}
 .notice_upbg{background:url(../img/top_bg.png) no-repeat; width:100%; height:35px;}
 .notice_midbg{background:url(../img/notice_middle.png) repeat-y; width:100%; height:auto; background-size:100%;}
 .notice_downbg{background:url(../img/down_bg.png) no-repeat; width:100%; height:35px; }
 .notice_baordbg{background:url(../img/notice_2.png) no-repeat; width:447px; height:243px; position:relative; margin-left: 15px;}
-.bottom_content{position:absolute; bottom:5px; text-align:center; right:0px;}
+.bottom_content{position:absolute; bottom:2px; text-align:center; left:7px; padding: 2px; width:96%; background:#fff;}
 .posted_t{float:left; color:#808080; font-size:12px; font-style:italic;}
 .new_btn{float:right; margin:5px;}
 .edit_controlar{float:right; margin-left:10px;}
@@ -633,7 +642,6 @@ padding-left: 25px;
 .gap_top{margin-top:30px;}
 .n_box2 {float: left; margin-right: 10px; width: 32% }
 .label_width{width:100%;}
-
 
 
 
