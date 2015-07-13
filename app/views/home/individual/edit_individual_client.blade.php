@@ -1107,6 +1107,58 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+<div class="form-group">
+<label for="exampleInputPassword1">Invite to Client Portal</label>
+<input type="checkbox" name="" value="1" />
+</div>
+
+<div class="twobox">
+  <div class="twobox_1">
+    <div class="form-group">
+    <label for="exampleInputPassword1">Email</label>
+    <input type="text" name="" class="form-control" />
+    </div>
+  </div>
+  <div class="twobox_2" style="margin-top: 23px;">
+    <div class="form-group">
+      <label for="exampleInputPassword1"></label>
+      <button class="btn btn-info" type="button">Send</button> 
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<table width="100%" border="0">
+  <tbody><tr>
+    <td width="52%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
+    <td width="48%"><span class="btn btn-default btn-file"> Download
+      
+      </span></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><span class="btn btn-default btn-file"> Download
+      
+      </span></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><button class="btn btn-success">Other Documents</button></td>
+    <td><span class="btn btn-default btn-file"> Download
+     
+      </span></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><span class="btn btn-default btn-file"> Download
+      
+      </span></td>
+    <td>&nbsp;</td>
+  </tr>
+</tbody></table>
+
 
 <div class="twobox_1">
 <div class="form-group">

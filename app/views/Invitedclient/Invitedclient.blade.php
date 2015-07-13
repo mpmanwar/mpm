@@ -83,7 +83,20 @@
 							Deadlines Due in : 60 days <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
 						</strong>
 					</div>
-					<div class="col-xs-3">
+
+					<div class="col-xs-2" style="padding-left:20px;">
+						<strong style="font-size: 16px;">
+							Share Reminders <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
+						</strong>
+					</div>
+
+					<div class="col-xs-2" style="padding:0;">
+						<strong style="font-size: 16px;">
+							Stop Reminders <input type="checkbox">
+						</strong>
+					</div>
+
+					<div class="col-xs-6">
 						<div class="next_prev_btn">
 							<ul>
 								<li>

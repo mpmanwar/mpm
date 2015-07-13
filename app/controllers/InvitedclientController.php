@@ -4,17 +4,17 @@ class InvitedclientController extends BaseController {
 
 	
 	public function Invitedclient_dashboard() {
-	   //die('Inviteddashboard');
-		$session = Session::get('admin_details');
-		$user_id = $session['id'];
-		//print_r($admin_s);die;
-		if (!isset($user_id) && $user_id == "") {
+	    $session 	= Session::get('admin_details');
+		$user_id 	= $session['id'];
+		$user_type 	= $session['user_type'];
+		if(!isset($user_id) && $user_id == ""){
 			return Redirect::to('/');
+		}else if(isset($user_type) && $user_type != "C"){
+			return Redirect::to('/dashboard');
 		}
-		//print_r(unserialize($session['related_company_id']));die;
 
 		$data['heading'] 		= "";
-		$data['title'] 			= "Invited Client";
+		$data['title'] 			= "Client Portal";
 		$data['client_id'] 		= $session['client_id'];
 		$value = $data['client_id']."="."function";
 		//$data['relation_list'] 	= App::make("UserController")->get_relation_client($value);
@@ -63,11 +63,7 @@ class InvitedclientController extends BaseController {
              
             }
        $data['b_name']= $data1;
-       //echo "<pre>";print_r ( $data['b_name']);
-        //$data['b_name']=array('0'=>'hello','1'=>'good');
-        //$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
-        //echo $client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
-       //echo "<pre>"; print_r($data);die();
+       
        $data['rel_types'] 	= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 
         $data['titles'] 		= Title::orderBy("title_id")->get();
@@ -283,9 +279,6 @@ class InvitedclientController extends BaseController {
     
     
     public function relationship(){
-        
-        //die('invitedclient-relationship');
-        
         
         $admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];

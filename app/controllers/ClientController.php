@@ -13,8 +13,8 @@ class ClientController extends BaseController {
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/individual-clients">Individual Client List</a>';
         }else{
-        	$data['title'] 		= "Manage User";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        	$data['title'] 		= "Edit User";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
         }
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -96,8 +96,8 @@ class ClientController extends BaseController {
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/organisation-clients">Organisation Client List</a>';
         }else{
-        	$data['title'] 		= "Manage User";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        	$data['title'] 		= "Edit Client";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
         }
 
 		if (empty($user_id)) {
