@@ -326,6 +326,27 @@ $(".row").on("click", ".delete_service", function(){
 });
 // Delete Allocate Serveces while adding organisation client end //
 
+// Delete Allocate Serveces while adding/editing organisation client start //
+$(".delete_database_service").click(function(){
+  var client_service_id  = $(this).data("client_service_id");
+//alert('gjgkg');
+  $.ajax({
+      type: "POST",
+      url: '/client/delete-client-service',
+      data: { 'client_service_id':client_service_id },
+      success : function(resp){
+        if(resp > 0){
+          $("#deleted_service_tr"+client_service_id).hide();
+        }else{
+          alert("Services has not deleted, Please try again")
+        }
+        
+      }
+    });
+  
+});
+// Delete Allocate Serveces while adding/editing organisation client end //
+
 
 $('.rel_acting').on('ifChecked', function(event){
   event.preventDefault();
@@ -531,8 +552,12 @@ function saveServices()
       url: '/organisation/save-services',
       data: { 'service_id' : service_id, 'staff_id' : staff_id },
       success : function(resp){
-        
-        var content = '<tr id="added_service_tr'+service+'"><td align="center">'+resp['service']+'</td><td width="30%" align="center">'+resp['staff']+'</td><td width="15%" align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'+service+'" id="'+service+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_service" data-delete_index="'+service+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+staff_id+'" id="stafftxt_id'+service+'"><input type="hidden" value="'+service_id+'" id="servicetxt_id'+service+'"></a></td></tr>';
+        var content = "";
+        content += '<tr id="added_service_tr'+service+'"><td align="center">'+resp['service']+'</td>';
+        content += '<td width="30%" align="center">'+resp['staff']+'</td>';
+        //content += '<td width="15%" align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="'+service+'" id="'+service+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_service" data-delete_index="'+service+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+staff_id+'" id="stafftxt_id'+service+'"><input type="hidden" value="'+service_id+'" id="servicetxt_id'+service+'"></a></td>';
+        content += '<td width="15%" align="center"><a href="javascript:void(0)" class="delete_service" data-delete_index="'+service+'"><img src="/img/cross.png" height="15"></a></td>'
+        content += '</tr>';
         $("#myServTable").last().append(content);
 
         var itemselected = service_id+"mpm"+staff_id+"mpm"+service;

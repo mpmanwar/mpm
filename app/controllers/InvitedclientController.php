@@ -5,16 +5,45 @@ class InvitedclientController extends BaseController {
 	
 	public function Invitedclient_dashboard() {
 	   //die('Inviteddashboard');
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
+		$session = Session::get('admin_details');
+		$user_id = $session['id'];
 		//print_r($admin_s);die;
 		if (!isset($user_id) && $user_id == "") {
 			return Redirect::to('/');
 		}
+		//print_r(unserialize($session['related_company_id']));die;
 
-		$data['heading'] = "Invitedclient";
-		$data['title'] = "Invitedclient";
+		$data['heading'] 		= "";
+		$data['title'] 			= "Invited Client";
+		$data['client_id'] 		= $session['client_id'];
+		$value = $data['client_id']."="."function";
+		//$data['relation_list'] 	= App::make("UserController")->get_relation_client($value);
+		$clients = unserialize($session['related_company_id']);
+		$data['relation_list'] 	= $this->all_relation_client_details($clients);
 		return View::make('Invitedclient.Invitedclient', $data);
+	}
+
+	function all_relation_client_details($clients)
+	{
+		$details = array();
+		if( isset($clients) && count($clients) >0 )
+		{
+			$clients = DB::table('clients as c')->whereIn("c.client_id", $clients)
+        	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
+        	->where('sfc.field_name', '=', 'business_name')
+        	->where("c.type", "=", "org")
+        	->select('c.client_id', 'sfc.field_value as client_name')->get();
+        	//echo $this->last_query();die;
+        	if( isset($clients) && count($clients) >0 ){
+	        	foreach ($clients as $key => $value) {
+	        		$details[$key]['client_id'] 	= $value->client_id;
+	        		$details[$key]['client_name'] 	= $value->client_name;
+	        	}
+	        	
+	        }
+		}
+
+		return $details;
 	}
     
     
@@ -26,7 +55,7 @@ class InvitedclientController extends BaseController {
 		$data['title'] = "Invitedclient";
         
         
-        	$client_ids = Client::where("type", "=", "org")->where('user_id', '=', $user_id)->select("client_id")->get();
+        $client_ids = Client::where("type", "=", "org")->where('user_id', '=', $user_id)->select("client_id")->get();
         $data1 = array();
         foreach($client_ids as $key=>$client_id){
              

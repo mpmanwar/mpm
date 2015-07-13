@@ -37,11 +37,12 @@ $(document).ready(function(){
 
     $("#result").on("click", ".get_company_details", function(){//popup_align
         var number = $(this).data("number");
+        var back_url = $("#back_url").val();
         
         $.ajax({
             type: "POST",
             url: "/company-details",
-            data: { 'number': number },
+            data: { 'number': number, 'back_url' : back_url },
             beforeSend: function() {
                 $("#company_details_div").html('<img src="/img/ajax-loader1.gif" />');
                 $("#company_details-modal").modal('show');//return false;
@@ -58,7 +59,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: "/import-company-details/"+number,
+            url: "/import-company-details/"+number+"=ajax",
             //data: { 'number': number },
             beforeSend: function() {
                 $("#message_div").html('<img src="/img/spinner.gif" />');
@@ -84,7 +85,38 @@ $(document).ready(function(){
     });
 
 
-    
+$("#company_details_div").on("click", ".add_client_officers", function(){
+    var key = $(this).data("key");
+    var company_number = $(this).data("company_number");
+
+    $.ajax({
+            type: "POST",
+            url: "/goto-edit-client",
+            dataType: "json",
+            data: { 'company_number': company_number, 'key' : key },
+            beforeSend: function() {
+                $("#goto"+key).html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {//console.log(resp['link']);return false;
+            $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
+                if(resp['link'] == 'org'){
+                    var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                    var myWindow = window.open(url , '_blank');
+                    myWindow.focus();
+                }
+                if(resp['link'] == 'ind'){
+                    var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                    var myWindow = window.open(url, '_blank');
+                    myWindow.focus();
+                }
+            }
+        });
+
+});
+
+
+
+  
 
 
 

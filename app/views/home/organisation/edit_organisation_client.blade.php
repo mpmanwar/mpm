@@ -10,6 +10,7 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -51,13 +52,14 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
-    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
+    <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <section class="content">
-      <div class="row">
-        <p class="business_p">{{ $client_details['business_name'] or "" }}</p>
+      <p class="business_p">{{ $client_details['business_name'] or "" }}</p>
+      <!-- <div class="row">
+        
         <div class="top_bts">
           <ul>
-            <!-- <li>
+            <li>
               <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
             </li>
             <li>
@@ -68,12 +70,12 @@ $(document).ready(function(){
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li> -->
+            </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
-      </div>
+      </div> -->
       <div class="practice_mid">
         
           <div class="tabarea">
@@ -85,7 +87,9 @@ $(document).ready(function(){
           <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+          @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+          @endif
         </ul>
               <div class="tab-content">
                 <div id="step1" class="tab-pane active">
@@ -101,6 +105,7 @@ $(document).ready(function(){
                           <div class="col_m2">
 
                       <div class="twobox">
+                      @if(isset($user_type) && $user_type != "C") 
                         <div class="twobox_1">
                           <div class="small_box">
                             <div class="form-group">
@@ -111,13 +116,16 @@ $(document).ready(function(){
                             </div>
                           </div>
                         </div>
+                      @endif
                         <div class="twobox_2">
                         
                         
                         
                 <div class="form-group">
                   <label for="exampleInputPassword1">Business Type</label>
+                  @if(isset($user_type) && $user_type != "C") 
                    <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                   @endif
                       
                     <select class="form-control" name="business_type" id="business_type">
                       @if( isset($old_org_types) && count($old_org_types) >0 )
@@ -450,8 +458,9 @@ $(document).ready(function(){
                               <div class="twobox_1">
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Scheme</label>
-                                  
+                                  @if(isset($user_type) && $user_type != "C") 
                                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal"> Add/Edit list</a>
+                                  @endif
                                   
                                   <select class="form-control" name="vat_scheme_type" id="vat_scheme_type">
                                     <option value="">None</option>
@@ -506,9 +515,12 @@ $(document).ready(function(){
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Vat Stagger</label>
                                   <select class="form-control" name="vat_stagger" id="vat_stagger">
-                                    <option>Choose One</option>
-                                    
-                                     <option value="monthly"{{ (isset($client_details['vat_stagger']) && $client_details['vat_stagger'] == "monthly")?"selected":""}}> Monthly</option>
+                                    <!-- <option>Choose One</option> -->
+                                    @if(isset($client_details['vat_stagger']) && $client_details['vat_stagger'] != "")
+                                      <option value="{{ $client_details['vat_stagger'] }}">{{ $client_details['vat_stagger'] }}</option>
+                                    @else
+                                      <option>Choose One</option>
+                                    @endif
                                     
                                   </select>
                                 </div>
@@ -921,8 +933,8 @@ $(document).ready(function(){
                 </div>
             </div>
               <!-- Contact address expand end-->
-
-
+    
+            @if(isset($user_type) && $user_type != "C")     
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="trad">
@@ -954,6 +966,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+              @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1082,7 +1095,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="reg">
@@ -1114,6 +1127,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1229,7 +1243,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="corres">
@@ -1261,6 +1275,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1370,7 +1385,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="banker">
@@ -1402,6 +1417,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1516,7 +1532,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="oldacc">
@@ -1548,6 +1564,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1658,7 +1675,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="auditors">
@@ -1690,6 +1707,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -1800,7 +1818,7 @@ $(document).ready(function(){
             </div>
               <!-- Contact address expand end-->
 
-
+            @if(isset($user_type) && $user_type != "C")
               <div class="form-group">
                 <label for="exampleInputPassword1">Select</label>
                  <select class="form-control get_orgoldcont_address" id="get_orgoldcont_address" data-type="solicitors">
@@ -1832,6 +1850,7 @@ $(document).ready(function(){
                   @endif
                   </select>
               </div>
+            @endif
                             
               <div class="form-group">
                 <label for="exampleInputPassword1">Address Line1</label>
@@ -2016,54 +2035,74 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="top_bts">
-<ul style="padding: 0;">  
-<li>
+
+@if(isset($user_type) && $user_type != "C")
+  <div style="width:100%;">
+    <div class="j_selectbox">
+    <span>ADD NEW ENTITY</span>
+    <div class="select_icon" id="select_icon"></div>
+    <div class="clr"></div>
+    <div class="open_toggle">
+      <ul>
+        <li data-value="non">NON - CLIENT</li>
+        <li data-value="org">CLIENT - ORG</li>
+        <li data-value="ind">CLIENT - IND</li>
+      </ul>
+    </div>
+  </div>
+
+<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers" data-company_number="{{ $client_details['registration_number'] or "" }}">VIEW/ADD IMPORTED OFFICERS</button></div>
+
+</div>
+@endif
+
+<!--<ul style="padding: 0;">  
+ <li>
 <div class="form-group">
   <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
 </div>
-</li>
-<!-- <li>
-<div class="form-group">
-  <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
-</div>
-</li>
-<li>
-<div class="form-group">
-  <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
-</div>
 </li> -->
-<li>
+
+<!-- <li>
 <div class="form-group">
   <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
 </div>
 </li>
 <li>
-</ul>  
-</div> 
+</ul>   -->
+ 
 
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
   <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
   <input type="hidden" id="search_client_type" name="search_client_type" value="ind">
-  <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
+  
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
-      <td width="30%"><strong>Name</strong></td>
-      <td width="30%" align="center"><strong>Relationship Type</strong></td>
-      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="40%"><strong>Name</strong></td>
+      <td width="40%" align="center"><strong>Relationship Type</strong></td>
+    @if(isset($user_type) && $user_type != "C")
       <td width="20%" align="center"><strong>Action</strong></td>
+    @endif
     </tr>
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="30%"><a href="{{ $relation_row['link'] }}" target="_blank">{{ $relation_row['name'] or "" }}</a></td>
-        <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
-        <td width="10%" align="center"><input type="checkbox" class="rel_acting" name="rel_acting[]" id="rel_acting_{{ $relation_row['appointment_with'] }}" {{ (isset($relation_row['acting']) && $relation_row['acting'] == "Y")?"checked":"" }} value="{{ $relation_row['appointment_with'] }}"  data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}" /></td>
-        <td width="20%" align="center">
-          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+        <td width="40%">
+          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") || (isset($relation_row['is_deleted']) && $relation_row['is_deleted'] == "Y") )
+            {{ $relation_row['name'] or "" }}
+          @else
+            <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
+          @endif
+
         </td>
+        <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
+      @if(isset($user_type) && $user_type != "C")
+        <td width="20%" align="center">
+          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] or "" }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] or "" }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+        </td>
+      @endif
       </tr>
     @endforeach
   @endif
@@ -2072,18 +2111,16 @@ $(document).ready(function(){
 
     <div class="contain_tab4" id="new_relationship" style="display:none;">
       <div class="contain_search" id="client_dropdown">
-        <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
-        <div class="search_value show_search_client" id="show_search_client"></div> -->
         <select class="form-control" name="rel_client_id" id="rel_client_id">
             @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
-              <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+                @if($client_row['client_id'] != $client_details['client_id'])
+                  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+                @endif
               @endforeach
             @endif
           </select>
       </div>
-
-      <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div> -->
 
       <div class="contain_type">
         <select class="form-control" name="rel_type_id" id="rel_type_id">
@@ -2099,11 +2136,19 @@ $(document).ready(function(){
       <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
       </div>
     </div>
+
+    <div class="clearfix"></div>
       
   </div>
 </div>
 
-<div class="box-body table-responsive" style="width:50%;">
+@if(isset($user_type) && $user_type != "C")
+<div style="margin-top: 10px;">
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div>
+@endif
+
+<!-- <div class="box-body table-responsive" style="width:50%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -2114,20 +2159,45 @@ $(document).ready(function(){
       <td width="18%" align="center"><strong>Action</strong></td>
     </tr>
 
+    @if(isset($acting) && count($acting) >0 )
+    @foreach($acting as $key=>$acting_row)
+      <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
+        <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
+        <td width="18%" align="center">
+          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>
+          <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
+        </td>
+      </tr>
+    @endforeach
+  @endif
+
   </table>
 
     <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
       <div class="acting_select">
         <select class="form-control" name="acting_client_id" id="acting_client_id">
-          
+          @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              @if (!in_array($relation_row['client_id'], $acting_dropdown))
+                <option value="{{ $relation_row['client_id'] }}">{{ $relation_row['name'] }}</option>
+              @endif
+            @endforeach
+          @endif
         </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('by_click', 'add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button>
+      </div>
     </div>
       
+      <div class="clearfix"></div>
+
   </div>
 </div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div> -->
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -2197,21 +2267,35 @@ $(document).ready(function(){
                               </div>
                               <div class="clearfix"></div>
                             </div>
-                            
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="bank_mark_source" name="bank_mark_source" value="{{ $client_details['bank_mark_source'] or "" }}" class="form-control">
-                                </div>
-                              </div>
-                              
-                              <div class="clearfix"></div>
+                      @if(isset($user_type) && $user_type != "C")
+                        <div class="twobox">
+                          <div class="twobox_1">
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Marketing Source</label>
+                              <input type="text" id="bank_mark_source" name="bank_mark_source" value="{{ $client_details['bank_mark_source'] or "" }}" class="form-control">
                             </div>
+                          </div>
+                          
+                          <div class="clearfix"></div>
+                        </div>
+                      @else
+                        <div class="twobox">
+                          <div class="twobox_1">
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">How did you hear about us</label>
+                              <input type="text" id="hear_about_us" name="hear_about_us" value="{{ $client_details['hear_about_us'] or "" }}" class="form-control">
+                            </div>
+                          </div>
+                          
+                          <div class="clearfix"></div>
+                        </div>  
+                      @endif
 
-                            <div class="director_table">
+                            <div class="other_table">
+                          @if(isset($user_type) && $user_type != "C")
                             <div class="service_t">
-                              <h3 class="box-title">Services</h3></div>
+                              <h3 class="box-title">Services</h3>
+                            </div>
                               
                               <div class="add_edit">
                               <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
@@ -2220,56 +2304,34 @@ $(document).ready(function(){
                               <div class="form-group">
                                 <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
                               </div>
+                          
                               <div class="box-body table-responsive">
                                 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
                                   <div class="row">
                                     <div class="col-xs-6"></div>
                                     <div class="col-xs-6"></div>
                                   </div>
+
   <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-  <input type="text" id="serv_hidd_array" name="serv_hidd_array" value="">
+  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
     <tr>
       <td align="center"><strong>Service</strong></td>
       <td align="center"><strong>Staff</strong></td>
       <td align="center"><strong>Action</strong></td>
     </tr>
-    
-    
-    <?php
-            //echo '<pre>';
-            //print_r($servicessss);
-            $arr = array();
-            $arr1 = array();
-            $i=0;//edit
-            if(!empty($servicessss )){
-                foreach($servicessss as $key=>$val){
-                
-                if((!empty($val->servicedetails) || !empty($val->staffcedetails)) || (!empty($val->servicedetails) || !empty($val->staffcedetails))){
-                $arr[$key] = $val->servicedetails; 
-                $arr1[$key] = $val->staffcedetails; 
-            
-                //echo 'xxxxxxxxx';
-            ?>
-            <tr id="added_service_tr<?php echo $key; ?>">
-            <td align="center"><?php if($val->service_id !=0){ echo $arr[$key]->service_name;}else{ echo " " ;} ?></td>
-            <td align="center"><?php if($val->staff_id !=0){ echo $arr1[$key]->fname." ".$arr1[$key]->lname;} else { echo " ";} ?></td>
-            <td align="center"><a href="javascript:void(0)" class="edit_service" data-edit_index="<?php echo $key; ?>" id="<?php echo $key; ?>"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" class="delete_client_service"  data-delete_index="<?php echo $key; ?>" id="<?php echo $val->client_service_id.'*'.$val->client_id; ?>"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="<?php echo $val->staff_id; ?>" id="stafftxt_id<?php echo $key; ?>" name="stafftxt_id[]"><input type="hidden" value="<?php echo $val->service_id; ?>" id="servicetxt_id<?php echo $key; ?>" name="servicetxt_id[]"></td>
-            </tr>
-            <?php
-                  }
-               $i++;
-            
-               }
-            } ?>
+    @if( isset($services_table) && count($services_table)>0 )
+      @foreach($services_table as $key=>$service_row)
+        <tr id="deleted_service_tr{{ $service_row['client_service_id'] }}">
+          <td align="center">{{ $service_row['service_name'] }}</td>
+          <td align="center">{{ $service_row['name'] }}</td>
+          <td align="center"><a href="javascript:void(0)" data-client_service_id="{{ $service_row['client_service_id'] }}" class="delete_database_service"><img src="/img/cross.png" height="15"></a></td>
+        </tr>
+      @endforeach
+    @endif
 
   </table>
-  <input type="hidden" id="countedit" name="countedit" value="<?php echo $i; ?>" >
+
  
-
-
-
-
-
 <div class="contain_tab4" id="add_services_div" style="display:none;">
     <div class="services_search">
       <select class="form-control" name="service_id" id="service_id">
@@ -2300,13 +2362,14 @@ $(document).ready(function(){
       
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="editServices()" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
   </div>
 
 
 
-                                </div>
-                              </div>
+    </div>
+  </div>
+@endif
 
 
 <!-- This portion is for user created field -->
@@ -2429,7 +2492,7 @@ $(document).ready(function(){
 
 
 
-<!-- COMPOSE MESSAGE MODAL -->
+<!-- COMPOSE MESSAGE MODAL
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
@@ -2504,13 +2567,13 @@ $(document).ready(function(){
       </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- add/edit list -->
+add/edit list
 <div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
@@ -2556,13 +2619,13 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- Vat Scheme Modal -->
+Vat Scheme Modal
 <div class="modal fade" id="vatScheme-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2607,13 +2670,13 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
 
 
-<!-- Services Modal Start-->
+Services Modal Start
 <div class="modal fade" id="services-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2657,14 +2720,14 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
-<!-- Services Modal End-->
+Services Modal End
 
 
-<!-- Add Subsec Modal Start-->
+Add Subsec Modal Start
 <div class="modal fade" id="addsubsec-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px;">
     <div class="modal-content">
@@ -2698,17 +2761,87 @@ $(document).ready(function(){
     </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
-<!-- Add Subsec Modal End-->
+Add Subsec Modal End
 
 
+Relationship Add To List Modal Start
+<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:404px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group" style="width:70%">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="add_to_client_text">
+
+<div class="clearfix"></div>
+<div class="n_box18_18">
+<label for="exampleInputPassword1">Title</label>
+<select class="form-control select_title" id="add_to_title" name="add_to_title">
+          <option value="Mr" selected="">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+        <option value="Professor">Professor</option>
+        <option value="Rev">Rev</option>
+        <option value="Sir">Sir</option>
+        <option value="Dame">Dame</option>
+        <option value="Lord">Lord</option>
+        <option value="Lady">Lady</option>
+        <option value="Captain">Captain</option>
+        <option value="The Hon">The Hon</option>
+        <option value="Other">Other</option>
+      </select></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">First Name</label>
+    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
+<div class="n_box22_22">
+    <label for="exampleInputPassword1">Middle Name</label>
+    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">Last Name</label>
+    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
+<div class="clearfix"></div>
+</div>
+
+        <div class="form-group" style="width:70%; display:none;" id="add_to_business">
+          <label for="name">Business Name</label>
+          <input class="form-control toUpperCase" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    /.modal-content
+  </div>
+  /.modal-dialog
+</div>
+Relationship Add To List Modal End -->
 
 
-
-
+@include("home.include.client_modal_page")
 
 
 

@@ -8,6 +8,7 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -46,14 +47,15 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
-    <input name="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
+    <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
     <section class="content">
-
-      <div class="row">
+<p class="business_p">{{ $client_details['client_name'] or "" }}</p>
+      <!-- <div class="row">
+        
         <div class="top_bts">
           <ul>
             
-            <!-- <li>
+            <li>
               <button class="btn btn-success">IMPORT FROM CSV</button>
             </li>
             <li>
@@ -61,11 +63,11 @@ $(document).ready(function(){
             </li>
             <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>-->
+            </li>
             <div class="clearfix"></div>
           </ul>
         </div>
-      </div>
+      </div>-->
 
     <div class="practice_mid">
         
@@ -73,39 +75,38 @@ $(document).ready(function(){
 <div class="tabarea">
   
   <div class="nav-tabs-custom">
-      <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
-        <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
-        <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
-        <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
-        <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
-        <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
-         
-        <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field
-         
-        </a></li>
+    <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
+      <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
+      <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
+      <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
+      <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
+      <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+      @if(isset($user_type) && $user_type != "C")
+      <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+      @endif
+    </ul>
+  <div class="tab-content">
+
+    <div id="step1" class="tab-pane active" style="display:block;">
+      <!--table area-->
+      <div class="box-body table-responsive">
+        <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+          <div class="row">
+            <div class="col-xs-6"></div>
+            <div class="col-xs-6"></div>
+          </div>
+<div class="row">  
         
-      </ul>
-      <div class="tab-content">
-
-          <div id="step1" class="tab-pane active" style="display:block;">
-                  <!--table area-->
-                  <div class="box-body table-responsive">
-                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                      <div class="row">
-                        <div class="col-xs-6"></div>
-                        <div class="col-xs-6"></div>
-                      </div>
-                      <div class="row">  
-                    
-                    <div class="col-xs-12 col-xs-6">
+<div class="col-xs-12 col-xs-6">
  <div class="col_m2">  
-                
-<div class="form-group">
-
-<div class="n_box1">
-<label for="exampleInputPassword1">Client Code</label>
-  <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase"></div>
-</div>
+  @if(isset($user_type) && $user_type != "C")              
+  <div class="form-group">
+    <div class="n_box1">
+      <label for="exampleInputPassword1">Client Code</label>
+      <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase">
+    </div>
+  </div>
+  @endif
 
 <div class="form-group">
 
@@ -178,19 +179,19 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Nationality</label>
-<select class="form-control" name="nationality" id="nationality">
+<label for="exampleInputPassword1">Country</label>
+<select class="form-control" name="country" id="country">
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['country']) && $country_row->country_id == $client_details['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['nationality']) && $country_row->country_id == $client_details['nationality'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($client_details['country_id']) && $country_row->country_id == $client_details['country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
@@ -204,6 +205,29 @@ $(document).ready(function(){
 <input type="text" id="occupation" name="occupation" value="{{ $client_details['occupation'] or "" }}" class="form-control">
 </div>
 </div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Nationality</label>
+<select class="form-control" name="nationality" id="nationality">
+@if(!empty($nationalities))
+  @foreach($nationalities as $key=>$nationality_row)
+    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($client_details['nationality_id']) && $nationality_row->nationality_id == $client_details['nationality_id'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
+  @endforeach
+@endif
+</select>
+</div>
+</div>
+
+<!-- <div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Occupation</label>
+<input type="text" id="occupation" name="occupation" class="form-control">
+</div>
+</div> -->
 <div class="clearfix"></div>
 </div>
 
@@ -349,7 +373,9 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Office</label>
+<input type="hidden" id="tax_reference_type" value="I">
 <select class="form-control" id="tax_office_id" name="tax_office_id">
+  <option value="">Choose Office</option>
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
       @if($office_row->parent_id == 0)
@@ -874,32 +900,56 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3>      
-<div class="form-group">
+@if(isset($user_type) && $user_type != "C")
+    <div class="j_selectbox">
+    <span>ADD NEW ENTITY</span>
+    <div class="select_icon" id="select_icon"></div>
+    <div class="clr"></div>
+    <div class="open_toggle">
+      <ul>
+        <li data-value="non">NON - CLIENT</li>
+        <li data-value="org">CLIENT - ORG</li>
+        <li data-value="ind">CLIENT - IND</li>
+      </ul>
+    </div>
+    </div>
+@endif
+
+<!-- <div class="form-group">
   <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
-</div>
+</div> -->
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
 <input type="hidden" id="app_hidd_array" name="app_hidd_array" value="">
 <input type="hidden" id="search_client_type" name="search_client_type" value="org">
-<input type="hidden" id="rel_client_id" name="rel_client_id" value="">
+
 <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
   <tr>
-    <td width="25%"><strong>Business Name</strong></td>
-    <td width="30%" align="center"><strong>Appointment Date</strong></td>
-    <td width="30%" align="center"><strong>Relationship Type</strong></td>
-    <td width="15%" align="center"><strong>Action</strong></td>
+    <td width="40%"><strong>Name</strong></td>
+    <td width="40%" align="center"><strong>Relationship Type</strong></td>
+    @if(isset($user_type) && $user_type != "C")
+    <td width="20%" align="center"><strong>Action</strong></td>
+    @endif
   </tr>
 
   @if(isset($relationship) && count($relationship) >0 )
     @foreach($relationship as $key=>$relation_row)
       <tr id="database_tr{{ $relation_row['client_relationship_id'] }}">
-        <td width="25%">{{ $relation_row['name'] or "" }}</td>
-        <td width="30%" align="center">{{ isset($relation_row['appointment_date'])?date("d-m-Y", strtotime($relation_row['appointment_date'])):"" }}</td>
-        <td width="30%" align="center">{{ $relation_row['relation_type'] }}</td>
-        <td width="15%" align="center">
-          <a href="javascript:void(0)" class="edit_database_rel" data-edit_index="{{ $relation_row['client_relationship_id'] }}" data-officer_id="{{ $relation_row['appointment_with'] }}"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_database_rel" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><i class="fa fa-trash-o fa-fw"></i></a>
+        <td width="40%">
+          @if((isset($relation_row['type']) && $relation_row['type'] == "non") || (isset($relation_row['is_archive']) && $relation_row['is_archive'] == "Y") || (isset($relation_row['is_deleted']) && $relation_row['is_deleted'] == "Y") || isset($user_type) && $user_type == "C" )
+            {{ $relation_row['name'] or "" }}
+          @else
+            <a href="{{ $relation_row['link'] or "" }}" target="_blank">{{ $relation_row['name'] or "" }}</a>
+          @endif
+
         </td>
+        <td width="40%" align="center">{{ $relation_row['relation_type'] }}</td>
+        @if(isset($user_type) && $user_type != "C")
+        <td width="20%" align="center">
+          <a href="javascript:void(0)" data-link="{{ $relation_row['link'] or "" }}" class="delete_database_rel" data-rel_client_id="{{ $relation_row['client_id'] or "" }}" data-delete_index="{{ $relation_row['client_relationship_id'] }}"><img src="/img/cross.png" height="15"></a>
+        </td>
+        @endif
       </tr>
     @endforeach
   @endif
@@ -907,30 +957,93 @@ $(document).ready(function(){
 </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
-    <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
-      <div class="search_value show_search_client" id="show_search_client"></div>
+      <div class="contain_search" id="client_dropdown">
+        <select class="form-control" name="rel_client_id" id="rel_client_id">
+        @if(isset($allClients) && count($allClients)>0)
+          @foreach($allClients as $key=>$client_row)
+          <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+          @endforeach
+        @endif    
+        </select>
+      </div>
+
+      <div class="contain_type">
+        <select class="form-control" name="rel_type_id" id="rel_type_id">
+            @if(!empty($rel_types))
+              @foreach($rel_types as $key=>$rel_row)
+              <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+              @endforeach
+            @endif
+          </select>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveRelationship('add_org')" type="button">Add</button>
+      <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
+      </div>
     </div>
 
-    <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control"></div>
+    <div class="clearfix"></div>
+    
 
-    <div class="contain_type">
-      <select class="form-control" name="rel_type_id" id="rel_type_id">
-          @if(!empty($rel_types))
-            @foreach($rel_types as $key=>$rel_row)
-            <option value="{{ $rel_row->relation_type_id }}">{{ $rel_row->relation_type }}</option>
+
+</div>
+</div>
+
+@if(isset($user_type) && $user_type != "C")
+  <div style="margin-top: 10px;">
+    <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+  </div>
+@endif
+<!-- <div class="box-body table-responsive" style="width:50%;">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+    <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
+    <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
+    <tr>
+      <td width="32%"><strong>Name</strong></td>
+      <td width="18%" align="center"><strong>Action</strong></td>
+    </tr>
+
+    @if(isset($acting) && count($acting) >0 )
+    @foreach($acting as $key=>$acting_row)
+      <tr id="database_acting_tr{{ $acting_row['acting_id'] }}">
+        <td width="32%"><strong><a href="{{ $acting_row['link'] }}" target="_blank">{{ $acting_row['name'] }}</a></strong></td>
+        <td width="18%" align="center">
+          <a href="javascript:void(0)" class="edit_database_acting" data-edit_index="{{ $acting_row['acting_id'] }}" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-link="{{ $acting_row['link'] }}"><i class="fa fa-edit"></i></a>
+          <a href="javascript:void(0)" class="delete_database_acting" data-acting_client_id="{{ $acting_row['acting_client_id'] }}" data-delete_index="{{ $acting_row['acting_id'] }}"><img src="/img/cross.png" height="15"></a>
+        </td>
+      </tr>
+    @endforeach
+  @endif
+
+  </table>
+
+    <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
+      <div class="acting_select">
+        <select class="form-control" name="acting_client_id" id="acting_client_id">
+         @if(isset($relationship) && count($relationship) >0 )
+            @foreach($relationship as $key=>$relation_row)
+              @if (!in_array($relation_row['client_id'], $acting_dropdown))
+                <option value="{{ $relation_row['client_id'] }}">{{ $relation_row['name'] }}</option>
+              @endif
             @endforeach
           @endif
         </select>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('by_click', 'add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button>
+      </div>
     </div>
-    
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('edit_ind')" type="button">Add</button></div>
+      
+      <div class="clearfix"></div>
+
   </div>
-    
-
-
 </div>
-</div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div> -->
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -1002,7 +1115,7 @@ $(document).ready(function(){
   <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row->user_id }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row->user_id )?"selected":"" }}>{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
     @endforeach
   @endif
 
@@ -1146,7 +1259,7 @@ $(document).ready(function(){
 
 
 <!-- COMPOSE MESSAGE MODAL -->
-<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -1220,9 +1333,84 @@ $(document).ready(function(){
       </div>
     {{ Form::close() }}
   </div>
-    <!-- /.modal-content -->
+    /.modal-content
   </div>
-  <!-- /.modal-dialog -->
+  /.modal-dialog
 </div>
+
+
+Relationship Add To List Modal Start
+<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:404px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group" style="width:70%">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="add_to_client_text">
+
+<div class="clearfix"></div>
+<div class="n_box18_18">
+<label for="exampleInputPassword1">Title</label>
+<select class="form-control select_title" id="add_to_title" name="add_to_title">
+          <option value="Mr" selected="">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+        <option value="Professor">Professor</option>
+        <option value="Rev">Rev</option>
+        <option value="Sir">Sir</option>
+        <option value="Dame">Dame</option>
+        <option value="Lord">Lord</option>
+        <option value="Lady">Lady</option>
+        <option value="Captain">Captain</option>
+        <option value="The Hon">The Hon</option>
+        <option value="Other">Other</option>
+      </select></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">First Name</label>
+    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
+<div class="n_box22_22">
+    <label for="exampleInputPassword1">Middle Name</label>
+    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">Last Name</label>
+    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
+<div class="clearfix"></div>
+</div>
+
+        <div class="form-group" style="width:70%; display:none;" id="add_to_business">
+          <label for="name">Business Name</label>
+          <input class="form-control toUpperCase" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    /.modal-content
+  </div>
+  /.modal-dialog
+</div> -->
+<!-- Relationship Add To List Modal End-->
+
+@include("home.include.client_modal_page")
 
 @stop

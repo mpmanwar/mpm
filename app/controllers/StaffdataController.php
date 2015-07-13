@@ -7,8 +7,9 @@ class StaffdataController extends BaseController {
     public function staff_data()
     {
         //die('staffmanagement');
-       	$data['heading'] = "STAFF DATA";
-		$data['title'] = "STAFF DATA";
+       	$data['heading'] = "";
+		$data['title'] = "Staff List";
+		$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
       
       return View::make('staff.staffdata.staff_data',$data);
        

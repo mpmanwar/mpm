@@ -5,7 +5,7 @@
 class EmailSettingsController extends BaseController {
 
 	public function index() {
-		$data['heading'] = "EMAIL & LETTER TEMPLATES";
+		$data['heading'] = "";
 
 		$session = Session::get('admin_details');
 		$groupUserId = $session['group_users'];
@@ -14,6 +14,7 @@ class EmailSettingsController extends BaseController {
 			$data = Cache::get('template_list');
 		} else {*/
 			$data['title'] = "Email & Letter Templates";
+			$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
 			$data['template_types'] 	= TemplateType::orderBy("template_type_name", "ASC")->get();
 			$data['email_templates'] 	= EmailTemplate::orderBy("email_template_id", "DESC")->get();
 

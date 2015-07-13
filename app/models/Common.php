@@ -130,6 +130,15 @@ class Common extends Eloquent {
 	public static function clientDetailsById($client_id)
 	{
 		$client_data = array();
+
+		$clients = Client::where('client_id', '=', $client_id)->first();
+		$client_data['is_archive'] 		= $clients['is_archive'];
+		$client_data['is_relation_add'] = $clients['is_relation_add'];
+		$client_data['type'] 			= $clients['type'];
+		$client_data['user_id'] 		= $clients['user_id'];
+		$client_data['is_deleted'] 		= $clients['is_deleted'];
+
+
 		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
 
 		$client_data['client_id'] 		= $client_id;
@@ -182,6 +191,19 @@ class Common extends Eloquent {
 					$client_data[$client_row['field_name']] = $client_row->field_value;
 				}
 
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "vat_scheme_type") {
+					$business_type = VatScheme::where('vat_scheme_id', '=', $client_row->field_value)->first();
+					$client_data[$client_row['field_name']] = $business_type['vat_scheme_name'];
+				}
+
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
+					$client_data['deadacc_count'] = App::make("HomeController")->getDayCount($client_row->field_value);
+				}
+
+				if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
+					$client_data['deadret_count'] = App::make("HomeController")->getDayCount($client_row->field_value);
+				}
+
 			}
 
 			$client_data['address'] = substr($address, 0, -2);
@@ -191,4 +213,373 @@ class Common extends Eloquent {
 		return $client_data;
 	}
 
+	public static function get_acting_client($client_id)
+	{
+		$acting_client = array();
+		$data 	= array();
+		$data1 	= array();
+		$data2 	= array();
+
+		$acting_client1 = ClientActing::where("client_id", "=", $client_id)->get();
+		
+        if(isset($acting_client1) && count($acting_client1) >0 ){
+        	foreach ($acting_client1 as $key => $row) {
+        		$clientId =  $row->acting_client_id;
+        		
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $clientId)->first();
+        		
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data1[$key]['name'] = $client_name['field_value'];
+        		}else{
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $clientId)->get();
+	        		
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				
+                        }
+        				$data1[$key]['name'] = trim($name);
+        				
+        			}
+        			
+        		}
+        		$data1[$key]['acting_id'] 			= $row->acting_id;
+        		$data1[$key]['user_id'] 			= $row->user_id;
+        		$data1[$key]['client_id'] 			= $row->client_id;
+        		$data1[$key]['acting_client_id'] 	= $row->acting_client_id;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->acting_client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data1[$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data1[$key]['link'] = "/client/edit-ind-client/".$row->acting_client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data1[$key]['link'] = "/client/edit-org-client/".$row->acting_client_id;
+						}else{
+							$data1[$key]['link'] = "";
+						}
+					}else{
+						$data1[$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
+
+        	}
+        }
+
+
+        $acting_client2 = ClientActing::where("acting_client_id", "=", $client_id)->get();
+        if(isset($acting_client2) && count($acting_client2) >0 ){
+        	foreach ($acting_client2 as $key => $row) {
+        		$clientId =  $row->client_id;
+        		
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $clientId)->first();
+        		
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data2[$key]['name'] = $client_name['field_value'];
+        		}else{
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $clientId)->get();
+	        		
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				
+                        }
+        				$data2[$key]['name'] = trim($name);
+        				
+        			}
+        			
+        		}
+        		$data2[$key]['acting_id'] 			= $row->acting_id;
+        		$data2[$key]['user_id'] 			= $row->user_id;
+        		$data2[$key]['client_id'] 			= $row->acting_client_id;
+        		$data2[$key]['acting_client_id'] 	= $row->client_id;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data2[$key]['link'] = "";
+						}
+					}else{
+						$data2[$key]['link'] = "";
+					}
+					
+				}
+				//######## get client type #########//
+
+        	}
+        }
+
+        $acting = array_merge($data1, $data2);//print_r($acting);die;
+        $i = 0;
+        foreach ($acting as $key => $value) {
+        	if(isset($value['name']) && $value['name'] != ""){
+        		$client_value = Client::where("is_deleted", "=", "N")->where("client_id", "=", $value['acting_client_id'])->first();
+        		if(isset($client_value['is_archive']) && $client_value['is_archive'] == "N"){
+        			$data[$i]['name'] 				= $value['name'];
+	        		$data[$i]['acting_id'] 			= $value['acting_id'];
+	        		$data[$i]['user_id'] 			= $value['user_id'];
+	        		$data[$i]['client_id'] 			= $value['client_id'];
+	        		$data[$i]['acting_client_id'] 	= $value['acting_client_id'];
+	        		$data[$i]['link'] 				= $value['link'];
+	        		$i++;
+        		}
+        		
+        	}
+        }
+        return $data;
+	}
+
+
+	public static function get_relationship_client($client_id)
+	{
+		$data = array();
+		$data1 = array();
+		$data2 = array();
+
+		$relationship1 = DB::table('client_relationships as cr')->where("cr.client_id", "=", $client_id)
+            ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
+            ->select('cr.client_relationship_id', 'rt.relation_type', 'cr.appointment_with as client_id', 'cr.acting')->get();//print_r($relationship1);die;
+
+		if(isset($relationship1) && count($relationship1) >0 )
+        {
+        	foreach ($relationship1 as $key => $row) {
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->client_id)->first();
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data1[$key]['name'] = $client_name['field_value'];
+        		}else{
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->client_id)->get();
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				
+                        }
+        				$data1[$key]['name'] = trim($name);
+        				
+        				        				
+        			}
+        			
+        		}
+       		    $data1[$key]['client_relationship_id'] 	= $row->client_relationship_id;
+        		$data1[$key]['relation_type'] 			= $row->relation_type;
+        		$data1[$key]['acting'] 					= $row->acting;
+        		$data1[$key]['client_id'] 				= $row->client_id;
+
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data1[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data1[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data1[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data1[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data1[$key]['link'] = "";
+						}
+					}else{
+						$data1[$key]['link'] = "";
+					}
+
+					$data1[$key]['type'] 			= $client_data['type'];
+					$data1[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data1[$key]['is_archive'] 		= $client_data['is_archive'];
+					$data1[$key]['is_relation_add'] = $client_data['is_relation_add'];
+					$data1[$key]['is_deleted'] 		= $client_data['is_deleted'];
+					
+				}
+				//######## get client type #########//
+        		
+			}
+        }
+
+        $relationship2 = DB::table('client_relationships as cr')->where("cr.appointment_with", "=", $client_id)
+            ->join('relationship_types as rt', 'cr.relationship_type_id', '=', 'rt.relation_type_id')
+            ->select('cr.client_relationship_id', 'rt.relation_type', 'cr.client_id', 'cr.acting')->get();
+
+       	if(isset($relationship2) && count($relationship2) >0 )
+        {
+        	foreach ($relationship2 as $key => $row) {
+        		$client_name = StepsFieldsClient::where("field_name", "=", 'business_name')->where("client_id", "=", $row->client_id)->first();
+        		if(isset($client_name) && count($client_name) >0 ){
+        			$data2[$key]['name'] = $client_name['field_value'];
+        		}else{
+        			$client_details = StepsFieldsClient::where("step_id", "=", 1)->where("client_id", "=", $row->client_id)->get();
+        			//echo $this->last_query();die;
+        			if(isset($client_details) && count($client_details) >0 ){
+        				$name = "";
+        				foreach($client_details as $client_name){
+        					if(isset($client_name->field_name) && $client_name->field_name == "client_name"){
+	        					$name = $client_name->field_value;
+	        					break;
+	        				}
+        					if(isset($client_name->field_name) && $client_name->field_name == "fname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "mname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+	        				if(isset($client_name->field_name) && $client_name->field_name == "lname"){
+	        					$name .= $client_name->field_value." ";
+	        				}
+        				
+                        }
+        				$data2[$key]['name'] = trim($name);
+        				
+        				        				
+        			}
+        			
+        		}
+       		    $data2[$key]['client_relationship_id'] 	= $row->client_relationship_id;
+        		$data2[$key]['relation_type'] 			= $row->relation_type;
+        		$data2[$key]['acting'] 					= $row->acting;
+        		$data2[$key]['client_id'] 				= $row->client_id;
+        		//######## get client type #########//
+				$client_data = Client::where("client_id", "=", $row->client_id)->first();
+				if(isset($client_data) && count($client_data) >0){
+					if($client_data['type'] == "ind"){
+						$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+					}
+					else if($client_data['type'] == "org"){
+						$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+					}else if($client_data['type'] == "chd"){
+						if($client_data['chd_type'] == "ind"){
+							$data2[$key]['link'] = "/client/edit-ind-client/".$row->client_id;
+						}
+						else if($client_data['chd_type'] == "org"){
+							$data2[$key]['link'] = "/client/edit-org-client/".$row->client_id;
+						}else{
+							$data2[$key]['link'] = "";
+						}
+					}else{
+						$data2[$key]['link'] = "";
+					}
+
+					$data2[$key]['type'] 			= $client_data['type'];
+					$data2[$key]['chd_type'] 		= $client_data['chd_type'];
+					$data2[$key]['is_archive'] 		= $client_data['is_archive'];
+					$data2[$key]['is_relation_add'] = $client_data['is_relation_add'];
+					$data2[$key]['is_deleted'] 		= $client_data['is_deleted'];
+					
+				}
+				//######## get client type #########//
+        		
+			}
+        }
+
+        $relationship = array_merge($data1, $data2);
+        $relationship = array_unique($relationship, SORT_REGULAR);//print_r($relationship);die;
+        $i = 0;
+        foreach ($relationship as $key => $value) {
+        	if(isset($value['name']) && $value['name'] != ""){
+        		
+        		$data[$i]['name'] 					= $value['name'];
+        		$data[$i]['client_relationship_id'] = $value['client_relationship_id'];
+        		$data[$i]['relation_type'] 			= $value['relation_type'];
+        		$data[$i]['acting'] 				= $value['acting'];
+        		$data[$i]['client_id'] 				= $value['client_id'];
+        		$data[$i]['link'] 					= isset($value['link'])?$value['link']:"";
+        		$data[$i]['type'] 					= isset($value['type'])?$value['type']:"";
+				$data[$i]['is_archive'] 			= $value['is_archive'];
+				$data[$i]['is_relation_add'] 		= $value['is_relation_add'];
+				$data[$i]['is_deleted'] 			= $value['is_deleted'];
+        		$i++;
+	        	
+        	}
+        }//print_r($data);die;
+        return $data;
+	}
+
+	public static function get_services_client($client_id)
+	{
+		$data2 = array();
+		$service = DB::table('client_services as cs')->where("cs.client_id", "=", $client_id)
+            ->join('services as s', 'cs.service_id', '=', 's.service_id')
+            ->join('users as u', 'cs.staff_id', '=', 'u.user_id')
+            ->select('cs.*', 'u.fname', 'u.lname', 's.service_name')->get();
+        if(isset($service) && count($service) >0 )
+        {
+        	foreach ($service as $key => $row) {
+        		$data2[$key]['client_service_id'] 	= $row->client_service_id;
+        		$data2[$key]['client_id'] 			= $row->client_id;
+        		$data2[$key]['service_id'] 			= $row->service_id;
+        		$data2[$key]['user_id'] 			= $row->staff_id;
+        		$data2[$key]['name'] 				= $row->fname." ".$row->fname;
+        		$data2[$key]['service_name'] 		= $row->service_name;
+        		
+        	}
+        }
+        return $data2;
+        exit;
+
+	}
+
+	
 }

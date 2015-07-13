@@ -1,8 +1,9 @@
 @extends('layouts.layout') @section('mycssfile')
 
 @stop
- @section('myjsfile') 
- @stop
+@section('myjsfile') 
+<script src="{{ URL :: asset('js/invited_client.js') }}" type="text/javascript"></script>
+@stop
  
   @section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -32,7 +33,7 @@
                     
 						<ul>
 							<li class="hvr-grow" style="margin-right:100px;">
-								<a href="/invitedclient-details">
+								<a href="/client/edit-ind-client/{{ $client_id or "" }}">
 								<div class="circle_icons_inner">
 								<div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
 								<p class="c_tagline2">MY DETAILS</p>
@@ -56,17 +57,31 @@
 								<div class="clearfix"></div>
 								</div></a>
 							</li>
+							<li class="hvr-grow">
+								<a href="#">
+								<div class="circle_icons_inner">
+								<div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
+								<p class="c_tagline">MANAGE<br>
+								BILLINGS/RENEWALS</p>
+								<div class="clearfix"></div>
+								</div></a>
+							</li>
 						</ul>
                         
 					</div>
 				</div>
 				<div class="col-xs-12">
-					<div class="col-xs-9" style="padding:0;">
-						<p>
-							<strong>
-								In job email section shoild show here
-							</strong>
-						</p>
+					<div class="col-xs-9" style="padding:0; width:100%; margin-left: 500px">
+						<h2>
+							Deadlines & Payments
+						</h2>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-2" style="padding:0;">
+						<strong style="font-size: 16px;">
+							Deadlines Due in : 60 days <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
+						</strong>
 					</div>
 					<div class="col-xs-3">
 						<div class="next_prev_btn">
@@ -159,31 +174,19 @@
 				<div class="col-xs-12">
 					<table width="70%" border="0" class="business_table" align="center">
 						<tr>
-							<td width="12%">
-								<strong>
-									Select Business
-								</strong>
-							</td>
-							<td width="31%">
-								<select class="form-control">
-									<option>
-										One Cloud Limited
-									</option>
-									<option>
-										option 2
-									</option>
-									<option>
-										option 3
-									</option>
-									<option>
-										option 4
-									</option>
-									<option>
-										option 5
-									</option>
+						<td width="26%">&nbsp;</td>
+							<td width="14%"><strong>Select Business</strong></td>
+							<td width="34%">
+								<select class="form-control" id="getClientDetails">
+									<option value="">-- Please Select --</option>
+									@if(!empty($relation_list) && count($relation_list) > 0)
+							          @foreach($relation_list as $key=>$list)
+							            <option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
+							          @endforeach
+							        @endif
 								</select>
 							</td>
-							<td width="3%" align="center">
+							<!-- <td width="3%" align="center">
 								<a href="#"><img src="img/edit_icon.png" /></a>
 							</td>
 							<td width="7%">
@@ -193,14 +196,13 @@
 							</td>
 							<td width="2%">
 								&nbsp;
+							</td> -->
+							<td width="6%">
+								
 							</td>
-							<td width="3%">
-								<button class="btn btn-info">
-									Add New Business
-								</button>
-							</td>
-							<td width="2%">
-								&nbsp;
+							<td width="20%">
+								<!-- <a href="/organisation/add-client" class="btn btn-info">Add New Business</a> -->
+								<button type="button" id="view_edit_company" class="btn btn-info">View/Edit Company</button>
 							</td>
 						</tr>
 					</table>
@@ -210,287 +212,8 @@
 				<!--vat section-->
 				<div class="col-xs-12">
 					<div class="vat_maincon">
-						<div class="vat_section">
-							<ul>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											VAT RETURNS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											ANNUAL ACCOUNTS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											PERSONAL TAX PAYMENT ON ACCOUNT
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											COMPANIE'S HOUSE ANNUAL RETURNS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											INCOME TAX RETURNS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											PAY/NICS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											P11DS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											BUSINESS TAX RETURNS
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											EC SALES LIST
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													Vat Number : 196205
-												</li>
-												<li>
-													Registration Date : 15/05/2015
-												</li>
-												<li>
-													Scheme
-												</li>
-												<li>
-													Cycle : efef
-												</li>
-												<li>
-													Vat Months (Stagger) :
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="vat_section_main">
-										<div class="head_section">
-											HMRC PAYMENT PLAN DATES
-										</div>
-										<div class="vat_section_content">
-											<ul>
-												<li>
-													<a href="#">Add</a>
-												</li>
-												<li>
-													<a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-							</ul>
+						<div class="vat_section show_client_details">
+							<!-- -->
 						</div>
 					</div>
 				</div>

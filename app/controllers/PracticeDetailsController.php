@@ -21,6 +21,7 @@ class PracticeDetailsController extends BaseController {
 
 		$data['heading'] = "";
 		$data['title'] = "Practice Details";
+		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
 		$data['org_types'] = OrganisationType::where("status", "=", "old")->orderBy("organisation_id")->get();
 		$data['countries'] = Country::orderBy('country_name')->get();
 		//print_r($data['org_types']);die;

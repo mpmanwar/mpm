@@ -49,8 +49,9 @@
 
         <!--Footer Start-->  
         @include('layouts/footer')
-        <!--Footer End-->     
+        <!--Footer End-->  
         
         @yield('myjsfile')
+        
     </body>
 </html>

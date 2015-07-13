@@ -22,7 +22,12 @@ class BaseController extends Controller {
             $groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
             $practice_details = PracticeDetail::whereIn("user_id", $groupUserId)->first();
 
-            View::share('practice_name', $practice_details['display_name']);
+            if($admin_s['user_type'] == "C"){
+                $display_name = $practice_details['display_name']." - Client Portal";
+            }else{
+                $display_name = $practice_details['display_name'];
+            }
+            View::share('practice_name', $display_name);
             if (File::exists("practice_logo/".$practice_details['practice_logo']) && $practice_details['practice_logo'] != ""){
                 $practice_logo = "<img src='/practice_logo/".$practice_details['practice_logo']."' class='browse_img'>";
             }else{
@@ -32,6 +37,13 @@ class BaseController extends Controller {
 
             $user_access   = Common::getUserAccess($admin_s['id']);
             View::share('manage_user', $user_access);
+
+            if(isset($admin_s['user_type']) && $admin_s['user_type'] == "C"){
+                $dashboard_url = '/invitedclient-dashboard';
+            }else{
+                $dashboard_url = '/dashboard';
+            }
+            View::share('dashboard_url', $dashboard_url);
             
         }
 

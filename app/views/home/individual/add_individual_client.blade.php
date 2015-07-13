@@ -10,6 +10,7 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -51,7 +52,7 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
-    <input name="client_id" type="hidden" value="new">
+    <input name="client_id" id="client_id" type="hidden" value="new">
     <section class="content">
 
       <div class="row">
@@ -197,8 +198,8 @@ $(document).ready(function(){
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Nationality</label>
-<select class="form-control" name="nationality" id="nationality">
+<label for="exampleInputPassword1">Country</label>
+<select class="form-control" name="country_id" id="country_id">
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -223,6 +224,29 @@ $(document).ready(function(){
 <input type="text" id="occupation" name="occupation" class="form-control">
 </div>
 </div>
+<div class="clearfix"></div>
+</div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Nationality</label>
+<select class="form-control" name="nationality_id" id="nationality_id">
+@if(!empty($nationalities))
+  @foreach($nationalities as $key=>$nationality_row)
+    <option value="{{ $nationality_row->nationality_id }}">{{ $nationality_row->nationality_name }}</option>
+  @endforeach
+@endif
+</select>
+</div>
+</div>
+
+<!-- <div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Occupation</label>
+<input type="text" id="occupation" name="occupation" class="form-control">
+</div>
+</div> -->
 <div class="clearfix"></div>
 </div>
 
@@ -369,6 +393,7 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Office</label>
+<input type="hidden" id="tax_reference_type" value="I">
 <select class="form-control" id="tax_office_id" name="tax_office_id">
   @if(!empty($tax_office))
     @foreach($tax_office as $key=>$office_row)
@@ -893,10 +918,24 @@ $(document).ready(function(){
                    <div class="col-xs-12">
  <div class="col_m2"> 
  <div class="director_table"> 
-<h3 class="box-title">RELATIONSHIP</h3>      
-<div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
+<h3 class="box-title">RELATIONSHIP</h3> 
+
+<div class="j_selectbox">
+<span>ADD NEW ENTITY</span>
+<div class="select_icon" id="select_icon"></div>
+<div class="clr"></div>
+<div class="open_toggle">
+  <ul>
+    <li data-value="non">NON - CLIENT</li>
+    <li data-value="org">CLIENT - ORG</li>
+    <li data-value="ind">CLIENT - IND</li>
+  </ul>
 </div>
+</div>  
+
+<!-- <div class="form-group">
+  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> &nbsp <a href="/organisation/add-client" class="btn btn-info" target="_blank"><i class="fa fa-plus"></i> New Client - Organ</a>
+</div> -->
 
 <div class="box-body table-responsive">
 <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -913,12 +952,9 @@ $(document).ready(function(){
 </table>
 
   <div class="contain_tab4" id="new_relationship" style="display:none;">
-    <div class="contain_search">
-      <input type="text" placeholder="Search..." class="form-control org_relclient_search" id="relname" name="relname">
-      <div class="search_value show_search_client" id="show_search_client"></div>
+    <div class="contain_search" id="client_dropdown">
+      <select class="form-control" name="rel_client_id" id="rel_client_id"></select>
     </div>
-
-    <!-- <div class="contain_date"><input type="text" id="app_date" name="app_date" class="form-control app_date"></div> -->
 
     <div class="contain_type">
       <select class="form-control" name="rel_type_id" id="rel_type_id">
@@ -930,11 +966,50 @@ $(document).ready(function(){
         </select>
     </div>
     
-    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('add_ind')" type="button">Add</button></div>
+    <div class="contain_action"><button class="btn btn-success" onClick="saveRelationship('add_ind')" type="button">Add</button>
+    <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button></div>
   </div>
+<div class="clearfix"></div>
+</div>
+</div>
 
+<div style="margin-top: 10px;">
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
 </div>
+
+<!-- <div class="box-body table-responsive" style="width:63%;">
+  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+    <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
+    <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
+    <input type="hidden" id="relation_index" name="relation_index" value="">
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myActTable">
+    <tr>
+      <td width="32%"><strong>Name</strong></td>
+      <td width="18%" align="center"><strong>Action</strong></td>
+    </tr>
+
+  </table>
+
+    <div class="contain_tab4" id="new_relationship_acting" style="display:none;">
+      <div class="acting_select">
+        <select class="form-control" name="acting_client_id" id="acting_client_id">
+          
+        </select>
+      </div>
+
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('by_click', 'add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
+    </div>
+
+    <div class="clearfix"></div>
+    
+      
+  </div>
 </div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+</div> -->
+
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -1005,7 +1080,7 @@ $(document).ready(function(){
   <option value="">None</option>
   @if(!empty($responsible_staff))
     @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname or "" }} {{ $staff_row->lname or "" }}</option>
+      <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
     @endforeach
   @endif
 
@@ -1228,5 +1303,80 @@ $(document).ready(function(){
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+<!-- Relationship Add To List Modal Start-->
+<!-- <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:404px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
+        <div class="form-group" style="width:70%">
+          <label for="name">Type</label>
+          <select class="form-control" name="add_to_type" id="add_to_type">
+            <option value="ind">Individual</option>
+            <option value="org">Organisation</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="add_to_client_text">
+
+<div class="clearfix"></div>
+<div class="n_box18_18">
+<label for="exampleInputPassword1">Title</label>
+<select class="form-control select_title" id="add_to_title" name="add_to_title">
+          <option value="Mr" selected="">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+        <option value="Professor">Professor</option>
+        <option value="Rev">Rev</option>
+        <option value="Sir">Sir</option>
+        <option value="Dame">Dame</option>
+        <option value="Lord">Lord</option>
+        <option value="Lady">Lady</option>
+        <option value="Captain">Captain</option>
+        <option value="The Hon">The Hon</option>
+        <option value="Other">Other</option>
+      </select></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">First Name</label>
+    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
+<div class="n_box22_22">
+    <label for="exampleInputPassword1">Middle Name</label>
+    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
+<div class="n_box27_27">
+    <label for="exampleInputPassword1">Last Name</label>
+    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
+<div class="clearfix"></div>
+</div>
+
+        <div class="form-group" style="width:70%; display:none;" id="add_to_business">
+          <label for="name">Business Name</label>
+          <input class="form-control toUpperCase" type="text" name="add_to_name" id="add_to_name">
+        </div>
+       
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    /.modal-content
+  </div>
+  /.modal-dialog
+</div> -->
+<!-- Relationship Add To List Modal End-->
+
+@include("home.include.client_modal_page")
 
 @stop

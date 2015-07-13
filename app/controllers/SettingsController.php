@@ -9,8 +9,8 @@ class SettingsController extends BaseController {
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
-		$data['heading'] = "SETTINGS - DASHBOARD";
-		$data['title'] = "Settings - Dashboard";
+		$data['heading'] = "";
+		$data['title'] = "Settings Dashboard";
 		return View::make('settings.index', $data);
 	}
 

@@ -7,9 +7,9 @@ class CpdController extends BaseController {
     public function cpd_and_courses()
     {
         
-       	$data['heading'] = "CPD & COURSES";
-		$data['title'] = "CPD & COURSES";
-      
+       	$data['heading'] = "";
+		$data['title'] = "Cpd & Courses";
+      	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
         
        
       

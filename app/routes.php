@@ -63,6 +63,7 @@ Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=
 Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "uses"=>'UserController@create_user_password'));
 Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
 Route::any('/update-status', array("as"=>"update_status", "uses"=>'UserController@update_status'));
+Route::any('/user/get-relation-client/{id}', array("as"=>"get_relation_client", "uses"=>'UserController@get_relation_client'));
 ### Routes for user related URL's end ###
 
 
@@ -115,6 +116,7 @@ Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'Clie
 Route::any('/client/get-subsection', array("as"=>"get_subsection", "uses"=>'ClientController@get_subsection'));
 Route::any('/client/edit-org-client/{id}', array("as"=>"edit_org_client", "uses"=>'ClientController@edit_org_client'));
 Route::any('/client/edit-ind-client/{id}', array("as"=>"edit_ind_client", "uses"=>'ClientController@edit_ind_client'));
+Route::any('/client/delete-client-service', array("as"=>"delete_client_services", "uses"=>'ClientController@delete_client_services'));
 
 Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
 Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
@@ -126,6 +128,14 @@ Route::any('/client/save-acting-relationship', array("as"=>"save_acting_relation
 Route::any('/client/get-corporation-address', array("as"=>"get_corporation_address", "uses"=>'ClientController@get_corporation_address'));
 Route::any('/client/acting-relationship', array("as"=>"acting_relationship", "uses"=>'ClientController@acting_relationship'));
 Route::any('/client/add-to-client', array("as"=>"add_to_client", "uses"=>'ClientController@add_to_client'));
+Route::any('/client/delete-acting', array("as"=>"delete_acting", "uses"=>'ClientController@delete_acting'));
+Route::any('/client/save-database-acting', array("as"=>"save_database_acting", "uses"=>'ClientController@save_database_acting'));
+Route::any('/client/get-name-and-type', array("as"=>"get_name_and_type", "uses"=>'ClientController@get_name_and_type'));
+Route::any('/client/delete-addtolist-client', array("as"=>"delete_addtolist_client", "uses"=>'ClientController@delete_addtolist_client'));
+Route::any('/client/save-officers-into-relation', array("as"=>"save_officers_into_relation", "uses"=>'ClientController@save_officers_into_relation'));
+Route::any('/client/get-officers-client', array("as"=>"get_officers_client", "uses"=>'ClientController@get_officers_client'));
+Route::any('/client/client-details-by-client_id/{client_id}', array("as"=>"client_details_by_client_id", "uses"=>'ClientController@client_details_by_client_id'));
+
 ### Routes for Client URL's end ###
 
 
@@ -139,6 +149,9 @@ Route::any('/import-from-ch/{back_url}', array("as"=>"import_from_ch", "uses"=>'
 Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
 Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
 Route::any('/import-company-details/{number}', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
+Route::any('/goto-edit-client', array("as"=>"goto_edit_client", "uses"=>'ChdataController@goto_edit_client'));
+
+
 ## Company House Data End ##
 
 
@@ -184,12 +197,16 @@ Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'Not
 Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
 
 
+
 Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardController@excel_upload'));
 
 
 
 
 Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
+
+Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
+
 
 
 Route::any('/staff-data', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));

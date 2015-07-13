@@ -170,15 +170,22 @@ class AdminController extends BaseController {
                 
                 
 				//############### Check user free time limit end ##############//
+				if(isset($admin['user_type']) && $admin['user_type'] == "C"){
+					$client_name = Common::clientDetailsById($admin['client_id']);
+					$admin['fname'] 		= $client_name['fname'];
+					$admin['lname'] 		= $client_name['lname'];
+				}
 
-				$arr['id'] 			= $admin['user_id'];
-				$arr['fname'] 		= $admin['fname'];
-				$arr['lname'] 		= $admin['lname'];
-				$arr['email'] 		= $admin['email'];
-				$arr['user_type'] 	= $admin['user_type'];
-				$arr['parent_id'] 	= $admin['parent_id'];
-				$arr['group_id'] 	= Common::getGroupId($admin['user_id']);
-				$arr['group_users'] = Common::getUserIdByGroupId($arr['group_id']);
+				$arr['id'] 					= $admin['user_id'];
+				$arr['client_id'] 			= $admin['client_id'];
+				$arr['related_company_id'] 	= $admin['related_company_id'];
+				$arr['fname'] 				= $admin['fname'];
+				$arr['lname'] 				= $admin['lname'];
+				$arr['email'] 				= $admin['email'];
+				$arr['user_type'] 			= $admin['user_type'];
+				$arr['parent_id'] 			= $admin['parent_id'];
+				$arr['group_id'] 			= Common::getGroupId($admin['user_id']);
+				$arr['group_users'] 		= Common::getUserIdByGroupId($arr['group_id']);
 				
 				Session::put('admin_details', $arr);
 

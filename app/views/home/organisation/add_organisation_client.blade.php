@@ -4,11 +4,13 @@
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <!-- Date picker script -->
+
 @stop
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -28,9 +30,11 @@ $(document).ready(function(){
     
 })
 </script>
+
 @stop
 
 @section('content')
+
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
@@ -49,7 +53,7 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
-    <input name="client_id" type="hidden" value="new">
+    <input name="client_id" id="client_id" type="hidden" value="new">
     <section class="content">
       <div class="row">
         <div class="top_bts">
@@ -81,7 +85,11 @@ $(document).ready(function(){
           <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+          @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
+          @endif
+          
+
         </ul>
               <div class="tab-content">
                 <div id="step1" class="tab-pane active">
@@ -96,43 +104,43 @@ $(document).ready(function(){
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
 
-                      <div class="twobox">
-                        <div class="twobox_1">
-                          <div class="small_box">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Client Code</label>
-                
-                              <input type="text" id="client_code" name="client_code" class="form-control toUpperCase">
 
-                            </div>
-                          </div>
-                        </div>
-                        <div class="twobox_2">
-                        
-                        
-                        
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Business Type</label>
-                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-                      
-                    <select class="form-control" name="business_type" id="business_type">
-                      @if( isset($old_org_types) && count($old_org_types) >0 )
-                        @foreach($old_org_types as $key=>$old_org_row)
-                        <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
-                        @endforeach
-                      @endif
+<div class="twobox">
+  @if(isset($user_type) && $user_type != "C")
+  <div class="twobox_1">
+    <div class="small_box">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Client Code</label>
+          <input type="text" id="client_code" name="client_code" class="form-control toUpperCase">
+        </div>
+    </div>
+  </div>
+  @endif
+  <div class="twobox_2">
+    <div class="form-group">
+      <label for="exampleInputPassword1">Business Type</label>
+      @if(isset($user_type) && $user_type != "C")
+      <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+      @endif
+      <select class="form-control" name="business_type" id="business_type">
+        @if( isset($old_org_types) && count($old_org_types) >0 )
+          @foreach($old_org_types as $key=>$old_org_row)
+          <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
+          @endforeach
+        @endif
 
-                      @if( isset($new_org_types) && count($new_org_types) >0 )
-                        @foreach($new_org_types as $key=>$new_org_row)
-                        <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
-                        @endforeach
-                      @endif
-                     
-                    </select>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+        @if( isset($new_org_types) && count($new_org_types) >0 )
+          @foreach($new_org_types as $key=>$new_org_row)
+          <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
+          @endforeach
+        @endif
+       
+      </select>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
 
 
                             
@@ -1933,13 +1941,34 @@ $(document).ready(function(){
  <div class="col_m2"> 
  <div class="director_table"> 
 <h3 class="box-title">RELATIONSHIP</h3> 
-<div class="top_bts">
-<ul style="padding: 0;">  
-<li>
-<div class="form-group">
-  <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a>
+
+
+
+  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> New Relationship</a> -->
+  <!-- <select name="add_new_entity" id="add_new_entity" class="add_new_entity">
+    <option value="">ADD NEW ENTITY</option>
+    <option value="non">NON - CLIENT</option>
+    <option value="org">CLIENT - ORG</option>
+    <option value="ind">CLIENT - IND</option>
+  </select> -->
+
+<div style="width:100%;">
+<div class="j_selectbox">
+<span>ADD NEW ENTITY</span>
+<div class="select_icon" id="select_icon"></div>
+<div class="clr"></div>
+<div class="open_toggle">
+  <ul>
+    <li data-value="non">NON - CLIENT</li>
+    <li data-value="org">CLIENT - ORG</li>
+    <li data-value="ind">CLIENT - IND</li>
+  </ul>
 </div>
-</li>
+</div>
+
+<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers">VIEW/ADD IMPORTED OFFICERS</button></div>
+
+</div>
 <!-- <li>
 <div class="form-group">
   <a href="/organisation/add-client" target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Organ</a>
@@ -1950,14 +1979,14 @@ $(document).ready(function(){
   <a href="/individual/add-client"target="_blank" class="btn btn-info"><i class="fa fa-plus"></i> New Client-Inv</a>
 </div>
 </li> -->
-<li>
+<!-- <li>
 <div class="form-group">
   <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_to_list-modal">ADD TO LIST</a>
 </div>
-</li>
-<li>
-</ul>  
-</div> 
+</li> -->
+
+ 
+
 
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
@@ -1966,9 +1995,9 @@ $(document).ready(function(){
   <!-- <input type="hidden" id="rel_client_id" name="rel_client_id" value=""> -->
   <table width="100%" class="table table-bordered table-hover dataTable" id="myRelTable">
     <tr>
-      <td width="30%"><strong>Name</strong></td>
-      <td width="30%" align="center"><strong>Relationship Type</strong></td>
-      <td width="10%" align="center"><strong>Acting</strong></td>
+      <td width="40%"><strong>Name</strong></td>
+      <td width="40%" align="center"><strong>Relationship Type</strong></td>
+      <!-- <td width="10%" align="center"><strong>Acting</strong></td> -->
       <td width="20%" align="center"><strong>Action</strong></td>
     </tr>
 
@@ -1979,11 +2008,11 @@ $(document).ready(function(){
         <!-- <input type="text" placeholder="Search..." class="form-control all_relclient_search" id="relname" name="relname">
         <div class="search_value show_search_client" id="show_search_client"></div> -->
         <select class="form-control" name="rel_client_id" id="rel_client_id">
-            @if(isset($allClients) && count($allClients)>0)
+            <!-- @if(isset($allClients) && count($allClients)>0)
               @foreach($allClients as $key=>$client_row)
               <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
               @endforeach
-            @endif
+            @endif -->
           </select>
       </div>
 
@@ -2003,11 +2032,20 @@ $(document).ready(function(){
       <button class="btn btn-danger" type="button" onClick="hide_relationship_div()">Cancel</button>
       </div>
     </div>
+
+    <div class="clearfix"></div>
       
   </div>
 </div>
 
-<div class="box-body table-responsive" style="width:50%;">
+
+<div style="margin-top: 10px;">
+  <button type="button"  onClick="show_div()" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+  <!-- <a href="javascript:void(0)" class="btn btn-info" onClick="show_div()"><i class="fa fa-plus"></i> Add new line</a> -->
+</div>
+
+
+<!-- <div class="box-body table-responsive" style="width:63%;">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
     <div class="row"><div class="col-xs-6"><h3>CLIENT (ACTING)</h3></div><div class="clearfix"></div></div>
     <input type="hidden" id="acting_hidd_array" name="acting_hidd_array" value="">
@@ -2027,11 +2065,19 @@ $(document).ready(function(){
         </select>
       </div>
 
-      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('add_acting')" type="button">Add</button></div>
+      <div class="contain_action"><button class="btn btn-success" data-client_type="org" onClick="saveActing('by_click', 'add_acting')" type="button">Add</button>&nbsp;&nbsp;<button class="btn btn-danger close_acting" data-client_type="org"  type="button">Cancel</button></div>
     </div>
+
+    <div class="clearfix"></div>
+    
       
   </div>
 </div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="addnew_line open_acting"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button>
+
+</div> -->
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="3" type="button">Prev</button>
@@ -2099,92 +2145,82 @@ $(document).ready(function(){
                               </div>
                               <div class="clearfix"></div>
                             </div>
-                            
-                            <div class="twobox">
-                              <div class="twobox_1">
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Marketing Source</label>
-                                  <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
-                                </div>
-                              </div>
-                              
-                              <div class="clearfix"></div>
-                            </div>
 
-                            <div class="director_table">
-                            <div class="service_t">
-                              <h3 class="box-title">Services</h3></div>
-                              
-                              <div class="add_edit">
-                              <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
-                              </div>
-                              <div class="box-body table-responsive">
-                                <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-                                  <div class="row">
-                                    <div class="col-xs-6"></div>
-                                    <div class="col-xs-6"></div>
-                                  </div>
-  <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-  <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
-    <tr>
-      <td align="center"><strong>Service</strong></td>
-      <td align="center"><strong>Staff</strong></td>
-      <td align="center"><strong>Action</strong></td>
-    </tr>
-    
-    
-    
-    
-    
-    
-  </table>
+  @if(isset($user_type) && $user_type != "C")                      
+      <div class="twobox">
+        <div class="twobox_1">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Marketing Source</label>
+            <input type="text" id="bank_mark_source" name="bank_mark_source" class="form-control">
+          </div>
+        </div>
+        
+        <div class="clearfix"></div>
+      </div>
+  @endif
 
+      <div class="other_table">
+  @if(isset($user_type) && $user_type != "C")
+      <div class="service_t"><h3 class="box-title">Services</h3></div>
+      <div class="add_edit">
+        <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
+      </div>
+      <div class="clearfix"></div>
+      <div class="form-group">
+        <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
+      </div>
+      <div class="box-body table-responsive">
+        <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+          <div class="row">
+            <div class="col-xs-6"></div>
+            <div class="col-xs-6"></div>
+          </div>
+          <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+            <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
+            <tr>
+              <td align="center"><strong>Service</strong></td>
+              <td align="center"><strong>Staff</strong></td>
+              <td align="center"><strong>Action</strong></td>
+            </tr>
+          </table>
 
+          <div class="contain_tab4" id="add_services_div" style="display:none;">
+          <div class="services_search">
+            <select class="form-control" name="service_id" id="service_id">
+              <option value="">None</option>
+                @if( isset($old_services) && count($old_services)>0 )
+                  @foreach($old_services as $key=>$service_row)
+                    <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  @endforeach
+                @endif
+                @if( isset($new_services) && count($new_services)>0 )
+                  @foreach($new_services as $key=>$service_row)
+                    <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  @endforeach
+                @endif
+                  
+              </select>
+          </div>
 
-<div class="contain_tab4" id="add_services_div" style="display:none;">
-    <div class="services_search">
-      <select class="form-control" name="service_id" id="service_id">
-        <option value="">None</option>
-          @if( isset($old_services) && count($old_services)>0 )
-            @foreach($old_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
-          @if( isset($new_services) && count($new_services)>0 )
-            @foreach($new_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
+          <div class="service">
+            <select class="form-control" name="staff_id" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select>
             
-        </select>
-    </div>
-
-    <div class="service">
-      <select class="form-control" name="staff_id" id="staff_id">
-        <option value="">None</option>
-          @if(!empty($staff_details))
-            @foreach($staff_details as $key=>$staff_row)
-            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-            @endforeach
-          @endif
-        </select>
-      
-    </div>
-    
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
-  </div>
+          </div>
+          
+          <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
+          </div>
 
 
-
-
-
-
-                                </div>
-                              </div>
+        </div>
+      </div>
+    @endif
 
 
 <!-- This portion is for user created field -->
@@ -2307,325 +2343,8 @@ $(document).ready(function(){
 
 
 
-<!-- COMPOSE MESSAGE MODAL -->
-<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:300px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FIELD</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org" />
-    <input type="hidden" name="back_url" value="add_org" />
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="exampleInputPassword1">Select Section</label>
-          <select class="form-control show_subsec" name="step_id" id="step_id" data-client_type="org">
-            @if( isset($steps) && count($steps) >0 )
-              @foreach($steps as $key=>$step_row)
-                @if($step_row->step_id != '4' && $step_row->status == "old")
-                  <option value="{{ $step_row->step_id }}">{{ ($step_row->step_id == 1)?"BUSINESS INFORMATION":$step_row->title }}</option>
-                @endif
-              @endforeach
-            @endif
-          </select>
-        </div>
 
-        <div class="form-group">
-          <label for="exampleInputPassword1">Subsection Name</label>
-          <select class="form-control subsec_change" name="substep_id" id="substep_id">
-            <option value="">-- Select sub section --</option>
-            @if( isset($substep) && count($substep) >0 )
-              @foreach($substep as $key=>$step_row)
-                <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
-              @endforeach
-            @endif
-            <option value="new">Add new ...</option>
-          </select>
-        </div>
-        <div class="input-group show_new_div" style="display:none;">
-            <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="org">Save<!-- <i class="fa fa-plus"></i> --></a></span>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputPassword1">Field Name</label>
-          <input type="text" id="field_name" name="field_name" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputPassword1">Field Type</label>
-          <select class="form-control user_field_type" name="field_type" id="field_type">
-            @if(!empty($field_types))
-              @foreach($field_types as $key=>$field_row)
-                <option value="{{ $field_row->field_type_id }}">{{ $field_row->field_type_name }}</option>
-              @endforeach
-            @endif
-          </select>
-        </div>
-
-        <div class="form-group" style="display:none;" id="show_select_option">
-          <label for="exampleInputPassword1">Options</label>
-          <textarea name="select_option" cols="40" rows="3"></textarea>
-          Give options width ',' separator
-        </div>
-        
-        <div class="modal-footer1 clearfix">
-          <div class="email_btns1">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
-          </div>
-        </div>
-      </div>
-    {{ Form::close() }}
-  </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-
-
-<!-- add/edit list -->
-<div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:300px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/client/add-business-type', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" id="client_type" value="org">
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
-      </div>
-      
-      <div id="append_bussiness_type">
-      @if( isset($old_org_types) && count($old_org_types) >0 )
-        @foreach($old_org_types as $key=>$old_org_row)
-        <div class="form-group">
-          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
-        </div>
-        @endforeach
-      @endif
-
-      @if( isset($new_org_types) && count($new_org_types) >0 )
-        @foreach($new_org_types as $key=>$new_org_row)
-        <div class="form-group" id="hide_div_{{ $new_org_row->organisation_id }}">
-          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
-          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
-        </div>
-        @endforeach
-      @endif
-      </div>
-      
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-    {{ Form::close() }}
-  </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-
-
-<!-- Vat Scheme Modal -->
-<div class="modal fade" id="vatScheme-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:430px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/client/add-vat-scheme', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org">
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
-      </div>
-      
-      <div id="append_vat_scheme">
-        @if( isset($old_vat_schemes) && count($old_vat_schemes) )
-          @foreach($old_vat_schemes as $key=>$scheme_row)
-            <div class="form-group">
-              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
-            </div>
-          @endforeach
-        @endif
-
-        @if( isset($new_vat_schemes) && count($new_vat_schemes) )
-          @foreach($new_vat_schemes as $key=>$scheme_row)
-            <div class="form-group" id="hide_vat_div_{{ $scheme_row->vat_scheme_id }}">
-              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
-              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
-            </div>
-          @endforeach
-        @endif
-      </div>
-     
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="button" class="btn btn-primary pull-left save_t" id="add_vat_scheme" data-client_type="org" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-    {{ Form::close() }}
-  </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-
-
-<!-- Services Modal Start-->
-<div class="modal fade" id="services-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:430px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org">
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="service_name" id="service_name" placeholder="Service Name" class="form-control">
-      </div>
-
-      <div id="append_services">
-      @if( isset($old_services) && count($old_services)>0 )
-        @foreach($old_services as $key=>$service_row)
-          <div class="form-group">
-            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
-          </div>
-        @endforeach
-      @endif
-      @if( isset($new_services) && count($new_services)>0 )
-        @foreach($new_services as $key=>$service_row)
-          <div class="form-group" id="hide_service_div_{{ $service_row->service_id }}">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
-          </div>
-        @endforeach
-      @endif
-      </div>
-     
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="button" class="btn btn-primary pull-left save_t" id="save_services" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-    {{ Form::close() }}
-  </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- Services Modal End-->
-
-
-<!-- Add Subsec Modal Start-->
-<div class="modal fade" id="addsubsec-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:430px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="service_name" placeholder="Service Name" class="form-control">
-      </div>
-
-      @if(!empty($services))
-        @foreach($services as $key=>$service_row)
-          <div class="form-group">
-            <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a>
-            <label for="{{ $service_row->service_id }}">{{ $service_row->service_name }}</label>
-          </div>
-        @endforeach
-      @endif
-     
-      <div class="modal-footer1 clearfix">
-        <div class="email_btns">
-          <button type="submit" class="btn btn-primary pull-left save_t" name="save">Save</button>
-          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-    {{ Form::close() }}
-  </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- Add Subsec Modal End-->
-
-
-<!-- Relationship Add To List Modal Start-->
-<div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:354px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    
-      <div class="modal-body">
-        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
-        <div class="form-group">
-          <label for="name">Type</label>
-          <select class="form-control" name="add_to_type" id="add_to_type">
-            <option value="ind">Individual</option>
-            <option value="org">Organisation</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input class="form-control" type="text" name="add_to_name" id="add_to_name">
-        </div>
-       
-        <div class="modal-footer1 clearfix">
-          <div class="email_btns">
-            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
-            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- Relationship Add To List Modal End-->
-
-
-
-
-
-
+@include("home.include.client_modal_page")
 
 
 
