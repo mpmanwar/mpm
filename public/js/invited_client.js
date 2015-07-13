@@ -9,6 +9,10 @@ $(document).ready(function(){
                 //dataType: "json",
                 url: '/client/client-details-by-client_id/'+client_id+"=ajax",
                 //data: { 'client_id' : client_id },
+                beforeSend: function() {
+                    $(".show_client_details").html('<img src="/img/spinner.gif" />');
+                    //return false;
+                },
                 success : function(resp){
                     if(resp != ""){
                         $(".show_client_details").html(resp);
