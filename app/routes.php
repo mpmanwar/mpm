@@ -166,10 +166,27 @@ Route::any('/noticeboard', array("as"=>"notice_board", "uses"=>'NoticeboardContr
 
 Route::any('/index_template', array("as"=>"index_template", "uses"=>'NoticeboardController@index_template'));
 
+Route::get('/edit-template/{id}', 'NoticeboardController@edit_template');
+Route::get('/delete-template/{id}', 'NoticeboardController@delete_template');
+
+Route::get('/delete-attachment/{id}', 'NoticeboardController@delete_attachment');
+
+
+Route::any('/editnotice-template', array("as"=>"show_edit_noticetemplate", "uses"=>'NoticeboardController@show_edit_noticetemplate'));
+//Route::any('/edit-notice-template', 'NoticeboardController@edit-notice-template');
+
+//Route::any('/template/edit-email-template', array("as"=>"edit_email_template", "uses"=>'EmailSettingsController@edit_email_template'))
+Route::any('/edit-notice-template', array("as"=>"edit_notice_template", "uses"=>'NoticeboardController@edit_notice_template'));
+
 
 Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'NoticeboardController@insert_noticeboard'));
 
 Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
+
+
+Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardController@excel_upload'));
+
+
 
 
 Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));

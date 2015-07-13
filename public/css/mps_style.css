@@ -296,6 +296,58 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .ch_chkbox{float:right; margin-right:15px;}
 
 
+
+
+/*============notice board new==========*/
+.noticeboard_leftside{width:100%; height:380px; background:#fff; border:1px solid #e2e4e6; position:relative; margin-bottom:15px;}
+.add_new{float:right; padding:10px;}
+.holidays_h{color:#000; font-size:20px; font-weight:bold;}
+.holidays_list{background:#e2e4e6; min-height:380px; border:1px solid #e2e4e6; position:relative; padding:7px;}
+.holidays_content{background:#fff; font-size:14px; color:#4d4d4d; padding:15px 10px; min-height:295px; margin-top:10px;}
+
+.staff_left{float:left; width:48%; margin-bottom: 15px;}
+.staff_right{float:left; margin-left:25px; width:48%; margin-bottom: 15px;}
+
+.holidays_border{padding-top:7px; margin-top:5px;}
+.board_title{color:#000; font-size:18px; font-weight:bold; text-align:center; width:97.4%; float:left; padding-bottom:10px; border-bottom: 1px solid #dfdfdf;  margin-top:-9px; background:#fff; margin-left:1%;}
+.notice_board_topcon{width:100%;}
+.notice_top_left{background:url(../img/top_left.png) no-repeat; width:2.5%; height:28px; float:left;}
+.notice_top_mid{background:url(../img/top_rpt_x.png) repeat-x; width:95.2%; height:11px; float:left;} 
+.notice_top_right{background:url(../img/top_right.png) no-repeat; width:2.3%; height:28px; float:right;}
+.notice_bottom_left{background:url(../img/bottom_left.png) no-repeat; width:2.5%; height:28px; float:left;}
+.notice_bottom_mid{background:url(../img/bottom_rpt_x.png) repeat-x; width:95.2%; height:11px; float:left;  margin-top:17px;} 
+.notice_bottom_right{background:url(../img/bottom_right.png) no-repeat; width:2.3%; height:28px; float:right; }
+.notice_viewer{float:left; margin-left:20px;}
+.click_view{float:left; margin-left:20px;}
+.browse_btn{width:75%; float:left;}
+.browse_btn ul{list-style:none;}
+.browse_btn ul li{float:left; margin-right:20px;}
+.upload_btn{float:right; margin-right:10px;}
+.url_apicon{background:#fff; margin:55px auto; width:75%; padding:15px 30px 15px 30px;}
+.url_apicon_heading{text-align:center; width:100%; color:#444444; font-size:24px;}
+.url_apicon_heading strong{font-size:32px; font-weight:bold;}
+.url_apitext{width:100%; color:#555555; background:#e9e9e9; padding:20px; font-size:16px; margin-top:15px;}
+/*===========noticeboard tab==========*/
+.notice_board_main{margin:10px auto; width:85%;}
+.notice_board_tab{border:1px solid #bbbebb; width:100%; min-height:33px; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -o-border-radius:6px; -ms-border-radius:6px;
+background: #f9f9f9;
+background: -moz-linear-gradient(top,  #f9f9f9 0%, #e5e5e5 75%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(75%,#e5e5e5)); 
+background: -webkit-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%);
+background: -o-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%);
+background: -ms-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%); 
+background: linear-gradient(to bottom,  #f9f9f9 0%,#e5e5e5 75%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#e5e5e5',GradientType=0 ); 
+}
+.notice_board_tab ul{list-style:none; padding:0; margin:0;}
+.notice_board_tab ul li{float:left; border-right:1px solid #bbbebb;}
+.notice_board_tab ul li:last-child{border-right:none;}
+.notice_board_tab ul li a{color:#808080; font-size:18px; font-weight:bold; width:100%; line-height:31px; text-align:center; float:left;}
+.notice_board_tab ul li a:hover{background:#dadada;}
+.notice_board_tab ul li a.tab_active{background:#dadada; }
+
+
+
 @media only screen and (min-width : 320px) and (max-width : 480px),
 only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .logo_controlar, .col_display{width:100%;}
@@ -332,7 +384,15 @@ only screen and (min-device-width: 320px) and (max-device-width: 480px){
 .icon_section{ margin-left:0; width: 98%;}
 .left_section ul li{ margin: 0 0 50px;}
 .col-4 {width: 100%; float:left;}
+/*=========notice board tab=========*/
+.notice_board_main{width:100%!important;}
+.notice_board_tab ul li{float:left; border-bottom:1px solid #ccc; border-right:none; width:100%!important;}
+.notice_board_tab ul li:last-child{border-bottom:none;}
+.notice_board_tab{border:1px solid #bbbebb; float:left; background: #f9f9f9!important;}
 } 
+
+
+
 
 @media only screen and (min-width : 768px) and (max-width : 1024px),
 only screen and (min-device-width: 768px) and (max-device-width: 1024px){
@@ -357,6 +417,13 @@ only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 .display_name {padding-top: 14px;}
 .navbar-right{width:18%;}
 
+/*=========notice board tab=========*/
+.notice_board_tab ul li a{font-size:14px!important;}
+}
+
+@media only screen and (min-width : 360px) and (max-width : 640px),
+only screen and (min-device-width: 360x) and (max-device-width: 640px){
+.notice_board_tab ul li a{font-size:12px!important;}	
 }
 
 @media print {
@@ -463,15 +530,13 @@ padding-left: 25px;
 /*============notice board========*/
 .notice_board{width:100%;}
 .notice_upbg{background:url(../img/top_bg.png) no-repeat; width:100%; height:35px;}
-
-.notice_midbg{background:url(../img/mid_bg.png) repeat-y; width:100%; height:auto; min-height: 1000px; margin-top: -2px;}
-
+.notice_midbg{background:url(../img/notice_middle.png) repeat-y; width:100%; height:auto; background-size:100%;}
 .notice_downbg{background:url(../img/down_bg.png) no-repeat; width:100%; height:35px; }
 .notice_baordbg{background:url(../img/notice_2.png) no-repeat; width:447px; height:243px; position:relative; margin-left: 15px;}
-.bottom_content{position:absolute; bottom:5px; text-align:center; right:30px;}
+.bottom_content{position:absolute; bottom:5px; text-align:center; right:0px;}
 .posted_t{float:left; color:#808080; font-size:12px; font-style:italic;}
 .new_btn{float:right; margin:5px;}
-.edit_controlar{float:right; margin-left:20px;}
+.edit_controlar{float:right; margin-left:10px;}
 .padding_space{padding:15px;}
 .baord_content{padding:15px; border:1px solid #ccc; margin:15px 0 0 15px; position:relative;}
 /*.baord_content p{color:#000; font-size:14px;}*/
