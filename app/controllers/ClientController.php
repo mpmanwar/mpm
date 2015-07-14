@@ -90,7 +90,12 @@ class ClientController extends BaseController {
 				$data['relation_list'] 	= App::make("InvitedclientController")->all_relation_client_details($users['user_id']);
 			}
 		}
-		/* ############# client exists / not in the user table section end ############### */
+		// ############# client exists / not in the user table section end ############### //
+
+		// ============= Get files start ========== //
+		$data['files'] = ClientFile::where("client_id", "=", $client_id)->first();
+		//print_r($data['files']);die;
+		// ============= Get files end ========== //
 
 		//print_r($data['relation_list']);die;
 		//############# Get client data end ################//
@@ -1001,6 +1006,26 @@ class ClientController extends BaseController {
 			return $data;
 			exit;
 		}
+	}
+
+	public function delete_files()
+	{
+		$client_file_id = Input::get('client_file_id');
+		$column 		= Input::get('column');
+		$path 			= Input::get('path');
+		$file_name = ClientFile::where('client_file_id', "=", $client_file_id)->select($column)->first();
+
+		$data[$column] 	= "";
+		$sql = ClientFile::where('client_file_id', "=", $client_file_id)->update($data);
+		if($sql){
+			if(isset($file_name[$column]) && $file_name[$column] != ""){
+				$prevPath = $path.$file_name[$column];
+				if (file_exists($prevPath)) {
+					unlink($prevPath);
+				}
+			}
+		}
+		echo $sql;
 	}
 
 
