@@ -47,12 +47,12 @@ class NoticeboardController extends BaseController
         $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
             "=", "1")->select("noticefont_id", "user_id", "board_no",
             "message", "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
-            'DESC')->take(4)->get();
+            'DESC')->take(6)->get();
 
         $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
             "=", "2")->select("noticefont_id", "user_id",  "board_no",
             "message", "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
-            'DESC')->take(4)->get();
+            'DESC')->take(6)->get();
 
         //echo $this->last_query();die();
         //echo $data['font'];die();
@@ -442,7 +442,14 @@ class NoticeboardController extends BaseController
 
 
         // $tmpl_data['typecatagory'] = $postData['typecatagory'][0];
-        $tmpl_data['message'] = $postData['edit_message'];
+        
+        if (isset($postData['edit_message']) && !empty($postData['edit_message'])) {
+                
+                 $tmpl_data['message'] = $postData['edit_message'];
+            }
+        
+        
+       
 
         $tmpl_data['message_subject'] = $postData['message_subject'];
 
@@ -539,6 +546,7 @@ class NoticeboardController extends BaseController
         $file_data = array();
         //echo "<pre>";
         //print_r($postData);
+        //die();
 
         $admin_s = Session::get('admin_details');
         $user_id = $admin_s['id'];
@@ -560,71 +568,80 @@ class NoticeboardController extends BaseController
 
         if (Input::hasFile('add_file1')) {
 
-            $file = Input::file('add_file1');
-
-            $destinationPath = './uploads/' . $group_id . '/noticeExcel/';
-
-            $fileName = Input::file('add_file1')->getClientOriginalName();
-
-            //$fileName = $noticefont_id . $fileName;
-            $result = Input::file('add_file1')->move($destinationPath, $fileName);
-
-
-            $file_data['user_id'] = $group_id;
-            $file_data['file'] = $fileName;
-            $file_data['level'] = 1;
-
-            //Noticeexcel::insert($file_data);
-
-
-            $chkfile = Noticeexcel::whereIn("user_id", $groupUserId)->where("level", "=",
-                "1")->select("noticeexcel_id","file")->first();
-
-            
-            
-            //die();
-
-            if (isset($chkfile) && count($chkfile) >0) {
-                $noticeexcel_id = $chkfile['noticeexcel_id'];
-                $file_name=$chkfile['file'];
-                $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                if (file_exists($prevPath)) {
-                        unlink($prevPath);
+                    $file = Input::file('add_file1');
+                    $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                    $fileName = Input::file('add_file1')->getClientOriginalName();
+                    //$fileName = $noticefont_id . $fileName;
+                    $result = Input::file('add_file1')->move($destinationPath, $fileName);
+        
+        
+                    $file_data['user_id'] = $user_id;
+                    $file_data['group_id'] = $group_id;
+                    $file_data['file'] = $fileName;
+                    $file_data['level'] = 1;
+        
+                    //Noticeexcel::insert($file_data);
+        
+        
+                   $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
+                        "1")->select("noticeexcel_id","file")->first();
+        
+                    
+                    
+                    //die();
+        
+                    if (isset($chkfile) && count($chkfile) >0) {
+                        
+                        
+                        $noticeexcel_id = $chkfile['noticeexcel_id'];
+                        
+                        $file_name=$chkfile['file'];
+                        //print_r($file_name);die();
+                        
+                       //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+                        //die();
+                       // if (file_exists("uploads/".$group_id.'/noticeExcel/'.$file_name.'')) {
+                        //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name.'');
+                        //    }
+                        
+                        
+                        
+                        Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
+        
+                    } else {
+                        Noticeexcel::insert($file_data);
                     }
-                
-                
-                
-                Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
-
-            } else {
-                Noticeexcel::insert($file_data);
-            }
 
             // $arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file1']);
         }
+        
+        //die('file1');
 
         if (Input::hasFile('add_file2')) {
             $file = Input::file('add_file2');
-            $destinationPath = './uploads/' . $group_id . '/noticeExcel/';
+            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
             $fileName = Input::file('add_file2')->getClientOriginalName();
 
             //$fileName = $noticefont_id . $fileName;
             $result = Input::file('add_file2')->move($destinationPath, $fileName);
 
-            $file_data['user_id'] = $group_id;
+            $file_data['user_id'] = $user_id;
+            $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 2;
 
-            $chkfile = Noticeexcel::whereIn("user_id", $groupUserId)->where("level", "=",
+
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
                 "2")->select("noticeexcel_id")->first();
 
             if (isset($chkfile) && count($chkfile) >0) {
                 $noticeexcel_id = $chkfile['noticeexcel_id'];
                 $file_name=$chkfile['file'];
-                $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                if (file_exists($prevPath)) {
-                        unlink($prevPath);
-                    }
+                //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+                
+                //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                //    }
                 
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
@@ -636,27 +653,30 @@ class NoticeboardController extends BaseController
 
         if (Input::hasFile('add_file3')) {
             $file = Input::file('add_file3');
-            $destinationPath = './uploads/' . $group_id . '/noticeExcel/';
+            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
             $fileName = Input::file('add_file3')->getClientOriginalName();
 
             //$fileName = $noticefont_id . $fileName;
             $result = Input::file('add_file3')->move($destinationPath, $fileName);
 
-            $file_data['user_id'] = $group_id;
+            $file_data['user_id'] = $user_id;
+            $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 3;
 
-            $chkfile = Noticeexcel::whereIn("user_id", $groupUserId)->where("level", "=",
+            $chkfile = Noticeexcel::where("user_id", $group_id)->where("level", "=",
                 "3")->select("noticeexcel_id")->first();
 
-            $noticeexcel_id = $chkfile['noticeexcel_id'];
-            $file_name=$chkfile['file'];
+            
 
-            if ($noticeexcel_id) {
-                $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                if (file_exists($prevPath)) {
-                        unlink($prevPath);
-                    }
+           if (isset($chkfile) && count($chkfile) >0) {
+                $noticeexcel_id = $chkfile['noticeexcel_id'];
+                $file_name=$chkfile['file'];
+               // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+                
+              //  if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+               //         unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                //    }
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
             } else {
@@ -664,30 +684,32 @@ class NoticeboardController extends BaseController
             }
 
         }
+        
         if (Input::hasFile('add_file4')) {
             $file = Input::file('add_file4');
-            $destinationPath = './uploads/' . $group_id . '/noticeExcel/';
+            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
             $fileName = Input::file('add_file4')->getClientOriginalName();
 
             //$fileName = $noticefont_id . $fileName;
             $result = Input::file('add_file4')->move($destinationPath, $fileName);
 
-            $file_data['user_id'] = $group_id;
+            $file_data['user_id'] = $user_id;
+            $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 4;
 
-
-            $chkfile = Noticeexcel::whereIn("user_id", $groupUserId)->where("level", "=",
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
                 "4")->select("noticeexcel_id")->first();
 
-            $noticeexcel_id = $chkfile['noticeexcel_id'];
-
-            $file_name=$chkfile['file'];
-            if ($noticeexcel_id) {
-                $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                if (file_exists($prevPath)) {
-                        unlink($prevPath);
-                    }
+            
+            if (isset($chkfile) && count($chkfile) >0) {
+                $noticeexcel_id = $chkfile['noticeexcel_id'];
+                $file_name=$chkfile['file'];
+               // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+               
+               //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                   //     unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                  //  }
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
             } else {
@@ -697,29 +719,34 @@ class NoticeboardController extends BaseController
             //$arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file4']);
 
         }
+        
         if (Input::hasFile('add_file5')) {
             $file = Input::file('add_file5');
-            $destinationPath = './uploads/' . $group_id . '/noticeExcel/';
+            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
             $fileName = Input::file('add_file5')->getClientOriginalName();
 
             //$fileName = $noticefont_id . $fileName;
             $result = Input::file('add_file5')->move($destinationPath, $fileName);
 
-            $file_data['user_id'] = $group_id;
+             $file_data['user_id'] = $user_id;
+            $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 5;
 
-            $chkfile = Noticeexcel::whereIn("user_id", $groupUserId)->where("level", "=",
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
                 "5")->select("noticeexcel_id")->first();
 
-            $noticeexcel_id = $chkfile['noticeexcel_id'];
-            $file_name=$chkfile['file'];
-
-            if ($noticeexcel_id) {
-                $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                if (file_exists($prevPath)) {
-                        unlink($prevPath);
-                    }
+           if (isset($chkfile) && count($chkfile) >0) {
+                $noticeexcel_id = $chkfile['noticeexcel_id'];
+                $file_name=$chkfile['file'];
+                
+                
+                //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+                
+                //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                //    }
+                    
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
                 
                 //$prevPath = './uploads/' . $user_id . '/noticeExcel/';
@@ -741,8 +768,8 @@ class NoticeboardController extends BaseController
         /////////////////file upload end////////////////////
 
 
-        return Redirect::to('/noticeboard');
-        ;
+        //return Redirect::to('/noticeboard');
+        
 
     }
 

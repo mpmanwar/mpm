@@ -326,16 +326,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .notice_bottom_right{background:url(../img/bottom_right.png) no-repeat; width:2.3%; height:28px; float:right; }
 .notice_viewer{float:left; margin-left:20px;}
 .click_view{float:left; margin-left:20px;}
-.browse_btn{width:75%; float:left;}
+.browse_btn{width:77%; margin:0 auto;}
 .browse_btn ul{list-style:none;}
 .browse_btn ul li{float:left; margin-right:20px;}
 .upload_btn{float:right; margin-right:10px;}
-.url_apicon{background:#fff; margin:55px auto; width:75%; padding:15px 30px 15px 30px;}
+.url_apicon{background:#fff; margin:10px auto; width:75%; padding:15px 30px 15px 30px;}
 .url_apicon_heading{text-align:center; width:100%; color:#444444; font-size:24px;}
 .url_apicon_heading strong{font-size:32px; font-weight:bold;}
 .url_apitext{width:100%; color:#555555; background:#e9e9e9; padding:20px; font-size:16px; margin-top:15px;}
 /*===========noticeboard tab==========*/
-.notice_board_main{margin:10px auto; width:85%;}
+/*.notice_board_main{margin:10px auto; width:85%;}
 .notice_board_tab{border:1px solid #bbbebb; width:100%; min-height:33px; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -o-border-radius:6px; -ms-border-radius:6px;
 background: #f9f9f9;
 background: -moz-linear-gradient(top,  #f9f9f9 0%, #e5e5e5 75%);
@@ -351,7 +351,53 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', end
 .notice_board_tab ul li:last-child{border-right:none;}
 .notice_board_tab ul li a{color:#808080; font-size:18px; font-weight:bold; width:100%; line-height:31px; text-align:center; float:left;}
 .notice_board_tab ul li a:hover{background:#dadada;}
-.notice_board_tab ul li a.tab_active{background:#dadada; }
+.notice_board_tab ul li a.tab_active{background:#dadada; }*/
+/*===========noticeboard tab==========*/
+.notice_board_main{margin:10px auto; width:85%;}
+.notice_board_tab{border:1px solid #bbbebb; width:100%; min-height:33px; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -o-border-radius:6px; -ms-border-radius:6px;
+background: #f9f9f9; /* Old browsers */
+background: -moz-linear-gradient(top,  #f9f9f9 0%, #e5e5e5 75%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(75%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f9f9f9 0%,#e5e5e5 75%); /* IE10+ */
+background: linear-gradient(to bottom,  #f9f9f9 0%,#e5e5e5 75%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+.notice_board_tab ul{list-style:none; padding:0; margin:0;}
+.notice_board_tab ul li{float:left; border-right:1px solid #bbbebb;}
+.notice_board_tab ul li:last-child{border-right:none;}
+.notice_board_tab ul li a{color:#808080; font-size:18px; font-weight:bold; width:100%; line-height:32px; text-align:center; float:left;}
+.notice_board_tab ul li a.tab_active{color:#3c8dbc; }
+.m_gap1{margin:0px 5px 0 0;}
+.notice_tabhover{
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(o);
+  -moz-transform: translateZ(o);
+  transform: translateZ(o);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-property: transform;
+  -moz-transition-property: transform;
+  transition-property: transform;
+}
+
+.notice_tabhover:hover, .notice_tabhover:focus, .notice_tabhover:active {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -mz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  color:#3c8dbc;
+  
+}
 
 
 .addnew_line{

@@ -33,6 +33,11 @@ function openModal( noticefont_id )
 	    	$('#hidd_file').empty().val(resp['file']);
             CKEDITOR.instances['edit_message1'].setData(resp['message']);
             
+            
+            
+            
+            
+            
             //var hidden_chk = $('#hidd_chek').val(resp.checkbox);
             
             var ch = resp.checkbox;
@@ -87,7 +92,11 @@ function openModal( noticefont_id )
 	    }
 	});
 }
+$(function()
+    {
+        $('#edit_message1').attr('disabled', 'disabled');
 
+    });
 
 //$("#edit_attach_file2").mouseover(function(){
  
@@ -136,10 +145,15 @@ editor.on( 'key', function( evt ){
    
 }); */ 
 
+CKEDITOR.editor.setReadOnly,
+
+
 CKEDITOR.replace( 'edit_message1',
     { 
+        
         toolbar :[['Source'],['Cut','Copy','Paste','PasteText','SpellChecker'],['Undo','Redo','-','SelectAll','RemoveFormat'],[ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ], ['SpecialChar','PageBreak']],
         extraPlugins : 'wordcount',
+        
         wordcount : {
             showCharCount : true,
             showWordCount : true
@@ -168,7 +182,28 @@ CKEDITOR.replace( 'edit_message1',
     
     }
 
+//upload
+$(".xyz").click(function(){
+    
+        var id= $(this).attr("id").match(/\d+/);
+        //alert(id);
+        
+        
+        $('#add_file'+id).on('change', function() 
+            { 
+            $("#preview").html('');
+            $("#preview").html('Uploading.....');
+            $("#imageform").ajaxForm(
+           
+            {target: '#preview'}).submit();
+            
+            $('#step4').html();
+            //window.location='/noticeboard';
+            });
+    });
 
+
+//upload
 
 
 
@@ -256,7 +291,47 @@ $("#noticetab li").on('click', function(event){
 
 });
     
+//uploaded fiel
+/*$(formname).ajaxSubmit({
 
+                    url: '/excel-upload',
+
+                    type: 'post',
+
+                    beforeSend: function() {
+
+                        // add some function
+
+                    },
+
+                    success: function(resp) {
+
+                        // toastr options
+
+                        if (resp==1) // error happend due to wrong email/password
+
+                        {
+
+                            // if part
+
+                        }
+
+                        else // error happend due to wrong email/password
+
+                        {
+
+                            // else part
+
+                        }
+
+                    },
+
+                    error: function(resp) {
+
+                    }
+
+                });*/
+//
 
 
 
