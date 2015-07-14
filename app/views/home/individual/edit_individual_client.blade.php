@@ -1113,7 +1113,7 @@ $(document).ready(function(){
 </div>
 
 <div class="form-group">
-<label for="exampleInputPassword1">Send User Inviattion Via The Add User Page</label>
+<label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
 </div>
 
 <!-- <div class="twobox">
