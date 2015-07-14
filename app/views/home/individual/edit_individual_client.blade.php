@@ -1114,6 +1114,8 @@ $(document).ready(function(){
   </p>
 </div>
 
+
+@if(isset($user_type) && $user_type == "C")
 <div id="show_other_user_client" style="display:none">
   <div class="form-group">
     <label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
@@ -1135,28 +1137,32 @@ $(document).ready(function(){
 </div>
 
 <table width="100%" border="0">
-  <tbody><tr>
-    <td width="52%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
-    <td width="48%"><span class="btn btn-default btn-file">Download</span></td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><span class="btn btn-default btn-file"> Download</span></td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="52%"><button class="btn btn-success" style="width:96%; text-align: left;">Other Documents</button></td>
-    <td width="48%"><span class="btn btn-default btn-file"> Download</span></td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><span class="btn btn-default btn-file"> Download</span></td>
-    <td>&nbsp;</td>
-  </tr>
-</tbody></table>
+  <tbody>
+    <tr>
+      <td width="52%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
+      <td width="48%"><span class="btn btn-default btn-file">Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="52%"><button class="btn btn-success" style="width:96%; text-align: left;">Other Documents</button></td>
+      <td width="48%"><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+@else
 
+@endif
 
 
 

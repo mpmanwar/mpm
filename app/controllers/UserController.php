@@ -35,7 +35,7 @@ class UserController extends BaseController {
 			//print_r($parentId);die;
 			$groupId = array_merge($parentId,$childId);*/
 						
-			$data['user_lists']	= User::whereIn("user_id", $groupUserId)->get();
+			$data['user_lists']	= User::whereIn("user_id", $groupUserId)->where("user_type", "!=", "C")->get();
 			//echo $this->last_query();die;
 
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
