@@ -18,26 +18,29 @@ class InvitedclientController extends BaseController {
 		$data['client_id'] 		= $session['client_id'];
 		$value = $data['client_id']."="."function";
 		//$data['relation_list'] 	= App::make("UserController")->get_relation_client($value);
-		$clients = unserialize($session['related_company_id']);
-		$data['relation_list'] 	= $this->all_relation_client_details($clients);
+		$data['relation_list'] 	= $this->all_relation_client_details($user_id);
 		return View::make('Invitedclient.Invitedclient', $data);
 	}
 
-	function all_relation_client_details($clients)
+	function all_relation_client_details($user_id)
 	{
+
 		$details = array();
-		if( isset($clients) && count($clients) >0 )
+		if( isset($user_id) && $user_id != "" )
 		{
-			$clients = DB::table('clients as c')->whereIn("c.client_id", $clients)
+			$clients = DB::table('user_related_companies as urc')->where("urc.user_id", $user_id)
+			->join('clients as c', 'c.client_id', "=", 'urc.client_id')
         	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
         	->where('sfc.field_name', '=', 'business_name')
         	->where("c.type", "=", "org")
-        	->select('c.client_id', 'sfc.field_value as client_name')->get();
+        	->select('c.client_id', 'sfc.field_value as client_name', 'urc.related_company_id', 'urc.status')->get();
         	//echo $this->last_query();die;
         	if( isset($clients) && count($clients) >0 ){
 	        	foreach ($clients as $key => $value) {
-	        		$details[$key]['client_id'] 	= $value->client_id;
-	        		$details[$key]['client_name'] 	= $value->client_name;
+	        		$details[$key]['related_company_id'] 	= $value->related_company_id;
+	        		$details[$key]['client_id'] 			= $value->client_id;
+	        		$details[$key]['client_name'] 			= $value->client_name;
+	        		$details[$key]['status'] 				= $value->status;
 	        	}
 	        	
 	        }

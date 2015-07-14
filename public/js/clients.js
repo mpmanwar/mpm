@@ -1520,6 +1520,84 @@ $("#add_to_type").change(function(){
 // Add to client from relationship non client select end //
 
 
+// Other section in individual select start //
+$(".delete_invited_client").click(function(){
+    var user_id   = $(this).data('user_id');
+    var client_id = $(this).data('client_id');
+    if(confirm("Do you want to delete the user?")){
+      $.ajax({
+        type: "POST",
+        url: "/user/delete-user-client",
+        data: { 'user_id': user_id, 'client_id': client_id },
+        success: function (resp) {
+          if(resp == 1){
+            $("#other_action_tr").hide();
+          }
+        }
+      });
+    }
+    
+});
+// Other section in individual select end //
+
+//##############User active/Inactive Portion start ################//
+  $('#client_user_status').click(function() {
+      var user_id = $(this).data('user_id');
+      var status = $(this).data('status');
+      
+      //alert(status);return false;
+    if(user_id >0 ){
+      if(confirm("Do you want to change the status?")){
+        $.ajax({
+            type: "POST",
+            url: '/update-status',
+            data: { 'user_id' : user_id, 'status' : status },
+            success : function(resp){
+              $('#client_user_status').html(resp);
+            }
+        });
+      }
+
+    }else{
+      alert('This is invalid user');
+    }
+  });
+  //##############User active/Inactive Portion start ################//
+
+  $('#showclientuser').on('ifChecked', function(event){
+    $("#show_other_user_client").show();
+  });
+
+  $('#showclientuser').on('ifUnchecked', function(event){
+    $("#show_other_user_client").hide();
+  });
+
+//############## Change user relation status  in the other Portion start ################//
+  $('.user_client_relation').on('ifChecked', function(event){
+    var related_company_id = $(this).data('related_company_id');
+    $.ajax({
+        type: "POST",
+        url: '/user/update-related-company-status',
+        data: { 'related_company_id' : related_company_id, 'status' : "A" },
+        success : function(resp){
+          //$('#client_user_status').html(resp);
+        }
+    });
+  });
+
+  $('.user_client_relation').on('ifUnchecked', function(event){
+    var related_company_id = $(this).data('related_company_id');
+    $.ajax({
+        type: "POST",
+        url: '/user/update-related-company-status',
+        data: { 'related_company_id' : related_company_id, 'status' : "I" },
+        success : function(resp){
+          //$('#client_user_status').html(resp);
+        }
+    });
+  });
+//############## Change user relation status  in the other Portion end ################//
+
 
 
 });//end of main document ready

@@ -193,9 +193,11 @@
 								<select class="form-control" id="getClientDetails">
 									<option value="">-- Please Select --</option>
 									@if(!empty($relation_list) && count($relation_list) > 0)
-							          @foreach($relation_list as $key=>$list)
-							            <option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
-							          @endforeach
+							          	@foreach($relation_list as $key=>$list)
+											@if(isset($list['status']) && $list['status'] == "A")
+							            		<option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
+											@endif
+										@endforeach
 							        @endif
 								</select>
 							</td>

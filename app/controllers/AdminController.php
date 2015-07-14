@@ -68,50 +68,6 @@ class AdminController extends BaseController {
 		}
 	}
 
-	/*public function signup_process() {
-		//die('sign');
-		if ($this->isPostRequest()) {
-			$postData = Input::all();
-			$messages = array(
-				'fname.required' => 'Please enter your first name',
-				'email.required' => 'Please enter your email/username',
-				'password.required' => 'Please enter your password',
-				'confirmation_password.required' => 'Please enter confirmation password',
-				'confirmation_password.matchpassword' => "confirmation password doesn't match");
-
-			//print_r($messages);die();
-			$rules = array(
-				'fname' => 'required|alpha',
-				'lname' => 'required|alpha',
-				'email' => 'required|email',
-				'password' => 'required',
-				'confirmation_password' => 'required|same:password',
-				'phone' => 'required');
-			$validator = Validator::make($postData, $rules, $messages);
-
-			if ($validator->fails()) {
-				return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
-			} else {
-				$insert_data['first_name'] = $postData['fname'];
-				$insert_data['last_name'] = $postData['lname'];
-				$insert_data['practice_name'] = $postData['practicename'];
-				$insert_data['email_address'] = $postData['email'];
-				$insert_data['password'] = md5($postData['password']);
-				$insert_data['phone'] = $postData['phone'];
-				$insert_data['website'] = $postData['website'];
-				$insert_data['country'] = $postData['country'];
-
-				$last_id = Admin::insertGetId($insert_data);
-				$insert_data['link'] = url()."/admin/activation/".base64_encode($last_id);
-				
-				$this->send_registration($insert_data);
-				Session::flash('message', 'You have successfully registered');
-			}
-
-			return Redirect::to('/admin-signup');
-		}
-	}*/
-
 	private function send_registration($data) {
 		Mail::send('emails.registration', $data, function ($message) use ($data) {
 			$message->from('abel02@icloud.com', 'MPM');
@@ -183,6 +139,7 @@ class AdminController extends BaseController {
 				$arr['lname'] 				= $admin['lname'];
 				$arr['email'] 				= $admin['email'];
 				$arr['user_type'] 			= $admin['user_type'];
+				$arr['status'] 				= $admin['status'];
 				$arr['parent_id'] 			= $admin['parent_id'];
 				$arr['group_id'] 			= Common::getGroupId($admin['user_id']);
 				$arr['group_users'] 		= Common::getUserIdByGroupId($arr['group_id']);

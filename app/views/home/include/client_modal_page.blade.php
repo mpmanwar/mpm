@@ -413,14 +413,15 @@
       <div class="modal-header" style="border-bottom: none;">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3 class="modal-title">Related Organisations</h3>
-
         <div class="clearfix"></div>
       </div>
 
     <div class="modal-body" style="padding-top: 0px;">
-      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
-      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
-      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
+      @if(isset($relation_list) && count($relation_list) >0 )
+        @foreach($relation_list as $key=>$relation_row)
+          <p><input type="checkbox" class="user_client_relation" data-related_company_id="{{ $relation_row['related_company_id'] or "" }}" name="other_related_client[]" checked value="{{ $relation_row['client_id'] or "" }}">&nbsp;<strong>{{ $relation_row['client_name'] or "" }}</strong></p>
+        @endforeach
+      @endif
     </div>
 
   </div>
