@@ -1043,7 +1043,7 @@ $(document).ready(function(){
                     
                    <div class="col-xs-12 col-xs-6">
  <div class="col_m2"> 
- <div class="director_table"> 
+ <div class="other_table"> 
 <h3 class="box-title">OTHERS</h3> 
 
 
@@ -1110,6 +1110,37 @@ $(document).ready(function(){
   </div>
 </div>
 
+<table width="100%" border="0">
+      <tbody><tr>
+        <td width="52%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
+        <td width="48%"><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success">Other Documents</button></td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+</tbody></table>
+<div class="clearfix"></div>
 
 <div class="twobox_1">
 <div class="form-group">
