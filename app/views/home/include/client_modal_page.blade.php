@@ -404,3 +404,28 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- Officers Details Modal End-->
+
+
+<!-- Relationship Client Modal Start-->
+<div class="modal fade" id="relation_client-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:30%;">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Related Organisations</h3>
+
+        <div class="clearfix"></div>
+      </div>
+
+    <div class="modal-body" style="padding-top: 0px;">
+      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
+      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
+      <p><input type="checkbox">&nbsp;<strong>Anwar khan</strong></p>
+    </div>
+
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Relationship Client Modal End-->

@@ -1112,52 +1112,62 @@ $(document).ready(function(){
 <input type="checkbox" name="" value="1" />
 </div>
 
-<div class="twobox">
+<div class="form-group">
+<label for="exampleInputPassword1">Send User Inviattion Via The Add User Page</label>
+</div>
+
+<!-- <div class="twobox">
   <div class="twobox_1">
     <div class="form-group">
     <label for="exampleInputPassword1">Email</label>
     <input type="text" name="" class="form-control" />
     </div>
   </div>
-  <div class="twobox_2" style="margin-top: 23px;">
+  <div class="twobox_2" style="margin-top: 25px;">
     <div class="form-group">
       <label for="exampleInputPassword1"></label>
       <button class="btn btn-info" type="button">Send</button> 
     </div>
   </div>
   <div class="clearfix"></div>
-</div>
+</div> -->
 
 <table width="100%" border="0">
   <tbody><tr>
     <td width="52%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
-    <td width="48%"><span class="btn btn-default btn-file"> Download
-      
-      </span></td>
+    <td width="48%"><span class="btn btn-default btn-file">Download</span></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td><span class="btn btn-default btn-file"> Download
-      
-      </span></td>
+    <td><span class="btn btn-default btn-file"> Download</span></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td><button class="btn btn-success">Other Documents</button></td>
-    <td><span class="btn btn-default btn-file"> Download
-     
-      </span></td>
+    <td><span class="btn btn-default btn-file"> Download</span></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td><span class="btn btn-default btn-file"> Download
-      
-      </span></td>
+    <td><span class="btn btn-default btn-file"> Download</span></td>
     <td>&nbsp;</td>
   </tr>
 </tbody></table>
+
+<table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
+  <tr>
+    <td align="center"><strong>Related Organisations</strong></td>
+    <td align="center"><strong>Status</strong></td>
+    <td align="center"><strong>Action</strong></td>
+  </tr>
+
+  <tr>
+    <td align="center"><a href="#" data-target="#relation_client-modal" data-toggle="modal">View</a></td>
+    <td align="center"><a href="javascript:void(0)" data-client_id="" class="">Active</a></td>
+    <td align="center"><a href="javascript:void(0)" data-client_id="" class=""><img src="/img/cross.png" height="15"></a></td>
+  </tr>
+</table>
 
 
 <div class="twobox_1">
