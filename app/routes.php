@@ -64,6 +64,8 @@ Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "us
 Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
 Route::any('/update-status', array("as"=>"update_status", "uses"=>'UserController@update_status'));
 Route::any('/user/get-relation-client/{id}', array("as"=>"get_relation_client", "uses"=>'UserController@get_relation_client'));
+Route::any('/user/delete-user-client', array("as"=>"delete_user_client", "uses"=>'UserController@delete_user_client'));
+Route::any('/user/update-related-company-status', array("as"=>"update_related_company_status", "uses"=>'UserController@update_related_company_status'));
 ### Routes for user related URL's end ###
 
 

@@ -83,7 +83,20 @@
 							Deadlines Due in : 60 days <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
 						</strong>
 					</div>
-					<div class="col-xs-3">
+
+					<div class="col-xs-2" style="padding-left:20px;">
+						<strong style="font-size: 16px;">
+							Share Reminders <a href="#" class="edit_icon"><img alt="" src="img/edit_icon.png"></a>
+						</strong>
+					</div>
+
+					<div class="col-xs-2" style="padding:0;">
+						<strong style="font-size: 16px;">
+							Stop Reminders <input type="checkbox">
+						</strong>
+					</div>
+
+					<div class="col-xs-6">
 						<div class="next_prev_btn">
 							<ul>
 								<li>
@@ -180,9 +193,11 @@
 								<select class="form-control" id="getClientDetails">
 									<option value="">-- Please Select --</option>
 									@if(!empty($relation_list) && count($relation_list) > 0)
-							          @foreach($relation_list as $key=>$list)
-							            <option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
-							          @endforeach
+							          	@foreach($relation_list as $key=>$list)
+											@if(isset($list['status']) && $list['status'] == "A")
+							            		<option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
+											@endif
+										@endforeach
 							        @endif
 								</select>
 							</td>

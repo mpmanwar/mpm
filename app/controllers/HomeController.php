@@ -10,11 +10,14 @@ class HomeController extends BaseController {
 	}
 
 	public function dashboard() {
-		$admin_s = Session::get('admin_details'); // session
-		$user_id = $admin_s['id']; //session user id
-		//print_r($admin_s);die;
-		if (!isset($user_id) && $user_id == "") {
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$user_type = $admin_s['user_type'];
+		
+		if(!isset($user_id) && $user_id == ""){
 			return Redirect::to('/');
+		}else if(isset($user_type) && $user_type == "C"){
+			return Redirect::to('/invitedclient-dashboard');
 		}
 
 		$data['heading'] = "DASHBOARD";

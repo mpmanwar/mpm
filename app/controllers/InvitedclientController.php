@@ -4,40 +4,43 @@ class InvitedclientController extends BaseController {
 
 	
 	public function Invitedclient_dashboard() {
-	   //die('Inviteddashboard');
-		$session = Session::get('admin_details');
-		$user_id = $session['id'];
-		//print_r($admin_s);die;
-		if (!isset($user_id) && $user_id == "") {
+	    $session 	= Session::get('admin_details');
+		$user_id 	= $session['id'];
+		$user_type 	= $session['user_type'];
+		if(!isset($user_id) && $user_id == ""){
 			return Redirect::to('/');
+		}else if(isset($user_type) && $user_type != "C"){
+			return Redirect::to('/dashboard');
 		}
-		//print_r(unserialize($session['related_company_id']));die;
 
 		$data['heading'] 		= "";
-		$data['title'] 			= "Invited Client";
+		$data['title'] 			= "Client Portal";
 		$data['client_id'] 		= $session['client_id'];
 		$value = $data['client_id']."="."function";
 		//$data['relation_list'] 	= App::make("UserController")->get_relation_client($value);
-		$clients = unserialize($session['related_company_id']);
-		$data['relation_list'] 	= $this->all_relation_client_details($clients);
+		$data['relation_list'] 	= $this->all_relation_client_details($user_id);
 		return View::make('Invitedclient.Invitedclient', $data);
 	}
 
-	function all_relation_client_details($clients)
+	function all_relation_client_details($user_id)
 	{
+
 		$details = array();
-		if( isset($clients) && count($clients) >0 )
+		if( isset($user_id) && $user_id != "" )
 		{
-			$clients = DB::table('clients as c')->whereIn("c.client_id", $clients)
+			$clients = DB::table('user_related_companies as urc')->where("urc.user_id", $user_id)
+			->join('clients as c', 'c.client_id', "=", 'urc.client_id')
         	->join('steps_fields_clients as sfc', 'sfc.client_id', '=', 'c.client_id')
         	->where('sfc.field_name', '=', 'business_name')
         	->where("c.type", "=", "org")
-        	->select('c.client_id', 'sfc.field_value as client_name')->get();
+        	->select('c.client_id', 'sfc.field_value as client_name', 'urc.related_company_id', 'urc.status')->get();
         	//echo $this->last_query();die;
         	if( isset($clients) && count($clients) >0 ){
 	        	foreach ($clients as $key => $value) {
-	        		$details[$key]['client_id'] 	= $value->client_id;
-	        		$details[$key]['client_name'] 	= $value->client_name;
+	        		$details[$key]['related_company_id'] 	= $value->related_company_id;
+	        		$details[$key]['client_id'] 			= $value->client_id;
+	        		$details[$key]['client_name'] 			= $value->client_name;
+	        		$details[$key]['status'] 				= $value->status;
 	        	}
 	        	
 	        }
@@ -63,11 +66,7 @@ class InvitedclientController extends BaseController {
              
             }
        $data['b_name']= $data1;
-       //echo "<pre>";print_r ( $data['b_name']);
-        //$data['b_name']=array('0'=>'hello','1'=>'good');
-        //$data['steps'] 				= Step::where("status", "=", "old")->orderBy("step_id")->get();
-        //echo $client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind'));
-       //echo "<pre>"; print_r($data);die();
+       
        $data['rel_types'] 	= RelationshipType::where("show_status", "=", "individual")->orderBy("relation_type_id")->get();
 
         $data['titles'] 		= Title::orderBy("title_id")->get();
@@ -283,9 +282,6 @@ class InvitedclientController extends BaseController {
     
     
     public function relationship(){
-        
-        //die('invitedclient-relationship');
-        
         
         $admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];

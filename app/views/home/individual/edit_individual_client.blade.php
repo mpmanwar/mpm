@@ -1107,6 +1107,64 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+<div class="form-group">
+  <p class="custom_chk">
+    <label for="showclientuser">Invite to Client Portal</label>
+    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" {{ (isset($user_id) && $user_id != "")?"":"disabled" }} />
+  </p>
+</div>
+
+
+@if(isset($user_type) && $user_type == "C")
+<div id="show_other_user_client" style="display:none">
+  <div class="form-group">
+    <label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
+  </div>
+
+  <table width="100%" class="table table-bordered table-hover dataTable" id="myOtherTable">
+  <tr>
+    <td align="center"><strong>Related Organisations</strong></td>
+    <td align="center"><strong>Status</strong></td>
+    <td align="center"><strong>Action</strong></td>
+  </tr>
+
+  <tr id="other_action_tr">
+    <td align="center"><a href="#" data-target="#relation_client-modal" data-toggle="modal">View</a></td>
+    <td align="center"><a href="javascript:void(0)" data-user_id="{{ $user_id or "" }}" data-client_id="{{ $client_id or "" }}" class="active_t" data-status="A" id="client_user_status">Active</a></td>
+    <td align="center"><a href="javascript:void(0)" data-user_id="{{ $user_id or "" }}" data-client_id="{{ $client_id or "" }}" class="delete_invited_client"><img src="/img/cross.png" height="15"></a></td>
+  </tr>
+  </table>
+</div>
+
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="52%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
+      <td width="48%"><span class="btn btn-default btn-file">Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="52%"><button class="btn btn-success" style="width:96%; text-align: left;">Other Documents</button></td>
+      <td width="48%"><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><span class="btn btn-default btn-file"> Download</span></td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+@else
+
+@endif
+
+
 
 <div class="twobox_1">
 <div class="form-group">

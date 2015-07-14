@@ -35,7 +35,7 @@ class UserController extends BaseController {
 			//print_r($parentId);die;
 			$groupId = array_merge($parentId,$childId);*/
 						
-			$data['user_lists']	= User::whereIn("user_id", $groupUserId)->get();
+			$data['user_lists']	= User::whereIn("user_id", $groupUserId)->where("user_type", "!=", "C")->get();
 			//echo $this->last_query();die;
 
 			if(isset($data['user_lists']) && count($data['user_lists']) > 0){
@@ -169,12 +169,24 @@ class UserController extends BaseController {
 			}else{
 				$usr_data['email'] 				= $postData['client_email'];
 				$usr_data['client_id'] 			= $postData['client_id'];
-				if(isset($postData['related_client']) && count($postData['related_client']) > 0){
-					$usr_data['related_company_id'] = serialize($postData['related_client']);
-				}
 			}
 
 			$usr_id = User::insertGetId($usr_data);
+
+			if(isset($postData['related_client']) && count($postData['related_client']) > 0){
+				$relatedData = array();
+				foreach ($postData['related_client'] as $row) {
+					$relatedData[] = array(
+						'user_id' 		=> $usr_id,
+						'client_id' 	=> $row,
+						'status' 		=> "A"
+					);
+				}
+				UserRelatedCompany::insert($relatedData);
+			}
+
+
+
 			$usr_data['user_id'] 	= $usr_id;
 			$usr_data['link'] = url()."/user/create-password/".base64_encode($usr_id);
 			if ($postData['user_type'] == "C") {
@@ -484,6 +496,32 @@ class UserController extends BaseController {
 			return $relation_client;
 			exit;
 		}
+	}
+
+	public function delete_user_client()
+	{
+		$client_id 	= Input::get('client_id');
+		$user_id 	= Input::get('user_id');
+		$qry = User::where('user_id', "=", $user_id)->delete();
+		if($qry){
+			echo 1;
+		}else{
+			echo 0;
+		}
+		exit;
+	}
+
+	public function update_related_company_status()
+	{
+		$related_company_id 	= Input::get('related_company_id');
+		$data['status'] 		= Input::get('status');
+		$qry = UserRelatedCompany::where('related_company_id', "=", $related_company_id)->update($data);
+		if($qry){
+			echo 1;
+		}else{
+			echo 0;
+		}
+		exit;
 	}
 
 }

@@ -7,14 +7,15 @@ class ClientController extends BaseController {
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] 	= $session['user_type'];
+        $data['client_id'] 	= $client_id;
         $groupUserId 		= $session['group_users'];
 
         if($data['user_type'] != "C"){
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/individual-clients">Individual Client List</a>';
         }else{
-        	$data['title'] 		= "Manage User";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        	$data['title'] 		= "Edit User";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
         }
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -78,7 +79,20 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
 
-		//print_r($data['relationship']);die;
+		/* ############# client exists / not in the user table section start ############### */
+		$users = User::where("client_id", "=", $client_id)->select("user_id", "user_type")->first();
+		$data['user_id'] = "";
+		$data['relation_list'] = array();
+		if( isset($users) && count($users) >0 ){
+			$data['user_id'] = $users['user_id'];
+
+			if(isset($users['user_type']) && $users['user_type'] == "C"){
+				$data['relation_list'] 	= App::make("InvitedclientController")->all_relation_client_details($users['user_id']);
+			}
+		}
+		/* ############# client exists / not in the user table section end ############### */
+
+		//print_r($data['relation_list']);die;
 		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);
@@ -96,8 +110,8 @@ class ClientController extends BaseController {
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/organisation-clients">Organisation Client List</a>';
         }else{
-        	$data['title'] 		= "Manage User";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Staff Management</a>';
+        	$data['title'] 		= "Edit Client";
+        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
         }
 
 		if (empty($user_id)) {

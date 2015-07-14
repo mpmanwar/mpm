@@ -1043,7 +1043,7 @@ $(document).ready(function(){
                     
                    <div class="col-xs-12 col-xs-6">
  <div class="col_m2"> 
- <div class="director_table"> 
+ <div class="other_table"> 
 <h3 class="box-title">OTHERS</h3> 
 
 
@@ -1072,6 +1072,75 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+<div class="other_mid">
+  <div class="other_left_sec">
+    <div class="download_pdf">
+    <button class="btn download_icon"></button>
+    
+    </div>
+    <div class="select_business">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Select Business Name</label>
+        <select class="form-control">
+          <option>Monobrata</option>
+          <option>R Sharma</option>
+          <option>Company</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="other_right_sec">
+    <p class="select_t">Select Service</p>
+    <table width="100%" class="table table-bordered">
+      <tbody><tr>
+        <td><strong>Name</strong></td>
+        <td align="center"><strong>SA/NI</strong></td>
+        <td align="center"><strong>TC</strong></td>
+        <td align="center"><strong>CT</strong></td>
+        <td align="center"><strong>PAYE</strong></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+      </tr>
+    </tbody></table>
+  </div>
+</div>
+
+<table width="100%" border="0">
+      <tbody><tr>
+        <td width="52%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
+        <td width="48%"><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success">Other Documents</button></td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file">
+          </span></td>
+        <td>&nbsp;</td>
+      </tr>
+</tbody></table>
+<div class="clearfix"></div>
 
 <div class="twobox_1">
 <div class="form-group">
