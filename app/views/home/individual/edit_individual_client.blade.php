@@ -1078,7 +1078,7 @@ $(document).ready(function(){
                     
                    <div class="col-xs-12 col-xs-6">
  <div class="col_m2"> 
- <div class="director_table"> 
+ <div class="other_table"> 
 <h3 class="box-title">OTHERS</h3> 
 
 
@@ -1107,6 +1107,8 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 </div>
 
+
+@if(isset($user_type) && $user_type != "C")
 <div class="form-group">
   <p class="custom_chk">
     <label for="showclientuser">Invite to Client Portal</label>
@@ -1115,7 +1117,6 @@ $(document).ready(function(){
 </div>
 
 
-@if(isset($user_type) && $user_type == "C")
 <div id="show_other_user_client" style="display:none">
   <div class="form-group">
     <label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
@@ -1139,29 +1140,160 @@ $(document).ready(function(){
 <table width="100%" border="0">
   <tbody>
     <tr>
-      <td width="52%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
-      <td width="48%"><span class="btn btn-default btn-file">Download</span></td>
+      <td width="45%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
+      
+      @if(isset($files['passport1']) && $files['passport1'] != "")
+      <td width="22%">
+        <span class="btn btn-default btn-file"><a href="/uploads/passports/{{ $files['passport1'] }}" download="{{ $files['passport1'] }}">Download</a></span>
+      </td>
+      <td>{{ $files['passport1'] }}</td>
+      @else
+        <td width="22%">
+          <span class="btn btn-default btn-file">Download</span>
+        </td>
+        <td>&nbsp;</td>
+      @endif
+        
+      </td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><span class="btn btn-default btn-file"> Download</span></td>
-      <td>&nbsp;</td>
+      @if(isset($files['passport2']) && $files['passport2'] != "")
+      <td>
+        <span class="btn btn-default btn-file"><a href="/uploads/passports/{{ $files['passport2'] }}" download="{{ $files['passport2'] }}">Download</a></span>
+      </td>
+      <td>{{ $files['passport2'] }}</td>
+      @else
+        <td>
+          <span class="btn btn-default btn-file">Download</span>
+        </td>
+        <td>&nbsp;</td>
+      @endif
+      
     </tr>
     <tr>
-      <td width="52%"><button class="btn btn-success" style="width:96%; text-align: left;">Other Documents</button></td>
-      <td width="48%"><span class="btn btn-default btn-file"> Download</span></td>
-      <td>&nbsp;</td>
+      <td><button class="btn btn-success">Other Documents</button></td>
+      @if(isset($files['document1']) && $files['document1'] != "")
+        <td>
+          <span class="btn btn-default btn-file"><a href="/uploads/documents/{{ $files['document1'] }}" download="{{ $files['document1'] }}">Download</a></span>
+        </td>
+        <td>{{ $files['document1'] }}</td>
+      @else
+        <td>
+          <span class="btn btn-default btn-file">Download</span>
+        </td>
+        <td>&nbsp;</td>
+      @endif
+      
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><span class="btn btn-default btn-file"> Download</span></td>
+      @if(isset($files['document2']) && $files['document2'] != "")
+        <td>
+          <span class="btn btn-default btn-file"><a href="/uploads/documents/{{ $files['document2'] }}" download="{{ $files['document2'] }}">Download</a></span>
+        </td>
+        <td>{{ $files['document2'] }}</td>
+      @else
+        <td>
+          <span class="btn btn-default btn-file">Download</span>
+        </td>
+        <td>&nbsp;</td>
+      @endif
+      
       <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
 @else
+<div class="other_mid">
+  <div class="other_left_sec">
+    <div class="download_pdf">
+    <button class="btn download_icon"></button>
+    
+    </div>
+    <div class="select_business">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Select Business Name</label>
+        <select class="form-control">
+          <option value="">-- Please Select --</option>
+          @if(isset($relation_list) && count($relation_list) >0 )
+            @foreach($relation_list as $key=>$relation_row)
+              <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
+            @endforeach
+          @endif
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="other_right_sec">
+    <p class="select_t">Select Service</p>
+    <table width="100%" class="table table-bordered">
+      <tbody><tr>
+        <td><strong>Name</strong></td>
+        <td align="center"><strong>SA/NI</strong></td>
+        <td align="center"><strong>TC</strong></td>
+        <td align="center"><strong>CT</strong></td>
+        <td align="center"><strong>PAYE</strong></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+        <td align="center"><input type="checkbox"></td>
+      </tr>
+    </tbody></table>
+  </div>
+</div>
 
+<table width="100%" border="0">
+      <tbody><tr>
+        <td width="45%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
+        <td width="22%"><span class="btn btn-default btn-file"> Browse
+          <input type="file" name="passport1">
+          </span></td>
+        <td id="apassport1">
+          @if(isset($files['passport1']) && $files['passport1'] != "")
+          {{ $files['passport1'] }} <a href="javascript:void(0)" data-id="{{ $files['client_file_id'] }}" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+          @endif
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file" name="passport2">
+          </span></td>
+        <td id="apassport2">
+          @if(isset($files['passport2']) && $files['passport2'] != "")
+            {{ $files['passport2'] }} <a href="javascript:void(0)" data-id="{{ $files['client_file_id'] }}" data-column="passport2" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+          @endif
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success">Other Documents</button></td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file" name="document1">
+          </span></td>
+        <td id="adocument1">
+          @if(isset($files['document1']) && $files['document1'] != "")
+            {{ $files['document1'] }} <a href="javascript:void(0)" data-id="{{ $files['client_file_id'] }}" data-column="document1" data-path="uploads/documents/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+          @endif
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><span class="btn btn-default btn-file"> Browse
+          <input type="file" name="document2">
+          </span></td>
+        <td id="adocument2">
+          @if(isset($files['document2']) && $files['document2'] != "")
+            {{ $files['document2'] }} <a href="javascript:void(0)" data-id="{{ $files['client_file_id'] }}" data-column="document2" data-path="uploads/documents/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+          @endif
+        </td>
+      </tr>
+</tbody></table>
+<div class="clearfix"></div>
 @endif
 
 

@@ -801,6 +801,67 @@ class HomeController extends BaseController {
 		}
 		//################## USER ADDED FIELD END ###############//
 
+
+		// ################# File upload in the other section start ############### //
+		$file_details = ClientFile::where('client_id', "=", $client_id)->first();
+		if(isset($file_details) && count($file_details) >0){
+			$client_file_id = $file_details['client_file_id'];
+		}else{
+			$file_data['client_id'] = $client_id;
+			$client_file_id = ClientFile::insertGetId($file_data);
+		}
+		for($i=1; $i <=2; $i++){
+		//$i = 1;
+			if (Input::hasFile('passport'.$i)) {
+				$file = Input::file('passport'.$i);
+				$destinationPath = "uploads/passports/";
+				$fileName = Input::file('passport'.$i)->getClientOriginalName();
+				//$fileName = $fileName;
+				$result = Input::file('passport'.$i)->move($destinationPath, $fileName);
+
+				$file_data['passport'.$i] = $fileName;
+				ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
+
+				### delete the previous image if exists ###
+				if(isset($file_details['passport'.$i]) && $file_details['passport'.$i] != ""){
+					$prevPath = "uploads/passports/".$file_details['passport'.$i];
+					if (file_exists($prevPath)) {
+						unlink($prevPath);
+					}
+				}
+				
+				### delete the previous image if exists ###
+
+			}
+		}
+
+		for($i=1; $i <=2; $i++){
+		//$i = 1;
+			if (Input::hasFile('document'.$i)) {
+				$file = Input::file('document'.$i);
+				$destinationPath = "uploads/documents/";
+				$fileName = Input::file('document'.$i)->getClientOriginalName();
+				//$fileName = $fileName;
+				$result = Input::file('document'.$i)->move($destinationPath, $fileName);
+
+				$file_data['document'.$i] = $fileName;
+				ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
+
+				### delete the previous image if exists ###
+				if(isset($file_details['document'.$i]) && $file_details['document'.$i] != ""){
+					$prevPath = "uploads/documents/".$file_details['document'.$i];
+					if (file_exists($prevPath)) {
+						unlink($prevPath);
+					}
+				}
+				
+				### delete the previous image if exists ###
+
+			}
+		}
+		
+		// ################# File upload in the other section end ############### //
+
 		//print_r($arrData);die;
 		StepsFieldsClient::insert($arrData);
 
@@ -1690,8 +1751,8 @@ if(isset($field_added) && count($field_added) > 0){
     			$text = $value->client_id."="."function";
     			$details = App::make('ClientController')->client_details_by_client_id($text);
     			//print_r($details);die;
-    			$data[$key]['fname'] 	= $details['client_details']['fname'];
-    			$data[$key]['lname'] 	= $details['client_details']['lname'];
+    			$data[$key]['fname'] 	= isset($details['client_details']['fname'])?$details['client_details']['fname']:"";
+    			$data[$key]['lname'] 	= isset($details['client_details']['lname'])?$details['client_details']['lname']:"";
     		}else{
     			$data[$key]['fname'] 	= $value->fname;
     			$data[$key]['lname'] 	= $value->lname;
