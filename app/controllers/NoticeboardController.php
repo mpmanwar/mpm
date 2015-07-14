@@ -445,7 +445,7 @@ class NoticeboardController extends BaseController
         
         if (isset($postData['edit_message']) && !empty($postData['edit_message'])) {
                 
-                 $tmpl_data['message'] = $postData['edit_message'];
+                 $tmpl_data['message'] = $postData['edit_message'];                
             }
         
         

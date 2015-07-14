@@ -375,7 +375,7 @@
                 <!-- /.tab-pane -->
 								<div id="step3" class="tab-pane show_div">
 								
-                                	<div class="box-body table-responsive">
+                              <!--  	<div class="box-body table-responsive">
 										<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
 											<div class="row">
 												<div class="col-xs-6">
@@ -533,7 +533,7 @@
 																Next
 															</button>
 														</div>
-													<!--	{{ Form :: close() }} -->
+													{{ Form :: close() }} 
 														<div class="clearfix">
 														</div>
 													</div>
@@ -542,7 +542,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 <div id="step4" class="tab-pane show_div">
 
