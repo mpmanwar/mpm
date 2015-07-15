@@ -1114,7 +1114,7 @@ $(document).ready(function(){
 <div class="form-group">
   <p class="custom_chk">
     <label for="showclientuser">Invite to Client Portal</label>
-    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" {{ (isset($user_id) && $user_id != "")?"":"disabled" }} />
+    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} />
   </p>
 </div>
 
@@ -1229,30 +1229,23 @@ $(document).ready(function(){
 <strong>Download form 64-8(Agent Authorisation)</strong>
 </div>
 
-<div class="other_mid">
-  <div class="other_left_sec">
-    <div class="download_pdf">
-    <button class="btn download_icon"></button>
-    
-    </div>
-    <div class="select_business">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Select Business Name</label>
-        <select class="form-control">
-          <!-- <option value="">-- Please Select --</option> -->
-          @if(isset($relation_list) && count($relation_list) >0 )
-            @foreach($relation_list as $key=>$relation_row)
-              @if(isset($relation_row['status']) && $relation_row['status'] == "I" )
-                <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
-              @endif
-            @endforeach
-          @endif
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="clearfix"></div>
+<div class="twobox_1">
+<div class="form-group">
+  <label for="exampleInputPassword1">Select Business Name</label>
+  <select class="form-control">
+    <!-- <option value="">-- Please Select --</option> -->
+    @if(isset($relation_list) && count($relation_list) >0 )
+      @foreach($relation_list as $key=>$relation_row)
+        @if(isset($relation_row['status']) && $relation_row['status'] == "I" )
+          <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
+        @endif
+      @endforeach
+    @endif
+  </select>
 </div>
+</div>
+
+
 
 <div class="form-group">
   <div class="other_left_sec">
@@ -1277,6 +1270,14 @@ $(document).ready(function(){
   <div class="clearfix"></div>
 </div>
 
+<div class="form-group">
+  <div class="download_pdf">
+    <button class="btn download_icon"></button>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
 <table width="100%" border="0">
       <tbody><tr>
         <td width="45%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
@@ -1324,6 +1325,7 @@ $(document).ready(function(){
       </tr>
 </tbody></table>
 <div class="clearfix"></div>
+</div>
 @endif
 
 
