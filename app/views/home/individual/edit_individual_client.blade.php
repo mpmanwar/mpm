@@ -1083,6 +1083,8 @@ $(document).ready(function(){
 
 
 <div class="twobox">
+
+@if(isset($user_type) && $user_type != "C")
 <div class="twobox_01">
 <div class="form-group">
 <label for="exampleInputPassword1">AML Checks Done</label>
@@ -1096,7 +1098,7 @@ $(document).ready(function(){
 <input type="checkbox" name="acting" value="1" {{ (isset($client_details['acting']) && $client_details['acting'] == "1")?"checked":"" }} />
 </div>
 </div>
-
+@endif
 <div class="twobox_03">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Return Required</label>
@@ -1205,7 +1207,28 @@ $(document).ready(function(){
     </tr>
   </tbody>
 </table>
+
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Responsible Staff</label>
+<select class="form-control" name="resp_staff" id="resp_staff">
+  <option value="">None</option>
+  @if(!empty($responsible_staff))
+    @foreach($responsible_staff as $key=>$staff_row)
+      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+    @endforeach
+  @endif
+
+</select>
+</div>
+</div>
+
 @else
+
+<div class="form-group">
+<strong>Download form 64-8(Agent Authorisation)</strong>
+</div>
+
 <div class="other_mid">
   <div class="other_left_sec">
     <div class="download_pdf">
@@ -1216,17 +1239,23 @@ $(document).ready(function(){
       <div class="form-group">
         <label for="exampleInputPassword1">Select Business Name</label>
         <select class="form-control">
-          <option value="">-- Please Select --</option>
+          <!-- <option value="">-- Please Select --</option> -->
           @if(isset($relation_list) && count($relation_list) >0 )
             @foreach($relation_list as $key=>$relation_row)
-              <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
+              @if(isset($relation_row['status']) && $relation_row['status'] == "I" )
+                <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
+              @endif
             @endforeach
           @endif
         </select>
       </div>
     </div>
   </div>
-  <div class="other_right_sec">
+  <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+  <div class="other_left_sec">
     <p class="select_t">Select Service</p>
     <table width="100%" class="table table-bordered">
       <tbody><tr>
@@ -1245,6 +1274,7 @@ $(document).ready(function(){
       </tr>
     </tbody></table>
   </div>
+  <div class="clearfix"></div>
 </div>
 
 <table width="100%" border="0">
@@ -1298,20 +1328,7 @@ $(document).ready(function(){
 
 
 
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">Responsible Staff</label>
-<select class="form-control" name="resp_staff" id="resp_staff">
-  <option value="">None</option>
-  @if(!empty($responsible_staff))
-    @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
-    @endforeach
-  @endif
 
-</select>
-</div>
-</div>
 <div class="clearfix"></div>
 
 </div>
