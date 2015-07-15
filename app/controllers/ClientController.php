@@ -130,7 +130,7 @@ class ClientController extends BaseController {
 		$data['titles'] 		= Title::orderBy("title_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
-		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
 

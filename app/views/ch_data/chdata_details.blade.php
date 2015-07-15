@@ -180,7 +180,7 @@
               @if(!isset($field_row->resigned_on))
               <tr><!-- link_color get_officers-->
                 <td align="left"><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="officer_link get_officers">{{ ucwords($field_row->name) }}</a></td>
-                <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td>
+                <td align="left">{{ isset($field_row->appointed_on)?date("d F Y", strtotime($field_row->appointed_on)):"" }}</td>
                 <td align="left">{{ ucwords(str_replace("-", " ", $field_row->officer_role)) }}</td>
               </tr>
               @endif
@@ -307,7 +307,7 @@
 
           <tr>
             <td align="left" width="50%">Practitioner <br> <strong>{{ ucwords($insolv_row->practitioners[0]->name) }}</strong></td>
-            <td align="left">Appointed on <br> <strong>{{ date("d F Y", strtotime($insolv_row->practitioners[0]->appointed_on)) }}</strong></td>
+            <td align="left">Appointed on <br> <strong>{{ isset($insolv_row->practitioners[0]->appointed_on)?date("d F Y", strtotime($insolv_row->practitioners[0]->appointed_on)):"" }}</strong></td>
           </tr>
 
           <tr>

@@ -427,6 +427,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 #myRelTable{ margin-bottom: 10px!important;}
 #myActTable{ margin-bottom: 10px!important;}
 .officer_table tr td{ padding-left: 5px;}
+#myServTable select{ margin-bottom: 10px; cursor: pointer;}
 
 
 /* Select box design in organisation page start */
