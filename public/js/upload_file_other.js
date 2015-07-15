@@ -4,22 +4,22 @@ $(document).ready(function (e) {
 	$(function() {
 		$(".upload_file").change(function() {
 			var div_id = $(this).attr("id");
-			//$("#error_image_type").empty(); // To remove the previous error message
-			var file = this.files[0];console.log(file);
+			
+			var file = this.files[0];
 			var imagefile = file.type;
-			var match= ["image/jpeg","image/png","image/jpg"];
+			/*var match= ["image/jpeg","image/png","image/jpg"];
 			if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
 			{
 				alert("Please Select A valid Image File. Only jpeg, jpg and png Images type allowed");
 				return false;
 			}
 			else
-			{
+			{*/
 				var reader = new FileReader();
 				//reader.onload = imageIsLoaded;
 				reader.readAsDataURL(this.files[0]);
 				saveToDataBase(this.files[0], div_id);
-			}
+			//}
 		});
 	});
 	
