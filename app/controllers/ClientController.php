@@ -1010,13 +1010,13 @@ class ClientController extends BaseController {
 
 	public function delete_files()
 	{
-		$client_file_id = Input::get('client_file_id');
+		$client_id = Input::get('client_id');
 		$column 		= Input::get('column');
 		$path 			= Input::get('path');
-		$file_name = ClientFile::where('client_file_id', "=", $client_file_id)->select($column)->first();
+		$file_name = ClientFile::where('client_id', "=", $client_id)->select($column)->first();
 
 		$data[$column] 	= "";
-		$sql = ClientFile::where('client_file_id', "=", $client_file_id)->update($data);
+		$sql = ClientFile::where('client_id', "=", $client_id)->update($data);
 		if($sql){
 			if(isset($file_name[$column]) && $file_name[$column] != ""){
 				$prevPath = $path.$file_name[$column];

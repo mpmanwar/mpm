@@ -1602,16 +1602,16 @@ $(".delete_invited_client").click(function(){
 $("#other_upload_table").on("click", ".delete_files", function(){
   //$('.delete_files').click(function() {
     var column = $(this).data('column');
-    var client_file_id = $(this).data('id');
+    var client_id = $("#client_id").val();
     var path = $(this).data('path');
       
       //alert(status);return false;
-    if(client_file_id >0 ){
+    if(client_id >0 ){
       if(confirm("Do you want to delete the file?")){
         $.ajax({
             type: "POST",
             url: '/client/delete-files',
-            data: { 'column' : column, 'client_file_id' : client_file_id, 'path' : path },
+            data: { 'column' : column, 'client_id' : client_id, 'path' : path },
             success : function(resp){
               $('#a'+column).hide();
             }
