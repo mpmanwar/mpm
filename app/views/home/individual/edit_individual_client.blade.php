@@ -9,6 +9,7 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -1229,7 +1230,7 @@ $(document).ready(function(){
 <strong>Download form 64-8(Agent Authorisation)</strong>
 </div>
 
-<div class="twobox_1">
+<div class="twobox_03">
 <div class="form-group">
   <label for="exampleInputPassword1">Select Business Name</label>
   <select class="form-control">
@@ -1249,8 +1250,8 @@ $(document).ready(function(){
 
 <div class="form-group">
   <div class="other_left_sec">
-    <p class="select_t">Select Service</p>
-    <table width="100%" class="table table-bordered">
+    <label for="exampleInputPassword1">Select Service</label>
+    <table width="100%" class="table table-bordered" style="margin-bottom: 0px;">
       <tbody><tr>
         <td><strong>Name</strong></td>
         <td align="center"><strong>SA/NI</strong></td>
@@ -1278,11 +1279,11 @@ $(document).ready(function(){
 </div>
 
 <div class="form-group">
-<table width="100%" border="0">
+<table width="100%" border="0" id="other_upload_table">
       <tbody><tr>
         <td width="45%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
         <td width="22%"><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="passport1">
+          <input type="file" class="upload_file" name="passport1"  id="passport1">
           </span></td>
         <td id="apassport1">
           @if(isset($files['passport1']) && $files['passport1'] != "")
@@ -1293,7 +1294,7 @@ $(document).ready(function(){
       <tr>
         <td>&nbsp;</td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="passport2">
+          <input type="file" class="upload_file" name="passport2" id="passport2">
           </span></td>
         <td id="apassport2">
           @if(isset($files['passport2']) && $files['passport2'] != "")
@@ -1304,7 +1305,7 @@ $(document).ready(function(){
       <tr>
         <td><button class="btn btn-success">Other Documents</button></td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="document1">
+          <input type="file" class="upload_file" name="document1" id="document1">
           </span></td>
         <td id="adocument1">
           @if(isset($files['document1']) && $files['document1'] != "")
@@ -1315,7 +1316,7 @@ $(document).ready(function(){
       <tr>
         <td>&nbsp;</td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="document2">
+          <input type="file" class="upload_file" name="document2" id="document2">
           </span></td>
         <td id="adocument2">
           @if(isset($files['document2']) && $files['document2'] != "")

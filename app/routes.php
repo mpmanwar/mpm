@@ -138,6 +138,7 @@ Route::any('/client/save-officers-into-relation', array("as"=>"save_officers_int
 Route::any('/client/get-officers-client', array("as"=>"get_officers_client", "uses"=>'ClientController@get_officers_client'));
 Route::any('/client/client-details-by-client_id/{client_id}', array("as"=>"client_details_by_client_id", "uses"=>'ClientController@client_details_by_client_id'));
 Route::any('/client/delete-files', array("as"=>"delete_files", "uses"=>'ClientController@delete_files'));
+Route::any('/client/upload-other-files', array("as"=>"upload_other_files", "uses"=>'ClientController@upload_other_files'));
 
 ### Routes for Client URL's end ###
 

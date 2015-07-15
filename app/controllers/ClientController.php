@@ -1028,6 +1028,16 @@ class ClientController extends BaseController {
 		echo $sql;
 	}
 
+	public function upload_other_files()
+	{
+		$column 		= Input::get('column');
+		$client_id 		= Input::get('client_id');
+		$data[$column] 	= Input::get('file_name');
+		$sql = ClientFile::where('client_id', "=", $client_id)->update($data);
+		$file_details = ClientFile::where('client_id', "=", $client_id)->select('client_file_id')->first();
+		echo $file_details['client_file_id'];
+	}
+
 
 
 

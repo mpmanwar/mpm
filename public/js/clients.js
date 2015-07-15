@@ -1599,10 +1599,11 @@ $(".delete_invited_client").click(function(){
 //############## Change user relation status  in the other Portion end ################//
 
 //##############User active/Inactive Portion start ################//
-  $('.delete_files').click(function() {
-      var column = $(this).data('column');
-      var client_file_id = $(this).data('id');
-      var path = $(this).data('path');
+$("#other_upload_table").on("click", ".delete_files", function(){
+  //$('.delete_files').click(function() {
+    var column = $(this).data('column');
+    var client_file_id = $(this).data('id');
+    var path = $(this).data('path');
       
       //alert(status);return false;
     if(client_file_id >0 ){

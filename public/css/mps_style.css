@@ -563,7 +563,7 @@ only screen and (min-device-width: 360x) and (max-device-width: 640px){
 
 .other_right_sec{float:right;}
 
-.download_icon{background:url(../img/download_icon.png) no-repeat; width:120px; height:30px;}
+.download_icon{background:url(../img/download_icon.png) no-repeat; width:152px; height:30px;}
 .download_pdf{float:left; margin:1px 15px 0 0;}
 
 .select_business{width:58%; float: left; margin-top: -23px}
