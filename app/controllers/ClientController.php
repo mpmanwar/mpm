@@ -189,6 +189,16 @@ class ClientController extends BaseController {
 
         if (isset($client_details) && count($client_details) > 0) {
 			foreach ($client_details as $client_row) {
+				if(isset($client_row->field_name) && $client_row->field_name == "business_name"){
+					$value = explode(" ", $client_row->field_value);
+					$initial_badge = "";
+					for($i=0; $i<count($value);$i++){
+						if(strtolower($value[$i]) != "limited" && strtolower($value[$i]) != "ltd"){
+							$initial_badge.= ucwords(substr(trim($value[$i]), 0, 1));
+						}
+					}
+					$client_data['initial_badge'] = $initial_badge;
+				}
 				$client_data[$client_row['field_name']] = $client_row->field_value;
 			}
 		}
@@ -199,7 +209,7 @@ class ClientController extends BaseController {
        
        	$data['services_table'] 	=   Common::get_services_client($client_id);;
       	//echo $this->last_query();
-   		//print_r($data['relationship']);die;      
+   		//print_r($data['client_details']);die;      
 
 		return View::make('home.organisation.edit_organisation_client', $data);
 	}

@@ -72,7 +72,7 @@ $(document).ready(function(){
               <button type="button" name="sync_data_button" id="sync_data_button" class="btn btn-danger">SYNC DATA</button>
             </li>
             <li>
-              <p style="margin:0px 0 0 500px;"><a href="/organisation/add-client" class="btn btn-info" style="font-size: 18px; font-weight: bold;">TEST</a></p>
+              <p style="margin:0px 0 0 500px;"><a href="/organisation/add-client" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
             </li>
             <li>
               <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['business_name'] or "" }}</p>
