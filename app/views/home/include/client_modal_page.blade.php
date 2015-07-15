@@ -419,7 +419,7 @@
     <div class="modal-body" style="padding-top: 0px;">
       @if(isset($relation_list) && count($relation_list) >0 )
         @foreach($relation_list as $key=>$relation_row)
-          <p><input type="checkbox" class="user_client_relation" data-related_company_id="{{ $relation_row['related_company_id'] or "" }}" name="other_related_client[]" checked value="{{ $relation_row['client_id'] or "" }}">&nbsp;<strong>{{ $relation_row['client_name'] or "" }}</strong></p>
+          <p><input type="checkbox" class="user_client_relation" data-related_company_id="{{ $relation_row['related_company_id'] or "" }}" name="other_related_client[]" {{ (isset($relation_row['status']) && $relation_row['status'] == "A")?"checked":"" }} value="{{ $relation_row['client_id'] or "" }}">&nbsp;<strong>{{ $relation_row['client_name'] or "" }}</strong></p>
         @endforeach
       @endif
     </div>
