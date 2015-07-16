@@ -203,6 +203,7 @@ Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'Noticeboa
 
 Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardController@excel_upload'));
 
+Route::any('/pdf-upload', array("as"=>"pdf_upload", "uses"=>'NoticeboardController@pdf_upload'));
 
 
 

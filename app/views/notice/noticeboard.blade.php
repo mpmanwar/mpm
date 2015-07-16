@@ -169,15 +169,15 @@
 
 <div class="col-xs-8" id="sortable">
 @foreach($font as $key=>$val)
-<div class="staff_left">
+<div class="staff_left hvr-grow1">
 
-<div class="holidays_list" id="dyn">
+<div class="holidays_list" id="dyn{{ $val['noticefont_id'] }}" >
 <span class="holidays_h">{{$val['message_subject'] }}</span>
-
-<p class="holidays_content">
+<div style="cursor:pointer">
+<p class="holidays_content" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
 </p>
-
+</div>
 <div class="clear"></div>
 
 <div class="bottom_content">
@@ -305,15 +305,15 @@
 
 <div class="col-xs-8" id="sortable2">
 @foreach($font2 as $key=>$val2)
-<div class="staff_left">
+<div class="staff_left hvr-grow1">
 
 <div class="holidays_list" id="dyn">
 <span class="holidays_h">{{$val2['message_subject'] }}</span>
-
-<p class="holidays_content">
+<div style="cursor:pointer" >
+<p class="holidays_content" id="body{{ $val2['noticefont_id'] }}" onclick="openbodyModal('{{ $val2['noticefont_id'] }}')" >
     {{ (strlen($val2['message']) > 625)? substr(strip_tags($val2['message']), 0, 625)."...": strip_tags($val2['message']) }}
 </p>
-
+</div>
 <div class="bottom_content">
 
         <p class="posted_t">Posted by {{ $userfullname->fname }} {{ $userfullname->lname}} {{ $val2['created']}}</p>
@@ -564,7 +564,7 @@
                         </div>
                         
                         
-{{ Form::open( array('url' => '/excel-upload', 'files' => true, 'id'=>'imageform', 'name'=>'imageform')   ) }}
+
                         
 <div class="notice_midbg">
 <div class="board_title">
@@ -573,26 +573,43 @@
 <ul>
 <?php
 for($i=1;$i<=5;$i++){
+    
 ?>
+{{ Form::open( array('url' => '/excel-upload', 'files' => true, 'id'=>'imageform'.$i, 'name'=>'imageform'.$i)   ) }}
+  <input type="hidden" name="file_type" id="excel" value="E" />                      
 <li>
 <span class="btn btn-default btn-file">
-FILE<?php echo $i; ?><input type="file" name="add_file<?php echo $i; ?>" id="add_file<?php echo $i; ?>" class="xyz"  >
+FILE<?php echo $i; ?><input type="file" name="add_file<?php echo $i; ?>" id="add_file<?php echo $i; ?>" data-looper="<?php echo $i; ?>"  class="upload-buttons"  >
 </span>
 <span><input type="radio" />
 </span>
+<div id='preview<?php echo $i; ?>'>
+</div>
+
+<p class="file_name" id="file_value<?php echo $i; ?>"> 
+
+
+@if ( (isset($all_excel[$i]['file'])) && (!empty($all_excel[$i]['file'])) )
+<!-- {{$all_excel[$i]['file'] }} -->
+<img src="img/attachment.png" />
+@endif
+
+</p>
 </li>
+
+
+  {{ Form :: close() }}
 <?php
 }
 ?>
 </ul>
-<div id='preview'>
-</div>
+<div id='prev'>
 </div>
 <div class="upload_btn">
 <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button></div> -->
 </div>
 
-  {{ Form :: close() }}
+
   
   
 
@@ -639,7 +656,11 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
      
                   <!--end table-->
 								
-								<div id="step5" class="tab-pane show_div">
+							
+                                
+								<!-- /.tab-pane -->
+							</div>
+                            	<div id="step5" class="tab-pane show_div">
 
 
 <div class="box-body table-responsive">
@@ -656,7 +677,8 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
                         </div>
                         
                         
-{{ Form::open( array('url' => '/pdf-upload', 'files' => true, 'id'=>'pdfeform', 'name'=>'pdfform')   ) }}
+
+
                         
 <div class="notice_midbg">
 <div class="board_title">
@@ -664,27 +686,42 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 <div class="browse_btn">
 <ul>
 <?php
-for($i=1;$i<=5;$i++){
+for($k=1;$k<=5;$k++){
 ?>
+{{ Form::open( array('url' => '/excel-upload', 'files' => true, 'id'=>'pdfeform'.$k, 'name'=>'pdfform'.$k)   ) }}
+<input type="hidden" name="file_type" id="pdf" value="P" />
 <li>
 <span class="btn btn-default btn-file">
-FILE<?php echo $i; ?><input type="file" name="add__pdffile<?php echo $i; ?>" id="add_pdffile<?php echo $i; ?>" class="xyz"  >
+FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="add_pdffile<?php echo $k; ?>" data-looper="<?php echo $k; ?>"  class="pdf"  >
 </span>
 <span><input type="radio" />
 </span>
+<div id='previewpdf<?php echo $k; ?>'>
+</div>
+
+<p class="file_name" id="file_pdfvalue<?php echo $k; ?>"> 
+@if ( (isset($all_pdf[$k]['file'])) && (!empty($all_pdf[$k]['file'])) )
+
+<img src="img/attachment.png" />
+<!--{{ (strlen($all_pdf[$k]['file']) > 10)? substr(strip_tags($all_pdf[$k]['file']), 0, 10)."...": strip_tags($all_pdf[$k]['file'])
+}} -->
+@endif
+
+</p>
 </li>
+  {{ Form :: close() }}
 <?php
 }
 ?>
 </ul>
-<div id='preview'>
+<div id='pdfprev'>
 </div>
 </div>
 <div class="upload_btn">
 <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button></div> -->
 </div>
 
-  {{ Form :: close() }}
+
   
   
 
@@ -728,9 +765,6 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 
 </div>
 </div>
-                                
-								<!-- /.tab-pane -->
-							</div>
 						</div>
 					</div>
 				</form>
@@ -859,6 +893,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 	<!-- /.modal-dialog -->
 	{{ Form :: close() }}
 </div>
+
 <div class="modal fade" id="compose-modal1" tabindex="-1" role="dialog" aria-hidden="true">
 	{{ Form::open(array('url' => '/edit-notice-template', 'files' => true)) }}
 	<input type="hidden" name="edit_notice_template_id" id="edit_notice_template_id1" value=" ">
@@ -1006,4 +1041,92 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 	<!-- /.modal-dialog -->
 	{{ Form :: close() }}
 </div>
+
+
+
+
+
+<!-- msg popup -->
+<div class="modal fade" id="compose-msgmodal" tabindex="-1" role="dialog" aria-hidden="true">
+
+	<input type="hidden" name="edit_notice_template_id" id="edit_notice_template_id1" value=" ">
+	<input type="hidden" name="hidd_file" id="hidd_file" value="">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title">
+					<!-- FULL msg -->
+				</h4>
+				<div class="clearfix">
+				</div>
+			</div>
+			<form action="#" method="post">
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="clearfix">
+						</div>
+					</div>
+					
+					
+					<div class="twobox">
+						<div class="form-group">
+							<textarea  name="edit_message" id="edit_msgmessage" class="form-control" style="height: 250px;" >
+							</textarea>
+						</div>
+					</div>
+					<div class="twobox">
+						
+						<div class="twobox_2">
+							<div class="email_btns1">
+								<!-- <button type="button" class="btn btn-danger" data-dismiss="modal">
+									Cancel
+								</button> -->
+								
+							</div>
+						</div>
+						<div class="clearfix">
+						</div>
+					</div>
+					<div class="notify_con">
+						<h4 class="modal-title">
+							<!-- Notify UserS -->
+						</h4>
+						
+                                                               
+							<!--	<input type="hidden" id="count_chk" value="<?php //echo $i; ?>"> -->
+								
+                                <!--<div class="notify_users">
+								<input type="checkbox"/>
+								<label>AA</label>
+								</div>
+								<div class="notify_users">
+								<input type="checkbox"/>
+								<label>RK</label>
+								</div>
+								<div class="notify_users">
+								<input type="checkbox"/>
+								<label>RK</label>
+								</div>-->
+								<div class="clearfix">
+								</div>
+					</div>
+					<!-- New popup -->
+					<!--<div class="modal-footer clearfix">
+					<div class="email_btns">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="save" class="btn btn-primary pull-left save_t">Save</button>
+					</div>
+					</div>-->
+				</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+	
+</div>
+<!-- msg popup -->
 @stop
