@@ -1114,16 +1114,16 @@ $(document).ready(function(){
 @if(isset($user_type) && $user_type != "C")
 <div class="form-group">
   <p class="custom_chk">
-    <label for="showclientuser">Invite to Client Portal</label>
-    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} />
+    <label for="showclientuser"><a href="javascript:void(0)" id="showclientuser">Invite to Client Portal</a></label>
+    <!-- <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} /> -->
   </p>
 </div>
 
 
 <div id="show_other_user_client" style="display:none">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
-  </div>
+  </div> -->
 
   <table width="100%" class="table table-bordered table-hover dataTable" id="myOtherTable">
   <tr>
@@ -1131,12 +1131,13 @@ $(document).ready(function(){
     <td align="center"><strong>Status</strong></td>
     <td align="center"><strong>Action</strong></td>
   </tr>
-
+@if(isset($user_id) && $user_id != "")
   <tr id="other_action_tr">
     <td align="center"><a href="#" data-target="#relation_client-modal" data-toggle="modal">View</a></td>
     <td align="center"><a href="javascript:void(0)" data-user_id="{{ $user_id or "" }}" data-client_id="{{ $client_id or "" }}" class="active_t" data-status="A" id="client_user_status">Active</a></td>
     <td align="center"><a href="javascript:void(0)" data-user_id="{{ $user_id or "" }}" data-client_id="{{ $client_id or "" }}" class="delete_invited_client"><img src="/img/cross.png" height="15"></a></td>
   </tr>
+@endif
   </table>
 </div>
 

@@ -1034,18 +1034,110 @@ class ChdataController extends BaseController {
 
 	public function bulk_file_upload()
 	{
-		$file 		= Input::get("company_upload");
-		$back_url 	= Input::get("back_url");
-		if($back_url == "org_list"){
-			//$data['previous_page'] = '<a href="/organisation-clients">Organisation Clients List</a>';
-			$redirect_url = '/organisation-clients';
-		}else{
-			//$data['previous_page'] = '<a href="/chdata/index">Ch Data List</a>';
-			$redirect_url = '/individual-clients';
+		////
+		$output_dir = "uploads/bulkfile/";
+		$client_id = "";
+ 		if(isset($_FILES["bulk_file"]))
+		{
+		    if ($_FILES["bulk_file"]["error"] > 0)
+		    {
+		      echo 0;die;
+		    }
+		    else
+		    {
+		    	$destinationPath = $output_dir.$_FILES["bulk_file"]["name"];
+		        move_uploaded_file($_FILES["bulk_file"]["tmp_name"], $destinationPath);
+		 		$csvFile = public_path().'/'.$destinationPath;
+				$areas = $this->csv_to_array($csvFile);
+
+				//print_r($areas);die;
+				if(isset($areas) && count($areas) > 0 && count($areas) <=100){
+					foreach ($areas as $key => $value) {
+						$value = $value['company_number']."=function";
+						$client_id = $this->import_company_details($value);
+					}
+
+					if (file_exists($destinationPath)) {
+						unlink($destinationPath);
+					}
+				}
+				
+		    }
+		 
 		}
-		//echo $data['back_url'];die;
-		return Redirect::to($redirect_url);
+		/////
+
+
+
+		$back_url 	= Input::get("back_url");
+		// ########### File Upload Start ########### //
+		/*$file 		= Input::get("bulk_file");
+		if (Input::hasFile('bulk_file')) {
+			$destinationPath 	= "uploads/bulkfile/";
+			$fileName 			= Input::file('bulk_file')->getClientOriginalName();
+			$extention 			= Input::file('bulk_file')->guessClientExtension();
+	        
+			//$result = Input::file('bulk_file')->move($destinationPath, $fileName);
+
+			$csvFile = public_path().'/'.$destinationPath.$fileName;
+			$areas = $this->csv_to_array($csvFile);
+
+			print_r($areas);die;
+			foreach ($areas as $key => $value) {
+				$value = $value['company_number']."=function";
+				$client_id = $this->import_company_details($value);
+			}
+
+			$prevPath = $destinationPath.$fileName;
+			if (file_exists($prevPath)) {
+				unlink($prevPath);
+			}
+
+		}*/
+		// ########### File Upload End ########### //
+		
+		/*if(isset($client_id) && $client_id != ""){
+			if($back_url == "org_list"){
+				return Redirect::to('/organisation-clients');
+			}else{
+				return Redirect::to('/individual-clients');
+			}
+		}else{
+			return Redirect::to('/chdata/bulk-company-upload-page/'.base64_encode($back_url));
+		}*/
+
+		if(isset($client_id) && $client_id != ""){
+			echo $client_id;
+			die;
+		}else{
+			echo 0;
+			die;
+		}
+		
 	}
+
+	public function csv_to_array($filename='', $delimiter=',')
+    {
+        if(!file_exists($filename) || !is_readable($filename))
+            return FALSE;
+     
+        //$header = NULL;
+        $header = array("company_number");
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== FALSE)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
+            {
+                if(!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+        return $data;
+    }
+
 
 
 }
