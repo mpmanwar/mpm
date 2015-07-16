@@ -9,6 +9,7 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -49,25 +50,25 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
     <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
     <section class="content">
-<p class="business_p">{{ $client_details['client_name'] or "" }}</p>
-      <!-- <div class="row">
+      
+      <div class="row">
         
         <div class="top_bts">
           <ul>
             
             <li>
-              <button class="btn btn-success">IMPORT FROM CSV</button>
+              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
             </li>
             <li>
-              <button class="btn btn-primary">REQUEST FROM CLIENT</button>
+              <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['client_name'] or "" }}</p>
             </li>
-            <li>
+            <!-- <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
+            </li> -->
             <div class="clearfix"></div>
           </ul>
         </div>
-      </div>-->
+      </div>
 
     <div class="practice_mid">
         
@@ -1083,6 +1084,8 @@ $(document).ready(function(){
 
 
 <div class="twobox">
+
+@if(isset($user_type) && $user_type != "C")
 <div class="twobox_01">
 <div class="form-group">
 <label for="exampleInputPassword1">AML Checks Done</label>
@@ -1096,7 +1099,7 @@ $(document).ready(function(){
 <input type="checkbox" name="acting" value="1" {{ (isset($client_details['acting']) && $client_details['acting'] == "1")?"checked":"" }} />
 </div>
 </div>
-
+@endif
 <div class="twobox_03">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Return Required</label>
@@ -1112,7 +1115,7 @@ $(document).ready(function(){
 <div class="form-group">
   <p class="custom_chk">
     <label for="showclientuser">Invite to Client Portal</label>
-    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" {{ (isset($user_id) && $user_id != "")?"":"disabled" }} />
+    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} />
   </p>
 </div>
 
@@ -1205,30 +1208,50 @@ $(document).ready(function(){
     </tr>
   </tbody>
 </table>
+
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Responsible Staff</label>
+<select class="form-control" name="resp_staff" id="resp_staff">
+  <option value="">None</option>
+  @if(!empty($responsible_staff))
+    @foreach($responsible_staff as $key=>$staff_row)
+      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+    @endforeach
+  @endif
+
+</select>
+</div>
+</div>
+
 @else
-<div class="other_mid">
+
+<div class="form-group">
+<strong>Download form 64-8(Agent Authorisation)</strong>
+</div>
+
+<div class="twobox_03">
+<div class="form-group">
+  <label for="exampleInputPassword1">Select Business Name</label>
+  <select class="form-control">
+    <!-- <option value="">-- Please Select --</option> -->
+    @if(isset($relation_list) && count($relation_list) >0 )
+      @foreach($relation_list as $key=>$relation_row)
+        @if(isset($relation_row['status']) && $relation_row['status'] == "I" )
+          <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
+        @endif
+      @endforeach
+    @endif
+  </select>
+</div>
+</div>
+
+
+
+<div class="form-group">
   <div class="other_left_sec">
-    <div class="download_pdf">
-    <button class="btn download_icon"></button>
-    
-    </div>
-    <div class="select_business">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Select Business Name</label>
-        <select class="form-control">
-          <option value="">-- Please Select --</option>
-          @if(isset($relation_list) && count($relation_list) >0 )
-            @foreach($relation_list as $key=>$relation_row)
-              <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['client_name'] or "" }}</option>
-            @endforeach
-          @endif
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="other_right_sec">
-    <p class="select_t">Select Service</p>
-    <table width="100%" class="table table-bordered">
+    <label for="exampleInputPassword1">Select Service</label>
+    <table width="100%" class="table table-bordered" style="margin-bottom: 0px;">
       <tbody><tr>
         <td><strong>Name</strong></td>
         <td align="center"><strong>SA/NI</strong></td>
@@ -1245,13 +1268,22 @@ $(document).ready(function(){
       </tr>
     </tbody></table>
   </div>
+  <div class="clearfix"></div>
 </div>
 
-<table width="100%" border="0">
+<div class="form-group">
+  <div class="download_pdf">
+    <button class="btn download_icon"></button>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+<table width="100%" border="0" id="other_upload_table">
       <tbody><tr>
         <td width="45%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
         <td width="22%"><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="passport1">
+          <input type="file" class="upload_file" name="passport1"  id="passport1">
           </span></td>
         <td id="apassport1">
           @if(isset($files['passport1']) && $files['passport1'] != "")
@@ -1262,7 +1294,7 @@ $(document).ready(function(){
       <tr>
         <td>&nbsp;</td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="passport2">
+          <input type="file" class="upload_file" name="passport2" id="passport2">
           </span></td>
         <td id="apassport2">
           @if(isset($files['passport2']) && $files['passport2'] != "")
@@ -1273,7 +1305,7 @@ $(document).ready(function(){
       <tr>
         <td><button class="btn btn-success">Other Documents</button></td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="document1">
+          <input type="file" class="upload_file" name="document1" id="document1">
           </span></td>
         <td id="adocument1">
           @if(isset($files['document1']) && $files['document1'] != "")
@@ -1284,7 +1316,7 @@ $(document).ready(function(){
       <tr>
         <td>&nbsp;</td>
         <td><span class="btn btn-default btn-file"> Browse
-          <input type="file" name="document2">
+          <input type="file" class="upload_file" name="document2" id="document2">
           </span></td>
         <td id="adocument2">
           @if(isset($files['document2']) && $files['document2'] != "")
@@ -1294,24 +1326,12 @@ $(document).ready(function(){
       </tr>
 </tbody></table>
 <div class="clearfix"></div>
+</div>
 @endif
 
 
 
-<div class="twobox_1">
-<div class="form-group">
-<label for="exampleInputPassword1">Responsible Staff</label>
-<select class="form-control" name="resp_staff" id="resp_staff">
-  <option value="">None</option>
-  @if(!empty($responsible_staff))
-    @foreach($responsible_staff as $key=>$staff_row)
-      <option value="{{ $staff_row['user_id'] }}" {{ (isset($client_details['resp_staff']) && $client_details['resp_staff'] == $staff_row['user_id'] )?"selected":"" }}>{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
-    @endforeach
-  @endif
 
-</select>
-</div>
-</div>
 <div class="clearfix"></div>
 
 </div>

@@ -1488,7 +1488,7 @@ $(".relation_add_client").click(function(){
   $(document).click(function() {
     $(".open_toggle").hide();
   });
-  $(".select_icon").click(function(event) {
+  $("#select_icon").click(function(event) {
       $(".open_toggle").toggle();
       event.stopPropagation();
   });
@@ -1599,18 +1599,19 @@ $(".delete_invited_client").click(function(){
 //############## Change user relation status  in the other Portion end ################//
 
 //##############User active/Inactive Portion start ################//
-  $('.delete_files').click(function() {
-      var column = $(this).data('column');
-      var client_file_id = $(this).data('id');
-      var path = $(this).data('path');
+$("#other_upload_table").on("click", ".delete_files", function(){
+  //$('.delete_files').click(function() {
+    var column = $(this).data('column');
+    var client_id = $("#client_id").val();
+    var path = $(this).data('path');
       
       //alert(status);return false;
-    if(client_file_id >0 ){
+    if(client_id >0 ){
       if(confirm("Do you want to delete the file?")){
         $.ajax({
             type: "POST",
             url: '/client/delete-files',
-            data: { 'column' : column, 'client_file_id' : client_file_id, 'path' : path },
+            data: { 'column' : column, 'client_id' : client_id, 'path' : path },
             success : function(resp){
               $('#a'+column).hide();
             }

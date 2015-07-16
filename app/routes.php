@@ -138,6 +138,9 @@ Route::any('/client/save-officers-into-relation', array("as"=>"save_officers_int
 Route::any('/client/get-officers-client', array("as"=>"get_officers_client", "uses"=>'ClientController@get_officers_client'));
 Route::any('/client/client-details-by-client_id/{client_id}', array("as"=>"client_details_by_client_id", "uses"=>'ClientController@client_details_by_client_id'));
 Route::any('/client/delete-files', array("as"=>"delete_files", "uses"=>'ClientController@delete_files'));
+Route::any('/client/upload-other-files', array("as"=>"upload_other_files", "uses"=>'ClientController@upload_other_files'));
+
+
 
 ### Routes for Client URL's end ###
 
@@ -153,7 +156,9 @@ Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataContr
 Route::any('/company-details', array("as"=>"company_details", "uses"=>'ChdataController@company_details'));
 Route::any('/import-company-details/{number}', array("as"=>"import_company_details", "uses"=>'ChdataController@import_company_details'));
 Route::any('/goto-edit-client', array("as"=>"goto_edit_client", "uses"=>'ChdataController@goto_edit_client'));
-
+Route::any('/chdata/get-shareholders-client', array("as"=>"get_shareholders_client", "uses"=>'ChdataController@get_shareholders_client'));
+Route::any('/chdata/bulk-company-upload-page/{url}', array("as"=>"bulk_company_upload_page", "uses"=>'ChdataController@bulk_company_upload_page'));
+Route::any('/chdata/bulk-file-upload', array("as"=>"bulk_file_upload", "uses"=>'ChdataController@bulk_file_upload'));
 
 ## Company House Data End ##
 

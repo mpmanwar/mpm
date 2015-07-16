@@ -2166,7 +2166,52 @@ $(document).ready(function(){
         <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
       </div>
       <div class="clearfix"></div>
+
       <div class="form-group">
+      <table width="100%" id="myServTable" class="myServTable">
+        @if( isset($old_services) && count($old_services)>0 )
+          @foreach($old_services as $key=>$service_row)
+        <tr>
+          <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}" checked></td>
+          <td align="left" width="35%"><strong>{{ $service_row->service_name }}</strong></td>
+          <td align="left" widht="30%">
+            <select class="form-control" name="staff_id" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select>
+          </td>
+          <td width="27%"></td>
+        </tr>
+          @endforeach
+        @endif
+        @if( isset($new_services) && count($new_services)>0 )
+          @foreach($new_services as $key=>$service_row)
+        <tr>
+          <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}"></td>
+          <td align="left" width="35%"><strong>{{ $service_row->service_name }}</strong></td>
+          <td align="left" widht="30%">
+            <select class="form-control" name="staff_id" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select>
+          </td>
+          <td width="27%"></td>
+        </tr>
+          @endforeach
+        @endif
+        
+        
+      </table>
+      </div>
+      <!--<div class="form-group">
         <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
       </div>
       <div class="box-body table-responsive">
@@ -2219,7 +2264,7 @@ $(document).ready(function(){
 
 
         </div>
-      </div>
+      </div>-->
     @endif
 
 

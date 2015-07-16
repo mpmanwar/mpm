@@ -248,13 +248,29 @@ $("#save_services").click(function(){
     $.ajax({
       type: "POST",
       url: '/client/add-services',
+      dataType : 'json',
       data: { 'service_name' : service_name },
-      success : function(field_id){
-        var append = '<div class="form-group" id="hide_service_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+field_id+'">'+service_name+'</label></div>';
-        $("#append_services").append(append);
+      success : function(resp){
+        var field_id = resp['last_id'];
+        var content = "";
+        var option = "";
+        content += '<tr id="hide_service_tr_'+field_id+'"><td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="'+field_id+'" checked /><label><strong>'+service_name+'</strong></label></span></td>';
+        content += '<td align="left" widht="30%"><select class="form-control" name="staff_id" id="staff_id"><option value="">None</option>';
+        $.each(resp['staff_details'], function(key){
+            option += '<option value="'+resp['staff_details'][key].user_id+'">'+resp['staff_details'][key].fname+' '+resp['staff_details'][key].lname+'</option>';
+        });
+        content += option+'</select></td>';
+        content += '<td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+        $("#myServTable").last().append(content);
+
+        var append = "";
+        append += '<div class="form-group" id="hide_service_div_'+field_id+'">';
+        append += '<a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a>';
+        append += '<label for="'+field_id+'">'+service_name+'</label></div>';
+        $("#append_services").last().append(append);
 
         $("#service_name").val("");
-        $("#service_id").append('<option value="'+field_id+'">'+service_name+'</option>');
+        //$("#service_id").append('<option value="'+field_id+'">'+service_name+'</option>');
 
       }
     });
@@ -263,7 +279,7 @@ $("#save_services").click(function(){
 
 
 //Delete services name while add individual/organisation user start
-$("#append_services").on("click", ".delete_services", function(){
+$("body").on("click", ".delete_services", function(){
   var field_id = $(this).data('field_id');
   if (confirm("Do you want to delete this field ?")) {
     $.ajax({
@@ -273,7 +289,8 @@ $("#append_services").on("click", ".delete_services", function(){
       success : function(resp){
         if(resp != ""){
           $("#hide_service_div_"+field_id).hide();
-          $("#service_id option[value='"+field_id+"']").remove();
+          $("#hide_service_tr_"+field_id).hide();
+          //$("#service_id option[value='"+field_id+"']").remove();
         }else{
           alert("There are some error to delete this service, Please try again");
         }
@@ -510,11 +527,35 @@ $("#add_business_type").click(function(){
         
     });
      
-  
-  //$("#sedit").click(function(){
-//    
-//        alert('dgeddh');
-//    });
+
+// SYNC DATA upload from organisation client edit page start //
+$("#sync_data_button").click(function(){
+    var number = $("#registration_number").val();
+    if(number == ""){
+      alert("Please enter the company registration number");
+      return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/import-company-details/"+number+"=ajax",
+        //data: { 'number': number },
+        beforeSend: function() {
+            $(".message_div").html('<img src="/img/spinner.gif" />');
+        },
+        success: function (client_id) {//return false;
+            if(client_id > 0){
+                $(".message_div").html("<span style='color:#3c8dbc;font-size:16px'>Company details successfully updated</span>");
+                window.location.href='/client/edit-org-client/'+client_id;
+                    
+            }else{
+                $(".message_div").html("<span style='color:red;font-size:16px'>There are some error to importing data</span>");
+            }
+        }
+    });
+});
+// SYNC DATA upload from organisation client edit page end //
+
   
 });//end of main document ready
 

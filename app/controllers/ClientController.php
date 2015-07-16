@@ -73,6 +73,9 @@ class ClientController extends BaseController {
 
         if (isset($client_details) && count($client_details) > 0) {
 			foreach ($client_details as $client_row) {
+				if(isset($client_row->field_name) && $client_row->field_name == "client_name"){
+					$client_data['initial_badge'] = $this->get_initial_badge($client_row->field_value);
+				}
 				$client_data[$client_row['field_name']] = $client_row->field_value;
 			}
 		}
@@ -130,7 +133,7 @@ class ClientController extends BaseController {
 		$data['titles'] 		= Title::orderBy("title_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
 		$data['substep'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
-		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->get();
+		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
 
@@ -140,7 +143,6 @@ class ClientController extends BaseController {
 
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
-
 
         $data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
@@ -189,6 +191,9 @@ class ClientController extends BaseController {
 
         if (isset($client_details) && count($client_details) > 0) {
 			foreach ($client_details as $client_row) {
+				if(isset($client_row->field_name) && $client_row->field_name == "business_name"){
+					$client_data['initial_badge'] = $this->get_initial_badge($client_row->field_value);
+				}
 				$client_data[$client_row['field_name']] = $client_row->field_value;
 			}
 		}
@@ -199,9 +204,23 @@ class ClientController extends BaseController {
        
        	$data['services_table'] 	=   Common::get_services_client($client_id);;
       	//echo $this->last_query();
-   		//print_r($data['relationship']);die;      
+   		//print_r($data['client_details']);die;      
 
 		return View::make('home.organisation.edit_organisation_client', $data);
+	}
+
+	public function get_initial_badge($full_name)
+	{
+		$string = preg_replace('/[^A-Za-z0-9\-]/', ' ', $full_name);
+		//echo $string;die;
+		$value = explode(" ", $string);//print_r($value);die;
+		$initial_badge = "";
+		for($i=0; $i<count($value);$i++){
+			if($value[$i] != "" && strtolower($value[$i]) != "limited" && strtolower($value[$i]) != "ltd" && strtolower($value[$i]) != "llp"){
+				$initial_badge.= ucwords(substr(trim($value[$i]), 0, 1));
+			}
+		}
+		return $initial_badge;
 	}
 
 	public function get_country_code() {
@@ -359,13 +378,17 @@ class ClientController extends BaseController {
 	}
 
 	public function add_services() {
+		$data = array();
 		$session_data = Session::get('admin_details');
 
-		$data['service_name'] = Input::get("service_name");
-		$data['user_id'] 			= $session_data['id'];
-		$data['status'] 			= "new";
-		$insert_id = Service::insertGetId($data);
-		echo $insert_id;exit();
+		$data['service_name'] 	= Input::get("service_name");
+		$data['user_id'] 		= $session_data['id'];
+		$data['status'] 		= "new";
+		$data['last_id'] 		= Service::insertGetId($data);
+		$data['staff_details'] 	= App::make('HomeController')->get_responsible_staff();
+		echo json_encode($data);
+		//echo $insert_id;
+		exit();
 		//return Redirect::to('/organisation/add-client');
 	}
 
@@ -1010,13 +1033,13 @@ class ClientController extends BaseController {
 
 	public function delete_files()
 	{
-		$client_file_id = Input::get('client_file_id');
+		$client_id = Input::get('client_id');
 		$column 		= Input::get('column');
 		$path 			= Input::get('path');
-		$file_name = ClientFile::where('client_file_id', "=", $client_file_id)->select($column)->first();
+		$file_name = ClientFile::where('client_id', "=", $client_id)->select($column)->first();
 
 		$data[$column] 	= "";
-		$sql = ClientFile::where('client_file_id', "=", $client_file_id)->update($data);
+		$sql = ClientFile::where('client_id', "=", $client_id)->update($data);
 		if($sql){
 			if(isset($file_name[$column]) && $file_name[$column] != ""){
 				$prevPath = $path.$file_name[$column];
@@ -1026,6 +1049,16 @@ class ClientController extends BaseController {
 			}
 		}
 		echo $sql;
+	}
+
+	public function upload_other_files()
+	{
+		$column 		= Input::get('column');
+		$client_id 		= Input::get('client_id');
+		$data[$column] 	= Input::get('file_name');
+		$sql = ClientFile::where('client_id', "=", $client_id)->update($data);
+		$file_details = ClientFile::where('client_id', "=", $client_id)->select('client_file_id')->first();
+		echo $file_details['client_file_id'];
 	}
 
 

@@ -70,6 +70,7 @@
             <ul class="tab-legend">
               <li class="active tab_menu1">Overview</li>
               <li>Officers</li>
+              <li>Statement of Capital</li>
               <li>Filling History</li>
               <li>Charges</li>
               <li>Insolvency</li>
@@ -180,7 +181,7 @@
               @if(!isset($field_row->resigned_on))
               <tr><!-- link_color get_officers-->
                 <td align="left"><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="officer_link get_officers">{{ ucwords($field_row->name) }}</a></td>
-                <td align="left">{{ date("d F Y", strtotime($field_row->appointed_on)) }}</td>
+                <td align="left">{{ isset($field_row->appointed_on)?date("d F Y", strtotime($field_row->appointed_on)):"" }}</td>
                 <td align="left">{{ ucwords(str_replace("-", " ", $field_row->officer_role)) }}</td>
               </tr>
               @endif
@@ -190,6 +191,58 @@
 
           </table>
         </div>
+      </div>
+    </div>
+  </li>
+
+  <li> 
+    <div class="col-lg-12">
+      <div class="details_table">
+        <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;">
+          <tr class="td_color">
+            <td colspan="4" align="center"><span class="table_tead_t">STATEMENT OF CAPITAL</span></td>
+          </tr>
+          <tr class="td_color">
+            <td class="sub_header">Type</td>
+            <td width="15%" class="sub_header">Date</td>
+            <td class="sub_header">Share Capital</td>
+            <td class="sub_header">Category</td>
+          </tr>
+
+        @if(!empty($filling_history))
+          @foreach($filling_history as $key=>$field_row)
+            @if(isset($field_row->associated_filings) && count($field_row->associated_filings) >0 )
+              @if(isset($field_row->associated_filings[0]->category) && ($field_row->associated_filings[0]->category == 'capital' || $field_row->associated_filings[0]->category == 'annual-return' || $field_row->associated_filings[0]->category == 'incorporation') )
+                <tr>
+                  <td>{{ $field_row->associated_filings[0]->type or "" }}</td>
+                  <td>{{ isset($field_row->associated_filings[0]->date)?date("d-m-Y", strtotime($field_row->associated_filings[0]->date)):"" }}</td>
+                  <td>{{ $field_row->associated_filings[0]->description_values->capital[0]->currency or "" }} {{ $field_row->associated_filings[0]->description_values->capital[0]->figure or "" }}</td>
+                  <td>{{ ucwords(str_replace("-", " ", $field_row->associated_filings[0]->category)) }}</td>
+                </tr>
+              @endif
+            @endif
+          @endforeach
+        @endif
+
+           <!-- <tr>
+            <td colspan="3">&nbsp;</td>
+             </tr> -->
+        </table>
+        <!-- <table width="100%" border="1" bordercolor="60aad2">
+          <tr class="td_color">
+            <td align="center"><span class="table_tead_t">SECRETARIES</span></td>
+          </tr>
+        @if(!empty($officers))
+          @foreach($officers as $key=>$field_row)
+            @if(strpos($field_row->officer_role,'secretary') !== false)
+              <tr>
+                <td><a href="javascript:void(0)" data-key="{{ $key }}" data-number="{{ $details->CompanyNumber }}" class="link_color get_officers">{{ $field_row->name or "" }}</a></td>
+              </tr>
+            @endif
+          @endforeach
+        @endif
+        
+        </table> -->
       </div>
     </div>
   </li>
@@ -307,7 +360,7 @@
 
           <tr>
             <td align="left" width="50%">Practitioner <br> <strong>{{ ucwords($insolv_row->practitioners[0]->name) }}</strong></td>
-            <td align="left">Appointed on <br> <strong>{{ date("d F Y", strtotime($insolv_row->practitioners[0]->appointed_on)) }}</strong></td>
+            <td align="left">Appointed on <br> <strong>{{ isset($insolv_row->practitioners[0]->appointed_on)?date("d F Y", strtotime($insolv_row->practitioners[0]->appointed_on)):"" }}</strong></td>
           </tr>
 
           <tr>

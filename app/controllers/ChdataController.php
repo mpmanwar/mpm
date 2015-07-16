@@ -1,37 +1,6 @@
 <?php
 class ChdataController extends BaseController {
 	
-	/*public function index()
-	{
-		$data 			= array();
-		$details_data 	= array();
-		$data['heading'] 	= "CH DATA";
-		$data['title'] 		= "Ch Data";
-		
-		$numbers = CompanyNumber::orderBy("cn_id", "DESC")->get();
-		if(isset($numbers) && count($numbers) >0 ){
-			foreach ($numbers as $key => $row) {
-				$details = Common::getCompanyDetails($row->number);
-				if(isset($details) && count($details) >0 ){
-					$details_data[$key]['company_number'] 		= $details->primaryTopic->CompanyNumber;
-					$details_data[$key]['company_name'] 		= $details->primaryTopic->CompanyName;
-					$details_data[$key]['incorporation_date'] 	= $details->primaryTopic->IncorporationDate;
-					$details_data[$key]['acc_ref_date'] 		= $details->primaryTopic->Accounts->AccountRefDay."/".$details->primaryTopic->Accounts->AccountRefMonth;
-					$details_data[$key]['auth_code'] 			= "";
-					$details_data[$key]['last_ret_made_date'] 	= $details->primaryTopic->Returns->LastMadeUpDate;
-					$details_data[$key]['next_due_date'] 		= $details->primaryTopic->Returns->NextDueDate;
-					$details_data[$key]['count_down'] 			= Common::getDayCount($details->primaryTopic->Returns->NextDueDate);
-
-				}
-			}
-		}
-		$data['company_details']	= $details_data;
-		//print_r($details);die;
-		return View::make('ch_data.chdata_list', $data);
-		
-
-	}*/
-
 	public function index()
 	{
 		$data 			= array();
@@ -1027,7 +996,56 @@ class ChdataController extends BaseController {
 	}
 
 	
+	public function get_shareholders_client()
+	{
+		$data = array();
+		$number = Input::get("company_number");
+		$filling_history 	= Common::getFillingHistory($number);//print_r($officers);die;
+		if(isset($filling_history->items) && count($filling_history->items) >0 ){
+			foreach($filling_history->items as $key=>$value){
+				if($value->category == 'incorporation' || $value->category == 'annual-return'){
+					$data[$key]['company_number'] 	= $number;
+					$data[$key]['date'] 			= date("d-m-Y", strtotime($value->date));
+					$data[$key]['category'] 		= ucwords(str_replace('-', ' ', $value->category));
+					$data[$key]['transaction_id'] 	= $value->transaction_id;
+				}
+				
+			}
+		}
+		
+		echo json_encode($data);
+		exit;
+	}
 
+	public function bulk_company_upload_page($back_url)
+	{
+		$data['title'] = "Bulk file upload";
+		$data['heading'] = "";
+		$data['back_url'] = base64_decode($back_url);
+
+		if($data['back_url'] == "org_list"){
+			$data['previous_page'] = '<a href="/organisation-clients">Organisation Clients List</a>';
+		}else{
+			$data['previous_page'] = '<a href="/chdata/index">Ch Data List</a>';
+		}
+		//echo $data['back_url'];die;
+		return View::make("ch_data.bulk_file_upload", $data);
+	}
+
+	public function bulk_file_upload()
+	{
+		$file 		= Input::get("company_upload");
+		$back_url 	= Input::get("back_url");
+		if($back_url == "org_list"){
+			//$data['previous_page'] = '<a href="/organisation-clients">Organisation Clients List</a>';
+			$redirect_url = '/organisation-clients';
+		}else{
+			//$data['previous_page'] = '<a href="/chdata/index">Ch Data List</a>';
+			$redirect_url = '/individual-clients';
+		}
+		//echo $data['back_url'];die;
+		return Redirect::to($redirect_url);
+	}
 
 
 }

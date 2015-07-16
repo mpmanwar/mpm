@@ -42,6 +42,41 @@ $(document).ready(function (e) {
 	});
 	// Get all the officers in the relationship section End //
 
+// Get all the shareholders in the relationship section start //
+    $(".view_shareholders").click(function(){
+        var company_number = $("#registration_number").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/chdata/get-shareholders-client",
+            dataType: "json",
+            data: { 'company_number': company_number },
+            beforeSend: function() {
+                $("#view_shareholders-modal").modal('show');
+                var loder = "";
+                loder +='<tr class="td_color"><td align="center" colspan="3">';
+                loder +='<span class="table_tead_t">VIEW SHAREHOLDERS</span></td></tr>';
+                loder +='<tr class="td_color"><td align="center" class="sub_header">DATE</td><td align="center" class="sub_header">Category</td><td align="center" width="20%" class="sub_header">View/Download</td></tr>';
+                loder +='<tr><td colspan="3" align="center"><img src="/img/spinner.gif" /></td></tr>';
+                $("#view_shareholders-modal .shareholder_table").html(loder);
+                //return false;
+            },
+            success: function (resp) {//console.log(resp['link']);return false;
+                var content = "";
+                $.each(resp, function(key){
+                    content += '<tr><td width="40%" align="center">'+resp[key].date+'</td>';
+                    content += '<td width="40%" align="center">'+resp[key].category+'</td>';
+                    content += '<td width="20%" align="center"><a href="https://beta.companieshouse.gov.uk/company/'+resp[key].company_number+'/filing-history/'+resp[key].transaction_id+'/document?format=pdf&download=0" target="_blank">View PDF</a></td></tr>';
+                });
+                $('#view_shareholders-modal .shareholder_table tr:last').remove();
+                $("#view_shareholders-modal .shareholder_table").last().append(content);
+            }
+            
+        });
+
+    });
+// Get all the shareholders in the relationship section End //
+
 
 // ################Officers dropdown toggle in relationship section start ################### //
 	$(document).click(function() {

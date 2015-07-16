@@ -419,7 +419,7 @@
     <div class="modal-body" style="padding-top: 0px;">
       @if(isset($relation_list) && count($relation_list) >0 )
         @foreach($relation_list as $key=>$relation_row)
-          <p><input type="checkbox" class="user_client_relation" data-related_company_id="{{ $relation_row['related_company_id'] or "" }}" name="other_related_client[]" checked value="{{ $relation_row['client_id'] or "" }}">&nbsp;<strong>{{ $relation_row['client_name'] or "" }}</strong></p>
+          <p><input type="checkbox" class="user_client_relation" data-related_company_id="{{ $relation_row['related_company_id'] or "" }}" name="other_related_client[]" {{ (isset($relation_row['status']) && $relation_row['status'] == "A")?"checked":"" }} value="{{ $relation_row['client_id'] or "" }}">&nbsp;<strong>{{ $relation_row['client_name'] or "" }}</strong></p>
         @endforeach
       @endif
     </div>
@@ -430,3 +430,34 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- Relationship Client Modal End-->
+
+<!-- View Share Holders Details Modal Start-->
+<div class="modal fade" id="view_shareholders-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:45%;">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div> -->
+      </div>
+
+    <div class="modal-body">
+      <table width="100%" border="1" bordercolor="60aad2" class="shareholder_table">
+          <tr class="td_color">
+            <td align="center" colspan="3"><span class="table_tead_t">View Shareholders</span></td>
+          </tr>
+          <tr class="td_color">
+            <td align="center" class="sub_header">Date</td>
+            <td align="center" class="sub_header">Category</td>
+            <td align="center" width="20%" class="sub_header">View/Download</td>
+          </tr>
+
+        </table>
+    </div>
+
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- View Share Holders Details Modal End-->

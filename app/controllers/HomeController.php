@@ -1744,9 +1744,12 @@ if(isset($field_added) && count($field_added) > 0){
 		$user_id 		= $session['id'];
 		$groupUserId 	= $session['group_users'];
 
-    	$resp_staff 	= User::whereIn("user_id", $groupUserId)->select('fname', 'lname', 'user_id', 'client_id')->get();
+    	$resp_staff 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select('fname', 'lname', 'user_id')->get();
     	foreach ($resp_staff as $key => $value) {
     		$data[$key]['user_id'] 	= $value->user_id;
+    		$data[$key]['fname'] 	= isset($value->fname)?$value->fname:"";
+    		$data[$key]['lname'] 	= isset($value->lname)?$value->lname:"";
+    		/*
     		if(isset($value->client_id) && $value->client_id != 0){
     			$text = $value->client_id."="."function";
     			$details = App::make('ClientController')->client_details_by_client_id($text);
@@ -1756,7 +1759,7 @@ if(isset($field_added) && count($field_added) > 0){
     		}else{
     			$data[$key]['fname'] 	= $value->fname;
     			$data[$key]['lname'] 	= $value->lname;
-    		}
+    		}*/
     		
     	}
 

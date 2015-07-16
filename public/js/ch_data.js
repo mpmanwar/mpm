@@ -1,5 +1,12 @@
 $(document).ready(function(){
-	
+    $(document).click(function() {
+        $(".open_toggle").hide();
+    });
+    $("#select_icon").click(function(event) {
+        $(".open_toggle").toggle();
+        event.stopPropagation();
+    });
+
 	$(".get_officers").click(function(){
 		var number = $(this).data("number");
 		var key = $(this).data("key");
@@ -85,34 +92,37 @@ $(document).ready(function(){
     });
 
 
-$("#company_details_div").on("click", ".add_client_officers", function(){
-    var key = $(this).data("key");
-    var company_number = $(this).data("company_number");
+    $("#company_details_div").on("click", ".add_client_officers", function(){
+        var key = $(this).data("key");
+        var company_number = $(this).data("company_number");
 
-    $.ajax({
-            type: "POST",
-            url: "/goto-edit-client",
-            dataType: "json",
-            data: { 'company_number': company_number, 'key' : key },
-            beforeSend: function() {
-                $("#goto"+key).html('<img src="/img/spinner.gif" />');
-            },
-            success: function (resp) {//console.log(resp['link']);return false;
-            $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
-                if(resp['link'] == 'org'){
-                    var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
-                    var myWindow = window.open(url , '_blank');
-                    myWindow.focus();
+        $.ajax({
+                type: "POST",
+                url: "/goto-edit-client",
+                dataType: "json",
+                data: { 'company_number': company_number, 'key' : key },
+                beforeSend: function() {
+                    $("#goto"+key).html('<img src="/img/spinner.gif" />');
+                },
+                success: function (resp) {//console.log(resp['link']);return false;
+                $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
+                    if(resp['link'] == 'org'){
+                        var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                        var myWindow = window.open(url , '_blank');
+                        myWindow.focus();
+                    }
+                    if(resp['link'] == 'ind'){
+                        var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                        var myWindow = window.open(url, '_blank');
+                        myWindow.focus();
+                    }
                 }
-                if(resp['link'] == 'ind'){
-                    var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
-                    var myWindow = window.open(url, '_blank');
-                    myWindow.focus();
-                }
-            }
-        });
+            });
 
-});
+    });
+
+ 
+
 
 
 
