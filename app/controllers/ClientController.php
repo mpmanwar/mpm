@@ -73,6 +73,9 @@ class ClientController extends BaseController {
 
         if (isset($client_details) && count($client_details) > 0) {
 			foreach ($client_details as $client_row) {
+				if(isset($client_row->field_name) && $client_row->field_name == "client_name"){
+					$client_data['initial_badge'] = $this->get_initial_badge($client_row->field_value);
+				}
 				$client_data[$client_row['field_name']] = $client_row->field_value;
 			}
 		}
@@ -141,7 +144,6 @@ class ClientController extends BaseController {
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
-
         $data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
 
@@ -190,14 +192,7 @@ class ClientController extends BaseController {
         if (isset($client_details) && count($client_details) > 0) {
 			foreach ($client_details as $client_row) {
 				if(isset($client_row->field_name) && $client_row->field_name == "business_name"){
-					$value = explode(" ", $client_row->field_value);
-					$initial_badge = "";
-					for($i=0; $i<count($value);$i++){
-						if(strtolower($value[$i]) != "limited" && strtolower($value[$i]) != "ltd"){
-							$initial_badge.= ucwords(substr(trim($value[$i]), 0, 1));
-						}
-					}
-					$client_data['initial_badge'] = $initial_badge;
+					$client_data['initial_badge'] = $this->get_initial_badge($client_row->field_value);
 				}
 				$client_data[$client_row['field_name']] = $client_row->field_value;
 			}
@@ -212,6 +207,20 @@ class ClientController extends BaseController {
    		//print_r($data['client_details']);die;      
 
 		return View::make('home.organisation.edit_organisation_client', $data);
+	}
+
+	public function get_initial_badge($full_name)
+	{
+		$string = preg_replace('/[^A-Za-z0-9\-]/', ' ', $full_name);
+		//echo $string;die;
+		$value = explode(" ", $string);//print_r($value);die;
+		$initial_badge = "";
+		for($i=0; $i<count($value);$i++){
+			if($value[$i] != "" && strtolower($value[$i]) != "limited" && strtolower($value[$i]) != "ltd" && strtolower($value[$i]) != "llp"){
+				$initial_badge.= ucwords(substr(trim($value[$i]), 0, 1));
+			}
+		}
+		return $initial_badge;
 	}
 
 	public function get_country_code() {
@@ -369,13 +378,17 @@ class ClientController extends BaseController {
 	}
 
 	public function add_services() {
+		$data = array();
 		$session_data = Session::get('admin_details');
 
-		$data['service_name'] = Input::get("service_name");
-		$data['user_id'] 			= $session_data['id'];
-		$data['status'] 			= "new";
-		$insert_id = Service::insertGetId($data);
-		echo $insert_id;exit();
+		$data['service_name'] 	= Input::get("service_name");
+		$data['user_id'] 		= $session_data['id'];
+		$data['status'] 		= "new";
+		$data['last_id'] 		= Service::insertGetId($data);
+		$data['staff_details'] 	= App::make('HomeController')->get_responsible_staff();
+		echo json_encode($data);
+		//echo $insert_id;
+		exit();
 		//return Redirect::to('/organisation/add-client');
 	}
 

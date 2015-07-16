@@ -72,7 +72,7 @@ $(document).ready(function(){
               <button type="button" name="sync_data_button" id="sync_data_button" class="btn btn-danger">SYNC DATA</button>
             </li>
             <li>
-              <p style="margin:0px 0 0 500px;"><a href="/organisation/add-client" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
+              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
             </li>
             <li>
               <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['business_name'] or "" }}</p>
@@ -81,7 +81,7 @@ $(document).ready(function(){
           </ul>
         </div>
         
-        
+        <p class="message_div"><!-- for showing loding image --></p>
       </div>
 
 
@@ -2062,6 +2062,8 @@ $(document).ready(function(){
 
 <div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm imported_officers" data-company_number="{{ $client_details['registration_number'] or "" }}">VIEW/ADD IMPORTED OFFICERS</button></div>
 
+<div style="float: left; margin: 4px 0 0 5px;"><button type="button" class="btn btn-default btn-sm view_shareholders" data-company_number="{{ $client_details['registration_number'] or "" }}">VIEW SHAREHOLDERS</button></div>
+
 </div>
 @endif
 
@@ -2313,7 +2315,7 @@ $(document).ready(function(){
         @if( isset($old_services) && count($old_services)>0 )
           @foreach($old_services as $key=>$service_row)
         <tr>
-          <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}" checked></td>
+          <!-- <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}" checked></td>
           <td align="left" width="35%"><strong>{{ $service_row->service_name }}</strong></td>
           <td align="left" widht="30%">
             <select class="form-control" name="staff_id" id="staff_id">
@@ -2325,15 +2327,27 @@ $(document).ready(function(){
                 @endif
               </select>
           </td>
-          <td width="27%"></td>
+          <td width="27%"></td> -->
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+          <td align="left" widht="30%">
+            <select class="form-control" name="staff_id" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select>
+          </td>
+          <td width="30%"></td>
         </tr>
           @endforeach
         @endif
+
         @if( isset($new_services) && count($new_services)>0 )
           @foreach($new_services as $key=>$service_row)
-        <tr>
-          <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}"></td>
-          <td align="left" width="35%"><strong>{{ $service_row->service_name }}</strong></td>
+        <tr id="hide_service_tr_{{ $service_row->service_id }}">
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
           <td align="left" widht="30%">
             <select class="form-control" name="staff_id" id="staff_id">
               <option value="">None</option>
@@ -2344,7 +2358,7 @@ $(document).ready(function(){
                 @endif
               </select>
           </td>
-          <td width="27%"></td>
+          <td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
         </tr>
           @endforeach
         @endif

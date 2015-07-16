@@ -50,25 +50,25 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
     <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
     <section class="content">
-<p class="business_p">{{ $client_details['client_name'] or "" }}</p>
-      <!-- <div class="row">
+      
+      <div class="row">
         
         <div class="top_bts">
           <ul>
             
             <li>
-              <button class="btn btn-success">IMPORT FROM CSV</button>
+              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
             </li>
             <li>
-              <button class="btn btn-primary">REQUEST FROM CLIENT</button>
+              <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['client_name'] or "" }}</p>
             </li>
-            <li>
+            <!-- <li>
               <button class="btn btn-danger">REQUEST FROM OLD ACCOUNTANT</button>
-            </li>
+            </li> -->
             <div class="clearfix"></div>
           </ul>
         </div>
-      </div>-->
+      </div>
 
     <div class="practice_mid">
         

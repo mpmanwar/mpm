@@ -123,13 +123,27 @@ $(function() {
 </div>-->
           <div class="tabarea">
             <div class="tab_topcon">
-              <div class="top_bts">
+              <div class="top_bts" style="float:left;">
                 <ul style="padding:0;">
                   <li>
                     <a href="/organisation/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
-                    <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a>
+                    <div class="import_fromch_main">
+                      <div class="import_fromch">
+                        <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
+                        <a href="javascript:void(0)" class="i_selectbox" id="select_icon"><img src="/img/arrow_icon.png"></a>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="i_dropdown open_toggle"><a href="/chdata/bulk-company-upload-page/{{ base64_encode('org_list') }}">BULK COMPANY UPLOAD</a></div>
+                    </div>
+
+
+                    <!-- <div class="import_fromch">
+                      <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
+                      <a href="/chdata/bulk-company-upload-page/{{ base64_encode('org_list') }}" class="i_selectbox"><img src="img/arrow_icon.png" /></a>
+                    </div> -->
+                    <!-- <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
                   </li>
                   <li>
                     <button type="button" class="btn btn-info">CSV IMPORT</button>

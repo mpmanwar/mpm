@@ -1488,7 +1488,7 @@ $(".relation_add_client").click(function(){
   $(document).click(function() {
     $(".open_toggle").hide();
   });
-  $(".select_icon").click(function(event) {
+  $("#select_icon").click(function(event) {
       $(".open_toggle").toggle();
       event.stopPropagation();
   });

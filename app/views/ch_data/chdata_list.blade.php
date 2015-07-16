@@ -96,7 +96,15 @@ $(function() {
                     <button class="btn btn-danger">MANAGE TASKS</button>
                   </li>
                   <li>
-                    <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a>
+                    <div class="import_fromch_main">
+                      <div class="import_fromch">
+                        <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
+                        <a href="javascript:void(0)" class="i_selectbox" id="select_icon"><img src="/img/arrow_icon.png"></a>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="i_dropdown open_toggle"><a href="/chdata/bulk-company-upload-page/{{ base64_encode('ch_list') }}">BULK COMPANY UPLOAD</a></div>
+                    </div>
+                    <!-- <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
                   </li>
                   <div class="clearfix"></div>
                 </ul>
