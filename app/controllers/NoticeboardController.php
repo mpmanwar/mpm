@@ -12,6 +12,7 @@ class NoticeboardController extends BaseController
         $data['title'] = "Notice Board";
         $admin_s = Session::get('admin_details');
         $user_id = $admin_s['id'];
+        $group_id = $admin_s['group_id'];
         //print_r($user_id);die();
         $groupUserId = $admin_s['group_users'];
 
@@ -45,13 +46,13 @@ class NoticeboardController extends BaseController
         // echo "<pre>";print_r($data['username']);die();
 
         $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "1")->select("noticefont_id", "user_id", "board_no",
-            "message", "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
+            "=", "1")->select("noticefont_id", "user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
             'DESC')->take(6)->get();
 
         $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "2")->select("noticefont_id", "user_id",  "board_no",
-            "message", "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
+            "=", "2")->select("noticefont_id", "user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
             'DESC')->take(6)->get();
 
         //echo $this->last_query();die();
@@ -61,25 +62,68 @@ class NoticeboardController extends BaseController
         $data['userfullname'] = User::where("user_id", $user_id)->select("fname",
             "lname")->first();
 
-            
-            
-            $data['excel'] = Noticeexcel::whereIn("user_id", $groupUserId)->select("file")->get();
-            
-            //echo '<pre>';print_r($data['excel']);die();
-            
+
+        $data['excel'] = Noticeexcel::whereIn("user_id", $groupUserId)->select("file")->
+            get();
+
+        //echo '<pre>';print_r($data['excel']);die();
 
 
         $arr = array();
         foreach ($data['excel'] as $key => $val) {
 
             $arr[$key]['file'] = $data['excel'][$key]->file;
-           //print_r($arr[$key]['file']);die();
-            }
-            
-            
-            //echo "<pre>";print_r($data['excel']);die();
+            //print_r($arr[$key]['file']);die();
+        }
 
-            
+
+        $data['excel'] = Noticeexcel::where("group_id", $group_id)->where("file_type",
+            "=", "E")->select("noticeexcel_id", "level", "user_id", "file")->get();
+
+        //  echo '<pre>';print_r($data['excel']);die();
+
+
+        $arrfile = array();
+        foreach ($data['excel'] as $key => $val) {
+
+            $arrfile[$val->level]['file'] = $val->file;
+            $arrfile[$val->level]['level'] = $val->level;
+            $arrfile[$val->level]['noticeexcel_id'] = $val->noticeexcel_id;
+            $arrfile[$val->level]['user_id'] = $val->user_id;
+
+        }
+        $data['all_excel'] = $arrfile;
+
+
+        $data['pdf'] = Noticeexcel::where("group_id", $group_id)->where("file_type", "=",
+            "P")->select("noticeexcel_id", "level", "user_id", "file")->get();
+
+        //  echo '<pre>';print_r($data['excel']);die();
+
+
+        $arrpdffile = array();
+        foreach ($data['pdf'] as $key => $val) {
+
+            $arrpdffile[$val->level]['file'] = $val->file;
+            $arrpdffile[$val->level]['level'] = $val->level;
+            $arrpdffile[$val->level]['noticeexcel_id'] = $val->noticeexcel_id;
+            $arrpdffile[$val->level]['user_id'] = $val->user_id;
+
+        }
+        $data['all_pdf'] = $arrpdffile;
+
+        //echo '<pre>';print_r($data['all_pdf']);die();
+
+
+        //$data['excel1'] = Noticeexcel::where("group_id", $group_id)->where("level", "=", "1")->select("file")->first();
+        //$data['excel2'] = Noticeexcel::where("group_id", $group_id)->where("level", "=", "2")->select("file")->first();
+        //$data['excel3'] = Noticeexcel::where("group_id", $group_id)->where("level", "=", "3")->select("file")->first();
+        //$data['excel4'] = Noticeexcel::where("group_id", $group_id)->where("level", "=", "4")->select("file")->first();
+        //$data['excel5'] = Noticeexcel::where("group_id", $group_id)->where("level", "=", "5")->select("file")->first();
+
+        //echo "<pre>";print_r($data['excel']);die();
+
+
         //echo $this->last_query();
 
 
@@ -442,14 +486,12 @@ class NoticeboardController extends BaseController
 
 
         // $tmpl_data['typecatagory'] = $postData['typecatagory'][0];
-        
+
         if (isset($postData['edit_message']) && !empty($postData['edit_message'])) {
-                
-                 $tmpl_data['message'] = $postData['edit_message'];                
-            }
-        
-        
-       
+
+            $tmpl_data['message'] = $postData['edit_message'];
+        }
+
 
         $tmpl_data['message_subject'] = $postData['message_subject'];
 
@@ -545,7 +587,8 @@ class NoticeboardController extends BaseController
         $arrData = array();
         $file_data = array();
         //echo "<pre>";
-        //print_r($postData);
+        //print_r($postData['file_type']);
+
         //die();
 
         $admin_s = Session::get('admin_details');
@@ -554,222 +597,456 @@ class NoticeboardController extends BaseController
         $groupUserId = $admin_s['group_users'];
 
 
-        $path = 'uploads/' . $group_id;
+        if ($postData['file_type'] = "E") {
 
-        if (!file_exists($path)) {
-            File::makeDirectory($path, $mode = 0777, true, true);
+
+            $path = 'uploads/' . $group_id;
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
+
+            $path = 'uploads/' . $group_id . '/noticeExcel/';
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
         }
 
-        $path = 'uploads/' . $group_id . '/noticeExcel/';
-        if (!file_exists($path)) {
-            File::makeDirectory($path, $mode = 0777, true, true);
+        if ($postData['file_type'] = "P") {
+
+
+            $path = 'uploads/' . $group_id;
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
+
+            $path = 'uploads/' . $group_id . '/noticepdf/';
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
         }
 
 
-        if (Input::hasFile('add_file1')) {
+        if (Input::hasFile('add_file1') || Input::hasFile('add_pdffile1')) {
 
-                    $file = Input::file('add_file1');
-                    $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
-                    $fileName = Input::file('add_file1')->getClientOriginalName();
-                    //$fileName = $noticefont_id . $fileName;
+
+            if (Input::file('add_file1')) {
+                $file_type = "E";
+                //die('exfsfsfsf');
+                $file = Input::file('add_file1');
+                $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                $fileName = Input::file('add_file1')->getClientOriginalName();
+
+                $messages = array("add_file1.required" => "add_file1 subject");
+                $rules = array('add_file1' => 'required|max:10000|mimes:xls,xlsx');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+                    
+                    die('<font size="3" color="red">Upload Proper ecxel File only</font>');
+                } else {
+
                     $result = Input::file('add_file1')->move($destinationPath, $fileName);
-        
-        
-                    $file_data['user_id'] = $user_id;
-                    $file_data['group_id'] = $group_id;
-                    $file_data['file'] = $fileName;
-                    $file_data['level'] = 1;
-        
-                    //Noticeexcel::insert($file_data);
-        
-        
-                   $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
-                        "1")->select("noticeexcel_id","file")->first();
-        
-                    
-                    
-                    //die();
-        
-                    if (isset($chkfile) && count($chkfile) >0) {
-                        
-                        
-                        $noticeexcel_id = $chkfile['noticeexcel_id'];
-                        
-                        $file_name=$chkfile['file'];
-                        //print_r($file_name);die();
-                        
-                       //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                        //die();
-                       // if (file_exists("uploads/".$group_id.'/noticeExcel/'.$file_name.'')) {
-                        //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name.'');
-                        //    }
-                        
-                        
-                        
-                        Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
-        
-                    } else {
-                        Noticeexcel::insert($file_data);
-                    }
+                }
 
-            // $arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file1']);
+
+            }
+
+            if (Input::file('add_pdffile1')) {
+                $file_type = "P";
+                //die('pdfdfdf');
+                $file = Input::file('add_pdffile1');
+                $destinationPath = 'uploads/' . $group_id . '/noticepdf/';
+                $fileName = Input::file('add_pdffile1')->getClientOriginalName();
+
+
+                $messages = array("add_pdffile1.required" => "add_file1 subject");
+                $rules = array('add_pdffile1' => 'required|max:10000|mimes:pdf');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper Pdf File only</font>');
+                } else {
+                    
+                    $result = Input::file('add_pdffile1')->move($destinationPath, $fileName);
+                }
+
+
+            }
+
+
+            $file_data['user_id'] = $user_id;
+            $file_data['group_id'] = $group_id;
+            $file_data['file'] = $fileName;
+            $file_data['level'] = 1;
+            $file_data['file_type'] = $file_type;
+
+            //print_r($file_data);die();
+            //Noticeexcel::insert($file_data);
+
+
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("file_type", "=", $file_type)->
+                where("level", "=", "1")->select("noticeexcel_id", "file")->first();
+
+
+            if (isset($chkfile) && count($chkfile) > 0) {
+
+
+                $noticeexcel_id = $chkfile['noticeexcel_id'];
+
+                $file_name = $chkfile['file'];
+                //print_r($file_name);die();
+
+                //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+
+                //if (file_exists("uploads/".$group_id.'/noticeExcel/'.$file_name.'')) {
+                //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name.'');
+                //    }
+
+
+                Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
+
+            } else {
+                Noticeexcel::insert($file_data);
+            }
         }
-        
+        //die();
+
+        // $arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file1']);
+
+
         //die('file1');
 
-        if (Input::hasFile('add_file2')) {
-            $file = Input::file('add_file2');
-            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
-            $fileName = Input::file('add_file2')->getClientOriginalName();
+        elseif (Input::hasFile('add_file2') || Input::hasFile('add_pdffile2')) {
 
-            //$fileName = $noticefont_id . $fileName;
-            $result = Input::file('add_file2')->move($destinationPath, $fileName);
+            if (Input::file('add_file2')) {
+                $file_type = "E";
+                //die('exfsfsfsf');
+                $file = Input::file('add_file2');
+                $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                $fileName = Input::file('add_file2')->getClientOriginalName();
+
+                $messages = array("add_file2.required" => "add_file2 subject");
+                $rules = array('add_file2' => 'required|max:10000|mimes:xls,xlsx');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper ecxel File only</font>');
+                } else {
+
+                    $result = Input::file('add_file2')->move($destinationPath, $fileName);
+                }
+
+
+            }
+
+
+            if (Input::file('add_pdffile2')) {
+                $file_type = "P";
+                //die('pdfdfdf');
+                $file = Input::file('add_pdffile2');
+                $destinationPath = 'uploads/' . $group_id . '/noticepdf/';
+                $fileName = Input::file('add_pdffile2')->getClientOriginalName();
+
+
+                $messages = array("add_pdffile2.required" => "add_pdffile2 subject");
+                $rules = array('add_pdffile2' => 'required|max:10000|mimes:pdf');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper Pdf File only</font>');
+                } else {
+
+                    $result = Input::file('add_pdffile2')->move($destinationPath, $fileName);
+                }
+
+
+            }
+
 
             $file_data['user_id'] = $user_id;
             $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 2;
+            $file_data['file_type'] = $file_type;
 
 
-            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
-                "2")->select("noticeexcel_id")->first();
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("file_type", "=", $file_type)->
+                where("level", "=", "2")->select("noticeexcel_id", "file")->first();
 
-            if (isset($chkfile) && count($chkfile) >0) {
+
+            if (isset($chkfile) && count($chkfile) > 0) {
                 $noticeexcel_id = $chkfile['noticeexcel_id'];
-                $file_name=$chkfile['file'];
+                $file_name = $chkfile['file'];
                 //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                
-                //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
-                //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+
+                // if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //       unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
                 //    }
-                
+
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
             } else {
                 Noticeexcel::insert($file_data);
             }
+        } elseif (Input::hasFile('add_file3') || Input::hasFile('add_pdffile3')) {
 
-        }
 
-        if (Input::hasFile('add_file3')) {
-            $file = Input::file('add_file3');
-            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
-            $fileName = Input::file('add_file3')->getClientOriginalName();
+            if (Input::file('add_file3')) {
+                $file_type = "E";
+                //die('exfsfsfsf');
+                $file = Input::file('add_file3');
+                $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                $fileName = Input::file('add_file3')->getClientOriginalName();
 
-            //$fileName = $noticefont_id . $fileName;
-            $result = Input::file('add_file3')->move($destinationPath, $fileName);
+                $messages = array("add_file3.required" => "add_file3 subject");
+                $rules = array('add_file3' => 'required|max:10000|mimes:xls,xlsx');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+                    
+                    die('<font size="3" color="red">Upload Proper ecxel File only</font>');
+                } else {
+
+                    $result = Input::file('add_file3')->move($destinationPath, $fileName);
+                }
+
+            }
+
+            if (Input::file('add_pdffile3')) {
+                $file_type = "P";
+                //die('pdfdfdf');
+                $file = Input::file('add_pdffile3');
+                $destinationPath = 'uploads/' . $group_id . '/noticepdf/';
+                $fileName = Input::file('add_pdffile3')->getClientOriginalName();
+
+
+                $messages = array("add_pdffile3.required" => "add_pdffile3 subject");
+                $rules = array('add_pdffile3' => 'required|max:10000|mimes:pdf');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper Pdf File only</font>');
+                } else {
+
+                    $result = Input::file('add_pdffile3')->move($destinationPath, $fileName);
+                }
+
+            }
 
             $file_data['user_id'] = $user_id;
             $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 3;
+            $file_data['file_type'] = $file_type;
 
-            $chkfile = Noticeexcel::where("user_id", $group_id)->where("level", "=",
-                "3")->select("noticeexcel_id")->first();
+            $chkfile = Noticeexcel::where("user_id", $group_id)->where("file_type", "=", $file_type)->
+                where("level", "=", "3")->select("noticeexcel_id", "file")->first();
 
-            
 
-           if (isset($chkfile) && count($chkfile) >0) {
+            if (isset($chkfile) && count($chkfile) > 0) {
                 $noticeexcel_id = $chkfile['noticeexcel_id'];
-                $file_name=$chkfile['file'];
-               // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                
-              //  if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
-               //         unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
-                //    }
+                $file_name = $chkfile['file'];
+                // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+
+                // if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //   unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                //}
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
             } else {
                 Noticeexcel::insert($file_data);
             }
+        } elseif (Input::hasFile('add_file4') || Input::hasFile('add_pdffile4')) {
 
-        }
-        
-        if (Input::hasFile('add_file4')) {
-            $file = Input::file('add_file4');
-            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
-            $fileName = Input::file('add_file4')->getClientOriginalName();
 
-            //$fileName = $noticefont_id . $fileName;
-            $result = Input::file('add_file4')->move($destinationPath, $fileName);
+            if (Input::file('add_file4')) {
+                $file_type = "E";
+                //die('exfsfsfsf');
+                $file = Input::file('add_file4');
+                $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                $fileName = Input::file('add_file4')->getClientOriginalName();
+
+                $messages = array("add_file4.required" => "add_file4 subject");
+                $rules = array('add_file4' => 'required|max:10000|mimes:xls,xlsx');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper ecxel File only</font>');
+                } else {
+
+                    $result = Input::file('add_file4')->move($destinationPath, $fileName);
+                }
+
+
+            }
+
+            if (Input::file('add_pdffile4')) {
+                $file_type = "P";
+                //die('pdfdfdf');
+                $file = Input::file('add_pdffile4');
+                $destinationPath = 'uploads/' . $group_id . '/noticepdf/';
+                $fileName = Input::file('add_pdffile4')->getClientOriginalName();
+
+
+                $messages = array("add_pdffile4.required" => "add_pdffile4 subject");
+                $rules = array('add_pdffile4' => 'required|max:10000|mimes:pdf');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper Pdf File only</font>');
+                } else {
+
+                    $result = Input::file('add_pdffile4')->move($destinationPath, $fileName);
+                }
+
+            }
 
             $file_data['user_id'] = $user_id;
             $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 4;
+            $file_data['file_type'] = $file_type;
 
-            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
-                "4")->select("noticeexcel_id")->first();
 
-            
-            if (isset($chkfile) && count($chkfile) >0) {
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("file_type", "=", $file_type)->
+                where("level", "=", "4")->select("noticeexcel_id", "file")->first();
+
+
+            if (isset($chkfile) && count($chkfile) > 0) {
                 $noticeexcel_id = $chkfile['noticeexcel_id'];
-                $file_name=$chkfile['file'];
-               // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-               
-               //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
-                   //     unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
-                  //  }
+                $file_name = $chkfile['file'];
+                // $prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
+
+                // if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //     unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+                // }
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
 
             } else {
                 Noticeexcel::insert($file_data);
             }
 
-            //$arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file4']);
-
         }
-        
-        if (Input::hasFile('add_file5')) {
-            $file = Input::file('add_file5');
-            $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
-            $fileName = Input::file('add_file5')->getClientOriginalName();
+        //$arrData[] = $this->excel_notice($user_id,$file_level, $file_data['file4']);
 
-            //$fileName = $noticefont_id . $fileName;
-            $result = Input::file('add_file5')->move($destinationPath, $fileName);
 
-             $file_data['user_id'] = $user_id;
+        elseif (Input::hasFile('add_file5') || Input::hasFile('add_pdffile5')) {
+
+            if (Input::file('add_file5')) {
+                $file_type = "E";
+                //die('exfsfsfsf');
+                $file = Input::file('add_file5');
+                $destinationPath = 'uploads/' . $group_id . '/noticeExcel/';
+                $fileName = Input::file('add_file5')->getClientOriginalName();
+
+                $messages = array("add_file5.required" => "add_file5 subject");
+                $rules = array('add_file5' => 'required|max:10000|mimes:xls,xlsx');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper ecxel File only</font>');
+                } else {
+
+                    $result = Input::file('add_file5')->move($destinationPath, $fileName);
+                }
+
+
+            }
+
+
+            if (Input::file('add_pdffile5')) {
+                $file_type = "P";
+                //die('pdfdfdf');
+                $file = Input::file('add_pdffile5');
+                $destinationPath = 'uploads/' . $group_id . '/noticepdf/';
+                $fileName = Input::file('add_pdffile5')->getClientOriginalName();
+
+
+                $messages = array("add_pdffile5.required" => "add_pdffile5 subject");
+                $rules = array('add_pdffile5' => 'required|max:10000|mimes:pdf');
+                $validator = Validator::make($postData, $rules, $messages);
+
+                if ($validator->fails()) {
+
+                    die('<font size="3" color="red">Upload Proper Pdf File only</font>');
+                } else {
+
+                    $result = Input::file('add_pdffile5')->move($destinationPath, $fileName);
+                }
+
+            }
+            $file_data['user_id'] = $user_id;
             $file_data['group_id'] = $group_id;
             $file_data['file'] = $fileName;
             $file_data['level'] = 5;
+            $file_data['file_type'] = $file_type;
 
-            $chkfile = Noticeexcel::where("group_id", $group_id)->where("level", "=",
-                "5")->select("noticeexcel_id")->first();
+            $chkfile = Noticeexcel::where("group_id", $group_id)->where("file_type", "=", $file_type)->
+                where("level", "=", "5")->select("noticeexcel_id", "file")->first();
 
-           if (isset($chkfile) && count($chkfile) >0) {
+            if (isset($chkfile) && count($chkfile) > 0) {
                 $noticeexcel_id = $chkfile['noticeexcel_id'];
-                $file_name=$chkfile['file'];
-                
-                
+                $file_name = $chkfile['file'];
+
+                $file_name;
+
                 //$prevPath = './uploads/' . $group_id . '/noticeExcel/'. $file_name;
-                
-                //if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
-                //        unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
+
+                // if (file_exists('uploads/' . $group_id . '/noticeExcel/'. $file_name)) {
+                //         unlink('uploads/' . $group_id . '/noticeExcel/'. $file_name);
                 //    }
-                    
+
                 Noticeexcel::where("noticeexcel_id", "=", $noticeexcel_id)->update($file_data);
-                
+
                 //$prevPath = './uploads/' . $user_id . '/noticeExcel/';
-                
+
                 //if ($postData['hidd_file'] != "") {
-                  //  if (file_exists($prevPath)) {
-                   //     unlink($prevPath);
-                  //  }
+                //  if (file_exists($prevPath)) {
+                //     unlink($prevPath);
+                //  }
                 //}
 
             } else {
                 Noticeexcel::insert($file_data);
             }
-
-            //$arrData[] = $this->excel_notice($user_id,$file_level,$file_data['file5']);
-
-
         }
+        //$arrData[] = $this->excel_notice($user_id,$file_level,$file_data['file5']);
+
+
         /////////////////file upload end////////////////////
+
+        //  echo $data1 = Noticeexcel::where("group_id", $group_id)->where("level", "=", "1")->select("file")->first();
+        // echo  $data2 = Noticeexcel::where("group_id", $group_id)->where("level", "=", "2")->select("file")->first();
+        // echo  $data3 = Noticeexcel::where("group_id", $group_id)->where("level", "=", "3")->select("file")->first();
+        // echo  $data4 = Noticeexcel::where("group_id", $group_id)->where("level", "=", "4")->select("file")->first();
+        /// echo $data5 = Noticeexcel::where("group_id", $group_id)->where("level", "=", "5")->select("file")->first();
+
+
+        //$arrfile = array();
+        // foreach ($data['excel'] as $key => $val) {
+
+        //    $arrfile[$key]['file'] = $data['excel'][$key]->file;
+
+        //  }
+
+
+        //header('Content-Type: application/json; charset=utf-8');
+        // header('Content-Type: application/json; charset=utf-8');
+
+        //   echo json_encode($arrfile);
+        //  exit;
+        // echo json_encode($arrfile);
 
 
         //return Redirect::to('/noticeboard');
-        
+        echo $file_data['file'];
 
     }
 
@@ -783,4 +1060,20 @@ class NoticeboardController extends BaseController
     
     }
     */
+
+
+    public function pdf_upload()
+    {
+
+        $postData = Input::all();
+
+        $arrData = array();
+        $file_data = array();
+        echo "<pre>";
+        print_r($postData);
+        exit;
+
+
+    }
+
 }
