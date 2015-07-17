@@ -72,7 +72,17 @@ $(document).ready(function(){
               <button type="button" name="sync_data_button" id="sync_data_button" class="btn btn-danger">SYNC DATA</button>
             </li>
             <li>
-              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
+              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">
+                @if(isset($user_type) && $user_type == "C")
+                  {{ $client_details['initial_badge'] or "" }}
+                @else
+                  @if(isset($client_details['client_code']) && $client_details['client_code'] != "")
+                    {{ $client_details['client_code'] }}
+                  @else
+                    {{ $client_details['initial_badge'] or "" }}
+                  @endif
+                @endif
+              </a></p>
             </li>
             <li>
               <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['business_name'] or "" }}</p>
@@ -606,7 +616,7 @@ $(document).ready(function(){
                 </select>
             </div>
           </div>
-          <div class="twobox_2" id="show_other_office" style="display:none;">
+          <div class="twobox_2" id="show_other_office" style="display:{{ (isset($client_details['other_office_id']) && $client_details['other_office_id'] != "")?'block':'none'}};">
             <div class="form-group">
               <label for="exampleInputPassword1">Other Address</label>
               
@@ -616,7 +626,7 @@ $(document).ready(function(){
                   @if(!empty($tax_office))
                     @foreach($tax_office as $key=>$office_row)
                       @if($office_row->parent_id != 0)
-                        <option value="{{ $office_row->office_id }}" {{ (isset($client_details['tax_office_id']) && $client_details['tax_office_id'] == $office_row->office_id)?"selected":""}}>     {{ $office_row->office_name }}</option>
+                        <option value="{{ $office_row->office_id }}" {{ (isset($client_details['other_office_id']) && $client_details['other_office_id'] == $office_row->office_id)?"selected":""}}>     {{ $office_row->office_name }}</option>
                       @endif
                     @endforeach
                   @endif

@@ -50,6 +50,9 @@
               <li>
                 <a href="/chdata/index" class="btn btn-warning">BACK</a>
               </li>
+              <li>
+                <p style="margin: 10px 0 0 400px;font-size: 18px; font-weight: bold;color:#00acd6">{{ $details->CompanyName or "" }}</p>
+              </li>
               <div class="clearfix"></div>
             </ul>
           </div>
@@ -80,6 +83,68 @@
   <li> 
     <div class="col-lg-12">
        <div class="details_table">
+        <!-- <table width="100%" border="1" bordercolor="60aad2">
+          <tr class="td_color">
+            <td colspan="2" align="center"><span class="table_tead_t">OVERVIEW</span></td>
+          </tr>
+          <tr>
+            <td width="40%" class="td_color"><strong>Company Name</strong></td>
+            <td width="60%">{{ $details->company_name or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Registration Number</strong></td>
+            <td>{{ $details->company_number or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Registered in</strong></td>
+            <td>{{ $client_data['registered_in'] or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Web Filing Authentication Code</strong></td>
+            <td>{{ $client_data['ch_auth_code'] or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Company Category</strong></td>
+            <td>{{ $details->CompanyCategory or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Company Status</strong></td>
+            <td>{{ $details->company_status or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Country of Origin</strong></td>
+            <td>{{ $details->jurisdiction or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Incorporation Date</strong></td>
+            <td>{{ $details->IncorporationDate or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Nature of Business</strong></td>
+            <td>{{ $nature_of_business or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Accounting Reference Date</strong></td>
+            <td>{{ $details->accounts->accounting_reference_date->day or "" }}/{{ $details->accounts->accounting_reference_date->month or "" }}</td>
+          </tr>
+          <tr>
+            <td class="td_color"><strong>Last Accounts made Up Date</strong></td>
+            <td>{{ $details->accounts->last_accounts->made_up_to or "" }}</td>
+          </tr>
+            <tr>
+            <td class="td_color"><strong>Next Accounts Due</strong></td>
+            <td>{{ $details->next_due or "" }}</td>
+          </tr>
+            <tr>
+            <td class="td_color"><strong>Last Return Made Up To</strong></td>
+            <td>{{ $details->annual_return->last_made_up_to or "" }}</td>
+          </tr>
+            <tr>
+            <td class="td_color"><strong>Next Return Due</strong></td>
+            <td>{{ $details->annual_return->next_due or "" }}</td>
+          </tr>
+          
+        </table> -->
         <table width="100%" border="1" bordercolor="60aad2">
           <tr class="td_color">
             <td colspan="2" align="center"><span class="table_tead_t">OVERVIEW</span></td>

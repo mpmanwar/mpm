@@ -207,8 +207,8 @@ class UserController extends BaseController {
 
 	private function send_mail($data) {
 		Mail::send('emails.add_user', $data, function ($message) use ($data) {
-			$message->from('abel02@icloud.com', 'MPM');
-			$message->to($data['email'], $data['fname'].' '.$data['lname'])->subject("Welcome to MPM");
+			$message->from('abel02@icloud.com', 'i-Practice');
+			$message->to($data['email'], $data['fname'].' '.$data['lname'])->subject("Welcome to i-Practice");
 
 		});
 	}

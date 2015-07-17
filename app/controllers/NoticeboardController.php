@@ -379,8 +379,8 @@ class NoticeboardController extends BaseController
 
         Mail::send('emails.notice', $data, function ($message)use ($data)
         {
-            $message->from('abel02@icloud.com', 'MPM Notice'); $message->to($data['emailnotice'])->
-                subject("Welcome to MPM Notice Board");
+            $message->from('abel02@icloud.com', 'i-Practice Notice'); $message->to($data['emailnotice'])->
+                subject("Welcome to i-Practice Notice Board");
                 //$message->to('subhajit.poddar@appsbee.com')->subject("Welcome to MPM Noticeboard");
 
         }

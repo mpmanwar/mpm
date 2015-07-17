@@ -192,7 +192,7 @@ $(function() {
                   </span>
                 </th>
                 <th>CLIENT NAME</th>
-                <th><span id="business_name_text">BUSINESS NAME</span>
+                <th width="15%"><span id="business_name_text">BUSINESS NAME</span>
                   <span id="business_name_select" style="display:none;">
                     <select id="six" style="width:100px;">
                       @if(!empty($client_fields))
@@ -263,7 +263,17 @@ $(function() {
                   <td align="left">{{ $client_row['staff_name'] or "" }}</td>
                   <td align="center">{{ isset($client_row['dob'])?date("d-m-Y", strtotime($client_row['dob'])):"" }}</td>
                   <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['client_name']))? $client_row['client_name']: '' }}</a></td>
-                  <td align="left">{{ (!empty($client_row['business_name']))? $client_row['business_name']: '' }}</td>
+                  <td align="left">
+                    
+                    @if(isset($client_row['relationship']) && count($client_row['relationship']) >0 )
+                      <select class="form-control">
+                      @foreach($client_row['relationship'] as $key=>$relation_row)
+                        <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['name'] or "" }}</option>
+                      @endforeach
+                      </select>
+                    @endif
+                    
+                  </td>
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
