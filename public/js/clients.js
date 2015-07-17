@@ -1564,14 +1564,16 @@ $(".delete_invited_client").click(function(){
   });
   //##############User active/Inactive Portion start ################//
 
-  $('#showclientuser').on('ifChecked', function(event){
+  /*$('#showclientuser').on('ifChecked', function(event){
     $("#show_other_user_client").show();
   });
 
   $('#showclientuser').on('ifUnchecked', function(event){
     $("#show_other_user_client").hide();
+  });*/
+  $('#showclientuser').click(function(event){
+      $("#show_other_user_client").toggle();
   });
-
 //############## Change user relation status  in the other Portion start ################//
   $('.user_client_relation').on('ifChecked', function(event){
     var related_company_id = $(this).data('related_company_id');
