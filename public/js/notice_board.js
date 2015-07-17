@@ -75,9 +75,20 @@ function openbodyModal(noticefont_id) {
 					var attachment = resp['file'];
 					var res = attachment.substring(2);
 				}
+               
+               
+               var msg= (resp.message);
+               
+               
+               var full_msg=msg.replace(/(<([^>]+)>)/ig,"");
+               
+                //console.log(full_msg);
+                //var msg= stripTags(resp.message);
+                
+                //console.log( stripHTML(resp.message) );
 				//$('#typecatagory1').val(resp.typecatagory);
 				//$('#edit_notice_template_id1').val(resp.noticefont_id);
-				$('#edit_msgmessage').val(resp.message);
+				$('#edit_msgmessage').text(full_msg);
 				//$('#message_msgsubject').val(resp.message_subject);//
 				//$('#msg_attach').html(res);
 				//$('#edit_attach_file2').empty().html(res);
