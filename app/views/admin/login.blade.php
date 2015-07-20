@@ -15,7 +15,7 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">Sign In</div>
+            <div class="header"><a href="#"> <img src="img/logo.png" /></a></div>
             {{ Form::open(array('url' => '/login-process', 'files' => true)) }}
             
             
@@ -33,14 +33,14 @@
                 <div id="message" style="color: red;font-size: 15px;">{{ Session::get('message') }}</div> 
                 <div id="message" style="color: green;font-size: 15px;">{{ Session::get('success') }}</div>
                     <div class="form-group">
-                        <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID"/>
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="Email Address"/>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" id="password" class="form-control" placeholder="Password"/>
                     </div>          
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="checkbox" name="remember_me"/> Remember me
-                    </div>
+                    </div> -->
                 </div>
                 <div class="footer">                                                               
                     <button type="submit" class="btn bg-olive btn-block">Sign in</button>  

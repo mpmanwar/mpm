@@ -190,6 +190,9 @@ Route::any('/index_template', array("as"=>"index_template", "uses"=>'Noticeboard
 Route::get('/edit-template/{id}', 'NoticeboardController@edit_template');
 Route::get('/delete-template/{id}', 'NoticeboardController@delete_template');
 
+Route::any('/swap-board1', 'NoticeboardController@swap_board1');
+
+
 Route::get('/delete-attachment/{id}', 'NoticeboardController@delete_attachment');
 
 

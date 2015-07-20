@@ -1,16 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic);
 
 @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
-/*! 
- *   AdminLTE v1.2
- *   Author: AlmsaeedStudio.com
- *   License: Open source - MIT
- *           Please visit http://opensource.org/licenses/MIT for more information
-!*/
-/*
-    Core: General style
-----------------------------
-*/
+
 html,
 body {
   overflow-x: hidden!important;
@@ -58,7 +49,6 @@ body > .header {
 /*right side - contins main content*/
 .right-side {
   background-color: #f9f9f9;
-  margin-left: 220px;
 }
 /*left side - contains sidebar*/
 .left-side {
@@ -183,7 +173,7 @@ img {
   background-color: #eaeaec !important;
 }
 .bg-black {
-  background-color: #222222 !important;
+  background-color: #fff !important;
 }
 .bg-red {
   background-color: #f56954 !important;
@@ -338,7 +328,7 @@ body > .header {
 body > .header .navbar {
   min-height: 50px;
   margin-bottom: 0;
-  margin-left: 220px;
+ /* margin-left: 220px;*/
 }
 body > .header .navbar .sidebar-toggle {
   float: left;
@@ -395,18 +385,18 @@ body > .header .navbar .nav > li > a:hover > .label {
   top: 3px;
 }
 body > .header .logo {
-  float: left;
+ float: left;
   font-size: 20px;
-  line-height: 68px;
+  line-height: 50px;
   text-align: center;
   padding: 0 10px;
+  width: 18%;
   font-family: 'Kaushan Script', cursive;
   font-weight: 500;
+  height: 57px;
   display: block;
   background-color: #fff; 
-
 }
-.logo_cont{/*width:19.5%; border-bottom: 1px solid #000; */float: left; }
 body > .header .logo .icon {
   margin-right: 10px;
 }
@@ -2262,11 +2252,14 @@ Component: timeline
     Page: register and login
 */
 .form-box {
-  width: 360px;
-  margin: 90px auto 0 auto;
+  width: 400px;
+  margin: 90px auto 10px auto;
+  background:#fff;
+  padding:30px;
+   box-shadow: 0px 1px 9px 5px #ccc;
 }
 .form-box .header {
-  -webkit-border-top-left-radius: 4px;
+/*  -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;
   -webkit-border-bottom-right-radius: 0;
   -webkit-border-bottom-left-radius: 0;
@@ -2277,10 +2270,10 @@ Component: timeline
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  background: #0866c6;
-  box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
-  padding: 20px 10px;
+  border-bottom-left-radius: 0; 
+  box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);*/
+  background: #fff;
+  padding: 0px 10px 20px;
   text-align: center;
   font-size: 26px;
   font-weight: 300;
@@ -2291,6 +2284,7 @@ Component: timeline
   padding: 10px 20px;
   background: #fff;
   color: #444;
+  text-align:center;
 }
 .form-box .body > .form-group,
 .form-box .footer > .form-group {
@@ -3435,10 +3429,8 @@ fieldset[disabled] .btn-vk.active {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-
-
-
-
-
+/*===========new login css===========*/
+.agree_t{color:#444!important; text-align:center; margin-top:15px;}
+.try_t{font-size:28px!important; text-align:center; color:#000; font-weight:bold;}
 
 

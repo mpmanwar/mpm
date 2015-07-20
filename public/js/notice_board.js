@@ -58,7 +58,7 @@ function openModal(noticefont_id) {
 }
 
 function openbodyModal(noticefont_id) {
-	console.log(noticefont_id);
+	// console.log(noticefont_id);
 	$.ajax({
 		type: "POST",
 		//dataType: "html",
@@ -75,20 +75,16 @@ function openbodyModal(noticefont_id) {
 					var attachment = resp['file'];
 					var res = attachment.substring(2);
 				}
-               
-               
-               var msg= (resp.message);
-               
-               
-               var full_msg=msg.replace(/(<([^>]+)>)/ig,"");
-               
-                //console.log(full_msg);
-                //var msg= stripTags(resp.message);
-                
-                //console.log( stripHTML(resp.message) );
+				var msg = (resp.message);
+                //$this.html($this.html().replace(/&nbsp;/g, ''));
+                //var full_msg = msg.replace(/&nbsp;/g, '');
+				//var full_msg = msg.replace(/(<([^>]+)>)/ig, "");
+				//console.log(full_msg);
+				//var msg= stripTags(resp.message);
+				//console.log( stripHTML(resp.message) );
 				//$('#typecatagory1').val(resp.typecatagory);
 				//$('#edit_notice_template_id1').val(resp.noticefont_id);
-				$('#edit_msgmessage').text(full_msg);
+				$('#edit_msgmessage').text($(msg).text());
 				//$('#message_msgsubject').val(resp.message_subject);//
 				//$('#msg_attach').html(res);
 				//$('#edit_attach_file2').empty().html(res);
@@ -186,52 +182,39 @@ function delattachfun() {
 	//alert('#add_file'+id);
 	
 });*/
-
-
 var looper = $(".upload-buttons");
-$.each(looper, function(key, value){
-    //console.log(value); 
-    $(value).on('change', function() {
-        var control = $(this);
-        //console.log(that);
-        var loop = $(this).attr("data-looper");
-        console.log("in change", loop);
-    	//alert("#imageform"+id);
-    	$("#prev").html('');
-    	//alert('#imageform'+id);
-    	$("#prev").html('Uploading.....');
-        
-    	$("#imageform" + loop).ajaxForm(
-    	//$('#div5').html();
-    	{
-    		//target: '#preview'+id,
-    		success: function(response) {
-    		    control.replaceWith( control = control.clone( true ) );
-    			x = response;
-    			//if(!x){
-    			//alert('sfsf');
-    			//$("#prev").html('Upload Proper Excel File only');
-    			// }
-    			$("#file_value" + loop).html('<img src="img/attachment.png" />');
-    			$("#prev").html('');
-    			//console.log(x);              
-    			// alert(x);
-    		}
-    	}).submit();
-    	//$('#step4').html();
-    	//window.location='/noticeboard';
-    });
-});
-
-
-/*;*/
-
-
-
-
-
-
-
+$.each(looper, function(key, value) {
+	//console.log(value); 
+	$(value).on('change', function() {
+		var control = $(this);
+		//console.log(that);
+		var loop = $(this).attr("data-looper");
+		console.log("in change", loop);
+		//alert("#imageform"+id);
+		$("#prev").html('');
+		//alert('#imageform'+id);
+		$("#prev").html('Uploading.....');
+		$("#imageform" + loop).ajaxForm(
+		//$('#div5').html();
+		{
+			//target: '#preview'+id,
+			success: function(response) {
+				control.replaceWith(control = control.clone(true));
+				x = response;
+				//if(!x){
+				//alert('sfsf');
+				//$("#prev").html('Upload Proper Excel File only');
+				// }
+				$("#file_value" + loop).html('<img src="img/attachment.png" />');
+				$("#prev").html('');
+				//console.log(x);              
+				// alert(x);
+			}
+		}).submit();
+		//$('#step4').html();
+		//window.location='/noticeboard';
+	});
+}); /*;*/
 //upload
 // upload pdf
 $(".pdf").click(function() {
@@ -248,7 +231,6 @@ $(".pdf").click(function() {
 			success: function(response) {
 				//alert(response);
 				x = response;
-				
 				$("#file_pdfvalue" + id).html('<img src="img/attachment.png" />');
 				$("#pdfprev").html('');
 			}
@@ -257,9 +239,6 @@ $(".pdf").click(function() {
 		//window.location='/noticeboard';
 	});
 });
-
-
-
 //
 // valid for excel
 //$(function() {
@@ -331,14 +310,153 @@ $(".back").click(function() {
 	$(".tab-pane").fadeOut("fast");
 	$("#step" + data_id).fadeIn("slow");
 });
+//board 1 6 adding
+$(".add_new").click(function() {
+	//alert('');
+	//$("#compose-modal").modal("show");
+	var numItems = $('.limitboard').length;
+	if (numItems < 6) {
+		$("#compose-modal").modal("show");
+	} else {
+		alert("Delete existing  post first before adding New");
+	}
+	//alert(numItems);
+});
+//board 1 6 adding
+
+//board 2 6 adding
+$(".add_new2").click(function() {
+	//alert('');
+	//$("#compose-modal").modal("show");
+	var numItems = $('.limitboard2').length;
+    //alert('numItems');
+	if (numItems < 6) {
+		$("#compose-modal").modal("show");
+	} else {
+		alert("Delete existing  post first before adding New");
+	}
+	//alert(numItems);
+});
+//board 2 6 adding
+
+
+
+// sortable
 $(function() {
-	$("#sortable").sortable();
+	$("#sortable").sortable({
+		/*var order = $(this).sortable("serialize");
+		console.log(order);*/
+        stop: function(event, ui) {
+            //console.log(ui);
+            //var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
+            var toSend = [], param = {};
+            var sorted = $( "#sortable" ).sortable( "toArray" );
+            for(var i in sorted){
+                //console.log(sorted[i]);
+                var each = parseInt(sorted[i]);
+                if(each){
+                    toSend.push(each);
+                }
+            }
+            param = {
+                order: toSend.join(",")
+            }
+            
+            console.log(param);
+            $.ajax({
+                url: '/swap-board1',
+                type: 'POST',
+                data: param,
+                success: function(){
+                    $("#compose-msgmodal").modal("hide");
+                    	
+                    console.log("updated");
+                },
+                error: function(data){
+                    console.log("ERROR", data);
+                }
+            });
+        }
+/* start: function(event, ui) {
+            ui.item.startPos = ui.item.index();
+        },
+        stop: function(event, ui) {
+            //console.log("Start position: " + ui.item.startPos);
+            //console.log("New position: " + ui.item.index());
+            var id = this.id;
+            console.log(id);
+        }*/
+	});
 	$("#sortable").disableSelection();
 });
+
+
+
+
 $(function() {
-	$("#sortable2").sortable();
+	$("#sortable2").sortable({
+    
+        stop: function(event, ui) {
+            var toSend = [], param = {};
+            var sorted = $( "#sortable2" ).sortable( "toArray" );
+            
+            for(var i in sorted){
+                //console.log(sorted[i]);
+                var each = parseInt(sorted[i]);
+                if(each){
+                    toSend.push(each);
+                }
+            }
+            param = {
+                order: toSend.join(",")
+            }
+             console.log(param);
+            $.ajax({
+                url: '/swap-board1',
+                type: 'POST',
+                data: param,
+                success: function(){
+                    
+                    	
+                    console.log("updated2");
+                },
+                error: function(data){
+                    console.log("ERROR2", data);
+                }
+            });
+        }
+            
+            
+    	});
 	$("#sortable2").disableSelection();
 });
+//save
+/*$(".swapboard1").click(function() {
+    
+    //alert('aaaaa');
+    
+    $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/swap-board1',
+		data: {
+			'noticefont_id': noticefont_id
+		},
+		success: function(resp) {
+			     console.log(resp);
+		
+			
+			
+		
+		          }
+	       });
+    
+    });*/
+//
+
+//sortable
+
+// ajax submit board 2 //////
 $("#noticetab li").on('click', function(event) {
 	//alert('fsfsf');
 	var tabno = $(this).data("tabno");

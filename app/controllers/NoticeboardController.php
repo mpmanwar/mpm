@@ -46,14 +46,17 @@ class NoticeboardController extends BaseController
         // echo "<pre>";print_r($data['username']);die();
 
         $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "1")->select("noticefont_id", "user_id", "board_no", "message",
-            "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
-            'DESC')->take(6)->get();
+            "=", "1")->select("noticefont_id", "sort_id","user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
+            'ASC')->take(6)->get();
 
+
+            //echo $data['font'];die();
+            
         $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "2")->select("noticefont_id", "user_id", "board_no", "message",
-            "message_subject", "checkbox", "file", "created")->orderBy('noticefont_id',
-            'DESC')->take(6)->get();
+            "=", "2")->select("noticefont_id","sort_id", "user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
+            'ASC')->take(6)->get();
 
         //echo $this->last_query();die();
         //echo $data['font'];die();
@@ -291,6 +294,10 @@ class NoticeboardController extends BaseController
 
             //echo '<pre>'; print_r($tmpl_data);die();
             $noticefont_id = Noticefont::insertGetId($tmpl_data);
+            
+            $sort_data = array();
+            $sort_data['sort_id'] = $noticefont_id;
+            $sortId_update=Noticefont::where("noticefont_id", "=", $noticefont_id)->update($sort_data);
 
 
             if (isset($postData['notifycheckadd']) && !empty($postData['notifycheckadd'])) {
@@ -1074,6 +1081,54 @@ class NoticeboardController extends BaseController
         exit;
 
 
+    }
+    
+    
+    
+    public function swap_board1(){
+        //print_r($_POST);
+        
+        $postData = Input::all();
+          
+          //echo $postData['order'];
+          //die();
+          
+          $order = explode(",",$postData['order']);
+         //print_r($order);
+         
+         
+         foreach($order as $o =>$v){
+            $o++;
+            Noticefont::where("noticefont_id", "=", $v)->update(array('sort_id'=> $o));
+                        
+         }
+         
+         
+         // $count = count($order);
+          //for($i=$count;$i>0;$i--){
+              //$i++;
+              // $final[$count-$i]=$order[$i-1] ;
+       // }
+       // print_r($final);die();
+       /**
+        * 
+        * 
+        print_r($order);
+        
+         $count = count($order);
+        
+        for($i=0;$i<$count;$i++){
+            
+            //echo $order[$i];
+        }
+        //die();
+        $store= Noticefont::whereIN("noticefont_id",$order)-> select("noticefont_id", "sort_id","user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->get();
+        
+       
+        print_r($store);die();
+        **/
+        
     }
 
 }

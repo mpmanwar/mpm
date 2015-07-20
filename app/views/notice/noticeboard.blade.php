@@ -132,7 +132,7 @@
 
 <div class="col-xs-4">
 <div class="noticeboard_leftside">
-<a href="#" data-toggle="modal" data-target="#compose-modal" class="add_new">Add New...</a>
+<a href="#" data-toggle="modal" class="add_new">Add New...</a>
 <!--<a href="#" class="add_new">Add New...</a> -->
 <!--
 <div class="bottom_content">
@@ -169,12 +169,12 @@
 
 <div class="col-xs-8" id="sortable">
 @foreach($font as $key=>$val)
-<div class="staff_left hvr-grow1">
+<div class="staff_left hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
-<div class="holidays_list" id="dyn{{ $val['noticefont_id'] }}" >
+<div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
 <span class="holidays_h">{{$val['message_subject'] }}</span>
-<div style="cursor:pointer">
-<p class="holidays_content" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
+<div style="cursor:move">
+<p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
 </p>
 </div>
@@ -184,7 +184,9 @@
 
         <p class="posted_t">Posted by {{ $userfullname->fname }} {{ $userfullname->lname}} {{ $val['created']}}</p>
         
-
+        <input type="hidden" name="sort_id" id="sort_id" value="{{ $val['sort_id'] }}" />
+        
+         <input type="hidden" name="noticefont_id" id="noticefont_id" value="{{ $val['noticefont_id'] }}" />
         
         <div class="edit_controlar">
 <a  href="#" data-template_id="{{ $val['noticefont_id'] }}" onclick="openModal('{{ $val['noticefont_id'] }}')"><img src="img/edit_icon.png"  /></a>
@@ -199,7 +201,7 @@
  
 </div>
  @endforeach
-
+<div id="console"></div>
 <!--<div class="staff_right">
 
 <div class="holidays_list">
@@ -268,7 +270,8 @@
 
 <div class="col-xs-4">
 <div class="noticeboard_leftside">
-<a href="#" data-toggle="modal" data-target="#compose-modal" class="add_new">Add New...</a>
+<a href="#" data-toggle="modal" class="add_new2">Add New...</a>
+<!-- <a href="#" data-toggle="modal" data-target="#compose-modal" class="add_new">Add New...</a> -->
 <!--<a href="#" class="add_new">Add New...</a> -->
 <!--
 <div class="bottom_content">
@@ -305,11 +308,11 @@
 
 <div class="col-xs-8" id="sortable2">
 @foreach($font2 as $key=>$val2)
-<div class="staff_left hvr-grow1">
+<div class="staff_left hvr-grow1 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
 
 <div class="holidays_list" id="dyn">
 <span class="holidays_h">{{$val2['message_subject'] }}</span>
-<div style="cursor:pointer" >
+<div style="cursor:move" >
 <p class="holidays_content" id="body{{ $val2['noticefont_id'] }}" onclick="openbodyModal('{{ $val2['noticefont_id'] }}')" >
     {{ (strlen($val2['message']) > 625)? substr(strip_tags($val2['message']), 0, 625)."...": strip_tags($val2['message']) }}
 </p>
@@ -977,7 +980,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 					</div>
 					<div class="notify_con">
 						<h4 class="modal-title">
-							Notify UserS
+							Notify Users
 						</h4>
 						<?php 
                         
