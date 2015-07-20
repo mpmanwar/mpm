@@ -198,9 +198,9 @@ class AdminController extends BaseController
 	{
 	   
        		Mail::send('emails.password_admin', $data, function($message) use ($data) {
-            $message->from('anwar.khan@appsbee.com', 'MPM');
+            $message->from('anwar.khan@appsbee.com', 'i-Practice');
             
-            $message->to($data['email'])->subject("Welcome to MPM");
+            $message->to($data['email'])->subject("Welcome to i-Practice");
             
             
         });

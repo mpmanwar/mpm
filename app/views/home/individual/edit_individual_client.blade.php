@@ -57,7 +57,17 @@ $(document).ready(function(){
           <ul>
             
             <li>
-              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">{{ $client_details['initial_badge'] or "" }}</a></p>
+              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">
+                @if(isset($user_type) && $user_type == "C")
+                  {{ $client_details['initial_badge'] or "" }}
+                @else
+                  @if(isset($client_details['client_code']) && $client_details['client_code'] != "")
+                    {{ $client_details['client_code'] }}
+                  @else
+                    {{ $client_details['initial_badge'] or "" }}
+                  @endif
+                @endif
+              </a></p>
             </li>
             <li>
               <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['client_name'] or "" }}</p>

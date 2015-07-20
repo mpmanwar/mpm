@@ -23,7 +23,7 @@ class BaseController extends Controller {
             $practice_details = PracticeDetail::whereIn("user_id", $groupUserId)->first();
 
             if($admin_s['user_type'] == "C"){
-                $display_name = $practice_details['display_name']." - Client Portal";
+                $display_name = $practice_details['display_name']." Client Portal";
             }else{
                 $display_name = $practice_details['display_name'];
             }
@@ -39,7 +39,7 @@ class BaseController extends Controller {
             View::share('manage_user', $user_access);
 
             if(isset($admin_s['user_type']) && $admin_s['user_type'] == "C"){
-                $dashboard_url = '/invitedclient-dashboard';
+                $dashboard_url = '/client-portal';
             }else{
                 $dashboard_url = '/dashboard';
             }
