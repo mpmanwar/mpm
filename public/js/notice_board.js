@@ -57,7 +57,12 @@ function openModal(noticefont_id) {
 	});
 }
 
-function openbodyModal(noticefont_id) {
+function openbodyModal(noticefont_id,e) {
+    //alert(event);
+    
+   if (!e) e = window.event;
+   // alert(e.type);
+    
 	// console.log(noticefont_id);
 	$.ajax({
 		type: "POST",
@@ -69,8 +74,11 @@ function openbodyModal(noticefont_id) {
 		success: function(resp) {
 			console.log(resp);
 			//return false;
+            
 			$("#compose-msgmodal").modal("show");
-			setTimeout(function() {
+            
+			setTimeout(function(event) {
+			 //alert( event.type );
 				if (resp['file'] != null) {
 					var attachment = resp['file'];
 					var res = attachment.substring(2);
@@ -113,6 +121,7 @@ function openbodyModal(noticefont_id) {
 			});
 		}
 	});
+ 
 }
 $(function() {
 	$('#edit_msgmessage').attr('disabled', 'disabled');
@@ -217,6 +226,7 @@ $.each(looper, function(key, value) {
 }); /*;*/
 //upload
 // upload pdf
+
 $(".pdf").click(function() {
 	var id = $(this).attr("id").match(/\d+/);
 	//alert(id);
@@ -239,6 +249,7 @@ $(".pdf").click(function() {
 		//window.location='/noticeboard';
 	});
 });
+
 //
 // valid for excel
 //$(function() {
@@ -343,12 +354,17 @@ $(".add_new2").click(function() {
 
 // sortable
 $(function() {
+    
 	$("#sortable").sortable({
 		/*var order = $(this).sortable("serialize");
 		console.log(order);*/
+        
         stop: function(event, ui) {
+           
+                //ui.item.unbind("click");
             //console.log(ui);
             //var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
+            //$("#sortable").unbind('click');
             var toSend = [], param = {};
             var sorted = $( "#sortable" ).sortable( "toArray" );
             for(var i in sorted){
@@ -368,8 +384,9 @@ $(function() {
                 type: 'POST',
                 data: param,
                 success: function(){
-                    $("#compose-msgmodal").modal("hide");
-                    	
+                    
+                   // $("#compose-msgmodal").modal("hide");
+                     //ui.item.find("p").unbind("click");	
                     console.log("updated");
                 },
                 error: function(data){
@@ -387,7 +404,10 @@ $(function() {
             console.log(id);
         }*/
 	});
-	$("#sortable").disableSelection();
+	$("#sortable").sortable({
+        helper:'clone',
+        //revert:true
+        }).disableSelection();
 });
 
 
@@ -428,7 +448,11 @@ $(function() {
             
             
     	});
-	$("#sortable2").disableSelection();
+        $("#sortable2").sortable({
+        helper:'clone',
+        //revert:true
+        }).disableSelection();
+	//$("#sortable2").disableSelection();
 });
 //save
 /*$(".swapboard1").click(function() {
