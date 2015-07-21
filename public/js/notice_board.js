@@ -436,11 +436,11 @@ $(function() {
                 type: 'POST',
                 data: param,
                 success: function(){
-                    
-                    	
+                     	
                     console.log("updated2");
                 },
                 error: function(data){
+                    
                     console.log("ERROR2", data);
                 }
             });

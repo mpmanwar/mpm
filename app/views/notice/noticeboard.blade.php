@@ -584,8 +584,10 @@ for($i=1;$i<=5;$i++){
 <span class="btn btn-default btn-file">
 FILE<?php echo $i; ?><input type="file" name="add_file<?php echo $i; ?>" id="add_file<?php echo $i; ?>" data-looper="<?php echo $i; ?>"  class="upload-buttons"  >
 </span>
-<span><input type="radio" />
+
+<span><input type="radio" name="excel_radio" />
 </span>
+
 <div id='preview<?php echo $i; ?>'>
 </div>
 
