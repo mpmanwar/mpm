@@ -4,6 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>index</title>
 <link href="css/mps_style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+  *{margin: 0; padding: 0;}
+</style>
 </head>
 
 <body>
@@ -54,9 +57,9 @@
            </div>
            <a href="/admin-signup"><div class="ban_rgt_sec">
            
-             <p class="try_con">try</p>
-             <p class="day_con">30 day trial</p>
-             <p class="now_con">Now</p>
+             <span class="try_con">try</span>
+             <span class="day_con">30 day trial</span>
+             <span class="now_con">Now</span>
            </div></a>
            <div class="clr"></div>
      

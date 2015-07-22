@@ -514,10 +514,11 @@ img{border:none;}
 .mid_ban_sec ul li a{ padding:5px 0 5px 14%; margin:0; list-style:none; text-decoration:none; background:url(../img/arrow.png) 16px 11px no-repeat; float:left;color:#fff;}
 .mid_ban_sec ul li a:hover{color:#0ADAFE; background:url(../img/arrow_h.png) 16px 11px no-repeat;}
 .ban_rgt_sec{ padding:35px 0 0 0; margin:0px 0 0 0; float:right; background:url(../img/trial_bg.png) no-repeat; width:219px; height:175px; color:#FFFFFF; text-align:center; text-transform:uppercase;}
-.try_con{ padding:0 0 3px 0; font-size:25px;}
-.day_con{ padding:0 0 3px 0; font-size:18px;}
-.now_con{ padding:0; font-size:35px;}
+.try_con{ padding:0 0 3px 0; font-size:25px; width: 100%; float: left;}
+.day_con{ padding:0 0 3px 0; font-size:18px; width: 100%; float: left;}
+.now_con{ padding:0; font-size:35px; width: 100%;}
 .mid_body_pan{ padding:0; margin:-41px 0 0 3%; float:left; width:13%;}
+.mid_body_pan a{ text-decoration: none;}
 .top_sec{padding:0; margin:0; width:100%; text-align:center;}
 .icon_img{ padding:0 0 0 0%; margin:0;}
 .icon_img img:hover{ box-shadow:1px 5px 2px 0px #ccc; border-radius:50%;}
