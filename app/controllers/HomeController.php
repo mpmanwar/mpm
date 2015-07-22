@@ -9,6 +9,12 @@ class HomeController extends BaseController {
 		}
 	}
 
+	public function index() {
+		//$data['heading'] = "DASHBOARD";
+		//$data['title'] = "Dashboard";
+		return View::make('home.index');
+	}
+
 	public function dashboard() {
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];

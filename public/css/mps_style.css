@@ -15,7 +15,7 @@
 .top_bts ul li{float:left; margin-right:15px; margin-bottom:10px;}
 .top_bts ul li:last-child{margin-right:0;}
 
-.practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:95%;}
+.practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:96%;}
 .setting_con{margin-top:15px; float:left;}
 .box_border{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 10px;}
 .box_border2{border-bottom:1px solid #dbdbdb; padding:0px 10px 15px 0px;}
@@ -470,9 +470,9 @@ background: linear-gradient(to bottom,  #efefef 0%,#dadde0 60%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#dadde0',GradientType=0 );}
 
 /* import button and dropdown */
-.import_fromch_main{position:relative; width:175px;}
+.import_fromch_main{position:relative; width:178px;}
 .import_fromch{background:#00c0ef;border-color: #00acd6; float:left; border-color: rgb(0, 172, 214); border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; -ms-border-radius: 3px; box-shadow: 2px -3px 0 0 rgba(0, 0, 0, 0.09) inset; font-weight: 500; }
-.import_fromch_link{color:#fff; font-size:16px; text-transform:uppercase; float:left;  padding: 6px 10px; border-right:1px solid #fff;}
+.import_fromch_link{color:#fff; font-size:14px; text-transform:uppercase; float:left;  padding: 6px 10px; border-right:1px solid #fff;}
 .import_fromch:hover{color:#fff!important; background-color:rgb(0, 172, 214);}
 .import_fromch a{color:#fff;}
 .import_fromch a:hover{color:#fff!important;}
@@ -481,6 +481,60 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', end
 
 .bulk_text{text-align: center; font-size: 18px; margin-top: -20px; font-weight: bold; color: #999;}
 .bulk_header{ text-align: center; font-size: 22px; margin-top: 10px;}
+
+/*===========holiday features=======*/
+.top_buttons{margin-top:15px;}
+.top_buttons ul{margin:0; padding:0;}
+.left_side{float:left;}
+.right_side{float:right;}
+.save_btncon{margin-top:15px;}
+.requ_t{color:#0866c6;}
+.decline_t{color:#00a65a;}
+
+/*============index new page==========*/
+img{border:none;}
+.clr{ clear:both;}
+.top_brdr{ padding:0; margin:0; width:100%; height:7px; background: url(../img/top_brdr.jpg) no-repeat; background-size:cover;}
+.wrapper1{ padding:0; margin:0 auto; width:1200px; font-family:Arial, Helvetica, sans-serif;}
+.header1{ padding:20px 0 0 0; margin:0; width:100%; background:#fff; height:97px;}
+.main_logo{ padding:0 0 20px 0; margin:0; float:left;}
+.hdr_menu{ padding:0; margin:10px 0 0 0; float:right; font-family:oswald;}
+.hdr_menu ul{ padding:0; margin:0; list-style:none;}
+.hdr_menu ul li{ padding:15px 40px 0 0%; margin:0; float:left; color:#616262; font-size:18px; text-decoration:none; list-style:none; text-transform:uppercase;}
+.hdr_menu ul li:last-child{padding:15px 0 0 0%!important;}
+.hdr_menu ul li a{ padding:0px 0% 0 0; margin:0; color:#616262; font-size:18px; text-decoration:none; list-style:none; padding-bottom:45px;}
+.hdr_menu ul li a:hover{ color:#039dfc; background:url(../img/menu_brdr.jpg) bottom center no-repeat; padding-bottom:45px;}
+.menu_active {color: #039dfc !important; background:url(../img/menu_brdr.jpg) bottom center no-repeat; }
+.banner_sec{ padding:0; margin:0; width:100%; background:url(../img/main_ban.jpg) no-repeat; height:420px; background-size:cover;}
+.ban_in{ margin-top:115px; float:left; width:100%;}
+.vid_sec{ padding:0; margin:0px 0 0 0; float:left;}
+.mid_ban_sec{ padding:0; margin:0px 0 0 12%; float:left; width:30%;}
+.mid_ban_sec ul{ padding:0; margin:0; list-style:none;}
+.mid_ban_sec ul li{ padding:4px 0 3px 0; margin:0 0 7px 0; list-style:none; text-decoration:none; background:url(../img/ban_menu_bg.png) repeat-y; float:left; width:100%; color:#fff; font-size:28px; text-transform:uppercase; font-weight:normal;}
+.mid_ban_sec ul li a{ padding:5px 0 5px 14%; margin:0; list-style:none; text-decoration:none; background:url(../img/arrow.png) 16px 11px no-repeat; float:left;color:#fff;}
+.mid_ban_sec ul li a:hover{color:#0ADAFE; background:url(../img/arrow_h.png) 16px 11px no-repeat;}
+.ban_rgt_sec{ padding:35px 0 0 0; margin:0px 0 0 0; float:right; background:url(../img/trial_bg.png) no-repeat; width:219px; height:175px; color:#FFFFFF; text-align:center; text-transform:uppercase;}
+.try_con{ padding:0 0 3px 0; font-size:25px;}
+.day_con{ padding:0 0 3px 0; font-size:18px;}
+.now_con{ padding:0; font-size:35px;}
+.mid_body_pan{ padding:0; margin:-41px 0 0 3%; float:left; width:13%;}
+.top_sec{padding:0; margin:0; width:100%; text-align:center;}
+.icon_img{ padding:0 0 0 0%; margin:0;}
+.icon_img img:hover{ box-shadow:1px 5px 2px 0px #ccc; border-radius:50%;}
+.data_con{ padding:10px 0 0 0; margin:0; font-size:16px; color:#17abca; line-height:20px; text-transform:uppercase; height:65px;}
+.lor_con{ padding:0px 1px 0 7px; margin:0; font-size:14px; color:#ababab; line-height:20px;}
+.rd_more{ padding:5px 0 5px 0; margin:40px 0 0 20%; width:99px; background:url(../img/rd_butt_bg.jpg) repeat-x; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer;}
+.rd_more:hover{ background:#17abca; color:#fff; transition:0.0s;}
+.blue_sec{padding:0; margin:40px 0 0 0; width:100%; background:#17abca; height:88px;}
+.lst_pan{ padding:0; margin:70px 0 0 0;}
+.footer{ padding:0; margin:60px 0 30px 0;}
+.footer_lft_sec{ padding:0; margin:0; float:left; width:23%;}
+.footer_rgt_sec{ padding:0; margin:10px 0 0 0; width:67%; float:right;}
+.footer_listing{ padding:0; margin:0 10% 0 0; float:left;}
+.footer_listing ul{ padding:0; margin:0; list-style:none;}
+.footer_listing ul li{ padding:2px 0% 7px 0%; margin:0; list-style:none; text-decoration:none; font-size:16px; color:#17abca; text-transform:uppercase;}
+.footer_listing ul li a{ padding:0 0 0px 16px; margin:0; list-style:none; text-decoration:none; color:#17abca; background:url(../img/ftr_arrow.png) left center no-repeat;}
+.footer_listing ul li a:hover{ color:#616262; background:url(../img/ftr_arrow_hv.png) left center no-repeat;}
 
 
 @media only screen and (min-width : 320px) and (max-width : 480px),

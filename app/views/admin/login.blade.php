@@ -15,7 +15,7 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header"><a href="#"> <img src="img/logo.png" /></a></div>
+            <div class="header"><a href="/"> <img src="img/logo.png" /></a></div>
             {{ Form::open(array('url' => '/login-process', 'files' => true)) }}
             
             
