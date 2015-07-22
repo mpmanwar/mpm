@@ -321,34 +321,34 @@ $(".back").click(function() {
 	$(".tab-pane").fadeOut("fast");
 	$("#step" + data_id).fadeIn("slow");
 });
-//board 1 6 adding
+//board 1 8 adding
 $(".add_new").click(function() {
 	//alert('');
 	//$("#compose-modal").modal("show");
 	var numItems = $('.limitboard').length;
-	if (numItems < 6) {
+	if (numItems < 8) {
 		$("#compose-modal").modal("show");
 	} else {
 		alert("Delete existing  post first before adding New");
 	}
 	//alert(numItems);
 });
-//board 1 6 adding
+//board 1 8 adding
 
-//board 2 6 adding
+//board 2 8 adding
 $(".add_new2").click(function() {
 	//alert('');
 	//$("#compose-modal").modal("show");
 	var numItems = $('.limitboard2').length;
     //alert('numItems');
-	if (numItems < 6) {
+	if (numItems < 8) {
 		$("#compose-modal").modal("show");
 	} else {
 		alert("Delete existing  post first before adding New");
 	}
 	//alert(numItems);
 });
-//board 2 6 adding
+//board 2 8 adding
 
 
 

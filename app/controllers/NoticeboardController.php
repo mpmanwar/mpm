@@ -48,7 +48,7 @@ class NoticeboardController extends BaseController
         $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
             "=", "1")->select("noticefont_id", "sort_id","user_id", "board_no", "message",
             "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
-            'ASC')->take(6)->get();
+            'ASC')->take(8)->get();
 
 
             //echo $data['font'];die();
@@ -56,7 +56,7 @@ class NoticeboardController extends BaseController
         $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
             "=", "2")->select("noticefont_id","sort_id", "user_id", "board_no", "message",
             "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
-            'ASC')->take(6)->get();
+            'ASC')->take(8)->get();
 
         //echo $this->last_query();die();
         //echo $data['font'];die();
