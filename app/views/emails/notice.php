@@ -1,6 +1,6 @@
-<h2>MPM Notice Board</h2>
+<h2>i-Practice Notice Board</h2>
 <p>Dear  </p>
 
 Regards,<br />
 
-MPM Team
+i-Practice Team
