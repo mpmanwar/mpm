@@ -131,49 +131,19 @@
 <div class="col-xs-12 holidays_border" >
 
 <div class="col-xs-4">
-<div class="noticeboard_leftside">
-<a href="#" data-toggle="modal" class="add_new">Add New...</a>
-<!--<a href="#" class="add_new">Add New...</a> -->
-<!--
-<div class="bottom_content">
-
-<p class="posted_t">Posted/Uplaod by Ramjee Sharma 22/06/2015</p>
-<div class="edit_controlar">
-
-<a href="#"><img src="img/edit_icon.png" /></a>
-<a href="#"><img src="img/cross.png" /></a>
-</div>
-<div class="clearfix"></div>
-</div>
--->
-</div>
-
-<!--
-<div class="noticeboard_leftside">
-<a href="#" class="add_new">Add New...</a>
-<div class="bottom_content">
--->
-<!--
-<p class="posted_t">Posted/Uplaod by Ramjee Sharma 22/06/2015</p>
-<div class="edit_controlar">
-<a href="#"><img src="img/edit_icon.png" /></a>
-<a href="#"><img src="img/cross.png" /></a>
-</div>
--->
-<!--
-<div class="clearfix"></div>
-</div>
-</div>
--->
+    <div class="noticeboard_leftside">
+    <a href="#" data-toggle="modal" class="add_new">Add New...</a>
+    </div>
 </div>
 
 <div class="col-xs-8" id="sortable">
+
 @foreach($font as $key=>$val)
 <div class="staff_left hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
-<span class="holidays_h">{{$val['message_subject'] }}</span>
-<div style="cursor:move">
+<span style="cursor:move" class="holidays_h">{{$val['message_subject'] }}</span>
+<div style="cursor:pointer" >
 <p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}',event)" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
 </p>
