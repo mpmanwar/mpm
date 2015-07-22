@@ -310,34 +310,35 @@ $(".back").click(function() {
 	$(".tab-pane").fadeOut("fast");
 	$("#step" + data_id).fadeIn("slow");
 });
-//board 1 6 adding
+//board 1 8 adding
 $(".add_new").click(function() {
 	//alert('');
 	//$("#compose-modal").modal("show");
-	var numItems = $('.limitboard').length;
-	if (numItems < 6) {
+	var numItems = $('.limitboard').size();
+    //alert(numItems);
+	if (numItems < 8) {
 		$("#compose-modal").modal("show");
 	} else {
 		alert("Delete existing  post first before adding New");
 	}
 	//alert(numItems);
 });
-//board 1 6 adding
+//board 1 8 adding
 
-//board 2 6 adding
+//board 2 8 adding
 $(".add_new2").click(function() {
 	//alert('');
 	//$("#compose-modal").modal("show");
 	var numItems = $('.limitboard2').length;
     //alert('numItems');
-	if (numItems < 6) {
+	if (numItems < 8) {
 		$("#compose-modal").modal("show");
 	} else {
 		alert("Delete existing  post first before adding New");
 	}
 	//alert(numItems);
 });
-//board 2 6 adding
+//board 2 8 adding
 
 
 
@@ -351,6 +352,7 @@ $(function() {
             //var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
             var toSend = [], param = {};
             var sorted = $( "#sortable" ).sortable( "toArray" );
+            //alert(sorted);
             for(var i in sorted){
                 //console.log(sorted[i]);
                 var each = parseInt(sorted[i]);
@@ -368,7 +370,8 @@ $(function() {
                 type: 'POST',
                 data: param,
                 success: function(){
-                    $("#compose-msgmodal").modal("hide");
+                    
+                    //$("#compose-msgmodal").modal("hide");
                     	
                     console.log("updated");
                 },
@@ -387,10 +390,14 @@ $(function() {
             console.log(id);
         }*/
 	});
-	$("#sortable").disableSelection();
+	$("#sortable").sortable({
+        helper:'clone',
+        //revert:true
+        }).disableSelection();
+        
+        
+            
 });
-
-
 
 
 $(function() {
@@ -428,7 +435,11 @@ $(function() {
             
             
     	});
-	$("#sortable2").disableSelection();
+        $("#sortable2").sortable({
+        helper:'clone',
+        //revert:true
+        }).disableSelection();
+	//$("#sortable2").disableSelection();
 });
 //save
 /*$(".swapboard1").click(function() {

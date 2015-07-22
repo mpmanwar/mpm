@@ -1,7 +1,7 @@
 <header class="headermain">
 <div class="logo_controlar">
 <a href="<?php echo $dashboard_url; ?>">
-  <img src="<?php echo URL :: asset('img/logo.png'); ?>" class="" alt="" width="100"/>
+  <img src="<?php echo URL :: asset('img/logo.png'); ?>" class="" alt="" />
 </a>
 </div>
 <div class="col_display">

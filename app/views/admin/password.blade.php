@@ -20,7 +20,8 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">ForgotPassword</div>
+        <div class="header"> <img src="img/logo.png" /></div>
+            <!-- <div class="header">ForgotPassword</div> -->
             {{ Form::open(array('url' => '/password-send', 'files' => true)) }}
             
             
@@ -48,7 +49,7 @@
                     
                    
                     
-                    <a href='/' class="text-center">Log in</a>
+                    <a href='/' class="text-center">Click Here To LOGIN !!</a>
                 </div>
             </form>
 
