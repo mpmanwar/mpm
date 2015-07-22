@@ -45,7 +45,7 @@
         
          <div class="ban_in">
      
-           <div class="vid_sec"><a href="#"><img src="img/video_img.png" alt="" /></a></div>
+           <div class="vid_sec"><a href="#" class="hvr-grow"><img src="img/video_img.png" alt="" /></a></div>
            <div class="mid_ban_sec">
            
                <ul>
@@ -55,11 +55,11 @@
                </ul>
            
            </div>
-           <a href="/admin-signup"><div class="ban_rgt_sec">
-           
-             <span class="try_con">try</span>
-             <span class="day_con">30 day trial</span>
-             <span class="now_con">Now</span>
+           <a class="hvr-grow" href="/admin-signup">
+            <div class="ban_rgt_sec">
+              <span class="try_con">try</span>
+              <span class="day_con">30 day trial</span>
+              <span class="now_con">Now</span>
            </div></a>
            <div class="clr"></div>
      
