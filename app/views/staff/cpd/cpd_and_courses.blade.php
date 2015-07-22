@@ -193,11 +193,7 @@
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:800px;">
     <div class="modal-content">
-      <!--<div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD COURSE</h4>
-        <div class="clearfix"></div>
-      </div>-->
+      
       <form action="#" method="post">
         <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
