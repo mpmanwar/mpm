@@ -131,20 +131,50 @@
 <div class="col-xs-12 holidays_border" >
 
 <div class="col-xs-4">
-    <div class="noticeboard_leftside">
-    <a href="#" data-toggle="modal" class="add_new">Add New...</a>
-    </div>
+<div class="noticeboard_leftside">
+<a href="#" data-toggle="modal" class="add_new">Add New...</a>
+<!--<a href="#" class="add_new">Add New...</a> -->
+<!--
+<div class="bottom_content">
+
+<p class="posted_t">Posted/Uplaod by Ramjee Sharma 22/06/2015</p>
+<div class="edit_controlar">
+
+<a href="#"><img src="img/edit_icon.png" /></a>
+<a href="#"><img src="img/cross.png" /></a>
+</div>
+<div class="clearfix"></div>
+</div>
+-->
+</div>
+
+<!--
+<div class="noticeboard_leftside">
+<a href="#" class="add_new">Add New...</a>
+<div class="bottom_content">
+-->
+<!--
+<p class="posted_t">Posted/Uplaod by Ramjee Sharma 22/06/2015</p>
+<div class="edit_controlar">
+<a href="#"><img src="img/edit_icon.png" /></a>
+<a href="#"><img src="img/cross.png" /></a>
+</div>
+-->
+<!--
+<div class="clearfix"></div>
+</div>
+</div>
+-->
 </div>
 
 <div class="col-xs-8" id="sortable">
-
 @foreach($font as $key=>$val)
 <div class="staff_left hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
-<span style="cursor:move" class="holidays_h">{{$val['message_subject'] }}</span>
-<div style="cursor:pointer" >
-<p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}',event)" >
+<span class="holidays_h">{{$val['message_subject'] }}</span>
+<div style="cursor:move">
+<p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
 </p>
 </div>
@@ -554,10 +584,8 @@ for($i=1;$i<=5;$i++){
 <span class="btn btn-default btn-file">
 FILE<?php echo $i; ?><input type="file" name="add_file<?php echo $i; ?>" id="add_file<?php echo $i; ?>" data-looper="<?php echo $i; ?>"  class="upload-buttons"  >
 </span>
-
-<span><input type="radio" name="excel_radio" />
+<span><input type="radio" />
 </span>
-
 <div id='preview<?php echo $i; ?>'>
 </div>
 
