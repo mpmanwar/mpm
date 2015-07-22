@@ -192,7 +192,7 @@ $(".back").click(function(){
           data: { 'office_id' : office_id },
           success : function(resp){
             $('#show_other_office').fadeOut();
-
+            $('#other_office_id').val('');
             $('#tax_address').val(resp['address']);
             $('#tax_zipcode').val(resp['zipcode']);
             $('#tax_telephone').val(resp['telephone']);

@@ -12,8 +12,9 @@
 
 <!-- page script -->
 <script type="text/javascript">
+var oTable;
 $(function() {
-    $('#example2').dataTable({
+    oTable = $('#example2').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -38,6 +39,8 @@ $(function() {
         ]
 
     });
+
+    oTable.fnSort( [ [3,'asc'] ] );
 
 });
 

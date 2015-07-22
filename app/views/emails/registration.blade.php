@@ -1,4 +1,4 @@
-<h2>MPM New Account</h2>
+<h2>i-Practice New Account</h2>
 <p>Dear {{ $fname }},</p>
 <p>You have been sent this email to verify your email address.</p>
 <p>Select the link below, or copy it into your browser's address bar, to verify your email address for your account.</p>
@@ -10,4 +10,4 @@
 <br /><br />
 Regards,<br />
 
-MPM Team
+i-Practice Team

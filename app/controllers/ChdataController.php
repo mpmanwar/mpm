@@ -57,12 +57,15 @@ class ChdataController extends BaseController {
 		$data['heading'] 	= "COMPANY DETAILS";
 		$data['title'] 		= "Company Details";
 		$details 			= Common::getCompanyDetails($number);
+		//$details 			= Common::getCompanyData($number);
+		//print_r($details);die;
 		$registered_office 	= Common::getRegisteredOffice($number);
 		$officers 			= Common::getOfficerDetails($number);
 		$filling_history 	= Common::getFillingHistory($number);
 		//$insolvency 		= Common::getInsolvency($number);
 
 		$data['details']			= $details->primaryTopic;
+		//$data['details']			= Common::getCompanyData($number);
 		$data['officers']			= $officers->items;
 		$data['filling_history']	= $filling_history->items;
 		$data['registered_office']	= $registered_office;
@@ -1138,6 +1141,6 @@ class ChdataController extends BaseController {
         return $data;
     }
 
-
+    
 
 }

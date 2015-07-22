@@ -70,8 +70,8 @@ class AdminController extends BaseController {
 
 	private function send_registration($data) {
 		Mail::send('emails.registration', $data, function ($message) use ($data) {
-			$message->from('abel02@icloud.com', 'MPM');
-			$message->to($data['email'], $data['fname'] . ' ' . $data['lname'])->subject("Welcome to MPM");
+			$message->from('abel02@icloud.com', 'i-Practice');
+			$message->to($data['email'], $data['fname'] . ' ' . $data['lname'])->subject("Welcome to i-Practice");
 
 		});
 	}
@@ -150,7 +150,7 @@ class AdminController extends BaseController {
                 
                 	if($admin['user_type'] == "C")
                         {
-                        return Redirect::to('/invitedclient-dashboard');
+                        return Redirect::to('/client-portal');
                         }
                     
                     else{
@@ -252,7 +252,7 @@ class AdminController extends BaseController {
 
 	private function send_mail($data) {
 		Mail::send('emails.password_admin', $data, function ($message) use ($data) {
-			$message->from('abel02@icloud.com', 'MPM'); $message->to($data['email'])->
+			$message->from('abel02@icloud.com', 'i-Practice'); $message->to($data['email'])->
 			subject("New Password Created");}
 		);
 	}

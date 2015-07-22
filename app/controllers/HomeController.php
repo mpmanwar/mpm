@@ -9,6 +9,12 @@ class HomeController extends BaseController {
 		}
 	}
 
+	public function index() {
+		//$data['heading'] = "DASHBOARD";
+		//$data['title'] = "Dashboard";
+		return View::make('home.index');
+	}
+
 	public function dashboard() {
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
@@ -47,9 +53,9 @@ class HomeController extends BaseController {
                 $client_data[$i]['client_id'] 		= $client_id->client_id;
                 $client_data[$i]['show_archive'] 	= $client_id->show_archive;
 
-				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
-				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
+				//$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
 
 				if (isset($client_details) && count($client_details) > 0) {
 					$address = "";
@@ -63,9 +69,10 @@ class HomeController extends BaseController {
 						//get staff name end
 
 						//get business name start
-						if (!empty($relation_name['field_value'])) {
+						/*if (!empty($relation_name['field_value'])) {
 							$client_data[$i]['business_name'] = $relation_name['field_value'];
-						}
+						}*/
+						$client_data[$i]['relationship'] 	= Common::get_relationship_client($client_id->client_id);
 						//get business name end
 
 
@@ -726,10 +733,10 @@ class HomeController extends BaseController {
 			foreach ($app_hidd_array as $row) {
 				$rel_row = explode("mpm", $row);
 				
-				$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->first();
+				$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("relationship_type_id", "=", $rel_row['1'])->where("appointment_with", "=", $rel_row['2'])->first();
 
 				if(isset($rel_client) && count($rel_client) >0){
-					$relData['relationship_type_id'] = $rel_row['1'];
+					//$relData['relationship_type_id'] = $rel_row['1'];
 					ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->update($relData);
 				}else{
 					$relData['client_id'] = $client_id;
@@ -742,7 +749,7 @@ class HomeController extends BaseController {
 			//ClientRelationship::insert($relData);
 
 		}
-//#############RELATIONSHIP END ###################//
+//############# RELATIONSHIP END ###################//
 
 
 //############# ACTING SECTION START ###################//
@@ -1336,8 +1343,9 @@ class HomeController extends BaseController {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_reference_type', $postData['tax_reference_type']);
 			}
 			if (!empty($postData['other_office_id'])) {
-				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_office_id', $postData['other_office_id']);
-			} else {
+				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'other_office_id', $postData['other_office_id']);
+			}
+			if (!empty($postData['tax_office_id'])) {
 				$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_office_id', $postData['tax_office_id']);
 			}
 			if (!empty($postData['tax_address'])) {
@@ -1450,10 +1458,10 @@ class HomeController extends BaseController {
 		$app_hidd_array = explode(",", $postData['app_hidd_array']); //print_r($app_hidd_array);
 		foreach ($app_hidd_array as $row) {
 			$rel_row = explode("mpm", $row);
-			$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->first();
+			$rel_client = ClientRelationship::where("client_id", "=", $client_id)->where("relationship_type_id", "=", $rel_row['1'])->where("appointment_with", "=", $rel_row['2'])->first();
 			
 			if(isset($rel_client) && count($rel_client) >0){
-				$relData['relationship_type_id'] = $rel_row['1'];
+				//$relData['relationship_type_id'] = $rel_row['1'];
 				ClientRelationship::where("client_id", "=", $client_id)->where("appointment_with", "=", $rel_row['2'])->update($relData);
 			}else{
 				$relData['client_id'] = $client_id;

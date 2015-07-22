@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('myjsfile')
+<!-- http://hayageek.com/ajax-file-upload-jquery/ -->
 <script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/jquery.form.js') }}"></script>
 <script type="text/javascript">

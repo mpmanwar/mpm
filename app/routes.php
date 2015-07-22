@@ -17,6 +17,7 @@
 });*/
 
 ### Routes for Dashboard related URL's start ###
+Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
@@ -88,7 +89,7 @@ Route::any('/settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 
 ### Routes for registration URL's start ###
 Route::get('/admin-signup', 'AdminController@signup');
 Route::post('/signup-process', 'AdminController@signup_process');
-Route::get('/', 'AdminController@login');
+Route::get('/login', 'AdminController@login');
 Route::post('/login-process', 'AdminController@login_process');
 Route::get('/admin-logout', 'AdminController@logout');
 Route::get('/forgot-password', 'AdminController@forgot_password');
@@ -160,11 +161,13 @@ Route::any('/chdata/get-shareholders-client', array("as"=>"get_shareholders_clie
 Route::any('/chdata/bulk-company-upload-page/{url}', array("as"=>"bulk_company_upload_page", "uses"=>'ChdataController@bulk_company_upload_page'));
 Route::any('/chdata/bulk-file-upload', array("as"=>"bulk_file_upload", "uses"=>'ChdataController@bulk_file_upload'));
 
+Route::any('/xls_to_array', array("as"=>"xls_to_array", "uses"=>'ChdataController@xls_to_array'));
+
 ## Company House Data End ##
 
 
 ##Invitedclient
-Route::get('/invitedclient-dashboard', 'InvitedclientController@Invitedclient_dashboard');
+Route::get('/client-portal', 'InvitedclientController@Invitedclient_dashboard');
 Route::get('/invitedclient-details', 'InvitedclientController@my_details');
 Route::post('/invitedclient/insert-client-details', array("as"=>"insert_invitedclient_client", "uses"=>'InvitedclientController@insert_invitedclient_client'));
 Route::get('/invitedclient-relationship', 'InvitedclientController@relationship');

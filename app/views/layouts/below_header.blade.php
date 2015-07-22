@@ -2,10 +2,10 @@
     <div class="col-4">
         <h1>{{ $heading }}</h1>
     </div>
-    <div class="col-4 logo_con">
-        <a href="/practice-details" id="image_preview">
+    <div class="col-4 logo_con">{{ $practice_logo }}
+        <!-- <a href="/practice-details" id="image_preview">
             {{ $practice_logo }}
-        </a>
+        </a> -->
     </div>
     
         <div class="home_right">

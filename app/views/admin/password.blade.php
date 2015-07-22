@@ -20,8 +20,13 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-        <div class="header"> <img src="img/logo.png" /></div>
+
+        
             <!-- <div class="header">ForgotPassword</div> -->
+
+           <!-- <div class="header">ForgotPassword</div> -->
+             <div class="header"><a href="/"> <img src="img/logo.png" /></a></div>
+
             {{ Form::open(array('url' => '/password-send', 'files' => true)) }}
             
             
@@ -39,7 +44,7 @@
                 <div id="message" style="color: green;font-size: 15px;">{{ Session::get('message') }}</div> 
                 <div id="message" style="color: red;font-size: 15px;">{{ Session::get('message_error') }}</div> 
                     <div class="form-group">
-                        <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID"/>
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="Email Address"/>
                     </div>
                             
                    

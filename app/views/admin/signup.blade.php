@@ -15,7 +15,7 @@
     <body class="bg-black">
         
         <div class="form-box" id="login-box">
- <div class="header"><a href="#"> <img src="img/logo.png" /></a></div>
+ <div class="header"><a href="/"> <img src="img/logo.png" /></a></div>
    <p class="try_t">Try For Free</p>
         <!--   <div class="header">
             @if(Session::has('message'))
@@ -26,10 +26,10 @@
             </div>
             
 -->
-@if(Session::has('message'))
-              Thank you for signing up
-            @else
-              Sign Up
+            @if(Session::has('message'))
+                Thank you for signing up
+             @else
+                Sign Up
             @endif
             <!--  <form action=" " method="post"> -->
             {{ Form::open(array('url' => '/signup-process', 'files' => true)) }}      
@@ -123,7 +123,7 @@
                 <div class="form-group agree_t">
                     <input type="checkbox" name="remember_me"/>
                         <span > I have read and agree to the</span> <a href="#">Terms of Use</a> </div>
-                    <div class="footer">                    
+                    <div class="footer" style="padding-bottom:0;">                    
                         <button type="submit" class="btn bg-olive btn-block">Get Started Now!</button>
                         <a href='/' class="text-center">I already have an account</a>
                     </div>
