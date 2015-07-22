@@ -170,7 +170,7 @@
 <div class="hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
-<span  style="cursor:move; width: 100%;" class="holidays_h">{{$val['message_subject'] }}</span>
+<div  style="cursor:move; width: 100%;" class="holidays_h">{{$val['message_subject'] }}</div>
 <div  style="cursor:pointer">
 <p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
@@ -316,7 +316,7 @@
 <div class="staff_left hvr-grow1 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
 
 <div class="holidays_list" id="dyn">
-<span  style="cursor:move" class="holidays_h">{{$val2['message_subject'] }}</span>
+<div  style="cursor:move; width:100%" class="holidays_h">{{$val2['message_subject'] }}</div>
 <div style="cursor:pointer" >
 <p class="holidays_content" id="body{{ $val2['noticefont_id'] }}" onclick="openbodyModal('{{ $val2['noticefont_id'] }}')" >
     {{ (strlen($val2['message']) > 625)? substr(strip_tags($val2['message']), 0, 625)."...": strip_tags($val2['message']) }}
