@@ -74,8 +74,8 @@
                         <div class="notice_board_main">
                                 <div class="notice_board_tab" id="noticetab">
                                 <ul>
-                                        <li style="width:15%;" data-tabno="1"><a href="javascript:void(0)"  class="tab_active notice_tabhover">Board</a></li>
-                                        <li style="width:15%;" data-tabno="2" ><a href="javascript:void(0)" class="notice_tabhover">Board2</a></li>
+                                        <li style="width:15%;" data-tabno="1"><a href="javascript:void(0)"  class="tab_active notice_tabhover">Board 1</a></li>
+                                        <li style="width:15%;" data-tabno="2" ><a href="javascript:void(0)" class="notice_tabhover">Board 2</a></li>
                                         <li style="width:30%;" data-tabno="3"><a href="javascript:void(0)" class="notice_tabhover">Staff Holidays & Time off</a></li>
                                         <li style="width:20%;" data-tabno="4" ><a href="javascript:void(0)" class="notice_tabhover">Excel Viewer</a></li>
                                         <li style="width:20%;" data-tabno="5"><a href="javascript:void(0)" class="notice_tabhover">PDF Viewer</a></li>
