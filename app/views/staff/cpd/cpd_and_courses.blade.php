@@ -46,30 +46,25 @@
                           <!--start table-->
                           <table width="100%" border="0" class="staff_holidays">
                             <tr>
-                              <td valign="top"><!--<table width="100%" border="0">
-  <tr>
-  <td width="36%"><strong>BOOKED COURSES</strong></td>
-    <td width="4%"><strong>Show</strong></td>
-<td width="8%"><select class="form-control">
-<option>50</option>
-<option>20</option>
-<option>10</option>
-<option>15</option>
-</select>
-</td>
-<td width="20%"><strong>entries</strong></td>
-<td width="7%">&nbsp;</td>
-    <td width="5%"><strong>Search</strong></td>
-    <td width="20%">
-<input type="text" id="" class="form-control">
-
-    </td>
-  </tr>
-</table>-->
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                   <tr>
-                                    <td width="89%"><strong>BOOKED COURSES</strong></td>
-                                    <td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
+                                    <td width="89%"><div class="top_buttons">
+                                        <div class="top_bts">
+                                          <ul>
+                                            <li>
+                                              <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+                                            </li>
+                                            <li>
+                                              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                                            </li>
+                                            <li>
+                                              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                                            </li>
+                                            <div class="clearfix"></div>
+                                          </ul>
+                                        </div>
+                                      </div></td>
+                                    <td width="11%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal">Add New Course</button></td>
                                   </tr>
                                 </table></td>
                             </tr>
@@ -78,34 +73,30 @@
                                   <tbody>
                                     <tr class="table_heading_bg">
                                       <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Date - From</strong></td>
-                                      <td width="18%" align="center"><strong>Date - To</strong></td>
+                                      <td width="15%"><strong>Date</strong></td>
                                       <td width="16%" align="center"><strong>Course Name</strong></td>
-                                      <td width="20%" align="center"><strong>Staff Name</strong></td>
                                       <td width="17%" align="center"><strong>Attachments</strong></td>
-                                      <td width="9%" align="center">&nbsp;</td>
+                                      <td width="9%" align="center">Action</td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
+                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                        AM - HALF DAY</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
+                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                        FULL DAY</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a></td>
                                     </tr>
                                   </tbody>
-                                </table>
-                              </td>
+                                </table></td>
                             </tr>
                           </table>
                           <!--end table-->
@@ -129,16 +120,22 @@
                             <tr>
                               <td valign="top"><table width="100%" border="0">
                                   <tr>
-                                    <td width="36%"><strong>COURSES</strong></td>
-                                    <td width="4%"><strong>Show</strong></td>
-                                    <td width="8%"><select class="form-control">
-                                        <option>50</option>
-                                        <option>20</option>
-                                        <option>10</option>
-                                        <option>15</option>
-                                      </select></td>
-                                    <td width="20%"><strong>entries</strong></td>
-                                    <td width="7%">&nbsp;</td>
+                                    <td width="65%"><div class="top_buttons">
+                                        <div class="top_bts">
+                                          <ul>
+                                            <li>
+                                              <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+                                            </li>
+                                            <li>
+                                              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                                            </li>
+                                            <li>
+                                              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                                            </li>
+                                            <div class="clearfix"></div>
+                                          </ul>
+                                        </div>
+                                      </div></td>
                                     <td width="5%"><strong>Search</strong></td>
                                     <td width="20%"><input type="text" id="" class="form-control"></td>
                                   </tr>
@@ -149,30 +146,27 @@
                                   <tbody>
                                     <tr class="table_heading_bg">
                                       <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Date - From</strong></td>
-                                      <td width="18%" align="center"><strong>Date - To</strong></td>
+                                      <td width="15%"><strong>Date</strong></td>
                                       <td width="16%" align="center"><strong>Course Name</strong></td>
-                                      <td width="20%" align="center"><strong>Staff Name</strong></td>
                                       <td width="17%" align="center"><strong>Attachments</strong></td>
-                                      <td width="9%" align="center">&nbsp;</td>
+                                      <td width="9%" align="center">Action</td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
+                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                        AM - HALF DAY</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
+                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                        FULL DAY</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a></td>
                                     </tr>
                                   </tbody>
                                 </table></td>
@@ -214,26 +208,30 @@
             <tr>
               <td valign="top"><table width="100%" border="0">
                   <tr>
-                    <td width="16%"><strong>Course Name :</strong></td>
-                    <td><input type="text" style="width:100%;" /></td>
-                    <td width="4%">&nbsp;</td>
-                    <td width="55%">&nbsp;</td>
+                    <td width="18%"><strong>Course Name :</strong></td>
+                    <td colspan="2"><input type="text" style="width:100%;" /></td>
+                    <td width="17%">&nbsp;</td>
+                    <td width="35%">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td height="25"><strong>Start Date :</strong></td>
-                    <td width="25%"><input type="text" placeholder="dd/mm/yy" /></td>
-                    <td width="4%">To</td>
-                    <td><input type="text" placeholder="dd/mm/yy" /></td>
+                    <td><strong>Start Date :</strong></td>
+                    <td width="11%"><input type="text" placeholder="dd/mm/yy" /></td>
+                    <td width="19%"><select class="form-control">
+                        <option>AM HALF DAY</option>
+                        <option>FULL DAY</option>
+                      </select></td>
+                    <td width="17%"></td>
+                    <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td><strong>Attachment :</strong></td>
-                    <td width="25%"><input type="file" value="Attachment" /></td>
-                    <td width="4%">&nbsp;</td>
+                    <td colspan="2"><input type="file" value="Attachment" /></td>
+                    <td width="17%">&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td><strong>Allocate :</strong></td>
-                    <td><select class="form-control">
+                    <td colspan="2"><select class="form-control">
                         <option>Leave Bank if own</option>
                         <option>Sole Tradership</option>
                       </select></td>
@@ -246,7 +244,6 @@
         </div>
       </form>
     </div>
-    <!--noti -->
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->

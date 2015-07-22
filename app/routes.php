@@ -17,6 +17,7 @@
 });*/
 
 ### Routes for Dashboard related URL's start ###
+Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
@@ -88,7 +89,7 @@ Route::any('/settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 
 ### Routes for registration URL's start ###
 Route::get('/admin-signup', 'AdminController@signup');
 Route::post('/signup-process', 'AdminController@signup_process');
-Route::get('/', 'AdminController@login');
+Route::get('/login', 'AdminController@login');
 Route::post('/login-process', 'AdminController@login_process');
 Route::get('/admin-logout', 'AdminController@logout');
 Route::get('/forgot-password', 'AdminController@forgot_password');

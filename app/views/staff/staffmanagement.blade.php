@@ -33,7 +33,7 @@
               <li class="hvr-grow" style="margin-right:40px;"> <a  href="/staff-data">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
-                  <p class="c_tagline2">STAFF DATA</p>
+                  <p class="c_tagline2">STAFF DETAILS</p>
                   <div class="clearfix"></div>
                 </div>
                 </a> </li>

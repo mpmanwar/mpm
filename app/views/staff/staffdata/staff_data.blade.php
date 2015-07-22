@@ -8,9 +8,8 @@
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 @stop
- @stop
  
-  @section('content')
+@section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
@@ -27,139 +26,99 @@
                 <!-- Content Header (Page header) -->
                 @include('layouts.below_header')
     <!-- Main content -->
-    <section class="content"> 
-    <div class="row">
-<div class="top_bts">
-<ul>
-<li><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></li>
-<li><button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button></li>
-<div class="clearfix"></div>
-</ul>
-  
-</div>
-</div>     
+    <section class="content">
       <div class="practice_mid">
         <form>
+        <div class="top_buttons">
+        <div class="top_bts">
+          <ul>
+            <li>
+              <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+            </li>
+            <li>
+              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+            </li>
+            <li>
+              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+            </li>
+            <li>
+              <button class="btn btn-info"><!--<i class="fa fa fa-file-text-o"></i>--> Invite Staff User</button>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+
+      </div>
           <div class="tabarea">
-            <div class="tab_topcon">
-              <div class="top_bts">
-                <ul style="padding:0;">
-                  <li>
-                  
-                    <button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">Invite Staff</button>
-                  </li>
-                  <li>
-                    <button class="btn btn-danger">Delete</button>
-                  </li>
-                  <div class="clearfix"></div>
-                </ul>
-              </div>
-              <div class="top_search_con">
-                <table width="100%" border="0">
-                  <tr>
-                  <td><button class="btn btn-warning">Archive</button></td>
-                    <td>&nbsp;</td>
-                    <td><a href="#">Hide Archived</a></td>
-                    
-                  </tr>
-                </table>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            
-<div class=" col-xs-12">
-<!--start table-->        
-<table width="100%" border="0" class="staff_holidays">
-    <tr>
-    <td valign="top">
-    <table width="100%" border="0">
+            <table width="100%" border="0" class="staff_holidays">
+                            <tr>
+                              <td valign="top">
+                              <table width="100%" border="0">
   <tr>
-    <td width="5%"><strong>Show</strong></td>
-<td width="7%"><select class="form-control">
+ 
+    <td width="4%"><strong>Show</strong></td>
+<td width="8%"><select class="form-control">
 <option>50</option>
 <option>20</option>
 <option>10</option>
 <option>15</option>
 </select>
 </td>
-<td width="35%"><strong>entries</strong></td>
-<td width="24%">&nbsp;</td>
-    <td width="5%"><strong>Search</strong></td>
-    <td width="21%">
+<td width="20%"><strong>entries</strong></td>
+ <td width="36%">&nbsp;</td>
+<td width="5%"><strong>Search</strong></td>
+<td width="20%">
 <input type="text" id="" class="form-control">
 
     </td>
   </tr>
 </table>
-
-    </td>
-  </tr>
-  <tr>
-    <td valign="top">
-    <table width="100%" class="table table-bordered">
-                                    <tbody>
+<!--<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="89%"><strong>BOOKED COURSES</strong></td>
+<td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
+</tr>
+</table>-->
+</td>
+                            </tr>
+                            <tr>
+                              <td valign="top"><table width="100%" class="table table-bordered">
+                                  <tbody>
                                     <tr>
-                                     <td><input type="checkbox" /></td>
-                                      <td><strong>Date</strong></td>
-                                      <td align="center"><strong>Staff Name</strong></td>
-                                      <td align="center"><strong>Date Joined</strong></td>
-                                      <td align="center"><strong>DOB</strong></td>
-                                      <td align="center"><strong>Position</strong></td>
-                                      <td align="center"><strong>Holidays Left</strong></td>
-                                      <td align="center"><strong>Nino</strong></td>
-                                      <td align="center"><strong>Telephone</strong></td>
-                                      <td align="center"><strong>Salary</strong></td>
-                                      <td align="center"><strong>Qualifications</strong></td>
-                                      <td align="center"><strong>Department</strong></td>
-                                      <td align="center"><strong>Address</strong></td>
-                                      <td align="center"><strong>Notes</strong></td>
-                                    </tr>
-                                    
-                                    <tr>
-                                     <td><input type="checkbox" /></td>
-                                      <td>wqdwqd</td>
-                                      <td align="center">efewf</td>
-                                      <td align="center">ewfe</td>
-                                      <td align="center">wfwe</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">ergre</td>
-                                      <td align="center">ewfew</td>
-                                      <td align="center">ewf</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
+                                      <td width="5%">&nbsp;</td>
+                                      <td width="15%"><strong>Staff Name</strong></td>
+                                      <td width="15%" align="center"><strong>Position/Job Title</strong></td>
+                                      <td width="10%" align="center"><strong>Date Joined</strong></td>
+                                      <td width="15%" align="center"><strong>Holidays Left</strong></td>
+                                      <td width="15%" align="center"><strong>Department</strong></td>
+                                      <td width="15%" align="center"><strong>Address</strong></td>
+                                      <!--<td width="10%" align="center">Action</td>-->
                                     </tr>
                                     <tr>
-                                     <td><input type="checkbox" /></td>
-                                      <td>wqdwqd</td>
-                                      <td align="center">efewf</td>
-                                      <td align="center">ewfe</td>
-                                      <td align="center">wfwe</td>
+                                      <td><input type="checkbox" /></td>
+                                      <td align="center">ewf wefew</td>
+                                      <td align="center">erwafew</td>
+                                      <td align="center">20/07/2015</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center">ergre</td>
-                                      <td align="center">ewfew</td>
-                                      <td align="center">ewf</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
+                                      <td align="center">Avating Approval</td>
+                                      <td align="center">ewfefewf </td>
+                                     <!-- <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>-->
                                     </tr>
-                                    
-                                    
-                                  </tbody></table>
-    </td>
-  </tr>
-</table>
-<!--end table-->
-
-        </div>
-<div class="clearfix"></div>
-
-            
-            
+                                     <tr>
+                                      <td><input type="checkbox" /></td>
+                                      <td align="center">ewf wefew</td>
+                                      <td align="center">erwafew</td>
+                                      <td align="center">20/07/2015</td>
+                                      <td align="center">&nbsp;</td>
+                                      <td align="center">Avating Approval</td>
+                                      <td align="center">efewf efef</td>
+                                      <!--<td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>-->
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
           </div>
         </form>
       </div>
