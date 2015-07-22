@@ -130,7 +130,7 @@
                 @endif
                         
 <div class="notice_midbg"> 
-<span class="board_title">BOARD1</span>
+<span class="board_title">BOARD 1</span>
 <div class="col-xs-12 holidays_border" >
 
 <!--<div class="col-xs-4">
@@ -263,7 +263,7 @@
 
                         
 <div class="notice_midbg"> 
-<span class="board_title">BOARD2</span>
+<span class="board_title">BOARD 2</span>
 <div class="col-xs-12 holidays_border" >
 
 <!-- <div class="col-xs-4">
