@@ -85,7 +85,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
+                                      </td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
