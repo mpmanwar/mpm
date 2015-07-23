@@ -1,12 +1,48 @@
 @extends('layouts.layout') 
-    @section('mycssfile')
+@section('mycssfile')
     <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
- @section('myjsfile')
- <!-- DATA TABES SCRIPT -->
+
+@section('myjsfile')
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
+<!-- page script -->
+<script type="text/javascript">
+var Table1;
+$(function() {
+  Table1 = $('#example1').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table1.fnSort( [ [1,'asc'] ] );
+});
+</script>
 @stop
  
 @section('content')
@@ -28,7 +64,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="practice_mid">
-        <form>
+        
         <div class="top_buttons">
         <div class="top_bts">
           <ul>
@@ -42,7 +78,7 @@
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             <li>
-              <button class="btn btn-info"><!--<i class="fa fa fa-file-text-o"></i>--> Invite Staff User</button>
+              <a href="/add-user" class="btn btn-info"><!--<i class="fa fa fa-file-text-o"></i>--> Invite Staff User</a>
             </li>
             <div class="clearfix"></div>
           </ul>
@@ -50,77 +86,39 @@
 
       </div>
           <div class="tabarea">
-            <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top">
-                              <table width="100%" border="0">
-  <tr>
- 
-    <td width="4%"><strong>Show</strong></td>
-<td width="8%"><select class="form-control">
-<option>50</option>
-<option>20</option>
-<option>10</option>
-<option>15</option>
-</select>
-</td>
-<td width="20%"><strong>entries</strong></td>
- <td width="36%">&nbsp;</td>
-<td width="5%"><strong>Search</strong></td>
-<td width="20%">
-<input type="text" id="" class="form-control">
 
-    </td>
-  </tr>
-</table>
-<!--<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="89%"><strong>BOOKED COURSES</strong></td>
-<td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
-</tr>
-</table>-->
-</td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr>
-                                      <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Staff Name</strong></td>
-                                      <td width="15%" align="center"><strong>Position/Job Title</strong></td>
-                                      <td width="10%" align="center"><strong>Date Joined</strong></td>
-                                      <td width="15%" align="center"><strong>Holidays Left</strong></td>
-                                      <td width="15%" align="center"><strong>Department</strong></td>
-                                      <td width="15%" align="center"><strong>Address</strong></td>
-                                      <!--<td width="10%" align="center">Action</td>-->
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center">ewf wefew</td>
-                                      <td align="center">erwafew</td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">Avating Approval</td>
-                                      <td align="center">ewfefewf </td>
-                                     <!-- <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>-->
-                                    </tr>
-                                     <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center">ewf wefew</td>
-                                      <td align="center">erwafew</td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">Avating Approval</td>
-                                      <td align="center">efewf efef</td>
-                                      <!--<td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>-->
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
+<table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+            
+            <thead>
+              <tr role="row">
+                <th><input type="checkbox" id="allCheckSelect"/></th>
+                <th><strong>Staff Name</strong></th>
+                <th><strong>Position/Job Title</strong></th>
+                <th><strong>Date Joined</strong></th>
+                <th><strong>Holidays Left</strong></th>
+                <th><strong>Department</strong></th>
+                <th><strong>Address</strong></th>
+              </tr>
+            </thead>
+
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td align="center">ewf wefew</td>
+                <td align="center">erwafew</td>
+                <td align="center">20/07/2015</td>
+                <td align="center">&nbsp;</td>
+                <td align="center">Avating Approval</td>
+                <td align="center">ewfefewf </td>
+              </tr>
+              
+            </tbody>
+          </table>
+            
+
+                             
           </div>
-        </form>
+        
       </div>
     </section>
     <!-- /.content -->

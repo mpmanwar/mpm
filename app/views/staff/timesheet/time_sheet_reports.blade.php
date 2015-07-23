@@ -93,7 +93,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -105,7 +105,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -117,7 +117,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -129,7 +129,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                   </tbody>
@@ -195,7 +195,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -207,7 +207,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -219,7 +219,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                     <tr>
@@ -231,7 +231,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
                                         <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
                                     </tr>
                                   </tbody>
@@ -296,7 +296,7 @@
                 <td width="9%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -316,7 +316,7 @@
                 <td align="center"><input type="text"></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -336,7 +336,7 @@
                 <td align="center"><input type="text"></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -361,7 +361,7 @@
             </tr>
           </table>
           <div class="save_btncon">
-         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
+         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
          <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
          <div class="clearfix"></div>
          </div>

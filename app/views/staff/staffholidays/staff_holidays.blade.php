@@ -1,5 +1,86 @@
 @extends('layouts.layout')
- 
+@section('mycssfile')
+    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
+@section('myjsfile')
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+
+<!-- page script -->
+<script type="text/javascript">
+var Table1, Table2;
+$(function() {
+  Table1 = $('#example1').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table1.fnSort( [ [1,'asc'] ] );
+
+  Table2 = $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+
+   
+   Table2.fnSort( [ [1,'asc'] ] );
+
+});
+
+
+</script>
+@stop
+
 @section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -23,7 +104,7 @@
         <div class="top_buttons">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="25%">
+    <td width="26%">
     <div class="top_bts">
           <ul>
             <li>
@@ -39,19 +120,17 @@
           </ul>
         </div></td>
     <td width="6%">Select Staff</td>
-    <td width="9%">
-<select class="form-control">
-<option>50</option>
-<option>20</option>
-<option>10</option>
-<option>15</option>
-</select>
-</td>
+    <td width="10%">
+    <select class="form-control">
+      <option>Abel</option>
+      <option>Anwar</option>
+    </select>
+    </td>
 <td width="3%">&nbsp;</td>
     <td width="10%">Holidays Entitlement</td>
     <td width="3%"><input type="text" id="" class="form-control" value="20"></td>
     <td width="3%">&nbsp;</td>
-    <td width="10%">Holidays Taken</td>
+    <td width="8%">Holidays Taken</td>
     <td width="3%"><input type="text" class="form-control" value="18"></td>
     <td width="3%">&nbsp;</td>
     <td width="10%">Holidays Remaining</td>
@@ -71,48 +150,83 @@
               <div class="tab-content">
                 <div id="tab_1" class="tab-pane active">
                   <!--table area-->
-                  <div class="box-body table-responsive">
+                  <div class="box-body table-responsive" style="position:relative;">
                     <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
                       <div class="row">
-                        <div class="col-xs-6"></div>
-                        <div class="col-xs-6"></div>
+                        <div class="col-xs-8"></div>
+                        <div class="col-xs-4"></div>
+                      </div>
+                      <div style="position:absolute; left: 52%; z-index: 10; margin-top: -4px;">
+          <button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button>
+          <button class="btn btn-default">Approve</button>
+          <button class="btn btn-default"><span class="decline_t">Decline</span></button>
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
+
+      <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+            
+            <thead>
+              <tr role="row">
+                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+                <th align="center">Staff Name</th>
+                <th align="center">Request Type</th>
+                <th align="center">Date</th>
+                <th align="center">Duration</th>
+                <th align="center">Status</th>
+                <th align="center">Notes</th>
+                <th align="center">Action</th>
+              </tr>
+            </thead>
+
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <tr>
+                <td align="center"><input type="checkbox" /></td>
+                <th align="center">Anwar</th>
+                <td align="center">No</td>
+                <td align="center">20/07/2015</td>
+                <td align="center">1 month</td>
+                <td align="center">No</td>
+                <td align="center">View</td>
+                <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+              </tr>
+              
+            </tbody>
+          </table>
                           <!--start table-->
-                          <table width="100%" border="0" class="staff_holidays">
+                          <!-- <table width="100%" border="0" class="staff_holidays">
                             <tr>
                               <td valign="top">
                               <table width="100%" border="0">
-  <tr>
- 
-    <td width="4%"><strong>Show</strong></td>
-<td width="8%"><select class="form-control">
-<option>50</option>
-<option>20</option>
-<option>10</option>
-<option>15</option>
-</select>
-</td>
-<td width="20%"><strong>entries</strong></td>
- <td width="36%">&nbsp;</td>
-<td><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button></td>
-<td><button class="btn btn-default">Approve</button></td>
-<td><button class="btn btn-default"><span class="decline_t">Decline</span></button></td>
-<td width="5%"><strong>Search</strong></td>
-<td width="20%">
-<input type="text" id="" class="form-control">
-
-    </td>
-  </tr>
-</table>
-<!--<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="89%"><strong>BOOKED COURSES</strong></td>
-<td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
-</tr>
-</table>-->
-</td>
+                            <tr>
+                           
+                              <td width="4%"><strong>Show</strong></td>
+                          <td width="8%"><select class="form-control">
+                          <option>50</option>
+                          <option>20</option>
+                          <option>10</option>
+                          <option>15</option>
+                          </select>
+                          </td>
+                          <td width="20%"><strong>entries</strong></td>
+                           <td width="36%">&nbsp;</td>
+                          <td><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button></td>
+                          <td><button class="btn btn-default">Approve</button></td>
+                          <td><button class="btn btn-default"><span class="decline_t">Decline</span></button></td>
+                          <td width="5%"><strong>Search</strong></td>
+                          <td width="20%">
+                          <input type="text" id="" class="form-control">
+                          
+                              </td>
+                            </tr>
+                          </table>
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                          <td width="89%"><strong>BOOKED COURSES</strong></td>
+                          <td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
+                          </tr>
+                          </table>
+                          </td>
                             </tr>
                             <tr>
                               <td valign="top"><table width="100%" class="table table-bordered">
@@ -135,7 +249,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">Avating Approval</td>
                                       <td align="center"><a href="#">Views</a></td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> </td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> </td>
                                     </tr>
                                      <tr>
                                       <td><input type="checkbox" /></td>
@@ -145,13 +259,13 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">Avating Approval</td>
                                       <td align="center"><a href="#">Views</a></td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
                                     </tr>
                                   </tbody>
                                 </table>
                               </td>
                             </tr>
-                          </table>
+                          </table> -->
                           <!--end table-->
                         </div>
                       </div>
@@ -207,7 +321,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
@@ -216,7 +330,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
                                     </tr>
                                   </tbody>
                                 </table></td>
@@ -275,7 +389,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
                                     </tr>
                                     <tr>
                                       <td><input type="checkbox" /></td>
@@ -284,7 +398,7 @@
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
                                       <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="img/edit_icon.png" width="15"></a> <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
                                     </tr>
                                   </tbody>
                                 </table></td>
@@ -352,7 +466,7 @@
                                       <td align="center"><strong>Notes</strong></td>
                                     </tr>
                                     <tr>
-                                      <td><a href="#"><img src="img/cross_icon.png" /></a></td>
+                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                                       <td align="center">20/07/2015</td>
                                       <td align="center">AM - HALF DAY</td>
                                       <td align="center">
@@ -365,7 +479,7 @@
                                       <td align="center"><input type="text" id="" class="form-control"></td>
                                     </tr>
                                     <tr>
-                                      <td><a href="#"><img src="img/cross_icon.png" /></a></td>
+                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                                       <td align="center">20/07/2015</td>
                                       <td align="center">AM - HALF DAY</td>
                                       <td align="center">
@@ -378,7 +492,7 @@
                                       <td align="center"><input type="text" id="" class="form-control"></td>
                                     </tr>
                                     <tr>
-                                      <td><a href="#"><img src="img/cross_icon.png" /></a></td>
+                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                                       <td align="center">20/07/2015</td>
                                       <td align="center">AM - HALF DAY</td>
                                       <td align="center">
@@ -397,7 +511,7 @@
             </tr>
           </table>
           <div class="save_btncon">
-         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
+         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
          <div class="right_side"> <button class="btn btn-success">Submit for Approval</button></div>
          <div class="clearfix"></div>
          </div>

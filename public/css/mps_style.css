@@ -248,6 +248,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .send_task{float:left; margin-left:100px;}
 .show_entires{float:right;}*/
 /*.details_table{width:50%; margin: 0 auto;}*/
+.other_staff_table tr td{padding:7px; font-size: 16px;}
 .details_table table{border:1px solid #60aad2!important;}
 .details_table table tr td{padding:7px; color:#000; font-size:14px;}
 .td_color{background:#deedf5;}

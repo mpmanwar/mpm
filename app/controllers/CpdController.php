@@ -4,12 +4,17 @@
 
 class CpdController extends BaseController {
     
-    public function cpd_and_courses()
+    public function cpd_and_courses($type)
     {
         
        	$data['heading'] = "";
 		$data['title'] = "Cpd & Courses";
-      	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+      	if(base64_decode($type) == 'profile'){
+        	$data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+        }else{
+        	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+        }
+        $data['staff_type'] = base64_decode($type);
         
        
       

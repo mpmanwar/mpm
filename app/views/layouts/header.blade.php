@@ -32,7 +32,7 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
-                            <a href="/admin-profile" class="btn btn-default btn-flat">Profile</a>
+                            <a href="/staff-profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-left" style="margin-left: 3px;">
                             <a href="/change-password" class="btn btn-default btn-flat">Edit Password</a>

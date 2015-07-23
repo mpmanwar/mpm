@@ -183,57 +183,30 @@ Route::any('/organisation/delete-editservices', array("as"=>"delete_editservices
 
 ##
 
-
-
-
 Route::any('/noticeboard', array("as"=>"notice_board", "uses"=>'NoticeboardController@notice_board'));
-
 Route::any('/index_template', array("as"=>"index_template", "uses"=>'NoticeboardController@index_template'));
-
 Route::get('/edit-template/{id}', 'NoticeboardController@edit_template');
 Route::get('/delete-template/{id}', 'NoticeboardController@delete_template');
-
 Route::any('/swap-board1', 'NoticeboardController@swap_board1');
-
-
 Route::get('/delete-attachment/{id}', 'NoticeboardController@delete_attachment');
-
-
 Route::any('/editnotice-template', array("as"=>"show_edit_noticetemplate", "uses"=>'NoticeboardController@show_edit_noticetemplate'));
-//Route::any('/edit-notice-template', 'NoticeboardController@edit-notice-template');
-
-//Route::any('/template/edit-email-template', array("as"=>"edit_email_template", "uses"=>'EmailSettingsController@edit_email_template'))
 Route::any('/edit-notice-template', array("as"=>"edit_notice_template", "uses"=>'NoticeboardController@edit_notice_template'));
-
-
 Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'NoticeboardController@insert_noticeboard'));
-
 Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
-
-
-
 Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardController@excel_upload'));
-
 Route::any('/pdf-upload', array("as"=>"pdf_upload", "uses"=>'NoticeboardController@pdf_upload'));
-
-
-
 Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
-
 Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
+Route::any('/staff-details', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
+Route::any('/staff-holidays/{type}', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
+Route::any('/time-sheet-reports/{type}', array("as"=>"time_sheet_reports", "uses"=>'TimesheetController@time_sheet_reports'));
+Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
 
 
+/*=============== Staff Profile Start =================*/
+Route::get('/staff-profile', 'StaffprofileController@dashboard');
+Route::get('/my-details/{user_id}', 'StaffprofileController@my_details');
+Route::get('/staff/user-details-process', 'StaffprofileController@user_details_process');
+Route::get('/profile/to-list', 'StaffprofileController@to_list');
 
-Route::any('/staff-data', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
-
-
-Route::any('/staff-holidays', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
-
-
-Route::any('/time-sheet-reports', array("as"=>"time_sheet_reports", "uses"=>'TimesheetController@time_sheet_reports'));
-
-
-
-
-Route::any('/cpd-and-courses', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
-
+/*=============== Staff Profile End =================*/

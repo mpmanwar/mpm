@@ -30,14 +30,14 @@
         <div class="row icon_section">
           <div class="left_section">
             <ul>
-              <li class="hvr-grow" style="margin-right:40px;"> <a  href="/staff-data">
+              <li class="hvr-grow" style="margin-right:40px;"> <a  href="/staff-details">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
                   <p class="c_tagline2">STAFF DETAILS</p>
                   <div class="clearfix"></div>
                 </div>
                 </a> </li>
-              <li class="hvr-grow" style="margin-right:40px;"> <a  href="/staff-holidays">
+              <li class="hvr-grow" style="margin-right:40px;"> <a  href="/staff-holidays/{{ base64_encode('staff') }}">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
                   <p class="c_tagline2">STAFF HOLIDAYS</p>
@@ -51,7 +51,7 @@
                   <div class="clearfix"></div>
                 </div>
                 </a> </li>
-              <li class="hvr-grow"> <a  href="/time-sheet-reports">
+              <li class="hvr-grow"> <a  href="/time-sheet-reports/{{ base64_encode('staff') }}">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
                   <p class="c_tagline">TIME SHEET<br>
@@ -59,7 +59,7 @@
                   <div class="clearfix"></div>
                 </div>
                 </a> </li>
-              <li class="hvr-grow"> <a  href="/cpd-and-courses">
+              <li class="hvr-grow"> <a  href="/cpd-and-courses/{{ base64_encode('staff') }}">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
                   <p class="c_tagline2">CPD & COURSES</p>

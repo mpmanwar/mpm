@@ -4,12 +4,17 @@
 
 class StaffholidaysController extends BaseController {
     
-    public function staff_holidays()
+    public function staff_holidays($type)
     {
-        //die('staffmanagement');
-       	$data['heading'] = "";
-		$data['title'] = "Staff Holidays";
-		$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+        if(base64_decode($type) == 'profile'){
+        	$data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+        }else{
+        	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+        }
+        $data['staff_type'] = base64_decode($type);
+       	$data['heading'] 	= "";
+		$data['title'] 		= "Staff Holidays";
+		
       
         return View::make('staff.staffholidays.staff_holidays',$data);
        
