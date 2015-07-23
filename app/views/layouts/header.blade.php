@@ -1,7 +1,11 @@
 <header class="headermain">
 <div class="logo_controlar">
 <a href="{{ $dashboard_url }}">
+
+  
+
   <img src="{{ URL :: asset('img/logo.png') }}" />
+
 </a>
 </div>
 <div class="col_display">

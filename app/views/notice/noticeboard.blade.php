@@ -5,7 +5,10 @@
 <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}" type="text/javascript">
 </script>
 
-<script type="text/javascript" src="js/notice_board.js">
+<script type="text/javascript" src="js/notice_board.js"></script>
+<script type="text/javascript" src="js/fixedsortable.js">
+
+
 </script>
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>-->
 
@@ -71,8 +74,8 @@
                         <div class="notice_board_main">
                                 <div class="notice_board_tab" id="noticetab">
                                 <ul>
-                                        <li style="width:15%;" data-tabno="1"><a href="javascript:void(0)"  class="tab_active notice_tabhover">Board</a></li>
-                                        <li style="width:15%;" data-tabno="2" ><a href="javascript:void(0)" class="notice_tabhover">Board2</a></li>
+                                        <li style="width:15%;" data-tabno="1"><a href="javascript:void(0)"  class="tab_active notice_tabhover">Board 1</a></li>
+                                        <li style="width:15%;" data-tabno="2" ><a href="javascript:void(0)" class="notice_tabhover">Board 2</a></li>
                                         <li style="width:30%;" data-tabno="3"><a href="javascript:void(0)" class="notice_tabhover">Staff Holidays & Time off</a></li>
                                         <li style="width:20%;" data-tabno="4" ><a href="javascript:void(0)" class="notice_tabhover">Excel Viewer</a></li>
                                         <li style="width:20%;" data-tabno="5"><a href="javascript:void(0)" class="notice_tabhover">PDF Viewer</a></li>
@@ -127,28 +130,15 @@
                 @endif
                         
 <div class="notice_midbg"> 
-<span class="board_title">BOARD1</span>
+<span class="board_title">BOARD 1</span>
 <div class="col-xs-12 holidays_border" >
 
-<div class="col-xs-4">
+<!--<div class="col-xs-4">
 <div class="noticeboard_leftside">
 <a href="#" data-toggle="modal" class="add_new">Add New...</a>
-<!--<a href="#" class="add_new">Add New...</a> -->
-<!--
-<div class="bottom_content">
-
-<p class="posted_t">Posted/Uplaod by Ramjee Sharma 22/06/2015</p>
-<div class="edit_controlar">
-
-<a href="#"><img src="img/edit_icon.png" /></a>
-<a href="#"><img src="img/cross.png" /></a>
-</div>
-<div class="clearfix"></div>
-</div>
--->
 </div>
 
-<!--
+
 <div class="noticeboard_leftside">
 <a href="#" class="add_new">Add New...</a>
 <div class="bottom_content">
@@ -164,16 +154,24 @@
 <div class="clearfix"></div>
 </div>
 </div>
--->
-</div>
 
-<div class="col-xs-8" id="sortable">
+</div>-->
+
+<div class="col-xs-12"  style="position: relative;">
+
+<div class="col-xs-4 loop_sec" >
+<div class="noticeboard_leftside">
+<a href="#" data-toggle="modal" id="fixed_add" class="add_new">Add New...</a>
+</div>
+</div>
+<div  id="sortable" >
 @foreach($font as $key=>$val)
-<div class="staff_left hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
+<div class="col-xs-4 loop_sec" id="<?php echo $val['noticefont_id']; ?>">
+<div class="hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
-<span class="holidays_h">{{$val['message_subject'] }}</span>
-<div style="cursor:move">
+<div  style="cursor:move; width: 100%;" class="holidays_h">{{$val['message_subject'] }}</div>
+<div  style="cursor:pointer">
 <p class="holidays_content swapboard1" id="body{{ $val['noticefont_id'] }}" onclick="openbodyModal('{{ $val['noticefont_id'] }}')" >
     {{ (strlen($val['message']) > 625)? substr(strip_tags($val['message']), 0, 625)."...": strip_tags($val['message']) }}
 </p>
@@ -199,9 +197,9 @@
 </div>
 </div>
  
-</div>
+</div></div>
  @endforeach
-<div id="console"></div>
+<!--<div id="console"></div>-->
 <!--<div class="staff_right">
 
 <div class="holidays_list">
@@ -220,7 +218,7 @@
 </div>-->
 
 
-
+</div>
 </div>
 
 
@@ -265,13 +263,13 @@
 
                         
 <div class="notice_midbg"> 
-<span class="board_title">BOARD2</span>
+<span class="board_title">BOARD 2</span>
 <div class="col-xs-12 holidays_border" >
 
-<div class="col-xs-4">
+<!-- <div class="col-xs-4">
 <div class="noticeboard_leftside">
 <a href="#" data-toggle="modal" class="add_new2">Add New...</a>
-<!-- <a href="#" data-toggle="modal" data-target="#compose-modal" class="add_new">Add New...</a> -->
+<a href="#" data-toggle="modal" data-target="#compose-modal" class="add_new">Add New...</a> -->
 <!--<a href="#" class="add_new">Add New...</a> -->
 <!--
 <div class="bottom_content">
@@ -284,8 +282,8 @@
 </div>
 <div class="clearfix"></div>
 </div>
--->
-</div>
+
+</div>-->
 
 <!--
 <div class="noticeboard_leftside">
@@ -303,16 +301,23 @@
 <div class="clearfix"></div>
 </div>
 </div>
--->
-</div>
 
-<div class="col-xs-8" id="sortable2">
+</div>-->
+
+<div class="col-xs-12" >
+<div class="col-xs-4 loop_sec">
+<div class="noticeboard_leftside">
+<a href="#" data-toggle="modal" id="fixed_add2" class="add_new2">Add New...</a>
+</div>
+</div>
+<div id="sortable2">
 @foreach($font2 as $key=>$val2)
+<div class="col-xs-4 loop_sec" id="<?php echo $val2['noticefont_id']; ?>">
 <div class="staff_left hvr-grow1 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
 
 <div class="holidays_list" id="dyn">
-<span class="holidays_h">{{$val2['message_subject'] }}</span>
-<div style="cursor:move" >
+<div  style="cursor:move; width:100%" class="holidays_h">{{$val2['message_subject'] }}</div>
+<div style="cursor:pointer" >
 <p class="holidays_content" id="body{{ $val2['noticefont_id'] }}" onclick="openbodyModal('{{ $val2['noticefont_id'] }}')" >
     {{ (strlen($val2['message']) > 625)? substr(strip_tags($val2['message']), 0, 625)."...": strip_tags($val2['message']) }}
 </p>
@@ -332,7 +337,7 @@
 </div>
  
 </div>
-
+</div>
  @endforeach
 
 <!--<div class="staff_right">
@@ -354,7 +359,7 @@
 
 </div>
 
-
+</div>
 
 </div>
 <div class="clearfix"></div>
@@ -640,13 +645,16 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 <div class="clearfix"></div>
 </div>
                         
+                        
+                        </div>
                         <div class="notice_board_topcon">
                         <div class="notice_bottom_left"></div>
                         <div class="notice_bottom_mid"></div>
                         <div class="notice_bottom_right"></div>
                         <div class="clearfix"></div>
                         </div>
-                        </div>
+                        
+                        
                         
                         </div>
                        

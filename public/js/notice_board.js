@@ -325,7 +325,12 @@ $(".back").click(function() {
 $(".add_new").click(function() {
 	//alert('');
 	//$("#compose-modal").modal("show");
+
+	//var numItems = $('.limitboard').size();
+    //alert(numItems);
+
 	var numItems = $('.limitboard').length;
+
 	if (numItems < 8) {
 		$("#compose-modal").modal("show");
 	} else {
@@ -367,6 +372,7 @@ $(function() {
             //$("#sortable").unbind('click');
             var toSend = [], param = {};
             var sorted = $( "#sortable" ).sortable( "toArray" );
+            //alert(sorted);
             for(var i in sorted){
                 //console.log(sorted[i]);
                 var each = parseInt(sorted[i]);
@@ -385,8 +391,13 @@ $(function() {
                 data: param,
                 success: function(){
                     
+
+                    //$("#compose-msgmodal").modal("hide");
+                    	
+
                    // $("#compose-msgmodal").modal("hide");
                      //ui.item.find("p").unbind("click");	
+
                     console.log("updated");
                 },
                 error: function(data){
@@ -408,9 +419,9 @@ $(function() {
         helper:'clone',
         //revert:true
         }).disableSelection();
+
+ 
 });
-
-
 
 
 $(function() {
