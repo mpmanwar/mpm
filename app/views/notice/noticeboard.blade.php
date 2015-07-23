@@ -311,6 +311,7 @@
 </div>
 </div>
 <div id="sortable2">
+
 @foreach($font2 as $key=>$val2)
 <div class="col-xs-4 loop_sec" id="<?php echo $val2['noticefont_id']; ?>">
 <div class="staff_left hvr-grow1 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
@@ -787,7 +788,8 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 </div>
 <!-- ./wrapper -->
 <!-- COMPOSE MESSAGE MODAL -->
-{{ Form::open(array('url' => '/notice-template', 'files' => true)) }}
+
+<!-- {{ Form::open(array('url' => '/notice-template', 'files' => true)) }} -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -802,7 +804,10 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 				</div>
 			</div>
 			<!-- New popup -->
-			<form action="#" method="post">
+		<!--	<form action="#" method="post"> -->
+        
+        {{ Form::open( array('url' => '/notice-template', 'files' => true, 'id'=>'upform', 'name'=>'upform')   ) }}
+         
 				<div class="modal-body">
 					<div class="twobox">
 						<div class="twobox_1">
@@ -852,7 +857,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 								<button type="button" class="btn btn-danger" data-dismiss="modal">
 									Cancel
 								</button>
-								<button type="save" class="btn btn-primary pull-left save_t">
+								<button type="submit" class="btn btn-primary pull-left save_t upbutton">
 									Save
 								</button>
 							</div>
@@ -897,12 +902,13 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 					</div>
 					</div>-->
 				</div>
-			</form>
+                	{{ Form :: close() }}
+		<!--	</form> -->
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
-	{{ Form :: close() }}
+
 </div>
 
 <div class="modal fade" id="compose-modal1" tabindex="-1" role="dialog" aria-hidden="true">
