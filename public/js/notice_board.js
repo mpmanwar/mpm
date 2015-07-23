@@ -191,6 +191,7 @@ function delattachfun() {
 	//alert('#add_file'+id);
 	
 });*/
+
 var looper = $(".upload-buttons");
 $.each(looper, function(key, value) {
 	//console.log(value); 
@@ -227,6 +228,60 @@ $.each(looper, function(key, value) {
 //upload
 // upload pdf
 
+
+
+
+//
+
+$(".upbutton").click(function() {
+
+    //alert('fdsfsfs');return false;
+    $("#upform").ajaxForm(
+		
+		{
+			//target: '#previewpdf+id',
+			success: function(response) {
+
+			 //var value = editor.getData();
+				//alert(value);
+               console.log(response);
+               
+               var bno = $("#board_no").val();
+               	
+                //alert(bno);
+                if(bno==1){
+                $("#sortable").prepend(response);
+                }
+                if(bno==2){
+                $("#sortable2").prepend(response);
+                }
+   	            //$("#font1_value").html(response);
+                
+                 $('#message_subject').val(""); 
+                 $('#add_message').val("");	
+                 $('#add_file').val("");	
+                 //$('#notifycheckadd').prop('checked', false);
+                 $("#notifycheckadd" ).iCheck('uncheck');
+                 //$('#notifycheckadd').removeAttr('checked');
+                 //$('#notifycheckadd').val("");	
+                 	CKEDITOR.instances['add_message'].setData("");
+                 $("#compose-modal").modal("hide");
+                //$("#compose-modal").html("");
+               
+                
+                
+                //console.log("result",response);
+                	
+				//x = response;
+			
+			}
+		});
+    
+  
+});
+
+
+//
 $(".pdf").click(function() {
 	var id = $(this).attr("id").match(/\d+/);
 	//alert(id);

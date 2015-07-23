@@ -19,11 +19,12 @@ class NoticeboardController extends BaseController
         //echo '<pre>';print_r($groupUserId);die();
 
 
+        /*
         $data['attach'] = DB::table('users')->whereIn("users.user_id", $groupUserId)->
-            join('noticefonts', 'users.user_id', '=', 'noticefonts.user_id')->select('users.user_id',
-            'users.fname', 'users.lname', 'noticefonts.file', 'noticefonts.noticefont_id')->
-            get();
-
+        join('noticefonts', 'users.user_id', '=', 'noticefonts.user_id')->select('users.user_id',
+        'users.fname', 'users.lname', 'noticefonts.file', 'noticefonts.noticefont_id')->
+        get();
+        */
         //echo $this->last_query();die();
 
 
@@ -46,17 +47,17 @@ class NoticeboardController extends BaseController
         // echo "<pre>";print_r($data['username']);die();
 
         $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "1")->select("noticefont_id", "sort_id","user_id", "board_no", "message",
-            "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
-            'ASC')->take(8)->get();
+            "=", "1")->select("noticefont_id", "sort_id", "user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('sort_id', 'ASC')->
+            take(8)->get();
 
 
-            //echo $data['font'];die();
-            
+        //echo $data['font'];die();
+
         $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("board_no",
-            "=", "2")->select("noticefont_id","sort_id", "user_id", "board_no", "message",
-            "message_subject", "checkbox", "file", "created")->orderBy('sort_id',
-            'ASC')->take(8)->get();
+            "=", "2")->select("noticefont_id", "sort_id", "user_id", "board_no", "message",
+            "message_subject", "checkbox", "file", "created")->orderBy('sort_id', 'ASC')->
+            take(8)->get();
 
         //echo $this->last_query();die();
         //echo $data['font'];die();
@@ -225,11 +226,18 @@ class NoticeboardController extends BaseController
     public function notice_template()
     {
 
+
+        //print_r($_POST);die();
+        $postData = Input::all();
+        //echo "<pre>";
+        //print_r($postData);die();
+
         $tmpl_data = array();
 
         $session = Session::get('admin_details');
         $groupUserId = $session['group_users'];
 
+        $user_id = $session['id'];
         $session = Session::get('admin_details');
         $tmpl_data['user_id'] = $session['id'];
         $postData = Input::all();
@@ -294,10 +302,11 @@ class NoticeboardController extends BaseController
 
             //echo '<pre>'; print_r($tmpl_data);die();
             $noticefont_id = Noticefont::insertGetId($tmpl_data);
-            
+
             $sort_data = array();
             $sort_data['sort_id'] = $noticefont_id;
-            $sortId_update=Noticefont::where("noticefont_id", "=", $noticefont_id)->update($sort_data);
+            $sortId_update = Noticefont::where("noticefont_id", "=", $noticefont_id)->
+                update($sort_data);
 
 
             if (isset($postData['notifycheckadd']) && !empty($postData['notifycheckadd'])) {
@@ -368,13 +377,46 @@ class NoticeboardController extends BaseController
 
             //$this->send_notice($tmpl_data);
 
-            return Redirect::to('/noticeboard');
+            // return Redirect::to('/noticeboard');
             //echo "<pre>";print_r($pd_id);
             //die();
 
 
             // $file = Input::file('add_file');
             // $destinationPath = "uploads/noticeTemplates/";
+
+
+            if ($postData['board_no'] == 1) {
+
+                $data['font'] = Noticefont::whereIn("user_id", $groupUserId)->where("noticefont_id",
+                    "=", $noticefont_id)->where("board_no", "=", "1")->select("noticefont_id",
+                    "sort_id", "user_id", "board_no", "message", "message_subject", "checkbox",
+                    "file", "created")->first();
+
+                $data['userfullname'] = User::where("user_id", $user_id)->select("fname",
+                    "lname")->first();
+                    
+                    echo View::make('notice.font1', $data);
+
+            }
+
+            if ($postData['board_no'] == 2) {
+
+                $data['font2'] = Noticefont::whereIn("user_id", $groupUserId)->where("noticefont_id",
+                    "=", $noticefont_id)->where("board_no", "=", "2")->select("noticefont_id",
+                    "sort_id", "user_id", "board_no", "message", "message_subject", "checkbox",
+                    "file", "created")->first();
+
+                $data['userfullname'] = User::where("user_id", $user_id)->select("fname",
+                    "lname")->first();
+                    
+                    echo View::make('notice.font2', $data);
+
+
+            }
+
+
+            
 
         }
     }
@@ -648,7 +690,7 @@ class NoticeboardController extends BaseController
                 $validator = Validator::make($postData, $rules, $messages);
 
                 if ($validator->fails()) {
-                    
+
                     die('<font size="3" color="red">Upload Proper ecxel File only</font>');
                 } else {
 
@@ -674,7 +716,7 @@ class NoticeboardController extends BaseController
 
                     die('<font size="3" color="red">Upload Proper Pdf File only</font>');
                 } else {
-                    
+
                     $result = Input::file('add_pdffile1')->move($destinationPath, $fileName);
                 }
 
@@ -813,7 +855,7 @@ class NoticeboardController extends BaseController
                 $validator = Validator::make($postData, $rules, $messages);
 
                 if ($validator->fails()) {
-                    
+
                     die('<font size="3" color="red">Upload Proper ecxel File only</font>');
                 } else {
 
@@ -1082,53 +1124,53 @@ class NoticeboardController extends BaseController
 
 
     }
-    
-    
-    
-    public function swap_board1(){
+
+
+    public function swap_board1()
+    {
         //print_r($_POST);
-        
+
         $postData = Input::all();
-          
-          //echo $postData['order'];
-          //die();
-          
-          $order = explode(",",$postData['order']);
-         //print_r($order);
-         
-         
-         foreach($order as $o =>$v){
-            $o++;
-            Noticefont::where("noticefont_id", "=", $v)->update(array('sort_id'=> $o));
-                        
-         }
-         
-         
-         // $count = count($order);
-          //for($i=$count;$i>0;$i--){
-              //$i++;
-              // $final[$count-$i]=$order[$i-1] ;
-       // }
-       // print_r($final);die();
-       /**
-        * 
-        * 
-        print_r($order);
-        
-         $count = count($order);
-        
-        for($i=0;$i<$count;$i++){
-            
-            //echo $order[$i];
-        }
+
+        //echo $postData['order'];
         //die();
-        $store= Noticefont::whereIN("noticefont_id",$order)-> select("noticefont_id", "sort_id","user_id", "board_no", "message",
-            "message_subject", "checkbox", "file", "created")->get();
-        
-       
-        print_r($store);die();
-        **/
-        
+
+        $order = explode(",", $postData['order']);
+        //print_r($order);
+
+
+        foreach ($order as $o => $v) {
+            $o++;
+            Noticefont::where("noticefont_id", "=", $v)->update(array('sort_id' => $o));
+
+        }
+
+
+        // $count = count($order);
+        //for($i=$count;$i>0;$i--){
+        //$i++;
+        // $final[$count-$i]=$order[$i-1] ;
+        // }
+        // print_r($final);die();
+        /**
+         * 
+         * 
+         * print_r($order);
+         * 
+         * $count = count($order);
+         * 
+         * for($i=0;$i<$count;$i++){
+         * 
+         * //echo $order[$i];
+         * }
+         * //die();
+         * $store= Noticefont::whereIN("noticefont_id",$order)-> select("noticefont_id", "sort_id","user_id", "board_no", "message",
+         * "message_subject", "checkbox", "file", "created")->get();
+         * 
+         * 
+         * print_r($store);die();
+         **/
+
     }
 
 }
