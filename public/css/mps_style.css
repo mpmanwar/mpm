@@ -223,7 +223,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .table_magin{margin-top: 27px;}
 .horizontal_line{width: 100%; height: 1px; background-color: #ccc; margin: -10px 0 5px 0;}
 .headermain{background:#3c8dbc; width:100%; border-bottom:1px solid #000;}
-.logo_controlar{float:left; width:18%; background:#fff; padding: 10px 0 10px 0; text-align: center;}
+.logo_controlar{float:left; width:18%; /*background:#fff;*/ padding: 10px 0 10px 10px; text-align: center;}
 .navbar-right{margin-right: 15px; width: 16%; }
 /*.nav>li>a{color:#fff!important;}*/
 .navbar-nav{float: right;}
@@ -786,6 +786,98 @@ border: 1px solid #e2e4e6;
   box-shadow: 0 4px 10px 4px #c5c5c5;
 
 }
+
+
+/* Contact Page Start */
+.contact_top_brdr{ padding:0; margin:0; width:100%; height:7px; background: url(../img/cntp_brdr.jpg) no-repeat; background-size:cover;}
+.contact_banner_sec{ padding:0; margin:0; width:100%; background:url(../img/cntct_brdr.jpg) no-repeat; height:420px; background-size:cover;}
+.get_con{ padding:10px 0 0px 0; margin:50px auto; width:150px; text-align:center; font-size:26px; font-family:Oswald; color:#17abca; border-top:#dcdcdc solid 1px;}
+.cntct_last_pan{ padding:0 0 15px 0; margin:15px 0 0 0; width:100%; background:#e8e6e6;}
+.cntct_lfpan{ padding:0; margin:0; width:44%; float:left;}
+.cntct_lfpan_in{ padding:0; margin:20px 0 0 0; float:left; width:83%;}
+.nme_con{ padding:0 0 5px 0; margin:0; color:#5e5d5d; font-size:18px;}
+.nme_box{ padding:7px 0px 7px 0px; margin:0 0 5px 0; background:#fff; border:#d6d5d5 solid 1px; border-radius:5px; width:100%;}
+.msg_box{ padding:0px 0px 0px 0px; margin:0 0 5px 0; background:#fff; border:#d6d5d5 solid 1px; border-radius:5px; width:100%; height:96px;}
+.rd_more1{ padding:5px 0 5px 0; margin:10px 0 0 0%; width:99px; background:url(../img/rd_butt_bg.jpg) repeat-x; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer; float:right;}
+.rd_more1:hover{ background:#17abca; color:#fff; transition:0.0s;}
+.cntct_rgtpan1_in{ float:right; padding:22px 0 0 0; margin:0;}
+.cntct_rfpan{ padding:0; margin:0; width:46.9%; float:right; }
+.cntct_rgtpan_in{ padding:0; margin:20px 0 0 0; width:100%;}
+.adrs_con{ padding:0 0 5px 0; margin:0; color:#3d3c3c; font-size:25px;}
+.adrs_con1{ padding:10px 10% 0 0; margin:0; color:#5e5d5d; font-size:17px; float:left;}
+.adrs_map{ padding:15px 0 0 0;}
+.cntct_mdpan{ padding:0; margin:15px 0 0 0;}
+.cntct_con{ padding:0px 0 0px 0; margin:0; text-align:center; font-size:54px; font-family:Oswald; color:#17abca;}
+
+.monthly_controlar {
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 10px;
+    float: left;
+    margin-bottom: 9px;
+    width: 100%;
+}
+.monthly_cont_mid {
+    margin: 15px auto;
+    width: 98%;
+}
+.monthly_piccon {
+    margin: 20px auto 0;
+}
+.monthly_piccon ul {
+    list-style: none outside none;
+}
+.monthly_piccon ul li {
+    float: left;
+    margin-bottom: 15px;
+    margin-right: 7%;
+    text-align: center;
+    width: 155px;
+}
+.icons_con:before {
+    background: radial-gradient(ellipse at center center , rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    content: "";
+    height: 10px;
+    left: 5%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    transition-duration: 0.3s;
+    transition-property: transform, opacity;
+    width: 90%;
+    z-index: -1;
+}
+.icons_con:hover:before, .icons_con:focus:before, .icons_con:active:before {
+    opacity: 1;
+    transform: translateY(5px);
+}
+.icons_con:hover, .icons_con:focus, .icons_con:active {
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+.icons_con {
+    box-shadow: 3px 3px 13px 8px #e4e4e4;
+    display: inline-block;
+    position: relative;
+    transform: translateZ(0px);
+    transition-duration: 0.3s;
+    transition-property: transform;
+  border-radius:50%;
+}
+.monthly_piccon ul li p {
+    color: #17abca;
+    float: left;
+    font-size: 27px;
+    font-weight: normal;
+    padding-top: 12px;
+    text-align: center;
+    width: 100%;
+  padding-left:7px;
+}
+
+.info_con{ padding:7px 0 0px 5px !important; margin:0 !important; font-size:14px !important; color:#737373 !important;}
+
+/* Contact Page End */
 
 
 

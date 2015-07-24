@@ -106,7 +106,7 @@ $(function() {
                 <td><input type="checkbox" /></td>
                 <td align="center">ewf wefew</td>
                 <td align="center">erwafew</td>
-                <td align="center">20/07/2015</td>
+                <td align="center">20-07-2015</td>
                 <td align="center">&nbsp;</td>
                 <td align="center">Avating Approval</td>
                 <td align="center">ewfefewf </td>
