@@ -1,6 +1,6 @@
 @extends('layouts.layout') 
 @section('mycssfile')
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('myjsfile')
@@ -44,7 +44,7 @@ $(function() {
 });
 </script>
 @stop
- 
+
 @section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -102,16 +102,19 @@ $(function() {
             </thead>
 
             <tbody role="alert" aria-live="polite" aria-relevant="all">
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td align="center">ewf wefew</td>
-                <td align="center">erwafew</td>
-                <td align="center">20-07-2015</td>
-                <td align="center">&nbsp;</td>
-                <td align="center">Avating Approval</td>
-                <td align="center">ewfefewf </td>
-              </tr>
-              
+              @if( isset($staff_details) && count($staff_details) >0 )
+                @foreach($staff_details as $key=>$value)
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td align="center"><a href="/my-details/{{ $value['user_id'] }}">{{ $value['fname'] or "" }} {{ $value['lname'] or "" }}</a></td>
+                  <td align="center">{{ $value['step_data']['position'] or "" }}</td>
+                  <td align="center">{{ isset($value['created'])?date("d-m-Y", strtotime($value['created'])):"" }}</td>
+                  <td align="center">&nbsp;</td>
+                  <td align="center">{{ $value['step_data']['department'] or "" }}</td>
+                  <td align="center">{{ $value['step_data']['address1'] or "" }} </td>
+                </tr>
+                @endforeach
+              @endif
             </tbody>
           </table>
             
@@ -326,32 +329,5 @@ $(function() {
 </div>
 <!--end popup-->
 
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        
-        <!-- AdminLTE App -->
-        <script src="js/AdminLTE/app.js" type="text/javascript"></script>
-
-    <!-- DATA TABES SCRIPT -->
-        <script src="js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-
-        <!-- page script -->
-        <script type="text/javascript">
-            $(function() {
-                $('#example2').dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": true,
-                    "bAutoWidth": false
-
-                });
-            });
-
-        </script>
-
 @stop
-<!--staff -->
+<!-- staff-->
