@@ -69,7 +69,7 @@ $(document).ready(function(){
               <button class="btn btn-primary">REQUEST FROM CLIENT</button>
             </li> -->
             <li>
-              <button type="button" name="sync_data_button" id="sync_data_button" class="btn btn-danger">SYNC DATA</button>
+              <button type="button" name="sync_data_button" id="sync_data_button" class="btn btn-danger">Sync with Companies' house</button>
             </li>
             <li>
               <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">

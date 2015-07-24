@@ -220,7 +220,7 @@ $(function() {
         <td align="center"><input type="checkbox" /></td>
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
-        <td align="center">20/07/2015</td>
+        <td align="center">20-07-2015</td>
         <td align="center">1 month</td>
         <td align="center">
           <select style="width:132px; height:23px;">
