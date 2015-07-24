@@ -35,6 +35,7 @@ class StaffprofileController extends BaseController {
 		}
 
 		$data['staff_details'] = $this->userDetailsByUserId($data['user_id']);
+
 		//print_r($data['staff_details']);die;
     	return View::make("staff.profile.my_details", $data);
     }
@@ -56,7 +57,8 @@ class StaffprofileController extends BaseController {
 
     public function userDetailsByUserId($user_id)
     {
-    	$data = array();
+    	$data      = array();
+        $step_data = array();
     	$details = User::where("user_id", "=", $user_id)->first();
     	if(isset($details) && count($details) >0){
     		$fname = "";
@@ -83,6 +85,14 @@ class StaffprofileController extends BaseController {
     		$data['lname'] 			= $details['lname'];
     		$data['country'] 		= $details['country'];
     		$data['created'] 		= $details['created'];
+
+            $fields = StepsFieldsStaff::where("user_id", "=", $user_id)->get();
+            if( isset($fields) && count($fields) >0 ){
+                foreach ($fields as $value) {
+                    $step_data[$value['field_name']] = $value->field_value;
+                }
+            }
+            $data['step_data']  = $step_data;
     	}
 
     	return $data;
