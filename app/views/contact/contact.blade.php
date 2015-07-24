@@ -4,6 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>{{ $page_title }}</title>
 <link href="{{ URL :: asset('css/mps_style.css') }}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+  *{margin: 0; padding: 0;}
+</style>
 </head>
 
 <body>
