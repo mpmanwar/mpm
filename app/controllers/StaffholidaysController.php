@@ -12,7 +12,7 @@ class StaffholidaysController extends BaseController {
         	$data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
         }
         $data['staff_type'] = base64_decode($type);
-       	$data['heading'] 	= "";
+       	$data['heading'] 	= "HOLIDAYS/TIME OFF ";
 		$data['title'] 		= "Staff Holidays";
 		
       

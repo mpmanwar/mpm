@@ -1,12 +1,95 @@
-@extends('layouts.layout') @section('mycssfile')
+@extends('layouts.layout')
 
+@section('mycssfile')
+    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
- @section('myjsfile')
-  
+
+@section('myjsfile')
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+
+<!-- page script -->
+<script type="text/javascript">
+var Table1, Table2;
+$(function() {
+  Table1 = $('#example1').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table1.fnSort( [ [2,'asc'] ] );
+
+  Table2 = $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+
+   
+   Table2.fnSort( [ [2,'asc'] ] );
+
+});
+
+
+/*$(document).ready(function(){
+  $("#archivedButton").click(function(){
+        var oSettings = oTable.fnSettings();
+        oSettings._iDisplayLength = -1;
+        oTable.fnDraw();
+  })
+})*/
+</script>
 @stop
- @stop
  
-  @section('content')
+@section('content')
  <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
@@ -58,84 +141,49 @@
                         <div class="col-xs-6"></div>
                       </div>
                       <div class="row">
+                        <div style="width:100%; margin: 0 0 40px 15px;">
+                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Time Sheet</span></button></div>
+
+                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default">Client Time Report</button></div>
+
+                            <div style="float: left;"><button class="btn btn-default"><span class="decline_t">Staff Time Report</span></button></div>
+                          </div>
                         <div class="col-xs-12">
+                          
                           <!--start table-->
-                          <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tr>
-                                    <td width="8%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button></td>
-                                    <td width="7%"><button class="btn btn-default">Approve</button></td>
-                                    <td width="10%"><button class="btn btn-default"><span class="decline_t">Decline</span></button></td>
-                                    <td width="75%">&nbsp;</td>
-                                  </tr>
-                                </table></td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr class="table_heading_bg">
-                                      <td width="4%">&nbsp;</td>
-                                      <td width="22%"><strong>Date</strong></td>
-                                      <td width="18%" align="center"><strong>Staff Name</strong></td>
-                                      <td width="19%" align="center"><strong>Client Name</strong></td>
-                                      <td width="12%" align="center"><strong>Service</strong></td>
-                                      <td width="10%" align="center"><strong>HRS</strong></td>
-                                      <td width="9%" align="center"><strong>Notes</strong></td>
-                                      <td width="6%" align="center">Action</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
+                          
+                          <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+            
+                            <thead>
+                              <tr role="row">
+                                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+                                <th align="center"><strong>Date</strong></th>
+                                <th align="center"><strong>Staff Name</strong></th>
+                                <th><strong>Client Name</strong></th>
+                                <th><strong>Service</strong></th>
+                                <th><strong>HRS</strong></th>
+                                <th><strong>Notes</strong></th>
+                                <th><strong>Action</strong></th>
+                              </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                              <tr>
+                                <td><input type="checkbox" /></td>
+                                <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                  AM - HALF DAY</td>
+                                <td align="center">fdfwef</td>
+                                <td align="center">wqefef</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+                                  <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
+                              </tr>
+                              
+                            </tbody>
                           </table>
+                          
                           <!--end table-->
                         </div>
                       </div>
@@ -153,90 +201,36 @@
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
-                          <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tbody>
-                                    <tr>
-                                      <td width="2%"><strong>Show</strong></td>
-                                      <td width="8%"><select class="form-control">
-                                          <option>50</option>
-                                          <option>20</option>
-                                          <option>10</option>
-                                          <option>15</option>
-                                        </select></td>
-                                      <td width="10%"><strong>entries</strong></td>
-                                      <td width="50%">&nbsp;</td>
-                                      <td width="5%"><strong>Search</strong></td>
-                                      <td width="20%"><input type="text" id="" class="form-control"></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr class="table_heading_bg">
-                                      <td width="4%">&nbsp;</td>
-                                      <td width="22%"><strong>Date</strong></td>
-                                      <td width="18%" align="center"><strong>Staff Name</strong></td>
-                                      <td width="19%" align="center"><strong>Client Name</strong></td>
-                                      <td width="12%" align="center"><strong>Service</strong></td>
-                                      <td width="10%" align="center"><strong>HRS</strong></td>
-                                      <td width="9%" align="center"><strong>Notes</strong></td>
-                                      <td width="6%" align="center">Action</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="left"><input type="text" placeholder="dd/mm/yy">
-                                        AM - HALF DAY</td>
-                                      <td align="center">fdfwef</td>
-                                      <td align="center">wqefef</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                        <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
+                          <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
+            
+                            <thead>
+                              <tr role="row">
+                                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+                                <th align="center"><strong>Date</strong></th>
+                                <th align="center"><strong>Staff Name</strong></th>
+                                <th><strong>Client Name</strong></th>
+                                <th><strong>Service</strong></th>
+                                <th><strong>HRS</strong></th>
+                                <th><strong>Notes</strong></th>
+                                <th><strong>Action</strong></th>
+                              </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                              <tr>
+                                <td><input type="checkbox" /></td>
+                                <td align="left"><input type="text" placeholder="dd/mm/yy">
+                                  AM - HALF DAY</td>
+                                <td align="center">fdfwef</td>
+                                <td align="center">wqefef</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+                                  <!--<a href="#"><img src="img/delete_icon.png" width="15"></a>--></td>
+                              </tr>
+                              
+                            </tbody>
                           </table>
                         </div>
                       </div>
@@ -258,7 +252,7 @@
 
 <!-- COMPOSE MESSAGE MODAL -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:800px;">
+  <div class="modal-dialog" style="width:80%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -275,9 +269,9 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="30%"><strong>NEW TIME SHEET</strong></td>
-    <td width="30%">&nbsp;</td>
-    <td width="10%">&nbsp;</td>
-    <td width="15%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
 </table>
 
@@ -287,16 +281,17 @@
               <td valign="top">
               <table width="100%" class="table table-bordered">
             <tbody>
-              <tr class="table_heading_bg">
-                <td width="22%"><strong>Date</strong></td>
-                <td width="18%" align="center"><strong>Staff Name</strong></td>
-                <td width="19%" align="center"><strong>Client Name</strong></td>
-                <td width="12%" align="center"><strong>Service</strong></td>
-                <td width="10%" align="center"><strong>HRS</strong></td>
-                <td width="9%" align="center"><strong>Notes</strong></td>
+              <!-- <tr class="table_heading_bg"> -->
+              <tr>
+                <td width="20%"><strong>Date</strong></td>
+                <td width="20%" align="center"><strong>Staff Name</strong></td>
+                <td width="20%" align="center"><strong>Client Name</strong></td>
+                <td width="20%" align="center"><strong>Service</strong> <a href="#">Add/Edit List</a></td>
+                <td width="6%" align="center"><strong>HRS</strong></td>
+                <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -316,7 +311,7 @@
                 <td align="center"><input type="text"></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -336,7 +331,7 @@
                 <td align="center"><input type="text"></td>
               </tr>
               <tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"> 19-08-2015</a></td>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
                 <td align="center"><select class="form-control">
                     <option>wdfd wefwe</option>
                     <option>wefew ewf</option>
@@ -355,16 +350,20 @@
                 <td align="center"><input type="text" ></td>
                 <td align="center"><input type="text"></td>
               </tr>
+              <!-- <tr>
+                <td align="left" colspan="5"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></td>
+                <td align="center"><button class="btn btn-primary">Submit</button></td>
+              </tr> -->
             </tbody>
           </table>
               </td>
             </tr>
           </table>
           <div class="save_btncon">
-         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
-         <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
-         <div class="clearfix"></div>
-         </div>
+            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
+            <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
+            <div class="clearfix"></div>
+            </div>
          
         </div>
         

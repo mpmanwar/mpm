@@ -161,7 +161,7 @@ $(function() {
                 <th align="center">Client Name</th>
                 <th>Description</th>
                 <th>Attachment</th>
-                <th>Status</th>
+                <th width="10%">Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -174,7 +174,7 @@ $(function() {
                 <td align="center">20/07/2015</td>
                 <td align="center"><a href="#"><img src="/img/attachment.png" width="15"></a></td>
                 <td align="center">
-                  <select class="form-control">
+                  <select style="width:120px; height:23px; cursor: pointer;">
                     <option></option>
                   </select>
                 </td>
@@ -223,7 +223,7 @@ $(function() {
                 <td align="center">20/07/2015</td>
                 <td align="center"><a href="#"><img src="/img/attachment.png" width="15"></a></td>
                 <td align="center">
-                  <select class="form-control">
+                  <select style="width:120px; height:23px; cursor: pointer;">
                     <option></option>
                   </select>
                 </td>
@@ -338,11 +338,11 @@ $(function() {
           <div class="save_btncon">
             <div class="left_side">
               <button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i>
-              <p class="add_line_t">Add new line</p>
+              <p class="add_line_t">Add new</p>
               </button>
             </div>
             <div class="right_side">
-              <button class="btn btn-success">Submit for Approval</button>
+              <button class="btn btn-success">Submit</button>
             </div>
             <div class="clearfix"></div>
           </div>

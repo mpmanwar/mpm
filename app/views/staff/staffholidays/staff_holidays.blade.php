@@ -9,7 +9,7 @@
 
 <!-- page script -->
 <script type="text/javascript">
-var Table1, Table2;
+var Table1, Table2, Table3;
 $(function() {
   Table1 = $('#example1').dataTable({
         "bPaginate": true,
@@ -75,6 +75,37 @@ $(function() {
    
    Table2.fnSort( [ [1,'asc'] ] );
 
+   Table3 = $('#example3').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table3.fnSort( [ [1,'asc'] ] );
+
 });
 
 
@@ -104,7 +135,7 @@ $(function() {
         <div class="top_buttons">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="26%">
+    <td width="28%">
     <div class="top_bts">
           <ul>
             <li>
@@ -119,23 +150,26 @@ $(function() {
             <div class="clearfix"></div>
           </ul>
         </div></td>
-    <td width="6%">Select Staff</td>
-    <td width="10%">
-    <select class="form-control">
-      <option>Abel</option>
-      <option>Anwar</option>
-    </select>
+    <td width="6%">
+      @if($staff_type == "staff")
+        Select Staff
+      @endif
     </td>
-<td width="3%">&nbsp;</td>
+    <td width="10%">
+      @if($staff_type == "staff")
+        <select style="width:120px; height:23px;">
+          <option>Abel</option>
+          <option>Anwar</option>
+        </select>
+      @endif
+    
+    </td>
     <td width="10%">Holidays Entitlement</td>
-    <td width="3%"><input type="text" id="" class="form-control" value="20"></td>
-    <td width="3%">&nbsp;</td>
+    <td width="3%"><input type="text" id="" style="width:50px;" value="20"></td>
     <td width="8%">Holidays Taken</td>
-    <td width="3%"><input type="text" class="form-control" value="18"></td>
-    <td width="3%">&nbsp;</td>
+    <td width="4%"><input type="text" style="width:50px;" value="18"></td>
     <td width="10%">Holidays Remaining</td>
-    <td width="3%"><input type="text" id="" class="form-control" value="10"></td>
-    <td width="3%">&nbsp;</td>
+    <td width="3%"><input type="text" id="" style="width:50px;" value="10"></td>
   </tr>
 </table>
 
@@ -158,116 +192,85 @@ $(function() {
                       </div>
                       <div style="position:absolute; left: 52%; z-index: 10; margin-top: -4px;">
           <button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button>
+          @if($staff_type == "staff")
           <button class="btn btn-default">Approve</button>
           <button class="btn btn-default"><span class="decline_t">Decline</span></button>
+          @endif
                       </div>
+
                       <div class="row">
                         <div class="col-xs-12">
+<table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+  @if($staff_type == "staff")
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Staff Name</th>
+        <th align="center">Request Type</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Notes</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
 
-      <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
-            
-            <thead>
-              <tr role="row">
-                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
-                <th align="center">Staff Name</th>
-                <th align="center">Request Type</th>
-                <th align="center">Date</th>
-                <th align="center">Duration</th>
-                <th align="center">Status</th>
-                <th align="center">Notes</th>
-                <th align="center">Action</th>
-              </tr>
-            </thead>
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+          
+  @else
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Request Type</th>
+        <th align="center">Notes</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Days Remaining</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
 
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-              <tr>
-                <td align="center"><input type="checkbox" /></td>
-                <th align="center">Anwar</th>
-                <td align="center">No</td>
-                <td align="center">20/07/2015</td>
-                <td align="center">1 month</td>
-                <td align="center">No</td>
-                <td align="center">View</td>
-                <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
-              </tr>
-              
-            </tbody>
-          </table>
-                          <!--start table-->
-                          <!-- <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top">
-                              <table width="100%" border="0">
-                            <tr>
-                           
-                              <td width="4%"><strong>Show</strong></td>
-                          <td width="8%"><select class="form-control">
-                          <option>50</option>
-                          <option>20</option>
-                          <option>10</option>
-                          <option>15</option>
-                          </select>
-                          </td>
-                          <td width="20%"><strong>entries</strong></td>
-                           <td width="36%">&nbsp;</td>
-                          <td><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button></td>
-                          <td><button class="btn btn-default">Approve</button></td>
-                          <td><button class="btn btn-default"><span class="decline_t">Decline</span></button></td>
-                          <td width="5%"><strong>Search</strong></td>
-                          <td width="20%">
-                          <input type="text" id="" class="form-control">
-                          
-                              </td>
-                            </tr>
-                          </table>
-                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                          <td width="89%"><strong>BOOKED COURSES</strong></td>
-                          <td width="11%"><button class="btn btn-success" data-toggle="modal" data-target="#compose-modal">+ NEW COURSES</button></td>
-                          </tr>
-                          </table>
-                          </td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr>
-                                      <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Staff Name</strong></td>
-                                      <td width="15%" align="center"><strong>Request Type</strong></td>
-                                      <td width="10%" align="center"><strong>Date</strong></td>
-                                      <td width="15%" align="center"><strong>Duration</strong></td>
-                                      <td width="15%" align="center"><strong>Status</strong></td>
-                                      <td width="15%" align="center"><strong>Notes</strong></td>
-                                      <td width="10%" align="center">Action</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center">ewf wefew</td>
-                                      <td align="center">erwafew</td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">Avating Approval</td>
-                                      <td align="center"><a href="#">Views</a></td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> </td>
-                                    </tr>
-                                     <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center">ewf wefew</td>
-                                      <td align="center">erwafew</td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">Avating Approval</td>
-                                      <td align="center"><a href="#">Views</a></td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </table> -->
-                          <!--end table-->
-                        </div>
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+  @endif                
+</table>
+  </div>
                       </div>
                     </div>
                   </div>
@@ -283,59 +286,76 @@ $(function() {
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
-                          <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top"><table width="100%" border="0">
-                                  <tr>
-                                    <td width="36%"><strong>COURSES</strong></td>
-                                    <td width="4%"><strong>Show</strong></td>
-                                    <td width="8%"><select class="form-control">
-                                        <option>50</option>
-                                        <option>20</option>
-                                        <option>10</option>
-                                        <option>15</option>
-                                      </select></td>
-                                    <td width="20%"><strong>entries</strong></td>
-                                    <td width="7%">&nbsp;</td>
-                                    <td width="5%"><strong>Search</strong></td>
-                                    <td width="20%"><input type="text" id="" class="form-control"></td>
-                                  </tr>
-                                </table></td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr class="table_heading_bg">
-                                      <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Date - From</strong></td>
-                                      <td width="18%" align="center"><strong>Date - To</strong></td>
-                                      <td width="16%" align="center"><strong>Course Name</strong></td>
-                                      <td width="20%" align="center"><strong>Staff Name</strong></td>
-                                      <td width="17%" align="center"><strong>Attachments</strong></td>
-                                      <td width="9%" align="center">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
-                          </table>
+<table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
+  @if($staff_type == "staff")
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Staff Name</th>
+        <th align="center">Request Type</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Notes</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
+
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+          
+  @else
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Request Type</th>
+        <th align="center">Notes</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Days Remaining</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
+
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+  @endif
+</table>
                         </div>
                       </div>
                     </div>
@@ -351,59 +371,77 @@ $(function() {
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
-                          <table width="100%" border="0" class="staff_holidays">
-                            <tr>
-                              <td valign="top"><table width="100%" border="0">
-                                  <tr>
-                                    <td width="36%"><strong>COURSES</strong></td>
-                                    <td width="4%"><strong>Show</strong></td>
-                                    <td width="8%"><select class="form-control">
-                                        <option>50</option>
-                                        <option>20</option>
-                                        <option>10</option>
-                                        <option>15</option>
-                                      </select></td>
-                                    <td width="20%"><strong>entries</strong></td>
-                                    <td width="7%">&nbsp;</td>
-                                    <td width="5%"><strong>Search</strong></td>
-                                    <td width="20%"><input type="text" id="" class="form-control"></td>
-                                  </tr>
-                                </table></td>
-                            </tr>
-                            <tr>
-                              <td valign="top"><table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr class="table_heading_bg">
-                                      <td width="5%">&nbsp;</td>
-                                      <td width="15%"><strong>Date - From</strong></td>
-                                      <td width="18%" align="center"><strong>Date - To</strong></td>
-                                      <td width="16%" align="center"><strong>Course Name</strong></td>
-                                      <td width="20%" align="center"><strong>Staff Name</strong></td>
-                                      <td width="17%" align="center"><strong>Attachments</strong></td>
-                                      <td width="9%" align="center">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
-                                    </tr>
-                                    <tr>
-                                      <td><input type="checkbox" /></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center"><input type="text" placeholder="dd/mm/yy"></td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center">&nbsp;</td>
-                                      <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a> <a href="#"><img src="/img/delete_icon.png" width="15"></a></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
-                          </table>
+<table class="table table-bordered table-hover dataTable" id="example3" aria-describedby="example3_info">
+
+  @if($staff_type == "staff")
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Staff Name</th>
+        <th align="center">Request Type</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Notes</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
+
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+          
+  @else
+    <thead>
+      <tr role="row">
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+        <th align="center">Request Type</th>
+        <th align="center">Notes</th>
+        <th align="center">Date</th>
+        <th align="center">Duration</th>
+        <th align="center" width="10%">Status</th>
+        <th align="center">Days Remaining</th>
+        <th align="center">Action</th>
+      </tr>
+    </thead>
+
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+      <tr>
+        <td align="center"><input type="checkbox" /></td>
+        <th align="center"><a href="#">Anwar</a></th>
+        <td align="center">No</td>
+        <td align="center">20/07/2015</td>
+        <td align="center">1 month</td>
+        <td align="center">
+          <select style="width:132px; height:23px;">
+            <option value="Awaiting Approval">Awaiting Approval</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td align="center">View</td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+      </tr>
+      
+    </tbody>
+  @endif
+</table>
                         </div>
                       </div>
                     </div>
@@ -437,102 +475,89 @@ $(function() {
           <table width="100%" border="0" class="staff_holidays">
             <tr>
               <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="30%"><strong>HOLIDAY/TIME OFF REQUEST</strong></td>
-    <td width="30%">&nbsp;</td>
-    <td width="10%"><strong>Staff Name</strong></td>
-    <td width="15%">
-<select class="form-control">
-<option>50</option>
-<option>20</option>
-<option>10</option>
-<option>15</option>
-</select></td>
-  </tr>
-</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30%"><strong>HOLIDAY/TIME OFF REQUEST</strong></td>
+                    
+                    <td width="30%">
+                      @if($staff_type != "staff")
+                      <strong>Total Days Requested</strong> <input type="text" style="width:60px;">
+                      @endif
+                    </td>
+                    <td width="40%">
+                      @if($staff_type != "staff")
+                      <strong>Days Remaining</strong> <input type="text" style="width:60px;">
+                      @else
+                      <strong>Staff Name <select style="width:150px; height: 25px;"><option></option></select></strong>
+                      @endif
+                    </td>
+                  </tr>
+                </table>
 
               </td>
             </tr>
             <tr>
               <td valign="top">
               <table width="100%" class="table table-bordered">
-                                  <tbody>
-                                    <tr>
-                                     <td align="center">&nbsp;</td>
-                                      <td align="center"><strong>Date</strong></td>
-                                      <td align="center"><strong>Duration</strong></td>
-                                      <td align="center"><strong>Request type</strong></td>
-                                      <td align="center"><strong>Notes</strong></td>
-                                    </tr>
-                                    <tr>
-                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">AM - HALF DAY</td>
-                                      <td align="center">
-                                      <select class="form-control">
-                                        <option>ewfwe</option>
-                                        <option>ergreg </option>
-                                        <option>regerg</option>
-                                        <option>rtyhrt</option>
-                                        </select></td>
-                                      <td align="center"><input type="text" id="" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">AM - HALF DAY</td>
-                                      <td align="center">
-                                      <select class="form-control">
-                                        <option>ewfwe</option>
-                                        <option>ergreg </option>
-                                        <option>regerg</option>
-                                        <option>rtyhrt</option>
-                                        </select></td>
-                                      <td align="center"><input type="text" id="" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                                      <td align="center">20/07/2015</td>
-                                      <td align="center">AM - HALF DAY</td>
-                                      <td align="center">
-                                      <select class="form-control">
-                                        <option>ewfwe</option>
-                                        <option>ergreg </option>
-                                        <option>regerg</option>
-                                        <option>rtyhrt</option>
-                                        </select></td>
-                                      <td align="center"><input type="text" id="" class="form-control"></td>
-                                    </tr>
-                                     
-                                  </tbody>
-                                </table>
+                  <tbody>
+                    <tr>
+                     <td align="center">&nbsp;</td>
+                      <td align="center"><strong>Date</strong></td>
+                      <td align="center"><strong>Duration</strong></td>
+                      <td align="center"><strong>Request type</strong></td>
+                      <td align="center"><strong>Notes</strong></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
+                      <td align="center">20/07/2015</td>
+                      <td align="center">AM - HALF DAY</td>
+                      <td align="center">
+                      <select class="form-control">
+                        <option>ewfwe</option>
+                        <option>ergreg </option>
+                        <option>regerg</option>
+                        <option>rtyhrt</option>
+                        </select></td>
+                      <td align="center"><input type="text" id="" class="form-control"></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
+                      <td align="center">20/07/2015</td>
+                      <td align="center">AM - HALF DAY</td>
+                      <td align="center">
+                      <select class="form-control">
+                        <option>ewfwe</option>
+                        <option>ergreg </option>
+                        <option>regerg</option>
+                        <option>rtyhrt</option>
+                        </select></td>
+                      <td align="center"><input type="text" id="" class="form-control"></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
+                      <td align="center">20/07/2015</td>
+                      <td align="center">AM - HALF DAY</td>
+                      <td align="center">
+                      <select class="form-control">
+                        <option>ewfwe</option>
+                        <option>ergreg </option>
+                        <option>regerg</option>
+                        <option>rtyhrt</option>
+                        </select></td>
+                      <td align="center"><input type="text" id="" class="form-control"></td>
+                    </tr>
+                     
+                  </tbody>
+                </table>
               </td>
             </tr>
           </table>
           <div class="save_btncon">
-         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div>
+         <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new</p></button></div>
          <div class="right_side"> <button class="btn btn-success">Submit for Approval</button></div>
          <div class="clearfix"></div>
          </div>
-         <!--<div class="row">
-                  <div class="col-xs-6">
-                    <div class="dataTables_info" id="example2_info">Showing 1 to 10 of 57 entries</div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="dataTables_paginate paging_bootstrap">
-                      <ul class="pagination">
-                        <li class="prev disabled"><a href="#">← Previous</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li class="next"><a href="#">Next → </a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>-->
+         
         </div>
       </form>
     </div>
