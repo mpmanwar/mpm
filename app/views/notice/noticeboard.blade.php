@@ -37,7 +37,7 @@
 			@include('layouts/inner_leftside')
 		</section>
 		<!-- /.sidebar -->
-	</aside>
+	</aside><p style="font-family:arial; font-size:7;"></p>
 	<!-- Right side column. Contains the navbar and content of the page -->
 	<aside class="right-side {{ $right_class }}">
 		<!-- Content Header (Page header) -->
@@ -167,6 +167,7 @@
 <div  id="sortable" >
 @foreach($font as $key=>$val)
 <div class="col-xs-4 loop_sec" id="<?php echo $val['noticefont_id']; ?>">
+
 <div class="hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
@@ -383,176 +384,661 @@
                 </div>
                 <!-- /.tab-pane -->
 								<div id="step3" class="tab-pane show_div">
-								
-                              <!--  	<div class="box-body table-responsive">
-										<div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-											<div class="row">
-												<div class="col-xs-6">
-												</div>
-												<div class="col-xs-6">
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-12 col-xs-6">
-													<div class="col_m2">
-														<h3 class="box-title">
-															Residential Address
-														</h3>
-														<div class="form-group">
-															<label for="exampleInputPassword1">
-																Residential Address
-															</label>
-															<input type="text" id="course_residentialaddress" name="course_residentialaddress" class="form-control">
-														</div>
-														<div class="twobox">
-															<div class="twobox_1">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Town/City
-																	</label>
-																	<input type="text" id="course_town" name="course_town" class="form-control">
-																</div>
-															</div>
-															<div class="twobox_2">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		State Region
-																	</label>
-																	<input type="text" id="course_stateregion" name="course_stateregion" class="form-control">
-																</div>
-															</div>
-															<div class="clearfix">
-															</div>
-														</div>
-														<div class="twobox">
-															<div class="twobox_1">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Postal/Zip Code
-																	</label>
-																	<input type="text" id="course_zipcode" name="course_zipcode" class="form-control">
-																</div>
-															</div>
-															<div class="twobox_2">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Country
-																	</label>
-																	<input type="text" id="course_country" name="course_country" class="form-control">
-																</div>
-															</div>
-															<div class="clearfix">
-															</div>
-														</div>
-														<h3 class="box-title">
-															Service Address
-														</h3>
-														<div class="form-group">
-															<label for="exampleInputPassword1">
-																Service Address
-															</label>
-															<input type="text" id="course_serviceaddress" name="course_serviceaddress" class="form-control">
-														</div>
-														<div class="twobox">
-															<div class="twobox_1">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Town/City
-																	</label>
-																	<input type="text" id="course_servicetown" name="course_servicetown" class="form-control">
-																</div>
-															</div>
-															<div class="twobox_2">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		State Region
-																	</label>
-																	<input type="text" id="course_servicestate" name="course_servicestate" class="form-control">
-																</div>
-															</div>
-															<div class="clearfix">
-															</div>
-														</div>
-														<div class="twobox">
-															<div class="twobox_1">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Postal/Zip Code
-																	</label>
-																	<input type="text" id="course_servicezip" name="course_servicezip" class="form-control">
-																</div>
-															</div>
-															<div class="twobox_2">
-																<div class="form-group">
-																	<label for="exampleInputPassword1">
-																		Country
-																	</label>
-																	<input type="text" id="course_servicecountry" name="course_servicecountry" class="form-control">
-																</div>
-															</div>
-															<div class="clearfix">
-															</div>
-														</div>
-														<label for="exampleInputPassword1">
-															Telephone
-														</label>
-														<div class="form-group">
-															<div class="n_box01">
-																<select class="form-control" name="course_servicetitle">
-																	<option value="Mr">
-																		Mr.
-																	</option>
-																	<option value="Mrs">
-																		Mrs.
-																	</option>
-																</select>
-															</div>
-															<div class="telbox">
-																<input type="text" id="course_servicetele" name="course_servicetele" class="form-control">
-															</div>
-															<div class="clearfix">
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="exampleInputPassword1">
-																Email
-															</label>
-															<input type="email" id="course_serviceemail" name="course_serviceemail" class="form-control">
-														</div>
-														<div class="form-group">
-															<label for="exampleInputPassword1">
-																Website
-															</label>
-															<input type="text" id="course_servicewebsite" name="course_servicewebsite" class="form-control">
-														</div>
-														<div class="form-group">
-															<label for="exampleInputPassword1">
-																Skype
-															</label>
-															<input type="text" id="course_serviceskype" name="course_serviceskype" class="form-control">
-														</div>
-														<div class="add_client_btn">
-															<button class="btn btn-info back" data-id="2" type="button">
-																Prev
-															</button>
-															<button type="submit" class="btn btn-success">
-																Save
-															</button>
-															<button class="btn btn-info open" data-id="4" type="button">
-																Next
-															</button>
-														</div>
-													{{ Form :: close() }} 
-														<div class="clearfix">
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-12 col-xs-6">
-												</div>
-											</div>
-										</div>
-									</div> -->
-								</div>
+								<div class="box-body table-responsive">
+                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                      <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                        <div class="notice_board">
+                        <div class="notice_board_topcon">
+                        <div class="notice_top_left"></div>
+                        <div class="notice_top_mid"></div>
+                        <div class="notice_top_right"></div>
+                        <div class="clearfix"></div>
+                        </div>
+
+                        
+<div class="notice_midbg"> 
+<span class="board_title"> </span>
+<div class="col-xs-12 holidays_border" >
+<!--start calendar section -->
+<div class="calendar_sec">
+<div class="cal_top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="9%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">PREVIOUS</span></button></td>
+    <td width="9%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">NEXT</span></button></td>
+    <td width="53%">&nbsp;</td>
+    <td width="0%">&nbsp;</td>
+    <td width="7%"><strong>Search</strong></td>
+   	<td width="22%"><input type="text" id="" class="form-control"></td>
+  </tr>
+</table>
+</div>
+<div class="calendar_section">
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+<tr>
+<th>Name</th>
+<th>W1</th>
+<th>T2</th>
+<th>F3</th>
+<th>S4</th>
+<th>S5</th>
+<th>M6</th>
+<th>T7</th>
+<th>W8</th>
+<th>T9</th>
+<th>F10</th>
+<th>S11</th>
+<th>S12</th>
+<th>M13</th>
+<th>T14</th>
+<th>W15</th>
+<th>T16</th>
+<th>F17</th>
+<th>S18</th>
+<th>S19</th>
+<th>M20</th>
+<th>T21</th>
+<th>W22</th>
+<th>T23</th>
+<th>F24</th>
+<th>S25</th>
+<th>S26</th>
+<th>M27</th>
+<th>T28</th>
+<th>W29</th>
+<th>S30</th>
+<th>S31</th>
+</tr>
+  <tr>
+    <td><strong>Sharma</strong></td>
+    <td><div class="silkness"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Nasrat A</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Anisha B</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="silkness"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="silkness"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Antomy B</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Loulse C</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="silkness"></div></td>
+    <td><div class="silkness"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Michelle D</strong></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="silkness"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Jeanin D</strong></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td align="left"><div class="half"></div></td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div class="a_leave"></div></td>
+    <td><div class="a_leave"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"><div class="half"></div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Elena D</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Gladys F</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Jullie H</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Paul H</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Yvonne J</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Rashel L</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Christina M</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Mariya P</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Patrica W</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<div class="table_base">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="3%"><div class="a_leave"></div></td>
+    <td width="8%">Annual leave</td>
+    <td width="3%"><div class="light_blue"></div></td>
+    <td width="14%">Maternity/Paternity leave</td>
+    <td width="3%"><div class="national_holi"></div></td>
+    <td width="10%">National Holidays</td>
+    <td width="3%"><div class="silkness"></div></td>
+    <td width="6%">Sickness</td>
+    <td width="2%"><div class="course2"></div></td>
+    <td width="48%">Courses</td>
+  </tr>
+</table>
+
+</div>
+</div>
+
+</div>
+<!--end calendar section-->
+</div>
+<div class="clearfix"></div>
+</div>
+                        
+                        <div class="notice_board_topcon">
+                        <div class="notice_bottom_left"></div>
+                        <div class="notice_bottom_mid"></div>
+                        <div class="notice_bottom_right"></div>
+                        <div class="clearfix"></div>
+                        </div>
+                        </div>
+                        
+                        </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                              	</div>
 <div id="step4" class="tab-pane show_div">
 
 

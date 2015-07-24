@@ -880,6 +880,21 @@ border: 1px solid #e2e4e6;
 /* Contact Page End */
 
 
+/*=========start notice board section==========*/
+.calendar_sec{width:100%; padding:1px;}
+.cal_top{width:100%; margin:10px 0 10px 0;}
+.calendar_section{width:100%;}
+.calendar_section table{border:1px solid #a2a2a2; border-collapse:collapse; width:100%;}
+.calendar_section table tr td{padding:5px;}
+.calendar_section table tr th{background:#a9c7eb; color:#000; font-size:14px; font-weight:bold; padding:5px;}
+.silkness{background:#ffd700; width:25px; height:25px;}
+.a_leave{background:#0100fe; width:25px; height:25px;}
+.half{background:#d4183b; width:15px; height:25px;}
+.course2{background:#d4183b; width:25px; height:25px;}
+.light_blue{background:#83d0fc; width:25px; height:25px;}
+.national_holi{background:#894516; width:25px; height:25px;}
+.table_base{margin-top:15px 0 15px 0;}
+
 
 
 
