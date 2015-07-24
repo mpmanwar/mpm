@@ -37,7 +37,7 @@
 			@include('layouts/inner_leftside')
 		</section>
 		<!-- /.sidebar -->
-	</aside>
+	</aside><p style="font-family:arial; font-size:7;"></p>
 	<!-- Right side column. Contains the navbar and content of the page -->
 	<aside class="right-side {{ $right_class }}">
 		<!-- Content Header (Page header) -->
@@ -167,6 +167,7 @@
 <div  id="sortable" >
 @foreach($font as $key=>$val)
 <div class="col-xs-4 loop_sec" id="<?php echo $val['noticefont_id']; ?>">
+
 <div class="hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
