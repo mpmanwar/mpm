@@ -38,6 +38,21 @@ class StaffprofileController extends BaseController {
 		//print_r($data['staff_details']);die;
     	return View::make("staff.profile.my_details", $data);
     }
+    
+    public function my_detailsUpdate()
+    {
+    	$data = array();
+    	$session = Session::get('admin_details');
+		$data['user_id'] 	= $session['id'];
+		$data['user_type'] 	= $session['user_type'];
+	
+    }
+    
+    
+    
+    
+    
+    
 
     public function userDetailsByUserId($user_id)
     {
