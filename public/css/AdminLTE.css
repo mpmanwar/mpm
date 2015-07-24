@@ -2253,11 +2253,12 @@ Component: timeline
 */
 .form-box {
   width: 400px;
-  margin: 30px auto 10px auto;
+  margin: 220px auto;
   background:#fff;
   padding:30px;
    box-shadow: 0px 1px 9px 5px #ccc;
 }
+.sugnup_box{margin: 30px auto!important;}
 .form-box .header {
 /*  -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;

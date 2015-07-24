@@ -16,6 +16,10 @@
 	return View::make('hello');
 });*/
 
+/* =========== Outer Routes Start =============== */
+Route::get('/contact', 'ContactController@index');
+/* =========== Outer Routes End =============== */
+
 ### Routes for Dashboard related URL's start ###
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');

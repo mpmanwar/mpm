@@ -55,9 +55,12 @@ $(document).ready(function(){
         
         <div class="top_bts">
           <ul>
-            
             <li>
-              <p style="margin:0px 0 0 500px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">
+              COMPANIES HOUSE <button type="button" name="ind_sync_data" id="ind_sync_data" class="btn btn-danger">SYNC DATA</button>
+            </li>
+
+            <li>
+              <p style="margin:0px 0 0 275px;"><a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px; font-weight: bold;">
                 @if(isset($user_type) && $user_type == "C")
                   {{ $client_details['initial_badge'] or "" }}
                 @else

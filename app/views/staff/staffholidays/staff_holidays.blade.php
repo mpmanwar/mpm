@@ -223,7 +223,7 @@ $(function() {
         <td align="center">20-07-2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
@@ -257,7 +257,7 @@ $(function() {
         <td align="center">20/07/2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
@@ -309,7 +309,7 @@ $(function() {
         <td align="center">20/07/2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
@@ -343,7 +343,7 @@ $(function() {
         <td align="center">20/07/2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
@@ -395,7 +395,7 @@ $(function() {
         <td align="center">20/07/2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
@@ -429,7 +429,7 @@ $(function() {
         <td align="center">20/07/2015</td>
         <td align="center">1 month</td>
         <td align="center">
-          <select style="width:132px; height:23px;">
+          <select style="width:134px; height:23px;">
             <option value="Awaiting Approval">Awaiting Approval</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>

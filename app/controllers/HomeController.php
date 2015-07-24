@@ -11,8 +11,8 @@ class HomeController extends BaseController {
 
 	public function index() {
 		//$data['heading'] = "DASHBOARD";
-		//$data['title'] = "Dashboard";
-		return View::make('home.index');
+		$data['page_title'] = "Home";
+		return View::make('home.index', $data);
 	}
 
 	public function dashboard() {
