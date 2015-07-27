@@ -1,4 +1,5 @@
-@extends('layouts.layout') @section('mycssfile')
+@extends('layouts.layout') 
+@section('mycssfile')
    
 
  @stop @section('myjsfile')
@@ -409,15 +410,16 @@
 <div class="cal_top">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="9%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">PREVIOUS</span></button></td>
-    <td width="9%"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">NEXT</span></button></td>
+    <td width="9%"><button class="btn btn-default"><span class="requ_t">PREVIOUS</span></button></td>
+    <td width="9%"><button class="btn btn-default"><span class="requ_t">NEXT</span></button></td>
     <td width="53%">&nbsp;</td>
     <td width="0%">&nbsp;</td>
-    <td width="7%"><strong>Search</strong></td>
-   	<td width="22%"><input type="text" id="" class="form-control"></td>
+    <td width="7%"><!-- <strong>Search</strong> --></td>
+   	<td width="22%"><!-- <input type="text" id="" class="form-control"> --></td>
   </tr>
 </table>
 </div>
+
 <div class="calendar_section">
 <table width="100%" border="1" cellspacing="0" cellpadding="0">
 <tr>

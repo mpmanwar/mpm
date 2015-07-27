@@ -1144,33 +1144,30 @@ class NoticeboardController extends BaseController
             Noticefont::where("noticefont_id", "=", $v)->update(array('sort_id' => $o));
 
         }
-
-
-        // $count = count($order);
-        //for($i=$count;$i>0;$i--){
-        //$i++;
-        // $final[$count-$i]=$order[$i-1] ;
-        // }
-        // print_r($final);die();
-        /**
-         * 
-         * 
-         * print_r($order);
-         * 
-         * $count = count($order);
-         * 
-         * for($i=0;$i<$count;$i++){
-         * 
-         * //echo $order[$i];
-         * }
-         * //die();
-         * $store= Noticefont::whereIN("noticefont_id",$order)-> select("noticefont_id", "sort_id","user_id", "board_no", "message",
-         * "message_subject", "checkbox", "file", "created")->get();
-         * 
-         * 
-         * print_r($store);die();
-         **/
-
     }
+
+    public function calenderview()
+    {
+        $data = array();
+        return View::make('notice.calender', $data);
+    }
+
+    public function get_calender()
+    {
+        $data = array();
+        $staff_details  = App::make('HomeController')->get_responsible_staff();
+        if(isset($staff_details) && count($staff_details) >0){
+            foreach ($staff_details as $key => $value) {
+                $data[$key]['leave']      = "right_half";
+                $data[$key]['leave_date'] = 10;
+                $data[$key]['user_id']    = $value['user_id'];
+                $data[$key]['name']       = $value['fname']." ".$value['lname'];
+            }
+        }
+        
+        echo json_encode($data);
+    }
+
+    
 
 }
