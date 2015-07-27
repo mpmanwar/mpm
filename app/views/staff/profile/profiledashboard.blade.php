@@ -31,7 +31,10 @@
           <div class="left_section">
             <ul>
               <li class="hvr-grow" style="margin-right:40px;"> 
-                <a  href="/my-details/{{ $user_id }}">
+              
+              
+              
+                <a  href="/my-details/{{ $user_id }}/{{ base64_encode('profile') }}">
                   <div class="circle_icons_inner">
                     <div class="circle_icon">
                       <img alt="" src="img/dashboard_circle.png">

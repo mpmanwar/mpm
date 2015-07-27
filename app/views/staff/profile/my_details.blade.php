@@ -7,6 +7,8 @@
 @stop
 
 @section('myjsfile')
+
+<script src="{{ URL :: asset('js/profile.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
@@ -111,12 +113,14 @@ $(document).ready(function(){
     @endforeach
   @endif
 </select></div>
+
+<input type="hidden" name="staff_id" id="staff_id" value="{{ $staff_id }}"/>
 <div class="n_box2">
     <label for="exampleInputPassword1">First Name</label>
     <input type="text" id="fname" name="fname" value="{{ $staff_details['fname'] or "" }}" class="form-control toUpperCase"></div>
 <div class="n_box3">
     <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="mname" name="mname" value="{{ $staff_details['mname'] or "" }}" class="form-control"></div>
+    <input type="text" id="mname" name="mname" value="{{ $staff_details['step_data']['mname'] or "" }}" class="form-control"></div>
 <div class="n_box4">
     <label for="exampleInputPassword1">Last Name</label>
     <input type="text" id="lname" name="lname" value="{{ $staff_details['lname'] or "" }}" class="form-control toUpperCase"></div>
@@ -137,7 +141,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="dob" name="dob" value="{{ (isset($staff_details['dob']))?date('d-m-Y', strtotime($staff_details['dob'])):"" }}" class="form-control">
+<input type="text" id="dob" name="dob" value="{{ (isset($staff_details['step_data']['dob']))?date('d-m-Y', strtotime($staff_details['step_data']['dob'])):"" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -150,7 +154,8 @@ $(document).ready(function(){
 <select class="form-control" name="marital_status" id="marital_status">
   @if(!empty($marital_status))
     @foreach($marital_status as $key=>$status_row)
-    <option value="{{ $status_row->merital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->merital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
+           
+    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->marital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
     @endforeach
   @endif
 </select>
@@ -199,7 +204,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
-<input type="text" id="occupation" name="occupation" value="{{ $staff_details['occupation'] or "" }}" class="form-control">
+<input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -209,21 +214,36 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">NI Number</label>
-<input type="text" id="occupation" name="occupation" value="{{ $staff_details['occupation'] or "" }}" class="form-control">
+<input type="text" id="ni_number" name="ni_number" class="form-control" value="{{ $staff_details['step_data']['ni_number'] or "" }}" >
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Reference</label>
-<input type="text" id="occupation" name="occupation" class="form-control">
+<input type="text" id="tax_reference" name="tax_reference" class="form-control" value="{{ $staff_details['step_data']['tax_reference'] or "" }}" >
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
+@if($page_name== 'staff')
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Membership</label>
+<input type="text" id="membership" name="membership" class="form-control" value="{{ $staff_details['step_data']['membership'] or "" }}" >
+</div>
+</div>
 
-
-
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Student Number</label>
+<input type="text" id="student_number" name="student_number" class="form-control" value="{{ $staff_details['step_data']['student_number'] or "" }}" >
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+@endif
     <div class="add_client_btn">
       <button class="btn btn-danger open" type="submit">Save</button>
       <button class="btn btn-info open" data-id="2" type="button">Next</button>
@@ -260,26 +280,26 @@ $(document).ready(function(){
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line1</label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $staff_details['res_addr_line1']  or "" }}" class="form-control" />
+      <input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $staff_details['step_data']['res_addr_line1']  or "" }}" class="form-control" />
     </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line2</label>
-      <input type="text" id="res_addr_line2" name="res_addr_line2" value="{{ $staff_details['res_addr_line2']  or "" }}" class="form-control" />
+      <input type="text" id="res_addr_line2" name="res_addr_line2" value="{{ $staff_details['step_data']['res_addr_line2']  or "" }}" class="form-control" />
     </div>
 
     <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">City/Town</label>
-          <input type="text" id="res_city" name="res_city" value="{{ $staff_details['res_city']  or "" }}" class="form-control">
+          <input type="text" id="res_city" name="res_city" value="{{ $staff_details['step_data']['res_city']  or "" }}" class="form-control">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">County</label>
-          <input type="text" id="res_county" name="res_county" value="{{ $staff_details['res_county']  or "" }}" class="form-control">
+          <input type="text" id="res_county" name="res_county" value="{{ $staff_details['step_data']['res_county']  or "" }}" class="form-control">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -289,14 +309,15 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['step_data']['res_postcode']  or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-  <select class="form-control" name="res_country" id="res_country">
+<label for="exampleInputPassword1">Country</label> 
+
+  <select class="form-control service_country" name="res_country" id="res_country">
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -322,12 +343,12 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_tele_code" value="{{ $staff_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
+      <input type="text" id="serv_tele_code" value="{{ $staff_details['step_data']['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
     </div>
 
     <div class="telbox">
       <label for="exampleInputPassword1">Telephone</label>
-      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['serv_telephone']  or "" }}" class="form-control"></div>
+      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['step_data']['serv_telephone']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -335,11 +356,11 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_mobile_code" value="{{$staff_details['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
+      <input type="text" id="serv_mobile_code" value="{{$staff_details['step_data']['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
     </div>
     <div class="telbox">
     <label for="exampleInputPassword1">Mobile</label>
-        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['serv_mobile']  or "" }}" class="form-control"></div>
+        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['step_data']['serv_mobile']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -351,7 +372,7 @@ $(document).ready(function(){
 
     <div class="form-group">
     <label for="exampleInputPassword1">Skype</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="skype" name="skype" value="{{ $staff_details ['step_data']['skype']  or "" }}" class="form-control">
     </div>
 
     <div class="form-group">
@@ -360,19 +381,19 @@ $(document).ready(function(){
 
     <div class="form-group">
     <label for="exampleInputPassword1">Name</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="emer_name" name="emer_name" value="{{ $staff_details['step_data']['emer_name']  or "" }}" class="form-control">
     </div>
 
     <div class="form-group">
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_tele_code" value="{{ $staff_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
+      <input type="text" id="emer_tele_code" value="{{ $staff_details['step_data']['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
     </div>
 
     <div class="telbox">
       <label for="exampleInputPassword1">Telephone</label>
-      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['serv_telephone']  or "" }}" class="form-control"></div>
+      <input type="text" id="emer_telephone" name="emer_telephone" value="{{ $staff_details['step_data']['emer_telephone']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -382,11 +403,11 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_mobile_code" value="{{$staff_details['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
+      <input type="text" id="emer_mobile_code" value="{{$staff_details['step_data']['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
     </div>
     <div class="telbox">
     <label for="exampleInputPassword1">Mobile</label>
-        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['serv_mobile']  or "" }}" class="form-control"></div>
+        <input type="text" id="emer_mobile" name="emer_mobile" value="{{ $staff_details['step_data']['emer_mobile']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -425,14 +446,14 @@ $(document).ready(function(){
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
-          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['start_date']  or "" }}" class="form-control">
+          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">Holiday Entitlement</label>
-          <input type="text" id="holiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['holiday_entitlement']  or "" }}" class="form-control">
+          <input type="text" id="holiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -442,28 +463,20 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Salary</label>
-<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+<input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Department</label>
-  <select class="form-control" name="res_country" id="res_country">
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
+  <select class="form-control" name="department" id="department">
+ 
+ <option value="php" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "php")?"selected":"" }} >PHP</option>
+    <option value="java" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "java")?"selected":"" }} >Java</option>
+    <option value="net" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "net")?"selected":"" }}>Net</option>
+    <option value="ios" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "ios")?"selected":"" }}  >IOs</option>
+   
   </select>
 </div>
 </div>
@@ -473,7 +486,7 @@ $(document).ready(function(){
 
   <div class="form-group">
     <label for="exampleInputPassword1">Qualifications</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="qualifications" name="qualifications" value="{{ $staff_details['step_data']['qualifications']  or "" }}" class="form-control">
   </div>
 
   
@@ -481,7 +494,7 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Leaving Date</label>
-        <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['leaving_date']  or "" }}" class="form-control">
+        <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['step_data']['leaving_date']  or "" }}" class="form-control">
       </div>
     </div>
 
@@ -532,7 +545,7 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Bank Name</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="bank_name" name="bank_name" value="{{ $staff_details['step_data']['bank_name']  or "" }}" class="form-control">
       </div>
     </div>
 
@@ -548,90 +561,169 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Short Code</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="short_code" name="short_code" value="{{ $staff_details['step_data']['short_code']  or "" }}" class="form-control">
       </div>
     </div>
 
     <div class="twobox_2">
       <div class="form-group">
         <label for="exampleInputPassword1">Account Number</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="acc_no" name="acc_no" value="{{ $staff_details['step_data']['acc_no']  or "" }}" class="form-control">
       </div>
     </div>
     <div class="clearfix"></div>
   </div>
-
+  @if($page_name== 'staff')
+  
+  <div class="twobox">
+    
+    
+    <div class="form-group">
+        <label for="exampleInputPassword1">Textarea</label>
+        <textarea rows="2" cols="50" id="textarea" name="textarea" value="{{ $staff_details['step_data']['textarea']  or "" }}" class="form-control"></textarea>
+      </div>
+    
+  </div>
+@endif
 
 <div class="form-group">
 <table width="100%" border="0" class="other_staff_table" id="other_staff_table">
   <tbody>
     <tr>
       <td width="45%"><strong>Employment Contract</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
-      </td>
+        Anwar <a href="javascript:void(0)" class="delete_files"><img src="/img/cross.png" height="12"></a>
+         @endif
+      </td> 
+     
+      @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="upload_file" name="staff_file1"  id="staff_file1">
+        </span></td>
+      <td id="apassport1">&nbsp;</td>
+           @endif
+      
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Staff Handbook</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+        Anwar <a href="javascript:void(0)"  class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
       </td>
+      @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="upload_file" name="staff_file2"  id="staff_file2">
+        </span></td>
+      <td id="apassport1">&nbsp;</td>
+           @endif
     </tr>
 
     <tr>
       <td width="45%"><strong>CV</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+        Anwar <a href="javascript:void(0)" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
       </td>
+      @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="upload_file" name="staff_file3"  id="staff_file3">
+        </span></td>
+      <td id="apassport1">&nbsp;</td>
+           @endif
     </tr>
 
     <tr>
       <td width="45%"><strong>OTHERS</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+        Anwar <a href="javascript:void(0)"  class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
       </td>
+        @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="upload_file" name="staff_file4"  id="staff_file4">
+        </span></td>
+      <td id="apassport1">&nbsp;</td>
+           @endif
     </tr>
 
 
     <tr>
       <td width="45%"><strong>ID and Proof of Address</strong></td>
+     
+     @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="upload_file" name="prof_file1"  id="prof_file1">
         </span></td>
       <td id="apassport1">&nbsp;</td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%"><img src="/img/download.png"></td>
+      <td id="apassport1">
+        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
+      
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Acadamic Certificate</strong></td>
+       @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="upload_file" name="prof_file2"  id="prof_file2">
         </span></td>
       <td id="apassport1">&nbsp;</td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%"><img src="/img/download.png"></td>
+      <td id="apassport1">
+        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Others</strong></td>
+       @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="upload_file" name="prof_file3"  id="prof_file3">
         </span></td>
       <td id="apassport1">&nbsp;</td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%"><img src="/img/download.png"></td>
+      <td id="apassport1">
+        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Copy of Signature</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="upload_file" name="prof_file4"  id="prof_file4">
         </span></td>
       <td id="apassport1">&nbsp;</td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%"><img src="/img/download.png"></td>
+      <td id="apassport1">
+        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
     </tr>
       
   </tbody>
