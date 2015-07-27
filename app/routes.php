@@ -209,11 +209,14 @@ Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'Cp
 
 /*=============== Staff Profile Start =================*/
 Route::get('/staff-profile', 'StaffprofileController@dashboard');
-Route::get('/my-details/{user_id}', 'StaffprofileController@my_details');
+Route::get('/my-details/{user_id}/{type}', 'StaffprofileController@my_details');
 
-Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
+//Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
 
-Route::get('/staff/user-details-process', 'StaffprofileController@user_details_process');
+Route::post('/staff/user-details-process', 'StaffprofileController@user_details_process');
 Route::get('/profile/to-list', 'StaffprofileController@to_list');
+
+//Route::post('/prof-file', 'StaffprofileController@prof_file');
+
 
 /*=============== Staff Profile End =================*/

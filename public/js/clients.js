@@ -504,6 +504,7 @@ $(".back").click(function(){
 
 //Get Service country code
 $(".service_country").change(function(){
+    //alert('code');
     var country_id   = $(this).val();
     $.ajax({
       type: "POST",
@@ -512,6 +513,9 @@ $(".service_country").change(function(){
       data: { 'country_id' : country_id },
       success : function(resp){
         $('#serv_tele_code').val(resp);
+        $('#emer_mobile_code').val(resp);
+        $('#emer_tele_code').val(resp);
+        
         $('#serv_mobile_code').val(resp);
       }
     });
