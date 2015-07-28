@@ -207,6 +207,9 @@ Route::any('/time-sheet-reports/{type}', array("as"=>"time_sheet_reports", "uses
 Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
 
 
+Route::any('/calenderview', array("as"=>"calenderview", "uses"=>'NoticeboardController@calenderview'));
+Route::any('/get-calender', array("as"=>"get_calender", "uses"=>'NoticeboardController@get_calender'));
+
 /*=============== Staff Profile Start =================*/
 Route::get('/staff-profile', 'StaffprofileController@dashboard');
 Route::get('/my-details/{user_id}/{type}', 'StaffprofileController@my_details');
