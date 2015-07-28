@@ -1519,7 +1519,7 @@ class HomeController extends BaseController {
 //############# OTHERS INFORMATION END ###################//
 
 //############# SERVICES START ###################//
-	if (!empty($postData['serv_hidd_array'])) {
+	/*if (!empty($postData['serv_hidd_array'])) {
 		$relData = array();
 		$serv_hidd_array = explode(",", $postData['serv_hidd_array']);
 		foreach ($serv_hidd_array as $row) {
@@ -1531,23 +1531,22 @@ class HomeController extends BaseController {
 			);
 		}
 		ClientService::insert($relData);
+	}*/
+	if (isset($postData['other_services']) && count($postData['other_services']) >0) {
+		ClientService::where("client_id", "=", $client_id)->delete();
+		$relData = array();
+		foreach ($postData['other_services'] as $service_id) {
+			if((isset($service_id) && $service_id != "") && (isset($postData['staff_id_'.$service_id]) && $postData['staff_id_'.$service_id] != "")){
+				$relData[] = array(
+					'client_id' 	=> $client_id,
+					'service_id' 	=> $service_id,
+					'staff_id' 		=> $postData['staff_id_'.$service_id],
+				);
+			}
+			
+		}
+		ClientService::insert($relData);
 	}
-//############# SERVICES END ###################//
-
-    if (!empty($postData['servicetxt_id']) && !empty($postData['stafftxt_id']) && !empty($postData['countedit'])) {
-	   $relData = array();
-        
-        for($i=1;$i<=$postData['countedit'];$i++){
-        
-        	$relData[$i-1] = array(
-				'client_id' => $client_id,
-				'service_id' => $postData['servicetxt_id'][$i-1],
-				'staff_id' => $postData['stafftxt_id'][$i-1]
-			);
-        ClientService::insert($relData[$i-1]);
-         //echo $this->last_query();
-       }  
-    }
 //############# SERVICES END ###################//
 
 

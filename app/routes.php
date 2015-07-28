@@ -223,3 +223,11 @@ Route::post('/prof-file', 'StaffprofileController@prof_file');
 
 
 /*=============== Staff Profile End =================*/
+
+
+
+/*=============== Jobs Dashboard Section Start =================*/
+Route::any('/jobs-dashboard', array("as"=>"dashboard", "uses"=>'JobsController@dashboard'));
+Route::any('/vat-returns', array("as"=>"index", "uses"=>'VatReturnsController@index'));
+Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
+/*=============== Jobs Dashboard Section End =================*/
