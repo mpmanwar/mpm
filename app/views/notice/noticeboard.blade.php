@@ -190,6 +190,7 @@
         
         <div class="edit_controlar">
 <a  href="#" data-template_id="{{ $val['noticefont_id'] }}" onclick="openModal('{{ $val['noticefont_id'] }}')"><img src="img/edit_icon.png"  /></a>
+
 <a href="/delete-template/{{ $val['noticefont_id'] }}" onClick="return delfun()"><img src="img/cross.png" /></a>
         </div>
 

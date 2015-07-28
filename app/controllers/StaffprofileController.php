@@ -103,17 +103,18 @@ class StaffprofileController extends BaseController
     public function user_details_process()
     {
         $postData = Input::all();
-        
-     /* if( $postData['oldstafffile1']!=""){
-       die('if');
-      }
-      else{
+
+        //echo "<pre>";
+        // print_r($postData['page_name']);die();
+
+        /* if( $postData['oldstafffile1']!=""){
+        die('if');
+        }
+        else{
         die('else');
-      }*/
-       
-       
-        
-        
+        }*/
+
+
         //$postData['res_postcode'];
         //echo "<pre>";
         // print_r($postData['res_postcode']);die();
@@ -157,7 +158,20 @@ class StaffprofileController extends BaseController
         if (isset($result) && count($result) > 0) {
 
             //StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name","<>",$filevalue)->delete();
-            StepsFieldsStaff::where("staff_id", "=", $staff_id)->delete();
+            if($postData['page_name']=="staff"){
+                
+               StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=", "stafffile1")->orWhere("field_name", "=", "stafffile2")->orWhere("field_name", "=", "stafffile3")->orWhere("field_name", "=", "stafffile4")->delete();
+                
+            }
+            
+            if($postData['page_name']=="profile"){
+                 StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=", "profilefile1")->orWhere("field_name", "=", "profilefile2")->orWhere("field_name", "=", "profilefile3")->orWhere("field_name", "=", "profilefile4")->delete();
+                
+                
+                
+            }
+            
+            
         }
 
         //################ GENERAL SECTION START #################//
@@ -332,12 +346,13 @@ class StaffprofileController extends BaseController
         //	}
 
 
-        for ($i = 1; $i <= 4; $i++) {
+        if (($postData['page_name']) == "staff") {
+            for ($i = 1; $i <= 4; $i++) {
 
 
-            if (($postData['stafffile'. $i]) != "") {
-                
-               // die('brows');
+                //if (($postData['stafffile'. $i]) != "") {
+
+                // die('brows');
                 //($postData['oldstafffile'.$i]);
 
                 //$arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i, $fileName);
@@ -347,6 +362,7 @@ class StaffprofileController extends BaseController
                 //if($postData['oldstafffile'.$i])
                 //$i = 1;
                 if (Input::hasFile('stafffile' . $i)) {
+
                     $file = Input::file('stafffile' . $i);
                     $destinationPath = "uploads/stafffile/";
                     $fileName = Input::file('stafffile' . $i)->getClientOriginalName();
@@ -355,65 +371,71 @@ class StaffprofileController extends BaseController
 
                     //$file_data['stafffile'.$i] = $fileName;
 
-           $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'. $i,
+                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile' . $i,
                         $fileName);
 
                     //ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
 
                     ### delete the previous image if exists ###
-                  /*  if (isset($file_details['stafffile' . $i]) && $file_details['stafffile' . $i] !=
-                        "") {
-                        $prevPath = "uploads/stafffile/" . $file_details['stafffile' . $i];
-                        if (file_exists($prevPath)) {
-                            unlink($prevPath);
-                        }
+                    /*  if (isset($file_details['stafffile' . $i]) && $file_details['stafffile' . $i] !=
+                    "") {
+                    $prevPath = "uploads/stafffile/" . $file_details['stafffile' . $i];
+                    if (file_exists($prevPath)) {
+                    unlink($prevPath);
+                    }
                     } */
 
                     ### delete the previous image if exists ###
 
                 }
-            } else {
-                
-               // die('old');
-                $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i, $postData['oldstafffile'.$i]);
+                // }
+
+                else {
+
+                    // die('old');
+                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile' . $i,
+                        $postData['oldstafffile' . $i]);
+
+                }
 
             }
 
+
         }
 
+        if (($postData['page_name']) == "profile") {
+            for ($i = 1; $i <= 4; $i++) {
+                //$i = 1;
+                if (Input::hasFile('profilefile' . $i)) {
+                    $file = Input::file('profilefile' . $i);
+                    $destinationPath = "uploads/profilefile/";
+                    $fileName = Input::file('profilefile' . $i)->getClientOriginalName();
+                    //$fileName = $fileName;
+                    $result = Input::file('profilefile' . $i)->move($destinationPath, $fileName);
 
+                    $file_data['profilefile' . $i] = $fileName;
 
+                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile' .
+                        $i, $fileName);
 
-        for ($j = 1; $j <= 4; $j++) {
-            //$i = 1;
-            if (Input::hasFile('profilefile' . $j)) {
-                $file = Input::file('profilefile' . $j);
-                $destinationPath = "uploads/profilefile/";
-                $fileName = Input::file('profilefile' . $j)->getClientOriginalName();
-                //$fileName = $fileName;
-                $result = Input::file('profilefile' . $j)->move($destinationPath, $fileName);
+                    //ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
 
-                $file_data['profilefile' . $j] = $fileName;
-
-                $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile' .
-                    $j, $fileName);
-
-                //ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
-
-                ### delete the previous image if exists ###
-              /*  if (isset($file_details['profilefile' . $j]) && $file_details['profilefile' . $j] !=
+                    ### delete the previous image if exists ###
+                    /*  if (isset($file_details['profilefile' . $j]) && $file_details['profilefile' . $j] !=
                     "") {
                     $prevPath = "uploads/profilefile/" . $file_details['profilefile' . $j];
                     if (file_exists($prevPath)) {
-                        unlink($prevPath);
+                    unlink($prevPath);
                     }
-                } */
+                    } */
 
-                ### delete the previous image if exists ###
+                    ### delete the previous image if exists ###
 
+                } else {
+                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile'.$i, $postData['oldprofilefile'.$i]);
+                }
             }
         }
-
 
         // ################# File upload in the other section end ############### //
 
