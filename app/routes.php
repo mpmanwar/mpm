@@ -216,7 +216,7 @@ Route::get('/my-details/{user_id}/{type}', 'StaffprofileController@my_details');
 Route::post('/staff/user-details-process', 'StaffprofileController@user_details_process');
 Route::get('/profile/to-list', 'StaffprofileController@to_list');
 
-//Route::post('/prof-file', 'StaffprofileController@prof_file');
+Route::post('/prof-file', 'StaffprofileController@prof_file');
 
 
 /*=============== Staff Profile End =================*/

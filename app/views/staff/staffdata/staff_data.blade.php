@@ -114,7 +114,7 @@ $(function() {
                   
                  <!-- <td align="center">{{ $value['step_data']['res_addr_line1'] or "" }},{{ $value['step_data']['res_addr_line2'] or "" }},{{ $value['step_data']['res_city'] or "" }},{{ $value['step_data']['res_county'] or "" }},{{ $value['step_data']['res_postcode'] or "" }} </td>
                 -->
-                <td align="center">{{ (strlen($value['fulladdress']['res_addr']) > 20)? substr(strip_tags($value['fulladdress']['res_addr']), 0, 20)."...": strip_tags($value['fulladdress']['res_addr']) }}</td>
+         <td align="center">{{ (strlen($value['fulladdress']) > 20)? substr(strip_tags($value['fulladdress']), 0, 20)."...": strip_tags($value['fulladdress']) }}</td>
               <!-- <td align="center">{{ $value['fulladdress']['res_addr'] or "" }} </td> -->
                
                 </tr>

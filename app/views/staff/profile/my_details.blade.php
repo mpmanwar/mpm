@@ -7,8 +7,8 @@
 @stop
 
 @section('myjsfile')
-
 <script src="{{ URL :: asset('js/profile.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/jquery.form.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
@@ -594,15 +594,30 @@ $(document).ready(function(){
       @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        
+        
+        @if ( (isset($staff_details['step_data']['stafffile1'])) && (!empty($staff_details['step_data']['stafffile1'])) )
+
+        {{ $staff_details['step_data']['stafffile1']  or "" }}
+         <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
+        
+        
          @endif
       </td> 
      
       @if($page_name== 'staff')
          
-          <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="staff_file1"  id="staff_file1">
-        </span></td>
+         
+          <td width="22%">
+            <span class="btn btn-default btn-file"> Browse
+                <input type="file" class="uploadstaff_file" name="stafffile1"  id="stafffile1">
+                
+                <input type="hidden" name="oldstafffile1"  id="oldstafffile1" value="{{ $staff_details['step_data']['stafffile1']  or "" }}">
+            </span>
+          </td>
+          
+          
       <td id="apassport1">&nbsp;</td>
            @endif
       
@@ -614,13 +629,16 @@ $(document).ready(function(){
       @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)"  class="delete_files"><img src="/img/cross.png" height="12"></a>
+      
+      @if ( (isset($staff_details['step_data']['stafffile2'])) && (!empty($staff_details['step_data']['stafffile2'])) )
+        {{ $staff_details['step_data']['stafffile2']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>       @endif
         @endif
       </td>
       @if($page_name== 'staff')
          
           <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="staff_file2"  id="staff_file2">
+        <input type="file" class="uploadstaff_file" name="stafffile2"  id="stafffile2">
+        <input type="hidden" name="oldstafffile2"  id="oldstafffile2" value="{{ $staff_details['step_data']['stafffile2']  or "" }}">
         </span></td>
       <td id="apassport1">&nbsp;</td>
            @endif
@@ -631,13 +649,16 @@ $(document).ready(function(){
       @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @if ( (isset($staff_details['step_data']['stafffile3'])) && (!empty($staff_details['step_data']['stafffile3'])) )
+        {{ $staff_details['step_data']['stafffile3']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>           
+        @endif
         @endif
       </td>
       @if($page_name== 'staff')
          
           <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="staff_file3"  id="staff_file3">
+        <input type="file" class="upload_file" name="stafffile3"  id="stafffile3">
+        <input type="hidden" name="oldstafffile3"  id="oldstafffile3" value="{{ $staff_details['step_data']['stafffile3']  or "" }}">
         </span></td>
       <td id="apassport1">&nbsp;</td>
            @endif
@@ -648,13 +669,16 @@ $(document).ready(function(){
       @if($page_name== 'profile')
       <td width="22%"><img src="/img/download.png"></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)"  class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @if ( (isset($staff_details['step_data']['stafffile4'])) && (!empty($staff_details['step_data']['stafffile4'])) )
+        {{ $staff_details['step_data']['stafffile4']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
         @endif
       </td>
+      
         @if($page_name== 'staff')
-         
-          <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="staff_file4"  id="staff_file4">
+         <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="upload_file" name="stafffile4"  id="stafffile4">
+        <input type="hidden" name="oldstafffile4"  id="oldstafffile4" value="{{ $staff_details['step_data']['stafffile4']  or "" }}">
         </span></td>
       <td id="apassport1">&nbsp;</td>
            @endif
@@ -666,7 +690,10 @@ $(document).ready(function(){
      
      @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="prof_file1"  id="prof_file1">
+        <input type="file" class="upload_file" name="profilefile1"  id="profilefile1">
+        
+        <input type="hidden" name="oldstafffile1"  id="oldstafffile1" value="">        
+        
         </span></td>
       <td id="apassport1">&nbsp;</td>
       @endif
@@ -683,8 +710,10 @@ $(document).ready(function(){
       <td width="45%"><strong>Acadamic Certificate</strong></td>
        @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="prof_file2"  id="prof_file2">
-        </span></td>
+        <input type="file" class="upload_file" name="profilefile2"  id="profilefile2">
+        </span>
+        
+        </td>
       <td id="apassport1">&nbsp;</td>
       @endif
       @if($page_name== 'staff')
@@ -699,7 +728,7 @@ $(document).ready(function(){
       <td width="45%"><strong>Others</strong></td>
        @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="prof_file3"  id="prof_file3">
+        <input type="file" class="upload_file" name="profilefile3"  id="profilefile3">
         </span></td>
       <td id="apassport1">&nbsp;</td>
       @endif
@@ -715,7 +744,7 @@ $(document).ready(function(){
       <td width="45%"><strong>Copy of Signature</strong></td>
       @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="prof_file4"  id="prof_file4">
+        <input type="file" class="upload_file" name="profilefile4"  id="profilefile4">
         </span></td>
       <td id="apassport1">&nbsp;</td>
       @endif
