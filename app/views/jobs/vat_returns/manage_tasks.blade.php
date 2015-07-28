@@ -133,12 +133,31 @@ $(function() {
                 <th>CLIENT NAME</th>
                 <th>VAT NUMBER</th>
                 <th>VAT STAGGER</th>
-                <th>STATUS</th>
+                <th width="12%">STATUS</th>
                 <th>ACTION</th>
               </tr>
             </thead>
 
             <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <tr class="all_check">
+                  <td><input type="checkbox" /></td>
+                  <td align="left"></td>
+                  <td align="left"></td>
+                  <td align="left"></td>
+                  <td align="left"></td>
+                  <td align="left">
+                    <select style="width: 100%; cursor: pointer;">
+                      <option>Not Started</option>
+                      <option>Information Requested</option>
+                      <option>In Process</option>
+                      <option>Firm Review</option>
+                      <option>Client Review</option>
+                      <option>Finalising</option>
+                      <option>Filed</option>
+                    </select>
+                  </td>
+                  <td align="left"></td>
+                </tr>
               @if( isset($client_details) && count($client_details) >0 )
               <?php $i=1; ?>
               @foreach($client_details as $key=>$client_row)
@@ -148,7 +167,17 @@ $(function() {
                   <td align="left"></td>
                   <td align="left"></td>
                   <td align="left"></td>
-                  <td align="left"></td>
+                  <td align="left">
+                    <select style="width: 20%;">
+                      <option>Not Started</option>
+                      <option>Information Requested</option>
+                      <option>In Process</option>
+                      <option>Firm Review</option>
+                      <option>Client Review</option>
+                      <option>Finalising</option>
+                      <option>Filed</option>
+                    </select>
+                  </td>
                   <td align="left"></td>
                 </tr>
                 <?php $i++; ?>
