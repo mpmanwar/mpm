@@ -155,7 +155,7 @@ $(function() {
                   <td align="left">{{ $client_row['ret_frequency'] or '' }}</td>
                   <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}" target="_blank">{{ $client_row['business_name'] or '' }}</a></td>
                   <td align="left">{{ (!empty($client_row['vat_stagger'])) ? ucwords($client_row['vat_stagger']): '' }}</td>
-                  <td><button type="button" class="btn btn-primary" />SEND</button></td>
+                  <td align="center"><button type="button" class="btn btn-primary" />SEND</button></td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach
