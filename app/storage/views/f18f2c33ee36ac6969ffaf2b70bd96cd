@@ -35,13 +35,14 @@
     <ul>
 
 <li class="hvr-grow">
-<a  href="/organisation-clients">
-<div class="circle_icons_inner">
-<div class="circle_icon"><img src="<?php echo URl :: asset('img/dashboard_circle.png'); ?>" /></div>
-<p class="c_tagline">CLIENT LIST - <br>
-ORGANISATIONS</p>
-<div class="clearfix"></div>
-</div></a>
+    <a  href="/organisation-clients">
+        <div class="circle_icons_inner">
+            <div class="circle_icon"><img src="<?php echo URl :: asset('img/dashboard_circle.png'); ?>" /></div>
+            <p class="c_tagline">CLIENT LIST - <br>
+            ORGANISATIONS</p>
+            <div class="clearfix"></div>
+        </div>
+    </a>
 </li>
 
 
