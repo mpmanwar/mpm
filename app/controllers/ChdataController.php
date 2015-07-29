@@ -1145,6 +1145,8 @@ class ChdataController extends BaseController {
     {
     	$session 	= Session::get('admin_details');
     	$data['previous_page'] = '<a href="/chdata/index">CH DATA</a>';
+    	$data['heading'] = "ANNUAL RETURNS - <span style='font-size:17px;'>MANAGE DEADLINES</span>";
+		$data['title'] = "Annual Returns";
 		$user_id 	= $session['id'];
 		$user_type 	= $session['user_type'];
 		
@@ -1153,9 +1155,6 @@ class ChdataController extends BaseController {
 		}else if(isset($user_type) && $user_type == "C"){
 			return Redirect::to('/invitedclient-dashboard');
 		}
-
-		$data['heading'] = "ANNUAL RETURNS - <span style='font-size:17px;'>MANAGE DEADLINES</span>";
-		$data['title'] = "Annual Returns";
 
 		$data['jobs_steps'] = JobsStep::where("user_id", "=", $user_id)->where("job_id", "=", 9)->orderBy("shorting_id")->get();
 
