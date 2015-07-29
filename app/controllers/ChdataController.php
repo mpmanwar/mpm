@@ -1156,7 +1156,7 @@ class ChdataController extends BaseController {
 			return Redirect::to('/invitedclient-dashboard');
 		}
 
-		$data['jobs_steps'] = JobsStep::where("user_id", "=", $user_id)->where("job_id", "=", 9)->orderBy("shorting_id")->get();
+		$data['jobs_steps'] = JobsStep::where("job_id", "=", 9)->orderBy("shorting_id")->get();
 
 		return View::make('ch_data.manage_tasks', $data);
     }
