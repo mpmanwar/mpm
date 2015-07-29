@@ -29,7 +29,7 @@
         <!-- Main content -->
         
 
-        <section class="content">
+<section class="content">
     <div class="row icon_section">
     <div class="left_section">
     <ul>
@@ -39,6 +39,16 @@
         <div class="circle_icons_inner">
             <div class="circle_icon"><img src="{{ URl :: asset('img/dashboard_circle.png') }}" /></div>
             <p class="c_tagline">MANAGE REMINDERS</p>
+            <div class="clearfix"></div>
+        </div>
+    </a>
+</li>
+<li class="hvr-grow hide-tab"></li>
+<li class="hvr-grow">
+    <a  href="#">
+        <div class="circle_icons_inner">
+            <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
+            <p class="c_tagline2">+ NEW JOB</p>
             <div class="clearfix"></div>
         </div>
     </a>
@@ -141,15 +151,7 @@
     </a>
 </li>
 
-<li class="hvr-grow">
-    <a  href="#">
-        <div class="circle_icons_inner">
-            <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-            <p class="c_tagline2">+ NEW JOB</p>
-            <div class="clearfix"></div>
-        </div>
-    </a>
-</li>
+
 
     </ul>
     </div>

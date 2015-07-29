@@ -96,7 +96,7 @@ $(function() {
               <div class="top_bts">
                 <ul style="padding:0;">
                   <li>
-                    <button class="btn btn-danger">MANAGE TASKS</button>
+                    <a href="/chdata/manage-tasks" class="btn btn-danger">MANAGE TASKS</a>
                   </li>
                   <li>
                     <div class="import_fromch_main">

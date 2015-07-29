@@ -53,7 +53,7 @@ class Client extends Eloquent {
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "vat_scheme_type") 
 						{
 							$VatScheme = VatScheme::where('vat_scheme_id', '=', $client_row->field_value)->first();
-							$client_data[$i]['vat_scheme'] = $VatScheme['vat_scheme_name'];
+							$client_data[$i]['vat_scheme_name'] = $VatScheme['vat_scheme_name'];
 						}
 
 						// ############### GET CORRESPONDENSE ADDRESS START ################## //

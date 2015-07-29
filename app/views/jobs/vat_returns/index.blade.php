@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('myjsfile')
@@ -133,11 +133,11 @@ $(function() {
                 <th><input type="checkbox" id="allCheckSelect"/></th>
                 <th>STAFF</th>
                 <th>DOR</th>
-                <th>VAT Scheme</th>
-                <th>VAT Number</th>
-                <th>Return Frequency</th>
-                <th>Business Name</th>
-                <th>VAT Stagger</th>
+                <th>VAT SCHEME</th>
+                <th>VAT NUMBER</th>
+                <th>RETURN FREQUENCY</th>
+                <th>BUSINESS NAME</th>
+                <th>VAT STAGGER</th>
                 <th>SEND TO TASKS</th>
               </tr>
             </thead>
@@ -150,12 +150,13 @@ $(function() {
                   <td><input type="checkbox" name="checkbox[]" value="{{ $client_row['client_id'] }}" /></td>
                   <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}">{{ $client_row['vat_staff_name'] or "" }}</a></td>
                   <td align="left">{{ isset($client_row['effective_date'])?date("d-m-Y", strtotime($client_row['effective_date'])):"" }}</td>
-                  <td align="left">{{ $client_row['vat_scheme'] or '' }}</td>
+                  <td align="left">{{ $client_row['vat_scheme_name'] or '' }}</td>
                   <td align="left">{{ (!empty($client_row['vat_number']))? $client_row['vat_number']: '' }}</td>
                   <td align="left">{{ $client_row['ret_frequency'] or '' }}</td>
                   <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}" target="_blank">{{ $client_row['business_name'] or '' }}</a></td>
                   <td align="left">{{ (!empty($client_row['vat_stagger'])) ? ucwords($client_row['vat_stagger']): '' }}</td>
-                  <td align="center"><button type="button" class="btn btn-primary" />SEND</button></td>
+                  <td align="center"><button type="button" class="sent_btn" />SENT</button>
+                    <button type="button" class="send_btn" />SEND</button></td>
                 </tr>
                 <?php $i++; ?>
                 @endforeach

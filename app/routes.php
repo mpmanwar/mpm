@@ -167,6 +167,7 @@ Route::any('/chdata/bulk-file-upload', array("as"=>"bulk_file_upload", "uses"=>'
 
 Route::any('/xls_to_array', array("as"=>"xls_to_array", "uses"=>'ChdataController@xls_to_array'));
 
+Route::any('/chdata/manage-tasks', array("as"=>"manage_tasks", "uses"=>'ChdataController@manage_tasks'));
 ## Company House Data End ##
 
 

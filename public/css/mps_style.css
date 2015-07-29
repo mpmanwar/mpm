@@ -895,7 +895,9 @@ border: 1px solid #e2e4e6;
 .national_holi{background:#894516; width:25px; height:25px;}
 .table_base{margin-top:15px 0 15px 0;}
 
-
-
-
+.sent_btn{background-color: #fafafa; color: #c7c7c7; border:2px solid #c7c7c7; padding:0px 25px; font-size:14px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
+.send_btn{background-color: #fafafa; color: #b38d76; border:2px solid #adc293; padding:0px 25px; font-size:14px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
+.table_select{ width: 100%; cursor: pointer;}
+.search_t{ margin-right:10px; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:2px 15px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
+.hide-tab{ box-shadow:none!important; border: none!important;}
 

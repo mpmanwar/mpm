@@ -146,7 +146,7 @@ $(function() {
                   <td align="left"></td>
                   <td align="left"></td>
                   <td align="left">
-                    <select style="width: 100%; cursor: pointer;">
+                    <select class="table_select">
                       <option>Not Started</option>
                       <option>Information Requested</option>
                       <option>In Process</option>
