@@ -285,7 +285,7 @@ $(function() {
       </div>
     {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
     
-      <div class="modal-body">
+      <!-- <div class="modal-body">
         <div class="form-group">
           <label for="name">Select Status</label>
           <select class="form-control">
@@ -297,31 +297,29 @@ $(function() {
           @endif
           </select>
         </div>
-
+      
         <div class="form-group">
           <label for="name">Status Name</label>
           <input type="text" name="status_name" placeholder="Status Name" class="form-control">
         </div>
-
+      
         <div class="form-group">
           <label for="name">Position Number</label>
           <input type="text" name="shorting_no" placeholder="Shorting Number" class="form-control">
         </div>
-
+      
         <div class="modal-footer1 clearfix">
           <div class="save_btn_new">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
           </div>
-        </div>
+        </div> -->
 
         <table class="table table-bordered table-hover dataTable vat_returns">
             <thead>
               <tr>
-                <th align="center" width="15%">Tick Box</th>
-                <th align="center" width="30%">Position Number</th>
+                <th align="center" width="20%">show/unshow</th>
                 <th align="center">Status Name</th>
-                <th align="center">Action</th>
               </thead>
 
             <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -329,9 +327,7 @@ $(function() {
                 @foreach($jobs_steps as $key=>$value)
                   <tr>
                     <td align="center"><input type="checkbox" value="{{ $value->step_id or "" }}"></td>
-                    <td align="center"><input type="text" style="width: 50px;" value="{{ $value->shorting_id or "" }}"></td>
                     <td>{{ $value->title or "" }}</td>
-                    <td align="center"><a href="javascript:void(0)"><img src="/img/cross.png" style="height: 13px"></a>&nbsp;&nbsp;<!-- <a href="javascript:void(0)"><img src="/img/edit_icon.png"></a> --></td>
                   </tr>
                 @endforeach
               @endif
