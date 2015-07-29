@@ -10,7 +10,7 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
-
+<script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
@@ -284,8 +284,8 @@ $(function() {
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
-    
-      <!-- <div class="modal-body">
+      <div class="modal-body">
+      <!-- 
         <div class="form-group">
           <label for="name">Select Status</label>
           <select class="form-control">
@@ -315,19 +315,21 @@ $(function() {
           </div>
         </div> -->
 
-        <table class="table table-bordered table-hover dataTable vat_returns">
+        <table class="table table-bordered table-hover dataTable">
             <thead>
               <tr>
-                <th align="center" width="20%">show/unshow</th>
-                <th align="center">Status Name</th>
+                <th align="center" width="20%">Show/Unshow</th>
+                <th >Status Name</th>
+                <th align="center">Action</th>
               </thead>
 
             <tbody role="alert" aria-live="polite" aria-relevant="all">
               @if(isset($jobs_steps) && count($jobs_steps) >0)
                 @foreach($jobs_steps as $key=>$value)
-                  <tr>
-                    <td align="center"><input type="checkbox" value="{{ $value->step_id or "" }}"></td>
-                    <td>{{ $value->title or "" }}</td>
+                  <tr id="change_status_tr_{{ $value->step_id or "" }}">
+                    <td align="center"><input type="checkbox" checked value="{{ $value->step_id or "" }}"></td>
+                    <td><span id="status_span{{ $value->step_id or "" }}">{{ $value->title or "" }}</span></td>
+                    <td align="center"><span id="action_{{ $value->step_id or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value->step_id or "" }}"><img src="/img/edit_icon.png"></a></span></td>
                   </tr>
                 @endforeach
               @endif
