@@ -188,7 +188,7 @@ $(function() {
           <th>LAST RETURN DATE</th>
           <th>DEADLINE</th>
           <th>COUNT DOWN</th>
-          <th>STATUS</th>
+          <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
@@ -268,15 +268,15 @@ $(function() {
 </section>
 
 
-                <!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+        <!-- /.content -->
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
 
 
 
 <!-- COMPOSE MESSAGE MODAL -->
-<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:300px;">
+<div class="modal fade" id="status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -284,63 +284,35 @@ $(function() {
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="ind" />
-    <input type="hidden" name="back_url" value="add_ind" />
+    
       <div class="modal-body">
-        <div class="form-group">
-          <label for="exampleInputPassword1">Select Section</label>
-          <select class="form-control show_subsec" name="step_id" id="step_id" data-client_type="ind">
-            @if( isset($steps) && count($steps) >0 )
-              @foreach($steps as $key=>$step_row)
-                @if($step_row->step_id != '4' && $step_row->status == "old")
-                  <option value="{{ $step_row->step_id }}">{{ $step_row->title }}</option>
-                @endif
-              @endforeach
-            @endif
-          </select>
-        </div>
+        <table class="table table-bordered table-hover dataTable vat_returns">
+            <thead>
+              <tr>
+                <th align="center" width="15%">Tick Box</th>
+                <th align="center" width="30%">Position Number</th>
+                <th align="center">Status Name</th>
+                <th align="center">Action</th>
+              </thead>
 
-        <div class="form-group">
-          <label for="exampleInputPassword1">Subsection Name</label>
-          <select class="form-control subsec_change" name="substep_id" id="substep_id">
-            <option value="">-- Select sub section --</option>
-            @if( isset($substep) && count($substep) >0 )
-              @foreach($substep as $key=>$substep_row)
-                <option value="{{ $substep_row['step_id'] }}">{{ $substep_row['title'] }}</option>
-              @endforeach
-            @endif
-            <option value="new">Add new ...</option>
-          </select>
-        </div>
-        <div class="input-group show_new_div" style="display:none;">
-            <input type="text" class="form-control" name="subsec_name" id="subsec_name">
-           <span class="input-group-addon"> <a href="javascript:void(0)" class="add_subsec_name" data-client_type="ind">Save</a></span>
-        </div>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+              @if(isset($jobs_steps) && count($jobs_steps) >0)
+                @foreach($jobs_steps as $key=>$value)
+                  <tr>
+                    <td align="center"><input type="checkbox" value="{{ $value->step_id or "" }}"></td>
+                    <td align="center"><input type="text" style="width: 50px;" value="{{ $value->shorting_id or "" }}"></td>
+                    <td>{{ $value->title or "" }}</td>
+                    <td align="center"><a href="javascript:void(0)"><img src="/img/cross.png" style="height: 13px"></a>&nbsp;&nbsp;<a href="javascript:void(0)"><img src="/img/edit_icon.png"></a></td>
+                  </tr>
+                @endforeach
+              @endif
 
-        <div class="form-group">
-          <label for="exampleInputPassword1">Field Name</label>
-          <input type="text" id="field_name" name="field_name" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputPassword1">Field Type</label>
-          <select class="form-control user_field_type" name="field_type" id="field_type">
-            @if(!empty($field_types))
-              @foreach($field_types as $key=>$field_row)
-                <option value="{{ $field_row->field_type_id }}">{{ $field_row->field_type_name }}</option>
-              @endforeach
-            @endif
-          </select>
-        </div>
-
-        <div class="form-group" style="display:none;" id="show_select_option">
-          <label for="exampleInputPassword1">Options</label>
-          <textarea name="select_option" cols="40" rows="3"></textarea>
-          Give options width ',' separator
-        </div>
+            </tbody>
         
+        </table>
+
         <div class="modal-footer1 clearfix">
-          <div class="email_btns1">
+          <div class="save_btn_new">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
           </div>
@@ -354,78 +326,6 @@ $(function() {
 </div>
 
 
-<!-- Relationship Add To List Modal Start-->
-<!-- <div class="modal fade" id="add_to_list-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:404px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add to List</h4>
-        <div class="clearfix"></div>
-      </div>
-    
-      <div class="modal-body">
-        <div id="add_to_msg_div" style="text-align: center; color: #00acd6"></div>
-        <div class="form-group" style="width:70%">
-          <label for="name">Type</label>
-          <select class="form-control" name="add_to_type" id="add_to_type">
-            <option value="ind">Individual</option>
-            <option value="org">Organisation</option>
-          </select>
-        </div>
-
-        <div class="form-group" id="add_to_client_text">
-
-<div class="clearfix"></div>
-<div class="n_box18_18">
-<label for="exampleInputPassword1">Title</label>
-<select class="form-control select_title" id="add_to_title" name="add_to_title">
-          <option value="Mr" selected="">Mr</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Miss">Miss</option>
-        <option value="Dr">Dr</option>
-        <option value="Professor">Professor</option>
-        <option value="Rev">Rev</option>
-        <option value="Sir">Sir</option>
-        <option value="Dame">Dame</option>
-        <option value="Lord">Lord</option>
-        <option value="Lady">Lady</option>
-        <option value="Captain">Captain</option>
-        <option value="The Hon">The Hon</option>
-        <option value="Other">Other</option>
-      </select></div>
-<div class="n_box27_27">
-    <label for="exampleInputPassword1">First Name</label>
-    <input type="text" id="add_to_fname" name="add_to_fname" value="" class="form-control toUpperCase"></div>
-<div class="n_box22_22">
-    <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="add_to_mname" name="add_to_mname" value="" class="form-control toUpperCase"></div>
-<div class="n_box27_27">
-    <label for="exampleInputPassword1">Last Name</label>
-    <input type="text" id="add_to_lname" name="add_to_lname" value="" class="form-control toUpperCase"></div>
-<div class="clearfix"></div>
-</div>
-
-        <div class="form-group" style="width:70%; display:none;" id="add_to_business">
-          <label for="name">Business Name</label>
-          <input class="form-control toUpperCase" type="text" name="add_to_name" id="add_to_name">
-        </div>
-       
-        <div class="modal-footer1 clearfix">
-          <div class="email_btns">
-            <button type="button" class="btn btn-primary pull-left save_t relation_add_client" id="add_to_save" name="save">Save</button>
-            <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    /.modal-content
-  </div>
-  /.modal-dialog
-</div> -->
-<!-- Relationship Add To List Modal End-->
-
-@include("home.include.client_modal_page")
+<!-- @include("home.include.client_modal_page") -->
 
 @stop

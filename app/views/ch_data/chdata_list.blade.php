@@ -78,6 +78,7 @@ $(function() {
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
+            
             <!-- <li>
               <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
@@ -108,6 +109,10 @@ $(function() {
                       <div class="i_dropdown open_toggle"><a href="/chdata/bulk-company-upload-page/{{ base64_encode('ch_list') }}">BULK COMPANY UPLOAD</a></div>
                     </div>
                     <!-- <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
+                  </li>
+                  <li>
+                    <span style="margin-left: 40px">
+                      <input type="checkbox"> SEND TO <b>TASK MANAGEMENT</b> <input type="text" style="width:7%;"> DAYS before filling date</span>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
@@ -156,7 +161,7 @@ $(function() {
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">{{ $details['count_down'] or "" }}</td>
-                <td align="center"><button type="button" class="btn btn-primary">Send</button></td>
+                <td align="center"><button type="button" class="send_btn">Send</button></td>
                 <td align="center"></td>
             </tr>
           @endif 

@@ -1156,6 +1156,9 @@ class ChdataController extends BaseController {
 
 		$data['heading'] = "ANNUAL RETURNS - <span style='font-size:17px;'>MANAGE DEADLINES</span>";
 		$data['title'] = "Annual Returns";
+
+		$data['jobs_steps'] = JobsStep::where("user_id", "=", $user_id)->where("job_id", "=", 9)->orderBy("shorting_id")->get();
+
 		return View::make('ch_data.manage_tasks', $data);
     }
 
