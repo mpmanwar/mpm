@@ -283,9 +283,38 @@ $(function() {
         <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
-    {{ Form::open(array('url' => '/individual/save-userdefined-field', 'id'=>'field_form')) }}
+    {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
     
       <div class="modal-body">
+        <div class="form-group">
+          <label for="name">Select Status</label>
+          <select class="form-control">
+            <option value="">None</option>
+          @if(isset($jobs_steps) && count($jobs_steps) >0)
+            @foreach($jobs_steps as $key=>$value)
+              <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
+            @endforeach
+          @endif
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Status Name</label>
+          <input type="text" name="status_name" placeholder="Status Name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="name">Position Number</label>
+          <input type="text" name="shorting_no" placeholder="Shorting Number" class="form-control">
+        </div>
+
+        <div class="modal-footer1 clearfix">
+          <div class="save_btn_new">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
+          </div>
+        </div>
+
         <table class="table table-bordered table-hover dataTable vat_returns">
             <thead>
               <tr>
@@ -302,7 +331,7 @@ $(function() {
                     <td align="center"><input type="checkbox" value="{{ $value->step_id or "" }}"></td>
                     <td align="center"><input type="text" style="width: 50px;" value="{{ $value->shorting_id or "" }}"></td>
                     <td>{{ $value->title or "" }}</td>
-                    <td align="center"><a href="javascript:void(0)"><img src="/img/cross.png" style="height: 13px"></a>&nbsp;&nbsp;<a href="javascript:void(0)"><img src="/img/edit_icon.png"></a></td>
+                    <td align="center"><a href="javascript:void(0)"><img src="/img/cross.png" style="height: 13px"></a>&nbsp;&nbsp;<!-- <a href="javascript:void(0)"><img src="/img/edit_icon.png"></a> --></td>
                   </tr>
                 @endforeach
               @endif
@@ -311,12 +340,7 @@ $(function() {
         
         </table>
 
-        <div class="modal-footer1 clearfix">
-          <div class="save_btn_new">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
-          </div>
-        </div>
+        
       </div>
     {{ Form::close() }}
   </div>
