@@ -2338,9 +2338,9 @@ $(document).ready(function(){
               </select>
           </td>
           <td width="27%"></td> -->
-          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
           <td align="left" widht="30%">
-            <select class="form-control" name="staff_id" id="staff_id">
+            <select class="form-control" name="staff_id_{{ $service_row->service_id }}" id="staff_id">
               <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
