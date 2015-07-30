@@ -68,7 +68,7 @@
               </li>
 
               <li class="hvr-grow" style="margin-right:40px;"> 
-                <a  href="#">
+                <a  href="/profile-notes">
                   <div class="circle_icons_inner">
                     <div class="circle_icon"> 
                       <img alt="" src="img/dashboard_circle.png"> 
