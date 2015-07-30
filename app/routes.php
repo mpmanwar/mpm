@@ -214,6 +214,11 @@ Route::any('/get-calender', array("as"=>"get_calender", "uses"=>'NoticeboardCont
 /*=============== Staff Profile Start =================*/
 Route::get('/staff-profile', 'StaffprofileController@dashboard');
 Route::get('/my-details/{user_id}/{type}', 'StaffprofileController@my_details');
+Route::get('/delete-stafffile/{user_id}', 'StaffprofileController@delete_stafffile');
+
+Route::any('/add-position-type', array("as"=>"add_position_type", "uses"=>'StaffprofileController@add_position_type'));
+Route::any('/delete-position-type', array("as"=>"delete_position_type", "uses"=>'StaffprofileController@delete_position_type'));
+
 
 //Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
 

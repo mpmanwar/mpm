@@ -22,6 +22,14 @@ class StaffprofileController extends BaseController
 
     public function my_details($user_id, $type_id)
     {
+        
+        
+        	$admin_s = Session::get('admin_details');
+	//	$user_id = $admin_s['id'];
+	//	$data['user_type'] 	= $admin_s['user_type'];
+		$groupUserId 		= $admin_s['group_users'];
+        
+        
         // $type_name= base64_decode($type_id);
         //echo $type_id;
 
@@ -37,6 +45,13 @@ class StaffprofileController extends BaseController
         $data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
         $data['countries'] = Country::orderBy('country_name')->get();
         $data['nationalities'] = Nationality::get();
+        
+        $data['old_postion_types'] = Position::whereIn("user_id", $groupUserId)->orderBy("name")->get();
+		$data['new_postion_types'] = Position::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+        
+        
+        
+        
 
 
         if (!isset($data['user_id']) && $data['user_id'] == "") {
@@ -50,7 +65,8 @@ class StaffprofileController extends BaseController
         $data['staff_details'] = $this->userDetailsByUserId($user_id);
 
         //echo '<pre>';
-        //print_r($data);die;
+        //print_r($data['staff_details']);
+        //die;
         return View::make("staff.profile.my_details", $data);
     }
 
@@ -93,8 +109,41 @@ class StaffprofileController extends BaseController
                     $step_data[$value['field_name']] = $value->field_value;
                 }
             }
+
             $data['step_data'] = $step_data;
         }
+
+        $step_ids = array();
+
+        $fields_staffid = StepsFieldsStaff::where("staff_id", "=", $user_id)->where("field_name",
+            "=", "stafffile1")->orWhere("field_name", "=", "stafffile2")->orWhere("field_name",
+            "=", "stafffile3")->orWhere("field_name", "=", "stafffile4")->select('field_id',
+            'field_name')->get();
+
+        //echo $this->last_query();
+        foreach ($fields_staffid as $value) {
+
+            $step_ids[$value['field_name']] = $value->field_id;
+
+        }
+
+        $data['step_staffids'] = $step_ids;
+
+
+        $step_profids = array();
+        $fields_profid = StepsFieldsStaff::where("staff_id", "=", $user_id)->where("field_name",
+            "=", "profilefile1")->orWhere("field_name", "=", "profilefile2")->orWhere("field_name",
+            "=", "profilefile3")->orWhere("field_name", "=", "profilefile4")->select('field_id',
+            'field_name')->get();
+
+        //echo $this->last_query();
+        foreach ($fields_profid as $value) {
+
+            $step_profids[$value['field_name']] = $value->field_id;
+
+        }
+        $data['step_profids'] = $step_profids;
+
 
         return $data;
     }
@@ -105,7 +154,7 @@ class StaffprofileController extends BaseController
         $postData = Input::all();
 
         //echo "<pre>";
-        // print_r($postData['page_name']);die();
+        //print_r($postData['position_type']);die();
 
         /* if( $postData['oldstafffile1']!=""){
         die('if');
@@ -140,7 +189,7 @@ class StaffprofileController extends BaseController
             $userData['email'] = $postData['email'];
         }
 
-        $userprof_update = User::where("user_id", "=", $data['user_id'])->update($userData);
+        $userprof_update = User::where("user_id", "=", $postData['staff_id'])->update($userData);
 
         // update for user table
         //echo "<pre>";
@@ -154,24 +203,33 @@ class StaffprofileController extends BaseController
 
         $result = StepsFieldsStaff::where("staff_id", "=", $staff_id)->get();
 
-
+        //echo "<pre>";
+        //print_r($result);
+        //die();
         if (isset($result) && count($result) > 0) {
 
             //StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name","<>",$filevalue)->delete();
-            if($postData['page_name']=="staff"){
-                
-               StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=", "stafffile1")->orWhere("field_name", "=", "stafffile2")->orWhere("field_name", "=", "stafffile3")->orWhere("field_name", "=", "stafffile4")->delete();
-                
+            if ($postData['page_name'] == "staff") {
+
+                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=",
+                    "stafffile1")->orWhere("field_name", "=", "stafffile2")->orWhere("field_name",
+                    "=", "stafffile3")->orWhere("field_name", "=", "stafffile4")->delete();
+                    
+                    //echo $this->last_query();
+                    //die();
+
             }
-            
-            if($postData['page_name']=="profile"){
-                 StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=", "profilefile1")->orWhere("field_name", "=", "profilefile2")->orWhere("field_name", "=", "profilefile3")->orWhere("field_name", "=", "profilefile4")->delete();
-                
-                
-                
+
+            if ($postData['page_name'] == "profile") {
+                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=",
+                    "profilefile1")->orWhere("field_name", "=", "profilefile2")->orWhere("field_name",
+                    "=", "profilefile3")->orWhere("field_name", "=", "profilefile4")->delete();
+
+                     //echo $this->last_query();
+                    //die();
             }
-            
-            
+
+
         }
 
         //################ GENERAL SECTION START #################//
@@ -201,8 +259,8 @@ class StaffprofileController extends BaseController
         if (!empty($postData['country'])) {
             $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'country', $postData['country']);
         }
-        if (!empty($postData['position'])) {
-            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'position', $postData['position']);
+        if (!empty($postData['position_type'])) {
+            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'position_type', $postData['position_type']);
         }
         if (!empty($postData['ni_number'])) {
             $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'ni_number', $postData['ni_number']);
@@ -211,6 +269,18 @@ class StaffprofileController extends BaseController
             $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'tax_reference',
                 $postData['tax_reference']);
         }
+
+
+        if (!empty($postData['professional_body'])) {
+            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'professional_body', $postData['professional_body']);
+        }
+
+
+        if (!empty($postData['student_number'])) {
+            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'student_number',
+                $postData['student_number']);
+        }
+
         //echo '<pre>';print_r($arrData);die();
         //################ GENERAL SECTION START #################//
 
@@ -332,6 +402,10 @@ class StaffprofileController extends BaseController
             $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'acc_no', $postData['acc_no']);
         }
 
+        if (!empty($postData['note'])) {
+            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'note', $postData['note']);
+        }
+
         //################ Other START #################//
 
 
@@ -432,7 +506,8 @@ class StaffprofileController extends BaseController
                     ### delete the previous image if exists ###
 
                 } else {
-                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile'.$i, $postData['oldprofilefile'.$i]);
+                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile' .
+                        $i, $postData['oldprofilefile' . $i]);
                 }
             }
         }
@@ -460,7 +535,41 @@ class StaffprofileController extends BaseController
         //OrganisationClient::insert($data);
     }
 
+    public function delete_stafffile($user_id)
+    {
+        
+       
+       StepsFieldsStaff::where("field_id", "=", $user_id)->delete();
+       return Redirect::to('/staff-details');
+        
+        //print_r($user_id);die();
+        
+        
+    }
+    public function add_position_type()
+    {
+        $session_data = Session::get('admin_details');
+		
+		$data['name'] 			= Input::get("org_name");
+		$data['user_id'] 		= $session_data['id'];
+		$data['status'] 		= "new";
+		$insert_id = Position::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 
+         
+    }
+    
+    	public function delete_position_type() {
+		$field_id = Input::get("field_id");
+		if (Request::ajax()) {
+			$data = Position::where("position_id", "=", $field_id)->delete();
+			echo $data;
+		}
+	}
+    
+    
+    
     //public function prof_file(){
 
     //  echo'adafafa';
