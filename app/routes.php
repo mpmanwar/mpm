@@ -238,3 +238,7 @@ Route::any('/jobs-dashboard', array("as"=>"dashboard", "uses"=>'JobsController@d
 Route::any('/vat-returns', array("as"=>"index", "uses"=>'VatReturnsController@index'));
 Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
 /*=============== Jobs Dashboard Section End =================*/
+
+/*=============== Staff Appraisal Section Start =================*/
+Route::any('/staff-appraisal', array('as'=>'index', 'uses'=>'StaffAppraisalController@index'));
+/*=============== Staff Appraisal Section End =================*/

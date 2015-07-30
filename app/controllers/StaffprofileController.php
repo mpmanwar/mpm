@@ -154,6 +154,7 @@ class StaffprofileController extends BaseController
     {
         $postData = Input::all();
 
+
         //echo "<pre>";
         //print_r($postData['department']);die();
 
@@ -168,7 +169,6 @@ class StaffprofileController extends BaseController
         //$postData['res_postcode'];
         //echo "<pre>";
         // print_r($postData['res_postcode']);die();
-
         $data = array();
         $userData = array();
         $arrData = array();
@@ -191,45 +191,24 @@ class StaffprofileController extends BaseController
         }
 
         $userprof_update = User::where("user_id", "=", $postData['staff_id'])->update($userData);
-
-        // update for user table
-        //echo "<pre>";
-        //print_r($userData);
-        //die();
-
-
         $staff_id = $postData['staff_id'];
 
         //$filevalue=('staff_file1,staff_file2,staff_file3,staff_file4,prof_file1,prof_file2,prof_file3,prof_file4');
 
         $result = StepsFieldsStaff::where("staff_id", "=", $staff_id)->get();
 
-        //echo "<pre>";
-        //print_r($result);
-        //die();
         if (isset($result) && count($result) > 0) {
 
             //StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name","<>",$filevalue)->delete();
             if ($postData['page_name'] == "staff") {
-
-                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=",
-                    "stafffile1")->orWhere("field_name", "=", "stafffile2")->orWhere("field_name",
-                    "=", "stafffile3")->orWhere("field_name", "=", "stafffile4")->delete();
-                    
-                    //echo $this->last_query();
-                    //die();
-
+                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
+                    "stafffile1")->orWhere("field_name", "!=", "stafffile2")->orWhere("field_name",
+                    "!=", "stafffile3")->orWhere("field_name", "!=", "stafffile4")->delete();
+            }else{
+                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
+                    "profilefile1")->orWhere("field_name", "!=", "profilefile2")->orWhere("field_name",
+                    "!=", "profilefile3")->orWhere("field_name", "!=", "profilefile4")->delete();
             }
-
-            if ($postData['page_name'] == "profile") {
-                StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=",
-                    "profilefile1")->orWhere("field_name", "=", "profilefile2")->orWhere("field_name",
-                    "=", "profilefile3")->orWhere("field_name", "=", "profilefile4")->delete();
-
-                     //echo $this->last_query();
-                    //die();
-            }
-
 
         }
 
@@ -411,42 +390,14 @@ class StaffprofileController extends BaseController
 
 
         // ################# File upload in the other section start ############### //
-
-        //	$file_details = ClientFile::where('client_id', "=", $client_id)->first();
-        //	if(isset($file_details) && count($file_details) >0){
-        //	$client_file_id = $file_details['client_file_id'];
-        //	}else{
-        //		$file_data['client_id'] = $client_id;
-        //		$client_file_id = ClientFile::insertGetId($file_data);
-        //	}
-
-
-        if (($postData['page_name']) == "staff") {
-            for ($i = 1; $i <= 4; $i++) {
-
-
-                //if (($postData['stafffile'. $i]) != "") {
-
-                // die('brows');
-                //($postData['oldstafffile'.$i]);
-
-                //$arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i, $fileName);
-
-                //}
-
-                //if($postData['oldstafffile'.$i])
-                //$i = 1;
-                if (Input::hasFile('stafffile' . $i)) {
-
-                    $file = Input::file('stafffile' . $i);
+        for ($i = 1; $i <= 4; $i++) {
+            if (($postData['page_name']) == "staff") {
+                if (Input::hasFile('stafffile'.$i)) {
+                    $file   = Input::file('stafffile'.$i);
                     $destinationPath = "uploads/stafffile/";
-                    $fileName = Input::file('stafffile' . $i)->getClientOriginalName();
-                    //$fileName = $fileName;
-                    $result = Input::file('stafffile' . $i)->move($destinationPath, $fileName);
-
-                    //$file_data['stafffile'.$i] = $fileName;
-
-                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile' . $i,
+                    $fileName   = Input::file('stafffile'.$i)->getClientOriginalName();
+                    $result     = Input::file('stafffile'.$i)->move($destinationPath, $fileName);
+                    $arrData[]  = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i,
                         $fileName);
 
                     //ClientFile::where("client_file_id", "=", $client_file_id)->update($file_data);
@@ -462,25 +413,14 @@ class StaffprofileController extends BaseController
 
                     ### delete the previous image if exists ###
 
-                }
-                // }
-
-                else {
-
-                    // die('old');
-                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile' . $i,
-                        $postData['oldstafffile' . $i]);
-
+                }else {
+                    if(isset($postData['oldstafffile'.$i]) && $postData['oldstafffile'.$i] != ""){
+                        $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i,
+                        $postData['oldstafffile'.$i]);
+                    }
                 }
 
-            }
-
-
-        }
-
-        if (($postData['page_name']) == "profile") {
-            for ($i = 1; $i <= 4; $i++) {
-                //$i = 1;
+            }else{
                 if (Input::hasFile('profilefile' . $i)) {
                     $file = Input::file('profilefile' . $i);
                     $destinationPath = "uploads/profilefile/";
@@ -507,12 +447,14 @@ class StaffprofileController extends BaseController
                     ### delete the previous image if exists ###
 
                 } else {
-                    $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile' .
-                        $i, $postData['oldprofilefile' . $i]);
+                    if(isset($postData['oldprofilefile'.$i]) && $postData['oldprofilefile'.$i] != ""){
+                        $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'profilefile'.$i, $postData['oldprofilefile'.$i]);
+                    }
                 }
             }
-        }
 
+
+        }
         // ################# File upload in the other section end ############### //
 
 
