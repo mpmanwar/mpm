@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
     //############## View Staff Appraisal Table Start ################//
-    $('.show_staff_appraisal').click(function() {
+    /*$('.show_staff_appraisal').click(function() {
         $(".show_form_content").hide();
         $("#appraisal_div").toggle();
-    });
+    });*/
     //############## View Staff Appraisal Table end ################//
 
     //############## View Staff Appraisal Table Start ################//
