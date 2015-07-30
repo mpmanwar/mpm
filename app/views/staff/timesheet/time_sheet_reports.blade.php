@@ -441,7 +441,7 @@ $(function() {
               </tr>
               <tr >
                 <td align="left"><!--<a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>-->
-				<input class="dpick" type="text" id="eddpick" name="date" size="10"/>
+				<input class="dpick" type="text" id="eddpick" name="date" style="width:90%; height: 33px"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
                 <td align="center"><select class="form-control" name="staff_id" id="staff_id">
@@ -478,8 +478,8 @@ $(function() {
                                     @endif
                                    
                                   </select></td>
-                <td align="center"><input type="text" name="hrs" id="hrs" size="5%"></td>
-                <td align="center"><input type="text" name="notes" id="notes"></td>
+                <td align="center"><input type="text" name="hrs" id="hrs" size="5%" style="height:33px"></td>
+                <td align="center"><input type="text" name="notes" id="notes" style="width:100%;height:33px"></td>
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
@@ -597,7 +597,7 @@ $(function() {
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" class="DeleteBoxRow" ></a>
-				<input class="dpick" type="text" id="dpick1" name="date[]" size="10" />
+				<input class="dpick" type="text" id="dpick1" name="date[]" style="width:90%; height: 33px;" />
 				</td>
                 <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
               <option value="">None</option>
@@ -633,8 +633,8 @@ $(function() {
                                     @endif
                                    
                                   </select></td>
-                <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%"></td>
-                <td align="center"><input type="text" name="notes[]" id="notes"></td>
+                <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height:33px"></td>
+                <td align="center"><input type="text" name="notes[]" id="notes" style="width:100%; height:33px;"></td>
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
