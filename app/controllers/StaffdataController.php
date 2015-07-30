@@ -72,9 +72,9 @@ class StaffdataController extends BaseController
         //$add = $data['staff_details']['0']['step_data']['res_addr_line1'] ;
         //echo '<pre>';print_r($add);
         // die();
-       // echo '<pre>';
-       // print_r($data['staff_details']);
-        //die;
+       //echo '<pre>';
+        //print_r($data['staff_details']);
+       //die;
 
         return View::make('staff.staffdata.staff_data', $data);
 
@@ -128,37 +128,18 @@ class StaffdataController extends BaseController
             }
         }
 
-        $step_ids = array();
+        $dept_data=array();
 
-        $fields_staffid = StepsFieldsStaff::where("staff_id", "=", $value->user_id)->
-            where("field_name", "=", "stafffile1")->orWhere("field_name", "=", "stafffile2")->
-            orWhere("field_name", "=", "stafffile3")->orWhere("field_name", "=",
-            "stafffile4")->select('field_id', 'field_name')->get();
-
+        $fields_staffid = Department::where("department_id", "=", $details[$key]['step_data']['department'])->select('name')->first();
         //echo $this->last_query();
-        foreach ($fields_staffid as $value) {
-
-            $step_ids[$value['field_name']] = $value->field_id;
-
-        }
-
-        $details[$key]['step_staffids'] = $step_ids;
-        //echo '<pre>';print_r($step_ids);die();
-
-        $step_profids = array();
-        $fields_profid = StepsFieldsStaff::where("staff_id", "=", $value->user_id)->
-            where("field_name", "=", "profilefile1")->orWhere("field_name", "=",
-            "profilefile2")->orWhere("field_name", "=", "profilefile3")->orWhere("field_name",
-            "=", "profilefile4")->select('field_id', 'field_name')->get();
-
-        //echo $this->last_query();
-        foreach ($fields_profid as $value) {
-
-            $step_profids[$value['field_name']] = $value->field_id;
-
-        }
-        $details[$key]['step_profids'] = $step_profids;
-
+                            //  echo '<pre>';
+                            //  print_r($fields_staffid);
+                            //  die;
+                             
+                              
+        $details[$key]['department_name'] = $fields_staffid['name'];
+        
+        //print_r($fields_staffid);die();
 
         return $details;
     }

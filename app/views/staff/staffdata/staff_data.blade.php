@@ -110,7 +110,11 @@ $(function() {
                   <td align="center">{{ $value['step_data']['position'] or "" }}</td>
                   <td align="center">{{ isset($value['created'])?date("d-m-Y", strtotime($value['created'])):"" }}</td>
                   <td align="center">&nbsp;</td>
-                  <td align="center">{{ $value['step_data']['department'] or "" }}</td>
+                  <td align="center">
+                  
+                  
+                  
+                  {{ $value['department_name'] or "" }}</td>
                   
                  <!-- <td align="center">{{ $value['step_data']['res_addr_line1'] or "" }},{{ $value['step_data']['res_addr_line2'] or "" }},{{ $value['step_data']['res_city'] or "" }},{{ $value['step_data']['res_county'] or "" }},{{ $value['step_data']['res_postcode'] or "" }} </td>
                 -->

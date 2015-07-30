@@ -219,7 +219,8 @@ Route::get('/delete-stafffile/{user_id}', 'StaffprofileController@delete_stafffi
 Route::any('/add-position-type', array("as"=>"add_position_type", "uses"=>'StaffprofileController@add_position_type'));
 Route::any('/delete-position-type', array("as"=>"delete_position_type", "uses"=>'StaffprofileController@delete_position_type'));
 
-
+Route::any('/add-department-type', array("as"=>"add_department_type", "uses"=>'StaffprofileController@add_department_type'));
+Route::any('/delete-department-type', array("as"=>"delete_department_type", "uses"=>'StaffprofileController@delete_department_type'));
 //Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
 
 Route::post('/staff/user-details-process', 'StaffprofileController@user_details_process');
