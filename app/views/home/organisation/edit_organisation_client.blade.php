@@ -87,6 +87,9 @@ $(document).ready(function(){
             <li>
               <p style="margin: 6px 0 0 0;font-size: 18px; font-weight: bold;color:#00acd6">{{ $client_details['business_name'] or "" }}</p>
             </li>
+            <li>
+              <span style="margin: 6px 0 0 405px;"><button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button></span>
+            </li>
             <div class="clearfix"></div>
           </ul>
         </div>
@@ -106,6 +109,7 @@ $(document).ready(function(){
           <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+          <li id="tab_6"><a class="open_header" data-id="6" href="javascript:void(0)">NOTES</a></li>
           @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
           @endif
@@ -2543,10 +2547,9 @@ $(document).ready(function(){
 
 
 <div class="add_client_btn">
-<!-- <button class="btn btn-info">Next</button> -->
-<button class="btn btn-info back" data-id="4" type="button">Prev</button>
-<button class="btn btn-danger save" type="submit">Save</button>
-
+  <button class="btn btn-info back" data-id="4" type="button">Prev</button>
+  <button class="btn btn-danger save" type="submit">Save</button>
+  <button class="btn btn-info open" data-id="6" type="button">Next</button>
 </div>
                               <div class="clearfix"></div>
                             </div>
@@ -2561,6 +2564,67 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
+
+<div id="step6" class="tab-pane" style="display:none;">
+    <div class="box-body table-responsive">
+      <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+        <div class="row">
+          <div class="col-xs-6"></div>
+          <div class="col-xs-6"></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-xs-8">
+            <div class="col_m2 icon_poisition">
+            <div class="notes_inner">
+            <div class="notes_inner_top">
+            <img src="/img/icon_1.png" class="heading_icon" />
+            <div class="n_top_left">
+            <span class="n_heading">TB Coder</span>
+            <p><span class="n_heading_name">By Abel Asiamah</span> <span class="n_date">On: Sat, 28 July, 2015 at 5:50PM</span></p>
+            </div>
+            <div class="print">
+            <a href="#"><img src="/img/print.png" /></a>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+            <p class="n_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            
+            <div class="add_client_btn">
+                <button class="btn btn-info back" data-id="5" type="button">Prev</button>
+                <button class="btn btn-danger save" type="submit">Save</button>
+                <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
+              </div>
+               <div class="clearfix"></div>
+            </div>
+            
+            </div>
+          </div>
+          <div class="col-xs-12 col-xs-4"> 
+          <div class="col_m2">
+          <div class="noted_right">
+          <img src="/img/plus_1.png" class="icon_gap" /> <strong class="notes_h_t">New Notes</strong>
+          <div class="notes_points">
+          <span class="notes_h_t">NOTES</span>
+          <ul>
+          <li><a href="#">TB Coder System requirements</a></li>
+          <li><a href="#">How does TB coder work</a></li>
+          <li><a href="#">Is TB coder a Secure site?</a></li>
+          <li><a href="#">Sign Up for a TB coder account</a></li>
+          <li><a href="#">How can I sin up for TB coder</a></li>
+          <li><a href="#">For which contries is TB coder available?</a></li>
+          <li><a href="#">Does TB coder work any accounts</a></li>
+          </ul>
+          </div>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
                 <!-- /.tab-pane -->
               </div>
             </div>
