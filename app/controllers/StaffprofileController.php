@@ -50,7 +50,8 @@ class StaffprofileController extends BaseController
 		$data['new_postion_types'] = Position::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
         
         
-        
+        $data['old_department_types'] = Department::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_department_types'] = Department::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
         
 
 
@@ -153,6 +154,21 @@ class StaffprofileController extends BaseController
     {
         $postData = Input::all();
 
+
+        //echo "<pre>";
+        //print_r($postData['department']);die();
+
+        /* if( $postData['oldstafffile1']!=""){
+        die('if');
+        }
+        else{
+        die('else');
+        }*/
+
+
+        //$postData['res_postcode'];
+        //echo "<pre>";
+        // print_r($postData['res_postcode']);die();
         $data = array();
         $userData = array();
         $arrData = array();
@@ -487,6 +503,25 @@ class StaffprofileController extends BaseController
          
     }
     
+    public function add_department_type()
+    {
+        $session_data = Session::get('admin_details');
+		
+		$data['name'] 			= Input::get("dept_name");
+		$data['user_id'] 		= $session_data['id'];
+		$data['status'] 		= "new";
+		$insert_id = Department::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
+
+         
+    }
+    
+    
+    
+    
+    
+    
     	public function delete_position_type() {
 		$field_id = Input::get("field_id");
 		if (Request::ajax()) {
@@ -495,6 +530,13 @@ class StaffprofileController extends BaseController
 		}
 	}
     
+    public function delete_department_type() {
+		$field_id = Input::get("field_id");
+		if (Request::ajax()) {
+			$data = Department::where("department_id", "=", $field_id)->delete();
+			echo $data;
+		}
+	}
     
     
     //public function prof_file(){
