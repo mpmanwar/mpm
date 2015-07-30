@@ -118,15 +118,22 @@ $(function() {//date_of_meeting
                           </div>
                           <p class="n_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                           
-                          <div class="add_client_btn">
+                          <!-- <div class="add_client_btn">
+                              <button class="btn btn-warning">Edit</button>
+                              <button class="btn btn-info">Delete</button>
+                              <button class="btn btn-success">Save</button>
+                              <button class="btn btn-danger">Cancel</button>
+                            </div> -->
+                             <div class="clearfix"></div>
+                          </div>
+                          
+<div class="add_client_btn">
                               <button class="btn btn-warning">Edit</button>
                               <button class="btn btn-info">Delete</button>
                               <button class="btn btn-success">Save</button>
                               <button class="btn btn-danger">Cancel</button>
                             </div>
-                             <div class="clearfix"></div>
-                          </div>
-                          
+
                           </div>
                         </div>
                         <div class="col-xs-12 col-xs-4"> 
@@ -149,6 +156,7 @@ $(function() {//date_of_meeting
                         </div>
                         </div>
                       </div>
+
     </section>
     <!-- /.content -->
   </aside>
