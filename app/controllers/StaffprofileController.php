@@ -46,7 +46,7 @@ class StaffprofileController extends BaseController
         $data['countries'] = Country::orderBy('country_name')->get();
         $data['nationalities'] = Nationality::get();
         
-        $data['old_postion_types'] = Position::whereIn("user_id", $groupUserId)->orderBy("name")->get();
+        $data['old_postion_types'] = Position::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
 		$data['new_postion_types'] = Position::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
         
         

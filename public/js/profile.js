@@ -101,7 +101,7 @@ $("#add_position_type").click(function(){
     
     //alert('fsfsffg');return false;
     
-    var org_name      = $("#org_name").val();
+    var type_name      = $("#org_name").val();
     
     //alert(org_name);return false;
     //var client_type   = $(this).data("client_type");
@@ -109,15 +109,15 @@ $("#add_position_type").click(function(){
     $.ajax({
       type: "POST",
       url: '/add-position-type',
-      data: { 'org_name':org_name },
+      data: { 'org_name':type_name },
       success : function(field_id){
         
         //alert(field_id)
-        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+org_name+'">'+org_name+'</label></div>';
+        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+type_name+'">'+type_name+'</label></div>';
         $("#append_position_type").append(append);
 
        $("#org_name").val("");
-        $("#position_type").append('<option value="'+field_id+'">'+org_name+'</option>');
+        $("#position_type").append('<option value="'+field_id+'">'+type_name+'</option>');
 
       }
     });

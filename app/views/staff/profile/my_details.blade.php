@@ -899,7 +899,7 @@ $(document).ready(function(){
       <td width="22%">
       
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4'] }}">
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4                                                                                                                                                                                                                          '] }}">
       @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
