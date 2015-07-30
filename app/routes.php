@@ -214,3 +214,12 @@ Route::get('/staff/user-details-process', 'StaffprofileController@user_details_p
 Route::get('/profile/to-list', 'StaffprofileController@to_list');
 
 /*=============== Staff Profile End =================*/
+
+/*==================Time Sheet Start ==============*/
+Route::post('/timesheet/insert-time-sheet', array("as"=>"insert-time-sheet", "uses"=>'TimesheetController@insert_time_sheet'));
+Route::post('/timesheet/timesheet-templates', array("as"=>"timesheet-templates", "uses"=>'TimesheetController@timesheet_templates'));
+Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=>'TimesheetController@edit_time_sheet'));
+/*==================Time Sheet End ==============*/
+
+
+//

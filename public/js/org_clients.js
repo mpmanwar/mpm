@@ -165,6 +165,7 @@ $("#add_vat_scheme").click(function(){
 
         $("#vat_scheme_name").val("");
         $("#vat_scheme_type").append('<option value="'+field_id+'">'+vat_scheme_name+'</option>');
+		$("#vat_scheme_types").append('<option value="'+field_id+'">'+vat_scheme_name+'</option>');
 
       }
     });
