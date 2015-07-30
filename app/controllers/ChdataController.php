@@ -1141,6 +1141,26 @@ class ChdataController extends BaseController {
         return $data;
     }
 
+    public function manage_tasks()
+    {
+    	$session 	= Session::get('admin_details');
+    	$data['previous_page'] = '<a href="/chdata/index">CH DATA</a>';
+    	$data['heading'] = "ANNUAL RETURNS - <span style='font-size:17px;'>MANAGE DEADLINES</span>";
+		$data['title'] = "Annual Returns";
+		$user_id 	= $session['id'];
+		$user_type 	= $session['user_type'];
+		
+		if(!isset($user_id) && $user_id == ""){
+			return Redirect::to('/');
+		}else if(isset($user_type) && $user_type == "C"){
+			return Redirect::to('/invitedclient-dashboard');
+		}
+
+		$data['jobs_steps'] = JobsStep::where("job_id", "=", 9)->orderBy("shorting_id")->get();
+
+		return View::make('ch_data.manage_tasks', $data);
+    }
+
     
 
 }

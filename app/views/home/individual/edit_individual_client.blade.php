@@ -1156,6 +1156,8 @@ $(document).ready(function(){
 
 <table width="100%" border="0">
   <tbody>
+    
+    
     <tr>
       <td width="45%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
       
@@ -1174,6 +1176,9 @@ $(document).ready(function(){
       </td>
       <td>&nbsp;</td>
     </tr>
+    
+    
+    
     <tr>
       <td>&nbsp;</td>
       @if(isset($files['passport2']) && $files['passport2'] != "")
@@ -1296,9 +1301,18 @@ $(document).ready(function(){
 <table width="100%" border="0" id="other_upload_table">
       <tbody><tr>
         <td width="45%"><button class="btn btn-danger">Upload Passport &amp; Utility docs</button></td>
-        <td width="22%"><span class="btn btn-default btn-file"> Browse
-          <input type="file" class="upload_file" name="passport1"  id="passport1">
-          </span></td>
+        
+        
+        
+        <td width="22%">
+            <span class="btn btn-default btn-file"> Browse
+                <input type="file" class="upload_file" name="passport1"  id="passport1">
+             </span>
+        </td>
+          
+          
+          
+          
         <td id="apassport1">
           @if(isset($files['passport1']) && $files['passport1'] != "")
           {{ $files['passport1'] }} <a href="javascript:void(0)" data-id="{{ $files['client_file_id'] }}" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>

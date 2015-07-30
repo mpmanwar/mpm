@@ -106,12 +106,17 @@ $(function() {
                 @foreach($staff_details as $key=>$value)
                 <tr>
                   <td><input type="checkbox" /></td>
-                  <td align="center"><a href="/my-details/{{ $value['user_id'] }}">{{ $value['fname'] or "" }} {{ $value['lname'] or "" }}</a></td>
+                  <td align="center"><a href="/my-details/{{ $value['user_id'] }}/{{ base64_encode('staff') }}">{{ $value['fname'] or "" }} {{ $value['lname'] or "" }}</a></td>
                   <td align="center">{{ $value['step_data']['position'] or "" }}</td>
                   <td align="center">{{ isset($value['created'])?date("d-m-Y", strtotime($value['created'])):"" }}</td>
                   <td align="center">&nbsp;</td>
                   <td align="center">{{ $value['step_data']['department'] or "" }}</td>
-                  <td align="center">{{ $value['step_data']['address1'] or "" }} </td>
+                  
+                 <!-- <td align="center">{{ $value['step_data']['res_addr_line1'] or "" }},{{ $value['step_data']['res_addr_line2'] or "" }},{{ $value['step_data']['res_city'] or "" }},{{ $value['step_data']['res_county'] or "" }},{{ $value['step_data']['res_postcode'] or "" }} </td>
+                -->
+         <td align="center">{{ (strlen($value['fulladdress']) > 20)? substr(strip_tags($value['fulladdress']), 0, 20)."...": strip_tags($value['fulladdress']) }}</td>
+              <!-- <td align="center">{{ $value['fulladdress']['res_addr'] or "" }} </td> -->
+               
                 </tr>
                 @endforeach
               @endif

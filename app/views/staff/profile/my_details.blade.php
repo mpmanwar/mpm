@@ -7,6 +7,8 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/profile.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/jquery.form.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
@@ -49,6 +51,22 @@ $(document).ready(function(){
     <!-- Main content -->
     {{ Form::open(array('url' => '/staff/user-details-process', 'files' => true, 'id'=>'basicform')) }}
     <input name="user_id" id="user_id" type="hidden" value="{{ $user_id }}">
+    
+     <input type="hidden"  name="page_name"  id="page_name" value="{{ $page_name }}">
+     
+       
+<input type="hidden" name="oldstafffile1"  id="oldstafffile1" value="{{ $staff_details['step_data']['stafffile1']  or "" }}">
+<input type="hidden" name="oldstafffile2"  id="oldstafffile2" value="{{ $staff_details['step_data']['stafffile2']  or "" }}">
+<input type="hidden" name="oldstafffile3"  id="oldstafffile3" value="{{ $staff_details['step_data']['stafffile3']  or "" }}">
+<input type="hidden" name="oldstafffile4"  id="oldstafffile4" value="{{ $staff_details['step_data']['stafffile4']  or "" }}">
+
+
+
+<input type="hidden" name="oldprofilefile1"  id="oldprofilefile1" value="{{ $staff_details['step_data']['profilefile1']  or "" }}">
+<input type="hidden" name="oldprofilefile2"  id="oldprofilefile2" value="{{ $staff_details['step_data']['profilefile2']  or "" }}">
+<input type="hidden" name="oldprofilefile3"  id="oldprofilefile3" value="{{ $staff_details['step_data']['profilefile3']  or "" }}">
+<input type="hidden" name="oldprofilefile4"  id="oldprofilefile4" value="{{ $staff_details['step_data']['profilefile4']  or "" }}">
+     
     <section class="content">
       
       <div class="row">
@@ -111,12 +129,14 @@ $(document).ready(function(){
     @endforeach
   @endif
 </select></div>
+
+<input type="hidden" name="staff_id" id="staff_id" value="{{ $staff_id }}"/>
 <div class="n_box2">
     <label for="exampleInputPassword1">First Name</label>
     <input type="text" id="fname" name="fname" value="{{ $staff_details['fname'] or "" }}" class="form-control toUpperCase"></div>
 <div class="n_box3">
     <label for="exampleInputPassword1">Middle Name</label>
-    <input type="text" id="mname" name="mname" value="{{ $staff_details['mname'] or "" }}" class="form-control"></div>
+    <input type="text" id="mname" name="mname" value="{{ $staff_details['step_data']['mname'] or "" }}" class="form-control"></div>
 <div class="n_box4">
     <label for="exampleInputPassword1">Last Name</label>
     <input type="text" id="lname" name="lname" value="{{ $staff_details['lname'] or "" }}" class="form-control toUpperCase"></div>
@@ -137,7 +157,7 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Date of Birth</label>
-<input type="text" id="dob" name="dob" value="{{ (isset($staff_details['dob']))?date('d-m-Y', strtotime($staff_details['dob'])):"" }}" class="form-control">
+<input type="text" id="dob" name="dob" value="{{ (isset($staff_details['step_data']['dob']))?date('d-m-Y', strtotime($staff_details['step_data']['dob'])):"" }}" class="form-control">
 </div>
 </div>
 <div class="clearfix"></div>
@@ -150,7 +170,8 @@ $(document).ready(function(){
 <select class="form-control" name="marital_status" id="marital_status">
   @if(!empty($marital_status))
     @foreach($marital_status as $key=>$status_row)
-    <option value="{{ $status_row->merital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->merital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
+           
+    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->marital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
     @endforeach
   @endif
 </select>
@@ -199,7 +220,48 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
-<input type="text" id="occupation" name="occupation" value="{{ $staff_details['occupation'] or "" }}" class="form-control">
+<a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+   <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> -->
+   
+   
+   
+   <select class="form-control" name="position_type" id="position_type">
+                     
+                      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+                        @foreach($old_postion_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->position_id }}" {{ (isset($staff_details['step_data']['position_type']) && $staff_details['step_data']['position_type'] == $old_org_row->position_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
+                        @endforeach
+                      @endif
+
+                      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+                        @foreach($new_postion_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->position_id }}" {{ (isset($staff_details['step_data']['position_type']) && $staff_details['step_data']['position_type'] == $new_org_row->position_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
+                        
+                        @endforeach
+                      @endif
+                     
+                     
+                    </select>
+   
+ 
+   
+<!--
+<select class="form-control" name="position_type" id="position_type">
+       
+        @if( isset($old_postion_types) && count($old_postion_types) >0 )
+          @foreach($old_postion_types as $key=>$old_org_row)
+          <option value="{{ $old_org_row->position_id }}">{{ $old_org_row->name }}</option>
+          @endforeach
+        @endif
+
+        @if( isset($new_postion_types) && count($new_postion_types) >0 )
+          @foreach($new_postion_types as $key=>$new_org_row)
+          <option value="{{ $new_org_row->position_id }}">{{ $new_org_row->name }}</option>
+          @endforeach
+        @endif
+       
+      </select>
+-->
 </div>
 </div>
 <div class="clearfix"></div>
@@ -209,20 +271,35 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">NI Number</label>
-<input type="text" id="occupation" name="occupation" value="{{ $staff_details['occupation'] or "" }}" class="form-control">
+<input type="text" id="ni_number" name="ni_number" class="form-control" value="{{ $staff_details['step_data']['ni_number'] or "" }}" >
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Tax Reference</label>
-<input type="text" id="occupation" name="occupation" class="form-control">
+<input type="text" id="tax_reference" name="tax_reference" class="form-control" value="{{ $staff_details['step_data']['tax_reference'] or "" }}" >
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
 
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Professional body</label>
+<input type="text" id="professional_body" name="professional_body" class="form-control" value="{{ $staff_details['step_data']['professional_body'] or "" }}" >
+</div>
+</div>
 
+<div class="twobox_2">
+<div class="form-group">
+<label for="exampleInputPassword1">Membership/Student number</label>
+<input type="text" id="student_number" name="student_number" class="form-control" value="{{ $staff_details['step_data']['student_number'] or "" }}" >
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
 
     <div class="add_client_btn">
       <button class="btn btn-danger open" type="submit">Save</button>
@@ -260,26 +337,26 @@ $(document).ready(function(){
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line1</label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $staff_details['res_addr_line1']  or "" }}" class="form-control" />
+      <input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $staff_details['step_data']['res_addr_line1']  or "" }}" class="form-control" />
     </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line2</label>
-      <input type="text" id="res_addr_line2" name="res_addr_line2" value="{{ $staff_details['res_addr_line2']  or "" }}" class="form-control" />
+      <input type="text" id="res_addr_line2" name="res_addr_line2" value="{{ $staff_details['step_data']['res_addr_line2']  or "" }}" class="form-control" />
     </div>
 
     <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">City/Town</label>
-          <input type="text" id="res_city" name="res_city" value="{{ $staff_details['res_city']  or "" }}" class="form-control">
+          <input type="text" id="res_city" name="res_city" value="{{ $staff_details['step_data']['res_city']  or "" }}" class="form-control">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">County</label>
-          <input type="text" id="res_county" name="res_county" value="{{ $staff_details['res_county']  or "" }}" class="form-control">
+          <input type="text" id="res_county" name="res_county" value="{{ $staff_details['step_data']['res_county']  or "" }}" class="form-control">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -289,14 +366,15 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Postcode</label>
-<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['step_data']['res_postcode']  or "" }}" class="form-control">
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">Country</label>
-  <select class="form-control" name="res_country" id="res_country">
+<label for="exampleInputPassword1">Country</label> 
+
+  <select class="form-control service_country" name="res_country" id="res_country">
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
@@ -322,12 +400,12 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_tele_code" value="{{ $staff_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
+      <input type="text" id="serv_tele_code" value="{{ $staff_details['step_data']['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
     </div>
 
     <div class="telbox">
       <label for="exampleInputPassword1">Telephone</label>
-      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['serv_telephone']  or "" }}" class="form-control"></div>
+      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['step_data']['serv_telephone']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -335,11 +413,11 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_mobile_code" value="{{$staff_details['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
+      <input type="text" id="serv_mobile_code" value="{{$staff_details['step_data']['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
     </div>
     <div class="telbox">
     <label for="exampleInputPassword1">Mobile</label>
-        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['serv_mobile']  or "" }}" class="form-control"></div>
+        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['step_data']['serv_mobile']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -351,7 +429,7 @@ $(document).ready(function(){
 
     <div class="form-group">
     <label for="exampleInputPassword1">Skype</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="skype" name="skype" value="{{ $staff_details ['step_data']['skype']  or "" }}" class="form-control">
     </div>
 
     <div class="form-group">
@@ -360,19 +438,19 @@ $(document).ready(function(){
 
     <div class="form-group">
     <label for="exampleInputPassword1">Name</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="emer_name" name="emer_name" value="{{ $staff_details['step_data']['emer_name']  or "" }}" class="form-control">
     </div>
 
     <div class="form-group">
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_tele_code" value="{{ $staff_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
+      <input type="text" id="emer_tele_code" value="{{ $staff_details['step_data']['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
     </div>
 
     <div class="telbox">
       <label for="exampleInputPassword1">Telephone</label>
-      <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $staff_details['serv_telephone']  or "" }}" class="form-control"></div>
+      <input type="text" id="emer_telephone" name="emer_telephone" value="{{ $staff_details['step_data']['emer_telephone']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -382,11 +460,11 @@ $(document).ready(function(){
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_mobile_code" value="{{$staff_details['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
+      <input type="text" id="emer_mobile_code" value="{{$staff_details['step_data']['serv_mobile_code']  or ""}}" name="serv_mobile_code" class="form-control" readonly />
     </div>
     <div class="telbox">
     <label for="exampleInputPassword1">Mobile</label>
-        <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $staff_details['serv_mobile']  or "" }}" class="form-control"></div>
+        <input type="text" id="emer_mobile" name="emer_mobile" value="{{ $staff_details['step_data']['emer_mobile']  or "" }}" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -421,18 +499,20 @@ $(document).ready(function(){
         <div class="col-xs-12 col-xs-6">
           <div class="col_m2">  
           
+           @if($page_name== 'staff')
+          
     <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
-          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['start_date']  or "" }}" class="form-control">
+          <input type="text" id="sstart_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" readonly="readonly" readonly="readonly">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">Holiday Entitlement</label>
-          <input type="text" id="holiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['holiday_entitlement']  or "" }}" class="form-control">
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control" readonly="readonly">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -442,28 +522,54 @@ $(document).ready(function(){
 <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Salary</label>
-<input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+<input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control" readonly="readonly">
 </div>
 </div>
+
+@endif
+ @if($page_name== 'profile')
+          
+    <div class="twobox">
+      <div class="twobox_1">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Start Date</label>
+          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" >
+        </div>
+      </div>
+
+      <div class="twobox_2">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Holiday Entitlement</label>
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Salary</label>
+<input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control">
+</div>
+</div>
+
+@endif
+
+
+
+
 
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Department</label>
-  <select class="form-control" name="res_country" id="res_country">
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
-    @if(!empty($countries))
-      @foreach($countries as $key=>$country_row)
-      @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
-      @endif
-      @endforeach
-    @endif
+  <select class="form-control" name="department" id="department">
+ 
+ <option value="php" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "php")?"selected":"" }} >PHP</option>
+    <option value="java" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "java")?"selected":"" }} >Java</option>
+    <option value="net" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "net")?"selected":"" }}>Net</option>
+    <option value="ios" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "ios")?"selected":"" }}  >IOs</option>
+   
   </select>
 </div>
 </div>
@@ -473,7 +579,7 @@ $(document).ready(function(){
 
   <div class="form-group">
     <label for="exampleInputPassword1">Qualifications</label>
-    <input type="text" id="serv_website" name="serv_website" value="{{ $staff_details['serv_website']  or "" }}" class="form-control">
+    <input type="text" id="qualifications" name="qualifications" value="{{ $staff_details['step_data']['qualifications']  or "" }}" class="form-control">
   </div>
 
   
@@ -481,7 +587,7 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Leaving Date</label>
-        <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['leaving_date']  or "" }}" class="form-control">
+        <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['step_data']['leaving_date']  or "" }}" class="form-control">
       </div>
     </div>
 
@@ -532,7 +638,7 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Bank Name</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="bank_name" name="bank_name" value="{{ $staff_details['step_data']['bank_name']  or "" }}" class="form-control">
       </div>
     </div>
 
@@ -548,90 +654,258 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Short Code</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="short_code" name="short_code" value="{{ $staff_details['step_data']['short_code']  or "" }}" class="form-control">
       </div>
     </div>
 
     <div class="twobox_2">
       <div class="form-group">
         <label for="exampleInputPassword1">Account Number</label>
-        <input type="text" id="res_postcode" name="res_postcode" value="{{ $staff_details['res_postcode']  or "" }}" class="form-control">
+        <input type="text" id="acc_no" name="acc_no" value="{{ $staff_details['step_data']['acc_no']  or "" }}" class="form-control">
       </div>
     </div>
     <div class="clearfix"></div>
   </div>
-
+  @if($page_name== 'staff')
+  
+  <div class="twobox">
+    
+    
+    <div class="form-group">
+        <label for="exampleInputPassword1">Note</label>
+        <textarea rows="2" cols="50" id="note" name="note" value="{{ $staff_details['step_data']['note']  or "" }}" class="form-control"></textarea>
+      </div>
+    
+  </div>
+@endif
 
 <div class="form-group">
 <table width="100%" border="0" class="other_staff_table" id="other_staff_table">
   <tbody>
     <tr>
       <td width="45%"><strong>Employment Contract</strong></td>
-      <td width="22%"><img src="/img/download.png"></td>
+      @if($page_name== 'profile')
+      
+      
+      <td width="22%">
+      @if ( (isset($staff_details['step_data']['stafffile1'])) && (!empty($staff_details['step_data']['stafffile1'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile1'] }}" download="{{ $staff_details['step_data']['stafffile1'] }}">
+      @endif
+      <img src="/img/download.png"></a></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
         
-      </td>
+        
+        @if ( (isset($staff_details['step_data']['stafffile1'])) && (!empty($staff_details['step_data']['stafffile1'])) )
+
+        {{ $staff_details['step_data']['stafffile1']  or "" }}
+         <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile1']}}" data-id="" data-column="passport1" data-path="uploads/stafffile/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
+        
+        
+         @endif
+         
+         
+      </td> 
+     
+      @if($page_name== 'staff')
+         
+         
+        
+         
+          <td width="22%">
+            <span class="btn btn-default btn-file"> Browse
+                <input type="file" class="staffupload_file" name="stafffile1"  id="stafffile1" >
+              
+            </span>
+          
+          </td>
+          
+          
+      <td id="default_staffile1"></td>
+           @endif
+      
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Staff Handbook</strong></td>
-      <td width="22%"><img src="/img/download.png"></td>
-      <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+      @if($page_name== 'profile')
+      
+      <td width="22%">
+      @if ( (isset($staff_details['step_data']['stafffile2'])) && (!empty($staff_details['step_data']['stafffile2'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile2'] }}" download="{{ $staff_details['step_data']['stafffile2'] }}">
+      @endif
+      <img src="/img/download.png"></a>
+      
       </td>
+      <td id="apassport1">
+      
+      @if ( (isset($staff_details['step_data']['stafffile2'])) && (!empty($staff_details['step_data']['stafffile2'])) )
+        {{ $staff_details['step_data']['stafffile2']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile2']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>       @endif
+        @endif
+      </td>
+      @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="staffupload_file" name="stafffile2"  id="stafffile2">
+        
+        </span>
+        
+        </td>
+      <td id="default_staffile2"></td>
+           @endif
     </tr>
 
     <tr>
       <td width="45%"><strong>CV</strong></td>
-      <td width="22%"><img src="/img/download.png"></td>
+      @if($page_name== 'profile')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['stafffile3'])) && (!empty($staff_details['step_data']['stafffile3'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile3'] }}" download="{{ $staff_details['step_data']['stafffile3'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+      @if ( (isset($staff_details['step_data']['stafffile3'])) && (!empty($staff_details['step_data']['stafffile3'])) )
+        {{ $staff_details['step_data']['stafffile3']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile3']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>           
+        @endif
+        @endif
       </td>
+      @if($page_name== 'staff')
+         
+          <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="staffupload_file" name="stafffile3"  id="stafffile3">
+        
+        </span>
+        
+        </td>
+      <td id="default_staffile3"></td>
+           @endif
     </tr>
 
     <tr>
       <td width="45%"><strong>OTHERS</strong></td>
-      <td width="22%"><img src="/img/download.png"></td>
-      <td id="apassport1">
-        Anwar <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-        
+      @if($page_name== 'profile')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['stafffile4'])) && (!empty($staff_details['step_data']['stafffile4'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile4'] }}" download="{{ $staff_details['step_data']['stafffile4'] }}">@endif <img src="/img/download.png"> 
+      </a>
       </td>
+      <td id="apassport1">
+      @if ( (isset($staff_details['step_data']['stafffile4'])) && (!empty($staff_details['step_data']['stafffile4'])) )
+        {{ $staff_details['step_data']['stafffile4']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        @endif
+        @endif
+      </td>
+      
+        @if($page_name== 'staff')
+         <td width="22%"><span class="btn btn-default btn-file"> Browse
+        <input type="file" class="staffupload_file" name="stafffile4"  id="stafffile4">
+        
+        </span>
+        
+        </td>
+      <td id="default_staffile4"></td>
+           @endif
     </tr>
 
 
     <tr>
       <td width="45%"><strong>ID and Proof of Address</strong></td>
+     
+     @if($page_name== 'profile')
+     
+     
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="staffupload_file"  name="profilefile1"  id="profilefile1">
+        
+            
+        
         </span></td>
-      <td id="apassport1">&nbsp;</td>
+      <td id="default_proffile1"></td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile1'])) && (!empty($staff_details['step_data']['profilefile1'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile1'] }}" download="{{ $staff_details['step_data']['profilefile1'] }}">
+      @endif <img src="/img/download.png"></a></td>
+      <td id="apassport1">
+        @if ( (isset($staff_details['step_data']['profilefile1'])) && (!empty($staff_details['step_data']['profilefile1'])) )
+        {{ $staff_details['step_data']['profilefile1'] or "" }} <a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile1']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
+      @endif
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Acadamic Certificate</strong></td>
+       @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
-        </span></td>
-      <td id="apassport1">&nbsp;</td>
+        <input type="file" class="staffupload_file" name="profilefile2"  id="profilefile2">
+        
+        </span>
+        
+        </td>
+      <td id="default_proffile2"></td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile2'])) && (!empty($staff_details['step_data']['profilefile2'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile2'] }}" download="{{ $staff_details['step_data']['profilefile2'] }}">
+      @endif <img src="/img/download.png"></a></td>
+      <td id="apassport1">
+        @if ( (isset($staff_details['step_data']['profilefile2'])) && (!empty($staff_details['step_data']['profilefile2'])) )
+        {{ $staff_details['step_data']['profilefile2']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile2']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
+      @endif
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Others</strong></td>
+       @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="staffupload_file" name="profilefile3"  id="profilefile3">
+        
         </span></td>
-      <td id="apassport1">&nbsp;</td>
+      <td id="default_proffile3"></td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile3'])) && (!empty($staff_details['step_data']['profilefile3'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile3'] }}" download="{{ $staff_details['step_data']['profilefile3'] }}">
+      @endif <img src="/img/download.png"></a></td>
+      <td id="apassport1">
+        @if ( (isset($staff_details['step_data']['profilefile3'])) && (!empty($staff_details['step_data']['profilefile3'])) )
+        {{ $staff_details['step_data']['profilefile3']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile3']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
+      @endif
     </tr>
 
     <tr>
+    
       <td width="45%"><strong>Copy of Signature</strong></td>
+      @if($page_name== 'profile')
       <td width="22%"><span class="btn btn-default btn-file"> Browse
-        <input type="file" class="upload_file" name="passport1"  id="passport1">
+        <input type="file" class="staffupload_file" name="profilefile4"  id="profilefile4">
+        
         </span></td>
-      <td id="apassport1">&nbsp;</td>
+      <td id="default_proffile4"></td>
+      @endif
+      @if($page_name== 'staff')
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4                                                                                                                                                                                                                          '] }}">
+      @endif <img src="/img/download.png"></a></td>
+      <td id="apassport1">
+      @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
+        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+      @endif
+      @endif
     </tr>
       
   </tbody>
@@ -693,7 +967,59 @@ $(document).ready(function(){
 
 
 
+<!-- add/edit list modal -->
+<div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+      
+    {{ Form::open(array('url' => '/add-position-type', 'id'=>'field_form')) }}
+    
+    <!-- <input type="hidden" name="client_type" id="client_type" value="org"> -->
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        
+        <input type="text" id="org_name" name="org_name" placeholder="Position/Job Title" class="form-control">
+      </div>
+      
+      <div id="append_position_type">
+      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+        @foreach($old_postion_types as $key=>$old_org_row)
+        <div class="form-group">
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
 
+      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+        @foreach($new_postion_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->position_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->position_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- @include("home.include.client_modal_page") -->
 
