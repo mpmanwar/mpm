@@ -1156,6 +1156,8 @@ $(document).ready(function(){
 
 <table width="100%" border="0">
   <tbody>
+    
+    
     <tr>
       <td width="45%"><button class="btn btn-danger">Download Passport &amp; Utility docs</button></td>
       
@@ -1174,6 +1176,9 @@ $(document).ready(function(){
       </td>
       <td>&nbsp;</td>
     </tr>
+    
+    
+    
     <tr>
       <td>&nbsp;</td>
       @if(isset($files['passport2']) && $files['passport2'] != "")

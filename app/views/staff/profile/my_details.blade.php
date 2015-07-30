@@ -220,7 +220,48 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
-<input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control">
+<a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+   <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> -->
+   
+   
+   
+   <select class="form-control" name="position_type" id="position_type">
+                     
+                      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+                        @foreach($old_postion_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->position_id }}" {{ (isset($staff_details['step_data']['position_type']) && $staff_details['step_data']['position_type'] == $old_org_row->position_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
+                        @endforeach
+                      @endif
+
+                      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+                        @foreach($new_postion_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->position_id }}" {{ (isset($staff_details['step_data']['position_type']) && $staff_details['step_data']['position_type'] == $new_org_row->position_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
+                        
+                        @endforeach
+                      @endif
+                     
+                     
+                    </select>
+   
+ 
+   
+<!--
+<select class="form-control" name="position_type" id="position_type">
+       
+        @if( isset($old_postion_types) && count($old_postion_types) >0 )
+          @foreach($old_postion_types as $key=>$old_org_row)
+          <option value="{{ $old_org_row->position_id }}">{{ $old_org_row->name }}</option>
+          @endforeach
+        @endif
+
+        @if( isset($new_postion_types) && count($new_postion_types) >0 )
+          @foreach($new_postion_types as $key=>$new_org_row)
+          <option value="{{ $new_org_row->position_id }}">{{ $new_org_row->name }}</option>
+          @endforeach
+        @endif
+       
+      </select>
+-->
 </div>
 </div>
 <div class="clearfix"></div>
@@ -242,24 +283,24 @@ $(document).ready(function(){
 </div>
 <div class="clearfix"></div>
 </div>
-@if($page_name== 'staff')
+
 <div class="twobox">
 <div class="twobox_1">
 <div class="form-group">
-<label for="exampleInputPassword1">Membership</label>
-<input type="text" id="membership" name="membership" class="form-control" value="{{ $staff_details['step_data']['membership'] or "" }}" >
+<label for="exampleInputPassword1">Professional body</label>
+<input type="text" id="professional_body" name="professional_body" class="form-control" value="{{ $staff_details['step_data']['professional_body'] or "" }}" >
 </div>
 </div>
 
 <div class="twobox_2">
 <div class="form-group">
-<label for="exampleInputPassword1">Student Number</label>
+<label for="exampleInputPassword1">Membership/Student number</label>
 <input type="text" id="student_number" name="student_number" class="form-control" value="{{ $staff_details['step_data']['student_number'] or "" }}" >
 </div>
 </div>
 <div class="clearfix"></div>
 </div>
-@endif
+
     <div class="add_client_btn">
       <button class="btn btn-danger open" type="submit">Save</button>
       <button class="btn btn-info open" data-id="2" type="button">Next</button>
@@ -458,18 +499,48 @@ $(document).ready(function(){
         <div class="col-xs-12 col-xs-6">
           <div class="col_m2">  
           
+           @if($page_name== 'staff')
+          
     <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
-          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control">
+          <input type="text" id="sstart_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" readonly="readonly" readonly="readonly">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">Holiday Entitlement</label>
-          <input type="text" id="holiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control" readonly="readonly">
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+<div class="twobox">
+<div class="twobox_1">
+<div class="form-group">
+<label for="exampleInputPassword1">Salary</label>
+<input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control" readonly="readonly">
+</div>
+</div>
+
+@endif
+ @if($page_name== 'profile')
+          
+    <div class="twobox">
+      <div class="twobox_1">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Start Date</label>
+          <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" >
+        </div>
+      </div>
+
+      <div class="twobox_2">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Holiday Entitlement</label>
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -482,6 +553,12 @@ $(document).ready(function(){
 <input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control">
 </div>
 </div>
+
+@endif
+
+
+
+
 
 <div class="twobox_2">
 <div class="form-group">
@@ -595,8 +672,8 @@ $(document).ready(function(){
     
     
     <div class="form-group">
-        <label for="exampleInputPassword1">Textarea</label>
-        <textarea rows="2" cols="50" id="textarea" name="textarea" value="{{ $staff_details['step_data']['textarea']  or "" }}" class="form-control"></textarea>
+        <label for="exampleInputPassword1">Note</label>
+        <textarea rows="2" cols="50" id="note" name="note" value="{{ $staff_details['step_data']['note']  or "" }}" class="form-control"></textarea>
       </div>
     
   </div>
@@ -608,18 +685,26 @@ $(document).ready(function(){
     <tr>
       <td width="45%"><strong>Employment Contract</strong></td>
       @if($page_name== 'profile')
-      <td width="22%"><img src="/img/download.png"></td>
+      
+      
+      <td width="22%">
+      @if ( (isset($staff_details['step_data']['stafffile1'])) && (!empty($staff_details['step_data']['stafffile1'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile1'] }}" download="{{ $staff_details['step_data']['stafffile1'] }}">
+      @endif
+      <img src="/img/download.png"></a></td>
       <td id="apassport1">
         
         
         @if ( (isset($staff_details['step_data']['stafffile1'])) && (!empty($staff_details['step_data']['stafffile1'])) )
 
         {{ $staff_details['step_data']['stafffile1']  or "" }}
-         <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+         <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile1']}}" data-id="" data-column="passport1" data-path="uploads/stafffile/" class="delete_files"><img src="/img/cross.png" height="12"></a>
         @endif
         
         
          @endif
+         
+         
       </td> 
      
       @if($page_name== 'staff')
@@ -645,11 +730,18 @@ $(document).ready(function(){
     
       <td width="45%"><strong>Staff Handbook</strong></td>
       @if($page_name== 'profile')
-      <td width="22%"><img src="/img/download.png"></td>
+      
+      <td width="22%">
+      @if ( (isset($staff_details['step_data']['stafffile2'])) && (!empty($staff_details['step_data']['stafffile2'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile2'] }}" download="{{ $staff_details['step_data']['stafffile2'] }}">
+      @endif
+      <img src="/img/download.png"></a>
+      
+      </td>
       <td id="apassport1">
       
       @if ( (isset($staff_details['step_data']['stafffile2'])) && (!empty($staff_details['step_data']['stafffile2'])) )
-        {{ $staff_details['step_data']['stafffile2']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>       @endif
+        {{ $staff_details['step_data']['stafffile2']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile2']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>       @endif
         @endif
       </td>
       @if($page_name== 'staff')
@@ -667,10 +759,14 @@ $(document).ready(function(){
     <tr>
       <td width="45%"><strong>CV</strong></td>
       @if($page_name== 'profile')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['stafffile3'])) && (!empty($staff_details['step_data']['stafffile3'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile3'] }}" download="{{ $staff_details['step_data']['stafffile3'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['stafffile3'])) && (!empty($staff_details['step_data']['stafffile3'])) )
-        {{ $staff_details['step_data']['stafffile3']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>           
+        {{ $staff_details['step_data']['stafffile3']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile3']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>           
         @endif
         @endif
       </td>
@@ -689,10 +785,15 @@ $(document).ready(function(){
     <tr>
       <td width="45%"><strong>OTHERS</strong></td>
       @if($page_name== 'profile')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['stafffile4'])) && (!empty($staff_details['step_data']['stafffile4'])) )
+      <a href="/uploads/stafffile/{{ $staff_details['step_data']['stafffile4'] }}" download="{{ $staff_details['step_data']['stafffile4'] }}">@endif <img src="/img/download.png"> 
+      </a>
+      </td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['stafffile4'])) && (!empty($staff_details['step_data']['stafffile4'])) )
-        {{ $staff_details['step_data']['stafffile4']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['stafffile4']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_staffids']['stafffile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
         @endif
         @endif
       </td>
@@ -724,10 +825,14 @@ $(document).ready(function(){
       <td id="default_proffile1"></td>
       @endif
       @if($page_name== 'staff')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile1'])) && (!empty($staff_details['step_data']['profilefile1'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile1'] }}" download="{{ $staff_details['step_data']['profilefile1'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
         @if ( (isset($staff_details['step_data']['profilefile1'])) && (!empty($staff_details['step_data']['profilefile1'])) )
-        {{ $staff_details['step_data']['profilefile1']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile1'] or "" }} <a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile1']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
@@ -745,10 +850,14 @@ $(document).ready(function(){
       <td id="default_proffile2"></td>
       @endif
       @if($page_name== 'staff')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile2'])) && (!empty($staff_details['step_data']['profilefile2'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile2'] }}" download="{{ $staff_details['step_data']['profilefile2'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
         @if ( (isset($staff_details['step_data']['profilefile2'])) && (!empty($staff_details['step_data']['profilefile2'])) )
-        {{ $staff_details['step_data']['profilefile2']  or "" }} <a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile2']  or "" }} <a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile2']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
@@ -764,10 +873,14 @@ $(document).ready(function(){
       <td id="default_proffile3"></td>
       @endif
       @if($page_name== 'staff')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile3'])) && (!empty($staff_details['step_data']['profilefile3'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile3'] }}" download="{{ $staff_details['step_data']['profilefile3'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
         @if ( (isset($staff_details['step_data']['profilefile3'])) && (!empty($staff_details['step_data']['profilefile3'])) )
-        {{ $staff_details['step_data']['profilefile3']  or "" }}<a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile3']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile3']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
@@ -783,10 +896,14 @@ $(document).ready(function(){
       <td id="default_proffile4"></td>
       @endif
       @if($page_name== 'staff')
-      <td width="22%"><img src="/img/download.png"></td>
+      <td width="22%">
+      
+      @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4'] }}">
+      @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="javascript:void(0)" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
@@ -850,7 +967,59 @@ $(document).ready(function(){
 
 
 
+<!-- add/edit list modal -->
+<div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+      
+    {{ Form::open(array('url' => '/add-position-type', 'id'=>'field_form')) }}
+    
+    <!-- <input type="hidden" name="client_type" id="client_type" value="org"> -->
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        
+        <input type="text" id="org_name" name="org_name" placeholder="Position/Job Title" class="form-control">
+      </div>
+      
+      <div id="append_position_type">
+      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+        @foreach($old_postion_types as $key=>$old_org_row)
+        <div class="form-group">
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
 
+      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+        @foreach($new_postion_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->position_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->position_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- @include("home.include.client_modal_page") -->
 
