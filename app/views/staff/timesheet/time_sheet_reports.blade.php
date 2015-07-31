@@ -347,7 +347,7 @@ $(function() {
             
                             <thead>
                               <tr role="row">
-                                <th align="center"><!--<input type="checkbox" id="allCheckSelect"/>--></th>
+                                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
                                 <th align="center"><strong>Date</strong></th>
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
@@ -363,7 +363,7 @@ $(function() {
 							@if(!empty($time_sheet_report))
 								  @foreach($time_sheet_report as $key=>$staff_row)
 								 <tr>
-									<td align="center"><!--<input type="checkbox" />--></td>
+									<td align="center"><input type="checkbox" /></td>
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
@@ -443,7 +443,7 @@ $(function() {
                 <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr >
-                <td align="left"><!--<a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>-->
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>
 				<input class="dpick" type="text" id="eddpick" name="date" size="10"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
@@ -600,7 +600,7 @@ $(function() {
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" class="DeleteBoxRow" ></a>
-				<input class="dpick" type="text" id="dpick1" name="date[]" size="10" />
+				<input class="dpick" type="text" id="dpick1" name="date[]"  />
 				</td>
                 <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
               <option value="">None</option>
