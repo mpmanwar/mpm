@@ -924,5 +924,6 @@ border: 1px solid #e2e4e6;
 .hide-tab{ box-shadow:none!important; border: none!important;}
 .save_btn_new{ float: right;}
 .save_new_status{ text-decoration: underline;}
+.cancel_edit{ text-decoration: underline;}
 .text_small{ width: 44.5%; height: 35px;}
 .table_content tr td{color:#383838; font-size:16px; font-family:Arial, Helvetica, sans-serif; font-variant:normal; font-weight:normal; -webkit-font-smoothing: antialiased; font-smoothing: antialiased; -moz-font-smoothing: antialiased;}

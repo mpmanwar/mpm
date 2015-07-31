@@ -122,14 +122,16 @@ $(document).ready(function(){
     });
 
 
+
+
+/* ================== Manage Tasks ================== */
     $(document).on("click", ".edit_status", function(){
         var step_id = $(this).data("step_id");
         var status_name = $("#status_span"+step_id).html();
-        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"'>";
-        var action = "<a href='javascript:void(0)' class='save_new_status'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'><img height='12' src='/img/cross.png' /></a>";
+        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+        var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
         $("#status_span"+step_id).html(text_field);
         $("#action_"+step_id).html(action);
-        //change_status_tr_
     });
 
     $("#status-modal").on("click", ".cancel_edit", function(){
@@ -138,10 +140,38 @@ $(document).ready(function(){
         var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
         $("#status_span"+step_id).html(status_name);
         $("#action_"+step_id).html(action);
-        //change_status_tr_
     });
 
+    $("#status-modal").on("click", ".save_new_status", function(){
+        var step_id = $(this).data("step_id");
+        var status_name = $("#status_name"+step_id).val();
+        //alert(status_name+" "+step_id);
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            //dataType: "json",
+            data: { 'step_id': step_id, 'status_name' : status_name },
+            beforeSend: function() {
+                //$("#goto"+key).html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp == 1){
+                    var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+                    $("#status_span"+step_id).html(status_name);
+                    $("#action_"+step_id).html(action);
 
+                    $("#step_field_"+step_id).text(status_name);
+                    $("#status_dropdown option[value='"+step_id+"']").html(status_name);
+
+                }else{
+                    alert("There are some problem to update status");
+                }
+                
+            }
+        });
+
+        
+    });
   
 
 
