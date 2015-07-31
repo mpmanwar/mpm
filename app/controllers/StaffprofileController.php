@@ -197,9 +197,7 @@ class StaffprofileController extends BaseController
 
         $result = StepsFieldsStaff::where("staff_id", "=", $staff_id)->get();
 
-        if (isset($result) && count($result) > 0) {
-
-            //StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name","<>",$filevalue)->delete();
+        /*if (isset($result) && count($result) > 0) {
             if ($postData['page_name'] == "staff") {
                 StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
                     "stafffile1")->orWhere("field_name", "!=", "stafffile2")->orWhere("field_name",
@@ -210,8 +208,14 @@ class StaffprofileController extends BaseController
                     "!=", "profilefile3")->orWhere("field_name", "!=", "profilefile4")->delete();
             }
 
-        }
+        }*/
 
+        StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
+                    "stafffile1")->where("field_name", "!=", "stafffile2")->where("field_name",
+                    "!=", "stafffile3")->where("field_name", "!=", "stafffile4")->where("field_name", "!=",
+                    "profilefile1")->where("field_name", "!=", "profilefile2")->where("field_name",
+                    "!=", "profilefile3")->where("field_name", "!=", "profilefile4")->delete();
+//echo $this->last_query();die;
         //################ GENERAL SECTION START #################//
         $step_id = 1;
         if (!empty($postData['title'])) {

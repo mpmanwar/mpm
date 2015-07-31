@@ -127,7 +127,7 @@ $(function() {//date_of_meeting
                              <div class="clearfix"></div>
                           </div>
                           
-<div class="add_client_btn">
+                            <div class="add_client_btn">
                               <button class="btn btn-warning">Edit</button>
                               <button class="btn btn-info">Delete</button>
                               <button class="btn btn-success">Save</button>
