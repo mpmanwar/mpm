@@ -44,7 +44,7 @@ class StaffprofileController extends BaseController
         if($data['page_name'] == "profile"){
             $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
         }else{
-            $data['previous_page'] = '<a href="/staff-profile">Staff Management</a>';
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
         }
         
 
