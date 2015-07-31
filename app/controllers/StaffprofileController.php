@@ -25,7 +25,7 @@ class StaffprofileController extends BaseController
         
        // print_r($user_id);
        // print_r(base64_decode($type_id));die();
-        	$admin_s = Session::get('admin_details');
+        $admin_s = Session::get('admin_details');
 	//	$user_id = $admin_s['id'];
 	//	$data['user_type'] 	= $admin_s['user_type'];
 		$groupUserId 		= $admin_s['group_users'];
@@ -41,7 +41,13 @@ class StaffprofileController extends BaseController
         $data['user_type'] = $session['user_type'];
         $data['heading'] = "";
         $data['title'] = "My Details";
-        $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+        if($data['page_name'] == "profile"){
+            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+        }else{
+            $data['previous_page'] = '<a href="/staff-profile">Staff Management</a>';
+        }
+        
+
         $data['titles'] = Title::orderBy("title_id")->get();
         $data['marital_status'] = MaritalStatus::orderBy("marital_status_id")->get();
         $data['countries'] = Country::orderBy('country_name')->get();
