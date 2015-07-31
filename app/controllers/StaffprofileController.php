@@ -66,8 +66,8 @@ class StaffprofileController extends BaseController
         $data['staff_id'] = $user_id;
         $data['staff_details'] = $this->userDetailsByUserId($user_id);
 
-        //echo '<pre>';
-       // print_r($data['staff_details']);
+       // echo '<pre>';
+      // print_r($data['staff_details']);
         //die;
         return View::make("staff.profile.my_details", $data);
     }
@@ -488,12 +488,22 @@ class StaffprofileController extends BaseController
         //OrganisationClient::insert($data);
     }
 
-    public function delete_stafffile($user_id)
+    public function delete_stafffile()
     {
+        $user_id=Input::get("del_id");
         
+       //print_r($user_id);die();
+        $field_name= StepsFieldsStaff::where("field_id", "=", $user_id)->select('field_name')->first();
+       
+       echo $field_name['field_name'];
+       //die();
        
        StepsFieldsStaff::where("field_id", "=", $user_id)->delete();
-       return Redirect::to('/staff-details');
+       
+      
+       //print_r($user_id);die();
+       //echo $this->last_query();die;       
+       //return Redirect::to('/staff-details');
         
         //print_r($user_id);die();
         
