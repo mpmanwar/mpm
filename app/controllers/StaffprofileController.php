@@ -66,8 +66,8 @@ class StaffprofileController extends BaseController
         $data['staff_id'] = $user_id;
         $data['staff_details'] = $this->userDetailsByUserId($user_id);
 
-        //echo '<pre>';
-       // print_r($data['staff_details']);
+       // echo '<pre>';
+      // print_r($data['staff_details']);
         //die;
         return View::make("staff.profile.my_details", $data);
     }

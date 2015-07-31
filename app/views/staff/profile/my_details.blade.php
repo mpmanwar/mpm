@@ -125,7 +125,7 @@ $(document).ready(function(){
 <select class="form-control select_title" id="title" name="title">
   @if( isset($titles) && count($titles) >0 )
     @foreach($titles as $key=>$title_row)
-    <option value="{{ $title_row->title_name }}" {{ (isset($staff_details['title']) && ($title_row->title_name == $staff_details['title']))?"selected":"" }}>{{ $title_row->title_name }}</option>
+    <option value="{{ $title_row->title_name }}" {{ (isset($staff_details['step_data']['title']) && ($title_row->title_name == $staff_details['step_data']['title']))?"selected":"" }}>{{ $title_row->title_name }}</option>
     @endforeach
   @endif
 </select></div>
@@ -148,8 +148,8 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Gender</label>
 <select class="form-control" name="gender" id="gender">
-  <option value="Male" {{ (isset($staff_details['gender']) && $staff_details['gender'] == "Male")?"selected":"" }}>Male</option>
-  <option value="Female" {{ (isset($staff_details['gender']) && $staff_details['gender'] == "Female")?"selected":"" }}>Female</option>
+  <option value="Male" {{ (isset($staff_details['step_data']['gender']) && $staff_details['step_data']['gender'] == "Male")?"selected":"" }}>Male</option>
+  <option value="Female" {{ (isset($staff_details['step_data']['gender']) && $staff_details['step_data']['gender'] == "Female")?"selected":"" }}>Female</option>
 </select>
 </div>
 </div>
@@ -221,7 +221,8 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
 <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-   <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> -->
+   <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> 
+   -->
    
    
    
@@ -260,8 +261,8 @@ $(document).ready(function(){
           @endforeach
         @endif
        
-      </select>
--->
+      </select> -->
+
 </div>
 </div>
 <div class="clearfix"></div>
@@ -1099,6 +1100,5 @@ $(document).ready(function(){
 
 
 
-<!-- @include("home.include.client_modal_page") -->
 
 @stop
