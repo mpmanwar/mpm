@@ -1163,15 +1163,28 @@ class ChdataController extends BaseController {
 
     public function save_edit_status()
     {
-    	$status_name 	= Input::get("status_name");
+    	$data = array();
     	$step_id 		= Input::get('step_id');
-    	$sql = JobsStep::where("step_id", "=", $step_id)->update(array("title"=>$status_name));
+    	$type 			= Input::get('type');
+    	if(isset($type) && $type == "title"){
+    		$data['title'] = Input::get("status_name");
+    		$title = $data['title'];
+    	}else{
+    		$value = JobsStep::where("step_id", "=", $step_id)->first();
+    		if($value['status'] == "S"){
+    			$data['status'] = "H";
+    		}else{
+    			$data['status'] = "S";
+    		}
+    		$title = $value['title'];
+    	}
+    	$sql = JobsStep::where("step_id", "=", $step_id)->update($data);
     	/*if($sql){
     		echo 1;
     	}else{
     		echo 0;
     	}*/
-    	echo 1;
+    	echo $title;
     	exit;
     }
 

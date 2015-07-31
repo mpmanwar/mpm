@@ -140,8 +140,8 @@ $(function() {
         @if(isset($jobs_steps) && count($jobs_steps) >0)
           <?php $i = 3;?>
             @foreach($jobs_steps as $key=>$value)
-            <li id="tab_{{ $i }}"><a class="open_header" data-id="{{ $i }}" href="javascript:void(0)"><span id="step_field_{{ $value->step_id}}">{{ $value->title or "" }}</span> [0]</a></li>
-            <?php $i++;?>
+              <li id="tab_{{ $i }}" class="header_step_{{ $value->step_id}}" style="display: {{ ($value->status == 'H')?'none':'block'}}"><a class="open_header" data-id="{{ $i }}" href="javascript:void(0)"><span id="step_field_{{ $value->step_id}}">{{ $value->title or "" }}</span> [0]</a></li>
+              <?php $i++;?>
             @endforeach
         @endif
         
@@ -211,7 +211,9 @@ $(function() {
               <option value="2">Not Started</option>
               @if(isset($jobs_steps) && count($jobs_steps) >0)
                 @foreach($jobs_steps as $key=>$value)
-                  <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
+                  @if($value->status == "S")
+                    <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
+                  @endif
                 @endforeach
               @endif
             </select>
@@ -287,7 +289,7 @@ $(function() {
       </div>
     {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
       <div class="modal-body">
-      <table class="table table-bordered table-hover dataTable">
+      <table class="table table-bordered table-hover dataTable add_status_table">
         <thead>
           <tr>
             <th align="center" width="20%">Show/Unshow</th>
@@ -299,7 +301,7 @@ $(function() {
           @if(isset($jobs_steps) && count($jobs_steps) >0)
             @foreach($jobs_steps as $key=>$value)
               <tr id="change_status_tr_{{ $value->step_id or "" }}">
-                <td align="center"><input type="checkbox" checked value="{{ $value->step_id or "" }}"></td>
+                <td align="center"><input type="checkbox" class="status_check" {{ ($value->status == "S")?"checked":"" }} value="{{ $value->step_id or "" }}" data-step_id="{{ $value->step_id }}"></td>
                 <td><span id="status_span{{ $value->step_id or "" }}">{{ $value->title or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value->step_id or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value->step_id or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>
