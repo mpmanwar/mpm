@@ -1,6 +1,7 @@
 <?php
 //opcache_reset ();
 //Cache::forget('user_list');
+//use DB;
 class TimesheetController extends BaseController {
     
     public function time_sheet_reports($type)
@@ -37,8 +38,7 @@ class TimesheetController extends BaseController {
 					$data2[$key]['timesheet_id'] = $val['timesheet_id'];
 					$data2[$key]['staff_detail'] 	= User::where("user_id", "=", $val['staff_id'])->select("user_id", "fname", "lname")->first();
 					$data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
-					
-					$data2[$key]['client_detail'] = StepsFieldsClient::where("field_name", "=", "business_name")->orWhere("field_name", "client_name")->where("client_id", "=", $val['rel_client_id'])->first();
+					$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
 					//echo $this->last_query();
 					$data2[$key]['hrs'] = $val['hrs'];	
 					$data2[$key]['notes'] = $val['notes'];	
