@@ -138,7 +138,7 @@ $(function() {
   <table id="example2" class="table table-bordered table-hover ch_returns">
     <thead>
       <tr role="row">
-          <th><input type="checkbox" id="allCheckSelect"/></th>
+          <th><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
           <th>D01</th>
           <th>CRN</th>
           <th>NAME</th>
@@ -156,7 +156,7 @@ $(function() {
         @foreach($company_details as $key=>$details)
           @if(isset($details['registration_number']) && $details['registration_number']!= "")
             <tr class="even">
-                <td><input type="checkbox"/></td>
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
                 <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="center">{{ $details['registration_number'] or "" }}</td>
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>

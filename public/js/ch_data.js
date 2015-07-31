@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $('#allCheckSelect').on('ifChecked', function(event){
-        $('.ch_returns input').iCheck('check');
+    $('#CheckallCheckbox').on('ifChecked', function(event){
+        $(".ch_returns input[class='checkbox']").iCheck('check');
     });
 
-    $('#allCheckSelect').on('ifUnchecked', function(event){
-        $('.ch_returns input').iCheck('uncheck');
+    $('#CheckallCheckbox').on('ifUnchecked', function(event){
+        $(".ch_returns input[class='checkbox']").iCheck('uncheck');
     });
 
     $(document).click(function() {
@@ -233,6 +233,37 @@ $(document).ready(function(){
         
     });
 /* ################# Send to Task Management End ################### */
+
+
+/* ################# Delete to Task Management Start ################### */
+    $(".delete_manage_task").click(function(){
+        var val = [];
+        $(".checkbox:checked").each( function (i) {
+            if($(this).is(':checked')){
+                val[i] = $(this).val();
+            }
+        });
+        //alert(val.length);return false;
+        if(val.length>0){
+            if(confirm("Do you want to Change the status?")){
+                $.ajax({
+                    type: "POST",
+                    url: '/chdata/delete-manage-task',
+                    data: { 'client_delete_id' : val },
+                    success : function(resp){
+                        
+                            
+                    }
+                });
+            }
+
+        }else{
+            alert('Please select atleast one clients');
+        }
+        
+    });
+/* ################# Delete to Task Management End ################### */
+
   
 
 //send_manage_task

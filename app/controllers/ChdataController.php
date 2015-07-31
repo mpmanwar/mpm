@@ -1198,6 +1198,16 @@ class ChdataController extends BaseController {
     	echo 1;
     }
 
+    public function delete_manage_task()
+    {
+    	$client_delete_id = Input::get("client_delete_id");
+		//print_r($client_delete_id);die;
+		foreach ($client_delete_id as $client_id) {
+			$del_data['ch_manage_task'] = "N";
+			Client::where('client_id', '=', $client_id)->update($del_data);
+		}
+    }
+
     
 
 }

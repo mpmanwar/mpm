@@ -161,7 +161,7 @@ $(function() {
       <div class="top_bts">
         <ul style="padding:0;">
           <li>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="javascript:void(0)" class="btn btn-danger delete_manage_task">Delete</a>
           </li>
         <div class="clearfix"></div>
         </ul>
@@ -182,7 +182,7 @@ $(function() {
     <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><input type="checkbox" id="" /></th><!-- allCheckSelect -->
+          <th><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th><!-- allCheckSelect -->
           <th>STAFF</th>
           <th>DO1</th>
           <th>BUSINESS TYPE</th>
@@ -201,7 +201,7 @@ $(function() {
         @foreach($client_details as $key=>$details)
           @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
             <tr class="even">
-                <td><input type="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}" /></td>
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>

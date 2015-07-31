@@ -83,6 +83,7 @@ $(function() {
             <div class="clearfix"></div>
           </ul>
         </div>
+        <div class="clearfix"></div>
 
       </div>
           <div class="tabarea">
