@@ -58,6 +58,9 @@ $(document).ready(function (e) {
 		});
 	});
     
+    
+    
+    
 	
 });
 
@@ -219,6 +222,50 @@ $("#append_department_type").on("click", ".delete_department_name", function(){
   }
   
 }); 
+
+
+$(".delete_files").click(function(){
+    
+    
+    var del_id = $(this).data('delid');
+   
+    //var file_id = $(this).data('id');
+   
+   //alert(file_id);return false;
+    $.ajax({
+      type: "POST",
+      url: '/delete-stafffile',
+      data: { 'del_id':del_id },
+      success : function(resp_id){
+        
+        //alert(resp_id);
+      
+            //var div="old"+resp_id
+            
+            if(resp_id){
+            //alert(div);return false;
+         $("#old"+resp_id).val("");
+         $("#hide"+resp_id).html("");
+         
+         //window.scrollTo(0, 0);
+         
+         // $('#'+resp_id).val("");
+         }else{
+            
+            alert("There are some error to delete this file, Please try again");
+         }
+       }
+    });
+    
+    //alert(del_id);
+    
+    
+    
+    
+    
+    
+});
+
 //Delete position name  user end
 
 // Save Business type while add organization client end //
