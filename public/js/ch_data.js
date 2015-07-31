@@ -150,12 +150,12 @@ $(document).ready(function(){
             type: "POST",
             url: "/chdata/save-edit-status",
             //dataType: "json",
-            data: { 'step_id': step_id, 'status_name' : status_name },
+            data: { 'step_id': step_id, 'status_name' : status_name, 'type' : "title" },
             beforeSend: function() {
                 //$("#goto"+key).html('<img src="/img/spinner.gif" />');
             },
             success: function (resp) {
-                if(resp == 1){
+                if(resp != ""){
                     var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
                     $("#status_span"+step_id).html(status_name);
                     $("#action_"+step_id).html(action);
@@ -170,7 +170,32 @@ $(document).ready(function(){
             }
         });
 
-        
+    });
+
+    $('.status_check').on('ifChecked', function(event){
+        var step_id = $(this).data("step_id");
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            data: { 'step_id': step_id, 'type' : "status" },
+            success: function (resp) {
+                $('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));    
+                $(".header_step_"+step_id).show();           
+            }
+        });
+    });
+
+    $('.status_check').on('ifUnchecked', function(event){
+        var step_id = $(this).data("step_id");
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            data: { 'step_id': step_id, 'type' : "status" },
+            success: function (resp) {
+                $("#status_dropdown option[value='"+step_id+"']").remove(); 
+                $(".header_step_"+step_id).hide();              
+            }
+        });
     });
   
 
