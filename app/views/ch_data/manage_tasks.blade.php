@@ -206,7 +206,7 @@ $(function() {
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="left">{{ $details['auth_code'] or "" }}</td>
+                <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <!-- <td align="left"></td> -->
                 <td align="center">{{ $details['count_down'] or "" }}</td>
