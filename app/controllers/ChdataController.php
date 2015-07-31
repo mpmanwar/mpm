@@ -1161,6 +1161,33 @@ class ChdataController extends BaseController {
 		return View::make('ch_data.manage_tasks', $data);
     }
 
+    public function save_edit_status()
+    {
+    	$data = array();
+    	$step_id 		= Input::get('step_id');
+    	$type 			= Input::get('type');
+    	if(isset($type) && $type == "title"){
+    		$data['title'] = Input::get("status_name");
+    		$title = $data['title'];
+    	}else{
+    		$value = JobsStep::where("step_id", "=", $step_id)->first();
+    		if($value['status'] == "S"){
+    			$data['status'] = "H";
+    		}else{
+    			$data['status'] = "S";
+    		}
+    		$title = $value['title'];
+    	}
+    	$sql = JobsStep::where("step_id", "=", $step_id)->update($data);
+    	/*if($sql){
+    		echo 1;
+    	}else{
+    		echo 0;
+    	}*/
+    	echo $title;
+    	exit;
+    }
+
     
 
 }

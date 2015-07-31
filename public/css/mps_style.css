@@ -10,7 +10,7 @@
 .drop_down_city ul li a:hover{color:#3c8dbc;}
 
 /*========== practice details=======*/
-.top_bts{position: relative; display: inline-block; vertical-align: middle;}
+.top_bts{position: relative; display: inline-block; vertical-align: middle; float:left;}
 .top_bts ul{list-style:none;}
 .top_bts ul li{float:left; margin-right:15px; margin-bottom:10px;}
 .top_bts ul li:last-child{margin-right:0;}
@@ -924,5 +924,7 @@ border: 1px solid #e2e4e6;
 .hide-tab{ box-shadow:none!important; border: none!important;}
 .save_btn_new{ float: right;}
 .save_new_status{ text-decoration: underline;}
+.cancel_edit{ text-decoration: underline;}
 .text_small{ width: 44.5%; height: 35px;}
 .table_content tr td{color:#383838; font-size:16px; font-family:Arial, Helvetica, sans-serif; font-variant:normal; font-weight:normal; -webkit-font-smoothing: antialiased; font-smoothing: antialiased; -moz-font-smoothing: antialiased;}
+.send_task{Background:#d5e6ff; border:4px solid #fff; box-shadow: 0px 0px 2px #cad7e7; padding: 20px 10px; margin: -12px 0 0 50px; float: left; font-size: 16px; width:44.5%; font-weight: bold;}

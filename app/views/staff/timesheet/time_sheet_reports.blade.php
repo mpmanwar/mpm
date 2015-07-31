@@ -189,10 +189,13 @@ $(function() {
 			// console.log("asdfhsdaghfjksdagkf")
 
 			$("#compose-edit-modal").modal("show");
-			
-				$('#eddpick').val(resp.created_date);
-				$('#staff_id').val(resp.staff_id);
-				$('#rel_client_id').val(resp.rel_client_id);
+			//alert(resp.created_dates);
+			   var dateAr = resp.created_date.split('-');
+			   var date_string = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+				//var date_string = moment(resp.created_date, "DD.MM.YYYY").format("DD-MM-YYYY");
+				$('#eddpick').val(date_string);
+				$('#staff_id_edit').val(resp.staff_id);
+				$('#rel_client_id_edit').val(resp.rel_client_id);
 				$('#vat_scheme_types').val(resp.vat_scheme_type);
 				$('#editid').val(resp.timesheet_id);
 
@@ -344,7 +347,7 @@ $(function() {
             
                             <thead>
                               <tr role="row">
-                                <th align="center"><!--<input type="checkbox" id="allCheckSelect"/>--></th>
+                                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
                                 <th align="center"><strong>Date</strong></th>
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
@@ -360,7 +363,7 @@ $(function() {
 							@if(!empty($time_sheet_report))
 								  @foreach($time_sheet_report as $key=>$staff_row)
 								 <tr>
-									<td align="center"><!--<input type="checkbox" />--></td>
+									<td align="center"><input type="checkbox" /></td>
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
@@ -440,11 +443,11 @@ $(function() {
                 <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr >
-                <td align="left"><!--<a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>-->
-				<input class="dpick" type="text" id="eddpick" name="date" style="width:90%; height: 33px"/>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>
+				<input class="dpick" type="text" id="eddpick" name="date" size="10" style="width:90%; height: 33px;"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
-                <td align="center"><select class="form-control" name="staff_id" id="staff_id">
+                <td align="center"><select class="form-control" name="staff_id" id="staff_id_edit">
               <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -453,7 +456,7 @@ $(function() {
                 @endif
               </select></td>
                 <td align="center">
-				<select class="form-control" name="rel_client_id" id="rel_client_id">
+				<select class="form-control" name="rel_client_id" id="rel_client_id_edit">
 				<option value="">None</option>
 					@if(isset($allClients) && count($allClients)>0)
 					  @foreach($allClients as $key=>$client_row)
@@ -478,8 +481,8 @@ $(function() {
                                     @endif
                                    
                                   </select></td>
-                <td align="center"><input type="text" name="hrs" id="hrs" size="5%" style="height:33px"></td>
-                <td align="center"><input type="text" name="notes" id="notes" style="width:100%;height:33px"></td>
+                <td align="center"><input type="text" name="hrs" id="hrs" style="width:90%; height: 33px;"></td>
+                <td align="center"><input type="text" name="notes" id="notes" style="width:90%; height: 33px;"></td>
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
@@ -597,7 +600,7 @@ $(function() {
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" class="DeleteBoxRow" ></a>
-				<input class="dpick" type="text" id="dpick1" name="date[]" style="width:90%; height: 33px;" />
+				<input class="dpick" type="text" id="dpick1" name="date[]"  style="width:90%; height: 33px;"/>
 				</td>
                 <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
               <option value="">None</option>
@@ -633,8 +636,8 @@ $(function() {
                                     @endif
                                    
                                   </select></td>
-                <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height:33px"></td>
-                <td align="center"><input type="text" name="notes[]" id="notes" style="width:100%; height:33px;"></td>
+                <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height: 33px;"></td>
+                <td align="center"><input type="text" name="notes[]" id="notes" style="width:90%; height: 33px;"></td>
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>

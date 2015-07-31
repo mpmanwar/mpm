@@ -122,14 +122,16 @@ $(document).ready(function(){
     });
 
 
+
+
+/* ================== Manage Tasks ================== */
     $(document).on("click", ".edit_status", function(){
         var step_id = $(this).data("step_id");
         var status_name = $("#status_span"+step_id).html();
-        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"'>";
-        var action = "<a href='javascript:void(0)' class='save_new_status'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'><img height='12' src='/img/cross.png' /></a>";
+        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+        var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
         $("#status_span"+step_id).html(text_field);
         $("#action_"+step_id).html(action);
-        //change_status_tr_
     });
 
     $("#status-modal").on("click", ".cancel_edit", function(){
@@ -138,10 +140,67 @@ $(document).ready(function(){
         var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
         $("#status_span"+step_id).html(status_name);
         $("#action_"+step_id).html(action);
-        //change_status_tr_
     });
 
+    $("#status-modal").on("click", ".save_new_status", function(){
+        var step_id = $(this).data("step_id");
+        var status_name = $("#status_name"+step_id).val();
+        //alert(status_name+" "+step_id);
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            //dataType: "json",
+            data: { 'step_id': step_id, 'status_name' : status_name, 'type' : "title" },
+            beforeSend: function() {
+                //$("#goto"+key).html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp != ""){
+                    var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+                    $("#status_span"+step_id).html(status_name);
+                    $("#action_"+step_id).html(action);
 
+                    $("#step_field_"+step_id).text(status_name);
+                    $("#status_dropdown option[value='"+step_id+"']").html(status_name);
+
+                }else{
+                    alert("There are some problem to update status");
+                }
+                
+            }
+        });
+
+    });
+
+    $('.status_check').on('ifChecked', function(event){
+        var step_id = $(this).data("step_id");
+        //alert(step_id);return false;
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            data: { 'step_id': step_id, 'type' : "status" },
+            success: function (resp) {
+                //$('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));
+                $("#status_dropdown option[value='"+step_id+"']").show();    
+                $(".header_step_"+step_id).show();           
+            }
+        });
+    });
+
+    $('.status_check').on('ifUnchecked', function(event){
+        var step_id = $(this).data("step_id");
+        //alert(step_id);return false;
+        $.ajax({
+            type: "POST",
+            url: "/chdata/save-edit-status",
+            data: { 'step_id': step_id, 'type' : "status" },
+            success: function (resp) {
+                //$("#status_dropdown option[value='"+step_id+"']").remove(); 
+                $("#status_dropdown option[value='"+step_id+"']").hide();   
+                $(".header_step_"+step_id).hide();              
+            }
+        });
+    });
   
 
 
