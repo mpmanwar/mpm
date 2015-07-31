@@ -339,8 +339,8 @@ $(function() {
                       <div class="row">
                         <div class="col-xs-12">
 						<?php 
-						//echo '<pre>';
-						//print_r($time_sheet_report);
+						echo '<pre>';
+						print_r($time_sheet_report);
 							
 						?>
                           <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
