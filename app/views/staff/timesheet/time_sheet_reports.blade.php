@@ -189,10 +189,13 @@ $(function() {
 			// console.log("asdfhsdaghfjksdagkf")
 
 			$("#compose-edit-modal").modal("show");
-			
-				$('#eddpick').val(resp.created_date);
-				$('#staff_id').val(resp.staff_id);
-				$('#rel_client_id').val(resp.rel_client_id);
+			//alert(resp.created_dates);
+			   var dateAr = resp.created_date.split('-');
+			   var date_string = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+				//var date_string = moment(resp.created_date, "DD.MM.YYYY").format("DD-MM-YYYY");
+				$('#eddpick').val(date_string);
+				$('#staff_id_edit').val(resp.staff_id);
+				$('#rel_client_id_edit').val(resp.rel_client_id);
 				$('#vat_scheme_types').val(resp.vat_scheme_type);
 				$('#editid').val(resp.timesheet_id);
 
@@ -444,7 +447,7 @@ $(function() {
 				<input class="dpick" type="text" id="eddpick" name="date" size="10"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
-                <td align="center"><select class="form-control" name="staff_id" id="staff_id">
+                <td align="center"><select class="form-control" name="staff_id" id="staff_id_edit">
               <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -453,7 +456,7 @@ $(function() {
                 @endif
               </select></td>
                 <td align="center">
-				<select class="form-control" name="rel_client_id" id="rel_client_id">
+				<select class="form-control" name="rel_client_id" id="rel_client_id_edit">
 				<option value="">None</option>
 					@if(isset($allClients) && count($allClients)>0)
 					  @foreach($allClients as $key=>$client_row)
