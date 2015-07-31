@@ -174,12 +174,14 @@ $(document).ready(function(){
 
     $('.status_check').on('ifChecked', function(event){
         var step_id = $(this).data("step_id");
+        //alert(step_id);return false;
         $.ajax({
             type: "POST",
             url: "/chdata/save-edit-status",
             data: { 'step_id': step_id, 'type' : "status" },
             success: function (resp) {
-                $('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));    
+                //$('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));
+                $("#status_dropdown option[value='"+step_id+"']").show();    
                 $(".header_step_"+step_id).show();           
             }
         });
@@ -187,12 +189,14 @@ $(document).ready(function(){
 
     $('.status_check').on('ifUnchecked', function(event){
         var step_id = $(this).data("step_id");
+        //alert(step_id);return false;
         $.ajax({
             type: "POST",
             url: "/chdata/save-edit-status",
             data: { 'step_id': step_id, 'type' : "status" },
             success: function (resp) {
-                $("#status_dropdown option[value='"+step_id+"']").remove(); 
+                //$("#status_dropdown option[value='"+step_id+"']").remove(); 
+                $("#status_dropdown option[value='"+step_id+"']").hide();   
                 $(".header_step_"+step_id).hide();              
             }
         });

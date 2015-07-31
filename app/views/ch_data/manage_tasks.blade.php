@@ -182,7 +182,7 @@ $(function() {
     <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><input type="checkbox" id="allCheckSelect"/></th>
+          <th><input type="checkbox" id=""/></th>
           <th>STAFF</th>
           <th>DO1</th>
           <th>BUSINESS TYPE</th>
@@ -211,9 +211,7 @@ $(function() {
               <option value="2">Not Started</option>
               @if(isset($jobs_steps) && count($jobs_steps) >0)
                 @foreach($jobs_steps as $key=>$value)
-                  @if($value->status == "S")
-                    <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
-                  @endif
+                  <option value="{{ $value->step_id or "" }}"  style="display: {{ ($value->status == 'H')?'none':'block'}}">{{ $value->title or "" }}</option>
                 @endforeach
               @endif
             </select>
