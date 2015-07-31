@@ -164,7 +164,7 @@ $(function() {//date_of_meeting
   <div class="notes_top_btns">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="20%"><button type="button" class="btn btn-default show_staff_appraisal"><span class="requ_t">Roll Forward from Previous From</span></button></td>
+        <td width="20%"><button type="button" class="btn btn-default "><span class="requ_t">Roll Forward from Previous From</span></button></td>
         <td width="1%">&nbsp;</td>
         <td width="22%"><button class="btn btn-default show_new_form" type="button"><span class="requ_t">+ New Form</span></button></td>
         <td width="2%">&nbsp;</td>
@@ -175,7 +175,7 @@ $(function() {//date_of_meeting
     </table>
   </div>
   
-  <div id="appraisal_div" style="display: none;">
+  <div id="show_form_content" style="display: none;">
     <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table table-bordered table_content">
       <tr>
         <td width="21%"><strong>Appraisee :</strong></td>
@@ -208,11 +208,7 @@ $(function() {//date_of_meeting
         <td>&nbsp;</td>
       </tr>
     </table>
-  </div>
 
-
-  <!--sub tab -->
-  <div class="nav-tabs-custom show_form_content" style="display:none;">
     <ul class="nav nav-tabs nav-tabsbg">
       <li class="active"><a data-toggle="tab" href="#tab_5">Performance – Objectives and targets</a></li>
       <li class=""><a data-toggle="tab" href="#tab_6">Competency and Skill Development</a></li>
@@ -233,8 +229,8 @@ $(function() {//date_of_meeting
                          <div class="notes_top_btns">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_content">
   <tr>
-    <td><a href="javascript:void(0)" class="show_set_objective">Set objectives and targets for the coming year</a></td>
-    <td><a href="javascript:void(0)" class="show_review_last">Review of last performance – Objectives and targets</a></td>
+    <td><a href="javascript:void(0)" class="show_set_objective">Review of last performance – Objectives and targets</a></td>
+    <td><a href="javascript:void(0)" class="show_review_last">Set objectives and targets for the comming year</a></td>
   </tr>
 </table>
 
@@ -319,9 +315,9 @@ $(function() {//date_of_meeting
 <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table table-bordered table_content">
   <tr>
     <td width="25%">Competencies / Skills identified for development</td>
-    <td width="15%">Competency lavel required</td>
-    <td width="15%">Previous Competency lavel</td>
-    <td width="15%">Current Competency lavel</td>
+    <td width="15%">Competency level required</td>
+    <td width="15%">Previous Competency level</td>
+    <td width="15%">Current Competency level</td>
     <td width="30%">Supporting evidence – note other factors affrecting performance (Positive or negative)</td>
   </tr>
   <tr>

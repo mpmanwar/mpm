@@ -248,3 +248,9 @@ Route::post('/timesheet/insert-time-sheet', array("as"=>"insert-time-sheet", "us
 Route::post('/timesheet/timesheet-templates', array("as"=>"timesheet-templates", "uses"=>'TimesheetController@timesheet_templates'));
 Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=>'TimesheetController@edit_time_sheet'));
 /*==================Time Sheet End ==============*/
+
+
+/*================== Notes Start ==============*/
+Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
+/*================== Notes End ==============*/
+

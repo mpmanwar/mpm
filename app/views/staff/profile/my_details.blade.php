@@ -919,11 +919,11 @@ $(document).ready(function(){
       <td width="22%">
       
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4                                                                                                                                                                                                                          '] }}">
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] or "" }}" download="{{ $staff_details['step_data']['profilefile4'] or "" }}">
       @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4'] or ""}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
