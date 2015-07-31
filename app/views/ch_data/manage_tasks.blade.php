@@ -137,19 +137,22 @@ $(function() {
       <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
         <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">All [1]</a></li>
         <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">Not Started [2]</a></li>
-        <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">Information Requested [3]</a></li>
+        @if(isset($jobs_steps) && count($jobs_steps) >0)
+          <?php $i = 3;?>
+            @foreach($jobs_steps as $key=>$value)
+            <li id="tab_{{ $i }}"><a class="open_header" data-id="{{ $i }}" href="javascript:void(0)"><span id="step_field_{{ $value->step_id}}">{{ $value->title or "" }}</span> [0]</a></li>
+            <?php $i++;?>
+            @endforeach
+        @endif
+        
+        <!-- <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">Information Requested [3]</a></li>
         <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">Information Received [4]</a></li>
         <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">Progress [5]</a></li>
         <li id="tab_6"><a class="open_header" data-id="6" href="javascript:void(0)">Drafted [6]</a></li>
         <li id="tab_7"><a class="open_header" data-id="7" href="javascript:void(0)">Firm Review [7]</a></li>
         <li id="tab_8"><a class="open_header" data-id="8" href="javascript:void(0)">Client Review [8]</a></li>
         <li id="tab_9"><a class="open_header" data-id="9" href="javascript:void(0)">Finals Sent [9]</a></li>
-        <li id="tab_10"><a class="open_header" data-id="10" href="javascript:void(0)">Filed [10]</a></li>
-         
-        <!-- <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field
-         
-        </a></li> -->
-        
+        <li id="tab_10"><a class="open_header" data-id="10" href="javascript:void(0)">Filed [10]</a></li> -->
       </ul>
 <div class="tab-content">
 
@@ -204,14 +207,13 @@ $(function() {
           <td align="left"></td>
           <td align="center"></td>
           <td align="center" width="12%">
-            <select class="table_select">
-              <option>Not Started</option>
-              <option>Information Requested</option>
-              <option>In Process</option>
-              <option>Firm Review</option>
-              <option>Client Review</option>
-              <option>Finalising</option>
-              <option>Filed</option>
+            <select class="table_select" id="status_dropdown">
+              <option value="2">Not Started</option>
+              @if(isset($jobs_steps) && count($jobs_steps) >0)
+                @foreach($jobs_steps as $key=>$value)
+                  <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
+                @endforeach
+              @endif
             </select>
           </td>
         </tr>
@@ -285,58 +287,28 @@ $(function() {
       </div>
     {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
       <div class="modal-body">
-      <!-- 
-        <div class="form-group">
-          <label for="name">Select Status</label>
-          <select class="form-control">
-            <option value="">None</option>
+      <table class="table table-bordered table-hover dataTable">
+        <thead>
+          <tr>
+            <th align="center" width="20%">Show/Unshow</th>
+            <th >Status Name</th>
+            <th align="center">Action</th>
+          </thead>
+
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
           @if(isset($jobs_steps) && count($jobs_steps) >0)
             @foreach($jobs_steps as $key=>$value)
-              <option value="{{ $value->step_id or "" }}">{{ $value->title or "" }}</option>
+              <tr id="change_status_tr_{{ $value->step_id or "" }}">
+                <td align="center"><input type="checkbox" checked value="{{ $value->step_id or "" }}"></td>
+                <td><span id="status_span{{ $value->step_id or "" }}">{{ $value->title or "" }}</span></td>
+                <td align="center"><span id="action_{{ $value->step_id or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value->step_id or "" }}"><img src="/img/edit_icon.png"></a></span></td>
+              </tr>
             @endforeach
           @endif
-          </select>
-        </div>
-      
-        <div class="form-group">
-          <label for="name">Status Name</label>
-          <input type="text" name="status_name" placeholder="Status Name" class="form-control">
-        </div>
-      
-        <div class="form-group">
-          <label for="name">Position Number</label>
-          <input type="text" name="shorting_no" placeholder="Shorting Number" class="form-control">
-        </div>
-      
-        <div class="modal-footer1 clearfix">
-          <div class="save_btn_new">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
-          </div>
-        </div> -->
 
-        <table class="table table-bordered table-hover dataTable">
-            <thead>
-              <tr>
-                <th align="center" width="20%">Show/Unshow</th>
-                <th >Status Name</th>
-                <th align="center">Action</th>
-              </thead>
-
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-              @if(isset($jobs_steps) && count($jobs_steps) >0)
-                @foreach($jobs_steps as $key=>$value)
-                  <tr id="change_status_tr_{{ $value->step_id or "" }}">
-                    <td align="center"><input type="checkbox" checked value="{{ $value->step_id or "" }}"></td>
-                    <td><span id="status_span{{ $value->step_id or "" }}">{{ $value->title or "" }}</span></td>
-                    <td align="center"><span id="action_{{ $value->step_id or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value->step_id or "" }}"><img src="/img/edit_icon.png"></a></span></td>
-                  </tr>
-                @endforeach
-              @endif
-
-            </tbody>
-        
-        </table>
+        </tbody>
+    
+    </table>
 
         
       </div>
