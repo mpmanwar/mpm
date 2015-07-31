@@ -171,7 +171,7 @@ $(document).ready(function(){
   @if(!empty($marital_status))
     @foreach($marital_status as $key=>$status_row)
            
-    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->marital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
+    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['step_data']['marital_status']) && $status_row->marital_status_id == $staff_details['step_data']['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
     @endforeach
   @endif
 </select>
@@ -184,7 +184,7 @@ $(document).ready(function(){
 <select class="form-control" name="nationality" id="nationality">
 @if(!empty($nationalities))
   @foreach($nationalities as $key=>$nationality_row)
-    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($staff_details['nationality_id']) && $nationality_row->nationality_id == $staff_details['nationality_id'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
+    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($staff_details['step_data']['nationality']) && $nationality_row->nationality_id == $staff_details['step_data']['nationality'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
   @endforeach
 @endif
 </select>
@@ -202,14 +202,14 @@ $(document).ready(function(){
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['country']) && $country_row->country_id == $staff_details['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['country']) && $country_row->country_id == $staff_details['step_data']['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['country_id']) && $country_row->country_id == $staff_details['country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['country']) && $country_row->country_id == $staff_details['step_data']['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
@@ -378,14 +378,14 @@ $(document).ready(function(){
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['res_country']) && $country_row->country_id == $staff_details['step_data']['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['res_country']) && $country_row->country_id == $staff_details['step_data']['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
@@ -562,13 +562,33 @@ $(document).ready(function(){
 
 <div class="twobox_2">
 <div class="form-group">
+
 <label for="exampleInputPassword1">Department</label>
+<a href="#" class="add_to_list" data-toggle="modal" data-target="#adddeptcompose-modal"> Add/Edit list</a>
+  
   <select class="form-control" name="department" id="department">
  
- <option value="php" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "php")?"selected":"" }} >PHP</option>
+ 
+ 
+ @if( isset($old_department_types) && count($old_department_types) >0 )
+                        @foreach($old_department_types as $key=>$old_department_row)
+                        <option value="{{ $old_department_row->department_id }}" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == $old_department_row->department_id)?"selected":"" }}>{{ $old_department_row->name }}</option>
+                        @endforeach
+                      @endif
+
+                      @if( isset($new_department_types) && count($new_department_types) >0 )
+                        @foreach($new_department_types as $key=>$new_department_row)
+                        <option value="{{ $new_department_row->department_id }}" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == $new_department_row->department_id)?"selected":"" }}>{{ $new_department_row->name }}</option>
+                        
+                        @endforeach
+                      @endif
+ 
+ 
+ 
+<!-- <option value="php" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "php")?"selected":"" }} >PHP</option>
     <option value="java" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "java")?"selected":"" }} >Java</option>
     <option value="net" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "net")?"selected":"" }}>Net</option>
-    <option value="ios" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "ios")?"selected":"" }}  >IOs</option>
+    <option value="ios" {{ (isset($staff_details['step_data']['department']) && $staff_details['step_data']['department'] == "ios")?"selected":"" }}  >IOs</option> -->
    
   </select>
 </div>
@@ -899,11 +919,11 @@ $(document).ready(function(){
       <td width="22%">
       
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] }}" download="{{ $staff_details['step_data']['profilefile4                                                                                                                                                                                                                          '] }}">
+      <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] or "" }}" download="{{ $staff_details['step_data']['profilefile4'] or "" }}">
       @endif <img src="/img/download.png"></a></td>
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
-        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4']}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
+        {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4'] or ""}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
       @endif
       @endif
     </tr>
@@ -1020,6 +1040,64 @@ $(document).ready(function(){
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+
+<!-- add/edit list modal for DEPT -->
+<div class="modal fade" id="adddeptcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+      
+    {{ Form::open(array('url' => '/add-department-type', 'id'=>'field_form')) }}
+    
+    <!-- <input type="hidden" name="client_type" id="client_type" value="org"> -->
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        
+        <input type="text" id="dept_name" name="dept_name" placeholder="Department" class="form-control">
+      </div>
+      
+      <div id="append_department_type">
+      @if( isset($old_department_types) && count($old_department_types) >0 )
+        @foreach($old_department_types as $key=>$old_department_row)
+        <div class="form-group">
+          <label for="{{ $old_department_row->name }}">{{ $old_department_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+
+      @if( isset($new_department_types) && count($new_department_types) >0 )
+        @foreach($new_department_types as $key=>$new_department_row)
+        <div class="form-group" id="hide_deptdiv_{{ $new_department_row->department_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_department_name" data-field_id="{{ $new_department_row->department_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_department_row->name }}">{{ $new_department_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_department_type" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
 
 <!-- @include("home.include.client_modal_page") -->
 

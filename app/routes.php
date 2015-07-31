@@ -219,6 +219,10 @@ Route::get('/delete-stafffile/{user_id}', 'StaffprofileController@delete_stafffi
 Route::any('/add-position-type', array("as"=>"add_position_type", "uses"=>'StaffprofileController@add_position_type'));
 Route::any('/delete-position-type', array("as"=>"delete_position_type", "uses"=>'StaffprofileController@delete_position_type'));
 
+Route::any('/add-department-type', array("as"=>"add_department_type", "uses"=>'StaffprofileController@add_department_type'));
+Route::any('/delete-department-type', array("as"=>"delete_department_type", "uses"=>'StaffprofileController@delete_department_type'));
+//Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
+
 Route::post('/staff/user-details-process', 'StaffprofileController@user_details_process');
 Route::get('/profile/to-list', 'StaffprofileController@to_list');
 
@@ -235,18 +239,18 @@ Route::any('/vat-returns', array("as"=>"index", "uses"=>'VatReturnsController@in
 Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
 /*=============== Jobs Dashboard Section End =================*/
 
-
 /*=============== Staff Appraisal Section Start =================*/
 Route::any('/staff-appraisal', array('as'=>'index', 'uses'=>'StaffAppraisalController@index'));
-
 /*=============== Staff Appraisal Section End =================*/
 
 /*==================Time Sheet Start ==============*/
-
 Route::post('/timesheet/insert-time-sheet', array("as"=>"insert-time-sheet", "uses"=>'TimesheetController@insert_time_sheet'));
-
 Route::post('/timesheet/timesheet-templates', array("as"=>"timesheet-templates", "uses"=>'TimesheetController@timesheet_templates'));
-
 Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=>'TimesheetController@edit_time_sheet'));
-
 /*==================Time Sheet End ==============*/
+
+
+/*================== Notes Start ==============*/
+Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
+/*================== Notes End ==============*/
+

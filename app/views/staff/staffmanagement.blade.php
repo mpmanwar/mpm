@@ -44,7 +44,7 @@
                   <div class="clearfix"></div>
                 </div>
                 </a> </li>
-              <li class="hvr-grow"> <a  href="#">
+              <li class="hvr-grow"> <a  href="/staff-appraisal">
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
                   <p class="c_tagline2">STAFF APPRAISAL</p>

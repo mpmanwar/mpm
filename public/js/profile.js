@@ -34,7 +34,7 @@ $(document).ready(function (e) {
             var file_id = $(this).attr("id");
 			
            // alert(id);
-            alert(file_id);
+            //alert(file_id);
             
               
 			var file = this.files[0];
@@ -158,9 +158,68 @@ $("#append_position_type").on("click", ".delete_org_name", function(){
 //Delete position name  user end
 
 
+//
+
+// Save depet type while add  start //
+$("#add_department_type").click(function(){
+    
+    //alert('fsfsffg');return false;
+    
+    var type_name      = $("#dept_name").val();
+    
+    //alert(type_name);return false;
+    //var client_type   = $(this).data("client_type");
+    
+    $.ajax({
+      type: "POST",
+      url: '/add-department-type',
+      data: { 'dept_name':type_name },
+      success : function(field_id){
+        
+        //alert(field_id)
+        var append = '<div class="form-group" id="hide_deptdiv_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_department_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+type_name+'">'+type_name+'</label></div>';
+        $("#append_department_type").append(append);
+
+       $("#dept_name").val("");
+        $("#department").append('<option value="'+field_id+'">'+type_name+'</option>');
+
+      }
+    });
+});
 
 
 
+//Delete position name while  user start
+
+
+$("#append_department_type").on("click", ".delete_department_name", function(){
+    
+ 
+  var field_id = $(this).data('field_id');
+  
+  //alert(field_id);return false;
+  
+  if (confirm("Do you want to delete this field ?")) {
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/delete-department-type',
+      data: { 'field_id' : field_id },
+      success : function(resp){//console.log(resp);return false;
+        if(resp != ""){
+          //location.reload();
+          $("#hide_deptdiv_"+field_id).hide();
+          
+          $("#department option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this type, Please try again");
+        }
+      }
+    });
+  }
+  
+}); 
+//Delete position name  user end
 
 // Save Business type while add organization client end //
 
