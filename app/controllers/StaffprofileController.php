@@ -67,7 +67,7 @@ class StaffprofileController extends BaseController
         $data['staff_details'] = $this->userDetailsByUserId($user_id);
 
         //echo '<pre>';
-        //print_r($data['staff_details']);
+       // print_r($data['staff_details']);
         //die;
         return View::make("staff.profile.my_details", $data);
     }
@@ -161,7 +161,7 @@ class StaffprofileController extends BaseController
 
 
         //echo "<pre>";
-        //print_r($postData['department']);die();
+        //print_r($postData['country']);die();
 
         /* if( $postData['oldstafffile1']!=""){
         die('if');

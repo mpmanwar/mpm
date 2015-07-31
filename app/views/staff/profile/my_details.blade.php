@@ -171,7 +171,7 @@ $(document).ready(function(){
   @if(!empty($marital_status))
     @foreach($marital_status as $key=>$status_row)
            
-    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['marital_status']) && $status_row->marital_status_id == $staff_details['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
+    <option value="{{ $status_row->marital_status_id }}" {{ (isset($staff_details['step_data']['marital_status']) && $status_row->marital_status_id == $staff_details['step_data']['marital_status'])?"selected":"" }}>{{ $status_row->status_name }}</option>
     @endforeach
   @endif
 </select>
@@ -184,7 +184,7 @@ $(document).ready(function(){
 <select class="form-control" name="nationality" id="nationality">
 @if(!empty($nationalities))
   @foreach($nationalities as $key=>$nationality_row)
-    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($staff_details['nationality_id']) && $nationality_row->nationality_id == $staff_details['nationality_id'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
+    <option value="{{ $nationality_row->nationality_id }}" {{ (isset($staff_details['step_data']['nationality']) && $nationality_row->nationality_id == $staff_details['step_data']['nationality'])?"selected":"" }}>{{ $nationality_row->nationality_name }}</option>
   @endforeach
 @endif
 </select>
@@ -202,14 +202,14 @@ $(document).ready(function(){
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['country']) && $country_row->country_id == $staff_details['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['country']) && $country_row->country_id == $staff_details['step_data']['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
 @if(!empty($countries))
   @foreach($countries as $key=>$country_row)
   @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['country_id']) && $country_row->country_id == $staff_details['country_id'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+    <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['country']) && $country_row->country_id == $staff_details['step_data']['country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
   @endif
   @endforeach
 @endif
@@ -378,14 +378,14 @@ $(document).ready(function(){
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['res_country']) && $country_row->country_id == $staff_details['step_data']['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
     @if(!empty($countries))
       @foreach($countries as $key=>$country_row)
       @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
-        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['res_country']) && $country_row->country_id == $staff_details['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
+        <option value="{{ $country_row->country_id }}" {{ (isset($staff_details['step_data']['res_country']) && $country_row->country_id == $staff_details['step_data']['res_country'])?"selected":"" }}>{{ $country_row->country_name }}</option>
       @endif
       @endforeach
     @endif
