@@ -40,7 +40,7 @@ $(function() {
 
     });
 
-    oTable.fnSort( [ [3,'asc'] ] );
+    oTable.fnSort( [ [8,'asc'] ] );
 
 });
 
@@ -110,13 +110,17 @@ $(function() {
                     </div>
                     <!-- <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
                   </li>
-                  <li>
-                    <span style="margin-left: 40px">
-                      <input type="checkbox"> SEND TO <b>TASK MANAGEMENT</b> <input type="text" style="width:7%;"> DAYS before filling date</span>
-                  </li>
-                  <div class="clearfix"></div>
+                  <!-- <li style="width:60%">
+                    
+                  </li> -->
+                  
                 </ul>
               </div>
+
+              <div class="send_task">
+                <input type="checkbox"> Send To Task Management (Deadlines) Section <input type="text" style="width:7%;"> Days Before Deadline
+              </div>
+
               <div class="top_search_con">
                 <table width="100%" border="0">
                   <tr>
