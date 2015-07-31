@@ -72,9 +72,9 @@ class StaffdataController extends BaseController
         //$add = $data['staff_details']['0']['step_data']['res_addr_line1'] ;
         //echo '<pre>';print_r($add);
         // die();
-       //echo '<pre>';
-        //print_r($data['staff_details']);
-       //die;
+      // echo '<pre>';
+       // print_r($data['staff_details']);
+      //die;
 
         return View::make('staff.staffdata.staff_data', $data);
 
@@ -123,22 +123,26 @@ class StaffdataController extends BaseController
                 }
 
                 $details[$key]['step_data'] = $step_data;
+                
+                if (isset($details[$key]['step_data']['department']) && count($details[$key]['step_data']['department']) > 0) {
+        $fields_staffid = Department::where("department_id", "=", $details[$key]['step_data']['department'])->select('name')->first();
+        $details[$key]['department_name'] = $fields_staffid['name'];
+        }
+        
+        if (isset($details[$key]['step_data']['position_type']) && count($details[$key]['step_data']['position_type']) > 0) {
+        $fields_Position = Position::where("position_id", "=", $details[$key]['step_data']['position_type'])->select('name')->first();
+        
+        $details[$key]['position_name'] = $fields_Position['name'];
+        }
 
 
             }
         }
 
-        $dept_data=array();
+        //$dept_data=array();
 
-        $fields_staffid = Department::where("department_id", "=", $details[$key]['step_data']['department'])->select('name')->first();
-        //echo $this->last_query();
-                            //  echo '<pre>';
-                            //  print_r($fields_staffid);
-                            //  die;
-                             
-                              
-        $details[$key]['department_name'] = $fields_staffid['name'];
         
+           
         //print_r($fields_staffid);die();
 
         return $details;

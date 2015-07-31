@@ -23,7 +23,8 @@ class StaffprofileController extends BaseController
     public function my_details($user_id, $type_id)
     {
         
-        
+       // print_r($user_id);
+       // print_r(base64_decode($type_id));die();
         	$admin_s = Session::get('admin_details');
 	//	$user_id = $admin_s['id'];
 	//	$data['user_type'] 	= $admin_s['user_type'];
@@ -74,6 +75,9 @@ class StaffprofileController extends BaseController
 
     public function userDetailsByUserId($user_id)
     {
+        
+        //print_r($user_id);die();
+        
         $data = array();
         $step_data = array();
 
@@ -113,6 +117,7 @@ class StaffprofileController extends BaseController
 
             $data['step_data'] = $step_data;
         }
+        //echo '<pre>';print_r($step_data);die();
 
         $step_ids = array();
 
@@ -198,7 +203,14 @@ class StaffprofileController extends BaseController
         $result = StepsFieldsStaff::where("staff_id", "=", $staff_id)->get();
 
         if (isset($result) && count($result) > 0) {
+            
+            StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
+                    "stafffile1")->orWhere("field_name", "!=", "stafffile2")->orWhere("field_name",
+                    "!=", "stafffile3")->orWhere("field_name", "!=", "stafffile4")->orWhere("field_name", "!=",
+                    "profilefile1")->orWhere("field_name", "!=", "profilefile2")->orWhere("field_name",
+                    "!=", "profilefile3")->orWhere("field_name", "!=", "profilefile4")->delete();
 
+/*
             //StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name","<>",$filevalue)->delete();
             if ($postData['page_name'] == "staff") {
                 StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
@@ -208,7 +220,7 @@ class StaffprofileController extends BaseController
                 StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "!=",
                     "profilefile1")->orWhere("field_name", "!=", "profilefile2")->orWhere("field_name",
                     "!=", "profilefile3")->orWhere("field_name", "!=", "profilefile4")->delete();
-            }
+            } */
 
         }
 

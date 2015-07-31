@@ -107,7 +107,7 @@ $(function() {
                 <tr>
                   <td><input type="checkbox" /></td>
                   <td align="center"><a href="/my-details/{{ $value['user_id'] }}/{{ base64_encode('staff') }}">{{ $value['fname'] or "" }} {{ $value['lname'] or "" }}</a></td>
-                  <td align="center">{{ $value['step_data']['position'] or "" }}</td>
+                  <td align="center">{{ $value['position_name'] or "" }}</td>
                   <td align="center">{{ isset($value['created'])?date("d-m-Y", strtotime($value['created'])):"" }}</td>
                   <td align="center">&nbsp;</td>
                   <td align="center">
