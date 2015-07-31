@@ -10,14 +10,15 @@ class Client extends Eloquent {
 		$user_id 			= $session['id'];
 		$groupUserId 		= Common::getUserIdByGroupId($session['group_id']);
 
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
-				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
+				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
+
 
 				// ############### GET VAT SCHEME USER START ################## //
 				$service = Common::get_services_client($client_id->client_id);

@@ -135,10 +135,10 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-  <table id="example2" class="table table-bordered table-hover">
+  <table id="example2" class="table table-bordered table-hover ch_returns">
     <thead>
       <tr role="row">
-          <th><input type="checkbox"/></th>
+          <th><input type="checkbox" id="allCheckSelect"/></th>
           <th>D01</th>
           <th>CRN</th>
           <th>NAME</th>
@@ -165,7 +165,13 @@ $(function() {
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">{{ $details['count_down'] or "" }}</td>
-                <td align="center"><button type="button" class="send_btn">Send</button></td>
+                <td align="center" id="after_send_{{ $details['client_id'] }}">
+                  @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
+                    <button type="button" class="send_btn send_manage_task" data-client_id="{{ $details['client_id'] }}" data-field_name="ch_manage_task">Send</button>
+                  @else
+                    <button type="button" class="sent_btn">Sent</button>
+                  @endif
+                </td>
                 <td align="center"></td>
             </tr>
           @endif 

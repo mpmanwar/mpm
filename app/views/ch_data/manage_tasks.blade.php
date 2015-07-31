@@ -45,7 +45,7 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
-            {"bSortable": true},
+            
             {"bSortable": false}
         ]
 
@@ -179,44 +179,52 @@ $(function() {
       </div> -->
       <div class="clearfix"></div>
     </div>
-    <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+    <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><input type="checkbox" id=""/></th>
+          <th><input type="checkbox" id="" /></th><!-- allCheckSelect -->
           <th>STAFF</th>
           <th>DO1</th>
           <th>BUSINESS TYPE</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>LAST RETURN DATE</th>
-          <th>DEADLINE</th>
+          <!-- <th>DEADLINE</th> -->
           <th>COUNT DOWN</th>
           <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-        <tr class="all_check">
-          <td><input type="checkbox" name="checkbox[]" value="" /></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"><a href="#">Anwar</a></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="center"></td>
-          <td align="center" width="12%">
-            <select class="table_select" id="status_dropdown">
-              <option value="2">Not Started</option>
-              @if(isset($jobs_steps) && count($jobs_steps) >0)
-                @foreach($jobs_steps as $key=>$value)
-                  <option value="{{ $value->step_id or "" }}"  style="display: {{ ($value->status == 'H')?'none':'block'}}">{{ $value->title or "" }}</option>
-                @endforeach
-              @endif
-            </select>
-          </td>
-        </tr>
+
+        @if(isset($client_details) && count($client_details) >0)
+        @foreach($client_details as $key=>$details)
+          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+            <tr class="even">
+                <td><input type="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}" /></td>
+                <td align="left"></td>
+                <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+                <td align="left">{{ $details['business_type'] or "" }}</td>
+                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left">{{ $details['auth_code'] or "" }}</td>
+                <td align="left">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+                <!-- <td align="left"></td> -->
+                <td align="center">{{ $details['count_down'] or "" }}</td>
+                <td align="center" width="12%">
+                  <select class="table_select" id="status_dropdown">
+                    <option value="2">Not Started</option>
+                    @if(isset($jobs_steps) && count($jobs_steps) >0)
+                      @foreach($jobs_steps as $key=>$value)
+                        <option value="{{ $value->step_id or "" }}"  style="display: {{ ($value->status == 'H')?'none':'block'}}">{{ $value->title or "" }}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                </td>
+              </tr>
+          @endif 
+        @endforeach
+      @endif
+        
       </tbody>
     </table>
   </div>

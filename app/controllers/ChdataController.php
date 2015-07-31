@@ -16,14 +16,15 @@ class ChdataController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
-				$client_data[$i]['client_id'] = $client_id->client_id;
+				$client_data[$i]['client_id'] 		= $client_id->client_id;
+				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 				
 				if (isset($client_details) && count($client_details) > 0) {
 					foreach ($client_details as $client_row) {
@@ -1157,7 +1158,8 @@ class ChdataController extends BaseController {
 		}
 
 		$data['jobs_steps'] = JobsStep::where("job_id", "=", 9)->orderBy("shorting_id")->get();
-
+		$data['client_details'] = Client::getAllOrgClientDetails();
+		//print_r($data['client_details']);die;
 		return View::make('ch_data.manage_tasks', $data);
     }
 
@@ -1186,6 +1188,14 @@ class ChdataController extends BaseController {
     	}*/
     	echo $title;
     	exit;
+    }
+
+    public function send_manage_task(){
+    	$field_name = Input::get("field_name");
+    	$data[$field_name] = "Y";
+    	$client_id = Input::get("client_id");
+    	$sql = Client::where("client_id", "=", $client_id)->update($data);
+    	echo 1;
     }
 
     
