@@ -87,6 +87,7 @@ Route::any('/template/get-edit-template-type', array("as"=>"get_edit_template_ty
 
 ### Routes for Settings related URL's start ###
 Route::any('/settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 'SettingsController@index' ));
+Route::any('/client-list-allocation',  'ClientListAllocationController@index');
 ### Routes for Settings related URL's end ###
 
 

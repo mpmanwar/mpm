@@ -1246,10 +1246,14 @@ $(document).ready(function(){
       <div class="form-group">
         <table width="100%" id="myServTable" class="myServTable">
           <tbody>
-            <tr>
-              <td align="center" width="40%"><span class="custom_chk"><input type='checkbox' name='ptr' value='1' {{ (isset($client_details['ptr']) && $client_details['ptr'] == "1")?"checked":"" }}/><strong>PERSONAL TAX RETURNS</strong></span></td>
-              <td align="center" width="60%"></td>
-            </tr>
+            @if( isset($old_services) && count($old_services)>0 )
+              @foreach($old_services as $key=>$service_row)
+                <tr>
+                  <td align="center" width="40%"><span class="custom_chk"><input type='checkbox' name='ptr' value='{{ $service_row->service_id }}' {{ (isset($client_details['ptr']) && $client_details['ptr'] != "")?"checked":"" }}/><strong>{{ $service_row->service_name }}</strong></span></td>
+                  <td align="center" width="60%"></td>
+                </tr>
+              @endforeach
+            @endif
 
             @if( isset($new_services) && count($new_services)>0 )
               @foreach($new_services as $key=>$service_row)

@@ -35,6 +35,7 @@ class ClientController extends BaseController {
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
 		//$data['allIndClients'] 	 	= App::make("HomeController")->get_all_ind_clients();
 		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
+		$data['old_services'] 	= Service::where("status", "=", "old")->where("client_type", "=", "ind")->orderBy("service_name")->get();
 		$data['new_services'] 		= Service::where("status", "=", "new")->where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 		//print_r($data['new_services']);die;
 
@@ -142,7 +143,7 @@ class ClientController extends BaseController {
 		
         $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
 
-		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['old_services'] 	= Service::where("status", "=", "old")->where("client_type", "=", "org")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
         $data['countries'] 		= Country::orderBy('country_name')->get();
@@ -203,7 +204,7 @@ class ClientController extends BaseController {
 
 		$data['client_details'] 	=	$client_data;
        
-       	$data['services_table'] 	=   Common::get_services_client($client_id);;
+       	$data['services_table'] 	=   Common::get_services_client($client_id);
       	//echo $this->last_query();
    		//print_r($data['client_details']);die;      
 
