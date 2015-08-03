@@ -190,7 +190,6 @@
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/client/add-services', 'id'=>'field_form')) }}
-    <input type="hidden" name="client_type" value="org">
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>

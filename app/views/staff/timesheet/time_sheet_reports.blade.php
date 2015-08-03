@@ -258,10 +258,11 @@ $(function() {
                 <li>
                   <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
                 </li>
-                <div class="clearfix"></div>
               </ul>
             </div>
+            <div class="clearfix"></div>
           </div>
+
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">

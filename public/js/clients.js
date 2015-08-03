@@ -1568,16 +1568,16 @@ $(".delete_invited_client").click(function(){
   });
   //##############User active/Inactive Portion start ################//
 
-  /*$('#showclientuser').on('ifChecked', function(event){
+  $('#showclientuser').on('ifChecked', function(event){
     $("#show_other_user_client").show();
   });
 
   $('#showclientuser').on('ifUnchecked', function(event){
     $("#show_other_user_client").hide();
-  });*/
-  $('#showclientuser').click(function(event){
-      $("#show_other_user_client").toggle();
   });
+  /*$('#showclientuser').click(function(event){
+      $("#show_other_user_client").toggle();
+  });*/
 //############## Change user relation status  in the other Portion start ################//
   $('.user_client_relation').on('ifChecked', function(event){
     var related_company_id = $(this).data('related_company_id');
@@ -1629,6 +1629,78 @@ $("#other_upload_table").on("click", ".delete_files", function(){
     }
   });
   //##############User active/Inactive Portion start ################//
+
+  //Add Services while add individual/organisation user start
+  $("#save_services").click(function(){
+      var service_name  = $("#service_name").val();
+      var client_type   = $("#client_type").val();
+      var client_id     = $("#client_id").val();
+
+      $.ajax({
+        type: "POST",
+        url: '/client/add-services',
+        dataType : 'json',
+        data: { 'service_name' : service_name, 'client_type' : client_type, 'client_id' : client_id },
+        success : function(resp){
+          var field_id = resp['last_id'];
+          var content = "";
+          if(client_type == "org"){
+            var option = "";
+            content += '<tr id="hide_service_tr_'+field_id+'"><td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="'+field_id+'" checked /><label><strong>'+service_name+'</strong></label></span></td>';
+            content += '<td align="left" widht="30%">';
+            
+              content += '<select class="form-control" name="staff_id" id="staff_id"><option value="">None</option>';
+              $.each(resp['staff_details'], function(key){
+                  option += '<option value="'+resp['staff_details'][key].user_id+'">'+resp['staff_details'][key].fname+' '+resp['staff_details'][key].lname+'</option>';
+              });
+              content += option+'</select>';
+            
+            content += '</td>';
+            content += '<td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+          }else{
+            content += '<tr id="hide_service_tr_'+field_id+'">';
+            content += '<td align="center" width="40%"><span class="custom_chk chk_fixed">';
+            content += '<input type="checkbox" value="1" checked /><label><strong>'+service_name+'</strong></label></span></td>';
+            content += '<td align="center" width="60%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+          }
+          $("#myServTable").last().append(content);
+
+          var append = "";
+          append += '<div class="form-group" id="hide_service_div_'+field_id+'">';
+          append += '<a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a>';
+          append += '<label for="'+field_id+'">'+service_name+'</label></div>';
+          $("#append_services").last().append(append);
+
+          $("#service_name").val("");
+          //$("#service_id").append('<option value="'+field_id+'">'+service_name+'</option>');
+
+        }
+      });
+  });
+  //Add Services while add individual/organisation user end
+
+  //Delete services name while add individual/organisation user start
+  $("body").on("click", ".delete_services", function(){
+    var field_id = $(this).data('field_id');
+    if (confirm("Do you want to delete this field ?")) {
+      $.ajax({
+        type: "POST",
+        url: '/client/delete-services',
+        data: { 'field_id' : field_id },
+        success : function(resp){
+          if(resp != ""){
+            $("#hide_service_div_"+field_id).hide();
+            $("#hide_service_tr_"+field_id).hide();
+            //$("#service_id option[value='"+field_id+"']").remove();
+          }else{
+            alert("There are some error to delete this service, Please try again");
+          }
+        }
+      });
+    }
+    
+  }); 
+  //Delete services name while add individual/organisation user end
 
 
 

@@ -48,7 +48,8 @@ $(document).ready(function(){
 
     <!-- Main content -->
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
-    <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] }}">
+    <input type="hidden" name="client_id" id="client_id" value="{{ $client_details['client_id'] }}">
+    <input type="hidden" name="client_type" id="client_type" value="ind">
     <section class="content">
       
       <div class="row">
@@ -1095,48 +1096,19 @@ $(document).ready(function(){
  <div class="other_table"> 
 <h3 class="box-title">OTHERS</h3> 
 
-
-<div class="twobox">
-
-@if(isset($user_type) && $user_type != "C")
-<div class="twobox_01">
-<div class="form-group">
-<label for="exampleInputPassword1">AML Checks Done</label>
-<input type="checkbox" name="aml_checks" value="1" {{ (isset($client_details['aml_checks']) && $client_details['aml_checks'] == "1")?"checked":"" }} />
-</div>
-</div>
-
-<div class="twobox_02">
-<div class="form-group">
-<label for="exampleInputPassword1">Acting?</label>
-<input type="checkbox" name="acting" value="1" {{ (isset($client_details['acting']) && $client_details['acting'] == "1")?"checked":"" }} />
-</div>
-</div>
-@endif
-<div class="twobox_03">
-<div class="form-group">
-<label for="exampleInputPassword1">Tax Return Required</label>
-<input type="checkbox" name="tax_ret_req" value="1" {{ (isset($client_details['tax_ret_req']) && $client_details['tax_ret_req'] == "1")?"checked":"" }} />
-</div>
-</div>
-
-<div class="clearfix"></div>
-</div>
-
-
 @if(isset($user_type) && $user_type != "C")
 <div class="form-group">
   <p class="custom_chk">
-    <label for="showclientuser"><a href="javascript:void(0)" id="showclientuser">Invite to Client Portal</a></label>
-    <!-- <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} /> -->
+    <label for="showclientuser"><a href="javascript:void(0)">Invite to Client Portal</a></label>
+    <input type="checkbox" name="showclientuser" id="showclientuser" value="1" }} />
   </p>
 </div>
 
 
 <div id="show_other_user_client" style="display:none">
-  <!-- <div class="form-group">
-    <label for="exampleInputPassword1">Send User Invitation Via The Add User Page</label>
-  </div> -->
+  <div class="form-group">
+    <label for="exampleInputPassword1">Please send invitations from the Manage User section under settings</label>
+  </div>
 
   <table width="100%" class="table table-bordered table-hover dataTable" id="myOtherTable">
   <tr>
@@ -1152,6 +1124,27 @@ $(document).ready(function(){
   </tr>
 @endif
   </table>
+</div>
+
+<div class="twobox">
+
+@if(isset($user_type) && $user_type != "C")
+<div class="twobox_01">
+<div class="form-group">
+<label for="exampleInputPassword1">AML Checks Done</label>
+<input type="checkbox" name="aml_checks" value="1" {{ (isset($client_details['aml_checks']) && $client_details['aml_checks'] == "1")?"checked":"" }} />
+</div>
+</div>
+
+<!-- <div class="twobox_02">
+<div class="form-group">
+<label for="exampleInputPassword1">Acting?</label>
+<input type="checkbox" name="acting" value="1" {{ (isset($client_details['acting']) && $client_details['acting'] == "1")?"checked":"" }} />
+</div>
+</div> -->
+@endif
+
+<div class="clearfix"></div>
 </div>
 
 <table width="100%" border="0">
@@ -1228,7 +1221,7 @@ $(document).ready(function(){
   </tbody>
 </table>
 
-<div class="twobox_1">
+<!-- <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Responsible Staff</label>
 <select class="form-control" name="resp_staff" id="resp_staff">
@@ -1241,13 +1234,51 @@ $(document).ready(function(){
 
 </select>
 </div>
-</div>
+</div> -->
+
+  <div class="other_table">
+    <div class="service_t"><h3 class="box-title">Services</h3></div>
+      <div class="add_edit">
+        <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="form-group">
+        <table width="100%" id="myServTable" class="myServTable">
+          <tbody>
+            <tr>
+              <td align="center" width="40%"><span class="custom_chk"><input type='checkbox' name='ptr' value='1' {{ (isset($client_details['ptr']) && $client_details['ptr'] == "1")?"checked":"" }}/><strong>PERSONAL TAX RETURNS</strong></span></td>
+              <td align="center" width="60%"></td>
+            </tr>
+
+            @if( isset($new_services) && count($new_services)>0 )
+              @foreach($new_services as $key=>$service_row)
+            <tr id="hide_service_tr_{{ $service_row->service_id }}">
+              <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+              
+              <td width="60%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
+            </tr>
+              @endforeach
+            @endif
+
+          </tbody>
+        </table>
+      </div>
+    
+    <div class="clearfix"></div>
+  </div>
 
 @else
 
 <div class="form-group">
 <strong>Download form 64-8(Agent Authorisation)</strong>
 </div>
+
+<div class="form-group">
+  <label for="exampleInputPassword1">Tax Return Required</label>
+  <input type="checkbox" name="ptr" value="1" {{ (isset($client_details['ptr']) && $client_details['ptr'] == "1")?"checked":"" }} />
+</div>
+
 
 <div class="twobox_03">
 <div class="form-group">

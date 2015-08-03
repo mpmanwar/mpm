@@ -226,7 +226,7 @@ $(function() {
                     </select>
                   </span>
                 </th>
-                <th><span id="acting_text">ACTING</span>
+                <th><span id="acting_text">PTR</span>
                   <span id="acting_select" style="display:none;">
                     <select id="nine" style="width:100px;">
                       @if(!empty($client_fields))
@@ -276,7 +276,7 @@ $(function() {
                   </td>
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
-                  <td align="center">{{ (!empty($client_row['acting'])) ? 'Yes': 'No' }}</td>
+                  <td align="center">{{ (!empty($client_row['ptr'])) ? 'Yes': 'No' }}</td>
                   <td align="left">
                     @if(isset($client_row['address']) && $client_row['address'] != "" )
                     <span title="{{ $client_row['address'] }}">{{ (strlen($client_row['address']) > 45)? substr($client_row['address'], 0, 42)."...": $client_row['address'] }}</span>

@@ -35,7 +35,8 @@ class ClientController extends BaseController {
 		$data['cont_address'] 		= App::make('HomeController')->get_contact_address();
 		//$data['allIndClients'] 	 	= App::make("HomeController")->get_all_ind_clients();
 		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
-		//print_r($data['allIndClients']);die;
+		$data['new_services'] 		= Service::where("status", "=", "new")->where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
+		//print_r($data['new_services']);die;
 
 		$steps_fields_users = StepsFieldsAddedUser::whereIn("user_id", $groupUserId)->where("substep_id", "=", '0')->where("client_type", "=", "ind")->get();
 		foreach ($steps_fields_users as $key => $steps_fields_row) {
@@ -132,7 +133,7 @@ class ClientController extends BaseController {
 		$data['rel_types'] 		= RelationshipType::orderBy("relation_type_id")->get();
 		$data['titles'] 		= Title::orderBy("title_id")->get();
 		$data['steps'] 			= Step::where("status", "=", "old")->orderBy("step_id")->get();
-		$data['substep'] 	= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
+		$data['substep'] 		= Step::where("client_type", "=", "org")->where("parent_id", "=", 1)->whereIn("user_id", $groupUserId)->orderBy("step_id")->get();
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 		$data['tax_office'] 	= TaxOfficeAddress::select("parent_id", "office_id", "office_name")->get();
 
@@ -142,7 +143,7 @@ class ClientController extends BaseController {
         $data['services'] 		= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->union($first_serv)->orderBy("service_id")->get();
 
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
-		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
         $data['countries'] 		= Country::orderBy('country_name')->get();
 		$data['field_types'] 	= FieldType::get();
@@ -382,6 +383,8 @@ class ClientController extends BaseController {
 		$session_data = Session::get('admin_details');
 
 		$data['service_name'] 	= Input::get("service_name");
+		$data['client_type'] 	= Input::get("client_type");
+		$data['client_id'] 		= Input::get("client_id");
 		$data['user_id'] 		= $session_data['id'];
 		$data['status'] 		= "new";
 		$data['last_id'] 		= Service::insertGetId($data);
