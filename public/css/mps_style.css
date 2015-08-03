@@ -524,7 +524,7 @@ img{border:none;}
 .icon_img img:hover{ box-shadow:1px 5px 2px 0px #ccc; border-radius:50%;}
 .data_con{ padding:10px 0 0 0; margin:0; font-size:16px; color:#17abca; line-height:20px; text-transform:uppercase; height:65px;}
 .lor_con{ padding:0px 1px 0 7px; margin:0; font-size:14px; color:#ababab; line-height:20px;}
-.rd_more{ padding:5px 0 5px 0; margin:40px 0 0 20%; width:99px; background:url(../img/rd_butt_bg.jpg) repeat-x; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer;}
+.rd_more{ padding:5px 0 5px 0; margin:40px 0 0 20%; width:99px; background:#17abca; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer;}
 .rd_more:hover{ background:#17abca; color:#fff; transition:0.0s;}
 .blue_sec{padding:0; margin:40px 0 0 0; width:100%; background:#17abca; height:88px;}
 .lst_pan{ padding:0; margin:70px 0 0 0;}
@@ -791,14 +791,14 @@ border: 1px solid #e2e4e6;
 /* Contact Page Start */
 .contact_top_brdr{ padding:0; margin:0; width:100%; height:7px; background: url(../img/cntp_brdr.jpg) no-repeat; background-size:cover;}
 .contact_banner_sec{ padding:0; margin:0; width:100%; background:url(../img/cntct_brdr.jpg) no-repeat; height:420px; background-size:cover;}
-.get_con{ padding:10px 0 0px 0; margin:50px auto; width:150px; text-align:center; font-size:26px; font-family:Oswald; color:#17abca; border-top:#dcdcdc solid 1px;}
+.get_con{ padding:10px 0 0px 0; margin:50px auto;/* width:150px; */ text-align:center; font-size:26px; font-family:Oswald; color:#17abca; border-top:#dcdcdc solid 1px;}
 .cntct_last_pan{ padding:0 0 15px 0; margin:15px 0 0 0; width:100%; background:#e8e6e6;}
 .cntct_lfpan{ padding:0; margin:0; width:44%; float:left;}
 .cntct_lfpan_in{ padding:0; margin:20px 0 0 0; float:left; width:83%;}
 .nme_con{ padding:0 0 5px 0; margin:0; color:#5e5d5d; font-size:18px;}
 .nme_box{ padding:7px 0px 7px 0px; margin:0 0 5px 0; background:#fff; border:#d6d5d5 solid 1px; border-radius:5px; width:100%;}
 .msg_box{ padding:0px 0px 0px 0px; margin:0 0 5px 0; background:#fff; border:#d6d5d5 solid 1px; border-radius:5px; width:100%; height:96px;}
-.rd_more1{ padding:5px 0 5px 0; margin:10px 0 0 0%; width:99px; background:url(../img/rd_butt_bg.jpg) repeat-x; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer; float:right;}
+.rd_more1{ padding:5px 0 5px 0; margin:10px 0 0 0%; width:99px; background:#17abca; border:0; border-radius:7px; text-transform:uppercase; color:#000000; font-size:12px; cursor:pointer; float:right;}
 .rd_more1:hover{ background:#17abca; color:#fff; transition:0.0s;}
 .cntct_rgtpan1_in{ float:right; padding:22px 0 0 0; margin:0;}
 .cntct_rfpan{ padding:0; margin:0; width:46.9%; float:right; }
@@ -928,7 +928,9 @@ border: 1px solid #e2e4e6;
 .text_small{ width: 44.5%; height: 35px;}
 .table_content tr td{color:#383838; font-size:16px; font-family:Arial, Helvetica, sans-serif; font-variant:normal; font-weight:normal; -webkit-font-smoothing: antialiased; font-smoothing: antialiased; -moz-font-smoothing: antialiased;}
 .send_task{Background:#d5e6ff; border:4px solid #fff; box-shadow: 0px 0px 2px #cad7e7; padding: 14px 10px; margin: -12px 0 0 50px; float: left; font-size: 16px; width:44.5%; font-weight: bold;}
+
 .chk_fixed{float: left; margin-left: 5px; }
 .selctbox_containor1{position: absolute; top: -5px; z-index: 10; width: 50%;}
 .select_t{float:left; padding-top: 5px; color: #70a5dc; font-size: 18px; font-weight: normal;}
 .sel_box{float: left; margin-left: 10px; width: 45%;}
+

@@ -42,13 +42,13 @@
                        
                         <li>
                             <div class="icons_con">
-                                <a class="button hover-shadow" href="ManageDirectorParkInfo.aspx">
+                                <a class="button hover-shadow" href="mailto:abel02@icloud.com">
                                     <img src="/img/crcl1_img.png">
-                                </a>
+                                
                             </div>
                             <p>
                                 E Mail</p>
-                                <p class="info_con">info@i_practice.com</p>
+                                <p class="info_con"> abel02@icloud.com</p></a>
                         </li>
                          <li>
                             <div class="icons_con">
