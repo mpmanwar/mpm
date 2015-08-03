@@ -20,34 +20,34 @@
 var Table1, Table2;
 $(function() {
   Table1 = $('#example1').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 50,
-        "language": {
-            "lengthMenu": "Show _MENU_ entries",
-            "zeroRecords": "Nothing found - sorry",
-            "info": "Showing page _PAGE_ of _PAGES_",
-            "infoEmpty": "No records available",
-            "infoFiltered": "(filtered from _MAX_ total records)"
-        },
+    "bPaginate": true,
+    "bLengthChange": true,
+    "bFilter": true,
+    "bSort": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+    "iDisplayLength": 50,
+    "language": {
+      "lengthMenu": "Show _MENU_ entries",
+      "zeroRecords": "Nothing found - sorry",
+      "info": "Showing page _PAGE_ of _PAGES_",
+      "infoEmpty": "No records available",
+      "infoFiltered": "(filtered from _MAX_ total records)"
+    },
 
-      "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true}
-        ]
+    "aoColumns":[
+      {"bSortable": false},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true}
+    ]
 
-    });
+  });
 
   Table2 = $('#example2').dataTable({
     "bPaginate": true,
@@ -59,25 +59,25 @@ $(function() {
     "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
     "iDisplayLength": 50,
     "language": {
-        "lengthMenu": "Show _MENU_ entries",
-        "zeroRecords": "Nothing found - sorry",
-        "info": "Showing page _PAGE_ of _PAGES_",
-        "infoEmpty": "No records available",
-        "infoFiltered": "(filtered from _MAX_ total records)"
+      "lengthMenu": "Show _MENU_ entries",
+      "zeroRecords": "Nothing found - sorry",
+      "info": "Showing page _PAGE_ of _PAGES_",
+      "infoEmpty": "No records available",
+      "infoFiltered": "(filtered from _MAX_ total records)"
     },
 
     "aoColumns":[
-          {"bSortable": false},
-          //{"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true}
-      ]
+      {"bSortable": false},
+      //{"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true},
+      {"bSortable": true}
+    ]
 
-    });
+  });
 
    Table1.fnSort( [ [2,'asc'] ] );
    Table2.fnSort( [ [1,'asc'] ] );
@@ -223,7 +223,7 @@ $(function() {
           <tr class="even">
             <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
             <td align="left">{{ $details['business_type'] or "" }}</td>
-            <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+            <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
             <td align="left">
               <select class="form-control" name="staff_id" id="staff_id">
                 <option value="">None</option>
@@ -329,12 +329,12 @@ $(function() {
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
 
-        @if(isset($org_client_details) && count($org_client_details) >0)
-        @foreach($org_client_details as $key=>$details)
+        @if(isset($ind_client_details) && count($ind_client_details) >0)
+        @foreach($ind_client_details as $key=>$details)
           <tr class="even">
             <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
             <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
-            <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+            <td align="left"><a href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
             <td align="left">
               <select class="form-control" name="staff_id" id="staff_id">
                 <option value="">None</option>
