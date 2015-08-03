@@ -1256,7 +1256,7 @@ $(document).ready(function(){
             <tr id="hide_service_tr_{{ $service_row->service_id }}">
               <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
               
-              <td width="60%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
+              <td width="60%"><!-- <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a> --></td>
             </tr>
               @endforeach
             @endif

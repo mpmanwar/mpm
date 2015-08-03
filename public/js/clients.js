@@ -1661,7 +1661,8 @@ $("#other_upload_table").on("click", ".delete_files", function(){
             content += '<tr id="hide_service_tr_'+field_id+'">';
             content += '<td align="center" width="40%"><span class="custom_chk chk_fixed">';
             content += '<input type="checkbox" value="1" checked /><label><strong>'+service_name+'</strong></label></span></td>';
-            content += '<td align="center" width="60%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+            //content += '<td align="center" width="60%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+            content += '<td align="center" width="60%"></td>';
           }
           $("#myServTable").last().append(content);
 
