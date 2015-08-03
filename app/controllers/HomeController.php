@@ -785,15 +785,15 @@ class HomeController extends BaseController {
 		if (!empty($postData['aml_checks'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'aml_checks', $postData['aml_checks']);
 		}
-		if (!empty($postData['acting'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'acting', $postData['acting']);
+		if (!empty($postData['ptr'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ptr', $postData['ptr']);
 		}
 		if (!empty($postData['tax_ret_req'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_ret_req', $postData['tax_ret_req']);
 		}
-		if (!empty($postData['resp_staff'])) {
+		/*if (!empty($postData['resp_staff'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'resp_staff', $postData['resp_staff']);
-		}
+		}*/
 
 		//################## USER ADDED FIELD START ###############//
 		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->get();

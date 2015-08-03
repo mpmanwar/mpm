@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    $('#CheckallCheckbox').on('ifChecked', function(event){
+        $(".ch_returns input[class='checkbox']").iCheck('check');
+    });
+
+    $('#CheckallCheckbox').on('ifUnchecked', function(event){
+        $(".ch_returns input[class='checkbox']").iCheck('uncheck');
+    });
+
     $(document).click(function() {
         $(".open_toggle").hide();
     });
@@ -172,37 +180,92 @@ $(document).ready(function(){
 
     });
 
-    $('.status_check').on('ifChecked', function(event){
+    $('#status-modal .status_check').on('ifChecked', function(event){
         var step_id = $(this).data("step_id");
         //alert(step_id);return false;
-        $.ajax({
-            type: "POST",
-            url: "/chdata/save-edit-status",
-            data: { 'step_id': step_id, 'type' : "status" },
-            success: function (resp) {
-                //$('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));
-                $("#status_dropdown option[value='"+step_id+"']").show();    
-                $(".header_step_"+step_id).show();           
-            }
-        });
+        if(step_id != ""){
+            $.ajax({
+                type: "POST",
+                url: "/chdata/save-edit-status",
+                data: { 'step_id': step_id, 'type' : "status" },
+                success: function (resp) {
+                    //$('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));
+                    $("#status_dropdown option[value='"+step_id+"']").show();    
+                    $(".header_step_"+step_id).show();           
+                }
+            });
+        }
+        
     });
 
-    $('.status_check').on('ifUnchecked', function(event){
+    $('#status-modal .status_check').on('ifUnchecked', function(event){
         var step_id = $(this).data("step_id");
         //alert(step_id);return false;
-        $.ajax({
-            type: "POST",
-            url: "/chdata/save-edit-status",
-            data: { 'step_id': step_id, 'type' : "status" },
-            success: function (resp) {
-                //$("#status_dropdown option[value='"+step_id+"']").remove(); 
-                $("#status_dropdown option[value='"+step_id+"']").hide();   
-                $(".header_step_"+step_id).hide();              
+        if(step_id != ""){
+            $.ajax({
+                type: "POST",
+                url: "/chdata/save-edit-status",
+                data: { 'step_id': step_id, 'type' : "status" },
+                success: function (resp) {
+                    //$("#status_dropdown option[value='"+step_id+"']").remove(); 
+                    $("#status_dropdown option[value='"+step_id+"']").hide();   
+                    $(".header_step_"+step_id).hide();              
+                }
+            });
+        }
+    });
+
+/* ################# Send to Task Management Start ################### */
+    $(".send_manage_task").click(function(){
+        var client_id = $(this).data("client_id");
+        var field_name = $(this).data("field_name");
+        //alert(step_id);return false;
+        if(confirm("Do you want to send the client to manage task ?")){
+            $.ajax({
+                type: "POST",
+                url: "/chdata/send-manage-task",
+                data: { 'client_id': client_id, 'field_name' : field_name },
+                success: function (resp) {
+                    $("#after_send_"+client_id).html('<button type="button" class="sent_btn">Sent</button>');              
+                }
+            });
+        }
+        
+    });
+/* ################# Send to Task Management End ################### */
+
+
+/* ################# Delete to Task Management Start ################### */
+    $(".delete_manage_task").click(function(){
+        var val = [];
+        $(".checkbox:checked").each( function (i) {
+            if($(this).is(':checked')){
+                val[i] = $(this).val();
             }
         });
+        //alert(val.length);return false;
+        if(val.length>0){
+            if(confirm("Do you want to Change the status?")){
+                $.ajax({
+                    type: "POST",
+                    url: '/chdata/delete-manage-task',
+                    data: { 'client_delete_id' : val },
+                    success : function(resp){
+                        
+                            
+                    }
+                });
+            }
+
+        }else{
+            alert('Please select atleast one clients');
+        }
+        
     });
+/* ################# Delete to Task Management End ################### */
+
   
 
-
+//send_manage_task
 
 });//end of main document ready 

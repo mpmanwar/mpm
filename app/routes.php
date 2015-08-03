@@ -169,6 +169,8 @@ Route::any('/xls_to_array', array("as"=>"xls_to_array", "uses"=>'ChdataControlle
 
 Route::any('/chdata/manage-tasks', array("as"=>"manage_tasks", "uses"=>'ChdataController@manage_tasks'));
 Route::post('/chdata/save-edit-status', 'ChdataController@save_edit_status');
+Route::post('/chdata/send-manage-task', 'ChdataController@send_manage_task');
+Route::post('/chdata/delete-manage-task', 'ChdataController@delete_manage_task');
 ## Company House Data End ##
 
 

@@ -221,7 +221,9 @@ $(document).ready(function(){
 <div class="twobox_2">
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
-<a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+@if($page_name == "staff")
+<a href="javascript:void(0)" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+@endif
    <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> 
    -->
    
@@ -907,10 +909,10 @@ $(document).ready(function(){
       @endif
     </tr>
 
-  <!--  <tr>
-    
-      <td width="45%"><strong>Copy of Signature</strong></td>
+  <tr>
       @if($page_name== 'profile')
+      <td width="45%"><strong>Copy of Signature</strong></td>
+      
       <td width="22%"><span class="btn btn-default btn-file"> Browse
         <input type="file" class="staffupload_file" name="profilefile4"  id="profilefile4">
         
@@ -918,7 +920,7 @@ $(document).ready(function(){
       <td id="default_proffile4"></td>
       @endif
       @if($page_name== 'staff')
-      <td width="22%">
+      <!-- <td width="22%">
       
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
       <a href="/uploads/profilefile/{{ $staff_details['step_data']['profilefile4'] or "" }}" download="{{ $staff_details['step_data']['profilefile4'] or "" }}">
@@ -926,10 +928,10 @@ $(document).ready(function(){
       <td id="apassport1">
       @if ( (isset($staff_details['step_data']['profilefile4'])) && (!empty($staff_details['step_data']['profilefile4'])) )
         {{ $staff_details['step_data']['profilefile4']  or "" }}<a href="/delete-stafffile/{{$staff_details['step_profids']['profilefile4'] or ""}}" data-id="" data-column="passport1" data-path="uploads/passports/" class="delete_files"><img src="/img/cross.png" height="12"></a>
-      @endif
+      @endif -->
       @endif
     </tr>
-      -->
+      
   </tbody>
 </table>
 <div class="clearfix"></div>

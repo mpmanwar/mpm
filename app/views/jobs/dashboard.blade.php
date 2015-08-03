@@ -122,7 +122,7 @@
 </li>
 
 <li class="hvr-grow">
-    <a  href="#">
+    <a  href="/chdata/index">
         <div class="circle_icons_inner">
             <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
             <p class="c_tagline">CH ANNUAL<br>RETURNS</p>
