@@ -49,7 +49,7 @@ $(function() {
 
     });
 
-  Table1 = $('#example2').dataTable({
+  Table2 = $('#example2').dataTable({
     "bPaginate": true,
     "bLengthChange": true,
     "bFilter": true,
@@ -68,7 +68,7 @@ $(function() {
 
     "aoColumns":[
           {"bSortable": false},
-          {"bSortable": true},
+          //{"bSortable": true},
           {"bSortable": true},
           {"bSortable": true},
           {"bSortable": true},
@@ -80,7 +80,7 @@ $(function() {
     });
 
    Table1.fnSort( [ [2,'asc'] ] );
-   Table2.fnSort( [ [2,'asc'] ] );
+   Table2.fnSort( [ [1,'asc'] ] );
 
 });
 
@@ -316,9 +316,9 @@ $(function() {
     <table class="table table-bordered table-hover dataTable org_alocation" id="example2" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><span class="custom_chk"><input type='checkbox' id="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
-          <th>Type</th>
-          <th>BUSINESS NAME</th>
+          <th><span class="custom_chk"><input type='checkbox' id="CheckindCheckbox" /></span></th><!-- allCheckSelect -->
+          <!-- <th>Type</th> -->
+          <th>CLIENT NAME</th>
           <th>STAFF NAME</th>
           <th>STAFF NAME</th>
           <th>STAFF NAME</th>
@@ -332,8 +332,8 @@ $(function() {
         @if(isset($org_client_details) && count($org_client_details) >0)
         @foreach($org_client_details as $key=>$details)
           <tr class="even">
-            <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
-            <td align="left">{{ $details['business_type'] or "" }}</td>
+            <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
+            <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
             <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
             <td align="left">
               <select class="form-control" name="staff_id" id="staff_id">
