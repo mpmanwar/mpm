@@ -406,7 +406,12 @@ class StaffprofileController extends BaseController
                     $file   = Input::file('stafffile'.$i);
                     $destinationPath = "uploads/stafffile/";
                     $fileName   = Input::file('stafffile'.$i)->getClientOriginalName();
+                    
+                    //$random = str_random(4);
+                    //$file_name=$random.$fileName;
+                    
                     $result     = Input::file('stafffile'.$i)->move($destinationPath, $fileName);
+                    
                     $arrData[]  = $this->save_profile($user_id, $staff_id, $step_id, 'stafffile'.$i,
                         $fileName);
 
@@ -497,6 +502,9 @@ class StaffprofileController extends BaseController
        
        echo $field_name['field_name'];
        //die();
+       
+       
+       
        
        StepsFieldsStaff::where("field_id", "=", $user_id)->delete();
        

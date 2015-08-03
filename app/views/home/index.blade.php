@@ -52,7 +52,7 @@
     
     
     
-   <div class="wrapper1">
+   <div class="wrapper1" id="scrolll" >
         <div class="mid_body_pan">
         
           <a href="#">
@@ -241,7 +241,7 @@
         <div class="clr"></div>
         
         
-        <div class="lst_pan"><img src="/img/lst_img.jpg" alt="" /></div>
+        <div id="pricing_div" class="lst_pan"><img src="/img/lst_img.jpg" alt="" /></div>
         
         
 <!--Header Start-->  
