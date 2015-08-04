@@ -233,7 +233,7 @@ $(function() {
                 <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id)?"checked":""}}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   @endforeach
                 @endif
               </select>
@@ -351,6 +351,7 @@ $(function() {
       </div>
     
       <div class="modal-body">
+        <div style="font-size: 18px; color: #008d4c; text-align: center;" id="success_msg"></div>
       <table class="table table-bordered table-hover dataTable">
         <tr>
           <td width="30%"><strong style="font-size: 16px;">Select Staff : </strong></td>
@@ -413,6 +414,6 @@ $(function() {
 </div>
 
 
-<!-- @include("home.include.client_modal_page") -->
+
 
 @stop

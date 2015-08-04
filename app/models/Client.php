@@ -19,6 +19,17 @@ class Client extends Eloquent {
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 
+				// ############### GET CLIENT LIST ALLOCATION START ################## //
+				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->first();
+				if(isset($list) && count($list) >0){
+					$client_data[$i]['allocation']['service_id'] = $list['service_id'];
+					$client_data[$i]['allocation']['staff_id1'] = $list['staff_id1'];
+					$client_data[$i]['allocation']['staff_id2'] = $list['staff_id2'];
+					$client_data[$i]['allocation']['staff_id3'] = $list['staff_id3'];
+					$client_data[$i]['allocation']['staff_id4'] = $list['staff_id4'];
+					$client_data[$i]['allocation']['staff_id5'] = $list['staff_id5'];
+				}
+				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
 				// ############### GET VAT SCHEME USER START ################## //
 				$service = Common::get_services_client($client_id->client_id);
@@ -96,6 +107,18 @@ class Client extends Eloquent {
 				
                 $client_data[$i]['client_id'] 		= $client_id->client_id;
                 $client_data[$i]['show_archive'] 	= $client_id->show_archive;
+
+                // ############### GET CLIENT LIST ALLOCATION START ################## //
+				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->first();
+				if(isset($list) && count($list) >0){
+					$client_data[$i]['allocation']['service_id'] = $list['service_id'];
+					$client_data[$i]['allocation']['staff_id1'] = $list['staff_id1'];
+					$client_data[$i]['allocation']['staff_id2'] = $list['staff_id2'];
+					$client_data[$i]['allocation']['staff_id3'] = $list['staff_id3'];
+					$client_data[$i]['allocation']['staff_id4'] = $list['staff_id4'];
+					$client_data[$i]['allocation']['staff_id5'] = $list['staff_id5'];
+				}
+				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
 				if (isset($client_details) && count($client_details) > 0) {
 					$address = "";

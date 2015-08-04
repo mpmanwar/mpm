@@ -55,9 +55,19 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.radio_column').on('ifChecked', function(event){
-        //alert($(this).val());
-    });
+	/*$('.radio_column').on('ifChecked', function(event){
+		var column 		= $(this).val();
+		var client_type = $("#client_type").val();
+		var val = [];
+	    $("."+client_type+"_Checkbox:checked").each( function (i) {
+			if($(this).is(':checked')){
+				val[i] = $(this).val();
+			}
+	    });
+		
+		
+        
+    });*/
 
     $(".save_bulk_allocation").click(function(){
     	var client_type = $("#client_type").val();
@@ -84,6 +94,8 @@ $(document).ready(function(){
 			    url: '/save-bulk-allocation',
 			    data: { 'service_id':service_id,'column':column,'client_type':client_type,'staff_id':staff_id,'client_array':val },
 			    success : function(resp){
+			    	$("#success_msg").html("Successfully added bulk allocation");
+			    	
 			    	if(client_type == 'org'){
 			    		//$("#example1 tbody").html(resp);
 			    	}else{

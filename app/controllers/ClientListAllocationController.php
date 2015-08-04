@@ -20,13 +20,17 @@ class ClientListAllocationController extends BaseController {
 		//$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
 		//$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
 
-		//echo "<prev>".print_r($data['old_services']);die;
+		//echo "<prev>".print_r($data['org_client_details']);die;
 		return View::make('settings.client_list_allication.index', $data);
 	}
 
 
 	public function search_allocation_clients()
 	{
+		$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
+		
 		$data = array();
 		$data['client_type'] 	= Input::get("client_type");
 		$data['service_id']		= Input::get("service_id");
@@ -36,6 +40,7 @@ class ClientListAllocationController extends BaseController {
 		}else{
 			$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
 		}
+		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 
 		echo View::make("settings.client_list_allication.search_allocation_list", $data);
 	}
@@ -73,6 +78,8 @@ class ClientListAllocationController extends BaseController {
 		echo 1;
 
 	}
+
+
 
 	
     

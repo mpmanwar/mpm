@@ -1646,7 +1646,7 @@ $("#other_upload_table").on("click", ".delete_files", function(){
           var content = "";
           if(client_type == "org"){
             var option = "";
-            content += '<tr id="hide_service_tr_'+field_id+'"><td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="'+field_id+'" checked /><label><strong>'+service_name+'</strong></label></span></td>';
+            content += '<tr id="hide_service_tr_'+field_id+'"><td align="center" width="40%"><span class="custom_chk chk_fixed"><input type="checkbox" value="'+field_id+'" checked /><label><strong>'+service_name+'</strong></label></span></td>';
             
             /*content += '<select class="form-control" name="staff_id" id="staff_id"><option value="">None</option>';
               $.each(resp['staff_details'], function(key){
@@ -1654,8 +1654,8 @@ $("#other_upload_table").on("click", ".delete_files", function(){
               });
               content += option+'</select>';*/
             
-            content += '<td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
-            content += '<td align="left" widht="30%"></td>';
+            //content += '<td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a></td></tr>';
+            //content += '<td align="left" widht="30%"></td>';
           }else{
             content += '<tr id="hide_service_tr_'+field_id+'">';
             content += '<td align="center" width="40%"><span class="custom_chk chk_fixed">';
