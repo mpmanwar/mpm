@@ -244,6 +244,9 @@ class HomeController extends BaseController {
 		$data['cont_address'] 		= $this->get_contact_address();
 
 		$data['allClients'] 		= $this->get_all_clients();
+
+		$data['old_services'] 	= Service::where("status", "=", "old")->where("client_type", "=", "ind")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
         
         //print_r($data['allClients']);die;
 

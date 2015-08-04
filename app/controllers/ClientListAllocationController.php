@@ -40,6 +40,30 @@ class ClientListAllocationController extends BaseController {
 		echo View::make("settings.client_list_allication.search_allocation_list", $data);
 	}
 
+	public function save_bulk_allocation()
+	{
+		$insrtdata = array();
+		$staff_id		= Input::get("staff_id");
+		$column			= Input::get("column");
+		$service_id		= Input::get("service_id");
+		$client_type	= Input::get("client_type");
+		$client_array	= Input::get("client_array");
+
+		if(isset($client_array) && count($client_array) >0){
+			foreach ($client_array as $client_id) {
+				$allocData[] = array(
+					'client_type' 		=> $client_type,
+					'client_id' 		=> $client_id,
+					'service_id' 		=> $service_id,
+					'staff_id'.$column 	=> $staff_id,
+				);
+			}
+			ClientListAllocation::insert($allocData);
+		}
+		echo 1;
+
+	}
+
 	
     
 

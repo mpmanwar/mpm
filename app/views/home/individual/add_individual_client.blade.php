@@ -1055,7 +1055,7 @@ $(document).ready(function(){
 </div>
 </div>
 
-<div class="twobox_02">
+<!-- <div class="twobox_02">
 <div class="form-group">
 <label for="exampleInputPassword1">Acting?</label>
 <input type="checkbox" name="acting" value="1" />
@@ -1067,13 +1067,13 @@ $(document).ready(function(){
 <label for="exampleInputPassword1">Tax Return Required</label>
 <input type="checkbox" name="tax_ret_req" value="1" />
 </div>
-</div>
+</div> -->
 
 <div class="clearfix"></div>
 </div>
 
 
-<div class="twobox_1">
+<!-- <div class="twobox_1">
 <div class="form-group">
 <label for="exampleInputPassword1">Responsible Staff</label>
 <select class="form-control" name="resp_staff" id="resp_staff">
@@ -1087,9 +1087,48 @@ $(document).ready(function(){
 </select>
 </div>
 </div>
-<div class="clearfix"></div>
+<div class="clearfix"></div> -->
 
+    <div class="service_t"><h3 class="box-title">Services</h3></div>
+      <div class="add_edit">
+        <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
+      </div>
+      <div class="clearfix"></div>
 
+      <div class="form-group">
+      <table width="100%" id="myServTable" class="myServTable">
+        @if( isset($old_services) && count($old_services)>0 )
+          @foreach($old_services as $key=>$service_row)
+        <tr>
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+          <td widht="30%"></td>
+          <td width="30%"></td>
+        </tr>
+          @endforeach
+        @endif
+
+        @if( isset($new_services) && count($new_services)>0 )
+          @foreach($new_services as $key=>$service_row)
+          <tr id="hide_service_tr_{{ $service_row->service_id }}">
+            <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+            <td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
+            <td align="left" widht="30%">
+              <!-- <select class="form-control" name="staff_id" id="staff_id">
+                <option value="">None</option>
+                  @if(!empty($staff_details))
+                    @foreach($staff_details as $key=>$staff_row)
+                    <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                    @endforeach
+                  @endif
+                </select> -->
+            </td>
+          </tr>
+          @endforeach
+        @endif
+        
+        
+      </table>
+      </div>
 
 </div>
 

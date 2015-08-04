@@ -369,27 +369,27 @@ $(function() {
         <tr>
           <td width="30%">&nbsp;</td>
           <td width="35%">
-            <strong>Column 1</strong> <input type="checkbox" name="column[]" value="1">
+            <strong>Column 1</strong> <input type="radio" name="column" value="1" class="radio_column">
           </td>
           <td width="35%">
-            <strong>Column 3</strong> <input type="checkbox" name="column[]" value="2">
-          </td>
-        </tr>
-
-        <tr>
-          <td width="30%">&nbsp;</td>
-          <td width="35%">
-            <strong>Column 2</strong> <input type="checkbox" name="column[]" value="3">
-          </td>
-          <td width="35%">
-            <strong>Column 4</strong> <input type="checkbox" name="column[]" value="4">
+            <strong>Column 3</strong> <input type="radio" name="column" value="3" class="radio_column">
           </td>
         </tr>
 
         <tr>
           <td width="30%">&nbsp;</td>
           <td width="35%">
-            <strong>Column 5</strong> <input type="checkbox" name="column[]" value="5">
+            <strong>Column 2</strong> <input type="radio" name="column" value="2" class="radio_column">
+          </td>
+          <td width="35%">
+            <strong>Column 4</strong> <input type="radio" name="column" value="4" class="radio_column">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="30%">&nbsp;</td>
+          <td width="35%">
+            <strong>Column 5</strong> <input type="radio" name="column" value="5" class="radio_column">
           </td>
           <td width="35%"></td>
         </tr>
@@ -399,7 +399,7 @@ $(function() {
         <div class="modal-footer clearfix" style="padding-right: 0px;">
           <div class="email_btns">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" name="save">Save</button>
+            <button type="button" class="btn btn-primary save_bulk_allocation" name="save">Save</button>
           </div>
         </div>
 
