@@ -11,7 +11,7 @@
             <option value="">None</option>
             @if(!empty($staff_details))
               @foreach($staff_details as $key=>$staff_row)
-              <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id)?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+              <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id && isset( $details['allocation']['service_id'] ) && $details['allocation']['service_id'] == $service_id)?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
               @endforeach
             @endif
           </select>
@@ -35,7 +35,7 @@
             <option value="">None</option>
             @if(!empty($staff_details))
               @foreach($staff_details as $key=>$staff_row)
-              <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id)?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+              <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id && isset( $details['allocation']['service_id'] ) && $details['allocation']['service_id'] == $service_id)?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
               @endforeach
             @endif
           </select>

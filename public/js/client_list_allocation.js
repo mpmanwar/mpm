@@ -52,6 +52,8 @@ $(document).ready(function(){
 			    	
 			    }
 			});
+		}else{
+			$("#example1 tbody").html("");
 		}
 	});
 
