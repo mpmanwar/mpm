@@ -167,18 +167,18 @@ $(function() {
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
-        <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">ORGANISATIONAL CLIENT LIST</a></li>
-        <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">INDIVIDUAL CLIENT LIST</a></li>
+        <li class="active" id="tab_1"><a class="open_header client_allocate" data-id="1" data-type="org" href="javascript:void(0)">ORGANISATIONAL CLIENT LIST</a></li>
+        <li id="tab_2"><a class="open_header client_allocate" data-id="2" data-type="ind" href="javascript:void(0)">INDIVIDUAL CLIENT LIST</a></li>
        </ul>
 <div class="tab-content">
-
+<input type="hidden" id="client_type" name="client_type" value="org">
   <div id="step1" class="tab-pane active" style="display:block;">
     <div class="tab_topcon" style="position: relative; left:30%;">
       <div class="selctbox_containor1">
 
         <div class="select_t">Select Service :</div>
         <div class="sel_box">
-          <select class="form-control" name="ind_service_id" id="ind_service_id">
+          <select class="form-control service_dropdown" name="org_service_id" id="org_service_id">
             <option value="">None</option>
             @if( isset($old_services) && count($old_services)>0 )
               @foreach($old_services as $key=>$service_row)
@@ -202,17 +202,20 @@ $(function() {
       
       <div class="clearfix"></div>
     </div>
+
+    <div id="orgclient_table">
     <table class="table table-bordered table-hover dataTable org_alocation" id="example1" aria-describedby="example1_info">
+      
       <thead>
         <tr role="row">
-          <th><span class="custom_chk"><input type='checkbox' id="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
-          <th>Type</th>
+          <th width="2%"><span class="custom_chk"><input type='checkbox' id="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
+          <th width="10%">Type</th>
           <th>BUSINESS NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
+          <th width="13%">STAFF NAME</th>
+          <th width="13%">STAFF NAME</th>
+          <th width="13%">STAFF NAME</th>
+          <th width="13%">STAFF NAME</th>
+          <th width="13%">STAFF NAME</th>
         </tr>
       </thead>
 
@@ -221,11 +224,12 @@ $(function() {
         @if(isset($org_client_details) && count($org_client_details) >0)
         @foreach($org_client_details as $key=>$details)
           <tr class="even">
-            <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
+            <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox" /></span></td>
             <td align="left">{{ $details['business_type'] or "" }}</td>
             <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+            @for($i=1; $i <=5; $i++)
             <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
+              <select class="form-control" name="org_staff_id{{ $i }}" id="org_staff_id{{ $i }}">
                 <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -234,52 +238,14 @@ $(function() {
                 @endif
               </select>
             </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="center" width="12%">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
+            @endfor
           </tr>
         @endforeach
       @endif
         
       </tbody>
     </table>
+  </div>
     <div class="clearfix"></div>
   </div>
 
@@ -289,11 +255,11 @@ $(function() {
 
         <div class="select_t">Select Service :</div>
         <div class="sel_box">
-          <select class="form-control" name="ind_service_id" id="ind_service_id">
+          <select class="form-control service_dropdown" name="ind_service_id" id="ind_service_id">
             <option value="">None</option>
             @if( isset($old_services) && count($old_services)>0 )
               @foreach($old_services as $key=>$service_row)
-                @if( isset($service_row->client_type) && $service_row->client_type == "org" )
+                @if( isset($service_row->client_type) && $service_row->client_type == "ind" )
                   <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
@@ -301,7 +267,7 @@ $(function() {
 
             @if( isset($new_services) && count($new_services)>0 )
               @foreach($new_services as $key=>$service_row)
-                @if( isset($service_row->client_type) && $service_row->client_type == "org" )
+                @if( isset($service_row->client_type) && $service_row->client_type == "ind" )
                   <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
@@ -316,14 +282,14 @@ $(function() {
     <table class="table table-bordered table-hover dataTable org_alocation" id="example2" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><span class="custom_chk"><input type='checkbox' id="CheckindCheckbox" /></span></th><!-- allCheckSelect -->
+          <th width="5%"><span class="custom_chk"><input type='checkbox' id="CheckindCheckbox" /></span></th><!-- allCheckSelect -->
           <!-- <th>Type</th> -->
           <th>CLIENT NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
-          <th>STAFF NAME</th>
+          <th width="14%">STAFF NAME</th>
+          <th width="14%">STAFF NAME</th>
+          <th width="14%">STAFF NAME</th>
+          <th width="14%">STAFF NAME</th>
+          <th width="14%">STAFF NAME</th>
         </tr>
       </thead>
 
@@ -332,11 +298,12 @@ $(function() {
         @if(isset($ind_client_details) && count($ind_client_details) >0)
         @foreach($ind_client_details as $key=>$details)
           <tr class="even">
-            <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
+            <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox" /></span></td>
             <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
             <td align="left"><a href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
+            @for($i=1; $i <=5; $i++)
             <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
+              <select class="form-control" name="ind_staff_id{{ $i }}" id="ind_staff_id{{ $i }}">
                 <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -345,46 +312,7 @@ $(function() {
                 @endif
               </select>
             </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="left">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            <td align="center" width="12%">
-              <select class="form-control" name="staff_id" id="staff_id">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
+            @endfor
           </tr>
         @endforeach
       @endif
