@@ -7,7 +7,7 @@
         <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
         @for($i=1; $i <=5; $i++)
         <td align="left">
-          <select class="form-control" name="org_staff_id{{ $i }}" id="org_staff_id{{ $i }}">
+          <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}">
             <option value="">None</option>
             @if(!empty($staff_details))
               @foreach($staff_details as $key=>$staff_row)
@@ -31,7 +31,7 @@
         <td align="left"><a target="_blank" href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
         @for($i=1; $i <=5; $i++)
         <td align="left">
-          <select class="form-control" name="ind_staff_id{{ $i }}" id="ind_staff_id{{ $i }}">
+          <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}">
             <option value="">None</option>
             @if(!empty($staff_details))
               @foreach($staff_details as $key=>$staff_row)

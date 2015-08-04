@@ -30,7 +30,7 @@ class ClientListAllocationController extends BaseController {
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
-		
+
 		$data = array();
 		$data['client_type'] 	= Input::get("client_type");
 		$data['service_id']		= Input::get("service_id");
@@ -75,6 +75,33 @@ class ClientListAllocationController extends BaseController {
 			}
 			
 		}
+		echo 1;
+
+	}
+
+	public function save_manual_staff()
+	{
+		$insrtdata = array();
+		$staff_id		= Input::get("staff_id");
+		$column			= Input::get("column");
+		$service_id		= Input::get("service_id");
+		$client_type	= Input::get("client_type");
+		$client_id		= Input::get("client_id");
+
+		$list = ClientListAllocation::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+		if(isset($list) && count($list) >0){
+			$updateData['staff_id'.$column] = $staff_id;
+			ClientListAllocation::where("client_allocation_id", "=", $list['client_allocation_id'])->update($updateData);
+		}else{
+			$allocData[] = array(
+				'client_type' 		=> $client_type,
+				'client_id' 		=> $client_id,
+				'service_id' 		=> $service_id,
+				'staff_id'.$column 	=> $staff_id,
+			);
+			ClientListAllocation::insert($allocData);
+		}
+
 		echo 1;
 
 	}

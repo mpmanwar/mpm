@@ -94,19 +94,42 @@ $(document).ready(function(){
 			    url: '/save-bulk-allocation',
 			    data: { 'service_id':service_id,'column':column,'client_type':client_type,'staff_id':staff_id,'client_array':val },
 			    success : function(resp){
-			    	$("#success_msg").html("Successfully added bulk allocation");
+			    	//$("#success_msg").html("Successfully added bulk allocation");
+			    	$("."+client_type+"_Checkbox:checked").each( function (i) {
+						if($(this).is(':checked')){
+							client_id = $(this).val();
+							$('#'+client_id+"_"+client_type+'_staff_id'+column).val(staff_id);
+						}
+				    });
 			    	
-			    	if(client_type == 'org'){
-			    		//$("#example1 tbody").html(resp);
-			    	}else{
-			    		//$("#example2 tbody").html(resp);
-			    	}
-			    	
+			    	$('#bulk_allocation-modal').modal('hide');
 			    }
 			});
     	}
 
     });
+
+	$("body").on("change", ".save_manual_user", function(){
+		var client_type = $("#client_type").val();
+    	var column 		= $(this).data("column");
+    	var client_id 	= $(this).data("client_id");
+    	var staff_id 	= $(this).val();
+    	var service_id 	= $("#"+client_type+"_service_id").val();
+
+    	if(service_id == ""){
+    		alert("Please Select Service name");
+    		return false;
+    	}else{
+    		$.ajax({
+			    type: "POST",
+			    url: '/save-manual-staff',
+			    data: { 'service_id':service_id,'column':column,'client_type':client_type,'staff_id':staff_id,'client_id':client_id },
+			    success : function(resp){
+			    	
+			    }
+			});
+    	}
+	});
 
 
 

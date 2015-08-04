@@ -90,7 +90,7 @@ Route::any('/settings-dashboard', array('as' => 'settings-dashboard', 'uses' => 
 Route::any('/client-list-allocation',  'ClientListAllocationController@index');
 Route::any('/search-allocation-clients',  'ClientListAllocationController@search_allocation_clients');
 Route::any('/save-bulk-allocation',  'ClientListAllocationController@save_bulk_allocation');
-
+Route::any('/save-manual-staff',  'ClientListAllocationController@save_manual_staff');
 ### Routes for Settings related URL's end ###
 
 
