@@ -17,8 +17,8 @@ class ClientListAllocationController extends BaseController {
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
-		$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
-		$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
+		//$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
+		//$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
 
 		//echo "<prev>".print_r($data['old_services']);die;
 		return View::make('settings.client_list_allication.index', $data);
@@ -51,14 +51,24 @@ class ClientListAllocationController extends BaseController {
 
 		if(isset($client_array) && count($client_array) >0){
 			foreach ($client_array as $client_id) {
-				$allocData[] = array(
-					'client_type' 		=> $client_type,
-					'client_id' 		=> $client_id,
-					'service_id' 		=> $service_id,
-					'staff_id'.$column 	=> $staff_id,
-				);
+				$list = ClientListAllocation::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+				if(isset($list) && count($list) >0){
+					$updateData['staff_id'.$column] = $staff_id;
+					ClientListAllocation::where("client_allocation_id", "=", $list['client_allocation_id'])->update($updateData);
+				}else{
+					$allocData[] = array(
+						'client_type' 		=> $client_type,
+						'client_id' 		=> $client_id,
+						'service_id' 		=> $service_id,
+						'staff_id'.$column 	=> $staff_id,
+					);
+				}
+				
 			}
-			ClientListAllocation::insert($allocData);
+			if(isset($allocData) && count($allocData) >0){
+				ClientListAllocation::insert($allocData);
+			}
+			
 		}
 		echo 1;
 
