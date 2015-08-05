@@ -198,7 +198,7 @@ $(function() {
             @endif
           </select>
         </div>
-        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Save</button>
+        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Update</button>
       </div>
       {{ Form::close() }}
       <div class="clearfix"></div>
@@ -278,7 +278,7 @@ $(function() {
             @endif
           </select>
         </div>
-        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Save</button>
+        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Update</button>
       </div>
       {{ Form::close() }}
       
