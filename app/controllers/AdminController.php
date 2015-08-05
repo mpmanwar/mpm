@@ -16,7 +16,7 @@ class AdminController extends BaseController {
 		if ($this->isPostRequest()) {
 			$postData = Input::all();
 			$messages = array(
-				'fname.required' => 'Please enter your first name',
+				'fname.required' => 'Please enter your name',
 				'email.required' => 'Please enter your email/username',
 				'password.required' => 'Please enter your password',
 				'confirmation_password.required' => 'Please enter confirmation password',
@@ -25,15 +25,20 @@ class AdminController extends BaseController {
 			//print_r($messages);die();
 			$rules = array(
 				'fname' => 'required|alpha',
-				'lname' => 'required|alpha',
+				
 				'email' => 'required|email',
 				'password' => 'required',
-				'confirmation_password' => 'required|same:password',
-				'phone' => 'required');
+				'confirmation_password' => 'required|same:password'
+				);
 			$validator = Validator::make($postData, $rules, $messages);
 
 			if ($validator->fails()) {
-				return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
+			 
+             
+                return Redirect::to('/admin-signup')->withInput(Request::except('password'))->withErrors($validator);
+                
+            // return Redirect::back()->withErrors($validator)->withInput();
+			//	return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
 			} else {
 				$insert_data['fname'] 			= $postData['fname'];
 				$insert_data['lname'] 			= $postData['lname'];

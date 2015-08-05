@@ -34,13 +34,18 @@
             <!--  <form action=" " method="post"> -->
             {{ Form::open(array('url' => '/signup-process', 'files' => true)) }}      
                 <div class="body bg-gray">
-                    @if ( $errors->count() > 0 )
+                 
+                   @if ( $errors->count() > 0 )
                         <ul>
+                        
                             @foreach( $errors->all() as $message )
                               <li>{{ $message }}</li>
                             @endforeach
                         </ul>
-                    @endif
+                    @endif  
+                    
+      
+
                 
                 <div style="color: red;font-size: 15px;">{{ Session::get('error_msg') }}</div>
 
@@ -55,10 +60,16 @@
                 
                 <div class="firstname_con">
                     <div class="firstname">
-                      <input type="text" name="fname" id="fname" class="form-control1" placeholder="First Name"/>
+                      <input type="text" name="fname" id="fname" class="form-control1" value="{{Request::old('fname')}}" placeholder="First Name"/>
                     </div>
+                    
+                   
+                   
+                    
+                    
+                    
                     <div class="lastname">
-                       <input type="text" name="lname" id="lname" class="form-control1" placeholder="Last Name"/>
+                       <input type="text" name="lname" id="lname" class="form-control1" value="{{Request::old('lname')}}" placeholder="Last Name"/>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -67,7 +78,7 @@
                         <input type="text" name="practicename" id="practicename" class="form-control1" placeholder="Practice Name"/>
                     </div> -->
                     <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control1" placeholder="Email Address"/>
+                        <input type="text" name="email" id="email" class="form-control1" value="{{Request::old('email')}}" placeholder="Email Address"/>
                     </div>
                     
                     <div class="firstname_con">
@@ -81,14 +92,14 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="practice_name" id="practice_name" class="form-control1" placeholder="Practice Name"/>
+                        <input type="text" name="practice_name" id="practice_name" value="{{Request::old('practice_name')}}" class="form-control1" placeholder="Practice Name"/>
                     </div>
                     
                     <div class="form-group">
-                        <input type="text" name="phone" id="phone" class="form-control1" placeholder="Phone"/>
+                        <input type="text" name="phone" id="phone" class="form-control1" value="{{Request::old('phone')}}" placeholder="Phone"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="website" id="website" class="form-control" placeholder="Website"/>
+                        <input type="text" name="website" id="website" class="form-control" value="{{Request::old('website')}}" placeholder="Website"/>
                     </div>
                     
                     <div class="form-group">
