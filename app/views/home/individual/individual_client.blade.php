@@ -276,7 +276,8 @@ $(function() {
                   </td>
                   <td align="center">{{ (!empty($client_row['ni_number']))? $client_row['ni_number']: '' }}</td>
                   <td align="center">{{ (!empty($client_row['tax_reference']))? $client_row['tax_reference']: '' }}</td>
-                  <td align="center">{{ (!empty($client_row['ptr'])) ? 'Yes': 'No' }}</td>
+                  <td align="center">{{ (isset($client_row['other_services']) && in_array(10, unserialize($client_row['other_services'])))?"Yes":"No" }} </td>
+
                   <td align="left">
                     @if(isset($client_row['address']) && $client_row['address'] != "" )
                     <span title="{{ $client_row['address'] }}">{{ (strlen($client_row['address']) > 45)? substr($client_row['address'], 0, 42)."...": $client_row['address'] }}</span>

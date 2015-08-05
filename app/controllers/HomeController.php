@@ -244,6 +244,9 @@ class HomeController extends BaseController {
 		$data['cont_address'] 		= $this->get_contact_address();
 
 		$data['allClients'] 		= $this->get_all_clients();
+
+		$data['old_services'] 	= Service::where("status", "=", "old")->where("client_type", "=", "ind")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
         
         //print_r($data['allClients']);die;
 
@@ -785,12 +788,13 @@ class HomeController extends BaseController {
 		if (!empty($postData['aml_checks'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'aml_checks', $postData['aml_checks']);
 		}
-		if (!empty($postData['ptr'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'ptr', $postData['ptr']);
-		}
 		if (!empty($postData['tax_ret_req'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'tax_ret_req', $postData['tax_ret_req']);
 		}
+		if (isset($postData['other_services']) && count($postData['other_services']) >0) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'other_services', serialize($postData['other_services']));
+		}
+
 		/*if (!empty($postData['resp_staff'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'resp_staff', $postData['resp_staff']);
 		}*/
@@ -1533,7 +1537,8 @@ class HomeController extends BaseController {
 		ClientService::insert($relData);
 	}*/
 	if (isset($postData['other_services']) && count($postData['other_services']) >0) {
-		ClientService::where("client_id", "=", $client_id)->delete();
+		$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'other_services', serialize($postData['other_services']));
+		/*ClientService::where("client_id", "=", $client_id)->delete();
 		$relData = array();
 		foreach ($postData['other_services'] as $service_id) {
 			if((isset($service_id) && $service_id != "") && (isset($postData['staff_id_'.$service_id]) && $postData['staff_id_'.$service_id] != "")){
@@ -1545,7 +1550,7 @@ class HomeController extends BaseController {
 			}
 			
 		}
-		ClientService::insert($relData);
+		ClientService::insert($relData);*/
 	}
 //############# SERVICES END ###################//
 

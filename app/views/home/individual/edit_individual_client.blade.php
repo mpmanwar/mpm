@@ -1246,15 +1246,19 @@ $(document).ready(function(){
       <div class="form-group">
         <table width="100%" id="myServTable" class="myServTable">
           <tbody>
-            <tr>
-              <td align="center" width="40%"><span class="custom_chk"><input type='checkbox' name='ptr' value='1' {{ (isset($client_details['ptr']) && $client_details['ptr'] == "1")?"checked":"" }}/><strong>PERSONAL TAX RETURNS</strong></span></td>
-              <td align="center" width="60%"></td>
-            </tr>
+            @if( isset($old_services) && count($old_services)>0 )
+              @foreach($old_services as $key=>$service_row)
+                <tr>
+                  <td align="center" width="40%"><span class="custom_chk"><input type='checkbox' name='other_services[]' value='{{ $service_row->service_id }}' {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><strong>{{ $service_row->service_name }}</strong></span></td>
+                  <td align="center" width="60%"></td>
+                </tr>
+              @endforeach
+            @endif
 
             @if( isset($new_services) && count($new_services)>0 )
               @foreach($new_services as $key=>$service_row)
             <tr id="hide_service_tr_{{ $service_row->service_id }}">
-              <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+              <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
               
               <td width="60%"><!-- <a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a> --></td>
             </tr>
@@ -1276,7 +1280,7 @@ $(document).ready(function(){
 
 <div class="form-group">
   <label for="exampleInputPassword1">Tax Return Required</label>
-  <input type="checkbox" name="ptr" value="1" {{ (isset($client_details['ptr']) && $client_details['ptr'] == "1")?"checked":"" }} />
+  <input type="checkbox" name="ptr" value="10" {{ (isset($client_details['other_services']) && in_array(10, unserialize($client_details['other_services'])))?"checked":"" }} />
 </div>
 
 

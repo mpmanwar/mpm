@@ -2330,135 +2330,34 @@ $(document).ready(function(){
         @if( isset($old_services) && count($old_services)>0 )
           @foreach($old_services as $key=>$service_row)
         <tr>
-          <!-- <td align="center" width="8%"><input type="checkbox" value="{{ $service_row->service_id }}" checked></td>
-          <td align="left" width="35%"><strong>{{ $service_row->service_name }}</strong></td>
-          <td align="left" widht="30%">
-            <select class="form-control" name="staff_id" id="staff_id">
-              <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-          </td>
-          <td width="27%"></td> -->
-          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
-          <td align="left" widht="30%">
-            <select class="form-control" name="staff_id_{{ $service_row->service_id }}" id="staff_id">
-              <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-          </td>
-          <td width="30%"></td>
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
         </tr>
           @endforeach
         @endif
 
         @if( isset($new_services) && count($new_services)>0 )
           @foreach($new_services as $key=>$service_row)
-        <tr id="hide_service_tr_{{ $service_row->service_id }}">
-          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" checked /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
-          <td align="left" widht="30%">
-            <select class="form-control" name="staff_id" id="staff_id">
-              <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-          </td>
-          <td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
-        </tr>
+          <tr id="hide_service_tr_{{ $service_row->service_id }}">
+            <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+            <!-- <td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
+            <td align="left" widht="30%">
+              <select class="form-control" name="staff_id" id="staff_id">
+                <option value="">None</option>
+                  @if(!empty($staff_details))
+                    @foreach($staff_details as $key=>$staff_row)
+                    <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                    @endforeach
+                  @endif
+                </select>
+            </td> -->
+          </tr>
           @endforeach
         @endif
         
         
       </table>
       </div>
-    <!-- <div class="service_t">
-      <h3 class="box-title">Services</h3>
-    </div>
-                              
-    <div class="add_edit">
-    <a href="#" class="add_to_list" data-toggle="modal" data-target="#services-modal"> Add/Edit list</a>
-    </div>
-      <div class="clearfix"></div>
     
-      
-      <div class="form-group">
-    <a href="javascript:void(0)" class="btn btn-info" onClick="show_org_other_div()">Allocate Service to staff</a>
-      </div>
-    
-      <div class="box-body table-responsive">
-    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-      <div class="row">
-        <div class="col-xs-6"></div>
-        <div class="col-xs-6"></div>
-      </div>
-    
-      <table width="100%" class="table table-bordered table-hover dataTable" id="myServTable">
-      <input type="hidden" id="serv_hidd_array" name="serv_hidd_array" value="">
-    <tr>
-      <td align="center"><strong>Service</strong></td>
-      <td align="center"><strong>Staff</strong></td>
-      <td align="center"><strong>Action</strong></td>
-    </tr>
-    @if( isset($services_table) && count($services_table)>0 )
-      @foreach($services_table as $key=>$service_row)
-        <tr id="deleted_service_tr{{ $service_row['client_service_id'] }}">
-          <td align="center">{{ $service_row['service_name'] }}</td>
-          <td align="center">{{ $service_row['name'] }}</td>
-          <td align="center"><a href="javascript:void(0)" data-client_service_id="{{ $service_row['client_service_id'] }}" class="delete_database_service"><img src="/img/cross.png" height="15"></a></td>
-        </tr>
-      @endforeach
-    @endif
-    
-      </table>
-    
-     
-    <div class="contain_tab4" id="add_services_div" style="display:none;">
-    <div class="services_search">
-      <select class="form-control" name="service_id" id="service_id">
-        <option value="" >None</option>
-          @if( isset($old_services) && count($old_services)>0 )
-            @foreach($old_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
-          @if( isset($new_services) && count($new_services)>0 )
-            @foreach($new_services as $key=>$service_row)
-              <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
-            @endforeach
-          @endif
-            
-        </select>
-    </div>
-    
-    <div class="service">
-      <select class="form-control" name="staff_id" id="staff_id">
-        <option value="" >None</option>
-          @if(isset($staff_details) && count($staff_details) >0)
-            @foreach($staff_details as $key=>$staff_row)
-            <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-            @endforeach
-          @endif
-        </select>
-      
-    </div>
-    
-    <div class="contain_action"><button class="btn btn-success" onClick="saveServices()" type="button">Add</button></div>
-      </div>
-    
-    
-    
-    </div>
-      </div> -->
 @endif
 
 
@@ -2549,7 +2448,7 @@ $(document).ready(function(){
 
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="4" type="button">Prev</button>
-  <button class="btn btn-danger save" type="submit">Save</button>
+  <button class="btn btn-danger" type="submit">Save</button>
   <button class="btn btn-info open" data-id="6" type="button">Next</button>
 </div>
                               <div class="clearfix"></div>
@@ -2592,7 +2491,7 @@ $(document).ready(function(){
             
             <div class="add_client_btn">
                 <button class="btn btn-info back" data-id="5" type="button">Prev</button>
-                <button class="btn btn-danger save" type="submit">Save</button>
+                <button class="btn btn-danger" type="submit">Save</button>
                 <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
               </div>
                <div class="clearfix"></div>
