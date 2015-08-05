@@ -12,7 +12,7 @@
 /*========== practice details=======*/
 .top_bts{position: relative; display: inline-block; vertical-align: middle; float:left;}
 .top_bts ul{list-style:none;}
-.top_bts ul li{float:left; margin-right:15px; margin-bottom:10px;}
+.top_bts ul li{float:left; margin-right:13px; margin-bottom:10px;}
 .top_bts ul li:last-child{margin-right:0;}
 
 .practice_mid{border:1px solid #dbdbdb; padding:0px 10px 10px 10px; margin:0 auto; width:96%;}
@@ -227,10 +227,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .navbar-right{margin-right: 15px; width: 16%; }
 /*.nav>li>a{color:#fff!important;}*/
 .navbar-nav{float: right;}
-/*.navbar-nav > li > a:hover{background:none!important;}
-.nav > li > a:hover, .nav > li > a:hover{background:none!important;}*/
+/* .nav-tabs > li.active > a:hover{background-color:none!important;} */
 .navbar-nav > li > a {padding-top: 25px!important; padding-bottom: 19px!important;}
-.nav > li > a:hover, .nav > li > a:focus{background-color:none!important;}
+/* .nav > li > a:hover, .nav > li > a:focus{background-color:none!important;} */
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: none!important;
+    text-decoration: none;
+    border-color: none none none!important;
+}
+.nav > li > a:hover{background: none!important;}
+
+.nav-tabs > li.active > a:hover{background-color: #fff!important;}
+
+.nav-tabs > li > a{border:none;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {background:none!important;}
 .check_gray{background: #ccc;}
 
@@ -239,6 +248,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
   background:none!important;
   border:none!important;
 }
+
+.practice_hed{padding:0px 8px 10px 10px; margin:0 auto; width:95%;}
+.head_txt{color: #3a8cc1; font-size: 16px; font-weight: bold;}
 
 .service{float:left; margin-right: 5px; margin-left: 10px; width:28%;}
 .services_search{float:left; margin-right: 5px; width:35%;}
@@ -467,8 +479,8 @@ background: linear-gradient(to bottom,  #efefef 0%,#dadde0 60%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#dadde0',GradientType=0 );}
 
 /* import button and dropdown */
-.import_fromch_main{position:relative; width:178px;}
-.import_fromch{background:#00c0ef;border-color: #00acd6; float:left; border-color: rgb(0, 172, 214); border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; -ms-border-radius: 3px; box-shadow: 2px -3px 0 0 rgba(0, 0, 0, 0.09) inset; font-weight: 500; }
+.import_fromch_main{position:relative; width:160px;}
+.import_fromch{background:#00c0ef;border-color: #00acd6; height: 34px; float:left; border-color: rgb(0, 172, 214); border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; -ms-border-radius: 3px; box-shadow: 2px -3px 0 0 rgba(0, 0, 0, 0.09) inset; font-weight: 500; }
 .import_fromch_link{color:#fff; font-size:14px; text-transform:uppercase; float:left;  padding: 6px 10px; border-right:1px solid #fff;}
 .import_fromch:hover{color:#fff!important; background-color:rgb(0, 172, 214);}
 .import_fromch a{color:#fff;}
