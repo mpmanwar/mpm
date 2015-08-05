@@ -263,7 +263,7 @@ $(function() {
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>COMPLETED TASK</th>
+          <th>JOB START DATE</th>
           <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
@@ -364,8 +364,8 @@ $(function() {
           <th>STAFF</th>
           <th>CRN</th>
           <th>BUSINESS NAME</th>
-          <th>NEXT RETURN DATE</th>
-          <th>JOB START DATE</th>
+          <th>LAST RETURN DATE</th>
+          <th>FILING DATE</th>
         </tr>
       </thead>
 
