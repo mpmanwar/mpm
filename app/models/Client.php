@@ -20,14 +20,16 @@ class Client extends Eloquent {
 				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 
 				// ############### GET CLIENT LIST ALLOCATION START ################## //
-				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->first();
+				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->get();
 				if(isset($list) && count($list) >0){
-					$client_data[$i]['allocation']['service_id'] = $list['service_id'];
-					$client_data[$i]['allocation']['staff_id1'] = $list['staff_id1'];
-					$client_data[$i]['allocation']['staff_id2'] = $list['staff_id2'];
-					$client_data[$i]['allocation']['staff_id3'] = $list['staff_id3'];
-					$client_data[$i]['allocation']['staff_id4'] = $list['staff_id4'];
-					$client_data[$i]['allocation']['staff_id5'] = $list['staff_id5'];
+					foreach ($list as $key => $row) {
+						$client_data[$i]['allocation'][$row['service_id']]['service_id'] = $row['service_id'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id1'] = $row['staff_id1'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id2'] = $row['staff_id2'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id3'] = $row['staff_id3'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id4'] = $row['staff_id4'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id5'] = $row['staff_id5'];
+					}
 				}
 				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
@@ -111,12 +113,14 @@ class Client extends Eloquent {
                 // ############### GET CLIENT LIST ALLOCATION START ################## //
 				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->first();
 				if(isset($list) && count($list) >0){
-					$client_data[$i]['allocation']['service_id'] = $list['service_id'];
-					$client_data[$i]['allocation']['staff_id1'] = $list['staff_id1'];
-					$client_data[$i]['allocation']['staff_id2'] = $list['staff_id2'];
-					$client_data[$i]['allocation']['staff_id3'] = $list['staff_id3'];
-					$client_data[$i]['allocation']['staff_id4'] = $list['staff_id4'];
-					$client_data[$i]['allocation']['staff_id5'] = $list['staff_id5'];
+					foreach ($list as $key => $row) {
+						$client_data[$i]['allocation'][$row['service_id']]['service_id'] = $row['service_id'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id1'] = $row['staff_id1'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id2'] = $row['staff_id2'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id3'] = $row['staff_id3'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id4'] = $row['staff_id4'];
+						$client_data[$i]['allocation'][$row['service_id']]['staff_id5'] = $row['staff_id5'];
+					}
 				}
 				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
