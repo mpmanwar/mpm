@@ -167,23 +167,24 @@ $(function() {
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg" id="header_ul">
-        <li class="active" id="tab_1"><a class="open_header client_allocate" data-id="1" data-type="org" href="javascript:void(0)">ORGANISATIONAL CLIENT LIST</a></li>
-        <li id="tab_2"><a class="open_header client_allocate" data-id="2" data-type="ind" href="javascript:void(0)">INDIVIDUAL CLIENT LIST</a></li>
+        <li class="{{ ($client_type == 'org')?'active':'' }}" id="tab_1"><a class="open_header client_allocate" data-id="1" data-type="org" href="javascript:void(0)">ORGANISATIONAL CLIENT LIST</a></li>
+        <li id="tab_2" class="{{ ($client_type == 'ind')?'active':'' }}"><a class="open_header client_allocate" data-id="2" data-type="ind" href="javascript:void(0)">INDIVIDUAL CLIENT LIST</a></li>
        </ul>
 <div class="tab-content">
 <input type="hidden" id="client_type" name="client_type" value="org">
-  <div id="step1" class="tab-pane active" style="display:block;">
+  <div id="step1" class="tab-pane" style="display:{{ ($client_type == 'org')?'block':'none' }};">
     <div class="tab_topcon" style="position: relative; left:30%;">
+      {{ Form::open(array('url'=>'/allocationClientsByService')) }}
+      <input type="hidden" name="type" value="org">
       <div class="selctbox_containor1">
-
         <div class="select_t">Select Service :</div>
         <div class="sel_box">
-          <select class="form-control service_dropdown" name="org_service_id" id="org_service_id">
-            <option value="">None</option>
+          <select class="form-control" name="org_service_id" id="org_service_id"><!--.service_dropdown-->
+            <option value="0">None</option>
             @if( isset($old_services) && count($old_services)>0 )
               @foreach($old_services as $key=>$service_row)
                 @if( isset($service_row->client_type) && $service_row->client_type == "org" )
-                  <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  <option value="{{ $service_row->service_id }}" {{ (isset($service_id) && $service_id == $service_row->service_id)?"selected":"" }}>{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
             @endif
@@ -191,15 +192,15 @@ $(function() {
             @if( isset($new_services) && count($new_services)>0 )
               @foreach($new_services as $key=>$service_row)
                 @if( isset($service_row->client_type) && $service_row->client_type == "org" )
-                  <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  <option value="{{ $service_row->service_id }}" {{ (isset($service_id) && $service_id == $service_row->service_id)?"selected":"" }}>{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
             @endif
           </select>
         </div>
-        
+        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Save</button>
       </div>
-      
+      {{ Form::close() }}
       <div class="clearfix"></div>
     </div>
 
@@ -208,7 +209,7 @@ $(function() {
       
       <thead>
         <tr role="row">
-          <th width="2%"><span class="custom_chk"><input type='checkbox' id="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
+          <th width="2%"><span class="custom_chk"><input type='checkbox' class="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
           <th width="10%">Type</th>
           <th>BUSINESS NAME</th>
           <th width="13%">STAFF NAME</th>
@@ -222,26 +223,28 @@ $(function() {
       <tbody role="alert" aria-live="polite" aria-relevant="all">
 
         @if(isset($org_client_details) && count($org_client_details) >0)
-        @foreach($org_client_details as $key=>$details)
-          <tr class="even">
-            <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox" /></span></td>
-            <td align="left">{{ $details['business_type'] or "" }}</td>
-            <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
-            @for($i=1; $i <=5; $i++)
-            <td align="left">
-              <select class="form-control" name="org_staff_id{{ $i }}" id="org_staff_id{{ $i }}">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation']['staff_id'.$i] ) && $details['allocation']['staff_id'.$i] == $staff_row->user_id)?"checked":""}}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            @endfor
-          </tr>
-        @endforeach
-      @endif
+          @foreach($org_client_details as $key=>$details)
+            @if(isset($details['other_services']) && in_array($service_id, unserialize($details['other_services'])))
+              <tr class="even">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
+                <td align="left">{{ $details['business_type'] or "" }}</td>
+                <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+                @for($i=1; $i <=5; $i++)
+                <td align="left">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}">
+                    <option value="">None</option>
+                    @if(!empty($staff_details))
+                      @foreach($staff_details as $key=>$staff_row)
+                      <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation'][$service_id]['staff_id'.$i] ) && ($details['allocation'][$service_id]['staff_id'.$i] == $staff_row->user_id) && isset( $details['allocation'][$service_id]['service_id'] ) && ($details['allocation'][$service_id]['service_id'] == $service_id))?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                </td>
+                @endfor
+              </tr>
+            @endif
+          @endforeach
+        @endif
         
       </tbody>
     </table>
@@ -249,18 +252,19 @@ $(function() {
     <div class="clearfix"></div>
   </div>
 
-  <div id="step2" class="tab-pane active" style="display:none;">
+  <div id="step2" class="tab-pane" style="display:{{ ($client_type == 'ind')?'block':'none' }};"><!--.active-->
     <div class="tab_topcon" style="position: relative; left:30%;">
+      {{ Form::open(array('url'=>'/allocationClientsByService')) }}
+      <input type="hidden" name="type" value="ind">
       <div class="selctbox_containor1">
-
         <div class="select_t">Select Service :</div>
         <div class="sel_box">
-          <select class="form-control service_dropdown" name="ind_service_id" id="ind_service_id">
-            <option value="">None</option>
+          <select class="form-control" name="ind_service_id" id="ind_service_id"><!--.service_dropdown-->
+            <option value="0">None</option>
             @if( isset($old_services) && count($old_services)>0 )
               @foreach($old_services as $key=>$service_row)
                 @if( isset($service_row->client_type) && $service_row->client_type == "ind" )
-                  <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  <option value="{{ $service_row->service_id }}" {{ (isset($service_id) && $service_id == $service_row->service_id)?"selected":"" }} >{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
             @endif
@@ -268,21 +272,22 @@ $(function() {
             @if( isset($new_services) && count($new_services)>0 )
               @foreach($new_services as $key=>$service_row)
                 @if( isset($service_row->client_type) && $service_row->client_type == "ind" )
-                  <option value="{{ $service_row->service_id }}">{{ $service_row->service_name }}</option>
+                  <option value="{{ $service_row->service_id }}" {{ (isset($service_id) && $service_id == $service_row->service_id)?"selected":"" }}>{{ $service_row->service_name }}</option>
                 @endif
               @endforeach
             @endif
           </select>
         </div>
-        
+        <button type="submit" class="search_t" style="margin-left: 10px; height: 33px;">Save</button>
       </div>
+      {{ Form::close() }}
       
       <div class="clearfix"></div>
     </div>
     <table class="table table-bordered table-hover dataTable org_alocation" id="example2" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th width="5%"><span class="custom_chk"><input type='checkbox' id="CheckindCheckbox" /></span></th><!-- allCheckSelect -->
+          <th width="5%"><span class="custom_chk"><input type='checkbox' class="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
           <!-- <th>Type</th> -->
           <th>CLIENT NAME</th>
           <th width="14%">STAFF NAME</th>
@@ -296,26 +301,28 @@ $(function() {
       <tbody role="alert" aria-live="polite" aria-relevant="all">
 
         @if(isset($ind_client_details) && count($ind_client_details) >0)
-        @foreach($ind_client_details as $key=>$details)
-          <tr class="even">
-            <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox" /></span></td>
-            <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
-            <td align="left"><a href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
-            @for($i=1; $i <=5; $i++)
-            <td align="left">
-              <select class="form-control" name="ind_staff_id{{ $i }}" id="ind_staff_id{{ $i }}">
-                <option value="">None</option>
-                @if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </td>
-            @endfor
-          </tr>
-        @endforeach
-      @endif
+          @foreach($ind_client_details as $key=>$details)
+            @if(isset($details['other_services']) && in_array($service_id, unserialize($details['other_services'])))
+              <tr class="even">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
+                <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
+                <td align="left"><a target="_blank" href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
+                @for($i=1; $i <=5; $i++)
+                <td align="left">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}">
+                    <option value="">None</option>
+                    @if(!empty($staff_details))
+                      @foreach($staff_details as $key=>$staff_row)
+                      <option value="{{ $staff_row->user_id }}" {{ (isset( $details['allocation'][$service_id]['staff_id'.$i] ) && ($details['allocation'][$service_id]['staff_id'.$i] == $staff_row->user_id) && isset( $details['allocation'][$service_id]['service_id'] ) && ($details['allocation'][$service_id]['service_id'] == $service_id))?"selected":""}} >{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                </td>
+                @endfor
+              </tr>
+            @endif
+          @endforeach
+        @endif
         
       </tbody>
     </table>

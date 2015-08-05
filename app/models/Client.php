@@ -111,7 +111,7 @@ class Client extends Eloquent {
                 $client_data[$i]['show_archive'] 	= $client_id->show_archive;
 
                 // ############### GET CLIENT LIST ALLOCATION START ################## //
-				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->first();
+				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->get();
 				if(isset($list) && count($list) >0){
 					foreach ($list as $key => $row) {
 						$client_data[$i]['allocation'][$row['service_id']]['service_id'] = $row['service_id'];

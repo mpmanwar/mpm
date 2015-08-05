@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-	$('#CheckorgCheckbox').on('ifChecked', function(event){
-        $(".org_alocation input[class='org_Checkbox']").iCheck('check');
+	$('.CheckorgCheckbox').on('ifChecked', function(event){
+        $(".org_alocation input").iCheck('check');
     });
 
-    $('#CheckorgCheckbox').on('ifUnchecked', function(event){
-        $(".org_alocation input[class='org_Checkbox']").iCheck('uncheck');
+    $('.CheckorgCheckbox').on('ifUnchecked', function(event){
+        $(".org_alocation input").iCheck('uncheck');
     });
 
     $(".client_allocate").click(function(){
@@ -45,6 +45,7 @@ $(document).ready(function(){
 			    data: { 'service_id' : service_id, 'client_type' : client_type },
 			    success : function(resp){
 			    	if(client_type == 'org'){
+			    		//$("#step1").html(resp);
 			    		$("#example1 tbody").html(resp);
 			    	}else{
 			    		$("#example2 tbody").html(resp);

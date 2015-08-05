@@ -1,10 +1,15 @@
 <?php
 class ClientListAllocationController extends BaseController {
 	
-	public function index(){
+	public function index($service_id, $client_type){
+		$client_type = base64_decode($client_type);
+		$data['client_type'] 	= $client_type;
+		$data['service_id']		= $service_id;
+		//echo $client_type;die;
 		$data['title'] = 'Client List Allocation';
 		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
 		$data['heading'] = "CLIENT LIST ALLOCATION";
+
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
@@ -17,8 +22,11 @@ class ClientListAllocationController extends BaseController {
 		$data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
-		//$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
-		//$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
+		if($data['client_type'] == "org"){
+			$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
+		}else{
+			$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
+		}
 
 		//echo "<prev>".print_r($data['org_client_details']);die;
 		return View::make('settings.client_list_allication.index', $data);
@@ -42,7 +50,20 @@ class ClientListAllocationController extends BaseController {
 		}
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 
+		//echo View::make("settings.client_list_allication.ajax_org_allocation", $data);
+
 		echo View::make("settings.client_list_allication.search_allocation_list", $data);
+	}
+
+	public function allocationClientsByService()
+	{
+		$client_type = base64_encode(Input::get('type'));
+		if(Input::get('type') == "org"){
+			$service_id = Input::get("org_service_id");
+		}else{
+			$service_id = Input::get("ind_service_id");
+		}
+		return Redirect::to('/client-list-allocation/'.$service_id.'/'.$client_type);
 	}
 
 	public function save_bulk_allocation()
