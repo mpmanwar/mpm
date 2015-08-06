@@ -1320,7 +1320,7 @@ class ChdataController extends BaseController {
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
 				if(isset($details['registration_number']) && $details['registration_number']!= ""){
-					if(isset($details['deadacc_count']) && $details['deadacc_count'] >= $dead_line){
+					if(isset($details['deadacc_count']) && $details['deadacc_count'] <= $dead_line){
 						$update_data['ch_manage_task'] =  'Y';
 						Client::where('client_id', '=', $details['client_id'])->update($update_data);
 					}
