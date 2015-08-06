@@ -270,7 +270,8 @@ $(function() {
                   <option value="all">Show All</option>
                   @if(!empty($staff_details))
                     @foreach($staff_details as $key=>$staff_row)
-                    <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  
                     @endforeach
                   @endif
                   <option value="none">Unassigned</option>
@@ -297,7 +298,7 @@ $(function() {
   <div id="tab_1" class="tab-pane active">
     <div class="tab_topcon" style="position:relative; height: 25px">
 
-      <div class="send_task" style="width:36.5%; margin: 6px 0 0 350px; position: absolute;">
+      <div class="send_task" style="width:35.5%; margin: 0 0 0 360px; position: absolute;">
         <span class="custom_chk"><input type='checkbox' id="manage_check" /><label for="manage_check"> Auto Send To Task Management</label></span>  <input type="text" name="dead_line" id="dead_line" style="width:9%;"> Days Before Deadline
       </div>
 

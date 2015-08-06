@@ -68,6 +68,7 @@ class ChdataController extends BaseController {
 		}
 		$data['Job_status'] 	= JobStatus::getJobStatusByServiceId($data['service_id']);
 		$data['not_started_count'] = $all_count - count($data['Job_status']);
+		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 		//print_r($data['jobs_steps']);die;
 		return View::make('ch_data.chdata_list', $data);
 		
