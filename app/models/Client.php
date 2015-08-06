@@ -33,6 +33,20 @@ class Client extends Eloquent {
 				}
 				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
+				// ############### GET JOB STATUS START ################## //
+				$JobStatus = JobStatus::where("client_id", "=", $client_id->client_id)->get();
+				//print_r($JobStatus);die;
+				if(isset($JobStatus) && count($JobStatus) >0){
+					foreach ($JobStatus as $key => $row) {
+						$service_id = $row['service_id'];
+						$client_data[$i]['job_status'][$service_id]['job_status_id'] = $row['job_status_id'];
+						$client_data[$i]['job_status'][$service_id]['client_id'] = $row['client_id'];
+						$client_data[$i]['job_status'][$service_id]['service_id'] = $row['service_id'];
+						$client_data[$i]['job_status'][$service_id]['status_id'] = $row['status_id'];
+					}
+				}
+				// ############### GET JOB STATUS END ################## //
+
 				// ############### GET VAT SCHEME USER START ################## //
 				$service = Common::get_services_client($client_id->client_id);
 				if(isset($service) && count($service) > 0){
@@ -54,6 +68,10 @@ class Client extends Eloquent {
 						}
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
 							$client_data[$i]['deadret_count'] = App::make('HomeController')->getDayCount($client_row->field_value);
+						}
+
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "acc_ref_month"){
+							$client_data[$i]['ref_month'] = App::make('ChdataController')->getMonthNameShort($client_row->field_value);
 						}
 
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") 

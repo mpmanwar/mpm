@@ -7,6 +7,7 @@ class ChdataController extends BaseController {
 		$client_data 	= array();
 		$data['heading'] 	= "CH DATA";
 		$data['title'] 		= "Ch Data";
+		$data['service_id'] = 9;
 		
 		$admin_s 			= Session::get('admin_details'); // session
 		$user_id 			= $admin_s['id']; //session user id
@@ -16,7 +17,7 @@ class ChdataController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
+		/*$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 
 		$i = 0;
@@ -43,10 +44,31 @@ class ChdataController extends BaseController {
 
 				//echo $this->last_query();die;
 			}
-		}
+		}*/
 
-		$data['company_details']	= $client_data;
-		//print_r($data['company_details']);die;
+		$data['company_details']	= Client::getAllOrgClientDetails();
+		$all_count = 0;
+		if(isset($data['company_details']) && count($data['company_details']) >0){
+			foreach ($data['company_details'] as $key => $details) {
+				if(isset($details['registration_number']) && $details['registration_number']!= ""){
+					if(isset($details['ch_manage_task']) && $details['ch_manage_task']== "Y"){
+						$all_count+=1;
+					}
+				}
+			}
+		}
+		$data['all_count'] = $all_count;
+
+		$data['jobs_steps'] 		= JobsStep::getAllJobSteps();
+		if(isset($data['jobs_steps']) && count($data['jobs_steps']) >0){
+			foreach ($data['jobs_steps'] as $key => $row) {
+				$jobs_steps = JobStatus::getJobStatusByStatusId($data['service_id'], $row['step_id']);
+				$data['jobs_steps'][$key]['count'] = count($jobs_steps);
+			}
+		}
+		$data['Job_status'] 	= JobStatus::getJobStatusByServiceId($data['service_id']);
+		$data['not_started_count'] = $all_count - count($data['Job_status']);
+		//print_r($data['jobs_steps']);die;
 		return View::make('ch_data.chdata_list', $data);
 		
 
@@ -150,6 +172,52 @@ class ChdataController extends BaseController {
 				break;
 			case '12':
 				return "December";
+				break;
+			
+			default:
+				return $month;
+				break;
+		}
+	}
+
+	public function getMonthNameShort($month)
+	{
+		switch ($month) {
+			case '1':
+				return "JAN";
+				break;
+			case '2':
+				return "FEB";
+				break;
+			case '3':
+				return "MAR";
+				break;
+			case '4':
+				return "APR";
+				break;
+			case '5':
+				return "MAY";
+				break;
+			case '6':
+				return "JUN";
+				break;
+			case '7':
+				return "JUL";
+				break;
+			case '8':
+				return "AUG";
+				break;
+			case '9':
+				return "SEPT";
+				break;
+			case '10':
+				return "OCT";
+				break;
+			case '11':
+				return "NOV";
+				break;
+			case '12':
+				return "DEC";
 				break;
 			
 			default:
@@ -1206,6 +1274,35 @@ class ChdataController extends BaseController {
 			$del_data['ch_manage_task'] = "N";
 			Client::where('client_id', '=', $client_id)->update($del_data);
 		}
+    }
+
+    public function delete_single_task()
+    {
+    	$client_id = Input::get("client_id");
+		//print_r($client_delete_id);die;
+		$del_data['ch_manage_task'] = "N";
+		Client::where('client_id', '=', $client_id)->update($del_data);
+		echo 1;
+    }
+
+    public function change_job_status()
+    {
+    	$client_id 	= Input::get("client_id");
+    	$service_id = Input::get("service_id");
+    	$status_id 	= Input::get("status_id");
+    	
+    	$qry = JobStatus::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+    	if(isset($qry) && count($qry) >0){
+    		$updateData['status_id'] 	= $status_id;
+    		JobStatus::where("job_status_id", "=", $qry["job_status_id"])->update($updateData);
+    	}else{
+    		$data['client_id'] 	= $client_id;
+	    	$data['service_id'] = $service_id;
+	    	$data['status_id'] 	= $status_id;
+    		JobStatus::insert($data);
+    	}
+    	
+    	echo 1;
     }
 
     

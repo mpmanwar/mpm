@@ -945,4 +945,5 @@ border: 1px solid #e2e4e6;
 .selctbox_containor1{position: absolute; top: -5px; z-index: 10; width: 50%;}
 .select_t{float:left; padding-top: 5px; color: #70a5dc; font-size: 18px; font-weight: normal;}
 .sel_box{float: left; margin-left: 10px; width: 45%;}
+.top_margin{ margin-top: 10px;}
 

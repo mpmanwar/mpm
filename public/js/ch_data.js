@@ -220,7 +220,7 @@ $(document).ready(function(){
         var client_id = $(this).data("client_id");
         var field_name = $(this).data("field_name");
         //alert(step_id);return false;
-        if(confirm("Do you want to send the client to manage task ?")){
+        //if(confirm("Do you want to send the client to manage task ?")){
             $.ajax({
                 type: "POST",
                 url: "/chdata/send-manage-task",
@@ -229,7 +229,7 @@ $(document).ready(function(){
                     $("#after_send_"+client_id).html('<button type="button" class="sent_btn">Sent</button>');              
                 }
             });
-        }
+        //}
         
     });
 /* ################# Send to Task Management End ################### */
@@ -261,6 +261,47 @@ $(document).ready(function(){
             alert('Please select atleast one clients');
         }
         
+    });
+/* ################# Delete to Task Management End ################### */
+
+/* ################# Delete Single Task Management Start ################### */
+    $(".delete_single_task").click(function(){
+        var client_id = $(this).data('client_id');
+        if(confirm("Do you want to Change the task?")){
+            $.ajax({
+                type: "POST",
+                url: '/chdata/delete-single-task',
+                data: { 'client_id' : client_id },
+                success : function(resp){
+                    
+                        
+                }
+            });
+        }
+    });
+/* ################# Delete Single Task Management End ################### */
+
+/* ################# Job Status Change Start ################### */
+    $(".status_dropdown").change(function(){
+        var service_id = $("#service_id").val();
+        var client_id = $(this).data("client_id");
+        var status_id = $(this).val()
+        //alert("val.length");return false;
+        if(status_id != 2)
+        {
+            $.ajax({
+                type: "POST",
+                url: '/chdata/change-job-status',
+                data: { 'service_id' : service_id, 'client_id' : client_id, 'status_id' : status_id },
+                success : function(resp){
+                    
+                        
+                }
+            });
+        }else{
+            alert("This is already started");
+            return false;
+        }
     });
 /* ################# Delete to Task Management End ################### */
 
