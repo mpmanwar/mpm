@@ -178,6 +178,7 @@ Route::post('/chdata/send-manage-task', 'ChdataController@send_manage_task');
 Route::post('/chdata/delete-manage-task', 'ChdataController@delete_manage_task');
 Route::post('/chdata/change-job-status', 'ChdataController@change_job_status');
 Route::post('/chdata/delete-single-task', 'ChdataController@delete_single_task');
+Route::post('/chdata/send-global-task', 'ChdataController@send_global_task');
 ## Company House Data End ##
 
 

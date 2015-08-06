@@ -1290,6 +1290,11 @@ class ChdataController extends BaseController {
     	$client_id 	= Input::get("client_id");
     	$service_id = Input::get("service_id");
     	$status_id 	= Input::get("status_id");
+
+    	if(isset($status_id) && $status_id == 10){
+    		$update_data['ch_manage_task'] =  'N';
+			Client::where('client_id', '=', $client_id)->update($update_data);
+    	}
     	
     	$qry = JobStatus::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
     	if(isset($qry) && count($qry) >0){
@@ -1303,6 +1308,29 @@ class ChdataController extends BaseController {
     	}
     	
     	echo 1;
+    }
+
+    public function send_global_task()
+    {
+    	$update_data = array();
+    	$dead_line 	= Input::get("dead_line");
+    	$data['company_details']	= Client::getAllOrgClientDetails();
+		$all_count = 0;
+		if(isset($data['company_details']) && count($data['company_details']) >0){
+			foreach ($data['company_details'] as $key => $details) {
+				if(isset($details['registration_number']) && $details['registration_number']!= ""){
+					if(isset($details['deadacc_count']) && $details['deadacc_count'] >= $dead_line){
+						$update_data['ch_manage_task'] =  'Y';
+						Client::where('client_id', '=', $details['client_id'])->update($update_data);
+					}
+				}
+			}
+		}
+		/*if(isset($update_data) && count($update_data) >0 ){
+			Client::where('client_id', '=', $client_id)->update($update_data);
+		}*/
+		echo 1;
+		
     }
 
     

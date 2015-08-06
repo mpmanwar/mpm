@@ -43,6 +43,7 @@ class Client extends Eloquent {
 						$client_data[$i]['job_status'][$service_id]['client_id'] = $row['client_id'];
 						$client_data[$i]['job_status'][$service_id]['service_id'] = $row['service_id'];
 						$client_data[$i]['job_status'][$service_id]['status_id'] = $row['status_id'];
+						$client_data[$i]['job_status'][$service_id]['created'] = $row['created'];
 					}
 				}
 				// ############### GET JOB STATUS END ################## //
@@ -195,5 +196,6 @@ class Client extends Eloquent {
 		//print_r($client_data);die;
 		return $client_data;
 	}
+
 
 }

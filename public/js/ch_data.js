@@ -299,12 +299,31 @@ $(document).ready(function(){
                 }
             });
         }else{
-            alert("This is already started");
+            alert("This is some problem to delete");
             return false;
         }
     });
 /* ################# Delete to Task Management End ################### */
 
+/* ################# Global Task Management Start ################### */
+    $('#manage_check').on('ifChecked', function(event){
+        var dead_line = $("#dead_line").val();
+        if(dead_line == ""){
+            alert("Please Put The Days Before Deadline value");
+            return false;
+        }else{
+            $.ajax({
+                type: "POST",
+                url: '/chdata/send-global-task',
+                data: { 'dead_line' : dead_line },
+                success : function(resp){
+                    
+                        
+                }
+            });
+        }
+    });
+/* ################# Global Task Management End ################### */
   
 
 //send_manage_task
