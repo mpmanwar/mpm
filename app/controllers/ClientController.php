@@ -102,7 +102,9 @@ class ClientController extends BaseController {
 		//print_r($data['files']);die;
 		// ============= Get files end ========== //
 
-		//print_r($data['relation_list']);die;
+		$data['services_id'] 	=   Client::getServicesIdByClient($client_id);
+
+		//print_r($data['services_id']);die;
 		//############# Get client data end ################//
 
         return View::make('home.individual.edit_individual_client', $data);

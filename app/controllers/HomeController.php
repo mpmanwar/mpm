@@ -799,6 +799,17 @@ class HomeController extends BaseController {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'resp_staff', $postData['resp_staff']);
 		}*/
 
+		ClientService::where("client_id", "=", $client_id)->delete();
+		if (isset($postData['other_services']) && count($postData['other_services']) >0) {
+			//$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'other_services', serialize($postData['other_services']));
+			$relData = array();
+			foreach ($postData['other_services'] as $service_id) {
+				$servData['client_id'] = $client_id;
+				$servData['service_id'] = $service_id;
+				ClientService::insert($servData);
+			}
+		}
+
 		//################## USER ADDED FIELD START ###############//
 		$field_added = StepsFieldsAddedUser::where("client_type", "=", "ind")->whereIn("user_id", $groupUserId)->get();
 		//echo $this->last_query();die;

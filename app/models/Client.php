@@ -149,6 +149,8 @@ class Client extends Eloquent {
 				}
 				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
+				$client_data[$i]['services_id'] 	=   Client::getServicesIdByClient($client_id->client_id);
+
 				if (isset($client_details) && count($client_details) > 0) {
 					$address = "";
 					foreach ($client_details as $client_row) {
