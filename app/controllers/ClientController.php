@@ -114,13 +114,15 @@ class ClientController extends BaseController {
    
    	}
 
-   	public function edit_org_client($client_id)
+   	public function edit_org_client($client_id,$type_id)
 	{
 		$data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
         $groupUserId = $session['group_users'];
+        $data['page_name'] = base64_decode($type_id);
+        //print_r($data['page_name']);die();
         if($data['user_type'] != "C"){
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/organisation-clients">Organisation Client List</a>';

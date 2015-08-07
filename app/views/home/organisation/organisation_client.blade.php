@@ -205,7 +205,7 @@ $(function() {
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td align="center">{{ $client_row['business_type'] or "" }}</td>
-                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}">{{ $client_row['business_name'] or "" }}</a></td>
+                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
                     <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['acc_ref_month'] or "" }}</td>
                     <td align="center">{{ isset($client_row['next_acc_due'])?date("d-m-Y", strtotime($client_row['next_acc_due'])):"" }}</td>
                     <td align="center">

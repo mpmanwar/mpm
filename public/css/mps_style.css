@@ -297,7 +297,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .vat_section ul li{position:relative; width:32.5%; vertical-align: middle; display: inline-block;}
 .vat_section ul li:last-child{margin-right:0;}
 .vat_section_main{  width:98%; float:left; margin:0 0px 10px 0; }
-.head_section{width:100%; text-align:center; padding:5px 0 5px 0; color:#fff; font-size:16px; background:#3c8dbc; text-decoration:underline;}
+.head_section{width:100%; text-align:center; padding:5px 0 5px 0; color:#fff; font-size:16px; background:#3c8dbc;}
 .vat_section_content{border:1px solid #c1c1c1; width:100%; float:left; padding:10px; min-height: 124px;}
 .vat_section_content ul{list-style:none; padding:0;}
 .vat_section_content ul li{float:left; padding-bottom:0px; margin:0; width:100%; text-align:left;}

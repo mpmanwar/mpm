@@ -54,6 +54,9 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
     <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <input name="client_type" id="client_type" type="hidden" value="org">
+    
+    <input type="hidden"  name="page_name"  id="page_name" value="{{ $page_name }}">
+    
     <section class="content">
       <!-- <p class="business_p">{{ $client_details['business_name'] or "" }}</p> -->
       <div class="row">
@@ -110,7 +113,9 @@ $(document).ready(function(){
           <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
+         @if($page_name== 'org_client')
           <li id="tab_6"><a class="open_header" data-id="6" href="javascript:void(0)">NOTES</a></li>
+          @endif
           @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
           @endif
