@@ -241,7 +241,7 @@ $(function() {
             <li>
               <button class="btn btn-danger">SYNC DATA</button>
             </li>
-            <li>
+            <!-- <li>
               <div class="import_fromch_main">
                 <div class="import_fromch">
                   <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
@@ -250,8 +250,7 @@ $(function() {
                 </div>
                 <div class="i_dropdown open_toggle"><a href="/chdata/bulk-company-upload-page/{{ base64_encode('ch_list') }}">BULK COMPANY UPLOAD</a></div>
               </div>
-              <!-- <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
-            </li>
+            </li> -->
             <li>
               <a href="https://beta.companieshouse.gov.uk" target="_blank" class="btn btn-info">WEBCHECK</a>
             </li>
