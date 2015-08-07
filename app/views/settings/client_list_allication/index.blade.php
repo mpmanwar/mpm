@@ -228,14 +228,14 @@ $(function() {
         @if(isset($org_client_details) && count($org_client_details) >0)
           @foreach($org_client_details as $key=>$details)
              
-              <tr class="even">
-                <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
+              <tr class="even" id="client_{{ $details['client_id'] }}">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
                 <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox applicable_Checkbox" name="applicable_checkbox[]" value="{{ $details['client_id'] or "" }}" id="applicable_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"checked":"" }} /><label for="applicable_checkbox{{ $details['client_id'] }}"></label></span></td>
                 @for($i=1; $i <=5; $i++)
                 <td align="left">
-                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} >
                     <option value="">None</option>
                     @if(!empty($staff_details))
                       @foreach($staff_details as $key=>$staff_row)
@@ -308,14 +308,14 @@ $(function() {
         @if(isset($ind_client_details) && count($ind_client_details) >0)
           @foreach($ind_client_details as $key=>$details)
             
-              <tr class="even">
-                <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
+              <tr class="even" id="client_{{ $details['client_id'] }}">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
                 <td align="left"><a target="_blank" href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox applicable_Checkbox" name="applicable_checkbox[]" value="{{ $details['client_id'] or "" }}" id="applicable_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"checked":"" }} /><label for="applicable_checkbox{{ $details['client_id'] }}"></label></span></td>
                 @for($i=1; $i <=5; $i++)
                 <td align="left">
-                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} >
                     <option value="">None</option>
                     @if(!empty($staff_details))
                       @foreach($staff_details as $key=>$staff_row)
