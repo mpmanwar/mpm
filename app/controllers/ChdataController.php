@@ -7,68 +7,16 @@ class ChdataController extends BaseController {
 		$client_data 	= array();
 		$data['heading'] 	= "CH DATA";
 		$data['title'] 		= "Ch Data";
-		$data['service_id'] = 9;
-		
-		$admin_s 			= Session::get('admin_details'); // session
-		$user_id 			= $admin_s['id']; //session user id
+		$admin_s 			= Session::get('admin_details');
+		$user_id 			= $admin_s['id'];
 		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
 		
-		/*$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
-		//echo $this->last_query();die;
-
-		$i = 0;
-		if (isset($client_ids) && count($client_ids) > 0) {
-			foreach ($client_ids as $client_id) {
-				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
-				$client_data[$i]['client_id'] 		= $client_id->client_id;
-				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
-				
-				if (isset($client_details) && count($client_details) > 0) {
-					foreach ($client_details as $client_row) {
-						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
-							$client_data[$i]['deadacc_count'] = App::make('HomeController')->getDayCount($client_row->field_value);
-						}
-						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
-							$client_data[$i]['count_down'] = App::make('HomeController')->getDayCount($client_row->field_value);
-						}
-
-						$client_data[$i][$client_row['field_name']] = $client_row->field_value;
-					}
-					$details_data[$i]['auth_code'] 			= "";
-					$i++;
-				}
-
-				//echo $this->last_query();die;
-			}
-		}*/
-
 		$data['company_details']	= Client::getAllOrgClientDetails();
-		$all_count = 0;
-		if(isset($data['company_details']) && count($data['company_details']) >0){
-			foreach ($data['company_details'] as $key => $details) {
-				if(isset($details['registration_number']) && $details['registration_number']!= ""){
-					if(isset($details['ch_manage_task']) && $details['ch_manage_task']== "Y"){
-						$all_count+=1;
-					}
-				}
-			}
-		}
-		$data['all_count'] = $all_count;
-
-		$data['jobs_steps'] 		= JobsStep::getAllJobSteps();
-		if(isset($data['jobs_steps']) && count($data['jobs_steps']) >0){
-			foreach ($data['jobs_steps'] as $key => $row) {
-				$jobs_steps = JobStatus::getJobStatusByStatusId($data['service_id'], $row['step_id']);
-				$data['jobs_steps'][$key]['count'] = count($jobs_steps);
-			}
-		}
-		$data['Job_status'] 	= JobStatus::getJobStatusByServiceId($data['service_id']);
-		$data['not_started_count'] = $all_count - count($data['Job_status']);
-		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
+		
 		//print_r($data['jobs_steps']);die;
 		return View::make('ch_data.chdata_list', $data);
 		

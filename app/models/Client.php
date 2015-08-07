@@ -217,5 +217,7 @@ class Client extends Eloquent {
 		return $data;
 	}
 
+	
+
 
 }
