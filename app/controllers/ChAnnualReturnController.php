@@ -27,9 +27,12 @@ class ChAnnualReturnController extends BaseController {
 					if(isset($autosend) && count($autosend) >0 ){
 						if(isset($details['deadacc_count']) && $details['deadacc_count'] <= $autosend['days']){
 							$update_data['ch_manage_task'] =  'Y';
-							Client::where('client_id', '=', $details['client_id'])->update($update_data);
-							$data['company_details'][$key]['ch_manage_task'] = "Y";
-							$all_count+=1;
+							$qry_ch=Client::where('client_id', '=', $details['client_id'])->update($update_data);
+							if($qry_ch){
+								$data['company_details'][$key]['ch_manage_task'] = "Y";
+								$all_count+=1;
+							}
+							
 						}
 					}
 					
