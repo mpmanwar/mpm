@@ -108,7 +108,7 @@
                         @if(!empty($coun))
                           @foreach($coun as $key=>$country_row)
                           @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
-                            <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+                            <option value="{{ $country_row->country_id }}" >{{ $country_row->country_name }}</option>
                           @endif
                           @endforeach
                         @endif

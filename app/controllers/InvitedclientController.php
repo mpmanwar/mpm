@@ -19,6 +19,10 @@ class InvitedclientController extends BaseController {
 		$value = $data['client_id']."="."function";
 		//$data['relation_list'] 	= App::make("UserController")->get_relation_client($value);
 		$data['relation_list'] 	= $this->all_relation_client_details($user_id);
+       // print_r($data['relation_list']);
+       // print_r($user_id);
+        
+        //die();
 		return View::make('Invitedclient.Invitedclient', $data);
 	}
 
@@ -35,6 +39,8 @@ class InvitedclientController extends BaseController {
         	->where("c.type", "=", "org")
         	->select('c.client_id', 'sfc.field_value as client_name', 'urc.related_company_id', 'urc.status')->get();
         	//echo $this->last_query();die;
+            
+           // print_r($clients);die();
         	if( isset($clients) && count($clients) >0 ){
 	        	foreach ($clients as $key => $value) {
 	        		$details[$key]['related_company_id'] 	= $value->related_company_id;

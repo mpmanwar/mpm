@@ -49,7 +49,12 @@
                     
                    
                     
-                    <a href='/login' class="text-center">Click Here To LOGIN !!</a>
+                    <a style="display:none" href='/login' class="text-center">Click Here To LOGIN !!</a>
+                    
+                    @if(Session::get('message'))
+                             <a href='/login' class="text-center">Click Here To LOGIN !!</a>
+                             @endif
+                    
                 </div>
             </form>
 

@@ -33,7 +33,7 @@
                     
 						<ul>
 							<li class="hvr-grow" style="margin-right:100px;">
-								<a href="/client/edit-ind-client/{{ $client_id or "" }}">
+								<a href="/client/edit-ind-client/{{ $client_id or "" }}/{{ base64_encode('client_portal') }}">
 								<div class="circle_icons_inner">
 								<div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
 								<p class="c_tagline2">MY DETAILS</p>
@@ -192,10 +192,15 @@
 							<td width="34%">
 								<select class="form-control" id="getClientDetails">
 									<option value="">-- Please Select --</option>
-									@if(!empty($relation_list) && count($relation_list) > 0)
+								
+                                <!--	<option value="a">1</option>
+                                        <option value="b">2</option> -->
+                                    
+                                    @if(!empty($relation_list) && count($relation_list) > 0)
 							          	@foreach($relation_list as $key=>$list)
 											@if(isset($list['status']) && $list['status'] == "A")
 							            		<option value="{{ $list['client_id'] }}">{{ $list['client_name'] }}</option>
+                                                
 											@endif
 										@endforeach
 							        @endif

@@ -50,6 +50,10 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/individual/insert-client-details', 'files' => true, 'id'=>'basicform')) }}
     <input type="hidden" name="client_id" id="client_id" value="{{ $client_details['client_id'] }}">
     <input type="hidden" name="client_type" id="client_type" value="ind">
+    
+    <input type="hidden"  name="page_name"  id="page_name" value="{{ $page_name }}">
+    
+    
     <section class="content">
       
       <div class="row">
@@ -571,7 +575,7 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-xs-6">
                     <div class="col_m2">  
 <h3 class="box-title">Service Address</h3>  
-
+ @if($page_name== 'ind_client')
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldserv_address" data-type="serv">
@@ -589,6 +593,8 @@ $(document).ready(function(){
        @endif
     </select>
 </div>
+@endif
+
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line1</label>
 <input type="text" id="serv_addr_line1" name="serv_addr_line1" value="{{ $client_details['serv_addr_line1']  or "" }}" class="form-control" />
@@ -669,7 +675,7 @@ $(document).ready(function(){
 </div>
 <div class="clearfix"></div>
 </div>
-
+ @if($page_name== 'ind_client')
 <div class="form-group">
   <label for="exampleInputPassword1">Select or Add</label>
    <select class="form-control get_oldcont_address" id="get_oldres_address" data-type="res">
@@ -687,6 +693,7 @@ $(document).ready(function(){
        @endif
     </select>
 </div>
+@endif
 <div class="form-group">
 <label for="exampleInputPassword1">Address Line1</label>
 <input type="text" id="res_addr_line1" name="res_addr_line1" value="{{ $client_details['res_addr_line1']  or "" }}" class="form-control" />

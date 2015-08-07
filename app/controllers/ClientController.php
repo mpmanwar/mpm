@@ -1,7 +1,7 @@
 <?php
 
 class ClientController extends BaseController {
-	public function edit_ind_client($client_id)
+	public function edit_ind_client($client_id,$type_id)
 	{
 		$data['heading'] 	= "";
         $session = Session::get('admin_details');
@@ -9,13 +9,16 @@ class ClientController extends BaseController {
         $data['user_type'] 	= $session['user_type'];
         $data['client_id'] 	= $client_id;
         $groupUserId 		= $session['group_users'];
-
+        $data['page_name'] = base64_decode($type_id);
+        //print_r($data['page_name']);die();
         if($data['user_type'] != "C"){
         	$data['title'] 		= "Edit Client";
         	$data['previous_page'] = '<a href="/individual-clients">Individual Client List</a>';
         }else{
         	$data['title'] 		= "Edit User";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
+            
+            $data['previous_page'] = '<a href="/client-portal">Client Portal</a>';
+        	//$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
         }
 		if (empty($user_id)) {
 			return Redirect::to('/');

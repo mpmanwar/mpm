@@ -1,8 +1,11 @@
 $(document).ready(function(){
 
 //############## Get Client details portion start ################//
+    $("#view_edit_company").hide();
     $('#getClientDetails').change(function() {
+        $("#view_edit_company").show();
         var client_id = $(this).val();
+        alert(client_id);return false;
         if(client_id != "" ){
             $.ajax({
                 type: "GET",
