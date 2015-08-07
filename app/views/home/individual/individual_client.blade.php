@@ -262,7 +262,7 @@ $(function() {
                   </td>
                   <td align="left">{{ $client_row['staff_name'] or "" }}</td>
                   <td align="center">{{ isset($client_row['dob'])?date("d-m-Y", strtotime($client_row['dob'])):"" }}</td>
-                  <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}">{{ (!empty($client_row['client_name']))? $client_row['client_name']: '' }}</a></td>
+                  <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}/{{ base64_encode('ind_client') }}">{{ (!empty($client_row['client_name']))? $client_row['client_name']: '' }}</a></td>
                   <td align="left">
                     
                     @if(isset($client_row['relationship']) && count($client_row['relationship']) >0 )

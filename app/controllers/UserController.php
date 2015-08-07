@@ -248,6 +248,13 @@ class UserController extends BaseController {
 		//print_r($userData);
 		foreach ($userIds as $key => $value) {
 			$User_delete = User::where("user_id", "=", $value)->delete();
+            //$StepsFieldsClient_delete = StepsFieldsClient::where("user_id", "=", $value)->delete();
+            
+           // $Noticefont_delete = Noticefont::where("user_id", "=", $value)->delete();
+           // $Noticefont_delete = Noticeexcel::where("user_id", "=", $value)->delete();
+            
+                        
+            
 			Session::flash('message', 'Users are successfully deleted');
 		}
 		Cache::flush();

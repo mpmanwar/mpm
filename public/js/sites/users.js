@@ -86,11 +86,13 @@ $(document).ready(function(){
         $("input[name='user_delete_id[]']").each( function (i) {
 			if($(this).is(':checked'))
        			val[i] = $(this).val();
+                //alert(val);return false;
 
    		});
 
 		//alert(val.length);return false;
 		if(val.length>0){
+		  //console.log(val);
 			if(confirm("Do you want to delete?")){
 				$.ajax({
 				    type: "POST",

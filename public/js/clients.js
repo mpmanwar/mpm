@@ -42,6 +42,7 @@ $(document).ready(function(){
 
 	$('#deleteClients').click(function() {
 		var val = [];
+        //alert('val');return false;
     $(".ads_Checkbox:checked").each( function (i) {
 			if($(this).is(':checked')){
 				val[i] = $(this).val();
@@ -50,7 +51,7 @@ $(document).ready(function(){
     //alert(val.length);return false;
 		if(val.length>0){
       var client_type = $("#client_type").val();
-			if(confirm("Do you want to delete?")){
+			if(confirm("Do you want to delete??")){
 				$.ajax({
 				    type: "POST",
 				    url: '/delete-individual-clients',

@@ -20,7 +20,10 @@ $(document).ready(function()
     success: function() 
     {
       var message = "Your file has been uploaded";
+       
         $("#upload_loader").html(message);
+        window.location="{{URL::to('/organisation-clients')}}";
+        //window.location('/organisation-clients');
  
     },
     /*complete: function(response) 
