@@ -127,6 +127,23 @@ class ClientListAllocationController extends BaseController {
 
 	}
 
+	public function edit_service_id()
+	{
+		$action_type	= Input::get("action_type");
+		$service_id		= Input::get("service_id");
+		$client_id		= Input::get("client_id");
+		if($action_type == "add"){
+			$servData[] = array(
+				'client_id' 		=> $client_id,
+				'service_id' 		=> $service_id,
+			);
+			ClientService::insert($servData);
+		}else{
+			ClientService::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->delete();
+		}
+		echo 1;
+	}
+
 
 
 	

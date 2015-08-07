@@ -314,11 +314,13 @@ $(document).ready(function(){
         }else{
             $.ajax({
                 type: "POST",
+                dataType : 'json',
                 url: '/chdata/send-global-task',
                 data: { 'dead_line' : dead_line },
-                success : function(resp){
-                    
-                        
+                success : function(resp){ 
+                    $.each(resp, function(key, value){
+                        $("#after_send_"+value.client_id).html('<button type="button" class="sent_btn">Sent</button>');
+                    });
                 }
             });
         }

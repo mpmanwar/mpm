@@ -40,6 +40,7 @@ $(function() {
       {"bSortable": false},
       {"bSortable": true},
       {"bSortable": true},
+      {"bSortable": false},
       {"bSortable": true},
       {"bSortable": true},
       {"bSortable": true},
@@ -70,6 +71,7 @@ $(function() {
       {"bSortable": false},
       //{"bSortable": true},
       {"bSortable": true},
+      {"bSortable": false},
       {"bSortable": true},
       {"bSortable": true},
       {"bSortable": true},
@@ -171,7 +173,7 @@ $(function() {
         <li id="tab_2" class="{{ ($client_type == 'ind')?'active':'' }}"><a class="open_header client_allocate" data-id="2" data-type="ind" href="javascript:void(0)">INDIVIDUAL CLIENT LIST</a></li>
        </ul>
 <div class="tab-content">
-<input type="hidden" id="client_type" name="client_type" value="org">
+<input type="hidden" id="client_type" name="client_type" value="{{ $client_type }}">
   <div id="step1" class="tab-pane" style="display:{{ ($client_type == 'org')?'block':'none' }};">
     <div class="tab_topcon" style="position: relative; left:30%;">
       {{ Form::open(array('url'=>'/allocationClientsByService')) }}
@@ -210,13 +212,14 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="2%"><span class="custom_chk"><input type='checkbox' class="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
-          <th width="10%">Type</th>
+          <th width="%8">Type</th>
           <th>BUSINESS NAME</th>
-          <th width="13%">STAFF NAME</th>
-          <th width="13%">STAFF NAME</th>
-          <th width="13%">STAFF NAME</th>
-          <th width="13%">STAFF NAME</th>
-          <th width="13%">STAFF NAME</th>
+          <th width="8%">APPLICABLE?</th>
+          <th width="12%">STAFF NAME</th>
+          <th width="12%">STAFF NAME</th>
+          <th width="12%">STAFF NAME</th>
+          <th width="12%">STAFF NAME</th>
+          <th width="12%">STAFF NAME</th>
         </tr>
       </thead>
 
@@ -224,14 +227,15 @@ $(function() {
 
         @if(isset($org_client_details) && count($org_client_details) >0)
           @foreach($org_client_details as $key=>$details)
-            @if(isset($details['other_services']) && in_array($service_id, unserialize($details['other_services'])))
-              <tr class="even">
-                <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
+             
+              <tr class="even" id="client_{{ $details['client_id'] }}">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
                 <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox applicable_Checkbox" name="applicable_checkbox[]" value="{{ $details['client_id'] or "" }}" id="applicable_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"checked":"" }} /><label for="applicable_checkbox{{ $details['client_id'] }}"></label></span></td>
                 @for($i=1; $i <=5; $i++)
                 <td align="left">
-                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="org_staff_id{{ $i }}" id="{{ $details['client_id'] }}_org_staff_id{{ $i }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} >
                     <option value="">None</option>
                     @if(!empty($staff_details))
                       @foreach($staff_details as $key=>$staff_row)
@@ -242,7 +246,7 @@ $(function() {
                 </td>
                 @endfor
               </tr>
-            @endif
+            
           @endforeach
         @endif
         
@@ -287,9 +291,10 @@ $(function() {
     <table class="table table-bordered table-hover dataTable org_alocation" id="example2" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th width="5%"><span class="custom_chk"><input type='checkbox' class="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
+          <th width="3%"><span class="custom_chk"><input type='checkbox' class="CheckorgCheckbox" /></span></th><!-- allCheckSelect -->
           <!-- <th>Type</th> -->
           <th>CLIENT NAME</th>
+          <th width="8%">APPLICABLE?</th>
           <th width="14%">STAFF NAME</th>
           <th width="14%">STAFF NAME</th>
           <th width="14%">STAFF NAME</th>
@@ -302,14 +307,15 @@ $(function() {
 
         @if(isset($ind_client_details) && count($ind_client_details) >0)
           @foreach($ind_client_details as $key=>$details)
-            @if(isset($details['other_services']) && in_array($service_id, unserialize($details['other_services'])))
-              <tr class="even">
-                <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
+            
+              <tr class="even" id="client_{{ $details['client_id'] }}">
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
                 <td align="left"><a target="_blank" href="/client/edit-ind-client/{{ $details['client_id'] }}">{{ $details['client_name'] or "" }}</a></td>
+                <td><span class="custom_chk"><input type='checkbox' class="checkbox applicable_Checkbox" name="applicable_checkbox[]" value="{{ $details['client_id'] or "" }}" id="applicable_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"checked":"" }} /><label for="applicable_checkbox{{ $details['client_id'] }}"></label></span></td>
                 @for($i=1; $i <=5; $i++)
                 <td align="left">
-                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}">
+                  <select class="form-control save_manual_user" data-client_id="{{ $details['client_id'] }}" data-column="{{ $i }}" name="ind_staff_id{{ $i }}" id="{{ $details['client_id'] }}_ind_staff_id{{ $i }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} >
                     <option value="">None</option>
                     @if(!empty($staff_details))
                       @foreach($staff_details as $key=>$staff_row)
@@ -320,7 +326,7 @@ $(function() {
                 </td>
                 @endfor
               </tr>
-            @endif
+            
           @endforeach
         @endif
         

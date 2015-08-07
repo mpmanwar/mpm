@@ -135,6 +135,38 @@ $(document).ready(function(){
 	});
 
 
+	/* Change services from client start*/
+	$('.applicable_Checkbox').on('ifChecked', function(event){
+		var client_type = $("#client_type").val();
+		var service_id = $("#"+client_type+"_service_id").val();
+        var client_id = $(this).val();
+        $.ajax({
+		    type: "POST",
+		    url: '/edit-service-id',
+		    data: { 'service_id':service_id,'action_type':'add','client_id':client_id },
+		    success : function(resp){
+		    	$("#client_"+client_id).find('select').prop('disabled', false);
+		    	$("#"+client_type+"_checkbox"+client_id).iCheck('enable');
+		    	//$("#client_"+client_id+" input[type=checkbox]").prop('disabled', false);
+		    }
+		});
+    });
+
+    $('.applicable_Checkbox').on('ifUnchecked', function(event){
+    	var client_type = $("#client_type").val();
+		var service_id = $("#"+client_type+"_service_id").val();
+        var client_id = $(this).val();
+        $.ajax({
+		    type: "POST",
+		    url: '/edit-service-id',
+		    data: { 'service_id':service_id,'action_type':'delete','client_id':client_id },
+		    success : function(resp){
+		    	$("#client_"+client_id).find('select').prop('disabled', true);
+		    	$("#"+client_type+"_checkbox"+client_id).iCheck('disable');
+		    }
+		});
+    });
+    /* Change services from client end*/
 
 
 });

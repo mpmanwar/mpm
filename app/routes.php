@@ -252,6 +252,7 @@ Route::post('/prof-file', 'StaffprofileController@prof_file');
 Route::any('/jobs-dashboard', array("as"=>"dashboard", "uses"=>'JobsController@dashboard'));
 Route::any('/vat-returns', array("as"=>"index", "uses"=>'VatReturnsController@index'));
 Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
+Route::any('/ch-annual-return', 'ChAnnualReturnController@index');
 /*=============== Jobs Dashboard Section End =================*/
 
 /*=============== Staff Appraisal Section Start =================*/
@@ -267,5 +268,9 @@ Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=
 
 /*================== Notes Start ==============*/
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
+/*================== Notes End ==============*/
+
+/*================== Notes Start ==============*/
+Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id');
 /*================== Notes End ==============*/
 
