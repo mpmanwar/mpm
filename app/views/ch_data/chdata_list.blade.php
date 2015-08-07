@@ -12,9 +12,9 @@
 
 <!-- page script -->
 <script type="text/javascript">
-var oTable;
+var Table1;
 $(function() {
-    oTable = $('#example2').dataTable({
+    Table1 = $('#example1').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -34,13 +34,12 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
-            {"bSortable": false},
             {"bSortable": false}
         ]
 
     });
 
-    oTable.fnSort( [ [8,'asc'] ] );
+    Table1.fnSort( [ [8,'asc'] ] );
 
 });
 
@@ -132,7 +131,7 @@ $(function() {
               <div class="clearfix"></div>
             </div>
             
-  <table id="example2" class="table table-bordered table-hover ch_returns">
+  <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
     <thead>
       <tr role="row">
           <th><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
@@ -144,8 +143,7 @@ $(function() {
           <th>LAST RETURN DATE</th>
           <th>NEXT RETURN DATE</th>
           <th>COUNT DOWN</th>
-          <th>SEND TO TASKS</th>
-          <th>STAFF</th>
+          <th>ADDRESS</th>
       </tr>
     </thead>
     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -154,22 +152,15 @@ $(function() {
           @if(isset($details['registration_number']) && $details['registration_number']!= "")
             <tr class="even">
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
-                <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+                <td align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="center">{{ $details['registration_number'] or "" }}</td>
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="center">{{ $details['acc_ref_day'] or "" }}/{{ $details['acc_ref_month'] or "" }}</td>
+                <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
                 <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">{{ $details['deadacc_count'] or "" }}</td>
-                <td align="center" id="after_send_{{ $details['client_id'] }}">
-                  @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
-                    <button type="button" class="send_btn send_manage_task" data-client_id="{{ $details['client_id'] }}" data-field_name="ch_manage_task">Send</button>
-                  @else
-                    <button type="button" class="sent_btn">Sent</button>
-                  @endif
-                </td>
-                <td align="center"></td>
+                <td align="center">{{ (strlen($details['res_address']) > 48)? substr($details['res_address'], 0, 45)."...": $details['res_address'] }}</td>
             </tr>
           @endif 
         @endforeach

@@ -68,6 +68,7 @@ class Client extends Eloquent {
 
 				if (isset($client_details) && count($client_details) > 0) {
 					$corres_address = "";
+					$res_address	= "";
 					foreach ($client_details as $client_row) {
 
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
@@ -106,8 +107,27 @@ class Client extends Eloquent {
 							$corres_address .= $client_row->field_value.", ";
 						}
 						// ############### GET CORRESPONDENSE ADDRESS END ################## //
+
+						// ############### GET REGISTERED ADDRESS START ################## //
+						if (isset($client_row->field_name) && $client_row->field_name == "reg_cont_addr_line1"){
+							$res_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "reg_cont_addr_line2"){
+							$res_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "reg_cont_city"){
+							$res_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "reg_cont_county"){
+							$res_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "reg_cont_postcode"){
+							$res_address .= $client_row->field_value.", ";
+						}
+						// ############### GET REGISTERED ADDRESS END ################## //
 					}
 					$client_data[$i]['corres_address'] = substr($corres_address, 0 ,-2);
+					$client_data[$i]['res_address'] = substr($res_address, 0 ,-2);
 
 					$i++;
 				}
@@ -217,7 +237,7 @@ class Client extends Eloquent {
 		return $data;
 	}
 
-	
+
 
 
 }
