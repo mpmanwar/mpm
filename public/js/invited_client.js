@@ -3,10 +3,14 @@ $(document).ready(function(){
 //############## Get Client details portion start ################//
     $("#view_edit_company").hide();
     $('#getClientDetails').change(function() {
-        $("#view_edit_company").show();
+        
         var client_id = $(this).val();
+      
+        
         //alert(client_id);return false;
         if(client_id != "" ){
+            $("#view_edit_company").show();
+            
             $.ajax({
                 type: "GET",
                 //dataType: "json",
@@ -25,6 +29,7 @@ $(document).ready(function(){
                 }
             });
         }else{
+            $("#view_edit_company").hide();
             $(".show_client_details").html("");
         }
     });
