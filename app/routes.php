@@ -126,7 +126,7 @@ Route::any('/client/delete-services', array("as"=>"delete_services", "uses"=>'Cl
 Route::any('/client/insert-section', array("as"=>"insert_section", "uses"=>'ClientController@insert_section'));
 Route::any('/client/delete-section', array("as"=>"delete_section", "uses"=>'ClientController@delete_section'));
 Route::any('/client/get-subsection', array("as"=>"get_subsection", "uses"=>'ClientController@get_subsection'));
-Route::any('/client/edit-org-client/{id}', array("as"=>"edit_org_client", "uses"=>'ClientController@edit_org_client'));
+Route::any('/client/edit-org-client/{id}/{type}', array("as"=>"edit_org_client", "uses"=>'ClientController@edit_org_client'));
 
 Route::any('/client/edit-ind-client/{id}/{type}', array("as"=>"edit_ind_client", "uses"=>'ClientController@edit_ind_client'));
 
