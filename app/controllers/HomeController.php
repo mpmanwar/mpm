@@ -1536,9 +1536,9 @@ class HomeController extends BaseController {
 		}
 		ClientService::insert($relData);
 	}*/
+	ClientService::where("client_id", "=", $client_id)->delete();
 	if (isset($postData['other_services']) && count($postData['other_services']) >0) {
 		//$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'other_services', serialize($postData['other_services']));
-		ClientService::where("client_id", "=", $client_id)->delete();
 		$relData = array();
 		foreach ($postData['other_services'] as $service_id) {
 			$servData['client_id'] = $client_id;
