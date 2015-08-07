@@ -298,7 +298,7 @@ $(function() {
     <div class="tab_topcon" style="position:relative; height: 25px">
 
       <div class="send_task" style="width:35.5%; margin: 0 0 0 360px; position: absolute;">
-        <span class="custom_chk"><input type='checkbox' id="manage_check" /><label for="manage_check"> Auto Send To Task Management</label></span>  <input type="text" name="dead_line" id="dead_line" style="width:9%;"> Days Before Deadline
+        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task Management</label></span>  <input type="text" name="dead_line" id="dead_line" style="width:9%;" value="{{ $autosend['days'] or "" }}"> Days Before Deadline
       </div>
 
       <div class="clearfix"></div>

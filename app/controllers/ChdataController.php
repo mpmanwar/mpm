@@ -1261,15 +1261,16 @@ class ChdataController extends BaseController {
 
     public function send_global_task()
     {
-    	$client_array = array();
-    	$update_data = array();
-    	$dead_line 	= Input::get("dead_line");
+    	$client_array 	= array();
+    	$update_data 	= array();
+    	$dead_line 		= Input::get("dead_line");
+    	$service_id 	= Input::get("service_id");
     	$data['company_details']	= Client::getAllOrgClientDetails();
 		$all_count = 0;
 		$i = 0;
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
-				if(isset($details['registration_number']) && $details['registration_number']!= ""){
+				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
 					if(isset($details['deadacc_count']) && $details['deadacc_count'] <= $dead_line){
 						$update_data['ch_manage_task'] =  'Y';
 						Client::where('client_id', '=', $details['client_id'])->update($update_data);
@@ -1279,6 +1280,16 @@ class ChdataController extends BaseController {
 				}
 			}
 		}
+
+		$autosend = AutosendTask::where('service_id', '=', $service_id)->first();
+		if(isset($autosend) && count($autosend) >0 ){
+			AutosendTask::where('service_id', '=', $service_id)->update(array('days'=>$dead_line));
+		}else{
+			$insrt_data['service_id'] 	= $service_id;
+			$insrt_data['days'] 		= $dead_line;
+			AutosendTask::insert($insrt_data);
+		}
+		
 		/*if(isset($update_data) && count($update_data) >0 ){
 			Client::where('client_id', '=', $client_id)->update($update_data);
 		}*/

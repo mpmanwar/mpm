@@ -308,6 +308,7 @@ $(document).ready(function(){
 /* ################# Global Task Management Start ################### */
     $('#manage_check').on('ifChecked', function(event){
         var dead_line = $("#dead_line").val();
+        var service_id = $("#service_id").val();
         if(dead_line == ""){
             alert("Please Put The Days Before Deadline value");
             return false;
@@ -316,7 +317,7 @@ $(document).ready(function(){
                 type: "POST",
                 dataType : 'json',
                 url: '/chdata/send-global-task',
-                data: { 'dead_line' : dead_line },
+                data: { 'dead_line' : dead_line, 'service_id' : service_id },
                 success : function(resp){ 
                     $.each(resp, function(key, value){
                         $("#after_send_"+value.client_id).html('<button type="button" class="sent_btn">Sent</button>');
