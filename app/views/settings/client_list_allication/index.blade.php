@@ -307,7 +307,7 @@ $(function() {
 
         @if(isset($ind_client_details) && count($ind_client_details) >0)
           @foreach($ind_client_details as $key=>$details)
-            <!-- @if(isset($details['other_services']) && in_array($service_id, unserialize($details['other_services']))) -->
+            
               <tr class="even">
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox ind_Checkbox" name="ind_checkbox[]" value="{{ $details['client_id'] or "" }}" id="ind_checkbox{{ $details['client_id'] }}" /><label for="ind_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
@@ -326,7 +326,7 @@ $(function() {
                 </td>
                 @endfor
               </tr>
-            <!-- @endif -->
+            
           @endforeach
         @endif
         
