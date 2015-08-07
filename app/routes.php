@@ -266,3 +266,7 @@ Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
 /*================== Notes End ==============*/
 
+/*================== Notes Start ==============*/
+Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id');
+/*================== Notes End ==============*/
+

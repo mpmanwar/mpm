@@ -2330,7 +2330,7 @@ $(document).ready(function(){
         @if( isset($old_services) && count($old_services)>0 )
           @foreach($old_services as $key=>$service_row)
         <tr>
-          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+          <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($services_id) && in_array($service_row->service_id, $services_id))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
         </tr>
           @endforeach
         @endif
@@ -2338,7 +2338,7 @@ $(document).ready(function(){
         @if( isset($new_services) && count($new_services)>0 )
           @foreach($new_services as $key=>$service_row)
           <tr id="hide_service_tr_{{ $service_row->service_id }}">
-            <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($client_details['other_services']) && in_array($service_row->service_id, unserialize($client_details['other_services'])))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
+            <td align="center" width="40%"><span class="custom_chk"><input type="checkbox" value="{{ $service_row->service_id }}" name="other_services[]" {{ (isset($services_id) && in_array($service_row->service_id, $services_id))?"checked":"" }} /><label><strong>{{ $service_row->service_name }}</strong></label></span></td>
             <!-- <td width="30%"><a href="javascript:void(0)" title="Delete Field ?" class="delete_services" data-field_id="{{ $service_row->service_id }}"><img src="/img/cross.png" width="12"></a></td>
             <td align="left" widht="30%">
               <select class="form-control" name="staff_id" id="staff_id">

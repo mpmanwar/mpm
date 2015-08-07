@@ -48,12 +48,18 @@ class Client extends Eloquent {
 				}
 				// ############### GET JOB STATUS END ################## //
 
+				// ############### GET OTHER SERVICES START ################## //
+				$client_data[$i]['services_id'] 	=   Client::getServicesIdByClient($client_id->client_id);
+				//print_r($client_data[$i]['services']);die;
+				// ############### GET OTHER SERVICES END ################## //
+
 				// ############### GET VAT SCHEME USER START ################## //
 				$service = Common::get_services_client($client_id->client_id);
 				if(isset($service) && count($service) > 0){
 					foreach ($service as $key => $value) {
 						if(isset($value['service_name']) && $value['service_name'] == "VAT"){
-							$client_data[$i]['vat_staff_name'] 	= $value['name'];
+							//$client_data[$i]['vat_staff_name'] 	= $value['name'];
+							$client_data[$i]['vat_staff_name'] 	= $value['service_name'];
 						}
 					}
 				}
@@ -195,6 +201,18 @@ class Client extends Eloquent {
 		}
 		//print_r($client_data);die;
 		return $client_data;
+	}
+
+	public static function getServicesIdByClient($client_id)
+	{
+		$data = array();
+		$services = ClientService::where("client_id", "=", $client_id)->get();
+		if(isset($services) && count($services) >0){
+			foreach ($services as $key => $value) {
+				$data[] = $value->service_id;
+			}
+		}
+		return $data;
 	}
 
 

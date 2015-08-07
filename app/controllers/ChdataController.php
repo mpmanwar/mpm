@@ -1313,16 +1313,20 @@ class ChdataController extends BaseController {
 
     public function send_global_task()
     {
+    	$client_array = array();
     	$update_data = array();
     	$dead_line 	= Input::get("dead_line");
     	$data['company_details']	= Client::getAllOrgClientDetails();
 		$all_count = 0;
+		$i = 0;
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
 				if(isset($details['registration_number']) && $details['registration_number']!= ""){
 					if(isset($details['deadacc_count']) && $details['deadacc_count'] <= $dead_line){
 						$update_data['ch_manage_task'] =  'Y';
 						Client::where('client_id', '=', $details['client_id'])->update($update_data);
+						$client_array[$i]['client_id'] = $details['client_id'];
+						$i++;
 					}
 				}
 			}
@@ -1330,7 +1334,7 @@ class ChdataController extends BaseController {
 		/*if(isset($update_data) && count($update_data) >0 ){
 			Client::where('client_id', '=', $client_id)->update($update_data);
 		}*/
-		echo 1;
+		echo json_encode($client_array);
 		
     }
 

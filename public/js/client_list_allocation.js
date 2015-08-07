@@ -135,6 +135,35 @@ $(document).ready(function(){
 	});
 
 
+	/* Change services from client start*/
+	$('.applicable_Checkbox').on('ifChecked', function(event){
+		var client_type = $("#client_type").val();
+		var service_id = $("#"+client_type+"_service_id").val();
+        var client_id = $(this).val();
+        $.ajax({
+		    type: "POST",
+		    url: '/edit-service-id',
+		    data: { 'service_id':service_id,'action_type':'add','client_id':client_id },
+		    success : function(resp){
+		    	
+		    }
+		});
+    });
+
+    $('.applicable_Checkbox').on('ifUnchecked', function(event){
+    	var client_type = $("#client_type").val();
+		var service_id = $("#"+client_type+"_service_id").val();
+        var client_id = $(this).val();
+        $.ajax({
+		    type: "POST",
+		    url: '/edit-service-id',
+		    data: { 'service_id':service_id,'action_type':'delete','client_id':client_id },
+		    success : function(resp){
+		    	
+		    }
+		});
+    });
+    /* Change services from client end*/
 
 
 });
