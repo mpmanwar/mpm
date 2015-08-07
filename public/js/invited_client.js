@@ -5,7 +5,7 @@ $(document).ready(function(){
     $('#getClientDetails').change(function() {
         $("#view_edit_company").show();
         var client_id = $(this).val();
-        alert(client_id);return false;
+        //alert(client_id);return false;
         if(client_id != "" ){
             $.ajax({
                 type: "GET",
