@@ -122,7 +122,7 @@
 </li>
 
 <li class="hvr-grow">
-    <a  href="/ch-annual-return">
+    <a  href="/ch-annual-return/{{ base64_encode('1') }}">
         <div class="circle_icons_inner">
             <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
             <p class="c_tagline">CH ANNUAL<br>RETURNS</p>

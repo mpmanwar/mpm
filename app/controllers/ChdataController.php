@@ -1227,10 +1227,12 @@ class ChdataController extends BaseController {
 
     public function delete_single_task()
     {
-    	$client_id = Input::get("client_id");
+    	$client_id 	= Input::get("client_id");
+    	$service_id = Input::get("service_id");
 		//print_r($client_delete_id);die;
 		$del_data['ch_manage_task'] = "N";
 		Client::where('client_id', '=', $client_id)->update($del_data);
+		JobStatus::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->delete();
 		echo 1;
     }
 

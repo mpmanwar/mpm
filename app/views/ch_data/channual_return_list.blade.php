@@ -283,18 +283,21 @@ $(function() {
 
       </div>
       <div class="practice_mid">
-      
+      <input type="hidden" name="page_open" id="page_open" value="{{ $page_open }}">
 
           <div class="tabarea">
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
-        <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
+        <!-- <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
         <li><a data-toggle="tab" href="#tab_2">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
-        <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li>
+        <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li> -->
+        <li class="{{ ($page_open == 1)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('1') }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
+        <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
+        <li class="{{ ($page_open == 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('3') }}">COMPLETED TASKS</a></li>
       </ul>
 <div class="tab-content">
-  <div id="tab_1" class="tab-pane active">
+  <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
     <div class="tab_topcon" style="position:relative; height: 25px">
 
       <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
@@ -351,14 +354,14 @@ $(function() {
 
   </div>
 
-  <div id="tab_2" class="tab-pane">
+  <div id="tab_2" class="tab-pane {{ ($page_open != 1 && $page_open != 3)?'active':'' }}">
     <ul class="nav nav-tabs nav-tabsbg">
-        <li class="active"><a data-toggle="tab" href="#tab_21">All [{{ $all_count }}]</a></li>
-        <li><a data-toggle="tab" href="#tab_22">Not Started [{{ ($not_started_count >0 )?$not_started_count:"0" }}]</a></li>
+        <li class="{{ ($page_open == 21)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}">All [<span id="task_count_21">{{ $all_count }}</span>]</a></li>
+        <li class="{{ ($page_open == 22)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('22') }}">Not Started [<span id="task_count_22">{{ ($not_started_count >0 )?$not_started_count:"0" }}</span>]</a></li>
         @if(isset($jobs_steps) && count($jobs_steps) >0)
           <?php $i = 3;?>
             @foreach($jobs_steps as $key=>$value)
-              <li class="header_step_{{ $value['step_id']}}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a data-toggle="tab" href="#tab_2{{ $i }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [{{ $value['count'] or "0" }}]</a></li>
+              <li class="header_step_{{ $value['step_id']}} {{ ($page_open == '2'.$i)?'active':'' }}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a href="/ch-annual-return/{{ base64_encode('2'.$i) }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [<span id="task_count_2{{$i}}">{{ $value['count'] or "0" }}</span>]</a></li>
               <?php $i++;?>
             @endforeach
         @endif
@@ -367,7 +370,7 @@ $(function() {
     
   <div class="tab-content">
 
-  <div id="tab_21" class="tab-pane top_margin active">
+  <div id="tab_21" class="tab-pane top_margin {{ ($page_open == '21')?'active':'' }}">
     
     <table class="table table-bordered table-hover dataTable ch_returns" id="example21" aria-describedby="example21_info">
       <thead>
@@ -390,8 +393,8 @@ $(function() {
         @foreach($company_details as $key=>$details)
           @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
             @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
-              <tr class="even">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"><img src="/img/cross.png"></a></td>
+              <tr id="data_tr_{{ $details['client_id'] }}_21">
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="1"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
@@ -401,6 +404,7 @@ $(function() {
                 <td align="left">{{ $details['deadacc_count'] or "" }}</td>
                 <td align="center"></td>
                 <td align="center" width="12%">
+                  <input type="hidden" name="prev_status_{{ $details['client_id'] }}" id="prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or "" }}">
                   <select class="table_select status_dropdown" id="status_dropdown" data-client_id="{{ $details['client_id'] }}">
                     <option value="2">Not Started</option>
                     @if(isset($jobs_steps) && count($jobs_steps) >0)
@@ -420,7 +424,7 @@ $(function() {
     </table>
     </div>
            
-    <div id="tab_22" class="tab-pane top_margin">
+    <div id="tab_22" class="tab-pane top_margin {{ ($page_open == '22')?'active':'' }}">
       <table class="table table-bordered table-hover dataTable ch_returns" id="example22" aria-describedby="example22_info">
       <thead>
         <tr role="row">
@@ -443,8 +447,8 @@ $(function() {
           @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
             @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
               @if(!isset($details['job_status'][$service_id]['status_id']))
-              <tr class="even">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"><img src="/img/cross.png"></a></td>
+              <tr id="data_tr_{{ $details['client_id'] }}_22">
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"  data-tab="2" ><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
@@ -475,7 +479,7 @@ $(function() {
     </div>
      
     @for($k=3; $k <= 9;$k++)                          
-    <div id="tab_2{{$k}}" class="tab-pane top_margin">
+    <div id="tab_2{{$k}}" class="tab-pane top_margin {{ ($page_open == '2'.$k)?'active':'' }}">
       <table class="table table-bordered table-hover dataTable ch_returns" id="example2{{$k}}" aria-describedby="example2{{$k}}_info">
       <thead>
         <tr role="row">
@@ -498,8 +502,8 @@ $(function() {
           @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
             @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
               @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $k)
-              <tr class="even">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"><img src="/img/cross.png"></a></td>
+              <tr id="data_tr_{{ $details['client_id'] }}_2{{ $k }}">
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="{{ $k }}"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
@@ -530,7 +534,7 @@ $(function() {
     </table> 
     </div>
     @endfor     
-    <div id="tab_210" class="tab-pane top_margin">
+    <div id="tab_210" class="tab-pane {{ ($page_open == '210')?'active':'' }} top_margin">
       <table class="table table-bordered table-hover dataTable ch_returns" id="example210" aria-describedby="example210_info">
       <thead>
         <tr role="row">
@@ -553,8 +557,8 @@ $(function() {
           @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
             @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
               @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
-              <tr class="even">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"><img src="/img/cross.png"></a></td>
+              <tr id="data_tr_{{ $details['client_id'] }}_210">
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="10"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
@@ -584,38 +588,14 @@ $(function() {
       </tbody>
     </table>
     </div>
-    
-    <!-- <div id="tab_25" class="tab-pane top_margin">
-      
-    </div>
-    
-    <div id="tab_26" class="tab-pane top_margin">
-      
-    </div>
-    
-    <div id="tab_27" class="tab-pane top_margin">
-      
-    </div>
-    
-    <div id="tab_8" class="tab-pane top_margin">
-      
-    </div>
-    
-    <div id="tab_9" class="tab-pane top_margin">
-      
-    </div>
-    
-    <div id="tab_210" class="tab-pane top_margin">
-      
-    </div> -->
-         
+   
 
   </div>
 
 
   </div>
 
-  <div id="tab_3" class="tab-pane">
+  <div id="tab_3" class="tab-pane {{ ($page_open == '3')?'active':'' }}">
     <table class="table table-bordered table-hover dataTable ch_returns" id="example3" aria-describedby="example3_info">
       <thead>
         <tr role="row">
@@ -635,8 +615,8 @@ $(function() {
           @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
             @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
               @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
-              <tr class="even">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"><img src="/img/cross.png"></a></td>
+              <tr id="data_tr_{{ $details['client_id'] }}_3">
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ $details['registration_number'] or "" }}</td>
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
