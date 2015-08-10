@@ -265,15 +265,15 @@ $(function() {
               <td width="30%" class="head_txt">Filter By Staff</td>
               <td width="2%">&nbsp;</td>
               <td width="68%">
-                <select class="form-control">
-                  <option value="all">Show All</option>
+                <select class="form-control filter_by_staff" name="filter_by_staff" id="filter_by_staff">
+                  <option value="{{ base64_encode('all') }}">Show All</option>
                   @if(!empty($staff_details))
                     @foreach($staff_details as $key=>$staff_row)
-                      <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   
                     @endforeach
                   @endif
-                  <option value="none">Unassigned</option>
+                  <option value="{{ base64_encode('none') }}">Unassigned</option>
                 </select>
               </td>
             </tr>
@@ -284,6 +284,7 @@ $(function() {
       </div>
       <div class="practice_mid">
       <input type="hidden" name="page_open" id="page_open" value="{{ $page_open }}">
+      <input type="hidden" name="encode_page_open" id="encode_page_open" value="{{ $encode_page_open }}">
 
           <div class="tabarea">
   
@@ -292,9 +293,9 @@ $(function() {
         <!-- <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
         <li><a data-toggle="tab" href="#tab_2">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
         <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li> -->
-        <li class="{{ ($page_open == 1)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('1') }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
-        <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
-        <li class="{{ ($page_open == 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('3') }}">COMPLETED TASKS</a></li>
+        <li class="{{ ($page_open == 1)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('1') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
+        <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
+        <li class="{{ ($page_open == 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('3') }}/{{ base64_encode($staff_id) }}">COMPLETED TASKS</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
@@ -356,12 +357,12 @@ $(function() {
 
   <div id="tab_2" class="tab-pane {{ ($page_open != 1 && $page_open != 3)?'active':'' }}">
     <ul class="nav nav-tabs nav-tabsbg">
-        <li class="{{ ($page_open == 21)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}">All [<span id="task_count_21">{{ $all_count }}</span>]</a></li>
-        <li class="{{ ($page_open == 22)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('22') }}">Not Started [<span id="task_count_22">{{ ($not_started_count >0 )?$not_started_count:"0" }}</span>]</a></li>
+        <li class="{{ ($page_open == 21)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">All [<span id="task_count_21">{{ $all_count }}</span>]</a></li>
+        <li class="{{ ($page_open == 22)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('22') }}/{{ base64_encode($staff_id) }}">Not Started [<span id="task_count_22">{{ ($not_started_count >0 )?$not_started_count:"0" }}</span>]</a></li>
         @if(isset($jobs_steps) && count($jobs_steps) >0)
           <?php $i = 3;?>
             @foreach($jobs_steps as $key=>$value)
-              <li class="header_step_{{ $value['step_id']}} {{ ($page_open == '2'.$i)?'active':'' }}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a href="/ch-annual-return/{{ base64_encode('2'.$i) }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [<span id="task_count_2{{$i}}">{{ $value['count'] or "0" }}</span>]</a></li>
+              <li class="header_step_{{ $value['step_id']}} {{ ($page_open == '2'.$i)?'active':'' }}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a href="/ch-annual-return/{{ base64_encode('2'.$i) }}/{{ base64_encode($staff_id) }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [<span id="task_count_2{{$i}}">{{ $value['count'] or "0" }}</span>]</a></li>
               <?php $i++;?>
             @endforeach
         @endif

@@ -363,6 +363,15 @@ $(document).ready(function(){
         $("#dead_line").prop("disabled", false);
     });
 /* ################# Global Task Management End ################### */
+
+
+/* ################# Filter By Staff Start ################### */
+    $(".filter_by_staff").change(function(){
+        var staff_id = $(this).val();
+        var page_open = $("#encode_page_open").val();
+        window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
+    });
+/* ################# Filter By Staff Start ################### */
   
 
 //send_manage_task

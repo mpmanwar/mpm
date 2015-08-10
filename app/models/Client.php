@@ -238,6 +238,47 @@ class Client extends Eloquent {
 	}
 
 
+	public static function getUnassignedClientDetails($service_id)
+	{
+		$client_details = Client::getAllOrgClientDetails();
+		if(isset($client_details) && count($client_details) >0){
+			foreach ($client_details as $key => $value) {
+				$alloc_clients = ClientListAllocation::where("client_id", "=", $value['client_id'])->where("service_id", "=", $service_id)->first();
+
+				if(isset($alloc_clients) && count($alloc_clients) >0){
+					if($alloc_clients['staff_id1'] != 0 || $alloc_clients['staff_id2'] != 0 || $alloc_clients['staff_id3'] != 0 || $alloc_clients['staff_id4'] != 0 || $alloc_clients['staff_id5'] != 0 ){
+						unset($client_details[$key]);
+					}
+				}
+
+			}
+		}
+
+		return array_values($client_details);
+	}
+
+
+	public static function getAssignedClientDetails($service_id, $staff_id)
+	{
+		$client_array = array();
+		$client_details = Client::getAllOrgClientDetails();
+		if(isset($client_details) && count($client_details) >0){
+			foreach ($client_details as $key => $value) {
+				$alloc_clients = ClientListAllocation::where("client_id", "=", $value['client_id'])->where("service_id", "=", $service_id)->first();
+
+				if(isset($alloc_clients) && count($alloc_clients) >0){
+					if($alloc_clients['staff_id1'] == $staff_id || $alloc_clients['staff_id2'] == $staff_id || $alloc_clients['staff_id3'] == $staff_id || $alloc_clients['staff_id4'] == $staff_id || $alloc_clients['staff_id5'] == $staff_id ){
+						$client_array[$key] = $client_details[$key];
+					}
+				}
+
+			}
+		}
+
+		return array_values($client_array);
+	}
+
+
 
 
 }
