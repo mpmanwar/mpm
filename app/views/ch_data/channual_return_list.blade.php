@@ -300,10 +300,16 @@ $(function() {
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
     <div class="tab_topcon" style="position:relative; height: 25px">
+      
+      <div class="send_task auto_send">
+        <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
 
-      <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
-        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></span>  <input type="text" name="dead_line" id="dead_line" style="width:8%; padding: 0; text-align: center;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> Days Before Deadline
+         <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:12%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
       </div>
+
+      <!-- <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
+        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></span>  <input type="text" name="dead_line" id="dead_line" style="width:8%; padding: 0; text-align: center;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> Days Before Deadline
+      </div> -->
 
       <div class="clearfix"></div>
     </div>

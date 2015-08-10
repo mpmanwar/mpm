@@ -23,7 +23,12 @@ class ClientListAllocationController extends BaseController {
 		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
 
 		if($data['client_type'] == "org"){
-			$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
+			if($data['service_id'] == 0){
+				$data['org_client_details'] = array();
+			}else{
+				$data['org_client_details'] 	=   Client::getAllOrgClientDetails();
+			}
+			
 		}else{
 			$data['ind_client_details'] 	=   Client::getAllIndClientDetails();
 		}
