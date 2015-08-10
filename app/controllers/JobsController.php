@@ -13,12 +13,26 @@ class JobsController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		
-		
-
 		//echo "<prev>".print_r($data);die;
 		return View::make('jobs.dashboard', $data);
 	}
+
+	public function send_manage_task(){
+    	$service_id = Input::get("service_id");
+    	$data["status"] = "Y";
+    	$client_id = Input::get("client_id");
+    	$jobs = JobsManage::where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+    	if(isset($jobs) && count($jobs) >0){
+    		JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($data);
+    		$last_id = $jobs['job_manage_id'];
+    	}else{
+    		$data["service_id"] = $service_id;
+    		$data["client_id"] 	= $client_id;
+    		$last_id = JobsManage::insertGetId($data);
+    	}
+
+    	echo $last_id;
+    }
 
 
     

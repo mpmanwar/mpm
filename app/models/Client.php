@@ -19,6 +19,18 @@ class Client extends Eloquent {
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 
+				// ############### GET MANAGE TASK START ################## //
+				/*$jobs = JobsManage::where("client_id", "=", $client_id)->get();
+		    	if(isset($jobs) && count($jobs) >0){
+		    		JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($data);
+		    		$last_id = $jobs['job_manage_id'];
+		    	}else{
+		    		$data["service_id"] = $service_id;
+		    		$data["client_id"] 	= $client_id;
+		    		$last_id = JobsManage::insertGetId($data);
+		    	}*/
+				// ############### GET MANAGE TASK END ################## //
+
 				// ############### GET CLIENT LIST ALLOCATION START ################## //
 				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->get();
 				if(isset($list) && count($list) >0){

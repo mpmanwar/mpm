@@ -399,7 +399,7 @@ $(function() {
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="left">{{ $details['deadacc_count'] or "" }}</td>
@@ -453,7 +453,7 @@ $(function() {
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="left">{{ $details['deadacc_count'] or "" }}</td>
@@ -508,7 +508,7 @@ $(function() {
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="left">{{ $details['deadacc_count'] or "" }}</td>
@@ -563,7 +563,7 @@ $(function() {
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="left">{{ $details['deadacc_count'] or "" }}</td>
@@ -620,7 +620,7 @@ $(function() {
                 <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ $details['registration_number'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center" width="12%">
                   {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
