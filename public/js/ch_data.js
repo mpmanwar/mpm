@@ -307,6 +307,7 @@ $(document).ready(function(){
 
 /* ################# Global Task Management Start ################### */
     $('#manage_check').on('ifChecked', function(event){
+        $("#dead_line").prop("disabled", true);
         var dead_line = $("#dead_line").val();
         var service_id = $("#service_id").val();
         if(dead_line == ""){
@@ -325,6 +326,10 @@ $(document).ready(function(){
                 }
             });
         }
+    });
+
+    $('#manage_check').on('ifUnchecked', function(event){
+        $("#dead_line").prop("disabled", false);
     });
 /* ################# Global Task Management End ################### */
   
