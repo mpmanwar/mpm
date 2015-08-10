@@ -370,8 +370,17 @@ $(document).ready(function(){
 /* ################# Filter By Staff Start ################### */
     $(".filter_by_staff").change(function(){
         var staff_id = $(this).val();
+        var service_id = $("#service_id").val();
         var page_open = $("#encode_page_open").val();
-        window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
+        $.ajax({
+            type: "POST",
+            url: '/jobs/update-staff-filter',
+            data: { 'staff_id' : staff_id, 'service_id' : service_id },
+            success : function(resp){ 
+                window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
+            }
+        });
+        
     });
 /* ################# Filter By Staff Start ################### */
   

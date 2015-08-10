@@ -71,6 +71,8 @@ class ChAnnualReturnController extends BaseController {
 		$data['not_started_count'] = $all_count - count($data['Job_status']);
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 
+
+
 		$data['autosend'] = AutosendTask::where('service_id', '=', $data['service_id'])->first();
 		
 

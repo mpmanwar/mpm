@@ -254,6 +254,8 @@ Route::any('/vat-returns/{page_open}/{staff_id}', array("as"=>"index", "uses"=>'
 Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
 Route::any('/ch-annual-return/{page_open}/{staff_id}', 'ChAnnualReturnController@index');
 Route::any('/jobs/send-manage-task', 'JobsController@send_manage_task');
+Route::any('/jobs/update-staff-filter', 'JobsController@update_staff_filter');
+
 /*=============== Jobs Dashboard Section End =================*/
 
 /*=============== Staff Appraisal Section Start =================*/

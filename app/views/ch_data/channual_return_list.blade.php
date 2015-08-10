@@ -266,14 +266,14 @@ $(function() {
               <td width="2%">&nbsp;</td>
               <td width="68%">
                 <select class="form-control filter_by_staff" name="filter_by_staff" id="filter_by_staff">
-                  <option value="{{ base64_encode('all') }}">Show All</option>
+                  <option value="{{ base64_encode('all') }}" {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == 'all')?"selected":"" }}>Show All</option>
                   @if(!empty($staff_details))
                     @foreach($staff_details as $key=>$staff_row)
-                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }} {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   
                     @endforeach
                   @endif
-                  <option value="{{ base64_encode('none') }}">Unassigned</option>
+                  <option value="{{ base64_encode('none') }}" {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == 'none')?"selected":"" }}>Unassigned</option>
                 </select>
               </td>
             </tr>

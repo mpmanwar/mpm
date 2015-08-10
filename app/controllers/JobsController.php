@@ -34,6 +34,17 @@ class JobsController extends BaseController {
     	echo $last_id;
     }
 
+    public function update_staff_filter()
+    {
+    	$staff_id = Input::get("staff_id");	
+    	$service_id = Input::get("service_id");
+    	if($staff_id != "all" && $staff_id != "none"){
+    		$staff_id = base64_decode($staff_id);
+    	}
+    	AutosendTask::where('service_id','=',$service_id)->update(array('staff_filter'=>$staff_id));
+    	echo 1;
+    }
+
 
     
 
