@@ -37,12 +37,14 @@ $(document).ready(function(){
 
     //############## Go to view/edit details portion start ################//
     $('#view_edit_company').click(function() {
+        var type_id = $(this).data('type');
+        console.log(type_id);
         var client_id = $("#getClientDetails").val();
         if(client_id == ""){
             alert("Please select client first");
             //return false;
         }else{
-            window.location.href = "/client/edit-org-client/"+client_id;
+            window.location.href = "/client/edit-org-client/"+client_id+"/"+type_id;
         }
     });
     //############## Go to view/edit details portion end ################//
