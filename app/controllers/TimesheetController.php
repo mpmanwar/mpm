@@ -31,7 +31,7 @@ class TimesheetController extends BaseController {
 		
 		
 		$time_sheet_report = TimeSheetReport::orderBy("created_date","desc")->get();
-		//echo $this->last_query();
+		//echo $this->last_query();die();
 		if(!empty($time_sheet_report)){
 				foreach($time_sheet_report as $key=>$val){
 						
@@ -46,13 +46,15 @@ class TimesheetController extends BaseController {
 					$data2[$key]['notes'] = $val['notes'];	
 					$data2[$key]['created_date'] = date("d-m-Y",strtotime($val['created_date']));					
 				}
+                //echo $val;die();
 		if(!empty($data2)){		
 		$data['time_sheet_report'] =  $data2;
 		    }
 		}
         
 	   //echo $this->last_query();
-      
+        
+        //echo '<pre>';print_r($data2);die();
                 
         return View::make('staff.timesheet.time_sheet_reports',$data);
        
@@ -135,8 +137,8 @@ class TimesheetController extends BaseController {
 						$data[$i]['user_id']	= $session_data['id'];
 						$data[$i]['created_date']		= date("Y-m-d",strtotime($data1['created_date'][$i]));
 						//echo '<pre>';
-						//print_r($data[$i]);
-						//
+					//print_r($data[$i]);
+						//die();
 						$insert_id[$i] = TimeSheetReport::insertGetId($data[$i]);		
 				
 				}
@@ -161,10 +163,10 @@ class TimesheetController extends BaseController {
 	
 	public function timesheet_templates(){
 	
-	 $timesheet_id = Input::get("timesheet_id");
-	 $admin_s = Session::get('admin_details');
-	 $user_id = $admin_s['id'];
-	  $groupUserId = $admin_s['group_users'];
+        $timesheet_id = Input::get("timesheet_id");
+        $admin_s = Session::get('admin_details');
+        $user_id = $admin_s['id'];
+        $groupUserId = $admin_s['group_users'];
 
 
 	 if (Request::ajax()) {
@@ -177,6 +179,8 @@ class TimesheetController extends BaseController {
 			exit();
 			
 			}
+            
+            
 	}
 	
 }

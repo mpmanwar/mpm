@@ -38,7 +38,7 @@ $(document).ready(function(){
     //############## Go to view/edit details portion start ################//
     $('#view_edit_company').click(function() {
         var type_id = $(this).data('type');
-        console.log(type_id);
+        //console.log(type_id);
         var client_id = $("#getClientDetails").val();
         if(client_id == ""){
             alert("Please select client first");
