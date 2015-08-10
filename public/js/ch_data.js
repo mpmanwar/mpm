@@ -267,14 +267,27 @@ $(document).ready(function(){
 /* ################# Delete Single Task Management Start ################### */
     $(".delete_single_task").click(function(){
         var client_id = $(this).data('client_id');
+        var tab = $(this).data('tab');
+        var service_id  = $("#service_id").val();
+        var page_open   = $("#page_open").val();
         if(confirm("Do you want to Change the task?")){
             $.ajax({
                 type: "POST",
                 url: '/chdata/delete-single-task',
-                data: { 'client_id' : client_id },
+                data: { 'client_id' : client_id, 'service_id' : service_id },
                 success : function(resp){
-                    
-                        
+                    if(page_open == 3){
+                        $("#data_tr_"+client_id+"_"+tab).hide();
+                    }
+
+                    if(tab != "1"){
+                        var count_21 = $("#task_count_21").html();
+                        $("#task_count_21").html(parseInt(count_21-1)); 
+                    }
+                    //task_count_21
+                    $("#data_tr_"+client_id+"_2"+tab).hide(); 
+                    var count_2 = $("#task_count_2"+tab).html();
+                    $("#task_count_2"+tab).html(parseInt(count_2-1)); 
                 }
             });
         }
@@ -283,9 +296,10 @@ $(document).ready(function(){
 
 /* ################# Job Status Change Start ################### */
     $(".status_dropdown").change(function(){
-        var service_id = $("#service_id").val();
-        var client_id = $(this).data("client_id");
-        var status_id = $(this).val()
+        var service_id  = $("#service_id").val();
+        var client_id   = $(this).data("client_id");
+        var status_id   = $(this).val();
+        var page_open   = $("#page_open").val();
         //alert("val.length");return false;
         if(status_id != 2)
         {
@@ -294,12 +308,29 @@ $(document).ready(function(){
                 url: '/chdata/change-job-status',
                 data: { 'service_id' : service_id, 'client_id' : client_id, 'status_id' : status_id },
                 success : function(resp){
-                    
+                    /* ============Current Page ========== */
+                    if(page_open != 21){
+                        var task_count = $("#task_count_"+page_open).html();
+                        $("#task_count_"+page_open).html(parseInt(task_count-1));
+                        $("#data_tr_"+client_id+"_"+page_open).hide(); 
+                        console.log("21: "+task_count+"="+task_count);
+                    }else{
+                        var prev_status = $("#prev_status_"+client_id).val();
+                        var task_count = $("#task_count_2"+prev_status).html();
+                        $("#task_count_2"+prev_status).html(parseInt(task_count-1));
+                        $("#prev_status_"+client_id).val(status_id);
+                        console.log("else: "+prev_status+"="+task_count);
+                    }
+                    /* ============Current Page ========== */
+
+                    var count_2 = $("#task_count_2"+status_id).html();
+                    var total = parseInt(count_2)+parseInt(1);
+                    $("#task_count_2"+status_id).html(total); 
                         
                 }
             });
         }else{
-            alert("This is some problem to delete");
+            alert("This is some problem to change status");
             return false;
         }
     });
@@ -332,6 +363,15 @@ $(document).ready(function(){
         $("#dead_line").prop("disabled", false);
     });
 /* ################# Global Task Management End ################### */
+
+
+/* ################# Filter By Staff Start ################### */
+    $(".filter_by_staff").change(function(){
+        var staff_id = $(this).val();
+        var page_open = $("#encode_page_open").val();
+        window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
+    });
+/* ################# Filter By Staff Start ################### */
   
 
 //send_manage_task
