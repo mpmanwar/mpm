@@ -23,7 +23,7 @@ class ChAnnualReturnController extends BaseController {
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
 				if(isset($details['services_id']) && in_array($data['service_id'], $details['services_id'])){
-					$autosend = AutosendTask::where('service_id', '=', $data['service_id'])->first();
+					/*$autosend = AutosendTask::where('service_id', '=', $data['service_id'])->first();
 					if(isset($autosend) && count($autosend) >0 ){
 						if(isset($details['deadacc_count']) && $details['deadacc_count'] <= $autosend['days']){
 							$update_data['ch_manage_task'] =  'Y';
@@ -34,7 +34,7 @@ class ChAnnualReturnController extends BaseController {
 							}
 							
 						}
-					}
+					}*/
 					
 
 					if(isset($details['ch_manage_task']) && $details['ch_manage_task']== "Y"){
