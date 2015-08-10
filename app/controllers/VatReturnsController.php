@@ -3,9 +3,9 @@ class VatReturnsController extends BaseController {
 	
 	public function index($page_open, $staff_id){
 		$data['goto_url']	= "/vat-returns";
-		$data['title'] = 'Vat Returns';
+		$data['title'] = 'Vat';
 		$data['previous_page'] = '<a href="/jobs-dashboard">Jobs</a>';
-		$data['heading'] = "VAT - Permanent DATA";
+		$data['heading'] = "VAT";
 		$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
