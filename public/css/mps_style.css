@@ -947,6 +947,6 @@ border: 1px solid #e2e4e6;
 .sel_box{float: left; margin-left: 10px; width: 45%;}
 .top_margin{ margin-top: 10px;}
 .chk_cont01{float:left; width: 136px;}
-.chk_cont02{float:left; width: 142px;}
-.auto_send{width:288px; margin: 0 0 0 30%; position: absolute; z-index: 20;}
+.chk_cont02{float:left; width: 150px;}
+.auto_send{width:297px; margin: 0 0 0 30%; position: absolute; z-index: 20;}
 
