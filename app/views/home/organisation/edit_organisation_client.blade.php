@@ -114,9 +114,9 @@ $(document).ready(function(){
           <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
           <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
         
-         @if($page_name== 'org_client')
+        @if($page_name== 'org_client')
           <li id="tab_6"><a class="open_header" data-id="6" href="javascript:void(0)">NOTES</a></li>
-          @endif
+        @endif
         
           @if(isset($user_type) && $user_type != "C")
           <li><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field</a></li>
@@ -2456,9 +2456,9 @@ $(document).ready(function(){
 <div class="add_client_btn">
   <button class="btn btn-info back" data-id="4" type="button">Prev</button>
   <button class="btn btn-danger" type="submit">Save</button>
-   @if($page_name== 'org_client')
+    @if($page_name== 'org_client')
   <button class="btn btn-info open" data-id="6" type="button">Next</button>
-  @endif
+    @endif
   
 </div>
                               <div class="clearfix"></div>

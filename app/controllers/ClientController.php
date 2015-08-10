@@ -128,7 +128,7 @@ class ClientController extends BaseController {
         	$data['previous_page'] = '<a href="/organisation-clients">Organisation Client List</a>';
         }else{
         	$data['title'] 		= "Edit Client";
-        	$data['previous_page'] = '<a href="/invitedclient-dashboard">Client Portal</a>';
+        	$data['previous_page'] = '<a href="/client-portal">Client Portal</a>';
         }
 
 		if (empty($user_id)) {

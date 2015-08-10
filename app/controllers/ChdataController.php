@@ -25,6 +25,7 @@ class ChdataController extends BaseController {
 
 	public function chdata_details($number)
 	{
+	   //print_r($number);die();
 		$data = array();
 		$data['heading'] 	= "COMPANY DETAILS";
 		$data['title'] 		= "Company Details";
