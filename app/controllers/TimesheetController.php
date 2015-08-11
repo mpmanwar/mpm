@@ -22,6 +22,8 @@ class TimesheetController extends BaseController {
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
         $groupUserId = $session['group_users'];
+        
+        //print_r($groupUserId);die();
 		
 	    $data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 		$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
@@ -30,16 +32,16 @@ class TimesheetController extends BaseController {
 		$data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
 		
 		
-		$time_sheet_report = TimeSheetReport::orderBy("created_date","desc")->get();
+		$time_sheet_report = TimeSheetReport::whereIn("user_id", $groupUserId)->orderBy("created_date","desc")->get();
 		//echo $this->last_query();die();
 		if(!empty($time_sheet_report)){
 				foreach($time_sheet_report as $key=>$val){
 						
 					$data2[$key]['timesheet_id'] = $val['timesheet_id'];
-					$data2[$key]['staff_detail'] 	= User::where("user_id", "=", $val['staff_id'])->whereIn("user_id", $groupUserId)->select("user_id", "fname", "lname")->first();
-					$data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->whereIn("user_id", $groupUserId)->select("vat_scheme_name")->first();
+					$data2[$key]['staff_detail'] 	= User::where("user_id", "=", $val['staff_id'])->select("user_id", "fname", "lname")->first();
+					$data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
 					//$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
-					$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->whereIn("user_id", $groupUserId)->where(function ($query) {$query->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name");})->first();
+					$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where(function ($query) {$query->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name");})->first();
 					
 					//echo $this->last_query();
 					$data2[$key]['hrs'] = $val['hrs'];	

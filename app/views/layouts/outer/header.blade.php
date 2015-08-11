@@ -6,8 +6,9 @@
    
    // $("#features").on('click', function() {
     function featuresfun() {
+       
     //alert('features');
-    
+    //window.location.href = "/";
     $("html, body").animate({ scrollTop: 450 }, 2000);
     
      }
@@ -15,7 +16,7 @@
 
 function pricingfun() {
     //alert('pricingfun');
-    
+    //window.location.href = "/";
      $('html, body').animate({
         scrollTop: $("#pricing_div").offset().top
     }, 2000);

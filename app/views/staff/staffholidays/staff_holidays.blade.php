@@ -165,11 +165,11 @@ $(function() {
     
     </td>
     <td width="10%">Holidays Entitlement</td>
-    <td width="3%"><input type="text" id="" style="width:50px;" value="20"></td>
+    <td width="3%"><input type="text" id="" style="width:50px;text-align: center;" value="20" disabled/></td>
     <td width="8%">Holidays Taken</td>
-    <td width="4%"><input type="text" style="width:50px;" value="18"></td>
+    <td width="4%"><input type="text"  style="width:50px;text-align: center; " value="18" disabled/></td>
     <td width="10%">Holidays Remaining</td>
-    <td width="3%"><input type="text" id="" style="width:50px;" value="10"></td>
+    <td width="3%"><input type="text" id="" style="width:50px; text-align: center;" value="10" disabled></td>
   </tr>
 </table>
 
@@ -177,9 +177,9 @@ $(function() {
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">Awating Approval</a></li>
-                <li><a data-toggle="tab" href="#tab_2">Approved</a></li>
-                <li><a data-toggle="tab" href="#tab_3">Previous Requests</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_1">AWATING APPROVAL</a></li>
+                <li><a data-toggle="tab" href="#tab_2">APPROVED</a></li>
+                <li><a data-toggle="tab" href="#tab_3">PREVIOUS REQUEST</a></li>
               </ul>
               <div class="tab-content">
                 <div id="tab_1" class="tab-pane active">
@@ -510,7 +510,7 @@ $(function() {
                     <tr>
                       <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                       <td align="center">20/07/2015</td>
-                      <td align="center">AM - HALF DAY</td>
+                      <td align="center">20/07/2015 AM - HALF DAY</td>
                       <td align="center">
                       <select class="form-control">
                         <option>ewfwe</option>

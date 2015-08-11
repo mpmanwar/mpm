@@ -44,6 +44,7 @@ $(document).ready(function(){
             alert("Please select client first");
             //return false;
         }else{
+            
             window.location.href = "/client/edit-org-client/"+client_id+"/"+type_id;
         }
     });

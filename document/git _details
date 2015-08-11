@@ -106,3 +106,11 @@ password: 123456
 Key : 74504559f9d824f16807c50fb5e3ea8ed891cf5ec169c18ef3fd8e261484
 https://companycheck.co.uk/api/json/search?name=tesco&apiKey=74504559f9d824f16807c50fb5e3ea8ed891cf5ec169c18ef3fd8e261484
 
+
+
+
+
+for mail
+apt-get install postfix
+/etc/init.d/postfix restart
+

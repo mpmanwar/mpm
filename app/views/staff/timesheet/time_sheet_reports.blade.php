@@ -220,6 +220,16 @@ $(function() {
 	});
 
 }
+
+function notes(){
+    //console.log('dklfjsdkf');
+    
+   var notesval= $("#notess").val();
+   $('#notes').val(notesval);
+   
+    console.log(notesval);
+    //alert('return_notes');
+}
 </script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -266,7 +276,7 @@ $(function() {
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">TIME SHEET</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_1">RECENT TIMESHEET</a></li>
                 <li class=""><a data-toggle="tab" href="#tab_2">TIME SHEET LOG</a></li>
               </ul>
               <div class="tab-content">
@@ -284,7 +294,7 @@ $(function() {
 
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default">Client Time Report</button></div>
 
-                            <div style="float: left;"><button class="btn btn-default"><span class="decline_t">Staff Time Report</span></button></div>
+                            <div style="float: left;"><button class="btn btn-default" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button></div>
                           </div>
                         <div class="col-xs-12">
                           
@@ -445,7 +455,7 @@ $(function() {
               </tr>
               <tr >
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" ></a>
-				<input class="dpick" type="text" id="eddpick" name="date" size="10" style="width:90%; height: 33px;"/>
+				<input class="dpick" type="text" id="eddpick" name="date" size="10" style="width:86%; height: 33px;"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
                 <td align="center"><select class="form-control" name="staff_id" id="staff_id_edit">
@@ -550,8 +560,137 @@ $(function() {
   </div>
   <!-- /.modal-dialog -->
 </div>
+<!-- strmodal -->
+<div class="modal fade" id="composestr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:80%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+      
+      <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <table width="100%" border="0" class="staff_holidays">
+            <tr>
+              <td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30%"><strong><center> STAFF TIME REPORT</center></strong></td>
+    
+  </tr>
+</table>
+
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+			  <?php 
+			  		
+					//echo '<pre>';
+					//print_r($staff_details);
+			  
+			  ?>
+			   {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }}
+              <table width="100%" class="table table-bordered" id="BoxTable">
+            <tbody>
+              <!-- <tr class="table_heading_bg"> -->
+              <tr>
+                
+                <td width="20%" align="center"><strong>Select Staff</strong></td>
+                <td width="20%" align="center"><strong>Select Client</strong></td>
+                
+              </tr>
+              <tr id="TemplateRow" class="makeCloneClass">
+                <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
+              <option value="">None</option>
+                @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+              </select></td>
+                <td align="center">
+				<select class="form-control" name="rel_client_id[]" id="rel_client_id">
+				<option value="">None</option>
+					@if(isset($allClients) && count($allClients)>0)
+					  @foreach($allClients as $key=>$client_row)
+						
+						  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+					
+					  @endforeach
+					@endif
+          </select>
+		  </td>
+                
+                             </tr>
+                             
+                             <tr id="TemplateRow2" class="makeCloneClass">
+                <td align="left">Dispaly active from
+				<input class="dpick" type="text" id="dpick2" name="date[]"  style="width:40%; height: 30px;"/>
+				</td> 
+                
+                
+                <td align="left">to
+				<input class="dpick" type="text" id="dpick3" name="date[]"  style="width:40%; height: 30px;"/>
+				</td>
+                
+                </tr>
+              
+            </tbody>
+          </table>
+              </td>
+            </tr>
+          </table>
+          <div class="save_btncon">
+           <!-- <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div> -->
+            <div class="right_side"> <button class="btn btn-primary">Display</button></div>
+            <div class="clearfix"></div>
+            </div>
+         
+        </div>
+        
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- strmodal -->
 
 
+<div>
+<div class="modal fade" id="composenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:60%;hight:60%">
+    <div class="modal-content">
+     
+      
+      <div class="modal-body">
+      <div style="width:60%;hight:60%">
+             <label for="f_name">Notes</label>
+             
+          <input type="text" name="notes1[]" id="notess" value="">
+         
+          <input type="text" name="notes[]" id="notes" value="">
+          
+          
+          
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes">Save</button>          
+         </div>
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
 <!-- COMPOSE MESSAGE MODAL -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:80%;">
@@ -592,7 +731,7 @@ $(function() {
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
               <tr>
-                <td width="20%"><strong>Date</strong></td>
+                <td width="20%" align="center"><strong>Date</strong></td>
                 <td width="20%" align="center"><strong>Staff Name</strong></td>
                 <td width="20%" align="center"><strong>Client Name</strong></td>
                 <td width="20%" align="center"><strong>Service</strong> <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal">Add/Edit List</a></td>
@@ -601,7 +740,7 @@ $(function() {
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" class="DeleteBoxRow" ></a>
-				<input class="dpick" type="text" id="dpick1" name="date[]"  style="width:90%; height: 33px;"/>
+				<input class="dpick" type="text" id="dpick1" name="date[]"  style="width:86%; height: 33px;"/>
 				</td>
                 <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
               <option value="">None</option>
@@ -638,7 +777,11 @@ $(function() {
                                    
                                   </select></td>
                 <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height: 33px;"></td>
-                <td align="center"><input type="text" name="notes[]" id="notes" style="width:90%; height: 33px;"></td>
+                
+                <td align="center">
+               <!-- <button class="btn btn-default" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">Notes</span></button> -->
+                <input type="text" name="notes[]" id="notes" style="width:90%; height: 33px;"> 
+                </td> 
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>

@@ -150,29 +150,35 @@ class UserController extends BaseController {
 				$usr_data['lname'] 		= $postData['lname'];
 				$usr_data['email'] 		= $postData['email'];				
 
-				if (!empty($postData['permission']) && count($postData['permission']) > 0) {
-					foreach ($postData['permission'] as $value) {
-						$usrp_data['user_id'] = $usr_id;
-						$usrp_data['permission_id'] = $value;
-						UserPermission::insert($usrp_data);
-					}
-				}
+			}
+            
+            else{
+				$usr_data['email'] 				= $postData['client_email'];
+				$usr_data['client_id'] 			= $postData['client_id'];
+			}
 
-				if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
+			$usr_id = User::insertGetId($usr_data);
+            if ($postData['user_type'] == "S") {
+                if (!empty($postData['permission']) && count($postData['permission']) > 0) {
+    					foreach ($postData['permission'] as $value) {
+    						$usrp_data['user_id'] = $usr_id;
+    						$usrp_data['permission_id'] = $value;
+    						
+                            UserPermission::insert($usrp_data);
+    					}
+    				}
+            
+            
+                if (!empty($postData['user_access']) && count($postData['user_access']) > 0) {
 					foreach ($postData['user_access'] as $value) {
 						$usracc_data['user_id'] = $usr_id;
 						$usracc_data['access_id'] = $value;
 						UserAccess::insert($usracc_data);
 					}
 				}
-
-			}else{
-				$usr_data['email'] 				= $postData['client_email'];
-				$usr_data['client_id'] 			= $postData['client_id'];
-			}
-
-			$usr_id = User::insertGetId($usr_data);
-
+    }
+                
+                            
 			if(isset($postData['related_client']) && count($postData['related_client']) > 0){
 				$relatedData = array();
 				foreach ($postData['related_client'] as $row) {
@@ -395,7 +401,8 @@ class UserController extends BaseController {
 	public function create_user_password($id)
 	{
 		$data['user_id'] 	= $id;
-		$data['title']		= "Create Password";		
+		$data['title']		= "Create Password";	
+       // print_r($data);die();
 		return View::make("user/change_password", $data);
 		
 	}
