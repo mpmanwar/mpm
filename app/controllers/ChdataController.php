@@ -1239,6 +1239,10 @@ class ChdataController extends BaseController {
 
     public function change_job_status()
     {
+    	$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+        
     	$client_id 	= Input::get("client_id");
     	$service_id = Input::get("service_id");
     	$status_id 	= Input::get("status_id");
@@ -1264,6 +1268,10 @@ class ChdataController extends BaseController {
 
     public function send_global_task()
     {
+    	$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
     	$client_array 	= array();
     	$update_data 	= array();
     	$dead_line 		= Input::get("dead_line");
@@ -1284,9 +1292,10 @@ class ChdataController extends BaseController {
 			}
 		}
 
-		$autosend = AutosendTask::where('service_id', '=', $service_id)->first();
+		$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $service_id)->first();
 		if(isset($autosend) && count($autosend) >0 ){
-			AutosendTask::where('service_id', '=', $service_id)->update(array('days'=>$dead_line));
+			$updateData['days'] = $dead_line;
+			AutosendTask::where('autosend_id', '=', $autosend['autosend_id'])->update($updateData);
 		}else{
 			$insrt_data['service_id'] 	= $service_id;
 			$insrt_data['days'] 		= $dead_line;

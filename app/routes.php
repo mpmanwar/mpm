@@ -252,9 +252,14 @@ Route::post('/prof-file', 'StaffprofileController@prof_file');
 Route::any('/jobs-dashboard', array("as"=>"dashboard", "uses"=>'JobsController@dashboard'));
 Route::any('/vat-returns/{page_open}/{staff_id}', array("as"=>"index", "uses"=>'VatReturnsController@index'));
 Route::any('/vatreturn/manage-tasks', array("as"=>"manage_tasks", "uses"=>'VatReturnsController@manage_tasks'));
-Route::any('/ch-annual-return/{page_open}/{staff_id}', 'ChAnnualReturnController@index');
+Route::any('/ch-annual-return/{service_id}/{page_open}/{staff_id}', 'ChAnnualReturnController@index');
 Route::any('/jobs/send-manage-task', 'JobsController@send_manage_task');
 Route::any('/jobs/update-staff-filter', 'JobsController@update_staff_filter');
+Route::any('/jobs/delete-single-task', 'JobsController@delete_single_task');
+Route::post('/jobs/change-job-status', 'JobsController@change_job_status');
+Route::post('/jobs/show-jobs-notes', 'JobsController@show_jobs_notes');
+Route::post('/jobs/save-jobs-notes', 'JobsController@save_jobs_notes');
+Route::post('/jobs/send-global-task', 'JobsController@send_global_task');
 
 /*=============== Jobs Dashboard Section End =================*/
 

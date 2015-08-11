@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
 	$('.CheckorgCheckbox').on('ifChecked', function(event){
-        $(".org_alocation input").iCheck('check');
+        $(".org_Checkbox").iCheck('check');
     });
 
     $('.CheckorgCheckbox').on('ifUnchecked', function(event){
-        $(".org_alocation input").iCheck('uncheck');
+        $(".org_Checkbox").iCheck('uncheck');
     });
 
     $(".client_allocate").click(function(){

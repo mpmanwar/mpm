@@ -6,9 +6,9 @@ class Client extends Eloquent {
 	public static function getAllOrgClientDetails()
 	{
 		$client_data = array();
-		$session 			= Session::get('admin_details');
-		$user_id 			= $session['id'];
-		$groupUserId 		= Common::getUserIdByGroupId($session['group_id']);
+		$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
 
 		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
@@ -17,18 +17,15 @@ class Client extends Eloquent {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
-				$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
+				//$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 
 				// ############### GET MANAGE TASK START ################## //
-				/*$jobs = JobsManage::where("client_id", "=", $client_id)->get();
+				$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id->client_id)->first();
 		    	if(isset($jobs) && count($jobs) >0){
-		    		JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($data);
-		    		$last_id = $jobs['job_manage_id'];
+		    		$client_data[$i]['ch_manage_task'] 	= $jobs['status'];
 		    	}else{
-		    		$data["service_id"] = $service_id;
-		    		$data["client_id"] 	= $client_id;
-		    		$last_id = JobsManage::insertGetId($data);
-		    	}*/
+		    		$client_data[$i]['ch_manage_task'] 	= "N";
+		    	}
 				// ############### GET MANAGE TASK END ################## //
 
 				// ############### GET CLIENT LIST ALLOCATION START ################## //
@@ -46,7 +43,7 @@ class Client extends Eloquent {
 				// ############### GET CLIENT LIST ALLOCATION END ################## //
 
 				// ############### GET JOB STATUS START ################## //
-				$JobStatus = JobStatus::where("client_id", "=", $client_id->client_id)->get();
+				$JobStatus = JobStatus::whereIn("user_id", $groupUserId)->where("is_completed", "=", "N")->where("client_id", "=", $client_id->client_id)->get();
 				//print_r($JobStatus);die;
 				if(isset($JobStatus) && count($JobStatus) >0){
 					foreach ($JobStatus as $key => $row) {
@@ -287,6 +284,21 @@ class Client extends Eloquent {
 			}
 		}
 
+		return array_values($client_array);
+	}
+
+	public static function getClientByServiceId( $service_id )
+	{
+		$client_array = array();
+		$client_details = Client::getAllOrgClientDetails();
+		if(isset($client_details) && count($client_details) >0){
+			foreach ($client_details as $key => $details) {
+				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
+					$client_array[$key] = $client_details[$key];
+				}
+			}
+		}
+		//print_r($client_array);die;
 		return array_values($client_array);
 	}
 

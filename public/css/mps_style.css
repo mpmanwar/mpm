@@ -932,7 +932,7 @@ border: 1px solid #e2e4e6;
 .sent_btn{background-color: #fafafa; color: #c7c7c7; border:2px solid #c7c7c7; padding:0px 20px; font-size:14px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
 .send_btn{background-color: #fafafa; color: #b38d76; border:2px solid #adc293; padding:0px 20px; font-size:14px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
 .table_select{ width: 100%; cursor: pointer;}
-.search_t{ margin-right:10px; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:2px 15px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
+.search_t{ margin-right:10px; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:2px 10px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
 .hide-tab{ box-shadow:none!important; border: none!important;}
 .save_btn_new{ float: right;}
 .save_new_status{ text-decoration: underline;}
@@ -949,4 +949,6 @@ border: 1px solid #e2e4e6;
 .chk_cont01{float:left; width: 136px;}
 .chk_cont02{float:left; width: 150px;}
 .auto_send{width:297px; margin: 0 0 0 30%; position: absolute; z-index: 20;}
+.delete_single_task{ margin-left: 14px;}
+.newdropdown{border-radius:5px!important; -webkit-border-radius:5px!important; -moz-border-radius:5px!important; -o-border-radius:5px!important; border:1px solid #a9a9a9; color:#424147!important; font-size:12px; font-family:Arial, Helvetica, sans-serif; height:25px; padding:0px 5px;}
 
