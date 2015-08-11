@@ -247,7 +247,7 @@ $(document).ready(function () {
             url: '/jobs/update-staff-filter',
             data: { 'staff_id' : staff_id, 'service_id' : service_id },
             success : function(resp){ 
-                window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
+                window.location = "/ch-annual-return/"+service_id+"/"+page_open+"/"+staff_id;
             }
         });
         

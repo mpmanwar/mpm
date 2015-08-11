@@ -46,7 +46,7 @@ class ChAnnualReturnController extends BaseController {
 				if($data['page_open'] == 21){
 					$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 					if(isset($autosend) && count($autosend) >0 ){
-						if(isset($details['deadret_count']) && $details['deadret_count'] <= $autosend['days']){
+						if((isset($details['deadret_count']) && $details['deadret_count'] <= $autosend['days']) || $details['deadret_count'] == "OVER DUE"){
 							JobsManage::updateJobManage($details['client_id'], $service_id);
 							$data['company_details'][$key]['ch_manage_task'] = "Y";
 						}

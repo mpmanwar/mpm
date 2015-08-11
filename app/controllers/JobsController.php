@@ -42,12 +42,16 @@ class JobsController extends BaseController {
 
     public function update_staff_filter()
     {
-    	$staff_id = Input::get("staff_id");	
-    	$service_id = Input::get("service_id");
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+    	$staff_id      = Input::get("staff_id");	
+    	$service_id    = Input::get("service_id");
     	if($staff_id != "all" && $staff_id != "none"){
     		$staff_id = base64_decode($staff_id);
     	}
-    	AutosendTask::where('service_id','=',$service_id)->update(array('staff_filter'=>$staff_id));
+    	AutosendTask::whereIn("user_id", $groupUserId)->where('service_id','=',$service_id)->update(array('staff_filter'=>$staff_id));
     	echo 1;
     }
 
