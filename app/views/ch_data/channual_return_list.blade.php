@@ -6,7 +6,7 @@
 @stop
 
 @section('myjsfile')
-<!-- <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script> -->
+<script src="{{ URL :: asset('js/jobs.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
@@ -23,7 +23,7 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
         "iDisplayLength": 25,
 
         "aoColumns":[
@@ -52,7 +52,7 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
         "iDisplayLength": 25,
 
         "aoColumns":[
@@ -72,128 +72,24 @@ $(function() {
     table.fnSort( [ [7,'asc'] ] );
   }
 
-  /*var Table21 = $('#example21').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
-
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
-
-    });
-    Table21.fnSort( [ [7,'asc'] ] );
-
-    var Table22 = $('#example22').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
-
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
-
-    });
-    Table22.fnSort( [ [7,'asc'] ] );
-
-    var Table23 = $('#example23').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
-
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
-
-    });
-    Table23.fnSort( [ [7,'asc'] ] );
-
-    var Table24 = $('#example24').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
-
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
-
-    });
-    Table24.fnSort( [ [7,'asc'] ] );*/
-
   Table3 = $('#example3').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 25,
+    "bPaginate": true,
+    "bLengthChange": true,
+    "bFilter": true,
+    "bSort": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+    "iDisplayLength": 25,
 
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true}
-        ]
+    "aoColumns":[
+        {"bSortable": false},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true}
+    ]
 
     });
     Table3.fnSort( [ [3,'asc'] ] );
@@ -266,14 +162,14 @@ $(function() {
               <td width="2%">&nbsp;</td>
               <td width="68%">
                 <select class="form-control filter_by_staff" name="filter_by_staff" id="filter_by_staff">
-                  <option value="{{ base64_encode('all') }}">Show All</option>
+                  <option value="{{ base64_encode('all') }}" {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == 'all')?"selected":"" }}>Show All</option>
                   @if(!empty($staff_details))
                     @foreach($staff_details as $key=>$staff_row)
-                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }} {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   
                     @endforeach
                   @endif
-                  <option value="{{ base64_encode('none') }}">Unassigned</option>
+                  <option value="{{ base64_encode('none') }}" {{ (isset($autosend['staff_filter']) && $autosend['staff_filter'] == 'none')?"selected":"" }}>Unassigned</option>
                 </select>
               </td>
             </tr>
@@ -293,25 +189,31 @@ $(function() {
         <!-- <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
         <li><a data-toggle="tab" href="#tab_2">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
         <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li> -->
-        <li class="{{ ($page_open == 1)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('1') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
-        <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
-        <li class="{{ ($page_open == 3)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('3') }}/{{ base64_encode($staff_id) }}">COMPLETED TASKS</a></li>
+        <li class="{{ ($page_open == 1)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
+        <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
+        <li class="{{ ($page_open == 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('3') }}/{{ base64_encode($staff_id) }}">COMPLETED TASKS</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
     <div class="tab_topcon" style="position:relative; height: 25px">
+      
+      <div class="send_task auto_send">
+        <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
 
-      <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
-        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></span>  <input type="text" name="dead_line" id="dead_line" style="width:8%; padding: 0; text-align: center;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> Days Before Deadline
+         <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
       </div>
+
+      <!-- <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
+        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></span>  <input type="text" name="dead_line" id="dead_line" style="width:8%; padding: 0; text-align: center;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> Days Before Deadline
+      </div> -->
 
       <div class="clearfix"></div>
     </div>
     <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
-          <th><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
-          <th>D0I</th>
+          <th width="2%"><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
+          <th width="8%">D0I</th>
           <th>CRN</th>
           <th>BUSINESS NAME</th>
           <th>YEAR END</th>
@@ -326,27 +228,31 @@ $(function() {
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            <tr class="even">
-                <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
-                <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="center">{{ $details['registration_number'] or "" }}</td>
-                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
-                <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
-                <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="center">{{ $details['deadacc_count'] or "" }}</td>
-                <td align="center" id="after_send_{{ $details['client_id'] }}">
-                  @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
-                    <button type="button" class="send_btn send_manage_task" data-client_id="{{ $details['client_id'] }}" data-field_name="ch_manage_task">Send</button>
-                  @else
-                    <button type="button" class="sent_btn">Sent</button>
-                  @endif
-                </td>
-                <td align="center">&nbsp;</td>
-            </tr>
-          @endif 
+          <tr class="even">
+            <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
+            <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+            <td align="center">{{ $details['registration_number'] or "" }}</td>
+            <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+            <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
+            <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
+            <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+            <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
+            <td align="center">
+              @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+              @else
+                 {{ $details['deadret_count'] or "" }}
+              @endif
+            </td>
+            <td align="center" id="after_send_{{ $details['client_id'] }}">
+              @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
+                <button type="button" class="send_btn send_manage_task" data-client_id="{{ $details['client_id'] }}" data-field_name="ch_manage_task">SEND</button>
+              @else
+                <button type="button" class="sent_btn">SENT</button>
+              @endif
+            </td>
+            <td align="center">&nbsp;</td>
+          </tr>
         @endforeach
       @endif
       
@@ -357,12 +263,12 @@ $(function() {
 
   <div id="tab_2" class="tab-pane {{ ($page_open != 1 && $page_open != 3)?'active':'' }}">
     <ul class="nav nav-tabs nav-tabsbg">
-        <li class="{{ ($page_open == 21)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">All [<span id="task_count_21">{{ $all_count }}</span>]</a></li>
-        <li class="{{ ($page_open == 22)?'active':'' }}"><a href="/ch-annual-return/{{ base64_encode('22') }}/{{ base64_encode($staff_id) }}">Not Started [<span id="task_count_22">{{ ($not_started_count >0 )?$not_started_count:"0" }}</span>]</a></li>
+        <li class="{{ ($page_open == 21)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">All [<span id="task_count_21">{{ $all_count }}</span>]</a></li>
+        <li class="{{ ($page_open == 22)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('22') }}/{{ base64_encode($staff_id) }}">Not Started [<span id="task_count_22">{{ ($not_started_count >0 )?$not_started_count:"0" }}</span>]</a></li>
         @if(isset($jobs_steps) && count($jobs_steps) >0)
           <?php $i = 3;?>
             @foreach($jobs_steps as $key=>$value)
-              <li class="header_step_{{ $value['step_id']}} {{ ($page_open == '2'.$i)?'active':'' }}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a href="/ch-annual-return/{{ base64_encode('2'.$i) }}/{{ base64_encode($staff_id) }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [<span id="task_count_2{{$i}}">{{ $value['count'] or "0" }}</span>]</a></li>
+              <li class="header_step_{{ $value['step_id']}} {{ ($page_open == '2'.$i)?'active':'' }}" style="display: {{ ($value['status'] == 'H')?'none':'block'}}"><a href="{{ $goto_url }}/{{ base64_encode('2'.$i) }}/{{ base64_encode($staff_id) }}"><span id="step_field_{{ $value['step_id']}}">{{ $value['title'] or "" }}</span> [<span id="task_count_2{{$i}}">{{ $value['count'] or "0" }}</span>]</a></li>
               <?php $i++;?>
             @endforeach
         @endif
@@ -376,48 +282,53 @@ $(function() {
     <table class="table table-bordered table-hover dataTable ch_returns" id="example21" aria-describedby="example21_info">
       <thead>
         <tr role="row">
-          <th>DELETE</th>
+          <th width="5%">DELETE</th>
           <th>STAFF</th>
-          <th>DOI</th>
-          <th>BUSINESS TYPE</th>
+          <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
           <th>JOB START DATE</th>
-          <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th>NOTES</th>
+          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
-              <tr id="data_tr_{{ $details['client_id'] }}_21">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="1"><img src="/img/cross.png"></a></td>
-                <td align="left"></td>
-                <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="left">{{ $details['deadacc_count'] or "" }}</td>
-                <td align="center"></td>
-                <td align="center" width="12%">
-                  <input type="hidden" name="prev_status_{{ $details['client_id'] }}" id="prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or "" }}">
-                  <select class="table_select status_dropdown" id="status_dropdown" data-client_id="{{ $details['client_id'] }}">
-                    <option value="2">Not Started</option>
-                    @if(isset($jobs_steps) && count($jobs_steps) >0)
-                      @foreach($jobs_steps as $key=>$value)
-                        <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </td>
-              </tr>
-            @endif 
-          @endif
+          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+            <tr id="data_tr_{{ $details['client_id'] }}_21">
+              <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><img src="/img/cross.png"></a></td>
+              <td align="left"></td>
+              <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+              <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
+              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
+              <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
+              <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
+              <td align="left">
+                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                  <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                @else
+                   {{ $details['deadret_count'] or "" }}
+                @endif
+              </td>
+              <td align="center"></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a></td>
+              <td align="center" width="12%">
+                <input type="hidden" name="21_prev_status_{{ $details['client_id'] }}" id="21_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
+                <select class="form-control newdropdown table_select status_dropdown" id="21_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
+                  <option value="2">Not Started</option>
+                  @if(isset($jobs_steps) && count($jobs_steps) >0)
+                    @foreach($jobs_steps as $key=>$value)
+                      <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
+            </tr>
+          @endif 
         @endforeach
       @endif
         
@@ -429,49 +340,55 @@ $(function() {
       <table class="table table-bordered table-hover dataTable ch_returns" id="example22" aria-describedby="example22_info">
       <thead>
         <tr role="row">
-          <th>DELETE</th>
+          <th width="5%">DELETE</th>
           <th>STAFF</th>
-          <th>DOI</th>
-          <th>BUSINESS TYPE</th>
+          <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
           <th>JOB START DATE</th>
-          <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th>NOTES</th>
+          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
-              @if(!isset($details['job_status'][$service_id]['status_id']))
-              <tr id="data_tr_{{ $details['client_id'] }}_22">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"  data-tab="2" ><img src="/img/cross.png"></a></td>
-                <td align="left"></td>
-                <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="left">{{ $details['deadacc_count'] or "" }}</td>
-                <td align="center"></td>
-                <td align="center" width="12%">
-                  <select class="table_select status_dropdown" id="status_dropdown" data-client_id="{{ $details['client_id'] }}">
-                    <option value="2">Not Started</option>
-                    @if(isset($jobs_steps) && count($jobs_steps) >0)
-                      @foreach($jobs_steps as $key=>$value)
-                        <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </td>
-              </tr>
-              @endif
-            @endif 
-          @endif
+          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+            @if(!isset($details['job_status'][$service_id]['status_id']))
+            <tr id="data_tr_{{ $details['client_id'] }}_22">
+              <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"  data-tab="22" ><img src="/img/cross.png"></a></td>
+              <td align="left"></td>
+              <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+              <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
+              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
+              <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
+              <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
+              <td align="left">
+                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                  <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                @else
+                   {{ $details['deadret_count'] or "" }}
+                @endif
+              </td>
+              <td align="center"></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a></td>
+              <td align="center" width="12%">
+                <input type="hidden" name="22_prev_status_{{ $details['client_id'] }}" id="22_prev_status_{{ $details['client_id'] }}" value="2">
+                <select class="form-control newdropdown table_select status_dropdown" id="22_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
+                  <option value="2">Not Started</option>
+                  @if(isset($jobs_steps) && count($jobs_steps) >0)
+                    @foreach($jobs_steps as $key=>$value)
+                      <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
+            </tr>
+            @endif
+          @endif 
         @endforeach
       @endif
         
@@ -484,37 +401,43 @@ $(function() {
       <table class="table table-bordered table-hover dataTable ch_returns" id="example2{{$k}}" aria-describedby="example2{{$k}}_info">
       <thead>
         <tr role="row">
-          <th>DELETE</th>
+          <th width="5%">DELETE</th>
           <th>STAFF</th>
-          <th>DOI</th>
-          <th>BUSINESS TYPE</th>
+          <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
           <th>JOB START DATE</th>
-          <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th>NOTES</th>
+          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
               @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $k)
               <tr id="data_tr_{{ $details['client_id'] }}_2{{ $k }}">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="{{ $k }}"><img src="/img/cross.png"></a></td>
+                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="2{{ $k }}"><img src="/img/cross.png"></a></td>
                 <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="left">{{ $details['deadacc_count'] or "" }}</td>
+                <td align="left">
+                  @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                    <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                  @else
+                     {{ $details['deadret_count'] or "" }}
+                  @endif
+                </td>
                 <td align="center"></td>
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a></td>
                 <td align="center" width="12%">
-                  <select class="table_select status_dropdown" id="status_dropdown" data-client_id="{{ $details['client_id'] }}">
+                  <input type="hidden" name="2{{ $k }}_prev_status_{{ $details['client_id'] }}" id="2{{ $k }}_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
+                  <select class="form-control newdropdown table_select status_dropdown" id="2{{ $k }}_status_dropdown" data-client_id="{{ $details['client_id'] }}">
                     <option value="2">Not Started</option>
                     @if(isset($jobs_steps) && count($jobs_steps) >0)
                       @foreach($jobs_steps as $key=>$value)
@@ -527,7 +450,6 @@ $(function() {
               </tr>
               @endif
             @endif
-          @endif
         @endforeach
       @endif
         
@@ -539,48 +461,53 @@ $(function() {
       <table class="table table-bordered table-hover dataTable ch_returns" id="example210" aria-describedby="example210_info">
       <thead>
         <tr role="row">
-          <th>DELETE</th>
+          <th width="5%">DELETE</th>
           <th>STAFF</th>
-          <th>DOI</th>
-          <th>BUSINESS TYPE</th>
+          <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
           <th>JOB START DATE</th>
-          <th>STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th>NOTES</th>
+          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
-              @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
-              <tr id="data_tr_{{ $details['client_id'] }}_210">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="10"><img src="/img/cross.png"></a></td>
-                <td align="left"></td>
-                <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="left">{{ $details['deadacc_count'] or "" }}</td>
-                <td align="center"></td>
-                <td align="center" width="12%">
-                  <select class="table_select status_dropdown" id="status_dropdown" data-client_id="{{ $details['client_id'] }}">
-                    <option value="2">Not Started</option>
-                    @if(isset($jobs_steps) && count($jobs_steps) >0)
-                      @foreach($jobs_steps as $key=>$value)
-                        <!-- <option value="{{ $value['step_id'] or "" }}"  style="display: {{ ($value['status'] == 'H')?'none':'block'}}">{{ $value['title'] or "" }}</option> -->
-                        <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </td>
-              </tr>
-              @endif
+          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+            @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
+            <tr id="data_tr_{{ $details['client_id'] }}_210">
+              <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="210"><img src="/img/cross.png"></a></td>
+              <td align="left"></td>
+              <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
+              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
+              <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
+              <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
+              <td align="left">
+                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                  <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                @else
+                   {{ $details['deadret_count'] or "" }}
+                @endif
+              </td>
+              <td align="center"></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a></td>
+              <td align="center" width="12%">
+                <input type="hidden" name="210_prev_status_{{ $details['client_id'] }}" id="210_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
+                <select class="form-control newdropdown table_select status_dropdown" id="210_status_dropdown" data-client_id="{{ $details['client_id'] }}">
+                  <option value="2">Not Started</option>
+                  @if(isset($jobs_steps) && count($jobs_steps) >0)
+                    @foreach($jobs_steps as $key=>$value)
+                      <!-- <option value="{{ $value['step_id'] or "" }}"  style="display: {{ ($value['status'] == 'H')?'none':'block'}}">{{ $value['title'] or "" }}</option> -->
+                      <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
+            </tr>
             @endif
           @endif
         @endforeach
@@ -611,26 +538,22 @@ $(function() {
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         <tbody role="alert" aria-live="polite" aria-relevant="all">
-        @if(isset($company_details) && count($company_details) >0)
-        @foreach($company_details as $key=>$details)
-          @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-            @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "N")
-              @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
+        @if(isset($completed_task) && count($completed_task) >0)
+          @foreach($completed_task as $key=>$details)
+            @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
               <tr id="data_tr_{{ $details['client_id'] }}_3">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
-                <td align="left"></td>
-                <td align="left">{{ $details['registration_number'] or "" }}</td>
-                <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
-                <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
-                <td align="center" width="12%">
-                  {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
-                </td>
-              </tr>
-              @endif
+                  <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
+                  <td align="left"></td>
+                  <td align="left">{{ $details['registration_number'] or "" }}</td>
+                  <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+                  <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+                  <td align="center" width="12%">
+                    {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
+                  </td>
+                </tr>
             @endif
-          @endif
-        @endforeach
-      @endif
+          @endforeach
+        @endif
         
       </tbody>
         
@@ -678,7 +601,7 @@ $(function() {
           @if(isset($jobs_steps) && count($jobs_steps) >0)
             @foreach($jobs_steps as $key=>$value)
               <tr id="change_status_tr_{{ $value['step_id'] or "" }}">
-                <td align="center"><input type="checkbox" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}"></td>
+                <td align="center"><input type="checkbox" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" disabled /></td>
                 <td><span id="status_span{{ $value['step_id'] or "" }}">{{ $value['title'] or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['step_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>
@@ -696,8 +619,48 @@ $(function() {
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+</div>
+
+<!-- Notes modal start -->
+<div class="modal fade" id="notes-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">SAVE NOTES</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <input type="hidden" id="notes_client_id" name="notes_client_id">
+        <input type="hidden" id="notes_tab" name="notes_tab">
+        <table>
+          <tr>
+            <td align="left" width="20%"><strong>Notes : </strong></td>
+            <td align="left"><textarea cols="56" rows="4" id="notes" name="notes"></textarea></td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="right"><button type="button" class="btn btn-info save_notes">Save</button></td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>        
-      
+<!-- Notes modal start -->
+
 @stop
 
 

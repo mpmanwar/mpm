@@ -129,6 +129,10 @@ class Common extends Eloquent {
 
 	public static function clientDetailsById($client_id)
 	{
+		$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+        
 		$client_data = array();
 
 		$clients = Client::where('client_id', '=', $client_id)->first();
@@ -143,6 +147,62 @@ class Common extends Eloquent {
 
 		$client_data['client_id'] 		= $client_id;
 
+		// ############### GET MANAGE TASK START ################## //
+		$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->first();
+    	if(isset($jobs) && count($jobs) >0){
+    		$client_data['ch_manage_task'] 	= $jobs['status'];
+    	}else{
+    		$client_data['ch_manage_task'] 	= "N";
+    	}
+		// ############### GET MANAGE TASK END ################## //
+
+		// ############### GET CLIENT LIST ALLOCATION START ################## //
+		$list = ClientListAllocation::where("client_id", "=", $client_id)->get();
+		if(isset($list) && count($list) >0){
+			foreach ($list as $key => $row) {
+				$client_data['allocation'][$row['service_id']]['service_id'] = $row['service_id'];
+				$client_data['allocation'][$row['service_id']]['staff_id1'] = $row['staff_id1'];
+				$client_data['allocation'][$row['service_id']]['staff_id2'] = $row['staff_id2'];
+				$client_data['allocation'][$row['service_id']]['staff_id3'] = $row['staff_id3'];
+				$client_data['allocation'][$row['service_id']]['staff_id4'] = $row['staff_id4'];
+				$client_data['allocation'][$row['service_id']]['staff_id5'] = $row['staff_id5'];
+			}
+		}
+		// ############### GET CLIENT LIST ALLOCATION END ################## //
+
+		// ############### GET JOB STATUS START ################## //
+		$JobStatus = JobStatus::whereIn("user_id", $groupUserId)->where("is_completed", "=", "N")->where("client_id", "=", $client_id)->get();
+		//print_r($JobStatus);die;
+		if(isset($JobStatus) && count($JobStatus) >0){
+			foreach ($JobStatus as $key => $row) {
+				$service_id = $row['service_id'];
+				$client_data['job_status'][$service_id]['job_status_id'] = $row['job_status_id'];
+				$client_data['job_status'][$service_id]['client_id'] = $row['client_id'];
+				$client_data['job_status'][$service_id]['service_id'] = $row['service_id'];
+				$client_data['job_status'][$service_id]['status_id'] = $row['status_id'];
+				$client_data['job_status'][$service_id]['created'] = $row['created'];
+			}
+		}
+		// ############### GET JOB STATUS END ################## //
+
+		// ############### GET OTHER SERVICES START ################## //
+		$client_data['services_id'] 	=   Client::getServicesIdByClient($client_id);
+		//print_r($client_data[$i]['services']);die;
+		// ############### GET OTHER SERVICES END ################## //
+
+		// ############### GET VAT SCHEME USER START ################## //
+		$service = Common::get_services_client($client_id);
+		if(isset($service) && count($service) > 0){
+			foreach ($service as $key => $value) {
+				if(isset($value['service_name']) && $value['service_name'] == "VAT"){
+					//$client_data[$i]['vat_staff_name'] 	= $value['name'];
+					$client_data['vat_staff_name'] 	= $value['service_name'];
+				}
+			}
+		}
+		//print_r($service);
+		// ############### GET VAT SCHEME USER END ################## //
+
 		$appointment_name = ClientRelationship::where('client_id', '=', $client_id)->select("appointment_with")->first();
 		//echo $this->last_query();//die;
 		$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
@@ -155,6 +215,7 @@ class Common extends Eloquent {
 				if (!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff") {
 					$staff_name = User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
 					//echo $this->last_query();die;
+
 					$client_data['staff_name'] = strtoupper(substr($staff_name['fname'], 0, 1)) . " " . strtoupper(substr($staff_name['lname'], 0, 1));
 				}
 				//get staff name end

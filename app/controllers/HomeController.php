@@ -159,6 +159,9 @@ class HomeController extends BaseController {
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
 							$client_data[$i]['deadret_count'] = $this->getDayCount($client_row->field_value);
 						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "acc_ref_month"){
+							$client_data[$i]['ref_month'] = App::make('ChdataController')->getMonthNameShort($client_row->field_value);
+						}
 
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") 
 						{

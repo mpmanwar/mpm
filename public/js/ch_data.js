@@ -71,6 +71,7 @@ $(document).ready(function(){
     $("#company_details_div").on("click", ".import_client", function(){
         var number = $(this).data("number");
         var back_url = $("#back_url").val();
+        var goto_url = $(this).data("goto_url");
 
         $.ajax({
             type: "POST",
@@ -86,10 +87,10 @@ $(document).ready(function(){
                         window.location.href='/chdata/index';
                     }
                     if(back_url == 'org_list'){
-                        window.location.href='/client/edit-org-client/'+client_id;
+                        window.location.href='/client/edit-org-client/'+client_id+"/"+goto_url;
                     }
                     if(back_url == 'ind_list'){
-                        window.location.href='/client/edit-ind-client/'+client_id;
+                        window.location.href='/client/edit-ind-client/'+client_id+"/"+goto_url;
                     }
                         
                 }else{
@@ -103,6 +104,7 @@ $(document).ready(function(){
     $("#company_details_div").on("click", ".add_client_officers", function(){
         var key = $(this).data("key");
         var company_number = $(this).data("company_number");
+        var goto_url = $(this).data("goto_url");
 
         $.ajax({
                 type: "POST",
@@ -115,12 +117,12 @@ $(document).ready(function(){
                 success: function (resp) {//console.log(resp['link']);return false;
                 $("#goto"+key).html('<button class="btn btn-default btn-sm imp_but" type="button">+ Add</button>');
                     if(resp['link'] == 'org'){
-                        var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                        var url = resp['base_url']+'/client/edit-org-client/'+resp['client_id']+"/"+goto_url;
                         var myWindow = window.open(url , '_blank');
                         myWindow.focus();
                     }
                     if(resp['link'] == 'ind'){
-                        var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                        var url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id']+"/"+goto_url;
                         var myWindow = window.open(url, '_blank');
                         myWindow.focus();
                     }
@@ -132,248 +134,9 @@ $(document).ready(function(){
 
 
 
-/* ================== Manage Tasks ================== */
-    $(document).on("click", ".edit_status", function(){
-        var step_id = $(this).data("step_id");
-        var status_name = $("#status_span"+step_id).html();
-        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
-        var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
-        $("#status_span"+step_id).html(text_field);
-        $("#action_"+step_id).html(action);
-    });
 
-    $("#status-modal").on("click", ".cancel_edit", function(){
-        var step_id = $(this).data("step_id");
-        var status_name = $("#status_name"+step_id).val();
-        var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
-        $("#status_span"+step_id).html(status_name);
-        $("#action_"+step_id).html(action);
-    });
-
-    $("#status-modal").on("click", ".save_new_status", function(){
-        var step_id = $(this).data("step_id");
-        var status_name = $("#status_name"+step_id).val();
-        //alert(status_name+" "+step_id);
-        $.ajax({
-            type: "POST",
-            url: "/chdata/save-edit-status",
-            //dataType: "json",
-            data: { 'step_id': step_id, 'status_name' : status_name, 'type' : "title" },
-            beforeSend: function() {
-                //$("#goto"+key).html('<img src="/img/spinner.gif" />');
-            },
-            success: function (resp) {
-                if(resp != ""){
-                    var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
-                    $("#status_span"+step_id).html(status_name);
-                    $("#action_"+step_id).html(action);
-
-                    $("#step_field_"+step_id).text(status_name);
-                    $("#status_dropdown option[value='"+step_id+"']").html(status_name);
-
-                }else{
-                    alert("There are some problem to update status");
-                }
-                
-            }
-        });
-
-    });
-
-    $('#status-modal .status_check').on('ifChecked', function(event){
-        var step_id = $(this).data("step_id");
-        //alert(step_id);return false;
-        if(step_id != ""){
-            $.ajax({
-                type: "POST",
-                url: "/chdata/save-edit-status",
-                data: { 'step_id': step_id, 'type' : "status" },
-                success: function (resp) {
-                    //$('#status_dropdown').append($("<option></option>").attr("value", step_id).text(resp));
-                    $("#status_dropdown option[value='"+step_id+"']").show();    
-                    $(".header_step_"+step_id).show();           
-                }
-            });
-        }
-        
-    });
-
-    $('#status-modal .status_check').on('ifUnchecked', function(event){
-        var step_id = $(this).data("step_id");
-        //alert(step_id);return false;
-        if(step_id != ""){
-            $.ajax({
-                type: "POST",
-                url: "/chdata/save-edit-status",
-                data: { 'step_id': step_id, 'type' : "status" },
-                success: function (resp) {
-                    //$("#status_dropdown option[value='"+step_id+"']").remove(); 
-                    $("#status_dropdown option[value='"+step_id+"']").hide();   
-                    $(".header_step_"+step_id).hide();              
-                }
-            });
-        }
-    });
-
-/* ################# Send to Task Management Start ################### */
-    $(".send_manage_task").click(function(){
-        var client_id = $(this).data("client_id");
-        var field_name = $(this).data("field_name");
-        //alert(step_id);return false;
-        //if(confirm("Do you want to send the client to manage task ?")){
-            $.ajax({
-                type: "POST",
-                url: "/chdata/send-manage-task",
-                data: { 'client_id': client_id, 'field_name' : field_name },
-                success: function (resp) {
-                    $("#after_send_"+client_id).html('<button type="button" class="sent_btn">Sent</button>');              
-                }
-            });
-        //}
-        
-    });
-/* ################# Send to Task Management End ################### */
-
-
-/* ################# Delete to Task Management Start ################### */
-    $(".delete_manage_task").click(function(){
-        var val = [];
-        $(".checkbox:checked").each( function (i) {
-            if($(this).is(':checked')){
-                val[i] = $(this).val();
-            }
-        });
-        //alert(val.length);return false;
-        if(val.length>0){
-            if(confirm("Do you want to Change the status?")){
-                $.ajax({
-                    type: "POST",
-                    url: '/chdata/delete-manage-task',
-                    data: { 'client_delete_id' : val },
-                    success : function(resp){
-                        
-                            
-                    }
-                });
-            }
-
-        }else{
-            alert('Please select atleast one clients');
-        }
-        
-    });
-/* ################# Delete to Task Management End ################### */
-
-/* ################# Delete Single Task Management Start ################### */
-    $(".delete_single_task").click(function(){
-        var client_id = $(this).data('client_id');
-        var tab = $(this).data('tab');
-        var service_id  = $("#service_id").val();
-        var page_open   = $("#page_open").val();
-        if(confirm("Do you want to Change the task?")){
-            $.ajax({
-                type: "POST",
-                url: '/chdata/delete-single-task',
-                data: { 'client_id' : client_id, 'service_id' : service_id },
-                success : function(resp){
-                    if(page_open == 3){
-                        $("#data_tr_"+client_id+"_"+tab).hide();
-                    }
-
-                    if(tab != "1"){
-                        var count_21 = $("#task_count_21").html();
-                        $("#task_count_21").html(parseInt(count_21-1)); 
-                    }
-                    //task_count_21
-                    $("#data_tr_"+client_id+"_2"+tab).hide(); 
-                    var count_2 = $("#task_count_2"+tab).html();
-                    $("#task_count_2"+tab).html(parseInt(count_2-1)); 
-                }
-            });
-        }
-    });
-/* ################# Delete Single Task Management End ################### */
-
-/* ################# Job Status Change Start ################### */
-    $(".status_dropdown").change(function(){
-        var service_id  = $("#service_id").val();
-        var client_id   = $(this).data("client_id");
-        var status_id   = $(this).val();
-        var page_open   = $("#page_open").val();
-        //alert("val.length");return false;
-        if(status_id != 2)
-        {
-            $.ajax({
-                type: "POST",
-                url: '/chdata/change-job-status',
-                data: { 'service_id' : service_id, 'client_id' : client_id, 'status_id' : status_id },
-                success : function(resp){
-                    /* ============Current Page ========== */
-                    if(page_open != 21){
-                        var task_count = $("#task_count_"+page_open).html();
-                        $("#task_count_"+page_open).html(parseInt(task_count-1));
-                        $("#data_tr_"+client_id+"_"+page_open).hide(); 
-                        console.log("21: "+task_count+"="+task_count);
-                    }else{
-                        var prev_status = $("#prev_status_"+client_id).val();
-                        var task_count = $("#task_count_2"+prev_status).html();
-                        $("#task_count_2"+prev_status).html(parseInt(task_count-1));
-                        $("#prev_status_"+client_id).val(status_id);
-                        console.log("else: "+prev_status+"="+task_count);
-                    }
-                    /* ============Current Page ========== */
-
-                    var count_2 = $("#task_count_2"+status_id).html();
-                    var total = parseInt(count_2)+parseInt(1);
-                    $("#task_count_2"+status_id).html(total); 
-                        
-                }
-            });
-        }else{
-            alert("This is some problem to change status");
-            return false;
-        }
-    });
-/* ################# Delete to Task Management End ################### */
-
-/* ################# Global Task Management Start ################### */
-    $('#manage_check').on('ifChecked', function(event){
-        $("#dead_line").prop("disabled", true);
-        var dead_line = $("#dead_line").val();
-        var service_id = $("#service_id").val();
-        if(dead_line == ""){
-            alert("Please Put The Days Before Deadline value");
-            return false;
-        }else{
-            $.ajax({
-                type: "POST",
-                dataType : 'json',
-                url: '/chdata/send-global-task',
-                data: { 'dead_line' : dead_line, 'service_id' : service_id },
-                success : function(resp){ 
-                    $.each(resp, function(key, value){
-                        $("#after_send_"+value.client_id).html('<button type="button" class="sent_btn">Sent</button>');
-                    });
-                }
-            });
-        }
-    });
-
-    $('#manage_check').on('ifUnchecked', function(event){
-        $("#dead_line").prop("disabled", false);
-    });
-/* ################# Global Task Management End ################### */
-
-
-/* ################# Filter By Staff Start ################### */
-    $(".filter_by_staff").change(function(){
-        var staff_id = $(this).val();
-        var page_open = $("#encode_page_open").val();
-        window.location = "/ch-annual-return/"+page_open+"/"+staff_id;
-    });
-/* ################# Filter By Staff Start ################### */
   
 
-//send_manage_task
+
 
 });//end of main document ready 

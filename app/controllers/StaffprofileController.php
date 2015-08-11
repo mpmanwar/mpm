@@ -482,7 +482,8 @@ class StaffprofileController extends BaseController
         StepsFieldsStaff::insert($arrData);
         //echo '<pre>';print_r($arrData);
         //die();
-        return Redirect::to('/staff-details');
+        //return Redirect::to('/staff-details');
+        return Redirect::to('/staff-profile');
         //die('insert');
     }
 

@@ -34,11 +34,12 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
+            {"bSortable": true},
             {"bSortable": false}
         ]
 
     });
-    oTable.fnSort( [ [2,'asc'] ] );
+    oTable.fnSort( [ [3,'asc'] ] );
 
 });
 
@@ -185,12 +186,13 @@ $(function() {
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
                 <th>BUSINESS TYPE</th>
+                <th>CRN</th>
                 <th>BUSINESS NAME</th>
                 <th>Year End</th>
-                <th>Deadline</th>
-                <th>Count Down</th>
-                <th>Next Return Due</th>
-                <th>Count Down</th>
+                <th>Tax reference</th>
+                <th>Accounts</th>
+                <th>Vat number</th>
+                <th>Annual returns</th>
                 <th>VAT Stagger</th>
                 <th>Correspondence Address</th>
             </tr>
@@ -204,10 +206,11 @@ $(function() {
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td align="center">{{ $client_row['business_type'] or "" }}</td>
-                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
-                    <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['acc_ref_month'] or "" }}</td>
-                    <td align="center">{{ isset($client_row['next_acc_due'])?date("d-m-Y", strtotime($client_row['next_acc_due'])):"" }}</td>
+                    <td align="center">{{ isset($client_row['business_type'])?strtolower($client_row['business_type']):"" }}</td>
+                    <td align="center">{{ $client_row['registration_number'] or "" }}</td>
+                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?strtolower($client_row['business_name']):"" }}</a></td>
+                    <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['ref_month'] or "" }}</td>
+                    <td align="center">{{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
@@ -215,7 +218,7 @@ $(function() {
                          {{ $client_row['deadacc_count'] or "" }}
                       @endif
                     </td>
-                    <td align="center">{{ isset($client_row['next_ret_due'])?date("d-m-Y", strtotime($client_row['next_ret_due'])):"" }}</td>
+                    <td align="center">{{ isset($client_row['vat_number'])?$client_row['vat_number']:"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>

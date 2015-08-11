@@ -159,7 +159,13 @@ $(function() {
                 <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="center">{{ $details['deadacc_count'] or "" }}</td>
+                <td align="center">
+                  @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                    <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                  @else
+                     {{ $details['deadret_count'] or "" }}
+                  @endif
+                </td>
                 <td align="center">{{ (strlen($details['res_address']) > 48)? substr($details['res_address'], 0, 45)."...": $details['res_address'] }}</td>
             </tr>
           @endif 
