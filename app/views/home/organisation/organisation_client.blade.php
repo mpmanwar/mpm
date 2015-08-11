@@ -185,14 +185,14 @@ $(function() {
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>BUSINESS TYPE</th>
+                <th>Business Type</th>
                 <th>CRN</th>
-                <th>BUSINESS NAME</th>
+                <th>Business Name</th>
                 <th>Year End</th>
-                <th>Tax reference</th>
                 <th>Accounts</th>
-                <th>Vat number</th>
                 <th>Annual returns</th>
+                <th>Tax reference</th>
+                <th>Vat number</th>
                 <th>VAT Stagger</th>
                 <th>Correspondence Address</th>
             </tr>
@@ -206,11 +206,10 @@ $(function() {
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td align="center">{{ isset($client_row['business_type'])?strtolower($client_row['business_type']):"" }}</td>
+                    <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
                     <td align="center">{{ $client_row['registration_number'] or "" }}</td>
-                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?strtolower($client_row['business_name']):"" }}</a></td>
+                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
                     <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['ref_month'] or "" }}</td>
-                    <td align="center">{{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
@@ -218,7 +217,6 @@ $(function() {
                          {{ $client_row['deadacc_count'] or "" }}
                       @endif
                     </td>
-                    <td align="center">{{ isset($client_row['vat_number'])?$client_row['vat_number']:"" }}</td>
                     <td align="center">
                       @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>
@@ -226,9 +224,10 @@ $(function() {
                          {{ $client_row['deadret_count'] or "" }}
                       @endif
                     </td>
+                    <td align="center">{{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}</td>
+                    <td align="center">{{ isset($client_row['vat_number'])?$client_row['vat_number']:"" }}</td>
                     <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
                     <td align="left">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...": $client_row['corres_address'] }}</td>
-                    <!-- <td align="left">{{ (!empty($client_row['corres_cont_addr_line1'])) ? $client_row['corres_cont_addr_line1']."," : '' }} {{ (!empty($client_row['corres_cont_addr_line2'])) ? $client_row['corres_cont_addr_line2']."," : '' }} {{ (!empty($client_row['corres_cont_county'])) ? $client_row['corres_cont_county'] : '' }}</td> -->
                   </tr>
                 <?php $i++; ?>
               @endforeach

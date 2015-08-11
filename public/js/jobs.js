@@ -182,22 +182,45 @@ $(document).ready(function () {
                 url: '/jobs/change-job-status',
                 data: { 'service_id' : service_id, 'client_id' : client_id, 'status_id' : status_id },
                 success : function(resp){
+                    
                     /* ============Current Page ========== */
                     if(page_open != 21){
                         var task_count = $("#task_count_"+page_open).html();
-                        $("#task_count_"+page_open).html(parseInt(task_count-1));
+                        var total_cnt = parseInt(task_count-1);
+                        $("#task_count_"+page_open).html(total_cnt);
                         $("#data_tr_"+client_id+"_"+page_open).hide(); 
+
+                        if(total_cnt>0){
+                            $("#step_check_"+page_open).iCheck("disable");
+                        }else{
+                            $("#step_check_"+page_open).iCheck("enable");
+                        }
+                        
+
                     }else{
                         var prev_status = $("#"+page_open+"_prev_status_"+client_id).val();
                         var task_count = $("#task_count_2"+prev_status).html();
-                        $("#task_count_2"+prev_status).html(parseInt(task_count-1));
+                        var total_cnt = parseInt(task_count-1);
+                        $("#task_count_2"+prev_status).html(total_cnt);
                         $("#"+page_open+"_prev_status_"+client_id).val(status_id);
+
+                        if(total_cnt>0){
+                            $("#step_check_2"+prev_status).iCheck("disable");
+                        }else{
+                            $("#step_check_2"+prev_status).iCheck("enable");
+                        }
                     }
                     /* ============Current Page ========== */
 
                     var count_2 = $("#task_count_2"+status_id).html();
                     var total = parseInt(count_2)+parseInt(1);
                     $("#task_count_2"+status_id).html(total); 
+
+                    if(total>0){
+                        $("#step_check_2"+status_id).iCheck("disable");
+                    }else{console.log("7false"+status_id)
+                        $("#step_check_2"+status_id).iCheck("enable");
+                    }
                         
                 }
             });
