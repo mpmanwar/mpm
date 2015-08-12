@@ -313,7 +313,10 @@ function notes(){
                 <li class="active"><a data-toggle="tab" href="#tab_1">TIME SHEET</a></li>
                 <li class=""><a data-toggle="tab" href="#tab_2">TIME SHEET LOG</a></li>
               </ul>
+              
+              
               <div class="tab-content">
+              
                 <div id="tab_1" class="tab-pane active">
                   <!--table area-->
                   <div class="box-body table-responsive">
@@ -326,7 +329,7 @@ function notes(){
                         <div style="width:100%; margin: 0 0 40px 15px;">
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Time Sheet</span></button></div>
 
-                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default">Client Time Report</button></div>
+                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button></div>
 
                             <div style="float: left;"><button class="btn btn-default" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button></div>
                           </div>
@@ -430,6 +433,10 @@ function notes(){
                 </div>
                 <!-- /.tab-pane -->
               </div>
+              
+              
+              
+              
             </div>
           </div>
         </form>
@@ -514,11 +521,13 @@ function notes(){
 		  </td>
                 <td align="center"><select class="form-control" name="vat_scheme_type" id="vat_scheme_types">
                                     <option value="">None</option>
+                                    
                                     @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
                                       @foreach($old_vat_schemes as $key=>$scheme_row)
                                         <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
                                       @endforeach
                                     @endif
+                                    
                                     @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
                                       @foreach($new_vat_schemes as $key=>$scheme_row)
                                         <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
@@ -601,6 +610,124 @@ function notes(){
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+
+<!-- composeclienttr -->
+<div class="modal fade" id="composeclienttr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:67%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+       {{ Form::open(array('url' => '/timesheet/insertclient-time-sheet')) }}
+      <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          
+          <div class="popupclienttime">
+          
+                 <p class="clnt_con">CLIENT TIME REPORT</p>
+              <div class="selec_seclf">
+          
+                  <span class="slct_con">Select Client</span>
+                  
+                       <select class="form-control2" name="rel_client_idctr[]" id="rel_client_idctr">
+    				<option value="">None</option>
+    					@if(isset($allClients) && count($allClients)>0)
+    					  @foreach($allClients as $key=>$client_row)
+    						
+    						  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+    					
+    					  @endforeach
+    					@endif
+                       </select>
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-left: 87px;">
+          
+                  <span class="slct_con">Select Service</span>
+                  
+                       <select class="form-control2" name="serv_client_idctr[]" id="serv_client_idctr">
+    				<option value="">None</option>
+    					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
+                                      @foreach($old_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
+                       </select>
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              <div class="clr"></div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+          
+                  <span class="slct_con"><strong>Display activity form</strong></span>
+                  
+                       <input class="dpick dpick1" type="text" id="dpick2" name="date[]"  />
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+          
+                  <span class="slct_con"><strong>to</strong></span>
+                  
+                  <input class="dpick dpick1" type="text" id="dpickclient" name="date[]"  />
+                       
+                  <button class="clnt_button">Display</button>   
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              <div class="clr"></div>
+          
+          
+          
+          
+          
+          </div>
+          
+          
+         
+          
+          
+         
+        </div>
+        
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- composeclienttr -->
+
+
+
 <!-- strmodal -->
 <div class="modal fade" id="composestr-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:80%;">
@@ -611,88 +738,80 @@ function notes(){
         <div class="clearfix"></div>
       </div>-->
       <!--<form action="#" method="post">-->
+      {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }}
       
-      <div class="modal-body">
+        <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <table width="100%" border="0" class="staff_holidays">
-            <tr>
-              <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="30%"><strong><center> STAFF TIME REPORT</center></strong></td>
-    
-  </tr>
-</table>
-
-              </td>
-            </tr>
-            <tr>
-              <td valign="top">
-			  <?php 
-			  		
-					//echo '<pre>';
-					//print_r($staff_details);
-			  
-			  ?>
-			   {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }}
-              <table width="100%" class="table table-bordered" id="BoxTable">
-            <tbody>
-              <!-- <tr class="table_heading_bg"> -->
-              <tr>
-                
-                <td width="20%" align="center"><strong>Select Staff</strong></td>
-                <td width="20%" align="center"><strong>Select Client</strong></td>
-                
-              </tr>
-              <tr id="TemplateRow" class="makeCloneClass">
-                <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
-              <option value="">None</option>
-                @if(!empty($staff_details))
+          
+          <div class="popupclienttime">
+          
+                 <p class="clnt_con">STAFF TIME REPORT</p>
+              <div class="selec_seclf">
+          
+                  <span class="slct_con">Select Staff</span>
+                  
+                       <select class="form-control2" name="rel_client_idctr[]" id="rel_client_idctr">
+    				<option value="">None</option>
+    					@if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
                   <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   @endforeach
                 @endif
-              </select></td>
-                <td align="center">
-				<select class="form-control" name="rel_client_id[]" id="rel_client_id">
-				<option value="">None</option>
-					@if(isset($allClients) && count($allClients)>0)
-					  @foreach($allClients as $key=>$client_row)
-						
-						  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
-					
-					  @endforeach
-					@endif
-          </select>
-		  </td>
-                
-                             </tr>
-                             
-                             <tr id="TemplateRow2" class="makeCloneClass">
-                <td align="left">Dispaly active from
-				<input class="dpick" type="text" id="dpick2" name="date[]"  style="width:40%; height: 30px;"/>
-				</td> 
-                
-                
-                <td align="left">to
-				<input class="dpick" type="text" id="dpick3" name="date[]"  style="width:40%; height: 30px;"/>
-				</td>
-                
-                </tr>
-              
-            </tbody>
-          </table>
-              </td>
-            </tr>
-          </table>
-          <div class="save_btncon">
-           <!-- <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></div> -->
-            <div class="right_side"> <button class="btn btn-primary">Display</button></div>
-            <div class="clearfix"></div>
+                       </select>
+                     
+                  <div class="clr"></div>
+                    </div>
+              <div class="selec_seclf" style="margin-left: 87px;">
+                <span class="slct_con">Select Client</span>
+                 <select class="form-control2" name="serv_client_idctr[]" id="serv_client_idctr">
+    				<option value="">None</option>
+    					@if(isset($allClients) && count($allClients)>0)
+					       @foreach($allClients as $key=>$client_row)
+						      <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+					       @endforeach
+					   @endif
+                </select>
+                     
+                  <div class="clr"></div>
             </div>
+              <div class="clr"></div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+          
+                  <span class="slct_con"><strong>Display activity form</strong></span>
+                  <input class="dpick dpick1" type="text" id="dpick2" name="date[]"  />
+                    <div class="clr"></div>
+                </div>
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+          
+                  <span class="slct_con"><strong>to</strong></span>
+                  <input class="dpick dpick1" type="text" id="dpickclient" name="date[]"  />
+                   <button class="clnt_button">Display</button>   
+                   <div class="clr"></div>
+          
+          
+              </div>
+              <div class="clr"></div>
+          
+          
+          
+          
+          
+          </div>
+          
+          
+         
+          
+          
          
         </div>
-        
         {{ Form::close() }}
       <!--</form>-->
     </div>
@@ -710,7 +829,7 @@ function notes(){
      
       
       <div class="modal-body">
-      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+   <!--   <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button> -->
       <div style="margin-top: 12px; width:272px;">
              <label for="f_name">Notes</label>
              
@@ -740,7 +859,7 @@ function notes(){
      
       
       <div class="modal-body">
-      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+    <!--  <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button> -->
       <div style="margin-top: 12px; width:272px;">
              <label for="f_name">Notes</label>
              
