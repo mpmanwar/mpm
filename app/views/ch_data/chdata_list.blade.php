@@ -161,7 +161,7 @@ $(function() {
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">
                   @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
-                    <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
+                    <span style="color:red">0</span>
                   @else
                      {{ $details['deadret_count'] or "" }}
                   @endif
