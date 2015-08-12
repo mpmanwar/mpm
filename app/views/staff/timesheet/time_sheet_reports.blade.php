@@ -202,6 +202,7 @@ $(function() {
 
 				$('#hrs').val(resp.hrs);
 				$('#notes').val(resp.notes);
+                $('#notesedit').val(resp.notes);
 
 
 
@@ -221,12 +222,45 @@ $(function() {
 
 }
 
+function editnotesmodal(){
+   // var editnotesval= $("#notes").val();
+   // console.log(editnotesval);
+   // $("#notesedit").val(editnotesval);
+    
+    $("#compose-edit-modal").modal("hide");
+    
+}
+
+//var editnotesval= $("#notes").val();
+function editnotes(){
+    
+    var editnotesval= $("#notes").val();
+    
+    console.log(editnotesval);
+    
+    $("#notesedit").val(editnotesval);
+
+    $("#composeeditnotes-modal").modal("hide");
+    $("#compose-edit-modal").modal("show");
+    
+}
+
+function notesmodal(){
+    $("#compose-modal").modal("hide");
+}
+
 function notes(){
     //console.log('dklfjsdkf');
     
    var notesval= $("#notess").val();
-   $('#notes').val(notesval);
    
+   //$("#compose-modal").modal("hide");
+   //$("#compose-modal").modal("hide");
+  
+   $('#notes12').val(notesval);
+   $("#composenotes-modal").modal("hide");
+  
+   $("#compose-modal").modal("show");
     console.log(notesval);
     //alert('return_notes');
 }
@@ -493,7 +527,14 @@ function notes(){
                                    
                                   </select></td>
                 <td align="center"><input type="text" name="hrs" id="hrs" style="width:90%; height: 33px;"></td>
-                <td align="center"><input type="text" name="notes" id="notes" style="width:90%; height: 33px;"></td>
+                <td align="center">
+                
+                <button class="btn btn-default" onclick="return editnotesmodal()" data-toggle="modal" data-target="#composeeditnotes-modal"><span class="requ_t">Notes</span></button> 
+                 <!--<input type="hidden" name="notes[]" id="notes12" value=""> -->
+
+                <input type="hidden" name="notes" id="notesedit" style="width:90%; height: 33px;">
+                
+                </td>
               </tr>
               <!--<tr>
                 <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
@@ -662,23 +703,21 @@ function notes(){
 <!-- strmodal -->
 
 
-<div>
+<div style="z-index: 999;">
 <div class="modal fade" id="composenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:60%;hight:60%">
-    <div class="modal-content">
+  <div class="modal-dialog" style="width:29%;">
+    <div class="modal-content" style="height: 100px;">
      
       
       <div class="modal-body">
-      <div style="width:60%;hight:60%">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+      <div style="margin-top: 12px; width:272px;">
              <label for="f_name">Notes</label>
              
-          <input type="text" name="notes1[]" id="notess" value="">
+          <input type="text" name="notes1[]" id="notess" value="" style="padding: 5px 5px;">
          
-          <input type="text" name="notes[]" id="notes" value="">
-          
-          
-          
-          <button class="btn btn-primary" onclick="return notes()" id="save_notes">Save</button>          
+         
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style="width: 60px; float: right; height: 33px;">Save</button>          
          </div>
         </div>
         
@@ -691,6 +730,40 @@ function notes(){
 </div>
 
 </div>
+
+
+<!-- edit notes-->
+<div style="z-index: 999;">
+<div class="modal fade" id="composeeditnotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:29%;">
+    <div class="modal-content" style="height: 100px;">
+     
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+      <div style="margin-top: 12px; width:272px;">
+             <label for="f_name">Notes</label>
+             
+          <!-- <input type="text" name="notes1[]" id="notess" value="" style="padding: 5px 5px;"> -->
+          <input type="text" name="notes" id="notes" style="padding: 5px 5px;">
+          
+        <!--  <input type="text" name="notes1[]" id="editnotess" value="" style="padding: 5px 5px;"> -->
+         
+          <button class="btn btn-primary" onclick="return editnotes()" id="save_notes" style="width: 60px; float: right; height: 33px;">Save</button>          
+         </div>
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
+<!-- edit notes -->
+
 <!-- COMPOSE MESSAGE MODAL -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:80%;">
@@ -779,8 +852,8 @@ function notes(){
                 <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height: 33px;"></td>
                 
                 <td align="center">
-               <!-- <button class="btn btn-default" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">Notes</span></button> -->
-                <input type="text" name="notes[]" id="notes" style="width:90%; height: 33px;"> 
+                <button class="btn btn-default" onclick="return notesmodal()" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">Notes</span></button>  <input type="hidden" name="notes[]" id="notes12" value="">
+                <!-- <input type="text" name="notes[]" id="notes" style="width:90%; height: 33px;"> -->
                 </td> 
               </tr>
               <!--<tr>
