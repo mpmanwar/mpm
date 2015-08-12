@@ -271,6 +271,19 @@ Route::any('/staff-appraisal', array('as'=>'index', 'uses'=>'StaffAppraisalContr
 Route::post('/timesheet/insert-time-sheet', array("as"=>"insert-time-sheet", "uses"=>'TimesheetController@insert_time_sheet'));
 Route::post('/timesheet/timesheet-templates', array("as"=>"timesheet-templates", "uses"=>'TimesheetController@timesheet_templates'));
 Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=>'TimesheetController@edit_time_sheet'));
+
+Route::post('/timesheet/insertclient-time-sheet', 'TimesheetController@insertclient_time_sheet');
+Route::post('/timesheet/insertstaff-time-sheet', 'TimesheetController@insertstaff_time_sheet');
+
+Route::post('/timesheet/fetcheditclient-time-sheet', 'TimesheetController@editclient_time_sheet');
+Route::post('/timesheet/editclient-time-report', 'TimesheetController@editclient_time_report');
+
+
+Route::post('/timesheet/fetcheditstaff-time-sheet', 'TimesheetController@fetcheditstaff_time_sheet');
+Route::post('/timesheet/editstaff-time-report', 'TimesheetController@editstaff_time_report');
+
+
+
 /*==================Time Sheet End ==============*/
 
 
