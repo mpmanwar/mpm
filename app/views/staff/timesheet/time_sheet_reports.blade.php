@@ -310,7 +310,7 @@ function notes(){
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">RECENT TIMESHEET</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_1">TIME SHEET</a></li>
                 <li class=""><a data-toggle="tab" href="#tab_2">TIME SHEET LOG</a></li>
               </ul>
               <div class="tab-content">
