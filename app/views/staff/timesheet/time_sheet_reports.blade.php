@@ -539,10 +539,10 @@ function openstaffModal(str_id) {
                             <thead>
                               <tr role="row">
                                 
-                                <th align="center"><strong>CLIENT</strong></th>
-                                <th align="center"><strong>service</strong></th>
-                                <th align="center"><strong>from</strong></th>
-                                <th align="center"><strong>to</strong></th>
+                                <th align="center"><strong>Client</strong></th>
+                                <th align="center"><strong>Service</strong></th>
+                                <th align="center"><strong>From</strong></th>
+                                <th align="center"><strong>To</strong></th>
                                 <th><strong>Action</strong></th>
                                 
                               </tr>
@@ -578,8 +578,8 @@ function openstaffModal(str_id) {
                                 
                                 <th align="center"><strong>Staff</strong></th>
                                 <th align="center"><strong>Client</strong></th>
-                                <th align="center"><strong>from</strong></th>
-                                <th align="center"><strong>to</strong></th>
+                                <th align="center"><strong>From</strong></th>
+                                <th align="center"><strong>To</strong></th>
                                 <th><strong>Action</strong></th>
                                 
                               </tr>
