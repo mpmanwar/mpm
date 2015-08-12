@@ -264,6 +264,105 @@ function notes(){
     console.log(notesval);
     //alert('return_notes');
 }
+
+
+function openeditctrModal(ctr_id) {
+    
+    
+    $.ajax({
+    	type: "POST",
+        //dataType: "html",
+        url: '/timesheet/fetcheditclient-time-sheet',
+        data: {
+
+			'ctr_id': ctr_id
+
+		},
+
+		success: function(resp) {
+		  
+        
+          
+          
+		  $("#composeeditclienttr-modal").modal("show");
+          
+          
+            	$('#ctredit_client').val(resp.ctr_client);
+                $('#ctredit_serv').val(resp.ctr_serv);
+                $('#editfromdpick').val(resp.fromdate);
+                $('#edittodpick').val(resp.todate);
+                $('#editctrid').val(resp.ctr_id);
+                
+                
+                
+           // alert(resp);
+           
+			console.log(resp);
+
+				}
+
+	});
+    
+    
+    
+    
+    
+    
+    console.log(ctr_id);
+   
+}
+function openstaffModal(str_id) {
+    
+    
+    
+    
+    
+     $.ajax({
+    	type: "POST",
+        //dataType: "html",/timesheet/fetcheditstaff-time-sheet
+        url: '/timesheet/fetcheditstaff-time-sheet',
+        data: {
+
+			'str_id': str_id
+
+		},
+
+		success: function(resp) {
+		  
+        
+          
+          
+		  $("#composeditestr-modal").modal("show");
+          
+          
+          $('#editstr_client').val(resp.str_client);
+           $('#editstr_staff').val(resp.str_staff);
+            $('#editstrfromdate').val(resp.strfromdate);
+             $('#editstrtodate').val(resp.strtodate);
+             $('#editstrid').val(resp.str_id);
+             
+           
+            
+             
+          
+          
+            	
+                
+                
+           // alert(resp);
+           
+			console.log(resp);
+
+				}
+
+	});
+    
+     //$("#composeditestr-modal").modal("show");
+    
+    
+    console.log(str_id);
+    
+}
 </script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -433,8 +532,84 @@ function notes(){
                 </div>
                 <!-- /.tab-pane -->
               </div>
+              <p class="btn btn-default">Client Time Report</p>
+              
+              <table class="table table-bordered table-hover dataTable" id="example3" aria-describedby="example2_info">
+            
+                            <thead>
+                              <tr role="row">
+                                
+                                <th align="center"><strong>Client</strong></th>
+                                <th align="center"><strong>Service</strong></th>
+                                <th align="center"><strong>From</strong></th>
+                                <th align="center"><strong>To</strong></th>
+                                <th><strong>Action</strong></th>
+                                
+                              </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+							
+							@if(!empty($client_time_report))
+								  @foreach($client_time_report as $key=>$client_row)
+								 <tr>
+									
+									
+									<td  align="left">{{ $client_row['client_detail']['field_value'] }}</td>
+									<td align="left">{{ $client_row['old_vat_scheme']['vat_scheme_name'] }}</td>
+                                    <td align="center">{{ $client_row['fromdate'] }}</td>
+                                    <td align="center">{{ $client_row['todate'] }}</td>
+									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $client_row['ctr_id'] }}" onclick="openeditctrModal('{{ $client_row['ctr_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
+									</tr>
+									</tr>
+									@endforeach
+								@endif
+                                  
+                              
+                            </tbody>
+                          </table>
+            <p class="btn btn-default">Staff Time Report</p>  
               
               
+              <table class="table table-bordered table-hover dataTable" id="example4" aria-describedby="example2_info">
+            
+                            <thead>
+                              <tr role="row">
+                                
+                                <th align="center"><strong>Staff</strong></th>
+                                <th align="center"><strong>Client</strong></th>
+                                <th align="center"><strong>From</strong></th>
+                                <th align="center"><strong>To</strong></th>
+                                <th><strong>Action</strong></th>
+                                
+                              </tr>
+                            </thead>
+
+
+
+
+
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+							
+							@if(!empty($staff_time_report))
+								  @foreach($staff_time_report as $key=>$staff_row)
+								 <tr>
+									
+						<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
+									
+									<td align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
+                                    <td align="center">{{ $staff_row['fromdate'] }}</td>
+                                    <td align="center">{{ $staff_row['todate'] }}</td>
+									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['str_id'] }}" onclick="openstaffModal('{{ $staff_row['str_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
+									</tr>
+									</tr>
+									@endforeach
+								@endif
+                                  
+                              
+                            </tbody>
+                          </table>
               
               
             </div>
@@ -628,13 +803,13 @@ function notes(){
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          
+          <input type="hidden" name="type" id="ctr" value="client_tr">
                  <p class="clnt_con">CLIENT TIME REPORT</p>
               <div class="selec_seclf">
           
                   <span class="slct_con">Select Client</span>
                   
-                       <select class="form-control2" name="rel_client_idctr[]" id="rel_client_idctr">
+                       <select class="form-control2" name="ctr_client" id="ctr_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
     					  @foreach($allClients as $key=>$client_row)
@@ -658,7 +833,7 @@ function notes(){
           
                   <span class="slct_con">Select Service</span>
                   
-                       <select class="form-control2" name="serv_client_idctr[]" id="serv_client_idctr">
+                       <select class="form-control2" name="ctr_serv" id="ctr_serv">
     				<option value="">None</option>
     					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
                                       @foreach($old_vat_schemes as $key=>$scheme_row)
@@ -678,44 +853,22 @@ function notes(){
               
               
               <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
-          
-                  <span class="slct_con"><strong>Display activity form</strong></span>
-                  
-                       <input class="dpick dpick1" type="text" id="dpick2" name="date[]"  />
-                     
+                    <span class="slct_con"><strong>Display activity from</strong></span>
+                  <input class="dpick dpick1" type="text" id="fromdpick2" name="fromdate"  />
                   <div class="clr"></div>
-          
-          
               </div>
               
               
               
               <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
-          
-                  <span class="slct_con"><strong>to</strong></span>
-                  
-                  <input class="dpick dpick1" type="text" id="dpickclient" name="date[]"  />
-                       
+                    <span class="slct_con"><strong>to</strong></span>
+                  <input class="dpick dpick1" type="text" id="todpick" name="todate"  />
                   <button class="clnt_button">Display</button>   
-                     
                   <div class="clr"></div>
-          
-          
               </div>
               <div class="clr"></div>
-          
-          
-          
-          
-          
           </div>
-          
-          
-         
-          
-          
-         
-        </div>
+          </div>
         
         {{ Form::close() }}
       <!--</form>-->
@@ -726,6 +879,102 @@ function notes(){
 </div>
 <!-- composeclienttr -->
 
+<!--composeeditclienttr edit -->
+<div class="modal fade" id="composeeditclienttr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:67%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+       {{ Form::open(array('url' => '/timesheet/editclient-time-report')) }}
+      <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          
+          <div class="popupclienttime">
+          <input type="hidden" name="type" id="ctr" value="client_tr"
+                 <p class="clnt_con">CLIENT TIME REPORT</p>
+             
+             
+             <input type="hidden" id="editctrid" name="editctrid" value="" />
+             
+              <div class="selec_seclf">
+          
+          
+          
+                  <span class="slct_con">Select Client</span>
+                  
+                       <select class="form-control2" name="ctredit_client" id="ctredit_client">
+    				<option value="">None</option>
+    					@if(isset($allClients) && count($allClients)>0)
+    					  @foreach($allClients as $key=>$client_row)
+    						
+    						  <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+    					
+    					  @endforeach
+    					@endif
+                       </select>
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-left: 87px;">
+          
+                  <span class="slct_con">Select Service</span>
+                  
+                       <select class="form-control2" name="ctredit_serv" id="ctredit_serv">
+    				<option value="">None</option>
+    					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
+                                      @foreach($old_vat_schemes as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                      @endforeach
+                                    @endif
+                       </select>
+                     
+                  <div class="clr"></div>
+          
+          
+              </div>
+              <div class="clr"></div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+                    <span class="slct_con"><strong>Display activity from</strong></span>
+                  <input class="dpick dpick1" type="text" id="editfromdpick" name="editfromdpick"  />
+                  <div class="clr"></div>
+              </div>
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+                    <span class="slct_con"><strong>to</strong></span>
+                  <input class="dpick dpick1" type="text" id="edittodpick" name="edittodpick"  />
+                  <button class="clnt_button">Display</button>   
+                  <div class="clr"></div>
+              </div>
+              <div class="clr"></div>
+          </div>
+          </div>
+        
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--composeeditclienttr edit -->
 
 
 <!-- strmodal -->
@@ -744,13 +993,13 @@ function notes(){
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          
+          <input type="hidden" name="type" id="str" value="staff_tr">
                  <p class="clnt_con">STAFF TIME REPORT</p>
               <div class="selec_seclf">
           
                   <span class="slct_con">Select Staff</span>
                   
-                       <select class="form-control2" name="rel_client_idctr[]" id="rel_client_idctr">
+                       <select class="form-control2" name="str_staff" id="str_staff">
     				<option value="">None</option>
     					@if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -763,7 +1012,7 @@ function notes(){
                     </div>
               <div class="selec_seclf" style="margin-left: 87px;">
                 <span class="slct_con">Select Client</span>
-                 <select class="form-control2" name="serv_client_idctr[]" id="serv_client_idctr">
+                 <select class="form-control2" name="str_client" id="str_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
 					       @foreach($allClients as $key=>$client_row)
@@ -782,8 +1031,8 @@ function notes(){
               
               <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
           
-                  <span class="slct_con"><strong>Display activity form</strong></span>
-                  <input class="dpick dpick1" type="text" id="dpick2" name="date[]"  />
+                  <span class="slct_con"><strong>Display activity from</strong></span>
+                  <input class="dpick dpick1" type="text" id="dpick2" name="strfromdate"  />
                     <div class="clr"></div>
                 </div>
               
@@ -792,7 +1041,7 @@ function notes(){
               <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
           
                   <span class="slct_con"><strong>to</strong></span>
-                  <input class="dpick dpick1" type="text" id="dpickclient" name="date[]"  />
+                  <input class="dpick dpick1" type="text" id="dpickclient" name="strtodate"  />
                    <button class="clnt_button">Display</button>   
                    <div class="clr"></div>
           
@@ -822,6 +1071,102 @@ function notes(){
 <!-- strmodal -->
 
 
+
+<!-- strmodaledit -->
+<div class="modal fade" id="composeditestr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:80%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+      {{ Form::open(array('url' => '/timesheet/editstaff-time-report')) }}
+      
+        <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          
+          <div class="popupclienttime">
+          <input type="hidden" name="editstrid" id="editstrid" value=""
+                 <p class="clnt_con">STAFF TIME REPORT</p>
+              <div class="selec_seclf">
+          
+                  <span class="slct_con">Select Staff</span>
+                  
+                       <select class="form-control2" name="editstr_staff" id="editstr_staff">
+    				<option value="">None</option>
+    					@if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+                       </select>
+                     
+                  <div class="clr"></div>
+                    </div>
+              <div class="selec_seclf" style="margin-left: 87px;">
+                <span class="slct_con">Select Client</span>
+                 <select class="form-control2" name="editstr_client" id="editstr_client">
+    				<option value="">None</option>
+    					@if(isset($allClients) && count($allClients)>0)
+					       @foreach($allClients as $key=>$client_row)
+						      <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+					       @endforeach
+					   @endif
+                </select>
+                     
+                  <div class="clr"></div>
+            </div>
+              <div class="clr"></div>
+              
+              
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+          
+                  <span class="slct_con"><strong>Display activity from</strong></span>
+                  <input class="dpick dpick1" type="text" id="editstrfromdate" name="editstrfromdate"  />
+                    <div class="clr"></div>
+                </div>
+              
+              
+              
+              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+          
+                  <span class="slct_con"><strong>to</strong></span>
+                  <input class="dpick dpick1" type="text" id="editstrtodate" name="editstrtodate"  />
+                   <button class="clnt_button">Display</button>   
+                   <div class="clr"></div>
+          
+          
+              </div>
+              <div class="clr"></div>
+          
+          
+          
+          
+          
+          </div>
+          
+          
+         
+          
+          
+         
+        </div>
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- strmodal -->
+
+
+
 <div style="z-index: 999;">
 <div class="modal fade" id="composenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:29%;">
@@ -829,7 +1174,7 @@ function notes(){
      
       
       <div class="modal-body">
-   <!--   <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button> -->
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
       <div style="margin-top: 12px; width:272px;">
              <label for="f_name">Notes</label>
              
@@ -859,7 +1204,7 @@ function notes(){
      
       
       <div class="modal-body">
-    <!--  <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button> -->
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
       <div style="margin-top: 12px; width:272px;">
              <label for="f_name">Notes</label>
              
