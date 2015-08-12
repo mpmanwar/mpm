@@ -601,7 +601,7 @@ $(function() {
           @if(isset($jobs_steps) && count($jobs_steps) >0)
             @foreach($jobs_steps as $key=>$value)
               <tr id="change_status_tr_{{ $value['step_id'] or "" }}">
-                <td align="center"><input type="checkbox" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" disabled /></td>
+                <td align="center"><input type="checkbox" id="step_check_2{{ $value['step_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" {{ (isset($value['count']) && $value['count'] !=0)?"disabled":"" }} /></td>
                 <td><span id="status_span{{ $value['step_id'] or "" }}">{{ $value['title'] or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['step_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>
