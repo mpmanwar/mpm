@@ -429,6 +429,38 @@ class UserController extends BaseController {
 			Session::flash('success', 'You have successfully created your password');
 			User::where('user_id', '=', base64_decode($postData['user_id']))->update($change_data);
 			//echo $this->last_query();die;
+			/* ================ Log in after create password start ================ */
+			$admin = User::where('user_id', '=', base64_decode($postData['user_id']))->first();
+			//echo $this->last_query();die;
+			//print_r($admin);die;
+			if(isset($admin['user_type']) && $admin['user_type'] == "C"){
+					$client_name = Common::clientDetailsById($admin['client_id']);
+					$admin['fname'] 		= $client_name['fname'];
+					$admin['lname'] 		= $client_name['lname'];
+				}
+
+				$arr['id'] 					= $admin['user_id'];
+				$arr['client_id'] 			= $admin['client_id'];
+				$arr['related_company_id'] 	= $admin['related_company_id'];
+				$arr['fname'] 				= $admin['fname'];
+				$arr['lname'] 				= $admin['lname'];
+				$arr['email'] 				= $admin['email'];
+				$arr['user_type'] 			= $admin['user_type'];
+				$arr['status'] 				= $admin['status'];
+				$arr['parent_id'] 			= $admin['parent_id'];
+				$arr['group_id'] 			= Common::getGroupId($admin['user_id']);
+				$arr['group_users'] 		= Common::getUserIdByGroupId($arr['group_id']);
+				
+				Session::put('admin_details', $arr);
+
+				LoginDetail::insert(array('login_date'=>date("Y-m-d H:i:s"), 'user_id'=>$admin['user_id']));
+                
+            	if($admin['user_type'] == "C"){
+                    return Redirect::to('/client-portal');
+                }else{
+			        return Redirect::to('/dashboard');
+                }
+			/* ================ Log in after create password End ================ */
 		}
 
 		//return Redirect::to('/user/create-password/'.$postData['user_id']);

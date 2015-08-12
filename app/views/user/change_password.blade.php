@@ -15,7 +15,8 @@
     <body class="bg-black">
     
         <div class="form-box" id="login-box">
-            <div class="header">{{ $title }}</div>
+            <!-- <div class="header">{{ $title }}</div> -->
+            <div class="header"><a href="/"> <img src="/img/logo_outer.png" /></a></div>
             {{ Form::open(array('url' => '/create-password-process', 'files' => true)) }}
             <input type="hidden" name="user_id" value="{{ $user_id }}">
             
