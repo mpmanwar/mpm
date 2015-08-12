@@ -208,12 +208,14 @@ class HomeController extends BaseController {
 		$date2 = date("Y-m-d");
 		//echo $date2;die;
 
-		if(strtotime($date2) > strtotime($date1)){
+		/*if(strtotime($date2) > strtotime($date1)){
 			$days = "OVER DUE";
 		}else{
 			$diff = abs(strtotime($date1) - strtotime($date2));
 			$days = round($diff/86400);
-		}
+		}*/
+		$diff = strtotime($date1) - strtotime($date2);
+		$days = round($diff/86400);
 		
 		return $days;
 	}

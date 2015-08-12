@@ -1,19 +1,84 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+   <!-- <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet" type="text/css" /> -->
+   <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 <!-- page script -->
 <script type="text/javascript">
+/* Create an array with the values of all the input boxes in a column */
+/*$.fn.dataTable.ext.order['dom-text'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('input', td).val();
+    } );
+}*/
+ 
+/* Create an array with the values of all the input boxes in a column, parsed as numbers */
+$.fn.dataTable.ext.order['dom-text-numeric'] = function  ( settings, col )
+{
+    /*return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+
+        return $('p', td).html() * 1;
+    } );*/
+}
+ 
+/* Create an array with the values of all the select options in a column */
+/*$.fn.dataTable.ext.order['dom-select'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('select', td).val();
+    } );
+}*/
+ 
+/* Create an array with the values of all the checkboxes in a column */
+/*$.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('input', td).prop('checked') ? '1' : '0';
+    } );
+}*/
+ 
+/* Initialise the table with the required column ordering data types */
+/*$(document).ready(function() {
+    $('#example').dataTable( {
+        "columns": [
+            null,
+            { "orderDataType": "dom-text-numeric" },
+            { "orderDataType": "dom-text-numeric" },
+            { "orderDataType": "dom-select", type: 'string' }
+        ]
+    } );
+} );*/
+
+/*$.fn.dataTable.ext.type.detect.unshift(
+    function ( d ) {
+        return d === 'OVER DUE' ?
+            'salary-grade' :
+            null;
+    }
+);
+ 
+$.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};*/
+
 var Table1;
 $(function() {
+
+
     Table1 = $('#example1').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
@@ -21,7 +86,7 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [25, 50, 100, 200]],
+        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 500, 100]],
         "iDisplayLength": 25,
 
         "aoColumns":[
@@ -35,11 +100,16 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false}
-        ]
+        ],
+
+        "aaSorting": [[8, 'asc']]
+        
+            
 
     });
 
-    Table1.fnSort( [ [8,'asc'] ] );
+
+    //Table1.fnSort( [ [8,'asc'] ] );
 
 });
 
@@ -130,8 +200,11 @@ $(function() {
               </div>
               <div class="clearfix"></div>
             </div>
+
+      
             
   <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
+  
     <thead>
       <tr role="row">
           <th><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
@@ -145,12 +218,14 @@ $(function() {
           <th>COUNT DOWN</th>
           <th>ADDRESS</th>
       </tr>
+      
     </thead>
+
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
           @if(isset($details['registration_number']) && $details['registration_number']!= "")
-            <tr class="even">
+            <tr class="{{ (isset($details['deadret_count']) && $details['deadret_count'] < 0 )?'sorting_disabled':"" }}">
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
                 <td align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="center">{{ $details['registration_number'] or "" }}</td>
@@ -160,10 +235,10 @@ $(function() {
                 <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">
-                  @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
-                    <span style="color:red">0</span>
+                  @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
+                    <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
                   @else
-                     {{ $details['deadret_count'] or "" }}
+                     <p>{{ $details['deadret_count'] or "" }}</p>
                   @endif
                 </td>
                 <td align="center">{{ (strlen($details['res_address']) > 48)? substr($details['res_address'], 0, 45)."...": $details['res_address'] }}</td>
