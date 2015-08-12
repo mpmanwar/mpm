@@ -803,7 +803,7 @@ function openstaffModal(str_id) {
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          <input type="hidden" name="type" id="ctr" value="client_tr"
+          <input type="hidden" name="type" id="ctr" value="client_tr">
                  <p class="clnt_con">CLIENT TIME REPORT</p>
               <div class="selec_seclf">
           
@@ -993,7 +993,7 @@ function openstaffModal(str_id) {
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          <input type="hidden" name="type" id="str" value="staff_tr"
+          <input type="hidden" name="type" id="str" value="staff_tr">
                  <p class="clnt_con">STAFF TIME REPORT</p>
               <div class="selec_seclf">
           
