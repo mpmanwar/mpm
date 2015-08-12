@@ -8,6 +8,12 @@ class Common extends Eloquent {
 		$API_KEY = "hYeDtvCEXMaqkoQnzPv29P8HccoBGmQoyt6fhjqj";
 		return $API_KEY;
 	}
+	public static function last_query()
+	{
+		$queries = DB::getQueryLog();
+		$last_query = end($queries);
+		echo $last_query['query'];
+	}
 	public static function getGroupId($user_id)
 	{
 		$users	= User::where('user_id', '=', $user_id)->select("parent_id")->first();

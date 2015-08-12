@@ -22,13 +22,13 @@
 }*/
  
 /* Create an array with the values of all the input boxes in a column, parsed as numbers */
-$.fn.dataTable.ext.order['dom-text-numeric'] = function  ( settings, col )
+/*$.fn.dataTable.ext.order['dom-text-numeric'] = function  ( settings, col )
 {
-    /*return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
 
         return $('p', td).html() * 1;
-    } );*/
-}
+    } );
+}*/
  
 /* Create an array with the values of all the select options in a column */
 /*$.fn.dataTable.ext.order['dom-select'] = function  ( settings, col )
@@ -232,7 +232,7 @@ $(function() {
                 <td align="left"><a href="/chdata-details/{{ $details['registration_number'] }}">{{ $details['business_name'] or "" }}</a></td>
                 <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
                 <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+                <td align="center">{{ isset($details['made_up_date'])?date("d-m-Y", strtotime($details['made_up_date'])):"" }}</td>
                 <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="center">
                   @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )

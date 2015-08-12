@@ -147,6 +147,7 @@ class JobsController extends BaseController {
         $status_id  = Input::get("status_id");
 
         $qry = JobStatus::whereIn("user_id", $groupUserId)->where("is_completed", "=", "N")->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+        
         if(isset($qry) && count($qry) >0){
             $updateData['status_id']    = $status_id;
             JobStatus::where("job_status_id", "=", $qry["job_status_id"])->update($updateData);

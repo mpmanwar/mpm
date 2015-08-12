@@ -235,10 +235,10 @@ $(function() {
             <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
             <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
             <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
-            <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+            <td align="center">{{ isset($details['made_up_date'])?date("d-m-Y", strtotime($details['made_up_date'])):"" }}</td>
             <td align="center">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
             <td align="center">
-              @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+              @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
                 <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
               @else
                  {{ $details['deadret_count'] or "" }}
@@ -308,7 +308,7 @@ $(function() {
               <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
               <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
               <td align="left">
-                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
                   <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
                 @else
                    {{ $details['deadret_count'] or "" }}
@@ -367,7 +367,7 @@ $(function() {
               <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
               <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
               <td align="left">
-                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
                   <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
                 @else
                    {{ $details['deadret_count'] or "" }}
@@ -427,7 +427,7 @@ $(function() {
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
                 <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
                 <td align="left">
-                  @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                  @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
                     <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
                   @else
                      {{ $details['deadret_count'] or "" }}
@@ -487,7 +487,7 @@ $(function() {
               <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
               <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
               <td align="left">
-                @if( isset($details['deadret_count']) && $details['deadret_count'] == "OVER DUE" )
+                @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
                   <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
                 @else
                    {{ $details['deadret_count'] or "" }}
@@ -540,18 +540,16 @@ $(function() {
         <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($completed_task) && count($completed_task) >0)
           @foreach($completed_task as $key=>$details)
-            @if((isset($details['services_id']) && in_array($service_id, $details['services_id'])))
-              <tr id="data_tr_{{ $details['client_id'] }}_3">
-                  <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
-                  <td align="left"></td>
-                  <td align="left">{{ $details['registration_number'] or "" }}</td>
-                  <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
-                  <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
-                  <td align="center" width="12%">
-                    {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
-                  </td>
-                </tr>
-            @endif
+            <tr id="data_tr_{{ $details['client_id'] }}_3">
+              <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
+              <td align="left"></td>
+              <td align="left">{{ $details['registration_number'] or "" }}</td>
+              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+              <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+              <td align="center" width="12%">
+                {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
+              </td>
+            </tr>
           @endforeach
         @endif
         
@@ -601,7 +599,7 @@ $(function() {
           @if(isset($jobs_steps) && count($jobs_steps) >0)
             @foreach($jobs_steps as $key=>$value)
               <tr id="change_status_tr_{{ $value['step_id'] or "" }}">
-                <td align="center"><input type="checkbox" id="step_check_2{{ $value['step_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" {{ (isset($value['count']) && $value['count'] !=0)?"disabled":"" }} /></td>
+                <td align="center"><input type="checkbox" id="step_check_2{{ $value['step_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" {{ ((isset($value['count']) && $value['count'] !=0) || $value['step_id'] == 10)?"disabled":"" }} /></td>
                 <td><span id="status_span{{ $value['step_id'] or "" }}">{{ $value['title'] or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['step_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>

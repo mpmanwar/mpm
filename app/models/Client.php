@@ -11,7 +11,7 @@ class Client extends Eloquent {
         $groupUserId    = $session['group_users'];
 
 		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive", "ch_manage_task")->orderBy("client_id", "DESC")->get();
-		//echo $this->last_query();die;
+		//Common::last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
@@ -53,13 +53,16 @@ class Client extends Eloquent {
 						$client_data[$i]['job_status'][$service_id]['service_id'] = $row['service_id'];
 						$client_data[$i]['job_status'][$service_id]['status_id'] = $row['status_id'];
 						$client_data[$i]['job_status'][$service_id]['created'] = $row['created'];
-					}
+					}//print_r($client_data);//die;
 				}
 				// ############### GET JOB STATUS END ################## //
 
 				// ############### GET OTHER SERVICES START ################## //
 				$client_data[$i]['services_id'] 	=   Client::getServicesIdByClient($client_id->client_id);
-				//print_r($client_data[$i]['services']);die;
+				/*$queries = DB::getQueryLog();
+				$last_query = end($queries);
+				echo $last_query['query'];*/
+				//print_r($client_data[$i]['services_id']);//die;
 				// ############### GET OTHER SERVICES END ################## //
 
 				// ############### GET VAT SCHEME USER START ################## //
@@ -144,6 +147,7 @@ class Client extends Eloquent {
 				//echo $this->last_query();die;
 			}
 		}
+		//print_r($client_data);die;
 		return $client_data;
 	}
 
@@ -238,9 +242,13 @@ class Client extends Eloquent {
 	{
 		$data = array();
 		$services = ClientService::where("client_id", "=", $client_id)->get();
+		/*$queries = DB::getQueryLog();
+		$last_query = end($queries);
+		echo $last_query['query']."client_id : ".$client_id;*/
+		//print_r($services);
 		if(isset($services) && count($services) >0){
 			foreach ($services as $key => $value) {
-				$data[] = $value->service_id;
+				$data[$key] = $value->service_id;
 			}
 		}
 		return $data;
