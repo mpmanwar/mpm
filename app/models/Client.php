@@ -270,7 +270,7 @@ class Client extends Eloquent {
 
 			}
 		}
-
+		//print_r($client_details);die;
 		return array_values($client_details);
 	}
 
