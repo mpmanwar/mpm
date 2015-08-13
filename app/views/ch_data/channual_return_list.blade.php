@@ -9,7 +9,7 @@
 <script src="{{ URL :: asset('js/jobs.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 <!-- page script -->

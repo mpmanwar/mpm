@@ -38,7 +38,7 @@ class ChAnnualReturnController extends BaseController {
 		}else{
 			$data['company_details'] = Client::getAssignedClientDetails($data['service_id'], $data['staff_id']);
 		}
-		
+		//print_r($data['company_details']);die;
 		//$data['company_details']	= Client::ClientDetailsByServiceId($data['service_id']);
 		$all_count = 0;
 		if(isset($data['company_details']) && count($data['company_details']) >0){
