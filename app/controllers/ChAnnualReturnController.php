@@ -27,10 +27,6 @@ class ChAnnualReturnController extends BaseController {
 		}
 
 
-		//$data['company_details']	= Client::getAssignedClientDetails( $data['service_id'], $staff_id );
-		//echo $this->last_query();
-		//print_r($data['company_details']);die;
-
 		if($data['staff_id'] == "all"){
 			$data['company_details'] = Client::getClientByServiceId( $data['service_id'] );
 		}else if($data['staff_id'] == "none"){
@@ -38,15 +34,14 @@ class ChAnnualReturnController extends BaseController {
 		}else{
 			$data['company_details'] = Client::getAssignedClientDetails($data['service_id'], $data['staff_id']);
 		}
-		//print_r($data['company_details']);die;
-		//$data['company_details']	= Client::ClientDetailsByServiceId($data['service_id']);
+		
 		$all_count = 0;
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
 				if($data['page_open'] == 21){
 					$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 					if(isset($autosend) && count($autosend) >0 ){
-						if((isset($details['deadret_count']) && $details['deadret_count'] <= $autosend['days']) || $details['deadret_count'] == "OVER DUE"){
+						if((isset($details['deadret_count']) && $details['deadret_count'] <= $autosend['days'])){
 							JobsManage::updateJobManage($details['client_id'], $service_id);
 							$data['company_details'][$key]['ch_manage_task'] = "Y";
 						}
@@ -76,7 +71,11 @@ class ChAnnualReturnController extends BaseController {
 
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 		
-
+		/*$queries = DB::getQueryLog();
+		$last_query = end($queries);
+		//echo $last_query['query']."client_id : ".$client_id;
+		print_r($queries);
+*/
 		//echo "<prev>".print_r($data['completed_task']);die;
 		return View::make('ch_data.channual_return_list', $data);
 	}

@@ -76,7 +76,7 @@ class JobStatus extends Eloquent {
         			if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10){
         				//echo $details['job_status'][$service_id]['status_id'];
 						$client_array[$key] = $client_details[$key];
-
+						$client_array[$key]['completed_tasks'] = JobsCompletedTask::getTaskByClientAndServiceId($details['client_id'], $service_id);
 					}
 				}
 				
@@ -89,11 +89,13 @@ class JobStatus extends Eloquent {
 		if(isset($JobStatus) && count($JobStatus) >0){
 			foreach ($JobStatus as $key => $row) {
 				$client_data[$key] = Common::clientDetailsById( $row['client_id'] );
+				$client_data[$key]['completed_tasks'] = JobsCompletedTask::getTaskByClientAndServiceId($row['client_id'], $service_id);
 			}
 		}
 
-		//print_r($client_details);die;
+		
 		$clients = array_merge($client_array, $client_data);
+		//print_r($client_details);die;
 		return array_values($clients);
 	}
 

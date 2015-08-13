@@ -122,6 +122,7 @@ class ClientController extends BaseController {
         $data['user_type'] = $session['user_type'];
         $groupUserId = $session['group_users'];
         $data['page_name'] = base64_decode($type_id);
+        $data['encode_page_name'] = $type_id;
         //print_r($data['page_name']);die();
         if($data['user_type'] != "C"){
         	$data['title'] 		= "Edit Client";
