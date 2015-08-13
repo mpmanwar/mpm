@@ -302,8 +302,15 @@ class TimesheetController extends BaseController
         $form = $ctr_data['fromdate'];
         $to = $ctr_data['todate'];
         
+        if($ctr_data['ctr_serv']!=""){
+            
+       
         $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$ctr_data['ctr_client'])->where('vat_scheme_type','=',$ctr_data['ctr_serv'])->get();
-
+ }
+ 
+ else{
+    $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$ctr_data['ctr_client'])->get();
+ }
         //echo $this->last_query();
         //die();
 
@@ -401,8 +408,64 @@ class TimesheetController extends BaseController
 
     public function insertstaff_time_sheet()
     {
+        
+        $str_data = array();
+        $data_str= array();
+        $data = array();
+        
+         $str_data['str_staff'] = Input::get("str_staff");
+          $str_data['str_client'] = Input::get("str_client");
+          $str_data['strfromdate'] = date('Y-m-d', strtotime(Input::get("strdpick2")));
+          $str_data['strtodate'] = date('Y-m-d', strtotime(Input::get("dpickclient")));
+        
+       
+        $form = $str_data['strfromdate'];
+        $to = $str_data['strtodate'];
+        
+        if($str_data['str_staff']!=""){
+        $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->where('staff_id','=',$str_data['str_staff'])->get();
+        }
+        else{
+            
+            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->get();
+        }
+        
+         //echo $this->last_query();
+         //die();
+         
+         
+         if (!empty($strlimitimesheet)) {
+            foreach ($strlimitimesheet as $key => $val) {
+                //echo 'gddhdhdhd';
 
+                $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
+                $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
+                    select("user_id", "fname", "lname")->first();
+                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
+                    select("vat_scheme_name")->first();
+                //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
+                $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
+                    where(function ($query)
+                {
+                    $query->where("field_name", "=", "business_name")->orWhere("field_name", "=",
+                        "client_name"); }
+                )->first();
 
+                //echo $this->last_query();
+                $data_str[$key]['hrs'] = $val['hrs'];
+                $data_str[$key]['notes'] = $val['notes'];
+                $data_str[$key]['created_date'] = date("d-m-Y", strtotime($val['created_date']));
+            }
+            //echo $val;die();
+            if (!empty($data_str)) {
+                $data['limitimesheetstr'] = $data_str;
+            }
+        }
+
+         
+         echo View::make('staff.timesheet.staff_timereport', $data);
+         
+/*
         $postData = Input::all();
         //echo '<pre>'; print_r($postData);die();
         $str_data = array();
@@ -431,7 +494,7 @@ class TimesheetController extends BaseController
 
         $str_id = StaffTimeReport::insertGetId($str_data);
         //print_r($str_id);
-        return Redirect::to('/time-sheet-reports/c3RhZmY=');
+        return Redirect::to('/time-sheet-reports/c3RhZmY=');*/
 
 
         //die('insertstaff_time_sheet');
