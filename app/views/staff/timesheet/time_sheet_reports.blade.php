@@ -455,9 +455,9 @@ function clientdisplay(){
     console.log(todpick);
     
 
-    if(todpick=="" && todpick==""){
+    if(fromdpick2!="" && todpick!="" && ctr_client!="" ){
         
-    }
+  
 
     $.ajax({
     	type: "POST",
@@ -475,17 +475,107 @@ function clientdisplay(){
                // alert(resp);
            
 			console.log(resp);
-            $("#dropctr").html(resp);
+            if(resp){
+                $("#dropctr").html(resp);
+            }
+            else{
+                $("#dropctrerror").html('No Records Found');
+            }
 
 				}
 
-	});
+	});  
+    }else{
+        
+        $("#dropctrerror").html('Please Select Fields');
+    }
 
 
 
 
 
 }
+
+function staffdisplay(){
+    
+     var str_staff= $("#str_staff").val();
+    
+    var str_client = $("#str_client").val();
+    
+    var strdpick2= $("#strdpick2").val();
+    
+    var dpickclient = $("#dpickclient").val();
+    
+    
+    console.log(str_staff);
+    console.log(str_client);
+    console.log(strdpick2);
+    console.log(dpickclient);
+    
+    if(strdpick2!="" && dpickclient!="" && str_client!="" ){
+     $.ajax({
+    	type: "POST",
+        //dataType: "html",/timesheet/fetcheditstaff-time-sheet
+        url: '/timesheet/insertstaff-time-sheet',
+        data: {
+
+			'str_staff': str_staff,'str_client': str_client,'strdpick2': strdpick2,'dpickclient': dpickclient
+
+		},
+
+		success: function(resp) {
+		  
+        
+               // alert(resp);
+           
+			console.log(resp);
+            if(resp){
+                $("#dropstr").html(resp);
+            }
+            else{
+                $("#dropstrerror").html('No Records Found');
+            }
+            //$("#dropstr").html(resp);
+
+				}
+
+	});
+    }else{
+         $("#dropstrerror").html('Please Select Fields');
+    }
+    
+    
+    
+    
+}
+
+$("#clienttimereset").click(function(){
+    
+    //alert('sgsgsgs');
+    $("#ctr_client").val("");
+    $("#ctr_serv").val("");
+    $("#fromdpick2").val("");
+    $("#todpick").val("");
+    $("#dropctr").html("");
+    $("#dropctrerror").html("");
+ 
+});
+
+$("#stafftimereset").click(function(){
+    
+    //alert('sgsgsgs');
+    $("#str_staff").val("");
+    $("#str_client").val("");
+    $("#strdpick2").val("");
+    $("#dpickclient").val("");
+    $("#dropstr").html("");
+    $("#dropstrerror").html("");
+ 
+});
+
+
+
+
 
 </script>
 <!-- Date picker script -->
@@ -552,9 +642,9 @@ function clientdisplay(){
                         <div style="width:35%; margin: 0 auto;">
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Time Sheet</span></button></div>
 
-                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button></div>
+                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default" id="clienttimereset" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button></div>
 
-                            <div style="float: left;"><button class="btn btn-default" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button></div>
+                            <div style="float: left;"><button class="btn btn-default" id="stafftimereset" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button></div>
                           </div>
                         <div class="col-xs-12">
                           
@@ -1029,6 +1119,9 @@ function clientdisplay(){
               <div class="clr"></div>
               <div id="dropctr">
               </div>
+              <div class="clr"></div>
+              <div id="dropctrerror" style="text-align: center; padding: 20px 10px 10px 10px; ">
+              </div>
           </div>
           </div>
         
@@ -1149,7 +1242,7 @@ function clientdisplay(){
         <div class="clearfix"></div>
       </div>-->
       <!--<form action="#" method="post">-->
-      {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }}
+    <!--  {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }} -->
       
         <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1210,7 +1303,7 @@ function clientdisplay(){
           
                   <span class="slct_con"><strong>to</strong></span>
                   <input class="dpick dpick1" type="text" id="dpickclient" name="strtodate"  />
-                   <button class="clnt_button">Display</button>   
+                   <button class="clnt_button" onclick="return staffdisplay()">Display</button>   
                    <div class="clr"></div>
           
           
@@ -1219,9 +1312,11 @@ function clientdisplay(){
               </div>
               <div class="clr"></div>
           
+          <div id="dropstr" ></div>
+          <div class="clr"></div>
           
-          
-          
+           <div id="dropstrerror" style="text-align: center; padding: 20px 10px 10px 10px;" ></div>
+           
           
           </div>
           
@@ -1231,7 +1326,7 @@ function clientdisplay(){
           
          
         </div>
-        {{ Form::close() }}
+      <!--  {{ Form::close() }} -->
       <!--</form>-->
     </div>
     <!-- /.modal-content -->

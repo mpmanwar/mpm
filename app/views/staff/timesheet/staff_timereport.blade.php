@@ -1,6 +1,6 @@
 
-             @if(!empty($limitimesheet))
-<table class="table table-bordered table-hover dataTable" id="example15452" aria-describedby="example2_info">
+             @if(!empty($limitimesheetstr))
+<table class="table table-bordered table-hover dataTable" id="example545" aria-describedby="example2_info">
             
                             <thead>
                               <tr role="row">
@@ -17,8 +17,8 @@
 
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
 							
-							@if(!empty($limitimesheet))
-								  @foreach($limitimesheet as $key=>$staff_row)
+							@if(!empty($limitimesheetstr))
+								  @foreach($limitimesheetstr as $key=>$staff_row)
 								 <tr>
 								<!--	<td align="center"><input type="checkbox" /></td> -->
 									<td align="center">{{ $staff_row['created_date'] }}</td>
@@ -37,3 +37,4 @@
                             </tbody>
                           </table>
                           @endif
+                         
