@@ -14,9 +14,9 @@
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- page script -->
 <script type="text/javascript">
-var Table1, Table2;
+var Table1, Table2, Table3;
 $(function() {
-/*$(function() {
+//$(function() {
   Table1 = $('#example1').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
@@ -35,7 +35,7 @@ $(function() {
         },
 
       "aoColumns":[
-            {"bSortable": false},
+            //{"bSortable": false},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -46,9 +46,43 @@ $(function() {
         ]
 
     });
-  Table1.fnSort( [ [2,'asc'] ] );*/
+  Table1.fnSort( [ [2,'asc'] ] );
 
   Table2 = $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 10,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+           // {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+
+   
+   Table2.fnSort( [ [2,'asc'] ] );
+   
+   
+  /* Table2 = $('#example2lmt').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -79,7 +113,7 @@ $(function() {
     });
 
    
-   Table2.fnSort( [ [2,'asc'] ] );
+   Table3.fnSort( [ [2,'asc'] ] );*/
    
   
 
@@ -192,6 +226,7 @@ $(function() {
 			//alert(resp.created_dates);
 			   var dateAr = resp.created_date.split('-');
 			   var date_string = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+               
 				//var date_string = moment(resp.created_date, "DD.MM.YYYY").format("DD-MM-YYYY");
 				$('#eddpick').val(date_string);
 				$('#staff_id_edit').val(resp.staff_id);
@@ -282,15 +317,21 @@ function openeditctrModal(ctr_id) {
 		success: function(resp) {
 		  
         
-          
+           var clientfromdate = resp.fromdate.split('-');
+	       var date_from = clientfromdate[2] + '-' + clientfromdate[1] + '-' + clientfromdate[0];
+           
+           var clienttodate = resp.todate.split('-');
+           var date_to = clienttodate[2] + '-' + clienttodate[1] + '-' + clienttodate[0];
+               
           
 		  $("#composeeditclienttr-modal").modal("show");
           
           
             	$('#ctredit_client').val(resp.ctr_client);
                 $('#ctredit_serv').val(resp.ctr_serv);
-                $('#editfromdpick').val(resp.fromdate);
-                $('#edittodpick').val(resp.todate);
+                $('#editfromdpick').val(date_from);
+                
+                $('#edittodpick').val(date_to);
                 $('#editctrid').val(resp.ctr_id);
                 
                 
@@ -330,6 +371,11 @@ function openstaffModal(str_id) {
 		success: function(resp) {
 		  
         
+          var stafffromdate = resp.strfromdate.split('-');
+	       var strdate_from = stafffromdate[2] + '-' + stafffromdate[1] + '-' + stafffromdate[0];
+           
+           var stafftodate = resp.strtodate.split('-');
+           var strdate_to = stafftodate[2] + '-' + stafftodate[1] + '-' + stafftodate[0];
           
           
 		  $("#composeditestr-modal").modal("show");
@@ -337,8 +383,8 @@ function openstaffModal(str_id) {
           
           $('#editstr_client').val(resp.str_client);
            $('#editstr_staff').val(resp.str_staff);
-            $('#editstrfromdate').val(resp.strfromdate);
-             $('#editstrtodate').val(resp.strtodate);
+            $('#editstrfromdate').val(strdate_from);
+             $('#editstrtodate').val(strdate_to);
              $('#editstrid').val(resp.str_id);
              
            
@@ -363,6 +409,82 @@ function openstaffModal(str_id) {
     console.log(str_id);
     
 }
+
+function lmtdelfun($del_id)
+{
+    var delid=$del_id;
+    console.log(delid);
+    if (confirm("Do you want to delete ?")) {
+    $.ajax({
+    	type: "POST",
+        //dataType: "html",/timesheet/fetcheditstaff-time-sheet
+        url: '/timesheet/delete-time-sheet',
+        data: {
+
+			'delid': delid
+
+		},
+
+		success: function(resp) {
+		  
+                   window.location='/time-sheet-reports/c3RhZmY=';
+			console.log(resp);
+
+				}
+
+	});
+    }
+    
+    
+}
+
+function clientdisplay(){
+    
+    var ctr_client= $("#ctr_client").val();
+    
+    var ctr_serv = $("#ctr_serv").val();
+    
+    var fromdpick2= $("#fromdpick2").val();
+    
+    var todpick = $("#todpick").val();
+    
+    
+    console.log(ctr_client);
+    console.log(ctr_serv);
+    console.log(fromdpick2);
+    console.log(todpick);
+    
+
+
+
+    $.ajax({
+    	type: "POST",
+        //dataType: "html",/timesheet/fetcheditstaff-time-sheet
+        url: '/timesheet/insertclient-time-sheet',
+        data: {
+
+			'ctr_client': ctr_client,'ctr_serv': ctr_serv,'fromdpick2': fromdpick2,'todpick': todpick
+
+		},
+
+		success: function(resp) {
+		  
+        
+               // alert(resp);
+           
+			console.log(resp);
+            $("#dropctr").html(resp);
+
+				}
+
+	});
+
+
+
+
+
+}
+
 </script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -392,9 +514,9 @@ function openstaffModal(str_id) {
           <div class="top_buttons">
             <div class="top_bts">
               <ul>
-                <li>
+               <!-- <li>
                   <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-                </li>
+                </li> -->
                 <li>
                   <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
                 </li>
@@ -425,7 +547,7 @@ function openstaffModal(str_id) {
                         <div class="col-xs-6"></div>
                       </div>
                       <div class="row">
-                        <div style="width:100%; margin: 0 0 40px 15px;">
+                        <div style="width:35%; margin: 0 auto;">
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Time Sheet</span></button></div>
 
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button></div>
@@ -462,11 +584,11 @@ function openstaffModal(str_id) {
                                 <td align="center">&nbsp;</td>
                                 <td align="center">&nbsp;</td>
                                 <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
-                                  <!--<a href="#"><img src="img/delete_icon.png" width="15"></a></td>
+                                  <a href="#"><img src="img/delete_icon.png" width="15"></a></td>
                               </tr>
                               
                             </tbody>
-                          </table>-->
+                          </table> -->
                           
                           <!--end table-->
                         </div>
@@ -475,8 +597,43 @@ function openstaffModal(str_id) {
                   </div>
                   <!--end table-->
                   
-                  
-                  <div>
+                  <table class="table table-bordered table-hover dataTable" id="example1" aria-describedby="example1_info">
+            
+                            <thead>
+                              <tr role="row">
+                              <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+                                <th align="center"><strong>Date</strong></th>
+                                <th align="center"><strong>Staff Name</strong></th>
+                                <th><strong>Client Name</strong></th>
+                                <th align="left"><strong>Service</strong></th>
+                                <th><strong>HRS</strong></th>
+                                <th><strong>Notes</strong></th>
+                                <th><strong>Action</strong></th>
+                              </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+							
+							@if(!empty($time_sheet_reportlmt))
+								  @foreach($time_sheet_reportlmt as $key=>$staff_row)
+								 <tr>
+								<!--	<td align="center"><input type="checkbox" /></td> -->
+									<td align="center">{{ $staff_row['created_date'] }}</td>
+									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
+									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
+									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
+									<td align="center">{{ $staff_row['hrs'] }}</td>
+									<td align="center">{{ $staff_row['notes'] }}</td>
+									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
+                                    <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a>
+									</tr>
+									@endforeach
+								@endif
+                                  
+                              
+                            </tbody>
+                          </table>
+               <!--   <div>
               <p class="btn btn-default">Client Time Report</p>
               
               <table class="table table-bordered table-hover dataTable" id="example3" aria-describedby="example2_info">
@@ -502,8 +659,8 @@ function openstaffModal(str_id) {
 									
 									<td  align="left">{{ $client_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $client_row['old_vat_scheme']['vat_scheme_name'] }}</td>
-                                    <td align="center">{{ $client_row['fromdate'] }}</td>
-                                    <td align="center">{{ $client_row['todate'] }}</td>
+                                    <td align="center">{{ date("d-m-Y",strtotime($client_row['fromdate'])) }}</td>
+                                    <td align="center">{{ date("d-m-Y",strtotime($client_row['todate'])) }}</td>
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $client_row['ctr_id'] }}" onclick="openeditctrModal('{{ $client_row['ctr_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
 									</tr>
 									</tr>
@@ -544,8 +701,9 @@ function openstaffModal(str_id) {
 						<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									
 									<td align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
-                                    <td align="center">{{ $staff_row['fromdate'] }}</td>
-                                    <td align="center">{{ $staff_row['todate'] }}</td>
+                                    <td align="center">{{ date("d-m-Y",strtotime($staff_row['fromdate'])) }}</td>
+                                    <td align="center">{{ date("d-m-Y",strtotime($staff_row['todate'])) }}</td>
+                                    
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['str_id'] }}" onclick="openstaffModal('{{ $staff_row['str_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
 									</tr>
 									</tr>
@@ -555,7 +713,7 @@ function openstaffModal(str_id) {
                               
                             </tbody>
                           </table>
-              </div>
+              </div> -->
                 </div>
                 
                 <!-- /.tab-pane -->
@@ -577,7 +735,7 @@ function openstaffModal(str_id) {
             
                             <thead>
                               <tr role="row">
-                                <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+                              <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
                                 <th align="center"><strong>Date</strong></th>
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
@@ -593,7 +751,7 @@ function openstaffModal(str_id) {
 							@if(!empty($time_sheet_report))
 								  @foreach($time_sheet_report as $key=>$staff_row)
 								 <tr>
-									<td align="center"><input type="checkbox" /></td>
+								<!--	<td align="center"><input type="checkbox" /></td> -->
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
@@ -601,6 +759,7 @@ function openstaffModal(str_id) {
 									<td align="center">{{ $staff_row['hrs'] }}</td>
 									<td align="center">{{ $staff_row['notes'] }}</td>
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
+                                    <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a>
 									</tr>
 									@endforeach
 								@endif
@@ -797,7 +956,7 @@ function openstaffModal(str_id) {
 
 <!-- composeclienttr -->
 <div class="modal fade" id="composeclienttr-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:67%;">
+  <div class="modal-dialog" style="width:56%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -805,18 +964,21 @@ function openstaffModal(str_id) {
         <div class="clearfix"></div>
       </div>-->
       <!--<form action="#" method="post">-->
-       {{ Form::open(array('url' => '/timesheet/insertclient-time-sheet')) }}
+     <!--  {{ Form::open(array('url' => '/timesheet/insertclient-time-sheet')) }} -->
       <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
+          
           <input type="hidden" name="type" id="ctr" value="client_tr">
+             
                  <p class="clnt_con">CLIENT TIME REPORT</p>
+             
               <div class="selec_seclf">
           
                   <span class="slct_con">Select Client</span>
                   
-                       <select class="form-control2" name="ctr_client" id="ctr_client">
+                       <select class="form-control2 newdropdown" name="ctr_client" id="ctr_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
     					  @foreach($allClients as $key=>$client_row)
@@ -829,18 +991,13 @@ function openstaffModal(str_id) {
                      
                   <div class="clr"></div>
           
-          
               </div>
               
-              
-              
-              
-              
-              <div class="selec_seclf" style="margin-left: 87px;">
+              <div class="selec_seclf_r">
           
                   <span class="slct_con">Select Service</span>
                   
-                       <select class="form-control2" name="ctr_serv" id="ctr_serv">
+                       <select class="form-control2 newdropdown" name="ctr_serv" id="ctr_serv">
     				<option value="">None</option>
     					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
                                       @foreach($old_vat_schemes as $key=>$scheme_row)
@@ -855,29 +1012,25 @@ function openstaffModal(str_id) {
               </div>
               <div class="clr"></div>
               
-              
-              
-              
-              
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+              <div class="select_con1">
+              <div class="selec_seclf2">
                     <span class="slct_con"><strong>Display activity from</strong></span>
                   <input class="dpick dpick1" type="text" id="fromdpick2" name="fromdate"  />
-                  <div class="clr"></div>
               </div>
-              
-              
-              
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+            <div class="selec_seclf3" >
                     <span class="slct_con"><strong>to</strong></span>
                   <input class="dpick dpick1" type="text" id="todpick" name="todate"  />
-                  <button class="clnt_button">Display</button>   
-                  <div class="clr"></div>
-              </div>
+                  <button class="clnt_button" id="client_display" onclick="return clientdisplay()">Display</button>   
+              </div></div>
+              
+              
               <div class="clr"></div>
+              <div id="dropctr">
+              </div>
           </div>
           </div>
         
-        {{ Form::close() }}
+      <!--  {{ Form::close() }} -->
       <!--</form>-->
     </div>
     <!-- /.modal-content -->
@@ -888,7 +1041,7 @@ function openstaffModal(str_id) {
 
 <!--composeeditclienttr edit -->
 <div class="modal fade" id="composeeditclienttr-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:67%;">
+  <div class="modal-dialog" style="width:56%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -898,11 +1051,13 @@ function openstaffModal(str_id) {
       <!--<form action="#" method="post">-->
        {{ Form::open(array('url' => '/timesheet/editclient-time-report')) }}
       <div class="modal-body">
+      
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          <input type="hidden" name="type" id="ctr" value="client_tr"
-                 <p class="clnt_con">CLIENT TIME REPORT</p>
+          
+          <input type="hidden" name="type" id="ctr" value="client_tr">
+                 <p class="clnt_con">EDIT CLIENT TIME REPORT</p>
              
              
              <input type="hidden" id="editctrid" name="editctrid" value="" />
@@ -913,7 +1068,7 @@ function openstaffModal(str_id) {
           
                   <span class="slct_con">Select Client</span>
                   
-                       <select class="form-control2" name="ctredit_client" id="ctredit_client">
+                       <select class="form-control2 newdropdown" name="ctredit_client" id="ctredit_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
     					  @foreach($allClients as $key=>$client_row)
@@ -925,19 +1080,15 @@ function openstaffModal(str_id) {
                        </select>
                      
                   <div class="clr"></div>
-          
-          
-              </div>
+          </div>
               
               
               
-              
-              
-              <div class="selec_seclf" style="margin-left: 87px;">
+              <div class="selec_seclf_r" >
           
                   <span class="slct_con">Select Service</span>
                   
-                       <select class="form-control2" name="ctredit_serv" id="ctredit_serv">
+                       <select class="form-control2 newdropdown" name="ctredit_serv" id="ctredit_serv">
     				<option value="">None</option>
     					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
                                       @foreach($old_vat_schemes as $key=>$scheme_row)
@@ -955,8 +1106,8 @@ function openstaffModal(str_id) {
               
               
               
-              
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+              <div class="select_con1">
+              <div class="selec_seclf2" >
                     <span class="slct_con"><strong>Display activity from</strong></span>
                   <input class="dpick dpick1" type="text" id="editfromdpick" name="editfromdpick"  />
                   <div class="clr"></div>
@@ -964,12 +1115,14 @@ function openstaffModal(str_id) {
               
               
               
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+              <div class="selec_seclf3" >
                     <span class="slct_con"><strong>to</strong></span>
                   <input class="dpick dpick1" type="text" id="edittodpick" name="edittodpick"  />
                   <button class="clnt_button">Display</button>   
                   <div class="clr"></div>
+              </div> 
               </div>
+              
               <div class="clr"></div>
           </div>
           </div>
@@ -986,7 +1139,7 @@ function openstaffModal(str_id) {
 
 <!-- strmodal -->
 <div class="modal fade" id="composestr-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:80%;">
+  <div class="modal-dialog" style="width:56%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1000,13 +1153,15 @@ function openstaffModal(str_id) {
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
+          
           <input type="hidden" name="type" id="str" value="staff_tr">
                  <p class="clnt_con">STAFF TIME REPORT</p>
+                 
               <div class="selec_seclf">
           
                   <span class="slct_con">Select Staff</span>
                   
-                       <select class="form-control2" name="str_staff" id="str_staff">
+                       <select class="form-control2 newdropdown" name="str_staff" id="str_staff">
     				<option value="">None</option>
     					@if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -1017,9 +1172,11 @@ function openstaffModal(str_id) {
                      
                   <div class="clr"></div>
                     </div>
-              <div class="selec_seclf" style="margin-left: 87px;">
+                    
+              <div class="selec_seclf_r">
+              
                 <span class="slct_con">Select Client</span>
-                 <select class="form-control2" name="str_client" id="str_client">
+                 <select class="form-control2 newdropdown" name="str_client" id="str_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
 					       @foreach($allClients as $key=>$client_row)
@@ -1027,25 +1184,27 @@ function openstaffModal(str_id) {
 					       @endforeach
 					   @endif
                 </select>
-                     
-                  <div class="clr"></div>
+                   <div class="clr"></div>
+                   
+                   
+                   
             </div>
               <div class="clr"></div>
               
               
               
               
-              
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+              <div class="select_con1">
+              <div class="selec_seclf2" >
           
                   <span class="slct_con"><strong>Display activity from</strong></span>
-                  <input class="dpick dpick1" type="text" id="dpick2" name="strfromdate"  />
+                  <input class="dpick dpick1" type="text" id="strdpick2" name="strfromdate"  />
                     <div class="clr"></div>
                 </div>
               
               
               
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+              <div class="selec_seclf3" >
           
                   <span class="slct_con"><strong>to</strong></span>
                   <input class="dpick dpick1" type="text" id="dpickclient" name="strtodate"  />
@@ -1053,6 +1212,8 @@ function openstaffModal(str_id) {
                    <div class="clr"></div>
           
           
+              </div>
+              
               </div>
               <div class="clr"></div>
           
@@ -1081,7 +1242,7 @@ function openstaffModal(str_id) {
 
 <!-- strmodaledit -->
 <div class="modal fade" id="composeditestr-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:80%;">
+  <div class="modal-dialog" style="width:56%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1095,13 +1256,14 @@ function openstaffModal(str_id) {
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           
           <div class="popupclienttime">
-          <input type="hidden" name="editstrid" id="editstrid" value=""
-                 <p class="clnt_con">STAFF TIME REPORT</p>
+          <input type="hidden" name="editstrid" id="editstrid" value="">
+                 <p class="clnt_con">EDIT STAFF TIME REPORT</p>
+             
               <div class="selec_seclf">
           
                   <span class="slct_con">Select Staff</span>
                   
-                       <select class="form-control2" name="editstr_staff" id="editstr_staff">
+                       <select class="form-control2 newdropdown" name="editstr_staff" id="editstr_staff">
     				<option value="">None</option>
     					@if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -1112,9 +1274,9 @@ function openstaffModal(str_id) {
                      
                   <div class="clr"></div>
                     </div>
-              <div class="selec_seclf" style="margin-left: 87px;">
+              <div class="selec_seclf_r">
                 <span class="slct_con">Select Client</span>
-                 <select class="form-control2" name="editstr_client" id="editstr_client">
+                 <select class="form-control2 newdropdown" name="editstr_client" id="editstr_client">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
 					       @foreach($allClients as $key=>$client_row)
@@ -1130,8 +1292,8 @@ function openstaffModal(str_id) {
               
               
               
-              
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 80px;" >
+              <div class="select_con1">
+              <div class="selec_seclf2">
           
                   <span class="slct_con"><strong>Display activity from</strong></span>
                   <input class="dpick dpick1" type="text" id="editstrfromdate" name="editstrfromdate"  />
@@ -1140,7 +1302,7 @@ function openstaffModal(str_id) {
               
               
               
-              <div class="selec_seclf" style="margin-top: 40px; margin-left: 0px !important;" >
+              <div class="selec_seclf3">
           
                   <span class="slct_con"><strong>to</strong></span>
                   <input class="dpick dpick1" type="text" id="editstrtodate" name="editstrtodate"  />
@@ -1148,6 +1310,7 @@ function openstaffModal(str_id) {
                    <div class="clr"></div>
           
           
+              </div>
               </div>
               <div class="clr"></div>
           
@@ -1174,21 +1337,24 @@ function openstaffModal(str_id) {
 
 
 
-<div style="z-index: 999;">
+<div>
 <div class="modal fade" id="composenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:29%;">
-    <div class="modal-content" style="height: 100px;">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
      
       
       <div class="modal-body">
       <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
-      <div style="margin-top: 12px; width:272px;">
-             <label for="f_name">Notes</label>
+     
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
              
-          <input type="text" name="notes1[]" id="notess" value="" style="padding: 5px 5px;">
+          <textarea rows="4" cols="50"  name="notes1[]" id="notess" value="" ></textarea>
          
          
-          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style="width: 60px; float: right; height: 33px;">Save</button>          
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button>   
+          <div class="clr"></div>       
          </div>
         </div>
         
@@ -1206,21 +1372,22 @@ function openstaffModal(str_id) {
 <!-- edit notes-->
 <div style="z-index: 999;">
 <div class="modal fade" id="composeeditnotes-modal" tabindex="1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:29%;">
-    <div class="modal-content" style="height: 100px;">
+  <div class="modal-dialog" style="width:36%;">
+    <div class="modal-content" >
      
       
       <div class="modal-body">
       <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
-      <div style="margin-top: 12px; width:272px;">
-             <label for="f_name">Notes</label>
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
              
           <!-- <input type="text" name="notes1[]" id="notess" value="" style="padding: 5px 5px;"> -->
-          <input type="text" name="notes" id="notes" style="padding: 5px 5px;">
+          <textarea rows="4" cols="50" name="notes" id="notes" ></textarea>
           
         <!--  <input type="text" name="notes1[]" id="editnotess" value="" style="padding: 5px 5px;"> -->
          
-          <button class="btn btn-primary" onclick="return editnotes()" id="save_notes" style="width: 60px; float: right; height: 33px;">Save</button>          
+          <button class="btn btn-primary" onclick="return editnotes()" id="save_notes" style="padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%;">Save</button>  
+          <div class="clr"></div>        
          </div>
         </div>
         
