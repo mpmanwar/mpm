@@ -90,9 +90,10 @@ $(function() {
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true},
+        {"bSortable": false},
         {"bSortable": true}
     ],
-    "aaSorting": [[5, 'asc']],
+    "aaSorting": [[6, 'asc']],
 
     });
         
@@ -316,7 +317,7 @@ $(function() {
                 @endif
               </td>
               <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span style="padding-top: 10px; float:left;">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"...":"" }}</span>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span>
                 
               </td>
               <td align="center" width="12%">
@@ -377,7 +378,7 @@ $(function() {
                 @endif
               </td>
               <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span style="padding-top: 10px; float:left;">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"...":"" }}</span></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
               <td align="center" width="12%">
                 <input type="hidden" name="22_prev_status_{{ $details['client_id'] }}" id="22_prev_status_{{ $details['client_id'] }}" value="2">
                 <select class="form-control newdropdown table_select status_dropdown" id="22_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
@@ -437,7 +438,7 @@ $(function() {
                   @endif
                 </td>
                 <td align="center"></td>
-                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span style="padding-top: 10px; float:left;">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"...":"" }}</span></td>
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
                 <td align="center" width="12%">
                   <input type="hidden" name="2{{ $k }}_prev_status_{{ $details['client_id'] }}" id="2{{ $k }}_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
                   <select class="form-control newdropdown table_select status_dropdown" id="2{{ $k }}_status_dropdown" data-client_id="{{ $details['client_id'] }}">
@@ -497,7 +498,7 @@ $(function() {
                 @endif
               </td>
               <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span style="padding-top: 10px; float:left;">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"...":"" }}</span></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
               <td align="center" width="12%">
                 <input type="hidden" name="210_prev_status_{{ $details['client_id'] }}" id="210_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
                 <select class="form-control newdropdown table_select status_dropdown" id="210_status_dropdown" data-client_id="{{ $details['client_id'] }}">
@@ -535,6 +536,7 @@ $(function() {
           <th>CRN</th>
           <th>BUSINESS NAME</th>
           <th>LAST RETURN DATE</th>
+          <th>NOTES</th>
           <th>FILING DATE</th>
         </tr>
       </thead>
@@ -549,6 +551,7 @@ $(function() {
               <td align="left">{{ $details['registration_number'] or "" }}</td>
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
               <td align="center">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
               <td align="center" width="12%">
                 {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
               </td>
