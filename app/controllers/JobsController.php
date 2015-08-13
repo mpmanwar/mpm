@@ -66,6 +66,7 @@ class JobsController extends BaseController {
         $dead_line      = Input::get("dead_line");
         $service_id     = Input::get("service_id");
         $data['company_details'] = Client::getClientByServiceId( $service_id );
+        //print_r($data['company_details']);
         $all_count = 0;
         $i = 0;
         if(isset($data['company_details']) && count($data['company_details']) >0){
@@ -74,30 +75,30 @@ class JobsController extends BaseController {
 
                     $jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $details['client_id'])->where("service_id", "=", $service_id)->first();
                     $job_data["status"]    = "Y";
+                    $job_data["user_id"]    = $user_id;
+                    $job_data["service_id"] = $service_id;
+                    $job_data["client_id"]  = $details['client_id'];
                     if(isset($jobs) && count($jobs) >0){
                         JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($job_data);
                         $last_id = $jobs['job_manage_id'];
                     }else{
-                        $job_data["user_id"]    = $user_id;
-                        $job_data["service_id"] = $service_id;
-                        $job_data["client_id"]  = $details['client_id'];
                         $last_id = JobsManage::insertGetId($job_data);
                     }
-
+//echo $this->last_query();die;
                     $client_array[$i]['client_id'] = $details['client_id'];
                     $i++;
                 }
             }
         }
 
-        $autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $service_id)->first();
+        $autosend=AutosendTask::whereIn("user_id", $groupUserId)->where('service_id','=',$service_id)->first();
+        $autoData["user_id"]      = $user_id;
+        $autoData['days']         = $dead_line;
+        $autoData['service_id']   = $service_id;
         if(isset($autosend) && count($autosend) >0 ){
-            $updateData['days'] = $dead_line;
-            AutosendTask::where('autosend_id', '=', $autosend['autosend_id'])->update($updateData);
+            AutosendTask::where('autosend_id', '=', $autosend['autosend_id'])->update($autoData);
         }else{
-            $insrt_data['service_id']   = $service_id;
-            $insrt_data['days']         = $dead_line;
-            AutosendTask::insert($insrt_data);
+            AutosendTask::insert($autoData);
         }
         
         echo json_encode($client_array);

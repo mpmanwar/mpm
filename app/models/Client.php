@@ -21,6 +21,7 @@ class Client extends Eloquent {
 
 				// ############### GET MANAGE TASK START ################## //
 				$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id->client_id)->first();
+				//Common::last_query();
 		    	if(isset($jobs) && count($jobs) >0){
 		    		$client_data[$i]['ch_manage_task'] 	= $jobs['status'];
 		    	}else{
@@ -46,24 +47,21 @@ class Client extends Eloquent {
 				$JobStatus = JobStatus::whereIn("user_id", $groupUserId)->where("is_completed", "=", "N")->where("client_id", "=", $client_id->client_id)->get();
 				//print_r($JobStatus);die;
 				if(isset($JobStatus) && count($JobStatus) >0){
-					foreach ($JobStatus as $key => $row) {
-						$service_id = $row['service_id'];
-						$client_data[$i]['job_status'][$service_id]['job_status_id'] = $row['job_status_id'];
-						$client_data[$i]['job_status'][$service_id]['client_id'] = $row['client_id'];
-						$client_data[$i]['job_status'][$service_id]['service_id'] = $row['service_id'];
-						$client_data[$i]['job_status'][$service_id]['status_id'] = $row['status_id'];
-						$client_data[$i]['job_status'][$service_id]['created'] = $row['created'];
+					foreach ($JobStatus as $key => $status_row) {
+						$service_id = $status_row['service_id'];
+						$client_data[$i]['job_status'][$service_id]['job_status_id'] = $status_row['job_status_id'];
+						$client_data[$i]['job_status'][$service_id]['client_id'] = $status_row['client_id'];
+						$client_data[$i]['job_status'][$service_id]['service_id'] = $status_row['service_id'];
+						$client_data[$i]['job_status'][$service_id]['status_id'] = $status_row['status_id'];
+						$client_data[$i]['job_status'][$service_id]['created'] = $status_row['created'];
 					}//print_r($client_data);//die;
 				}
 				// ############### GET JOB STATUS END ################## //
 
 				// ############### GET OTHER SERVICES START ################## //
 				$client_data[$i]['services_id'] 	=   Client::getServicesIdByClient($client_id->client_id);
-				/*$queries = DB::getQueryLog();
-				$last_query = end($queries);
-				echo $last_query['query'];*/
-				//print_r($client_data[$i]['services_id']);//die;
 				// ############### GET OTHER SERVICES END ################## //
+
 
 				// ############### GET VAT SCHEME USER START ################## //
 				$service = Common::get_services_client($client_id->client_id);
@@ -266,6 +264,8 @@ class Client extends Eloquent {
 					if($alloc_clients['staff_id1'] != 0 || $alloc_clients['staff_id2'] != 0 || $alloc_clients['staff_id3'] != 0 || $alloc_clients['staff_id4'] != 0 || $alloc_clients['staff_id5'] != 0 ){
 						unset($client_details[$key]);
 					}
+				}else{
+					$client_details[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 				}
 
 			}
@@ -286,6 +286,8 @@ class Client extends Eloquent {
 				if(isset($alloc_clients) && count($alloc_clients) >0){
 					if($alloc_clients['staff_id1'] == $staff_id || $alloc_clients['staff_id2'] == $staff_id || $alloc_clients['staff_id3'] == $staff_id || $alloc_clients['staff_id4'] == $staff_id || $alloc_clients['staff_id5'] == $staff_id ){
 						$client_array[$key] = $client_details[$key];
+
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 					}
 				}
 
@@ -303,6 +305,7 @@ class Client extends Eloquent {
 			foreach ($client_details as $key => $details) {
 				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
 					$client_array[$key] = $client_details[$key];
+					$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
 				}
 			}
 		}

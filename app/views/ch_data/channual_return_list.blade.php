@@ -9,7 +9,7 @@
 <script src="{{ URL :: asset('js/jobs.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/ch_data.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 <!-- page script -->
@@ -17,59 +17,61 @@
 var Table1, Table3;
 $(function() {
     Table1 = $('#example1').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
-        "iDisplayLength": 25,
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
 
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false},
-            {"bSortable": false}
-        ]
+      "aoColumns":[
+          {"bSortable": false},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": false},
+          {"bSortable": false}
+      ],
+      "aaSorting": [[8, 'asc']]
 
     });
-    Table1.fnSort( [ [8,'asc'] ] );
+    
 
   for(var k=1; k<=10;k++){
     //var table = Table2+""+k;
     var table = $('#example2'+k).dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
-        "iDisplayLength": 25,
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
 
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
+      "aoColumns":[
+          {"bSortable": false},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": false},
+          {"bSortable": false}
+      ],
+      "aaSorting": [[6, 'asc']]
 
     });
-    table.fnSort( [ [7,'asc'] ] );
+    //table.fnSort( [ [7,'asc'] ] );
   }
 
   Table3 = $('#example3').dataTable({
@@ -89,12 +91,11 @@ $(function() {
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true}
-    ]
+    ],
+    "aaSorting": [[5, 'asc']],
 
     });
-    Table3.fnSort( [ [3,'asc'] ] );
-
-    
+        
 
 });
 
@@ -232,7 +233,7 @@ $(function() {
             <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
             <td class="sorting_1" align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
             <td align="center">{{ $details['registration_number'] or "" }}</td>
-            <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+            <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
             <td align="center">{{ $details['acc_ref_day'] or "" }}-{{ $details['ref_month'] or "" }}</td>
             <td align="center">{{ $details['ch_auth_code'] or "" }}</td>
             <td align="center">{{ isset($details['made_up_date'])?date("d-m-Y", strtotime($details['made_up_date'])):"" }}</td>
@@ -536,7 +537,7 @@ $(function() {
         </tr>
       </thead>
 
-      <tbody role="alert" aria-live="polite" aria-relevant="all">
+      
         <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($completed_task) && count($completed_task) >0)
           @foreach($completed_task as $key=>$details)
@@ -544,8 +545,8 @@ $(function() {
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
               <td align="left"></td>
               <td align="left">{{ $details['registration_number'] or "" }}</td>
-              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
-              <td align="center">{{ isset($details['last_acc_madeup_date'])?date("d-m-Y", strtotime($details['last_acc_madeup_date'])):"" }}</td>
+              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
+              <td align="center">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</td>
               <td align="center" width="12%">
                 {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
               </td>
@@ -555,7 +556,7 @@ $(function() {
         
       </tbody>
         
-      </tbody>
+      
     </table>
 
   </div>

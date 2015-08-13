@@ -231,7 +231,7 @@ $(function() {
               <tr class="even" id="client_{{ $details['client_id'] }}">
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox org_Checkbox" name="org_checkbox[]" value="{{ $details['client_id'] or "" }}" id="org_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"":"disabled" }} /><label for="org_checkbox{{ $details['client_id'] }}"></label></span></td>
                 <td align="left">{{ $details['business_type'] or "" }}</td>
-                <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}">{{ $details['business_name'] or "" }}</a></td>
+                <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox applicable_Checkbox" name="applicable_checkbox[]" value="{{ $details['client_id'] or "" }}" id="applicable_checkbox{{ $details['client_id'] }}" {{ (isset($details['services_id']) && in_array($service_id, $details['services_id']))?"checked":"" }} /><label for="applicable_checkbox{{ $details['client_id'] }}"></label></span></td>
                 @for($i=1; $i <=5; $i++)
                 <td align="left">

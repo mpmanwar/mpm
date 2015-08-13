@@ -54,7 +54,7 @@ $(document).ready(function(){
     {{ Form::open(array('url' => '/organisation/insert-client-details', 'files' => true)) }}
     <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
     <input name="client_type" id="client_type" type="hidden" value="org">
-    
+    <input type="hidden"  name="encode_page_name"  id="encode_page_name" value="{{ $encode_page_name }}">
     <input type="hidden"  name="page_name"  id="page_name" value="{{ $page_name }}">
     
     <section class="content">

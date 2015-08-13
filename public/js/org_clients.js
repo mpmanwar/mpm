@@ -473,6 +473,7 @@ $("#add_business_type").click(function(){
 // SYNC DATA upload from organisation client edit page start //
 $("#sync_data_button").click(function(){
     var number = $("#registration_number").val();
+    var encode_page_name = $("#encode_page_name").val();
     if(number == ""){
       alert("Please enter the company registration number");
       return false;
@@ -488,7 +489,7 @@ $("#sync_data_button").click(function(){
         success: function (client_id) {//return false;
             if(client_id > 0){
                 $(".message_div").html("<span style='color:#3c8dbc;font-size:16px'>Company details successfully updated</span>");
-                window.location.href='/client/edit-org-client/'+client_id;
+                window.location.href='/client/edit-org-client/'+client_id+"/"+encode_page_name;
                     
             }else{
                 $(".message_div").html("<span style='color:red;font-size:16px'>There are some error to importing data</span>");
