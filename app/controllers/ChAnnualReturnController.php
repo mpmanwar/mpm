@@ -76,7 +76,7 @@ class ChAnnualReturnController extends BaseController {
 		//echo $last_query['query']."client_id : ".$client_id;
 		print_r($queries);
 */
-		//echo "<prev>".print_r($data['completed_task']);die;
+		//echo "<prev>".print_r($data['company_details']);die;
 		return View::make('ch_data.channual_return_list', $data);
 	}
 

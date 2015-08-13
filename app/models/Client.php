@@ -270,11 +270,11 @@ class Client extends Eloquent {
 							unset($client_details[$key]);
 						}else{
 							$client_array[$key] = $client_details[$key];
-							$client_details[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+							$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 						}
 					}else{
 						$client_array[$key] = $client_details[$key];
-						$client_details[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 					}
 				}
 
