@@ -281,7 +281,7 @@ Route::post('/timesheet/editclient-time-report', 'TimesheetController@editclient
 
 Route::post('/timesheet/fetcheditstaff-time-sheet', 'TimesheetController@fetcheditstaff_time_sheet');
 Route::post('/timesheet/editstaff-time-report', 'TimesheetController@editstaff_time_report');
-
+Route::post('/timesheet/delete-time-sheet', 'TimesheetController@delete_time_report');
 
 
 /*==================Time Sheet End ==============*/
