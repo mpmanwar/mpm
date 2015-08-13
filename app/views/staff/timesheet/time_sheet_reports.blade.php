@@ -455,7 +455,9 @@ function clientdisplay(){
     console.log(todpick);
     
 
-
+    if(todpick=="" && todpick==""){
+        
+    }
 
     $.ajax({
     	type: "POST",
@@ -531,7 +533,7 @@ function clientdisplay(){
           <div class="tabarea">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs nav-tabsbg">
-                <li class="active"><a data-toggle="tab" href="#tab_1">TIME SHEET</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_1">RECENT TIME SHEET</a></li>
                 <li class=""><a data-toggle="tab" href="#tab_2">TIME SHEET LOG</a></li>
               </ul>
               
