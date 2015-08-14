@@ -13,67 +13,6 @@
 
 <!-- page script -->
 <script type="text/javascript">
-/* Create an array with the values of all the input boxes in a column */
-/*$.fn.dataTable.ext.order['dom-text'] = function  ( settings, col )
-{
-    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
-        return $('input', td).val();
-    } );
-}*/
- 
-/* Create an array with the values of all the input boxes in a column, parsed as numbers */
-/*$.fn.dataTable.ext.order['dom-text-numeric'] = function  ( settings, col )
-{
-    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
-
-        return $('p', td).html() * 1;
-    } );
-}*/
- 
-/* Create an array with the values of all the select options in a column */
-/*$.fn.dataTable.ext.order['dom-select'] = function  ( settings, col )
-{
-    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
-        return $('select', td).val();
-    } );
-}*/
- 
-/* Create an array with the values of all the checkboxes in a column */
-/*$.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col )
-{
-    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
-        return $('input', td).prop('checked') ? '1' : '0';
-    } );
-}*/
- 
-/* Initialise the table with the required column ordering data types */
-/*$(document).ready(function() {
-    $('#example').dataTable( {
-        "columns": [
-            null,
-            { "orderDataType": "dom-text-numeric" },
-            { "orderDataType": "dom-text-numeric" },
-            { "orderDataType": "dom-select", type: 'string' }
-        ]
-    } );
-} );*/
-
-/*$.fn.dataTable.ext.type.detect.unshift(
-    function ( d ) {
-        return d === 'OVER DUE' ?
-            'salary-grade' :
-            null;
-    }
-);
- 
-$.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-    switch ( d ) {
-        case 'Low':    return 1;
-        case 'Medium': return 2;
-        case 'High':   return 3;
-    }
-    return 0;
-};*/
 
 var Table1;
 $(function() {
@@ -176,9 +115,9 @@ $(function() {
                     </div>
                     <!-- <a href="/import-from-ch/{{ base64_encode('ch_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
                   </li>
-                  <!-- <li style="width:60%">
-                    
-                  </li> -->
+                  <li style="margin-left: 450px;">
+                    <div id="message_div"><!-- Loader image show while sync data --></div>
+                  </li>
                   
                 </ul>
               </div>
@@ -192,7 +131,7 @@ $(function() {
                   <tr>
                     <td>COMPANIES HOUSE</td>
                     <td>&nbsp;</td>
-                    <td><button class="btn btn-danger">SYNC DATA</button></td>
+                    <td><a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a></td>
                     <td>&nbsp;</td>
                     <td><a href="https://beta.companieshouse.gov.uk" target="_blank" class="btn btn-info">WEBCHECK</a></td>
                   </tr>
