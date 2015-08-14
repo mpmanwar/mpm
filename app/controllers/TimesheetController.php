@@ -659,7 +659,7 @@ class TimesheetController extends BaseController
         //if (base64_decode($type) == 'profile') {
 //            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
 //        } else {
-//            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
 //        }
 //        $data['staff_type'] = base64_decode($type);
 //
@@ -687,7 +687,7 @@ class TimesheetController extends BaseController
         //if (base64_decode($type) == 'profile') {
 //            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
 //        } else {
-//            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
 //        }
 //        $data['staff_type'] = base64_decode($type);
 //
