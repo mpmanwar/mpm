@@ -664,7 +664,7 @@ function fontfetchnotesmodal(fontvalue){
                             <div style="float: left; padding-right: 10px;">
                            
                            <!-- <button class="btn btn-default" id="clienttimereset" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button> -->
-                            <a class="btn btn-default" href='/timesheet/client-timereport'>
+                            <a class="btn btn-default" href='/timesheet/client-timereport' target="_blank">
                             Client Time Report </a>
                             
                             </div>
@@ -672,7 +672,7 @@ function fontfetchnotesmodal(fontvalue){
                             <div style="float: left;">
                             
                           <!--  <button class="btn btn-default" id="stafftimereset" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button> -->
-                            <a class="btn btn-default" href='/timesheet/staff-timereport'>
+                            <a class="btn btn-default" href='/timesheet/staff-timereport' target="_blank">
                            <span class="decline_t">Staff Time Report</span> </a>
                             
                             </div>

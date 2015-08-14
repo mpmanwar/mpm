@@ -1,7 +1,7 @@
 
-           
+           	@if(!empty($limitimesheet))
              
-             <div class="top_bts">
+           <!--  <div class="top_bts">
               <ul>
                 <li>
                   <button class="btn btn-success"><i class="fa fa-trash-o fa-fw"></i> Print</button>
@@ -13,7 +13,7 @@
                   <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
                 </li>
               </ul>
-            </div>
+            </div> -->
 <table class="table table-bordered table-hover dataTable" id="example15452" aria-describedby="example2_info">
             
                             <thead>
@@ -50,4 +50,4 @@
                               
                             </tbody>
                           </table>
-                      
+                      @endif
