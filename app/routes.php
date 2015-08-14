@@ -283,6 +283,8 @@ Route::post('/timesheet/editclient-time-report', 'TimesheetController@editclient
 Route::post('/timesheet/fetcheditstaff-time-sheet', 'TimesheetController@fetcheditstaff_time_sheet');
 Route::post('/timesheet/editstaff-time-report', 'TimesheetController@editstaff_time_report');
 Route::post('/timesheet/delete-time-sheet', 'TimesheetController@delete_time_report');
+Route::any('/timesheet/client-timereport', 'TimesheetController@client_timereport');
+Route::any('/timesheet/staff-timereport', 'TimesheetController@staff_timereport');
 
 
 /*==================Time Sheet End ==============*/

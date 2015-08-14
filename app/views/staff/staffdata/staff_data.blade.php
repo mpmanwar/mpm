@@ -18,8 +18,10 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 50,
+         "aLengthMenu": [[90], [90]],
+        "iDisplayLength": 90,
+       // "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        //"iDisplayLength": 50,
         "language": {
             "lengthMenu": "Show _MENU_ entries",
             "zeroRecords": "Nothing found - sorry",

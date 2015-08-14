@@ -650,6 +650,42 @@ class TimesheetController extends BaseController
         //return Redirect::to('/time-sheet-reports/c3RhZmY=');
 
     }
+    
+    
+    public function client_timereport(){
+        
+        $data['heading'] = "TIME SHEET";
+        $data['title'] = "Time Sheet Reports";
+        //if (base64_decode($type) == 'profile') {
+//            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+//        } else {
+//            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+//        }
+//        $data['staff_type'] = base64_decode($type);
+//
+
+        $data['heading'] = "";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+        //die('sddsdsd');
+        
+        $data['allClients'] = App::make("HomeController")->get_all_clients();
+        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
+            get();
+        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
+            $groupUserId)->orderBy("vat_scheme_name")->get();
+    return View::make('staff.timesheet.client_report',$data);
+    
+    }
+    
+     public function staff_timereport(){
+        
+        die('stafftimereport');
+     
+     return View::make('staff.timesheet.', $data);
+    }
 
 
 }

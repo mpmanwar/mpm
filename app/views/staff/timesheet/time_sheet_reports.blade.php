@@ -24,8 +24,8 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 50,
+        "aLengthMenu": [[90], [90]],
+        "iDisplayLength": 90,
         "language": {
             "lengthMenu": "Show _MENU_ entries",
             "zeroRecords": "Nothing found - sorry",
@@ -661,9 +661,22 @@ function fontfetchnotesmodal(fontvalue){
                         <div style="width:35%; margin: 0 auto;">
                             <div style="float: left; padding-right: 10px;"><button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Time Sheet</span></button></div>
 
-                            <div style="float: left; padding-right: 10px;"><button class="btn btn-default" id="clienttimereset" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button></div>
+                            <div style="float: left; padding-right: 10px;">
+                           
+                           <!-- <button class="btn btn-default" id="clienttimereset" data-toggle="modal" data-target="#composeclienttr-modal" >Client Time Report</button> -->
+                            <a class="btn btn-default" href='/timesheet/client-timereport'>
+                            Client Time Report </a>
+                            
+                            </div>
 
-                            <div style="float: left;"><button class="btn btn-default" id="stafftimereset" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button></div>
+                            <div style="float: left;">
+                            
+                          <!--  <button class="btn btn-default" id="stafftimereset" data-toggle="modal" data-target="#composestr-modal" ><span class="decline_t">Staff Time Report</span></button> -->
+                            <a class="btn btn-default" href='/timesheet/staff-timereport'>
+                           <span class="decline_t">Staff Time Report</span> </a>
+                            
+                            </div>
+                          
                           </div>
                         <div class="col-xs-12">
                           

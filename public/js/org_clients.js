@@ -4,6 +4,7 @@ var calCounter = function(){
 }
 
 $(document).ready(function(){
+ 
   $("#bank_short_code").mask("99-99-99");
 
 	$('#ann_ret_check').on('ifChecked', function(event){

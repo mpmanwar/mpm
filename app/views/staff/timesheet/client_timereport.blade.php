@@ -1,11 +1,11 @@
 
-             @if(!empty($limitimesheet))
+           
              
              <div class="top_bts">
               <ul>
-               <!-- <li>
-                  <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-                </li> -->
+                <li>
+                  <button class="btn btn-success"><i class="fa fa-trash-o fa-fw"></i> Print</button>
+                </li> 
                 <li>
                   <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
                 </li>
@@ -50,4 +50,4 @@
                               
                             </tbody>
                           </table>
-                          @endif
+                      
