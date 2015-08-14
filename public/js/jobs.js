@@ -346,15 +346,30 @@ $(document).ready(function () {
 
 /* ################# Open date text in job completed section Start ################### */
     $(".change_last_date").click(function(){
-        var client_id   = $(this).data('client_id');
-        var tab         = $(this).data('tab');
+        var key   = $(this).data('key');
+        var tab   = $(this).data('tab');
         $(this).hide();
-        $("."+tab+"_save_made_span_"+client_id).show();
-        $("#"+tab+"_made_up_date_"+client_id).val(''); 
+        $("."+tab+"_save_made_span_"+key).show();
+        $("#"+tab+"_made_up_date_"+key).val(''); 
     });
 
     $(".save_made_date").click(function(){
+        var client_id   = $(this).data('client_id');
+        var service_id  = $(this).data('service_id');
+        var tab         = $(this).data('tab');
+        var key         = $(this).data('key');
+        var date        = $("#"+tab+"_made_up_date_"+key).val();
 
+        $.ajax({
+          type: "POST",
+          //dataType : "json",
+          url: "/jobs/save-made-up-date",
+          data: { 'client_id': client_id, 'service_id': service_id, 'date': date },
+          success: function (resp) {
+            $("#"+tab+"_dateanchore_"+key).show();
+            $("."+tab+"_save_made_span_"+key).hide();         
+          }
+        });
     });
 /* ################# Open date text in job completed section Start ################### */
     

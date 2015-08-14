@@ -560,10 +560,10 @@ $(function() {
               <td align="left">{{ $details['registration_number'] or "" }}</td>
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
               <td align="center" width="20%">
-                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</a>
-                <span class="3_save_made_span_{{ $details['client_id'] }}"  style="display:none;">
-                  <input type="text" class="made_up_date" id="3_made_up_date_{{$details['client_id']}}"/>
-                  <a href="javascript:void(0)" class="search_t save_made_date">Save</a>
+                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</a>
+                <span class="3_save_made_span_{{ $key }}"  style="display:none;">
+                  <input type="text" class="made_up_date" id="3_made_up_date_{{ $key }}"/>
+                  <a href="javascript:void(0)" class="search_t save_made_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Save</a>
                 </span>
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>

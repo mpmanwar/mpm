@@ -260,6 +260,7 @@ Route::post('/jobs/change-job-status', 'JobsController@change_job_status');
 Route::post('/jobs/show-jobs-notes', 'JobsController@show_jobs_notes');
 Route::post('/jobs/save-jobs-notes', 'JobsController@save_jobs_notes');
 Route::post('/jobs/send-global-task', 'JobsController@send_global_task');
+Route::post('/jobs/save-made-up-date', 'JobsController@save_made_up_date');
 
 /*=============== Jobs Dashboard Section End =================*/
 

@@ -24,7 +24,7 @@ class JobsCompletedTask  extends Eloquent{
 	public static function putCompletedTaskDate($client_id, $service_id, $status_id)
 	{
 		$status_data = array();
-		$session        = Session::get('admin_details');//
+		$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 

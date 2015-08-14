@@ -210,6 +210,34 @@ class JobsController extends BaseController {
         echo $last_id;exit;
     }
 
+    public function save_made_up_date()
+    {
+        $data = array();
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $client_id  = Input::get("client_id");
+        $service_id = Input::get("service_id");
+
+        $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->where('field_name', '=', "made_up_date")->select("field_value")->first();
+
+        $data['field_value']   = Input::get("date");
+        if(isset($client_details["field_value"]) && $client_details["field_value"] != ""){
+            StepsFieldsClient::where('client_id', '=', $client_id)->where('field_name', '=', "made_up_date")->update($data);
+        }else{
+            $data['user_id']        = $user_id;
+            $data['client_id']      = $client_id;
+            $data['step_id']        = 1;
+            $data['field_name']     = "made_up_date";
+            
+            StepsFieldsClient::insertGetId($data);
+        }
+
+        echo $client_id;exit;
+    }
+
+
 
     
 
