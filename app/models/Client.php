@@ -240,10 +240,6 @@ class Client extends Eloquent {
 	{
 		$data = array();
 		$services = ClientService::where("client_id", "=", $client_id)->get();
-		/*$queries = DB::getQueryLog();
-		$last_query = end($queries);
-		echo $last_query['query']."client_id : ".$client_id;*/
-		//print_r($services);
 		if(isset($services) && count($services) >0){
 			foreach ($services as $key => $value) {
 				$data[$key] = $value->service_id;
@@ -270,11 +266,11 @@ class Client extends Eloquent {
 							unset($client_details[$key]);
 						}else{
 							$client_array[$key] = $client_details[$key];
-							$client_details[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+							$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 						}
 					}else{
 						$client_array[$key] = $client_details[$key];
-						$client_details[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
 					}
 				}
 

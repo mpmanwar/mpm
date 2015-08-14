@@ -21,7 +21,7 @@ class ChAnnualReturnController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$autosend = AutosendTask::where('service_id', '=', $data['service_id'])->first();
+		$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 		if(isset($autosend) && $autosend['staff_filter'] != ""){
 			$data['staff_id'] 	= $autosend['staff_filter'];
 		}
@@ -76,7 +76,7 @@ class ChAnnualReturnController extends BaseController {
 		//echo $last_query['query']."client_id : ".$client_id;
 		print_r($queries);
 */
-		//echo "<prev>".print_r($data['completed_task']);die;
+		//echo "<prev>".print_r($data['company_details']);die;
 		return View::make('ch_data.channual_return_list', $data);
 	}
 

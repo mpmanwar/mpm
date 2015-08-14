@@ -147,6 +147,8 @@ class JobsController extends BaseController {
         $service_id = Input::get("service_id");
         $status_id  = Input::get("status_id");
 
+        JobsCompletedTask::putCompletedTaskDate($client_id, $service_id, $status_id);
+
         $qry = JobStatus::whereIn("user_id", $groupUserId)->where("is_completed", "=", "N")->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
         
         if(isset($qry) && count($qry) >0){
