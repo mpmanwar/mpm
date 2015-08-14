@@ -146,7 +146,7 @@ $(function() {
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             <li>
-              <button class="btn btn-danger">SYNC DATA</button>
+              <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
             </li>
             <!-- <li>
               <div class="import_fromch_main">
@@ -185,14 +185,19 @@ $(function() {
               </td>
             </tr>
           </table>
+           <div class="clearfix"></div>
         </div>
+       
+        <div id="message_div"><!-- Loader image show while sync data --></div>
       </div>
+
+      
 
       </div>
       <div class="practice_mid">
       <input type="hidden" name="page_open" id="page_open" value="{{ $page_open }}">
       <input type="hidden" name="encode_page_open" id="encode_page_open" value="{{ $encode_page_open }}">
-
+      <input type="hidden" name="encode_staff_id" id="encode_staff_id" value="{{ $encode_staff_id }}">
           <div class="tabarea">
   
   <div class="nav-tabs-custom">

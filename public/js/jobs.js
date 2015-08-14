@@ -379,7 +379,41 @@ $(document).ready(function () {
         });
     });
 /* ################# Open date text in job completed section Start ################### */
-    
+
+/* ################# SYNC data in job section start ################### */
+    $(".sync_jobs_data").click(function(){
+        var service_id          = $("#service_id").val();
+        var encode_staff_id     = $("#encode_staff_id").val();
+        var encode_page_open    = $("#encode_page_open").val();
+        var val = [];
+        //alert('val');return false;
+        $(".checkbox:checked").each( function (i) {
+            if($(this).is(':checked')){
+                val[i] = $(this).val();
+            }
+        });
+        //alert(val.length);return false;
+        if(val.length>0){
+            $.ajax({
+                type: "POST",
+                url: '/jobs/sync-jobs-clients',
+                data: { 'client_ids' : val, 'service_id' : service_id },
+                beforeSend : function(){
+                    $(".sync_jobs_data").attr('disabled', 'disabled');
+                    $("#message_div").html('<img src="/img/spinner.gif" />');
+                },
+                success : function(resp){
+                  window.location = '/ch-annual-return/'+service_id+'/'+encode_page_open+'/'+encode_staff_id;
+                }
+            });
+            
+        }else{
+            alert('Please select atleast one job');
+        }
+
+    });
+/* ################# SYNC data in job section end ################### */
+
     
     
 	

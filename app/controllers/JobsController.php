@@ -237,6 +237,26 @@ class JobsController extends BaseController {
         echo $client_id;exit;
     }
 
+    public function sync_jobs_clients()
+    {
+        $data = array();
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $client_ids  = Input::get("client_ids");
+        $service_id = Input::get("service_id");
+
+        if(isset($client_ids) && count($client_ids) > 0){
+            foreach ($client_ids as $key => $client_id) {
+                $company_number = Client::getCompanyNumberByClientId($client_id);
+                $value = $company_number."=function";
+                $client_id = App::make("ChdataController")->import_company_details($value);
+            }
+        }
+        return $client_id;
+    }
+
 
 
     
