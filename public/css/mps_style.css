@@ -970,7 +970,7 @@ border: 1px solid #e2e4e6;
 .notes_td{padding-top: 1px; float:left;}
 .save_made_date{ margin-right: 3px;}
 .made_up_date{margin-right: 3px;width:40%; height: 25px}
-
+.form-inline select.form-control{width: 100%;}
 
 
 

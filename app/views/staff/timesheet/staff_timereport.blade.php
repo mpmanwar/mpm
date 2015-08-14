@@ -1,10 +1,10 @@
 
              @if(!empty($limitimesheetstr))
-             <div class="top_bts">
+            <!-- <div class="top_bts">
               <ul>
-               <!-- <li>
-                  <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-                </li> -->
+               <li>
+                  <button class="btn btn-success"><i class="fa fa-trash-o fa-fw"></i> Print</button>
+                </li> 
                 <li>
                   <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
                 </li>
@@ -12,7 +12,7 @@
                   <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
                 </li>
               </ul>
-            </div>
+            </div> -->
 <table class="table table-bordered table-hover dataTable" id="example545" aria-describedby="example2_info">
             
                             <thead>
@@ -23,7 +23,7 @@
                                 <th><strong>Client Name</strong></th>
                                 <th align="left"><strong>Service</strong></th>
                                 <th><strong>HRS</strong></th>
-                                <th><strong>Notes</strong></th>
+                              <!--  <th><strong>Notes</strong></th> -->
                                <!-- <th><strong>Action</strong></th> -->
                               </tr>
                             </thead>
@@ -39,7 +39,7 @@
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
 									<td align="center">{{ $staff_row['hrs'] }}</td>
-									<td align="center">{{ $staff_row['notes'] }}</td>
+								<!--	<td align="center">{{ $staff_row['notes'] }}</td> -->
 								<!--	<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
                                     <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a></td> -->
 									</tr>

@@ -422,12 +422,15 @@ class TimesheetController extends BaseController
         $form = $str_data['strfromdate'];
         $to = $str_data['strtodate'];
         
-        if($str_data['str_staff']!=""){
+        if($str_data['str_client']!=""){
+            
         $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->where('staff_id','=',$str_data['str_staff'])->get();
+        
         }
+        
         else{
             
-            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->get();
+            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
         }
         
          //echo $this->last_query();
@@ -654,17 +657,17 @@ class TimesheetController extends BaseController
     
     public function client_timereport(){
         
-        $data['heading'] = "TIME SHEET";
-        $data['title'] = "Time Sheet Reports";
+        $data['heading'] = "CLIENT TIME REPORT";
+        $data['title'] = "Client Time Report";
         //if (base64_decode($type) == 'profile') {
 //            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
 //        } else {
-//            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
 //        }
 //        $data['staff_type'] = base64_decode($type);
 //
 
-        $data['heading'] = "";
+        //$data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
@@ -682,9 +685,33 @@ class TimesheetController extends BaseController
     
      public function staff_timereport(){
         
-        die('stafftimereport');
+         $data['heading'] = "STAFF TIME REPORT";
+        $data['title'] = "Staff Time Report";
+        //if (base64_decode($type) == 'profile') {
+//            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+//        } else {
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+//        }
+//        $data['staff_type'] = base64_decode($type);
+//
+
+       // $data['heading'] = "";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+        //die('sddsdsd');
+        $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id",
+            "=", 0)->select("user_id", "fname", "lname")->get();
+        $data['allClients'] = App::make("HomeController")->get_all_clients();
+        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
+            get();
+        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
+            $groupUserId)->orderBy("vat_scheme_name")->get();
+        
+        //die('stafftimereport');
      
-     return View::make('staff.timesheet.', $data);
+     return View::make('staff.timesheet.staff_report', $data);
     }
 
 
