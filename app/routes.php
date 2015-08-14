@@ -285,7 +285,7 @@ Route::post('/timesheet/editstaff-time-report', 'TimesheetController@editstaff_t
 Route::post('/timesheet/delete-time-sheet', 'TimesheetController@delete_time_report');
 Route::any('/timesheet/client-timereport', 'TimesheetController@client_timereport');
 Route::any('/timesheet/staff-timereport', 'TimesheetController@staff_timereport');
-
+Route::any('/timesheet/staffdemo', 'TimesheetController@staffdemo');
 
 /*==================Time Sheet End ==============*/
 

@@ -686,7 +686,7 @@ $(document).ready(function(){
   <div class="twobox">
     <div class="twobox_1">
       <div class="form-group">
-        <label for="exampleInputPassword1">Short Code</label>
+        <label for="exampleInputPassword1">Sort code</label>
         <input type="text" id="staffshort_code" name="short_code" value="{{ $staff_details['step_data']['short_code']  or "" }}" class="form-control">
       </div>
     </div>
