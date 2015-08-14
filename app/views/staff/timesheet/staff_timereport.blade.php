@@ -1,5 +1,18 @@
 
              @if(!empty($limitimesheetstr))
+             <div class="top_bts">
+              <ul>
+               <!-- <li>
+                  <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+                </li> -->
+                <li>
+                  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                </li>
+                <li>
+                  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                </li>
+              </ul>
+            </div>
 <table class="table table-bordered table-hover dataTable" id="example545" aria-describedby="example2_info">
             
                             <thead>
