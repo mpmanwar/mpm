@@ -43,7 +43,7 @@ function newstaffdisplay(){
     console.log(strdpick2);
     console.log(dpickclient);
     
-    if(strdpick2!="" && dpickclient!="" && str_client!="" ){
+    if(strdpick2!="" && dpickclient!="" && str_staff!="" ){
      $.ajax({
     	type: "POST",
         //dataType: "html",/timesheet/fetcheditstaff-time-sheet
@@ -112,7 +112,7 @@ function newstaffdisplay(){
     <section class="content">
       <div class="practice_mid">
           <div class="top_buttons">
-            <div class="top_bts">
+            <div class="top_bts" style="margin-left: 419px;" >
               <ul>
                 <li>
                   <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button>
@@ -137,7 +137,7 @@ function newstaffdisplay(){
     <!--  {{ Form::open(array('url' => '/timesheet/insertstaff-time-sheet')) }} -->
       
         <div class="modal-body">
-          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!--  <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button> -->
           
           <div class="popupclienttime">
           

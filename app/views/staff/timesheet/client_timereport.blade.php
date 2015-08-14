@@ -24,7 +24,7 @@
                                 <th><strong>Client Name</strong></th>
                                 <th align="left"><strong>Service</strong></th>
                                 <th><strong>HRS</strong></th>
-                                <th><strong>Notes</strong></th>
+                               <!-- <th><strong>Notes</strong></th> -->
                                <!-- <th><strong>Action</strong></th> -->
                               </tr>
                             </thead>
@@ -40,7 +40,7 @@
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
 									<td align="center">{{ $staff_row['hrs'] }}</td>
-									<td align="center">{{ $staff_row['notes'] }}</td>
+								<!-- 	<td align="center">{{ $staff_row['notes'] }}</td> -->
 								<!--	<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
                                     <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a></td> -->
 									</tr>

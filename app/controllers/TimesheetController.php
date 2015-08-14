@@ -422,12 +422,15 @@ class TimesheetController extends BaseController
         $form = $str_data['strfromdate'];
         $to = $str_data['strtodate'];
         
-        if($str_data['str_staff']!=""){
+        if($str_data['str_client']!=""){
+            
         $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->where('staff_id','=',$str_data['str_staff'])->get();
+        
         }
+        
         else{
             
-            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id','=',$str_data['str_client'])->get();
+            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
         }
         
          //echo $this->last_query();

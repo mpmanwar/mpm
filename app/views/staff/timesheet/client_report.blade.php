@@ -110,7 +110,7 @@ function newclientdisplay(){
     <section class="content">
       <div class="practice_mid">
           <div class="top_buttons">
-            <div class="top_bts">
+            <div class="top_bts" style="margin-left: 419px;">
               <ul>
                 <li>
                   <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button>
@@ -127,7 +127,7 @@ function newclientdisplay(){
           </div>
 <div class="modal-content" style="width: 59%; margin: 30px auto;">
 <div class="modal-body">
-          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!--  <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button> -->
           
           <div class="popupclienttime">
           
