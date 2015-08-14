@@ -12,6 +12,7 @@
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/upload_file_other.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
@@ -22,6 +23,11 @@ $(document).ready(function(){
     $("#holiday_entitlement").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 
     $("#leaving_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
+    $("#staffshort_code").mask("99-99-99");
+    //$("#staffshort_code").
+   // $("#staffshort_code").click(function() {
+        //alert('aaaaaa');
+       // })
 })
 </script>
 
@@ -612,10 +618,10 @@ $(document).ready(function(){
   
   <div class="twobox">
     <div class="twobox_1">
-      <div class="form-group">
+     <!-- <div class="form-group">
         <label for="exampleInputPassword1">Leaving Date</label>
         <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['step_data']['leaving_date']  or "" }}" class="form-control">
-      </div>
+      </div> -->
     </div>
 
     <div class="twobox_2">
@@ -681,7 +687,7 @@ $(document).ready(function(){
     <div class="twobox_1">
       <div class="form-group">
         <label for="exampleInputPassword1">Short Code</label>
-        <input type="text" id="short_code" name="short_code" value="{{ $staff_details['step_data']['short_code']  or "" }}" class="form-control">
+        <input type="text" id="staffshort_code" name="short_code" value="{{ $staff_details['step_data']['short_code']  or "" }}" class="form-control">
       </div>
     </div>
 
