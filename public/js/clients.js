@@ -1703,6 +1703,41 @@ $("#other_upload_table").on("click", ".delete_files", function(){
   }); 
   //Delete services name while add individual/organisation user end
 
+  /* ################# SYNC data in job section start ################### */
+    $(".sync_jobs_data").click(function(){
+        var val = [];
+        //alert('val');return false;
+        $(".ads_Checkbox:checked").each( function (i) {
+          if($(this).is(':checked')){
+            val[i] = $(this).val();
+          }
+        });
+        //alert(val.length);return false;
+        if(val.length>0){
+          var client_type = $("#client_type").val();
+            $.ajax({
+                type: "POST",
+                url: '/jobs/sync-jobs-clients',
+                data: { 'client_ids' : val },
+                beforeSend : function(){
+                    $(".sync_jobs_data").attr('disabled', 'disabled');
+                    $("#message_div").html('<img src="/img/spinner.gif" />');
+                },
+                success : function(resp){
+                  if(client_type == "org"){
+                    window.location = '/organisation-clients';
+                  }
+                  
+                }
+            });
+            
+        }else{
+            alert('Please select atleast one client');
+        }
+
+    });
+  /* ################# SYNC data in job section end ################### */
+
 
 
 });//end of main document ready

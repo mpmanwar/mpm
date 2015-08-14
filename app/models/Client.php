@@ -323,6 +323,16 @@ class Client extends Eloquent {
 		return array_values($client_array);
 	}
 
+	public static function getCompanyNumberByClientId( $client_id )
+	{
+		$number = "";
+		$client_details = StepsFieldsClient::where('field_name', '=', "registration_number")->where('client_id', '=', $client_id)->select("field_value")->first();
+		if(isset($client_details) && count($client_details) >0){
+			$number = $client_details['field_value'];
+		}
+		return $number;
+	}
+
 
 
 

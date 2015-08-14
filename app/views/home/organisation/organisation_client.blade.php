@@ -89,6 +89,9 @@ $(function() {
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
+            <li>
+              <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
+            </li>
             <!-- <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li> -->
@@ -100,7 +103,7 @@ $(function() {
             <div class="clearfix"></div>
           </ul>
         </div>
-
+        <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
         <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
 
       </div>
@@ -176,6 +179,7 @@ $(function() {
               </div>
               </div>
               <div class="clearfix"></div>
+
             </div>
             
 <div class="box-body table-responsive">

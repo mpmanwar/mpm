@@ -13,6 +13,7 @@ class ChAnnualReturnController extends BaseController {
 		$data['staff_id'] 	= base64_decode($staff_id);
 		$data['page_open'] 	= base64_decode($page_open);
 		$data['encode_page_open'] 	= $page_open;
+		$data['encode_staff_id'] 	= $staff_id;
 		
 		$session 			= Session::get('admin_details');
 		$user_id 			= $session['id'];

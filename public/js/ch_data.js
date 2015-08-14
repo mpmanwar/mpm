@@ -132,6 +132,38 @@ $(document).ready(function(){
     });
 
 
+    /* ################# SYNC data in job section start ################### */
+    $(".sync_jobs_data").click(function(){
+        var val = [];
+        //alert('val');return false;
+        $(".checkbox:checked").each( function (i) {
+          if($(this).is(':checked')){
+            val[i] = $(this).val();
+          }
+        });
+        //alert(val.length);return false;
+        if(val.length>0){
+            $.ajax({
+                type: "POST",
+                url: '/jobs/sync-jobs-clients',
+                data: { 'client_ids' : val },
+                beforeSend : function(){
+                    $(".sync_jobs_data").attr('disabled', 'disabled');
+                    $("#message_div").html('<img src="/img/spinner.gif" />');
+                },
+                success : function(resp){
+                  window.location = '/chdata/index';
+                }
+            });
+            
+        }else{
+            alert('Please select atleast one client');
+        }
+
+    });
+    /* ################# SYNC data in job section end ################### */
+
+
 
 
 
