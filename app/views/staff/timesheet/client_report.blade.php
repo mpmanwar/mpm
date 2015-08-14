@@ -26,7 +26,7 @@ $(function() {
 
 
 function newclientdisplay(){
-    alert('fsfsf');
+    //alert('fsfsf');
     var ctr_client= $("#ctr_clientc").val();
     
     var ctr_serv = $("#ctr_servc").val();
