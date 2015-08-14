@@ -256,21 +256,23 @@ class Client extends Eloquent {
 
 		$client_details = Client::getAllOrgClientDetails();
 		if(isset($client_details) && count($client_details) >0){
-			foreach ($client_details as $key => $value) {
-				if((isset($value['services_id']) && in_array($service_id, $value['services_id']))){
+			foreach ($client_details as $key => $details) {
+				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
 
-					$alloc_clients = ClientListAllocation::where("client_id", "=", $value['client_id'])->where("service_id", "=", $service_id)->first();
+					$alloc_clients = ClientListAllocation::where("client_id", "=", $details['client_id'])->where("service_id", "=", $service_id)->first();
 
 					if(isset($alloc_clients) && count($alloc_clients) >0){
 						if($alloc_clients['staff_id1'] != 0 || $alloc_clients['staff_id2'] != 0 || $alloc_clients['staff_id3'] != 0 || $alloc_clients['staff_id4'] != 0 || $alloc_clients['staff_id5'] != 0 ){
 							unset($client_details[$key]);
 						}else{
 							$client_array[$key] = $client_details[$key];
-							$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+							$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
+							$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 						}
 					}else{
 						$client_array[$key] = $client_details[$key];
-						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
+						$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 					}
 				}
 
@@ -286,14 +288,15 @@ class Client extends Eloquent {
 		$client_array = array();
 		$client_details = Client::getAllOrgClientDetails();
 		if(isset($client_details) && count($client_details) >0){
-			foreach ($client_details as $key => $value) {
-				$alloc_clients = ClientListAllocation::where("client_id", "=", $value['client_id'])->where("service_id", "=", $service_id)->first();
+			foreach ($client_details as $key => $details) {
+				$alloc_clients = ClientListAllocation::where("client_id", "=", $details['client_id'])->where("service_id", "=", $service_id)->first();
 
 				if(isset($alloc_clients) && count($alloc_clients) >0){
 					if($alloc_clients['staff_id1'] == $staff_id || $alloc_clients['staff_id2'] == $staff_id || $alloc_clients['staff_id3'] == $staff_id || $alloc_clients['staff_id4'] == $staff_id || $alloc_clients['staff_id5'] == $staff_id ){
 						$client_array[$key] = $client_details[$key];
 
-						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
+						$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 					}
 				}
 
@@ -312,6 +315,7 @@ class Client extends Eloquent {
 				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
 					$client_array[$key] = $client_details[$key];
 					$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
+					$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 				}
 			}
 		}
