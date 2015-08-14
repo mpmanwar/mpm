@@ -2,6 +2,10 @@
 
 @section('mycssfile')
     <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Date picker script -->
+<link rel="stylesheet" href="{{ URL :: asset('css/jquery-ui.css') }}" />
+<!-- Date picker script -->
     
 @stop
 
@@ -12,8 +16,13 @@
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
+<!-- Date picker script -->
+<script src="{{ URL :: asset('js/jquery-ui.min.js') }}"></script>
+<!-- Date picker script -->
+
 <!-- page script -->
 <script type="text/javascript">
+$(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 var Table1, Table3;
 $(function() {
     Table1 = $('#example1').dataTable({
@@ -550,7 +559,13 @@ $(function() {
               <td align="left"></td>
               <td align="left">{{ $details['registration_number'] or "" }}</td>
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
-              <td align="center">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</td>
+              <td align="center" width="20%">
+                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3">{{ isset($details['completed_tasks']['date'])?$details['completed_tasks']['date']:"" }}</a>
+                <span class="3_save_made_span_{{ $details['client_id'] }}"  style="display:none;">
+                  <input type="text" class="made_up_date" id="3_made_up_date_{{$details['client_id']}}"/>
+                  <a href="javascript:void(0)" class="search_t save_made_date">Save</a>
+                </span>
+              </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
               <td align="center" width="12%">
                 {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}

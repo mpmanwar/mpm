@@ -344,7 +344,19 @@ $(document).ready(function () {
     });
 /* ################# Save Notes End ################### */
 
+/* ################# Open date text in job completed section Start ################### */
+    $(".change_last_date").click(function(){
+        var client_id   = $(this).data('client_id');
+        var tab         = $(this).data('tab');
+        $(this).hide();
+        $("."+tab+"_save_made_span_"+client_id).show();
+        $("#"+tab+"_made_up_date_"+client_id).val(''); 
+    });
 
+    $(".save_made_date").click(function(){
+
+    });
+/* ################# Open date text in job completed section Start ################### */
     
     
     
