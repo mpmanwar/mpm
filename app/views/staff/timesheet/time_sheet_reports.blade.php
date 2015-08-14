@@ -479,7 +479,7 @@ function clientdisplay(){
                 $("#dropctr").html(resp);
             }
             else{
-                $("#dropctrerror").html('No Records Found');
+                $("#dropctrerror").html('<span style="color:red">No Records Found</span>');
             }
 
 				}
@@ -487,7 +487,7 @@ function clientdisplay(){
 	});  
     }else{
         
-        $("#dropctrerror").html('Please Select Fields');
+        $("#dropctrerror").html('<span style="color:red">Please Select Fields</span>');
     }
 
 
@@ -533,7 +533,7 @@ function staffdisplay(){
                 $("#dropstr").html(resp);
             }
             else{
-                $("#dropstrerror").html('No Records Found');
+                $("#dropstrerror").html('<span style="color:red">No Records Found</span>');
             }
             //$("#dropstr").html(resp);
 
@@ -541,7 +541,7 @@ function staffdisplay(){
 
 	});
     }else{
-         $("#dropstrerror").html('Please Select Fields');
+         $("#dropstrerror").html('<span style="color:red">Please Select Fields</span>');
     }
     
     
@@ -574,6 +574,25 @@ $("#stafftimereset").click(function(){
 });
 
 
+function fetchnotesmodal(value){
+    
+    var notesvalue=value;
+    //alert(notesvalue);
+    console.log(notesvalue);
+    $("#fetchnotess").val(notesvalue);
+    $("#fetchcomposenotes-modal").modal("show");
+    
+    
+}
+function fontfetchnotesmodal(fontvalue){
+    
+    var fontnotesvalue=fontvalue;
+    //alert(notesvalue);
+    console.log(fontnotesvalue);
+    $("#fontfetchnotess").val(fontnotesvalue);
+    
+    $("#fontfetchcomposenotes-modal").modal("show");
+}
 
 
 
@@ -715,7 +734,14 @@ $("#stafftimereset").click(function(){
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
 									<td align="center">{{ $staff_row['hrs'] }}</td>
-									<td align="center">{{ $staff_row['notes'] }}</td>
+									<td align="center"> <!--{{ $staff_row['notes'] }} -->
+                                    
+                                    <button class="btn btn-default" onclick="return fontfetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fontfetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
+                                   @if(!empty($staff_row['notes']))
+                                    
+                                   ......
+                                   @endif
+                                    </td>
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
                                     <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a>
 									</tr>
@@ -849,7 +875,13 @@ $("#stafftimereset").click(function(){
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
 									<td align="center">{{ $staff_row['hrs'] }}</td>
-									<td align="center">{{ $staff_row['notes'] }}</td>
+									<td align="center"><button class="btn btn-default" onclick="return fetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
+                                    @if(!empty($staff_row['notes']))
+                                    
+                                   ......
+                                   @endif
+                                    
+                                    </td>
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
                                     <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a>
 									</tr>
@@ -1465,6 +1497,72 @@ $("#stafftimereset").click(function(){
 
 </div>
 
+<!-- fetchcomposenotes-modal-->
+<div>
+<div class="modal fade" id="fetchcomposenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
+     
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+     
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
+             
+          <textarea rows="4" cols="50"  name="notes1[]" id="fetchnotess" value="" ></textarea>
+         
+         
+     <!--     <button class="btn btn-primary" onclick="return fetchnotes()" id="fetchsave_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button> -->  
+          <div class="clr"></div>       
+         </div>
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
+<!-- fetchcomposenotes-modal -->
+
+
+<!-- fontfetchcomposenotes-modal-->
+<div>
+<div class="modal fade" id="fontfetchcomposenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
+     
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+     
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
+             
+          <textarea rows="4" cols="50"  name="notes1[]" id="fontfetchnotess" value="" ></textarea>
+         
+         
+     <!--     <button class="btn btn-primary" onclick="return fetchnotes()" id="fetchsave_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button> -->  
+          <div class="clr"></div>       
+         </div>
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
+<!-- fontfetchcomposenotes-modal -->
 
 <!-- edit notes-->
 <div style="z-index: 999;">
