@@ -3,6 +3,7 @@ class ChAnnualReturnController extends BaseController {
 	
 	public function index($service_id, $page_open, $staff_id){
 		$data 			= array();
+		$clientId 		= array();
 		$client_data 	= array();
 		$data['goto_url']	= "/ch-annual-return/".$service_id;
 		$data['heading'] 	= "CH ANNUAL RETURNS";
@@ -38,7 +39,7 @@ class ChAnnualReturnController extends BaseController {
 		$all_count = 0;
 		if(isset($data['company_details']) && count($data['company_details']) >0){
 			foreach ($data['company_details'] as $key => $details) {
-				if($data['page_open'] == 21){
+				//if($data['page_open'] == 21){
 					$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 					if(isset($autosend) && count($autosend) >0 ){
 						if((isset($details['deadret_count']) && $details['deadret_count'] <= $autosend['days'])){
@@ -46,28 +47,30 @@ class ChAnnualReturnController extends BaseController {
 							$data['company_details'][$key]['ch_manage_task'] = "Y";
 						}
 					}
-				}
+				//}
 				
 				if(isset($details['ch_manage_task']) && $details['ch_manage_task']== "Y"){
 					$all_count+=1;
+					$clientId[] = $details['client_id'];
 				}
 				
 			}
 		}
+		//print_r($clientId);print_r($groupUserId);die;
 		$data['all_count'] = $all_count;
 
 		$data['jobs_steps'] = JobsStep::getAllJobSteps();
 		if(isset($data['jobs_steps']) && count($data['jobs_steps']) >0){
 			foreach ($data['jobs_steps'] as $key => $row) {
-				$jobs_steps = JobStatus::getJobStatusByStatusId($data['service_id'], $row['step_id']);
+				$jobs_steps = JobStatus::getJobStatusByStatusId($data['service_id'], $row['step_id'], $clientId);
 				$data['jobs_steps'][$key]['count'] = count($jobs_steps);
 			}
 		}
-		$data['Job_status'] 	= JobStatus::getJobStatusByServiceId($data['service_id']);
+		$data['Job_status'] 	= JobStatus::getJobStatusByServiceId($data['service_id'], $clientId);
 		$data['not_started_count'] = $all_count - count($data['Job_status']);
 		$data['staff_details'] 	= User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->select("user_id", "fname", "lname")->get();
 
-		$data['completed_task'] = JobStatus::getCompletedTaskByServiceId( $data['service_id'], 10 );
+		$data['completed_task'] = JobStatus::getCompletedTaskByServiceId( $data['service_id'], 10, $clientId );
 
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 		
