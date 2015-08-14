@@ -654,8 +654,8 @@ class TimesheetController extends BaseController
     
     public function client_timereport(){
         
-        $data['heading'] = "TIME SHEET";
-        $data['title'] = "Time Sheet Reports";
+        $data['heading'] = "CLIENT TIME REPORT";
+        $data['title'] = "Client Time Report";
         //if (base64_decode($type) == 'profile') {
 //            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
 //        } else {
@@ -664,7 +664,7 @@ class TimesheetController extends BaseController
 //        $data['staff_type'] = base64_decode($type);
 //
 
-        $data['heading'] = "";
+        //$data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
@@ -682,8 +682,8 @@ class TimesheetController extends BaseController
     
      public function staff_timereport(){
         
-         $data['heading'] = "TIME SHEET";
-        $data['title'] = "Time Sheet Reports";
+         $data['heading'] = "STAFF TIME REPORT";
+        $data['title'] = "Staff Time Report";
         //if (base64_decode($type) == 'profile') {
 //            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
 //        } else {
@@ -692,7 +692,7 @@ class TimesheetController extends BaseController
 //        $data['staff_type'] = base64_decode($type);
 //
 
-        $data['heading'] = "";
+       // $data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
