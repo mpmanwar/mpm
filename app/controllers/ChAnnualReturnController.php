@@ -21,7 +21,7 @@ class ChAnnualReturnController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$autosend = AutosendTask::where('service_id', '=', $data['service_id'])->first();
+		$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 		if(isset($autosend) && $autosend['staff_filter'] != ""){
 			$data['staff_id'] 	= $autosend['staff_filter'];
 		}

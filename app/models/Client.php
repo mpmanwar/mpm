@@ -240,10 +240,6 @@ class Client extends Eloquent {
 	{
 		$data = array();
 		$services = ClientService::where("client_id", "=", $client_id)->get();
-		/*$queries = DB::getQueryLog();
-		$last_query = end($queries);
-		echo $last_query['query']."client_id : ".$client_id;*/
-		//print_r($services);
 		if(isset($services) && count($services) >0){
 			foreach ($services as $key => $value) {
 				$data[$key] = $value->service_id;
