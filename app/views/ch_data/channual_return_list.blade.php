@@ -262,7 +262,15 @@ $(function() {
                 <button type="button" class="sent_btn">SENT</button>
               @endif
             </td>
-            <td align="center">&nbsp;</td>
+            <td align="center">
+              @if(isset($details['allocated_staffs']) && count($details['allocated_staffs']) >0)
+                <select class="form-control newdropdown table_select staff_dropdown" id="1_staff_dropdown_{{ $details['client_id'] }}" data-client_id="{{$details['client_id']}}">
+                  @foreach($details['allocated_staffs'] as $key=>$staff_row)
+                    <option value="{{ $staff_row['staff_id'] or "" }}">{{ $staff_row['staff_name'] or "" }}</option>
+                  @endforeach
+                </select>
+              @endif
+            </td>
           </tr>
         @endforeach
       @endif

@@ -74,11 +74,6 @@ class ChAnnualReturnController extends BaseController {
 
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 		
-		/*$queries = DB::getQueryLog();
-		$last_query = end($queries);
-		//echo $last_query['query']."client_id : ".$client_id;
-		print_r($queries);
-*/
 		//echo "<prev>".print_r($data['company_details']);die;
 		return View::make('ch_data.channual_return_list', $data);
 	}

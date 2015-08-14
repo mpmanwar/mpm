@@ -267,10 +267,12 @@ class Client extends Eloquent {
 						}else{
 							$client_array[$key] = $client_details[$key];
 							$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+							$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 						}
 					}else{
 						$client_array[$key] = $client_details[$key];
 						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 					}
 				}
 
@@ -294,6 +296,7 @@ class Client extends Eloquent {
 						$client_array[$key] = $client_details[$key];
 
 						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($value['client_id'], $service_id);
+						$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 					}
 				}
 
@@ -312,6 +315,7 @@ class Client extends Eloquent {
 				if((isset($details['services_id']) && in_array($service_id, $details['services_id']))){
 					$client_array[$key] = $client_details[$key];
 					$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
+					$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
 				}
 			}
 		}
