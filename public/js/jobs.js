@@ -1,4 +1,13 @@
 $(document).ready(function () {
+    /*$(document).click(function() {
+        $(".cont_add_to_date").hide();
+    });*/
+    $(".open_adddrop").click(function(event) {
+        var client_id = $(this).data("client_id");
+        var tab = $(this).data("tab");
+        $(".open_dropdown_"+client_id+"_"+tab).toggle();
+        event.stopPropagation();
+    });
 
   /* ================== Manage Tasks ================== */
     $(document).on("click", ".edit_status", function(){
