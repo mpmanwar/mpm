@@ -430,15 +430,18 @@ class TimesheetController extends BaseController
         
         else{
             
+            //$strlimitimesheet = TimeSheetReport::groupBy('rel_client_id')->whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
             $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
         }
         
-         //echo $this->last_query();
+        // echo $this->last_query();
          //die();
          
          
          if (!empty($strlimitimesheet)) {
             foreach ($strlimitimesheet as $key => $val) {
+                
+                
                 //echo 'gddhdhdhd';
 
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
@@ -712,6 +715,26 @@ class TimesheetController extends BaseController
         //die('stafftimereport');
      
      return View::make('staff.timesheet.staff_report', $data);
+    }
+    
+    public function staffdemo(){
+        
+         $data['heading'] = "STAFF TIME REPORT";
+        $data['title'] = "Staff Time Report";
+        //if (base64_decode($type) == 'profile') {
+//            $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+//        } else {
+            $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+//        }
+//        $data['staff_type'] = base64_decode($type);
+//
+
+       // $data['heading'] = "";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+        return View::make('staff.timesheet.demo',$data);
     }
 
 
