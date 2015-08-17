@@ -101,7 +101,7 @@
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
 <td width="30%" align="center">&nbsp;</td>
-<td width="30%" align="center"><b>GRAND TOTAL &nbsp;&nbsp;&nbsp;<?php echo $y; ?></b> </td>
+<td width="30%" align="center"><b>GRAND TOTAL&nbsp;&nbsp;&nbsp;<?php echo $y; ?></b> </td>
 
 
 </tr>
