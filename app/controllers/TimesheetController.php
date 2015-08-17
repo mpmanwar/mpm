@@ -387,10 +387,10 @@ class TimesheetController extends BaseController
             
             foreach($data['limitimesheet'] as $eachR) {
                 $temp = array();
-                //$temp['client_name']  = $eachR{'client_detail'}->field_value;
+                $temp['client_name']  = $eachR{'client_detail'}->field_value;
                 $temp['staff_name']   = $eachR{'staff_detail'}->fname." ".$eachR{'staff_detail'}->lname;
                 $temp['date']  = $eachR['created_date'];
-                $temp['service']  = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                //$temp['service']  = $eachR{'old_vat_scheme'}->vat_scheme_name;
                 
                 $temp['hrs']  = $eachR['hrs'];
                 
@@ -398,7 +398,7 @@ class TimesheetController extends BaseController
             
                 //$client_timereport[$eachR{'client_detail'}->field_id][] = $temp;
                
-                $client_timereport[$eachR{'client_detail'}->field_value][] = $temp;
+                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
                
                 
             }
@@ -410,7 +410,7 @@ class TimesheetController extends BaseController
          $data['cfinal_array'] =  $client_timereport;
         
         // echo '<pre>';
-        //print_r($data['cfinal_array']);die;
+       // print_r($data['cfinal_array']);die;
 
          //header('Content-Type: application/json; charset=utf-8');
          //   echo json_encode($data['limitimesheet']);

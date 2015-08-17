@@ -23,7 +23,7 @@ class StaffprofileController extends BaseController
     public function my_details($user_id, $type_id)
     {
         
-       // print_r($user_id);
+    // print_r($user_id);die();
        // print_r(base64_decode($type_id));die();
         $admin_s = Session::get('admin_details');
 	//	$user_id = $admin_s['id'];
@@ -73,7 +73,7 @@ class StaffprofileController extends BaseController
         $data['staff_details'] = $this->userDetailsByUserId($user_id);
 
        // echo '<pre>';
-      // print_r($data['staff_details']);
+       //print_r($data['staff_details']);
         //die;
         return View::make("staff.profile.my_details", $data);
     }
@@ -82,13 +82,17 @@ class StaffprofileController extends BaseController
     public function userDetailsByUserId($user_id)
     {
         
-        //print_r($user_id);die();
+        //print_r($user_id);
+        //die();
         
         $data = array();
         $step_data = array();
 
-        $details = User::where("user_id", "=", $user_id)->first();
+         $details = User::where("user_id", "=", $user_id)->first(); 
+        //die();
+        
         if (isset($details) && count($details) > 0) {
+            //echo 'adadada';
             $fname = "";
             $lname = "";
             if (isset($details['fname']) && $details['fname'] != "") {
@@ -114,16 +118,19 @@ class StaffprofileController extends BaseController
             $data['country'] = $details['country'];
             $data['created'] = $details['created'];
 
-            $fields = StepsFieldsStaff::where("user_id", "=", $user_id)->get();
+             $fields = StepsFieldsStaff::where("staff_id", "=", $user_id)->get();
+           // echo $this->last_query();
+           //die();
             if (isset($fields) && count($fields) > 0) {
                 foreach ($fields as $value) {
+                   
                     $step_data[$value['field_name']] = $value->field_value;
                 }
             }
 
             $data['step_data'] = $step_data;
         }
-        //echo '<pre>';print_r($step_data);die();
+       // echo '<pre>';print_r($step_data);die();
 
         $step_ids = array();
 
@@ -166,7 +173,11 @@ class StaffprofileController extends BaseController
         $postData = Input::all();
 
 
-        //echo "<pre>";
+        echo "<pre>";
+       // print_r($postData['staff_id']);
+       // print_r($postData['mname']);
+       // die();
+        
         //print_r($postData['country']);die();
 
         /* if( $postData['oldstafffile1']!=""){
@@ -200,8 +211,9 @@ class StaffprofileController extends BaseController
         if (!empty($postData['email'])) {
             $userData['email'] = $postData['email'];
         }
-
+        
         $userprof_update = User::where("user_id", "=", $postData['staff_id'])->update($userData);
+       
         $staff_id = $postData['staff_id'];
 
         //$filevalue=('staff_file1,staff_file2,staff_file3,staff_file4,prof_file1,prof_file2,prof_file3,prof_file4');
@@ -229,6 +241,8 @@ class StaffprofileController extends BaseController
                     "!=", "profilefile3")->where("field_name", "!=", "profilefile4")->delete();
 //echo $this->last_query();die;
         //################ GENERAL SECTION START #################//
+      
+      
         $step_id = 1;
         if (!empty($postData['title'])) {
             $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'title', $postData['title']);

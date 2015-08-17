@@ -29,9 +29,9 @@ $(function() {
         },
 
       "aoColumns":[
+           // {"bSortable": false},
+            {"bSortable": true},
             {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false},
@@ -60,9 +60,9 @@ $(function() {
         },
 
       "aoColumns":[
+           // {"bSortable": false},
+            {"bSortable": true},
             {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false},
@@ -93,9 +93,9 @@ $(function() {
         },
 
       "aoColumns":[
+           // {"bSortable": false},
+            {"bSortable": true},
             {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false},
@@ -204,7 +204,7 @@ $(function() {
   @if($staff_type == "staff")
     <thead>
       <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+       <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Staff Name</th>
         <th align="center">Request Type</th>
         <th align="center">Date</th>
@@ -217,7 +217,7 @@ $(function() {
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+      <!--  <td align="center"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20-07-2015</td>
@@ -237,8 +237,8 @@ $(function() {
           
   @else
     <thead>
-      <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+      <tr role="row"> 
+      <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Request Type</th>
         <th align="center">Notes</th>
         <th align="center">Date</th>
@@ -251,7 +251,7 @@ $(function() {
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+       <!-- <td align="center"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20/07/2015</td>
@@ -290,7 +290,7 @@ $(function() {
   @if($staff_type == "staff")
     <thead>
       <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+       <!--  <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Staff Name</th>
         <th align="center">Request Type</th>
         <th align="center">Date</th>
@@ -303,7 +303,7 @@ $(function() {
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+       <!--  <td align="center"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20/07/2015</td>
@@ -324,7 +324,7 @@ $(function() {
   @else
     <thead>
       <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+     M<!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Request Type</th>
         <th align="center">Notes</th>
         <th align="center">Date</th>
@@ -376,7 +376,7 @@ $(function() {
   @if($staff_type == "staff")
     <thead>
       <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+     <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Staff Name</th>
         <th align="center">Request Type</th>
         <th align="center">Date</th>
@@ -389,7 +389,7 @@ $(function() {
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+       <!-- <td align="center"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20/07/2015</td>
@@ -410,7 +410,7 @@ $(function() {
   @else
     <thead>
       <tr role="row">
-        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
+       <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Request Type</th>
         <th align="center">Notes</th>
         <th align="center">Date</th>
@@ -423,7 +423,7 @@ $(function() {
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+       <!-- <td align="center"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20/07/2015</td>

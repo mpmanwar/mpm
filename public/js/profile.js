@@ -95,9 +95,11 @@ $("#other_staff_table").on("click", ".staffdelete_files", function(){
   
     
   });
-
-
-
+$("#positionopen").click(function(){
+    
+    $("#addcompose-modal").modal("show");
+//alert('fsfsffg');return false;
+});
 
 // Save position type while add  start //
 $("#add_position_type").click(function(){
