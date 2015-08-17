@@ -18,6 +18,7 @@ class BaseController extends Controller {
             View::share('id', $admin_s['id']);
             View::share('user_type', $admin_s['user_type']);
             View::share('admin_name', $admin_s['fname']." ".$admin_s['lname']);
+            View::share('logged_email', $admin_s['email']);
 
             $groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
             $practice_details = PracticeDetail::whereIn("user_id", $groupUserId)->first();
