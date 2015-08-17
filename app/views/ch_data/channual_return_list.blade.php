@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="{{ URL :: asset('css/jquery-ui.css') }}" />
 <!-- Date picker script -->
 
+<!-- Time picker script -->
+<link rel="stylesheet" href="{{ URL :: asset('css/timepicki.css') }}" />
+<!-- Time picker script -->
+
 <!-- Add To Calender Start -->
 <link href="{{ URL :: asset('css/atc-style-blue.css') }}" rel="stylesheet" type="text/css">
 <!-- Add To Calender End -->    
@@ -23,9 +27,14 @@
 <script src="{{ URL :: asset('js/jquery-ui.min.js') }}"></script>
 <!-- Date picker script -->
 
+<!-- Time picker script -->
+<script src="{{ URL :: asset('js/timepicki.js') }}"></script>
+<!-- Time picker script -->
+
 <!-- page script -->
 <script type="text/javascript">
 $(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+$(".addto_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 var Table1, Table3;
 $(function() {
     Table1 = $('#example1').dataTable({
@@ -75,12 +84,12 @@ $(function() {
           {"bSortable": true},
           {"bSortable": true},
           {"bSortable": true},
-          {"bSortable": true},
+          {"bSortable": false},
           {"bSortable": false},
           {"bSortable": false},
           {"bSortable": false}
       ],
-      "aaSorting": [[6, 'asc']]
+      "aaSorting": [[5, 'asc']]
 
     });
     //table.fnSort( [ [7,'asc'] ] );
@@ -122,6 +131,10 @@ $(function() {
       s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
       s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
       var h = d[g]('body')[0];h.appendChild(s); }})();
+</script>
+
+<script>
+  $('#calender_time').timepicki();
 </script>
 @stop
 
@@ -351,10 +364,13 @@ $(function() {
                 @endif
               </td>
               <td align="center">
-                <span class="addtocalendar atc-style-blue">
+                <div id="edit_calender_{{ $details['client_id'] }}_21">
+                  <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015</a> <a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a>
+                </div>
+                <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue" style="display:none;">
                   <var class="atc_event">
-                      <var class="atc_date_start">2015-05-04 12:00:00</var>
-                      <var class="atc_date_end">2015-05-04 18:00:00</var>
+                      <var class="atc_date_start">{{ $details['created'] or "" }}</var>
+                      <var class="atc_date_end">{{ $details['created'] or "" }}</var>
                       <var class="atc_timezone">Europe/London</var>
                       <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
                       <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
@@ -364,7 +380,7 @@ $(function() {
                   </var>
                 </span>
               </td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21" {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style=text-decoration:underline':'' }}>notes</a>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
                 <!-- <span class="notes_td"></span> -->
                 
               </td>
@@ -435,8 +451,30 @@ $(function() {
                    {{ $details['deadret_count'] or "" }}
                 @endif
               </td>
-              <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
+              <td align="center">
+                <span class="addtocalendar atc-style-blue">
+                  <var class="atc_event">
+                      <var class="atc_date_start">2015-05-04 12:00:00</var>
+                      <var class="atc_date_end">2015-05-04 18:00:00</var>
+                      <var class="atc_timezone">Europe/London</var>
+                      <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
+                      <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
+                      <var class="atc_location">Office</var>
+                      <var class="atc_organizer">{{ $admin_name }}</var>
+                      <var class="atc_organizer_email">{{ $logged_email }}</var>
+                  </var>
+                </span>
+              </td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21" {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style=text-decoration:underline':'' }}>notes</a></td>
+              <td align="left">
+                <select class="form-control newdropdown">
+                  @if(isset($email_templates) && count($email_templates) >0)
+                    @foreach($email_templates as $key=>$temp_row)
+                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
               <td align="center" width="12%">
                 <input type="hidden" name="22_prev_status_{{ $details['client_id'] }}" id="22_prev_status_{{ $details['client_id'] }}" value="2">
                 <select class="form-control newdropdown table_select status_dropdown" id="22_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
@@ -716,6 +754,55 @@ $(function() {
 
           <tr>
             <td align="left" width="20%">&nbsp;</td>
+            <td align="right"><button type="button" class="btn btn-info save_notes">Save</button></td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>        
+<!-- Notes modal start -->
+
+<!-- Notes modal start -->
+<div class="modal fade" id="addto_calender-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:410px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD JOB START DATE</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <input type="hidden" id="calender_client_id" name="calender_client_id">
+        <input type="hidden" id="calender_tab" name="calender_tab">
+        <table>
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left" width="20%"><strong>Date : </strong></td>
+            <td align="left"><input id="calender_date" name="calender_date" class="form-control addto_date"></td>
+          </tr>
+          <tr>
+            <td align="left" colspan="3">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left" width="20%"><strong>Time : </strong></td>
+            <td align="left"><input id="calender_time" name="calender_time" class="form-control"></textarea></td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="3">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="2" width="20%">&nbsp;</td>
             <td align="right"><button type="button" class="btn btn-info save_notes">Save</button></td>
           </tr>
         </table>

@@ -414,6 +414,15 @@ $(document).ready(function () {
     });
 /* ################# SYNC data in job section end ################### */
 
+
+    $(".open_calender_drop").click(function(){
+        var client_id   = $(this).data('client_id');
+        var service_id  = $("#service_id").val();
+        var tab         = $(this).data('tab');
+
+        $("#edit_calender_"+client_id+"_"+tab).hide();
+        $("#view_calender_"+client_id+"_"+tab).show();
+    });
     
     
 	
