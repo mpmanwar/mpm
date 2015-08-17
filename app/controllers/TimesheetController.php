@@ -381,7 +381,36 @@ class TimesheetController extends BaseController
                 $data['limitimesheet'] = $data_ctr;
             }
         }
-
+        
+        $client_timereport = $data['cfinal_array']= array();
+         if(isset($data['limitimesheet'])) {
+            
+            foreach($data['limitimesheet'] as $eachR) {
+                $temp = array();
+                //$temp['client_name']  = $eachR{'client_detail'}->field_value;
+                $temp['staff_name']   = $eachR{'staff_detail'}->fname." ".$eachR{'staff_detail'}->lname;
+                $temp['date']  = $eachR['created_date'];
+                $temp['service']  = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                
+                $temp['hrs']  = $eachR['hrs'];
+                
+                
+            
+                //$client_timereport[$eachR{'client_detail'}->field_id][] = $temp;
+               
+                $client_timereport[$eachR{'client_detail'}->field_value][] = $temp;
+               
+                
+            }
+            
+              
+            
+         }
+         
+         $data['cfinal_array'] =  $client_timereport;
+        
+        // echo '<pre>';
+        //print_r($data['cfinal_array']);die;
 
          //header('Content-Type: application/json; charset=utf-8');
          //   echo json_encode($data['limitimesheet']);
@@ -400,7 +429,9 @@ class TimesheetController extends BaseController
 
 
         //echo '<pre>'; print_r($postData);
-        echo View::make('staff.timesheet.client_timereport', $data);
+         echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
+        
+        //echo View::make('staff.timesheet.client_timereport', $data);
         //return Redirect::to('/time-sheet-reports/c3RhZmY=');
         //die('insertclient_time_sheet');
     }
@@ -430,20 +461,18 @@ class TimesheetController extends BaseController
         
         else{
             
-            //$strlimitimesheet = TimeSheetReport::groupBy('rel_client_id')->whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
-            $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
+           // $strlimitimesheet = TimeSheetReport::groupBy('rel_client_id')->whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
+           $strlimitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('staff_id','=',$str_data['str_staff'])->get();
         }
         
-        // echo $this->last_query();
+         //echo $this->last_query();
          //die();
-         
-         
+         //echo '<pre>';
+         //print_r($strlimitimesheet);
          if (!empty($strlimitimesheet)) {
             foreach ($strlimitimesheet as $key => $val) {
                 
-                
-                //echo 'gddhdhdhd';
-
+                  
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
@@ -465,12 +494,42 @@ class TimesheetController extends BaseController
             //echo $val;die();
             if (!empty($data_str)) {
                 $data['limitimesheetstr'] = $data_str;
+                //echo '<pre>';
+                //print_r($data);
             }
         }
 
+         $staff_timereport = $data['final_array']=$data['total'] = array();
+         if(isset($data['limitimesheetstr'])) {
+            
+            foreach($data['limitimesheetstr'] as $eachR) {
+                $temp = array();
+                //$temp['client_name']  = $eachR{'client_detail'}->field_value;
+                $temp['staff_name']   = $eachR{'staff_detail'}->fname." ".$eachR{'staff_detail'}->lname;
+                $temp['date']  = $eachR['created_date'];
+                $temp['service']  = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                
+                $temp['hrs']  = $eachR['hrs'];
+                
+                
+                
+                //$staff_timereport[$eachR{'client_detail'}->field_id][] = $temp;
+               
+                $staff_timereport[$eachR{'client_detail'}->field_value][] = $temp;
+               
+                
+            }
+            
+              
+            
+         }
          
-         echo View::make('staff.timesheet.staff_timereport', $data);
+         $data['final_array'] =  $staff_timereport;
+        // echo '<pre>';
+        //print_r($data['final_array']);die;
          
+        // echo View::make('staff.timesheet.staff_timereport')->with('limitimesheetstr',$data['limitimesheetstr'])->with('final_array',$data['final_array']);
+         echo View::make('staff.timesheet.staff_timereport')->with('final_array',$data['final_array']);
 /*
         $postData = Input::all();
         //echo '<pre>'; print_r($postData);die();
