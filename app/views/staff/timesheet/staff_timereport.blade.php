@@ -1,53 +1,92 @@
 
-             @if(!empty($limitimesheetstr))
-            <!-- <div class="top_bts">
-              <ul>
-               <li>
-                  <button class="btn btn-success"><i class="fa fa-trash-o fa-fw"></i> Print</button>
-                </li> 
-                <li>
-                  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
-                </li>
-                <li>
-                  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
-                </li>
-              </ul>
-            </div> -->
-<table class="table table-bordered table-hover dataTable" id="example545" aria-describedby="example2_info">
-            
-                            <thead>
-                              <tr role="row">
-                              <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
-                                <th align="center"><strong>Date</strong></th>
-                                <th align="center"><strong>Staff Name</strong></th>
-                                <th><strong>Client Name</strong></th>
-                                <th align="left"><strong>Service</strong></th>
-                                <th><strong>HRS</strong></th>
-                              <!--  <th><strong>Notes</strong></th> -->
-                               <!-- <th><strong>Action</strong></th> -->
-                              </tr>
-                            </thead>
 
-                            <tbody role="alert" aria-live="polite" aria-relevant="all">
-							
-							@if(!empty($limitimesheetstr))
-								  @foreach($limitimesheetstr as $key=>$staff_row)
-								 <tr>
-								<!--	<td align="center"><input type="checkbox" /></td> -->
-									<td align="center">{{ $staff_row['created_date'] }}</td>
-									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
-									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
-									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
-									<td align="center">{{ $staff_row['hrs'] }}</td>
-								<!--	<td align="center">{{ $staff_row['notes'] }}</td> -->
-								<!--	<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
-                                    <a href="#" onClick="return lmtdelfun('{{ $staff_row['timesheet_id'] }}')"  ><img src="/img/cross.png" width="15" ></a></td> -->
-									</tr>
-									@endforeach
-								@endif
-                                  
-                              
-                            </tbody>
-                          </table>
-                          @endif
-                         
+@if(!empty($final_array))
+
+
+
+
+             <table class="table table-bordered" style="margin-top:20px;">
+
+<tr>
+<td align="center" >
+<table class="" width="100%" >
+<tr>
+<td width="20%" align="center">Client Name</td>
+<td width="20%" align="center">Staff Name</td>
+<td width="10%" align="center">Date</td>
+<td width="40%" align="center">Service</td>
+<td width="10%" align="center">HRS</td>
+</tr>
+</table>
+</td>
+</tr>
+
+ @if(isset($final_array))
+  @foreach($final_array as $key=>$nstaff_row)
+<tr>
+<td align="center">
+<table width="100%" >
+<tr>
+<td width="20%" align="center">  {{$key}}</td>
+<td width="80%" align="center">
+<table width="100%" align="center">
+<?php $i=0; ?>
+@foreach($nstaff_row as $eachRE)
+<tr>
+<td width="25%" align="center">{{ $eachRE['staff_name'] }}</td>
+<td width="15%" align="center"> {{ $eachRE['date'] }}</td>
+<td width="45%" align="center">{{ $eachRE['service'] }}</td>
+<td width="15%" align="center">{{ $eachRE['hrs'] }}<?php $i=$i+$eachRE['hrs']; ?></td>
+</tr>
+@endforeach
+
+ <!--   
+<tr>
+<td align="center">Staff Name</td>
+<td align="center">Date</td>
+<td align="center">Service</td>
+<td align="center">HRS</td>
+</tr>
+<tr>
+<td align="center">Staff Name</td>
+<td align="center">Date</td>
+<td align="center">Service</td>
+<td align="center">HRS</td>
+</tr> -->
+</table>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+
+
+
+
+<tr>
+<td align="center">
+<table width="100%" align="center" >
+<tr>
+<td width="20%" align="center">&nbsp;</td>
+<td width="80%" align="center">
+<table width="100%">
+<tr>
+<td width="25%" align="center">&nbsp;</td>
+<td width="15%" align="center">&nbsp;</td>
+<td width="45%" align="center">&nbsp;</td>
+<td width="15%" align="center"><?php echo $i; ?> </td>
+
+
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+@endforeach
+ @endif
+</table>
+ @endif
