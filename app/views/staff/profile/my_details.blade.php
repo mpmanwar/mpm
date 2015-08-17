@@ -228,7 +228,7 @@ $(document).ready(function(){
 <div class="form-group">
 <label for="exampleInputPassword1">Position/Job Title</label>
 @if($page_name == "staff")
-<a href="javascript:void(0)" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+<a href="javascript:void(0)" class="add_to_list" data-toggle="modal" id="positionopen" > Add/Edit list</a>
 @endif
    <!-- <input type="text" id="position" name="position" value="{{ $staff_details['step_data']['position'] or "" }}" class="form-control"> 
    -->
@@ -997,7 +997,7 @@ $(document).ready(function(){
 
 
 
-<!-- add/edit list modal -->
+<!-- add/edit list modal position  -->
 <div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">

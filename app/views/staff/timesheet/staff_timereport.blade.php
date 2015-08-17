@@ -20,7 +20,7 @@
 </table>
 </td>
 </tr>
-
+<?php $y=0; ?>
  @if(isset($final_array))
   @foreach($final_array as $key=>$nstaff_row)
 <tr>
@@ -75,8 +75,8 @@
 <tr>
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
-<td width="45%" align="center">&nbsp;</td>
-<td width="15%" align="center"><?php echo $i; ?> </td>
+<td width="40%" align="center">&nbsp;</td>
+<td width="20%" align="center"><b>Total     <?php echo $i; $y=$y+$i; ?> </b></td>
 
 
 </tr>
@@ -88,5 +88,27 @@
 </tr>
 @endforeach
  @endif
+ 
+ <tr>
+<td align="center">
+<table width="100%" align="center" >
+<tr>
+<td width="20%" align="center">&nbsp;</td>
+<td width="80%" align="center">
+<table width="100%">
+<tr>
+<td width="25%" align="center">&nbsp;</td>
+<td width="15%" align="center">&nbsp;</td>
+<td width="30%" align="center">&nbsp;</td>
+<td width="30%" align="center"><b>GRAND TOTAL <?php echo $y; ?></b> </td>
+
+
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
 </table>
  @endif

@@ -73,7 +73,7 @@ class StaffdataController extends BaseController
         //echo '<pre>';print_r($add);
         // die();
       // echo '<pre>';
-       // print_r($data['staff_details']);
+      //  print_r($data['staff_details']);
       //die;
 
         return View::make('staff.staffdata.staff_data', $data);
