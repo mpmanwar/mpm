@@ -64,10 +64,7 @@ $(function() {
 
     });
     
-
-  for(var k=1; k<=10;k++){
-    //var table = Table2+""+k;
-    var table = $('#example2'+k).dataTable({
+    var table = $('#example21').dataTable({
       "bPaginate": true,
       "bLengthChange": true,
       "bFilter": true,
@@ -90,6 +87,33 @@ $(function() {
           {"bSortable": false}
       ],
       "aaSorting": [[5, 'asc']]
+
+    });
+
+  for(var k=2; k<=10;k++){
+    //var table = Table2+""+k;
+    var table = $('#example2'+k).dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+          {"bSortable": false},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": true},
+          {"bSortable": false},
+          {"bSortable": false},
+          {"bSortable": false}
+      ],
+      "aaSorting": [[4, 'asc']]
 
     });
     //table.fnSort( [ [7,'asc'] ] );
@@ -337,7 +361,7 @@ $(function() {
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
-          <th>COUNT DOWN</th>
+          <th>DAYS</th>
           <th>JOB START DATE</th>
           <th>NOTES</th>
           <th width="10%">EMAIL CLIENT</th>
@@ -364,21 +388,36 @@ $(function() {
                 @endif
               </td>
               <td align="center">
-                <div id="edit_calender_{{ $details['client_id'] }}_21">
-                  <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015</a> <a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a>
+                <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
+                   <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a>
+                  <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
+                  <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
+                    <!-- <a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a> -->
+                    <ul>
+
+                    <li><a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a></li>
+                   <li>
+                    <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
+                      <var class="atc_event">
+                        <var class="atc_date_start">{{ $details['created'] or "" }}</var>
+                        <var class="atc_date_end">{{ $details['created'] or "" }}</var>
+                        <var class="atc_timezone">Europe/London</var>
+                        <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_location">Office</var>
+                        <var class="atc_organizer">{{ $admin_name }}</var>
+                        <var class="atc_organizer_email">{{ $logged_email }}</var>
+                      </var>
+                    </span>
+                   </li>
+                  </ul>
+
+
+                  </div>
+                    
+                  
                 </div>
-                <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue" style="display:none;">
-                  <var class="atc_event">
-                      <var class="atc_date_start">{{ $details['created'] or "" }}</var>
-                      <var class="atc_date_end">{{ $details['created'] or "" }}</var>
-                      <var class="atc_timezone">Europe/London</var>
-                      <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
-                      <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
-                      <var class="atc_location">Office</var>
-                      <var class="atc_organizer">{{ $admin_name }}</var>
-                      <var class="atc_organizer_email">{{ $logged_email }}</var>
-                  </var>
-                </span>
+                
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
                 <!-- <span class="notes_td"></span> -->
@@ -419,14 +458,13 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="5%">DELETE</th>
-          <th>STAFF</th>
           <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>JOB START DATE</th>
           <th>NOTES</th>
+          <th width="10%">EMAIL CLIENT</th>
           <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
@@ -438,7 +476,6 @@ $(function() {
             @if(!isset($details['job_status'][$service_id]['status_id']))
             <tr id="data_tr_{{ $details['client_id'] }}_22">
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"  data-tab="22" ><img src="/img/cross.png"></a></td>
-              <td align="left"></td>
               <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
               <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
@@ -451,21 +488,8 @@ $(function() {
                    {{ $details['deadret_count'] or "" }}
                 @endif
               </td>
-              <td align="center">
-                <span class="addtocalendar atc-style-blue">
-                  <var class="atc_event">
-                      <var class="atc_date_start">2015-05-04 12:00:00</var>
-                      <var class="atc_date_end">2015-05-04 18:00:00</var>
-                      <var class="atc_timezone">Europe/London</var>
-                      <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
-                      <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
-                      <var class="atc_location">Office</var>
-                      <var class="atc_organizer">{{ $admin_name }}</var>
-                      <var class="atc_organizer_email">{{ $logged_email }}</var>
-                  </var>
-                </span>
-              </td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21" {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style=text-decoration:underline':'' }}>notes</a></td>
+              
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
               <td align="left">
                 <select class="form-control newdropdown">
                   @if(isset($email_templates) && count($email_templates) >0)
@@ -502,14 +526,13 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="5%">DELETE</th>
-          <th>STAFF</th>
           <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>JOB START DATE</th>
           <th>NOTES</th>
+          <th width="10%">EMAIL CLIENT</th>
           <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
@@ -521,7 +544,6 @@ $(function() {
               @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $k)
               <tr id="data_tr_{{ $details['client_id'] }}_2{{ $k }}">
                 <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="2{{ $k }}"><img src="/img/cross.png"></a></td>
-                <td align="left"></td>
                 <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
                 <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
                 <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
@@ -533,8 +555,16 @@ $(function() {
                      {{ $details['deadret_count'] or "" }}
                   @endif
                 </td>
-                <td align="center"></td>
-                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></td>
+                <td align="left">
+                <select class="form-control newdropdown">
+                  @if(isset($email_templates) && count($email_templates) >0)
+                    @foreach($email_templates as $key=>$temp_row)
+                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
                 <td align="center" width="12%">
                   <input type="hidden" name="2{{ $k }}_prev_status_{{ $details['client_id'] }}" id="2{{ $k }}_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
                   <select class="form-control newdropdown table_select status_dropdown" id="2{{ $k }}_status_dropdown" data-client_id="{{ $details['client_id'] }}">
@@ -562,14 +592,13 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="5%">DELETE</th>
-          <th>STAFF</th>
           <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>JOB START DATE</th>
           <th>NOTES</th>
+          <th width="10%">EMAIL CLIENT</th>
           <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
         </tr>
       </thead>
@@ -581,7 +610,6 @@ $(function() {
             @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == 10)
             <tr id="data_tr_{{ $details['client_id'] }}_210">
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="210"><img src="/img/cross.png"></a></td>
-              <td align="left"></td>
               <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
               <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
@@ -593,8 +621,16 @@ $(function() {
                    {{ $details['deadret_count'] or "" }}
                 @endif
               </td>
-              <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></td>
+              <td align="left">
+                <select class="form-control newdropdown">
+                  @if(isset($email_templates) && count($email_templates) >0)
+                    @foreach($email_templates as $key=>$temp_row)
+                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
               <td align="center" width="12%">
                 <input type="hidden" name="210_prev_status_{{ $details['client_id'] }}" id="210_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
                 <select class="form-control newdropdown table_select status_dropdown" id="210_status_dropdown" data-client_id="{{ $details['client_id'] }}">
