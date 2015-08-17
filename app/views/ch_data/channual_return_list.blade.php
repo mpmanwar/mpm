@@ -389,13 +389,13 @@ $(function() {
               </td>
               <td align="center">
                 <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
-                   <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a>
+                   <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
+                   <a href="javascript:void(0)">10-08-2015 12:98</a>
                   <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
                   <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
-                    <!-- <a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a> -->
                     <ul>
 
-                    <li><a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Add/Edit Start Date</a></li>
                    <li>
                     <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
                       <var class="atc_event">

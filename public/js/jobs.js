@@ -5,6 +5,7 @@ $(document).ready(function () {
     $(".open_adddrop").click(function(event) {
         var client_id = $(this).data("client_id");
         var tab = $(this).data("tab");
+        //$(".cont_add_to_date").hide();
         $(".open_dropdown_"+client_id+"_"+tab).toggle();
         event.stopPropagation();
     });
