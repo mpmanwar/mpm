@@ -6,7 +6,10 @@
 <!-- Date picker script -->
 <link rel="stylesheet" href="{{ URL :: asset('css/jquery-ui.css') }}" />
 <!-- Date picker script -->
-    
+
+<!-- Add To Calender Start -->
+<link href="{{ URL :: asset('css/atc-style-blue.css') }}" rel="stylesheet" type="text/css">
+<!-- Add To Calender End -->    
 @stop
 
 @section('myjsfile')
@@ -73,7 +76,7 @@ $(function() {
           {"bSortable": true},
           {"bSortable": true},
           {"bSortable": true},
-          {"bSortable": true},
+          {"bSortable": false},
           {"bSortable": false},
           {"bSortable": false}
       ],
@@ -109,6 +112,16 @@ $(function() {
 
 });
 
+</script>
+
+/* Add to Calender */
+<script type="text/javascript">(function () {
+  if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
+  if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
+      var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+      s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
+      s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
+      var h = d[g]('body')[0];h.appendChild(s); }})();
 </script>
 @stop
 
@@ -307,7 +320,6 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="5%">DELETE</th>
-          <th>STAFF</th>
           <th width="8%">DOI</th>
           <th>BUSINESS NAME</th>
           <th>AUTHEN CODE</th>
@@ -315,7 +327,8 @@ $(function() {
           <th>COUNT DOWN</th>
           <th>JOB START DATE</th>
           <th>NOTES</th>
-          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th width="10%">EMAIL CLIENT</th>
+          <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" style="font-size: 11px;">Add/Edit list</a></th>
         </tr>
       </thead>
 
@@ -325,7 +338,6 @@ $(function() {
           @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
             <tr id="data_tr_{{ $details['client_id'] }}_21">
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><img src="/img/cross.png"></a></td>
-              <td align="left"></td>
               <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
               <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
@@ -338,10 +350,34 @@ $(function() {
                    {{ $details['deadret_count'] or "" }}
                 @endif
               </td>
-              <td align="center"></td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span>
+              <td align="center">
+                <span class="addtocalendar atc-style-blue">
+                  <var class="atc_event">
+                      <var class="atc_date_start">2015-05-04 12:00:00</var>
+                      <var class="atc_date_end">2015-05-04 18:00:00</var>
+                      <var class="atc_timezone">Europe/London</var>
+                      <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
+                      <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
+                      <var class="atc_location">Office</var>
+                      <var class="atc_organizer">{{ $admin_name }}</var>
+                      <var class="atc_organizer_email">{{ $logged_email }}</var>
+                  </var>
+                </span>
+              </td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21" {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style=text-decoration:underline':'' }}>notes</a>
+                <!-- <span class="notes_td"></span> -->
                 
               </td>
+              <td align="left">
+                <select class="form-control newdropdown">
+                  @if(isset($email_templates) && count($email_templates) >0)
+                    @foreach($email_templates as $key=>$temp_row)
+                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
+              
               <td align="center" width="12%">
                 <input type="hidden" name="21_prev_status_{{ $details['client_id'] }}" id="21_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
                 <select class="form-control newdropdown table_select status_dropdown" id="21_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
