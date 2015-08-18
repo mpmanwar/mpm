@@ -11,6 +11,12 @@
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
+<!-- Date picker script -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+<!-- Date picker script -->
+
 <!-- page script -->
 <script type="text/javascript">
 var Table1, Table2, Table3;
@@ -109,14 +115,21 @@ $(function() {
 
     });
   Table3.fnSort( [ [1,'asc'] ] );
+  
+  $("#stafdpick").datepicker({dateFormat: 'dd-mm-yy'});
 
 });
 
 
+
+/*$(function() {
+                $("#stafdpick").datepicker({dateFormat: 'dd-mm-yy'});
+});
 
 $(function() {
-                $("#staffdpick").datepicker({dateFormat: 'dd-mm-yy'});
-});
+            $(".dpick").datepicker({dateFormat: 'dd-mm-yy'});
+			  
+});*/
 
 $('.addnew_line').click(function() {
 		
@@ -551,7 +564,7 @@ $('.addnew_line').click(function() {
                     <tr>
                         <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                       
-                     <td> <input class="dpick hasDatepicker" type="text" id="staffdpick" name="date[]" style="width:86%; height: 33px;">
+                     <td> <input type="text" id="stafdpick" name="date[]" style="width:86%; height: 33px;">
                       </td>
                       <td align="center">
                              
