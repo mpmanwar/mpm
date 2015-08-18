@@ -400,7 +400,8 @@ $('.addnew_line').click(function() {
         <td align="center">No</td>
         <td align="center">20-07-2015</td>
         <td align="center">
-         <input type="button" value="AWATING APPROVAL" class="awating_btn">
+        <input type="button" value="APPROVED!" class="approved_btn">
+        <!-- <input type="button" value="AWATING APPROVAL" class="awating_btn"> -->
         </td>
         <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
         
