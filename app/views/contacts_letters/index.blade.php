@@ -119,7 +119,7 @@ $(function() {
                   </li>
 
                   <li>
-                    <a href="#" class="btn btn-info">MAIL SETTINGS</a>
+                    <a href="/email-settings" target="_blank" class="btn btn-info">MAIL SETTINGS</a>
                   </li>
                   
                   <div class="clearfix"></div>
@@ -222,7 +222,7 @@ $(function() {
         <div class="modal-footer1 clearfix">
           <div class="email_btns1">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary pull-left save_text" name="save">Save</button>
+            <button type="button" class="btn btn-info" name="save">Save</button>
           </div>
         </div>
       </div>
