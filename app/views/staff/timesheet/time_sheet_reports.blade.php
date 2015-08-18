@@ -139,7 +139,8 @@ $(function() {
 		
 				//alert('AAAAAAAAAAAA');	
 				
-				$(".dpick").datepicker("destroy");      
+				
+                $(".dpick").datepicker("destroy");      
 				
 				
 				
@@ -977,14 +978,17 @@ function fontfetchnotesmodal(fontvalue){
 				<input class="dpick" type="text" id="eddpick" name="date" size="10" style="width:86%; height: 33px;"/>
 				<input type="hidden" id="editid" name="editid" value="" />
 				</td>
-                <td align="center"><select class="form-control" name="staff_id" id="staff_id_edit">
+                <td align="center">
+                <select class="form-control" name="staff_id" id="staff_id_edit">
               <option value="">None</option>
                 @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
                   <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
                   @endforeach
                 @endif
-              </select></td>
+              </select>
+              
+              </td>
                 <td align="center">
 				<select class="form-control" name="rel_client_id" id="rel_client_id_edit">
 				<option value="">None</option>

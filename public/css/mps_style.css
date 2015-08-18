@@ -977,10 +977,17 @@ border: 1px solid #e2e4e6;
 .cont_add_to_date ul li{width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 3px;}
 .cont_add_to_date ul li:last-child{border-bottom: none;}
 .cont_add_to_date ul li a{color: #000; font-size: 16px; color: #3c8dbc}
-.edit_cal{position: relative; cursor: pointer; text-align: left;}
+.edit_cal{position: relative; cursor: pointer; text-align: left; color: #0866c6}
 .pagination .next{ padding: 0; background: none;}
+
 .open_adddrop{right: 0px!important; position: absolute; top: 4px;}
 /* .atc-style-blue a{pointer-events: none;} */
+
+.declined_btn{border:2px solid #b82223; color:#b82223; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.approved_btn{border:2px solid #1084ab; color:#1084ab; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.awating_btn{border:2px solid #00ad5e; color:#00ad5e; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.note_t{color:#1282b4!important; font-weight:bold!important; padding: 5px 30px;}
+
 
 
 
