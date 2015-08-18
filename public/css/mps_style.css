@@ -977,8 +977,10 @@ border: 1px solid #e2e4e6;
 .cont_add_to_date ul li{width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 3px;}
 .cont_add_to_date ul li:last-child{border-bottom: none;}
 .cont_add_to_date ul li a{color: #000; font-size: 16px; color: #3c8dbc}
-.edit_cal{position: relative; cursor: pointer;}
+.edit_cal{position: relative; cursor: pointer; text-align: left;}
 .pagination .next{ padding: 0; background: none;}
+.open_adddrop{right: 0px!important; position: absolute; top: 4px;}
+/* .atc-style-blue a{pointer-events: none;} */
 
 
 
