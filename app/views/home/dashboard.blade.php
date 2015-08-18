@@ -73,8 +73,7 @@ INDIVIDUALS</p>
 <a  href="/hmrc">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-<p class="c_tagline">HRMC<br>
-AUTHORISATIONS</p>
+<p class="c_tagline2">HRMC</p>
 <div class="clearfix"></div>
 </div></a>
 </li>
