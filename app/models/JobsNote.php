@@ -16,6 +16,7 @@ class JobsNote extends Eloquent {
 			$status_data['service_id'] 		= $JobStatus['service_id'];
 			$status_data['user_id'] 		= $JobStatus['user_id'];
 			$status_data['notes'] 			= $JobStatus['notes'];
+			$status_data['job_start_date']	= $JobStatus['job_start_date'];
 			$status_data['created'] 		= $JobStatus['created'];
 		}
 		return $status_data;

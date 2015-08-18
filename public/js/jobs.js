@@ -345,7 +345,7 @@ $(document).ready(function () {
           type: "POST",
           //dataType : "json",
           url: "/jobs/save-jobs-notes",
-          data: { 'client_id': client_id, 'service_id' : service_id, 'notes' : notes },
+          data: { 'client_id': client_id, 'service_id' : service_id, 'notes' : notes, 'type':'note' },
           success: function (resp) {
             $("#notes-modal").modal("hide");             
           }
@@ -424,15 +424,46 @@ $(document).ready(function () {
     });
 /* ################# SYNC data in job section end ################### */
 
-
-    $(".open_calender_drop").click(function(){
+/* ################# Job Start Date in job section start ################### */
+    $(".open_calender_pop").click(function(){
         var client_id   = $(this).data('client_id');
         var service_id  = $("#service_id").val();
         var tab         = $(this).data('tab');
+        $("#calender_client_id").val(client_id);
+        $("#calender_tab").val(tab);
 
-        $("#edit_calender_"+client_id+"_"+tab).hide();
-        $("#view_calender_"+client_id+"_"+tab).show();
+        $("#addto_calender-modal").modal("show");
     });
+
+    $(".save_job_start_date").click(function(){
+        var encode_staff_id     = $("#encode_staff_id").val();
+        var encode_page_open    = $("#encode_page_open").val();
+        var hour        = $("#calender_time").data('timepicki-tim');
+        var date        = $("#calender_date").val();
+        var service_id  = $("#service_id").val();
+        var minute      = $("#calender_time").data('timepicki-mini');
+        var client_id   = $("#calender_client_id").val();
+        var tab         = $("#calender_tab").val();
+        var job_start_date = date+" "+hour+":"+minute;
+
+        $.ajax({
+            type: "POST",
+            url: '/jobs/save-jobs-notes',
+            data: { 'client_id' : client_id, 'service_id' : service_id, 'job_start_date' : job_start_date, 'type':'startdate' },
+            beforeSend : function(){
+                $("#start_date_loader").html('<img src="/img/spinner.gif" />');
+            },
+            success : function(resp){
+              window.location = '/ch-annual-return/'+service_id+'/'+encode_page_open+'/'+encode_staff_id;
+            }
+        });
+
+        /*$("#date_view_"+client_id+"_"+tab).html(date+" "+hour+":"+minute);
+        $("#addto_calender-modal").modal("hide");*/
+        
+    });
+/* ################# Job Start Date in job section end ################### */
+
     
     
 	
