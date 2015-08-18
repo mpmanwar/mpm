@@ -300,3 +300,7 @@ Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index
 Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id');
 /*================== Notes End ==============*/
 
+/*================== Contacts Letters Emails Start ==============*/
+Route::any('/contacts-letters-emails', 'ContactsLettersEmailsController@index');
+/*================== Contacts Letters Emails End ==============*/
+
