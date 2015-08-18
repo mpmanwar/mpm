@@ -125,7 +125,7 @@ MANAGEMENT</p>
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/contacts-letters-emails">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
 <p class="c_tagline">CONTACTS,<br>
