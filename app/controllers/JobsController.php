@@ -190,13 +190,20 @@ class JobsController extends BaseController {
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
+        $type           = Input::get("type");
 
         $client_id  = Input::get("client_id");
         $service_id = Input::get("service_id");
 
         $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
 
-        $data['notes']      = Input::get("notes");
+        if($type == "note"){
+            $data['notes']              = Input::get("notes");
+        }else{
+            $data['job_start_date']      = Input::get("job_start_date"); 
+        }
+        
+
         if(isset($notes) && count($notes) >0){
             JobsNote::where("jobs_notes_id", "=", $notes['jobs_notes_id'])->update($data);
             $last_id = $notes['jobs_notes_id'];
@@ -256,6 +263,7 @@ class JobsController extends BaseController {
         }
         return $client_id;
     }
+    
 
 
 

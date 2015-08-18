@@ -147,7 +147,7 @@ $(function() {
 
 </script>
 
-/* Add to Calender */
+<!-- Add to Calender -->
 <script type="text/javascript">(function () {
   if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
   if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
@@ -158,7 +158,15 @@ $(function() {
 </script>
 
 <script>
-  $('#calender_time').timepicki();
+  $('#calender_time').timepicki({
+    show_meridian:false,
+    //min_hour_value:0,
+    max_hour_value:23,
+    //step_size_minutes:15,
+    //overflow_minutes:true,
+    increase_direction:'up',
+    //disable_keyboard_mobile: true
+  });
 </script>
 @stop
 
@@ -373,6 +381,7 @@ $(function() {
         @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
           @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
+          
             <tr id="data_tr_{{ $details['client_id'] }}_21">
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><img src="/img/cross.png"></a></td>
               <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
@@ -389,18 +398,18 @@ $(function() {
               </td>
               <td align="center">
                 <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
-                   <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a>
+                   <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
+                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ $details['jobs_notes']['job_start_date'] or "" }}</a>
                   <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
                   <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
-                    <!-- <a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a> -->
                     <ul>
 
-                    <li><a href="#" data-toggle="modal" data-target="#addto_calender-modal" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Edit</a></li>
+                    <li><a href="javascript:void(0)" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Add/Edit Start Date</a></li>
                    <li>
                     <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
                       <var class="atc_event">
-                        <var class="atc_date_start">{{ $details['created'] or "" }}</var>
-                        <var class="atc_date_end">{{ $details['created'] or "" }}</var>
+                        <var class="atc_date_start">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</var>
+                        <var class="atc_date_end">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime($details['jobs_notes']['job_start_date'])) ):"" }}</var>
                         <var class="atc_timezone">Europe/London</var>
                         <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
                         <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
@@ -815,6 +824,7 @@ $(function() {
       </div>
     
       <div class="modal-body">
+        <div id="start_date_loader" style="text-align: center; padding-bottom: 10px;"><!-- Show loader --></div>
         <input type="hidden" id="calender_client_id" name="calender_client_id">
         <input type="hidden" id="calender_tab" name="calender_tab">
         <table>
@@ -838,8 +848,8 @@ $(function() {
           </tr>
 
           <tr>
-            <td align="left" colspan="2" width="20%">&nbsp;</td>
-            <td align="right"><button type="button" class="btn btn-info save_notes">Save</button></td>
+            <td align="left" colspan="2" width="20%"></td>
+            <td align="right"><button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-info save_job_start_date">Save</button></td>
           </tr>
         </table>
 
