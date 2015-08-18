@@ -6,6 +6,16 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
+<!-- Date picker script -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+<!-- Date picker script -->
 
 <!-- page script -->
 <script type="text/javascript">
@@ -105,15 +115,25 @@ $(function() {
 
     });
   Table3.fnSort( [ [1,'asc'] ] );
+  
+  $("#stafdpick").datepicker({dateFormat: 'dd-mm-yy'});
 
 });
 
 
 
+/*$(function() {
+                $("#stafdpick").datepicker({dateFormat: 'dd-mm-yy'});
+});
+
+$(function() {
+            $(".dpick").datepicker({dateFormat: 'dd-mm-yy'});
+			  
+});*/
 
 $('.addnew_line').click(function() {
 		
-				alert('AAAAAAAAAAAA');	
+			//	alert('AAAAAAAAAAAA');	
                 
                 	var $newstaffRow = $('#staffholi').clone(true);
 				
@@ -543,22 +563,25 @@ $('.addnew_line').click(function() {
                    
                     <tr>
                         <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                      <td align="center">20/07/2015</td>
+                      
+                     <td> <input type="text" id="stafdpick" name="date[]" style="width:86%; height: 33px;">
+                      </td>
                       <td align="center">
                              
                                                           
                               <select class="form-control">
-                                <option value="fullfday">Half Day</option>
-                                <option value="am">AM </option>
+                                <option value="fullfday">Full Day</option>
+                                <option value="am">AM-Half Day </option>
+                                <option value="am">PM-Half Day </option>
                                 
                               </select>
                             </td>
                       <td align="center">
                       <select class="form-control">
-                        <option>ewfwe</option>
-                        <option>ergreg </option>
-                        <option>regerg</option>
-                        <option>rtyhrt</option>
+                        <option>Annual Leave</option>
+                        <option>Paternity/Maternity Leave </option>
+                        <option>Sickness</option>
+                       
                         </select></td>
                       <td align="center"><button class="btn btn-default note_t" data-toggle="modal" data-target="#addfontnotes-modal" id="notesaddfont">Notes</button></td>
                     </tr>
