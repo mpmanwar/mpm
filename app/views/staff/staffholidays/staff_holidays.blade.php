@@ -103,11 +103,11 @@ $(function() {
         },
 
       "aoColumns":[
-           // {"bSortable": false},
-            {"bSortable": true},
+           {"bSortable": false},
+            {"bSortable": false},
             {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": true},
+            {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false}
@@ -135,11 +135,35 @@ $('.addnew_line').click(function() {
 		
 			//	alert('AAAAAAAAAAAA');	
                 
+                $(".dpick").datepicker("destroy");  
+                
                 	var $newstaffRow = $('#staffholi').clone(true);
+                    
+                    $newstaffRow.find('#sdate_picker').val('');
+                    $newstaffRow.find('.dpick').val('');
+                    $newstaffRow.find('#due').val('');
+                    $newstaffRow.find('#rtype').val('');
+                    $newstaffRow.find('#snotes').val('');
+                    
+                    var noOfDivs = $('.makeCloneClass').length + 1;
+                    
+                    $newstaffRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
+                    $('#sBoxTable tr:last').after($newstaffRow);
+                    $(".dpick").datepicker({dateFormat: 'dd-mm-yy'}); 
 				
 			return false;
 			
 	})
+    
+    
+    $('.sDeleteBoxRow').click(function() {
+    
+    //find the closest parent row and remove it
+	var size = $(".sDeleteBoxRow").size();
+		if(size>1){
+        	$(this).closest('tr').remove();
+		}
+    });
     
     function addnotesmodal(){
         
@@ -249,24 +273,24 @@ $('.addnew_line').click(function() {
         <th align="center">Time Off Type</th>
         <th align="center">Date</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Requester Notes</th>
-        <th align="center">Approver Notes</th>
+        <th align="center" style="padding: 6px 4px; width: 10%;" >Requester Notes</th>
+        <th align="center" style="padding: 9px 4px; width: 10%;">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-        <td align="center"><input type="checkbox" /></td>
+        <td align="left"><input type="checkbox" /></td>
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20-07-2015</td>
         <td align="center">
          <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
         
-        <td align="center"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
         <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
         <a href="#" ><img src="/img/cross.png" width="15" ></a>
         
@@ -413,45 +437,45 @@ $('.addnew_line').click(function() {
                       <div class="row">
                         <div class="col-xs-12">
 <table class="table table-bordered table-hover dataTable" id="example3" aria-describedby="example3_info">
-
   @if($staff_type == "staff")
     <thead>
       <tr role="row">
-     <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
         <th align="center">Staff Name</th>
-        <th align="center">Request Type</th>
+        <th align="center">Time Off Type</th>
         <th align="center">Date</th>
-        <th align="center">Duration</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Notes</th>
+        <th align="center" style="padding: 6px 4px; width: 10%;" >Requester Notes</th>
+        <th align="center" style="padding: 9px 4px; width: 10%;">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-       <!-- <td align="center"><input type="checkbox" /></td> -->
+        <td align="left"><input type="checkbox" /></td>
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
-        <td align="center">20/07/2015</td>
-        <td align="center">1 month</td>
+        <td align="center">20-07-2015</td>
         <td align="center">
-          <select style="width:134px; height:23px;">
-            <option value="Awaiting Approval">Awaiting Approval</option>
-            <option value="Approved">Approved</option>
-            <option value="Declined">Declined</option>
-          </select>
+         <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center">View</td>
-        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+        <a href="#" ><img src="/img/cross.png" width="15" ></a>
+        
+        
+        </td>
       </tr>
       
     </tbody>
           
   @else
     <thead>
-      <tr role="row">
-       <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+      <tr role="row"> 
+      <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Request Type</th>
         <th align="center">Notes</th>
         <th align="center">Date</th>
@@ -481,9 +505,9 @@ $('.addnew_line').click(function() {
       </tr>
       
     </tbody>
-  @endif
+  @endif                
 </table>
-                        </div>
+  </div>
                       </div>
                     </div>
                   </div>
@@ -550,9 +574,9 @@ $('.addnew_line').click(function() {
             </tr>
             <tr>
               <td valign="top">
-              <table width="100%" class="table table-bordered">
+              <table width="100%" class="table table-bordered" id="sBoxTable" >
                   <tbody>
-                   <tr id="TemplateRow" class="makeCloneClass">
+                   <tr>
                    
                      <td align="center">&nbsp;</td>
                       <td align="center"><strong>Date</strong></td>
@@ -561,29 +585,30 @@ $('.addnew_line').click(function() {
                       <td align="center"><strong>Notes</strong></td>
                     </tr>
                    
-                    <tr>
-                        <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
+                    <tr id="staffholi" class="makeCloneClass">
+                    
+                        <td><a href="#"><img src="/img/cross_icon.png" id="sdate_picker"  class="sDeleteBoxRow" /></a></td>
                       
-                     <td> <input type="text" id="stafdpick" name="date[]" style="width:86%; height: 33px;">
+                     <td> <input type="text" class="dpick" id="stafdpick" name="date[]" style="width:86%; height: 33px;">
                       </td>
                       <td align="center">
                              
                                                           
-                              <select class="form-control">
+                              <select class="form-control" id="due">
                                 <option value="fullfday">Full Day</option>
                                 <option value="am">AM-Half Day </option>
-                                <option value="am">PM-Half Day </option>
+                                <option value="ph">PM-Half Day </option>
                                 
                               </select>
                             </td>
                       <td align="center">
-                      <select class="form-control">
-                        <option>Annual Leave</option>
-                        <option>Paternity/Maternity Leave </option>
-                        <option>Sickness</option>
+                      <select class="form-control" id="rtype">
+                        <option value="annual">Annual Leave</option>
+                        <option value="paternity">Paternity/Maternity Leave </option>
+                        <option value="sickness">Sickness</option>
                        
                         </select></td>
-                      <td align="center"><button class="btn btn-default note_t" data-toggle="modal" data-target="#addfontnotes-modal" id="notesaddfont">Notes</button></td>
+                      <td align="center" style="padding: 9px 0; width: 14%;" ><button class="btn btn-default note_t" id="snotes" data-toggle="modal" data-target="#addfontnotes-modal" id="notesaddfont">Notes</button></td>
                     </tr>
                     
                  
