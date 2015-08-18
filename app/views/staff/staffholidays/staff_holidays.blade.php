@@ -221,9 +221,14 @@ $('.addnew_line').click(function() {
     </td>
     <td width="10%">
       @if($staff_type == "staff")
+       
+      
         <select style="width:120px; height:23px;">
-          <option>Abel</option>
-          <option>Anwar</option>
+          @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
         </select>
       @endif
     
