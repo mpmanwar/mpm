@@ -14,8 +14,19 @@ class StaffholidaysController extends BaseController {
         $data['staff_type'] = base64_decode($type);
        	$data['heading'] 	= "HOLIDAYS/TIME OFF ";
 		$data['title'] 		= "Staff Holidays";
-		
-      
+	
+    	$session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        //print_r($groupUserId);die();
+
+        $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id",
+            "=", 0)->select("user_id", "fname", "lname")->get();
+    
+    // echo '<pre>'; print_r($data);die();
+        
         return View::make('staff.staffholidays.staff_holidays',$data);
        
     }

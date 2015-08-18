@@ -979,6 +979,10 @@ border: 1px solid #e2e4e6;
 .cont_add_to_date ul li a{color: #000; font-size: 14px;}
 .edit_cal{position: relative; cursor: pointer;}
 .pagination .next{ padding: 0; background: none;}
+.declined_btn{border:2px solid #b82223; color:#b82223; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.approved_btn{border:2px solid #1084ab; color:#1084ab; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.awating_btn{border:2px solid #00ad5e; color:#00ad5e; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
+.note_t{color:#1282b4!important; font-weight:bold!important; padding: 5px 30px;}
 
 
 

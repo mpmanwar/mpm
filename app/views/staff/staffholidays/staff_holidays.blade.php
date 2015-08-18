@@ -29,11 +29,11 @@ $(function() {
         },
 
       "aoColumns":[
-           // {"bSortable": false},
-            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
             {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": true},
+            {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false}
@@ -109,6 +109,26 @@ $(function() {
 });
 
 
+
+
+$('.addnew_line').click(function() {
+		
+				alert('AAAAAAAAAAAA');	
+                
+                	var $newstaffRow = $('#staffholi').clone(true);
+				
+			return false;
+			
+	})
+    
+    function addnotesmodal(){
+        
+        //alert('dsdsdsd');return false;
+        
+        $("#addfontnotes-modal").modal("hide");
+    
+    }
+
 </script>
 @stop
 
@@ -139,7 +159,7 @@ $(function() {
     <div class="top_bts">
           <ul>
             <li>
-              <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+            <!--  <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button> -->
             </li>
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
@@ -190,7 +210,7 @@ $(function() {
                         <div class="col-xs-8"></div>
                         <div class="col-xs-4"></div>
                       </div>
-                      <div style="position:absolute; left: 52%; z-index: 10; margin-top: -4px;">
+                      <div style="position:absolute; left: 50%; z-index: 10; margin-top: -4px;">
           <button class="btn btn-default" data-toggle="modal" data-target="#compose-modal"><span class="requ_t">New Request</span></button>
           @if($staff_type == "staff")
           <button class="btn btn-default">Approve</button>
@@ -204,33 +224,34 @@ $(function() {
   @if($staff_type == "staff")
     <thead>
       <tr role="row">
-       <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+        <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
         <th align="center">Staff Name</th>
-        <th align="center">Request Type</th>
+        <th align="center">Time Off Type</th>
         <th align="center">Date</th>
-        <th align="center">Duration</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Notes</th>
+        <th align="center">Requester Notes</th>
+        <th align="center">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-      <!--  <td align="center"><input type="checkbox" /></td> -->
+        <td align="center"><input type="checkbox" /></td>
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
         <td align="center">20-07-2015</td>
-        <td align="center">1 month</td>
         <td align="center">
-          <select style="width:134px; height:23px;">
-            <option value="Awaiting Approval">Awaiting Approval</option>
-            <option value="Approved">Approved</option>
-            <option value="Declined">Declined</option>
-          </select>
+         <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center">View</td>
-        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+        <td align="center"><button class="btn btn-default note_t">Notes</button></td>
+        
+        <td align="center"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+        <a href="#" ><img src="/img/cross.png" width="15" ></a>
+        
+        
+        </td>
       </tr>
       
     </tbody>
@@ -324,7 +345,7 @@ $(function() {
   @else
     <thead>
       <tr role="row">
-     M<!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+     <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
         <th align="center">Request Type</th>
         <th align="center">Notes</th>
         <th align="center">Date</th>
@@ -479,18 +500,29 @@ $(function() {
                   <tr>
                     <td width="30%"><strong>HOLIDAY/TIME OFF REQUEST</strong></td>
                     
-                    <td width="30%">
+                    <td width="20%">
                       @if($staff_type != "staff")
                       <strong>Total Days Requested</strong> <input type="text" style="width:60px;">
                       @endif
                     </td>
-                    <td width="40%">
+                    <td width="10%">
                       @if($staff_type != "staff")
                       <strong>Days Remaining</strong> <input type="text" style="width:60px;">
                       @else
-                      <strong>Staff Name <select style="width:150px; height: 25px;"><option></option></select></strong>
+                      <strong>Staff Name </strong></td>
+                      <td width="15%"><select class="form-control">
+                      
+                      @if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+                      
+                      </select>
                       @endif
                     </td>
+                    
+                    
                   </tr>
                 </table>
 
@@ -500,17 +532,27 @@ $(function() {
               <td valign="top">
               <table width="100%" class="table table-bordered">
                   <tbody>
-                    <tr>
+                   <tr id="TemplateRow" class="makeCloneClass">
+                   
                      <td align="center">&nbsp;</td>
                       <td align="center"><strong>Date</strong></td>
                       <td align="center"><strong>Duration</strong></td>
                       <td align="center"><strong>Request type</strong></td>
                       <td align="center"><strong>Notes</strong></td>
                     </tr>
+                   
                     <tr>
-                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
+                        <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
                       <td align="center">20/07/2015</td>
-                      <td align="center">20/07/2015 AM - HALF DAY</td>
+                      <td align="center">
+                             
+                                                          
+                              <select class="form-control">
+                                <option value="fullfday">Half Day</option>
+                                <option value="am">AM </option>
+                                
+                              </select>
+                            </td>
                       <td align="center">
                       <select class="form-control">
                         <option>ewfwe</option>
@@ -518,34 +560,10 @@ $(function() {
                         <option>regerg</option>
                         <option>rtyhrt</option>
                         </select></td>
-                      <td align="center"><input type="text" id="" class="form-control"></td>
+                      <td align="center"><button class="btn btn-default note_t" data-toggle="modal" data-target="#addfontnotes-modal" id="notesaddfont">Notes</button></td>
                     </tr>
-                    <tr>
-                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                      <td align="center">20/07/2015</td>
-                      <td align="center">AM - HALF DAY</td>
-                      <td align="center">
-                      <select class="form-control">
-                        <option>ewfwe</option>
-                        <option>ergreg </option>
-                        <option>regerg</option>
-                        <option>rtyhrt</option>
-                        </select></td>
-                      <td align="center"><input type="text" id="" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td><a href="#"><img src="/img/cross_icon.png" /></a></td>
-                      <td align="center">20/07/2015</td>
-                      <td align="center">AM - HALF DAY</td>
-                      <td align="center">
-                      <select class="form-control">
-                        <option>ewfwe</option>
-                        <option>ergreg </option>
-                        <option>regerg</option>
-                        <option>rtyhrt</option>
-                        </select></td>
-                      <td align="center"><input type="text" id="" class="form-control"></td>
-                    </tr>
+                    
+                 
                      
                   </tbody>
                 </table>
@@ -565,5 +583,46 @@ $(function() {
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+
+
+
+
+<!-- addfontnotes-modal-->
+<div>
+<div class="modal fade" id="addfontnotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
+     
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+     
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
+             
+          <textarea rows="4" cols="60"  name="notes1[]" id="addfontnotesss" value="" ></textarea>
+         
+         
+     <!--     <button class="btn btn-primary" onclick="return fetchnotes()" id="fetchsave_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button> -->  
+          <div class="clr"></div> 
+          <button class="btn btn-primary"   style="padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%;">Save</button>  
+               
+         </div>
+         <div class="clr"></div> 
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
+<!-- addfontnotes-modal -->
 @stop
 <!-- staff-->
