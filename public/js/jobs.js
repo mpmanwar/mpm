@@ -5,6 +5,8 @@ $(document).ready(function () {
     $(".open_adddrop").click(function(event) {
         var client_id = $(this).data("client_id");
         var tab = $(this).data("tab");
+        //$(".atc-style-blue a").css("pointer-events", "pointer");
+        
         //$(".cont_add_to_date").hide();
         $(".open_dropdown_"+client_id+"_"+tab).toggle();
         event.stopPropagation();
@@ -432,6 +434,7 @@ $(document).ready(function () {
         $("#calender_client_id").val(client_id);
         $("#calender_tab").val(tab);
 
+        $(".open_dropdown_"+client_id+"_"+tab).hide();
         $("#addto_calender-modal").modal("show");
     });
 
@@ -461,6 +464,10 @@ $(document).ready(function () {
         /*$("#date_view_"+client_id+"_"+tab).html(date+" "+hour+":"+minute);
         $("#addto_calender-modal").modal("hide");*/
         
+    });
+
+    $("body").on("click", ".atcb-item a", function(){
+        $(".cont_add_to_date").hide();
     });
 /* ################# Job Start Date in job section end ################### */
 

@@ -34,7 +34,7 @@
 <!-- page script -->
 <script type="text/javascript">
 $(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
-$(".addto_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+$(".addto_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-5:+100" });
 var Table1, Table3;
 $(function() {
     Table1 = $('#example1').dataTable({
@@ -429,8 +429,6 @@ $(function() {
                 
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
-                <!-- <span class="notes_td"></span> -->
-                
               </td>
               <td align="left">
                 <select class="form-control newdropdown">
@@ -498,7 +496,8 @@ $(function() {
                 @endif
               </td>
               
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
+              </td>
               <td align="left">
                 <select class="form-control newdropdown">
                   @if(isset($email_templates) && count($email_templates) >0)
@@ -564,7 +563,8 @@ $(function() {
                      {{ $details['deadret_count'] or "" }}
                   @endif
                 </td>
-                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></td>
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
+              </td>
                 <td align="left">
                 <select class="form-control newdropdown">
                   @if(isset($email_templates) && count($email_templates) >0)
@@ -630,7 +630,8 @@ $(function() {
                    {{ $details['deadret_count'] or "" }}
                 @endif
               </td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
+              </td>
               <td align="left">
                 <select class="form-control newdropdown">
                   @if(isset($email_templates) && count($email_templates) >0)
@@ -699,7 +700,8 @@ $(function() {
                   <a href="javascript:void(0)" class="search_t cancel_made_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Cancel</a>
                 </span>
               </td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup"  data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">notes</a><span class="notes_td">{{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?"......":"" }}</span></td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
+              </td>
               <td align="center" width="12%">
                 {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
               </td>
