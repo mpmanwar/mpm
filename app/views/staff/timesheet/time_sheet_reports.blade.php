@@ -145,7 +145,8 @@ $(function() {
 				
 				
 				var $newRow = $('#TemplateRow').clone(true);
-				$newRow.find('#date_picker').val('');
+			
+            	$newRow.find('#date_picker').val('');
 				$newRow.find('.dpick').val('');
         		$newRow.find('#staff_id').val('');
                 $newRow.find('#rel_client_id').val('');
@@ -1662,7 +1663,7 @@ function fontfetchnotesmodal(fontvalue){
                 <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker" class="DeleteBoxRow" ></a>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15" id="date_picker"  class="DeleteBoxRow" ></a>
 				<input class="dpick" type="text" id="dpick1" name="date[]"  style="width:86%; height: 33px;"/>
 				</td>
                 <td align="center"><select class="form-control" name="staff_id[]" id="staff_id">
