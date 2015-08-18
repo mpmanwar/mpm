@@ -291,7 +291,13 @@ Route::any('/timesheet/staffdemo', 'TimesheetController@staffdemo');
 
 /*==================Time Sheet End ==============*/
 
+Route::any('/hmrc', 'HmrcController@hmrc');
+/*==================HMRC==============*/
 
+
+
+
+/*==================HMRC ==============*/
 /*================== Notes Start ==============*/
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
 /*================== Notes End ==============*/
