@@ -16,7 +16,9 @@ class Client extends Eloquent {
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
-				$client_data[$i]['client_id'] = $client_id->client_id;
+				$client_data[$i]['client_id'] 		= $client_id->client_id;
+				$client_data[$i]['client_type'] 	= "org";
+				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
 				//$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
 
 				// ############### GET MANAGE TASK START ################## //
@@ -164,6 +166,7 @@ class Client extends Eloquent {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				
                 $client_data[$i]['client_id'] 		= $client_id->client_id;
+                $client_data[$i]['client_type'] 	= "ind";
                 $client_data[$i]['show_archive'] 	= $client_id->show_archive;
 
                 // ############### GET CLIENT LIST ALLOCATION START ################## //
@@ -234,6 +237,15 @@ class Client extends Eloquent {
 		}
 		//print_r($client_data);die;
 		return $client_data;
+	}
+
+	public static function getAllClientDetails()
+	{
+		$data = array();
+		$allOrgClient = Client::getAllOrgClientDetails();
+		$allIndClient = Client::getAllIndClientDetails();
+		$data = array_merge($allOrgClient, $allIndClient);
+		return array_values($data);
 	}
 
 	public static function getServicesIdByClient($client_id)
