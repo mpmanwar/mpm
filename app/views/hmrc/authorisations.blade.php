@@ -8,6 +8,8 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/relationship.js') }}" type="text/javascript"></script>
@@ -16,7 +18,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
 <script>
+var Table1;
 
+    
+  $(function() {
+
+   Table1 = $('#example1').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": false,
+        "bAutoWidth": true,
+        "aLengthMenu": [[90], [90]],
+        "iDisplayLength": 90,
+        
+  
+
+      "aoColumns":[
+          //  {"bSortable": false},
+          //  {"bSortable": true},
+           // {"bSortable": true},
+          //  {"bSortable": true},
+            //{"bSortable": true},
+          
+            {"bSortable": false}
+        ]
+
+    });
+    Table1.fnSort( [ [2,'asc'] ] );
+   
+    }); 
+    
 </script>
 @stop
 
@@ -113,10 +146,12 @@
                             </tr>-->
                             <tr>
                               <td valign="top">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" class="dataTable" id="example1" aria-describedby="example1_info" >
   <tr>
     <td valign="top">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered " >
+   
+  
   <tr>
     <td rowspan="2" align="center" class="padding_h"><input type="checkbox" /></td>
     <td rowspan="2" align="center" class="padding_h"><strong>NAME</strong></td>
@@ -331,8 +366,7 @@
     </section>
     <!-- /.content -->
   </aside></div>
-            
-@include("home.include.client_modal_page")
+
 
 
 

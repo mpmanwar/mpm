@@ -28,6 +28,13 @@ class HmrcController extends BaseController
     public function authorisations(){
         $data['heading'] = "AUTHORISATIONS";
         $data['title'] = "Authorisations";
+        
+            $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
+       
+            
+       
+        
+        
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
@@ -47,6 +54,7 @@ class HmrcController extends BaseController
     public function emails(){
         $data['heading'] = "STRUCTURED EMAILS";
         $data['title'] = "Structured Emails";
+        $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
