@@ -7,7 +7,7 @@ class HmrcController extends BaseController
     public function hmrc(){
         
         $data['heading'] = "HMRC";
-        $data['title'] = "Hmrc";
+        $data['title'] = "HMRC";
         /*if (base64_decode($type) == 'profile') {
             $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
         } else {
@@ -23,6 +23,70 @@ class HmrcController extends BaseController
         $groupUserId = $session['group_users'];
 
          return View::make('hmrc.hmrc', $data);
+    }
+    
+    public function authorisations(){
+        $data['heading'] = "AUTHORISATIONS";
+        $data['title'] = "Authorisations";
+        
+            $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
+       
+            
+       
+        
+        
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        $data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
+
+
+
+
+
+
+         return View::make('hmrc.authorisations', $data);
+    }
+    
+    
+    public function emails(){
+        $data['heading'] = "STRUCTURED EMAILS";
+        $data['title'] = "Structured Emails";
+        $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.emails', $data);
+        
+    }
+    public function tool(){
+        $data['heading'] = "TOOL & CALCULATORS";
+        $data['title'] = "Tool & Calculators";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.tool', $data);
+        
     }
 
 }

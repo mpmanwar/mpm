@@ -291,11 +291,12 @@ Route::any('/timesheet/staffdemo', 'TimesheetController@staffdemo');
 
 /*==================Time Sheet End ==============*/
 
-Route::any('/hmrc', 'HmrcController@hmrc');
+
 /*==================HMRC==============*/
-
-
-
+Route::any('/hmrc', 'HmrcController@hmrc');
+Route::any('/hmrc/authorisations', 'HmrcController@authorisations');
+Route::any('/hmrc/emails', 'HmrcController@emails');
+Route::any('/hmrc/tool', 'HmrcController@tool');
 
 /*==================HMRC ==============*/
 /*================== Notes Start ==============*/

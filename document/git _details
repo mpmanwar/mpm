@@ -45,6 +45,8 @@ https://www.liberiangeek.net/2014/09/install-memcached-ubuntu-14-04-lts/
 ssh root@106.187.95.65
 password:  AppsbEE##::321
 cd /var/www/mpm/mpm/
+git add -A
+git commit -a -m "no changes"
 git pull
 
 remove command : rm file.php
