@@ -5,7 +5,7 @@
 @stop
 
 @section('myjsfile')
-<script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/letter_email.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
@@ -132,14 +132,14 @@ $(function() {
             
 <div class="box-body table-responsive">
   <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-    <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
+    <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
       <input type="hidden" id="client_type" value="org"> 
         <thead>
             <tr role="row">
-                <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>CONTACT TYPE</th>
+                <th width="3%"><input type="checkbox" id="allCheckSelect"/></th>
+                <th width="6%">TYPE</th>
                 <th>NAME</th>
-                <th>ATTENTION OFF</th>
+                <th>CONTACT NAME</th>
                 <th>TELEPHONE</th>
                 <th>MOBILE</th>
                 <th>EMAIL</th>
@@ -153,17 +153,27 @@ $(function() {
                 <?php $i=1; ?>
                 @foreach($client_details as $key=>$client_row)
                   <tr class="all_check">
+                    <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+
                     <td align="center">
                       <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
                     <td align="left">{{ $client_row['contact_type'] or "" }}</td>
-                    <td align="left"><a href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
-                    <td align="left"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
+                    <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+                    <td align="left">
+                      @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
+                        <select class="form-control newdropdown">
+                        @foreach($client_row['contact_name'] as $key=>$name_row)
+                        <option>{{ $name_row['name'] }}</option>
+                        @endforeach
+                        </select>
+                      @endif
+                    </td>
+                    <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                    <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                    <td align="center">{{ $client_row['email'] or "" }}</td>
+                    <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                    <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                     
                   </tr>
                 <?php $i++; ?>
@@ -236,7 +246,7 @@ $(function() {
         
 
      <div class="form-group">
-      <label for="exampleInputPassword1"><div style="float:left;">Contact Name</div> <div style="float:left; margin-left: 100px">File as <input type="checkbox"></div></label>
+      <label for="exampleInputPassword1"><div style="float:left;">Contact Name</div> <div style="float:left; margin-left: 100px">File Contact as <input type="checkbox"></div></label>
       <input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control">
     </div>
 
@@ -276,7 +286,7 @@ $(function() {
     </div>
 
     <div class="form-group">
-      <label for="exampleInputPassword1"><div style="float:left;">Company Name</div> <div style="float:left; margin-left: 100px">File as <input type="checkbox"></div></label>
+      <label for="exampleInputPassword1"><div style="float:left;">Company Name</div> <div style="float:left; margin-left: 100px">File Contact as <input type="checkbox"></div></label>
       <input type="text" id="res_addr_line1" name="res_addr_line1"  class="form-control">
     </div>
 
@@ -348,5 +358,66 @@ $(function() {
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="full_address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">FULL ADDRESS</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" id="show_full_address">
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- Notes modal start -->
+<div class="modal fade" id="notes-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">SAVE NOTES</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <input type="hidden" id="notes_client_id" name="notes_client_id">
+        <input type="hidden" id="contact_type" name="contact_type">
+        <table>
+          <tr>
+            <td align="left" width="20%"><strong>Notes : </strong></td>
+            <td align="left"><textarea cols="56" rows="4" id="notes" name="notes"></textarea></td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="right"><button type="button" class="btn btn-info save_notes">Save</button></td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>        
+<!-- Notes modal start -->
 
 @stop
