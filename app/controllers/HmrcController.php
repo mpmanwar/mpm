@@ -7,7 +7,7 @@ class HmrcController extends BaseController
     public function hmrc(){
         
         $data['heading'] = "HMRC";
-        $data['title'] = "Hmrc";
+        $data['title'] = "HMRC";
         /*if (base64_decode($type) == 'profile') {
             $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
         } else {

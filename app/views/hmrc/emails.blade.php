@@ -2,6 +2,8 @@
 
 
 @section('mycssfile')
+
+
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <!-- Date picker script -->
@@ -27,18 +29,13 @@ $(function() {
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
-        "bSort": false,
+        "bSort": true,
         "bInfo": false,
         "bAutoWidth": true,
         //"aLengthMenu": [[90], [90]],
         //"iDisplayLength": 90,
-        "language": {
-            "lengthMenu": "Show _MENU_ entries",
-            "zeroRecords": "Nothing found - sorry",
-            "info": "Showing page _PAGE_ of _PAGES_",
-            "infoEmpty": "No records available",
-            "infoFiltered": "(filtered from _MAX_ total records)"
-        },
+        
+  
 
       "aoColumns":[
             {"bSortable": false}
@@ -52,6 +49,9 @@ $(function() {
         ]
 
     });
+    
+    
+    
   //Table1.fnSort( [ [2,'asc'] ] );
 
  
@@ -86,35 +86,32 @@ $(function() {
           
           <div class="tabarea">
             <div class="row">
-                        <div class="col-xs-12">
-                     
-                       <table width="100%" cellspacing="0" cellpadding="0" class="table table-bordered" id="example1" aria-describedby="example1_info">
-  <tbody><tr>
-    <td><h4>SERVICES</h4></td>
+                        <div class="col-xs-12 ser_con">
+                     <div class="service_t">SERVICES</div>
+                       <table width="100%" cellspacing="0" cellpadding="0" class="table table-bordered th_con m_gap2" id="example1" aria-describedby="example1_info">
+  <tr>
+    <td>   
+    <a href="#" target="_blank" class="registration_btn">Self Assesment and National Insurance Contributions Registration</a>
+    </td>
   </tr>
   <tr>
-    <td><input type="button" class="registration_btn" value="Self Assesment and National Insurance Contributions Registration"></td>
+    <td>
+    <a href="#" target="_blank" class="registration_btn">Registering for Self Assessment and getting a tax return</a>
+    </td>
   </tr>
   <tr>
-    <td><input type="button" class="registration_btn" value="Registering for Self Assessment and getting a tax return"></td>
+    <td><a href="#" target="_blank" class="registration_btn">Register as an employer - Limited Company with up to 2 directors</a></td>
   </tr>
-  <tr>
-    <td><input type="button" class="registration_btn" value="Register as an employer - Limited Company with up to 2 directors"></td>
-  </tr>
-  <!--<tr>
-    <td><a href="#" class="registration_btn">Register as an employer - Limited Company with up to 2 directors</a></td>
-  </tr>-->
-</tbody></table>
+</table> 
+<a href="#" class="refer_t">Refer to the excel book - book 1 stracture email</a>
                         </div>
-                         <div class="col-xs-12">
-                          <div class="col-xs-6"><a href="#" class="refer_t">Refer to the excel book - book 1 stracture email</a>
-                          </div>
-                         </div>
+                    
                       </div>
           </div>
         </form>
+        
       </div>
-
+</aside>
 
 
 

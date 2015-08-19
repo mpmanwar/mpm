@@ -23,8 +23,7 @@
 @section('content')
 
 <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas {{ $left_class }}">
+    <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     @include('layouts/inner_leftside')
@@ -32,13 +31,20 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
-
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side {{ $right_class }}">
+           <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-               
+                @include('layouts.below_header')
+    <!-- Content Header (Page header) -->
+    <!--<section class="content-header">
+      <h1>HMRC AUTHORISATIONS</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>-->
     <!-- Main content -->
-<div class="practice_mid"> 
+    <section class="content">
+      <div class="practice_mid"> 
         <form>
           <div class="top_buttons">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -82,7 +88,7 @@
                           </td>
                          
                           </tr>
-                            <tr>
+                           <!-- <tr>
                               <td valign="top"><table width="100%" border="0">
                                   <tr>
                                   <td width="5%"><strong>Search</strong></td>
@@ -104,7 +110,7 @@
                                   </tr>
                                 </table>
                                </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                               <td valign="top">
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -116,6 +122,7 @@
     <td rowspan="2" align="center" class="padding_h"><strong>NAME</strong></td>
     <td rowspan="2" align="center" class="padding_h"><strong>RESPONSIBLE PERSON</strong></td>
     <td colspan="5" align="center"><strong>PAPER AUTORISATION</strong></td>
+    <td colspan="10" align="center"><strong>ONLINE AUTORISATION</strong></td>
     </tr>
   <tr>
     <td align="center"><strong>SA/NI</strong></td>
@@ -123,12 +130,22 @@
     <td align="center"><strong>CT</strong></td>
     <td align="center"><strong>PAYE</strong></td>
     <td align="center"><strong>VAT</strong></td>
+    <td align="center"><strong>SA/TC</strong></td>
+    <td align="center"><strong>PAYE</strong></td>
+    <td align="center"><strong>CT</strong></td>
+    <td align="center"><strong>ERS</strong></td>
+    <td align="center"><strong>CT</strong></td>
+      <td align="center"><strong>VAT</strong></td>
+    <td align="center"><strong>NOVA</strong></td>
+    <td align="center"><strong>EU REFUNDS</strong></td>
+    <td align="center"><strong>MOSS-US</strong></td>
+    <td align="center"><strong>MOSS-NUS</strong></td>
   </tr>
   <tr>
     <td align="center"><input type="checkbox" /></td>
     <td align="left">One Cloud Europe Limited</td>
     <td align="center">
-    <select class="form-control sel_box1">
+    <select class="form-control">
     <option>50</option>
     <option>20</option>
     <option>10</option>
@@ -140,12 +157,22 @@
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
   </tr>
   <tr>
     <td align="center"><input type="checkbox" /></td>
     <td align="left">Alexander Rosse Limited</td>
     <td align="center">    
-    <select class="form-control sel_box1">
+    <select class="form-control">
     <option>50</option>
     <option>20</option>
     <option>10</option>
@@ -156,12 +183,22 @@
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
   </tr>
   <tr>
     <td align="center"><input type="checkbox" /></td>
     <td align="left">Mr Jon Eagle</td>
     <td align="center">
-    <select class="form-control sel_box1">
+    <select class="form-control">
     <option>50</option>
     <option>20</option>
     <option>10</option>
@@ -169,6 +206,16 @@
     </select>
     </td>
     <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
@@ -178,7 +225,7 @@
     <td align="center"><input type="checkbox" /></td>
     <td align="left">Mr Anthony Kane</td>
     <td align="center">
-    <select class="form-control sel_box1">
+    <select class="form-control">
     <option>50</option>
     <option>20</option>
     <option>10</option>
@@ -190,10 +237,21 @@
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+        <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
+    <td align="center"><input type="checkbox" /></td>
   </tr>
 </table>
 </td>
-    <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
+    <!--<td valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
   <tr>
     <td colspan="10" align="center"><strong>PAPER AUTORISATION</strong></td>
     </tr>
@@ -256,7 +314,7 @@
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>    
   </tr>
-</table></td>
+</table></td>-->
   </tr>
 </table>
 
@@ -270,6 +328,10 @@
           </div>
         </form>
       </div>
+    </section>
+    <!-- /.content -->
+  </aside></div>
+            
 @include("home.include.client_modal_page")
 
 

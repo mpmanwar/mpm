@@ -992,13 +992,19 @@ border: 1px solid #e2e4e6;
 
 /*================== HMRC Authorisation =============*/
 
-.sel_box1{height: 21px!important; padding:0!important;}
-
 .padding_h{padding-top:27px!important;}
+.registration_btn{background:#fff; float:left; width:100%; font-size:14px; color:#8780e2; font-weight:bold; padding:3px 3px 3px 20px; text-align:left; box-shadow:0 1px 1px 1px #dededc; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; outline:none; border:1px solid #dededc;}
+.refer_t{font-size:14px; color:#8780e2; font-weight:bold; position: absolute; bottom: 38px; left:20px;}
+.dataTables_filter {text-align: right;}
+div.dataTables_filter input{width: 16em; }
+.ser_con{position: relative;}
+.service_t{position: absolute; left: 15px; top:0px; font-size: 22px;}
+.th_con th{display: none;}
+.m_gap2{margin-top: 15px;}
 
-.registration_btn{background:#fff; width:100%; font-size:14px; color:#8780e2; font-weight:bold; padding:3px 3px 3px 20px; text-align:left; box-shadow:0 1px 1px 1px #dededc; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; outline:none; border:1px solid #dededc;}
 
-.refer_t{font-size:14px; color:#8780e2; font-weight:bold;}
+
+
 
 
 
