@@ -67,119 +67,82 @@ $(function() {
 
                 <!-- Main content -->
                 <section class="content">
-      <div class="row">
-        <div class="top_bts">
-          <ul>
-            <!-- <li>
-              <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li> -->
-            <li>
-              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
-            </li>
-            <li>
-              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
-            </li>
-            
-            <!-- <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li> -->
-            <!-- <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
-            
+      <div class="practice_mid"> 
+        <form>
+<div class="col-xs-12 email_maincon">
+<div class="col-xs-8">
+<div class="email_leftmain">
+<div class="email_top">
+<div class="email_top_left">
+<div class="form-group">
+<label for="exampleInputPassword1">Choose Template</label>
+<select class="form-control">
+<option>Monobrata</option>
+<option>R Sharma</option>
+<option>Company</option>
+</select>
+</div>
+</div>
 
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
-        <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
+<div class="email_top_right">
+<a href="#"><img src="img/m_send.png" /></a>
+<a href="#"><img src="img/download_latter.png" /></a>
+</div>
+<div class="clearfix"></div>
+</div>
 
-      </div>
-      <div class="practice_mid">
-        
-          <div class="tabarea">
-            <div class="tab_topcon">
-              <div class="top_bts" style="float:left;">
-                <ul style="padding:0;">
-                  <li>
-                    <button type="button" id="deleteClients" class="btn btn-danger">SEND LETTER/EMAIL</button>
-                  </li>
-                  <div class="clearfix"></div>
-                </ul>
-              </div>
-              <div class="top_search_con">
-               <div class="top_bts">
-                <ul style="padding:0;">
-                  <li>
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#upload_letterhead-modal">UPLOAD LETTERHEAD</a>
-                  </li>
+<div class="form-group">
+<label for="exampleInputPassword1">Email Subject</label>
+<input type="text" id="" class="form-control">
+</div>
+<textarea name="" rows="10" cols="" style="width:100%;">
+This is my textarea to be replaced with CKEditor.
+</textarea>
 
-                  <li>
-                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_contact-modal">ADD CONTACT</a>
-                  </li>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="email_bottom_table">
+  <tr>
+    <td width="91%"><a href="#">Upload New</a></td>
+    <td width="6%">Sign</td>
+    <td width="3%"><input type="checkbox" /></td>
+  </tr>
+  <tr>
+    <td><strong class="name_t">ABEL</strong><a href="#"><img src="img/cross_icon.png" /></a></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
 
-                  <li>
-                    <a href="/email-settings" target="_blank" class="btn btn-info">MAIL SETTINGS</a>
-                  </li>
-                  
-                  <div class="clearfix"></div>
-                </ul>
-              </div>
-              </div>
-              <div class="clearfix"></div>
+</div>
+</div>
+<div class="col-xs-4">
+<div class="input-group">
+<input type="text" placeholder="Search" class="form-control input-sm">
+<div class="input-group-btn">
+<button class="btn btn-sm btn-primary" name="q" type="submit">ADD</button>
+</div>
+</div>
 
-            </div>
-            
-<div class="box-body table-responsive">
-  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-    <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
-      <input type="hidden" id="client_type" value="org"> 
-        <thead>
-            <tr role="row">
-                <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>CONTACT TYPE</th>
-                <th>NAME</th>
-                <th>ATTENTION OFF</th>
-                <th>TELEPHONE</th>
-                <th>MOBILE</th>
-                <th>EMAIL</th>
-                <th>NOTES</th>
-                <th>CORRESPONDENCE ADDRESS</th>
-            </tr>
-        </thead>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="email_search_list">
+  <tr>
+    <th>Client Name</th>
+    <th>Contact Name</th>
+    <th>Email</th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr>
+    <td>R Sharma</td>
+    <td>Mr. Rakesh</td>
+    <td><a href="#">abel@cloud.com</a></td>
+    <td><a href="#"><img src="img/cross_icon.png" /></a></td>
+  </tr>
+</table>
 
-        <tbody role="alert" aria-live="polite" aria-relevant="all">
-            @if(!empty($client_details))
-                <?php $i=1; ?>
-                @foreach($client_details as $key=>$client_row)
-                  <tr class="all_check">
-                    <td align="center">
-                      <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
-                    </td>
-                    <td align="left">{{ $client_row['contact_type'] or "" }}</td>
-                    <td align="left"><a href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
-                    <td align="left"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    <td align="center"></td>
-                    
-                  </tr>
-                <?php $i++; ?>
-              @endforeach
-            @endif
-          
-          
-        </tbody>
-      </table>
 
-        </div>
-    </div>
-            
-            
-        </div>
-        
+</div>
+
+</div>
+<div class="clearfix"></div>
+        </form>
       </div>
     </section>
                 <!-- /.content -->
