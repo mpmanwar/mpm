@@ -203,86 +203,8 @@ var Table1;
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
   </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Alexander Rosse Limited</td>
-    <td align="center">    
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Mr Jon Eagle</td>
-    <td align="center">
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select>
-    </td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Mr Anthony Kane</td>
-    <td align="center">
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select>
-    </td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
+ 
+ 
 </table>
 </td>
     <!--<td valign="top">
