@@ -20,14 +20,14 @@ class ContactsLettersEmailsController extends BaseController {
 		{
 			foreach ($client_details as $key => $client_row) {
 				$client_data[$key]['client_id'] = $client_row['client_id'];
-				if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
-					$client_data[$key]['client_name'] = $client_row['client_name'];
+				if(isset($client_row['client_type']) && $client_row['client_type'] == "org"){
+					$client_data[$key]['client_name'] = $client_row['business_name'];
 					$client_data[$key]['contact_type'] = "Business";
 					$client_data[$key]['client_url'] = "/client/edit-org-client/".$client_row['client_id']."/".base64_encode('org_client');
-				}else if(isset($client_row['client_type']) && $client_row['client_type'] == "org"){
-					$client_data[$key]['client_name'] = $client_row['business_name'];
-					$client_data[$key]['contact_type'] = "Individual";
-					$client_data[$key]['client_url'] = "/client/edit-ind-client/".$client_row['client_id']."/".base64_encode('ind_client');
+				}else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
+					$client_data[$key]['client_name'] 	= $client_row['client_name'];
+					$client_data[$key]['contact_type'] 	= "Individual";
+					$client_data[$key]['client_url'] 	= "/client/edit-ind-client/".$client_row['client_id']."/".base64_encode('ind_client');
 				}
 				
 			}
