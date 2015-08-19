@@ -36,7 +36,7 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side {{ $right_class }}">
                 <!-- Content Header (Page header) -->
-                @include('layouts.below_header')
+               
     <!-- Main content -->
 <div class="practice_mid"> 
         <form>
