@@ -35,7 +35,7 @@
     <ul>
 
 <li class="hvr-grow">
-    <a  href="#">
+    <a  href="/hmrc/authorisations">
         <div class="circle_icons_inner">
             <div class="circle_icon"><img src="{{ URl :: asset('img/dashboard_circle.png') }}" /></div>
             <p class="c_tagline2">AUTHORISATIONS</p>
@@ -46,7 +46,7 @@
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/hmrc/emails">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
 <p class="c_tagline">STRUCTURED - <br>
@@ -60,7 +60,7 @@ EMAILS</p>
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/hmrc/tool">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
 <p class="c_tagline">TOOL &<br>

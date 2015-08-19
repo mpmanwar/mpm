@@ -24,5 +24,61 @@ class HmrcController extends BaseController
 
          return View::make('hmrc.hmrc', $data);
     }
+    
+    public function authorisations(){
+        $data['heading'] = "AUTHORISATIONS";
+        $data['title'] = "Authorisations";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        $data['allClients'] 	 	= App::make("HomeController")->get_all_clients();
+
+
+
+
+
+
+         return View::make('hmrc.authorisations', $data);
+    }
+    
+    
+    public function emails(){
+        $data['heading'] = "STRUCTURED EMAILS";
+        $data['title'] = "Structured Emails";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.emails', $data);
+        
+    }
+    public function tool(){
+        $data['heading'] = "TOOL & CALCULATORS";
+        $data['title'] = "Tool & Calculators";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.tool', $data);
+        
+    }
 
 }
