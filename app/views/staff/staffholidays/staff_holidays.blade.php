@@ -21,6 +21,13 @@
 <script type="text/javascript">
 var Table1, Table2, Table3;
 $(function() {
+    
+    
+     var staff_id= $("#staff_typeid").val();
+    // console.log(staff_typeid);
+    // alert(staff_id);
+    if(staff_id=="staff"){
+    
   Table1 = $('#example1').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
@@ -115,6 +122,107 @@ $(function() {
 
     });
   Table3.fnSort( [ [1,'asc'] ] );
+  }
+  else{
+    
+    Table1 = $('#example1').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+            //{"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table1.fnSort( [ [1,'asc'] ] );
+
+  Table2 = $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+          // {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+
+   
+   Table2.fnSort( [ [1,'asc'] ] );
+
+   Table3 = $('#example3').dataTable({
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "language": {
+            "lengthMenu": "Show _MENU_ entries",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+
+      "aoColumns":[
+          // {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+  Table3.fnSort( [ [1,'asc'] ] );
+    
+    
+    
+  }
   
  // $("#stafdpick").datepicker({dateFormat: 'dd-mm-yy'});
   $(".dpick").datepicker({dateFormat: 'dd-mm-yy'});
@@ -199,6 +307,7 @@ $('.addnew_line').click(function() {
 @stop
 
 @section('content')
+<input type="hidden" id="staff_typeid" name="staff_type" value="{{$staff_type}}" />
  <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
@@ -329,34 +438,35 @@ $('.addnew_line').click(function() {
           
   @else
     <thead>
-      <tr role="row"> 
-      <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
-        <th align="center">Request Type</th>
-        <th align="center">Notes</th>
+      <tr role="row">
+       <!-- <th align="left"><input type="checkbox" id="allCheckSelect"/></th> -->
+        <th align="center">Staff Name</th>
+        <th align="center">Time Off Type</th>
         <th align="center">Date</th>
-        <th align="center">Duration</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Days Remaining</th>
+        <th align="center" style="padding: 6px 4px; width: 10%;" >Requester Notes</th>
+        <th align="center" style="padding: 9px 4px; width: 10%;">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-       <!-- <td align="center"><input type="checkbox" /></td> -->
+        <!-- <td align="left"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
-        <td align="center">20/07/2015</td>
-        <td align="center">1 month</td>
+        <td align="center">20-07-2015</td>
         <td align="center">
-          <select style="width:134px; height:23px;">
-            <option value="Awaiting Approval">Awaiting Approval</option>
-            <option value="Approved">Approved</option>
-            <option value="Declined">Declined</option>
-          </select>
+         <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center">View</td>
-        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+        <a href="#" ><img src="/img/cross.png" width="15" ></a>
+        
+        
+        </td>
       </tr>
       
     </tbody>
@@ -417,34 +527,36 @@ $('.addnew_line').click(function() {
           
   @else
     <thead>
-      <tr role="row"> 
-      <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
-        <th align="center">Request Type</th>
-        <th align="center">Notes</th>
+      <tr role="row">
+      <!--  <th align="left"><input type="checkbox" id="allCheckSelect"/></th> -->
+        <th align="center">Staff Name</th>
+        <th align="center">Time Off Type</th>
         <th align="center">Date</th>
-        <th align="center">Duration</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Days Remaining</th>
+        <th align="center" style="padding: 6px 4px; width: 10%;" >Requester Notes</th>
+        <th align="center" style="padding: 9px 4px; width: 10%;">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-       <!-- <td align="center"><input type="checkbox" /></td> -->
+      <!--  <td align="left"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
-        <td align="center">20/07/2015</td>
-        <td align="center">1 month</td>
+        <td align="center">20-07-2015</td>
         <td align="center">
-          <select style="width:134px; height:23px;">
-            <option value="Awaiting Approval">Awaiting Approval</option>
-            <option value="Approved">Approved</option>
-            <option value="Declined">Declined</option>
-          </select>
+        
+         <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center">View</td>
-        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+        <a href="#" ><img src="/img/cross.png" width="15" ></a>
+        
+        
+        </td>
       </tr>
       
     </tbody>
@@ -470,6 +582,7 @@ $('.addnew_line').click(function() {
                         <div class="col-xs-12">
 <table class="table table-bordered table-hover dataTable" id="example3" aria-describedby="example3_info">
   @if($staff_type == "staff")
+    
     <thead>
       <tr role="row">
         <th align="center"><input type="checkbox" id="allCheckSelect"/></th>
@@ -505,35 +618,36 @@ $('.addnew_line').click(function() {
     </tbody>
           
   @else
-    <thead>
-      <tr role="row"> 
-      <!--   <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
-        <th align="center">Request Type</th>
-        <th align="center">Notes</th>
+   <thead>
+      <tr role="row">
+       <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
+        <th align="center">Staff Name</th>
+        <th align="center">Time Off Type</th>
         <th align="center">Date</th>
-        <th align="center">Duration</th>
         <th align="center" width="10%">Status</th>
-        <th align="center">Days Remaining</th>
+        <th align="center" style="padding: 6px 4px; width: 10%;" >Requester Notes</th>
+        <th align="center" style="padding: 9px 4px; width: 10%;">Approver Notes</th>
         <th align="center">Action</th>
       </tr>
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       <tr>
-       <!-- <td align="center"><input type="checkbox" /></td> -->
+       <!--  <td align="left"><input type="checkbox" /></td> -->
         <th align="center"><a href="#">Anwar</a></th>
         <td align="center">No</td>
-        <td align="center">20/07/2015</td>
-        <td align="center">1 month</td>
+        <td align="center">20-07-2015</td>
         <td align="center">
-          <select style="width:134px; height:23px;">
-            <option value="Awaiting Approval">Awaiting Approval</option>
-            <option value="Approved">Approved</option>
-            <option value="Declined">Declined</option>
-          </select>
+         <input type="button" value="AWATING APPROVAL" class="awating_btn">
         </td>
-        <td align="center">View</td>
-        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a></td>
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        
+        <td align="center" style="padding: 9px 0; width: 10%;"><button class="btn btn-default note_t">Notes</button></td>
+        <td align="center"><a href="#"><img src="/img/edit_icon.png" width="15"></a>
+        <a href="#" ><img src="/img/cross.png" width="15" ></a>
+        
+        
+        </td>
       </tr>
       
     </tbody>
@@ -574,14 +688,14 @@ $('.addnew_line').click(function() {
               <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td width="30%"><strong>HOLIDAY/TIME OFF REQUEST</strong></td>
+                    <td width="20%"><strong>HOLIDAY/TIME OFF REQUEST</strong></td>
                     
-                    <td width="20%">
+                    <td width="14%">
                       @if($staff_type != "staff")
                       <strong>Total Days Requested</strong> <input type="text" style="width:60px;">
                       @endif
                     </td>
-                    <td width="10%">
+                    <td width="12%">
                       @if($staff_type != "staff")
                       <strong>Days Remaining</strong> <input type="text" style="width:60px;">
                       @else
