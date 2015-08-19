@@ -102,7 +102,7 @@ $(function() {
               <div class="top_bts" style="float:left;">
                 <ul style="padding:0;">
                   <li>
-                    <a href="/send-letters-emails" class="btn btn-danger">SEND LETTER/EMAIL</a>
+                    <button type="button" id="deleteClients" class="btn btn-danger">SEND LETTER/EMAIL</button>
                   </li>
                   <div class="clearfix"></div>
                 </ul>
