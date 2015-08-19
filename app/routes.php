@@ -310,5 +310,7 @@ Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id')
 /*================== Contacts Letters Emails Start ==============*/
 Route::any('/contacts-letters-emails', 'ContactsLettersEmailsController@index');
 Route::any('/send-letters-emails', 'ContactsLettersEmailsController@send_letteremail');
+Route::any('/contacts/show-contacts-notes', 'ContactsLettersEmailsController@show_contacts_notes');
+Route::any('/contacts/save-contacts-notes', 'ContactsLettersEmailsController@save_contacts_notes');
 /*================== Contacts Letters Emails End ==============*/
 
