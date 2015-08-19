@@ -25,13 +25,13 @@ var Table1;
 
    Table1 = $('#example1').dataTable({
         "bPaginate": true,
-        "bLengthChange": false,
+        "bLengthChange": true,
         "bFilter": true,
         "bSort": true,
         "bInfo": false,
         "bAutoWidth": true,
-        "aLengthMenu": [[90], [90]],
-        "iDisplayLength": 90,
+        "aLengthMenu": [[50], [50]],
+        "iDisplayLength": 50,
         
   
 
@@ -42,11 +42,11 @@ var Table1;
           //  {"bSortable": true},
             //{"bSortable": true},
           
-            {"bSortable": false}
+            {"bSortable": true}
         ]
 
     });
-    Table1.fnSort( [ [2,'asc'] ] );
+    //Table1.fnSort( [ [2,'asc'] ] );
    
     }); 
     
@@ -156,8 +156,8 @@ var Table1;
     <td rowspan="2" align="center" class="padding_h"><input type="checkbox" /></td>
     <td rowspan="2" align="center" class="padding_h"><strong>NAME</strong></td>
     <td rowspan="2" align="center" class="padding_h"><strong>RESPONSIBLE PERSON</strong></td>
-    <td colspan="5" align="center"><strong>PAPER AUTORISATION</strong></td>
-    <td colspan="10" align="center"><strong>ONLINE AUTORISATION</strong></td>
+    <td colspan="5" align="center"><strong>PAPER AUTHORISATIONS</strong></td>
+    <td colspan="10" align="center"><strong>ONLINE AUTHORISATIONS</strong></td>
     </tr>
   <tr>
     <td align="center"><strong>SA/NI</strong></td>
@@ -203,86 +203,8 @@ var Table1;
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
   </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Alexander Rosse Limited</td>
-    <td align="center">    
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Mr Jon Eagle</td>
-    <td align="center">
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select>
-    </td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
-  <tr>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="left">Mr Anthony Kane</td>
-    <td align="center">
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select>
-    </td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-        <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-    <td align="center"><input type="checkbox" /></td>
-  </tr>
+ 
+ 
 </table>
 </td>
     <!--<td valign="top">

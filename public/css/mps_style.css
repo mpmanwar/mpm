@@ -992,8 +992,8 @@ border: 1px solid #e2e4e6;
 
 /*================== HMRC Authorisation =============*/
 
-.padding_h{padding-top:27px!important;}
-.registration_btn{background:#fff; float:left; width:100%; font-size:14px; color:#8780e2; font-weight:bold; padding:3px 3px 3px 20px; text-align:left; box-shadow:0 1px 1px 1px #dededc; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; outline:none; border:1px solid #dededc;}
+
+
 .refer_t{font-size:14px; color:#8780e2; font-weight:bold; position: absolute; bottom: 38px; left:20px;}
 .dataTables_filter {text-align: right;}
 div.dataTables_filter input{width: 16em; }
@@ -1004,6 +1004,17 @@ div.dataTables_filter input{width: 16em; }
 
 
 
+.padding_h{padding-top:27px!important;}
+.registration_btn{background:#fff; float:left; width:100%; font-size:14px; color:#8780e2; font-weight:bold; padding:3px 3px 3px 20px; text-align:left; box-shadow:0 1px 1px 1px #dededc; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; outline:none; border:1px solid #dededc;}
+.email_maincon{margin-top:20px;}
+.email_top{width:100%;}
+.email_top_left{float:left; width:50%;}
+.email_top_right{float:right;}
+.name_t{color:#3c8dbc; padding-right:12px;}
+.email_bottom_table{margin-top:15px;}
+.email_search_list{margin-top:15px;}
+.email_search_list th{border-bottom:1px solid #ccc;}
+.email_leftmain{width:95%;}
 
 
 
