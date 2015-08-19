@@ -1,47 +1,32 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    
 @stop
 
 @section('myjsfile')
-<script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
-<!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
-<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-
-<!-- page script -->
+<script src="{{ URL :: asset('ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript">
-var oTable;
-
-$(function() {
-    oTable = $('#example2').dataTable({
-        "aaSorting": [[2, 'asc']],
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 50,
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
-        ]
-
+  $(window).load(function() {
+    
+    CKEDITOR.replace( 'add_message',
+    { 
+        toolbar :[['Source'],['Cut','Copy','Paste','PasteText','SpellChecker'],['Undo','Redo','-','SelectAll','RemoveFormat'],[ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ], ['SpecialChar','PageBreak']],
+       
+        extraPlugins : 'wordcount',
+        wordcount : {
+            showCharCount : true,
+            showWordCount : true
+            
+            
+        }
     });
-
+    
+    
+   
 });
-
 </script>
+
 @stop
 
 @section('content')
@@ -77,7 +62,7 @@ $(function() {
 <div class="form-group">
 <label for="exampleInputPassword1">Choose Template</label>
 <select class="form-control">
-<option>Monobrata</option>
+<option>Anwar</option>
 <option>R Sharma</option>
 <option>Company</option>
 </select>
@@ -95,9 +80,7 @@ $(function() {
 <label for="exampleInputPassword1">Email Subject</label>
 <input type="text" id="" class="form-control">
 </div>
-<textarea name="" rows="10" cols="" style="width:100%;">
-This is my textarea to be replaced with CKEditor.
-</textarea>
+<textarea name="add_message" id="add_message" class="form-control" placeholder="Message" style="height: 250px;"></textarea>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="email_bottom_table">
   <tr>
