@@ -150,6 +150,7 @@ class HmrcController extends BaseController
     public function tool(){
         $data['heading'] = "TOOL & CALCULATORS";
         $data['title'] = "Tool & Calculators";
+        $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];

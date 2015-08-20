@@ -219,7 +219,7 @@ $(function() {
   
 
 </table> 
-<a href="#" class="refer_t">Refer to the excel book - book 1 stracture email</a>
+<!-- <a href="#" class="refer_t">Refer to the excel book - book 1 stracture email</a> -->
                         </div>
                     	
                       </div>

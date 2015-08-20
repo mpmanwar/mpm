@@ -23,6 +23,7 @@ var Table1;
         
   $(function() {
 
+
    Table1 = $('#example1').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
