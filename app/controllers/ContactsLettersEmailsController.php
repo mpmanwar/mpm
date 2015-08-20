@@ -1,15 +1,15 @@
 <?php
 class ContactsLettersEmailsController extends BaseController {
 	
-	public function index()
+	public function index($step_id)
 	{
-		$client_data = array();
-		$data['title'] = 'Contacts Letters & Emails';
-		//$data['previous_page'] = '<a href="/jobs-dashboard">Jobs</a>';
-		$data['heading'] = "CONTACTS, LETTERS & EMAILS";
-		$admin_s = Session::get('admin_details');
-		$user_id = $admin_s['id'];
-		$groupUserId = $admin_s['group_users'];
+		$client_data 		= array();
+		$data['title'] 		= 'Contacts Letters & Emails';
+		$data['step_id'] 	= $step_id;
+		$data['heading'] 	= "CONTACTS, LETTERS & EMAILS";
+		$session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		$groupUserId 	= $session['group_users'];
 
 		if (empty($user_id)) {
 			return Redirect::to('/');
@@ -30,7 +30,8 @@ class ContactsLettersEmailsController extends BaseController {
 					$client_data[$key]['corres_address']= isset($client_row['corres_address'])?$client_row['corres_address']:"";
 					$client_data[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
 					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Business');
-				}else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
+				}
+				else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
 					$client_data[$key]['client_name'] 	= $client_row['client_name'];
 					$client_data[$key]['contact_type'] 	= "Individual";
 					$client_data[$key]['client_url'] 	= "/client/edit-ind-client/".$client_row['client_id']."/".base64_encode('ind_client');
@@ -44,6 +45,8 @@ class ContactsLettersEmailsController extends BaseController {
 			}
 		}
 		$data['client_details'] = $client_data;
+
+		$data['steps'] = ContactsStep::getAllSteps();
 
 		//print_r($data['client_details']);die;
 		return View::make('contacts_letters.index', $data);
@@ -154,6 +157,23 @@ class ContactsLettersEmailsController extends BaseController {
 
 
 		return View::make('contacts_letters.send_letteremail', $data);
+	}
+
+	public function save_contacts_group()
+	{
+		$session = Session::get('admin_details');
+		$user_id = $session['id'];
+		$groupUserId = $session['group_users'];
+
+		$data['user_id']  		= $user_id;
+		$data['title'] 			= Input::get("group_name");
+		$data['short_code'] 	= strtolower(str_replace(" ", "_", $data['title']));
+		$data['status']  		= "S";
+		$data['step_type']  	= "new";
+		$data['parent_step_id'] = Input::get("step_id");
+
+		$last_id = ContactsStep::insertGetId($data);
+		echo $last_id;exit;
 	}
 
     
