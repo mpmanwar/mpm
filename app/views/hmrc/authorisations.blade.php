@@ -20,7 +20,7 @@
 <script>
 var Table1;
 
-    
+        
   $(function() {
 
    Table1 = $('#example1').dataTable({
@@ -300,8 +300,6 @@ var Table1;
     </section>
     <!-- /.content -->
   </aside></div>
-
-
 
 
 @stop
