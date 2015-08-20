@@ -180,18 +180,19 @@ $(function() {
   <td colspan="4" class="hmrc_a">Inheritance Tax and bereavement</td>
   </tr>
   <tr>
-    <td><a href="#" target="_blank" class="hmrc_btn">Breavement guide</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Inheritance Tax Interest calculator</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Inheritance Tax reduced rate calculator</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Inheritance Tax : grossing calculators</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/bereavement/index.htm" target="_blank" title="Find out what to do when dealing with HMRC after someone dies" class="hmrc_btn">Breavement guide</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/inheritancetax/interest-rate-calculator.htm" target="_blank" title="Calculate how much interest is due on a payment of Inheritance Tax" class="hmrc_btn">Inheritance Tax Interest calculator</a></td>
+    
+    <td><a href="http://www.hmrc.gov.uk/tools/iht-reduced-rate/index.htm" target="_blank" title="See if you qualify to pay a reduced rate of Inheritance Tax" class="hmrc_btn">Inheritance Tax reduced rate calculator</a></td>
+    <td><a href="https://www.gov.uk/government/publications/inheritance-tax-grossing-up-calculators" target="_blank" title="Work out an estate value when legacies in a will are free of tax and other assets are tax exempt" class="hmrc_btn">Inheritance Tax : grossing calculators</a></td>
   </tr>
   <tr>
   <td colspan="4" class="hmrc_a">Import and Export</td>
   </tr>
   <tr>
-    <td colspan="2"><a href="#" target="_blank" class="hmrc_btn">System for the exchange of Excise Data(SEED)</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">UK Trade Tariff tool</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn2">UK intergrated Tariff</a></td>
+    <td colspan="2"><a href="http://ec.europa.eu/taxation_customs/dds2/seed/seed_home.jsp?Lang=en&redirectionDate=2011080" target="_blank" title="Check whether your SEED Excise ID is valid" class="hmrc_btn">System for the exchange of Excise Data(SEED)</a></td>
+    <td><a href="https://www.gov.uk/classification-of-goods" title="Classify your goods for import or export using the UK Trade Tariff, based on the EU TARIC (TARiff Integre Communautaire)" target="_blank" class="hmrc_btn">UK Trade Tariff tool</a></td>
+    <td><a href="http://www.uk-customs-tariff.com/Login.aspx?ReturnUrl=%2fDefault.aspx" target="_blank" title="All 3 volumes of the Tariff, which sets out the duties and measures that affect imports, exports and goods in transit"  class="hmrc_btn2">UK intergrated Tariff</a></td>
   </tr>
   <tr>
    <td><p class="hmrc_a">Trusts</p></td>
@@ -200,10 +201,10 @@ $(function() {
     <td><p class="hmrc_a">Certificats of tax deposit</p></td>
   </tr>
   <tr>
-    <td><a href="#" target="_blank" class="hmrc_btn">Tax pool calculator</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Deemed payments spreadsheet</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Machine Games Duty registered Business</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">Certificate of Tax Deposit Interest Calculator</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/trusts/index.htm" target="_blank" title="Work out a discretionary trust’s available tax pool" class="hmrc_btn">Tax pool calculator</a></td>
+    <td><a href="http://www.hmrc.gov.uk/ir35/ir35.xlt" title="Help you calculate a deemed employment payment" target="_blank" class="hmrc_btn">Deemed payments spreadsheet</a></td>
+    <td><a href="https://public-online.hmrc.gov.uk/machine-games-duty-search" target="_blank" title="Search business by postcode" class="hmrc_btn">Machine Games Duty registered Business</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/certtaxdeposit/index.htm" target="_blank" title="Check the level of interest due against a tax deposit you have already made under the Certificate of Tax Deposit scheme" class="hmrc_btn">Certificate of Tax Deposit Interest Calculator</a></td>
   </tr>
   </tbody>
 </table>
