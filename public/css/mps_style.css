@@ -989,7 +989,15 @@ border: 1px solid #e2e4e6;
 .note_t{color:#1282b4!important; font-weight:bold!important; padding: 5px 30px;}
 
 
-
+/*================== HMRC claculators =============*/
+.hmrc_main{width:100%; margin-top:15px;}
+/*.hmrc_top{width:100%; margin-bottom:15px; float: left;}
+.hmrc_top ul{list-style:none; padding:0;}
+.hmrc_top ul li{ }*/
+.hmrc_btn{background:#fff; font-size:14px; float:left; width:95%; margin:15px 0 25px 0; color:#0c0c0c; font-weight:bold; padding:3px 3px 3px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
+.hmrc_btn2{background:#fff; font-size:14px; float:left; width:98%; margin:15px 0 25px 0; color:#0c0c0c; font-weight:bold; padding:3px 3px 3px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
+.hmrc_a{padding-bottom:5px; border-bottom:1px solid #ccc; float:left; width:95%; color:#3c8dbc!important; font-size:16px;}
+.gap_1{margin-top:39px;}
 /*================== HMRC Authorisation =============*/
 
 

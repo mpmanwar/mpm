@@ -20,8 +20,9 @@
 <script>
 var Table1;
 
-    
+        
   $(function() {
+
 
    Table1 = $('#example1').dataTable({
         "bPaginate": true,
@@ -176,17 +177,27 @@ var Table1;
     <td align="center"><strong>MOSS-US</strong></td>
     <td align="center"><strong>MOSS-NUS</strong></td>
   </tr>
+  
+  @if(!empty($client_details))
+                <?php $i=1; ?>
+                @foreach($client_details as $key=>$client_row)
   <tr>
     <td align="center"><input type="checkbox" /></td>
-    <td align="left">One Cloud Europe Limited</td>
+    
+    <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+    
+    
     <td align="center">
-    <select class="form-control">
-    <option>50</option>
-    <option>20</option>
-    <option>10</option>
-    <option>15</option>
-    </select>
+        @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
+                        <select class="form-control newdropdown">
+                        @foreach($client_row['contact_name'] as $key=>$name_row)
+                        <option>{{ $name_row['name'] }}</option>
+                        @endforeach
+                        </select>
+                      @endif
     </td>
+   
+   
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
@@ -203,7 +214,9 @@ var Table1;
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
   </tr>
- 
+  <?php $i++; ?>
+              @endforeach
+            @endif
  
 </table>
 </td>
@@ -288,8 +301,6 @@ var Table1;
     </section>
     <!-- /.content -->
   </aside></div>
-
-
 
 
 @stop
