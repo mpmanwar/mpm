@@ -5,7 +5,8 @@ class ContactsStep extends Eloquent {
 
 	public static function getAllSteps($org_count, $ind_count, $staff_count, $other_count)
 	{
-		$data = array();
+		$data1 = array();
+		$data2 = array();
 		$step_custom = array();
 		$step_default = array();
 		$contact_count = array();
