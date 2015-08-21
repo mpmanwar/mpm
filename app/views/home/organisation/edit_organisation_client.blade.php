@@ -1364,7 +1364,7 @@ $(document).ready(function(){
             </div>
             
             <div class="form-group">
-              <label for="exampleInputPassword1">Banker</label>
+              <label for="exampleInputPassword1">Bankers</label>
               <input type="checkbox" class="cont_all_addr" name="cont_banker_addr"  value="banker" {{ (isset($client_details['cont_banker_addr']) && $client_details['cont_banker_addr'] == "banker")?"checked":""}} />
             </div>
 

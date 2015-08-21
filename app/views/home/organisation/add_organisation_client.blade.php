@@ -858,10 +858,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="trad_cont_email" name="trad_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="trad_cont_website" name="trad_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="trad_cont_skype" name="trad_cont_skype" class="form-control">
@@ -953,6 +950,11 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="trad_cont_website" name="trad_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -1001,10 +1003,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="reg_cont_email" name="reg_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="reg_cont_website" name="reg_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="reg_cont_skype" name="reg_cont_skype" class="form-control">
@@ -1096,6 +1095,11 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="reg_cont_website" name="reg_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -1145,10 +1149,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="corres_cont_email" name="corres_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="corres_cont_website" name="corres_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="corres_cont_skype" name="corres_cont_skype" class="form-control">
@@ -1240,12 +1241,17 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="corres_cont_website" name="corres_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
             
             <div class="form-group">
-              <label for="exampleInputPassword1">Banker</label>
+              <label for="exampleInputPassword1">Bankers</label>
               <input type="checkbox" class="cont_all_addr" name="cont_banker_addr" value="banker" />
             </div>
 
@@ -1286,10 +1292,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="banker_cont_email" name="banker_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="banker_cont_website" name="banker_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="banker_cont_skype" name="banker_cont_skype" class="form-control">
@@ -1381,6 +1384,11 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="banker_cont_website" name="banker_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -1432,10 +1440,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="oldacc_cont_email" name="oldacc_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="oldacc_cont_website" name="oldacc_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="oldacc_cont_skype" name="oldacc_cont_skype" class="form-control">
@@ -1527,6 +1532,11 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="oldacc_cont_website" name="oldacc_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -1574,10 +1584,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="auditors_cont_email" name="auditors_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="auditors_cont_website" name="auditors_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="auditors_cont_skype" name="auditors_cont_skype" class="form-control">
@@ -1669,6 +1676,11 @@ $(document).ready(function(){
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="auditors_cont_website" name="auditors_cont_website" class="form-control">
+                </div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -1716,10 +1728,7 @@ $(document).ready(function(){
                   <label for="exampleInputPassword1">Email</label>
                   <input type="text" id="solicitors_cont_email" name="solicitors_cont_email" class="form-control">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Website</label>
-                  <input type="text" id="solicitors_cont_website" name="solicitors_cont_website" class="form-control">
-                </div>
+                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Skype</label>
                   <input type="text" id="solicitors_cont_skype" name="solicitors_cont_skype" class="form-control">
@@ -1810,6 +1819,11 @@ $(document).ready(function(){
                       @endif   
                     </select>
                   </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Website</label>
+                  <input type="text" id="solicitors_cont_website" name="solicitors_cont_website" class="form-control">
                 </div>
                 <div class="clearfix"></div>
               </div>
