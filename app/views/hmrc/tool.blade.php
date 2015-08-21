@@ -23,10 +23,11 @@
 
 
 
-var Table1, Table2, Table3;
+//var Table1, Table2, Table3;
 
 $(function() {
         $('input#id_search').quicksearch('table#table_example tbody td');
+        
         
        /* $("#id_search").on('keypress , keydown' , function(){
             var txt = $(this).val();

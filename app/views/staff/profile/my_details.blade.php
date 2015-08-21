@@ -512,24 +512,24 @@ $(document).ready(function(){
            @if($page_name== 'profile')
           
     <div class="twobox">
-      <div class="twobox_1">
+      <div class="n_box2">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
           <input type="text" id="sstart_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" readonly="readonly" readonly="readonly">
         </div>
       </div>
 
-      <div class="twobox_2">
-        <div class="form-group">
+      <div class="n_box2"> 
+        <div class="form-group" >
           <label for="exampleInputPassword1">Holiday Entitlement</label>
           <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control" readonly="readonly">
         </div>
       </div>
-      <div class="clearfix"></div>
+      
     </div>
 
 <div class="twobox">
-<div class="twobox_1">
+<div class="n_box4">
 <div class="form-group">
 <label for="exampleInputPassword1">Salary</label>
 <input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control" readonly="readonly">
@@ -540,38 +540,59 @@ $(document).ready(function(){
  @if($page_name== 'staff')
           
     <div class="twobox">
-      <div class="twobox_1">
+      <div class="n_box2">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
           <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" >
         </div>
       </div>
 
-      <div class="twobox_2">
-        <div class="form-group">
+      <div class="n_box2">
+        <div class="form-group" >
           <label for="exampleInputPassword1">Holiday Entitlement</label>
           <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
         </div>
       </div>
-      <div class="clearfix"></div>
-    </div>
-
-<div class="twobox">
-<div class="twobox_1">
+      
+      
+      <div class="twobox">
+<div class="n_box4">
 <div class="form-group">
 <label for="exampleInputPassword1">Salary</label>
 <input type="text" id="salary" name="salary" value="{{ $staff_details['step_data']['salary']  or "" }}" class="form-control">
 </div>
 </div>
 
-@endif
+
 
 
 
 
 
 <div class="twobox_2">
-<div class="form-group">
+
+</div>
+</div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+
+@endif
+
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Qualifications</label>
+    <input type="text" id="qualifications" name="qualifications" value="{{ $staff_details['step_data']['qualifications']  or "" }}" class="form-control">
+  </div>
+
+  
+  <div class="twobox">
+    <div class="twobox_1">
+    
+    
+    
+    <div class="form-group">
 
 <label for="exampleInputPassword1">Department</label>
 
@@ -605,31 +626,41 @@ $(document).ready(function(){
    
   </select>
 </div>
-</div>
-<div class="clearfix"></div>
-</div>
-
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Qualifications</label>
-    <input type="text" id="qualifications" name="qualifications" value="{{ $staff_details['step_data']['qualifications']  or "" }}" class="form-control">
-  </div>
-
-  
-  <div class="twobox">
-    <div class="twobox_1">
-     <!-- <div class="form-group">
-        <label for="exampleInputPassword1">Leaving Date</label>
-        <input type="text" id="leaving_date" name="leaving_date" value="{{ $staff_details['step_data']['leaving_date']  or "" }}" class="form-control">
-      </div> -->
+    
+    
+    
+   
     </div>
 
+   
+   
+   
+   
+   
+   
     <div class="twobox_2">
-      <div class="form-group">
-
+      
+      
+       @if($page_name== 'staff')
+         <div class="form-group">
+        <label for="exampleInputPassword1">End Date</label>
+        <input type="text" id="leaving_date" name="end_date" value="{{ $staff_details['step_data']['eEnd_date']  or "" }}" class="form-control">
       </div>
+      @endif
+      @if($page_name== 'profile')
+         <div class="form-group">
+        <label for="exampleInputPassword1">End Date</label>
+        <input type="text" id="end_date" name="end_date" value="{{ $staff_details['step_data']['end_date']  or "" }}" class="form-control" readonly="readonly">
+      </div>
+      @endif
+      
     </div>
     <div class="clearfix"></div>
+  
+  
+  
+  
+  
   </div>
 
     
