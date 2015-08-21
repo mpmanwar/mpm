@@ -3,7 +3,8 @@ class ContactsLettersEmailsController extends BaseController {
 	
 	public function index($step_id)
 	{
-		$client_data 		= array();
+		$data = array();
+		$org_data 		= array();
 		$data['title'] 		= 'Contacts Letters & Emails';
 		$data['step_id'] 	= $step_id;
 		$data['heading'] 	= "CONTACTS, LETTERS & EMAILS";
@@ -19,47 +20,32 @@ class ContactsLettersEmailsController extends BaseController {
 		$staff_count 	= 0;
 		$other_count 	= 0;
 
-		$client_details = Client::getAllClientDetails();
-		if(isset($client_details) && count($client_details) >0)
-		{
-			
-			foreach ($client_details as $key => $client_row) {
-				$client_data[$key]['client_id'] 		= $client_row['client_id'];
-				if(isset($client_row['client_type']) && $client_row['client_type'] == "org"){
-					$client_data[$key]['client_name'] 	= $client_row['business_name'];
-					$client_data[$key]['contact_type'] 	= "Business";
-					$client_data[$key]['client_url'] 	= "/client/edit-org-client/".$client_row['client_id']."/".base64_encode('org_client');
-					$client_data[$key]['email'] 		= isset($client_row['corres_cont_email'])?$client_row['corres_cont_email']:"";
-					$client_data[$key]['telephone'] 	= isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"";
-					$client_data[$key]['mobile'] 		= isset($client_row['corres_cont_mobile'])?$client_row['corres_cont_mobile']:"";
-					$client_data[$key]['corres_address']= isset($client_row['corres_address'])?$client_row['corres_address']:"";
-					$client_data[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
-					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Business');
+		$org_details = Client::getAllOrgClientDetails();
+		if(isset($org_details) && count($org_details) >0){
+			foreach ($org_details as $key => $client_row) {
+				$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
+				$org_details[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'org');
 
-					$org_count++;
-				}
-				else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
-					$client_data[$key]['client_name'] 	= $client_row['client_name'];
-					$client_data[$key]['contact_type'] 	= "Individual";
-					$client_data[$key]['client_url'] 	= "/client/edit-ind-client/".$client_row['client_id']."/".base64_encode('ind_client');
-					$client_data[$key]['email'] 		= isset($client_row['serv_email'])?$client_row['serv_email']:"";
-					$client_data[$key]['telephone'] 	= isset($client_row['serv_telephone'])?$client_row['serv_telephone']:"";
-					$client_data[$key]['mobile'] 		= isset($client_row['serv_mobile'])?$client_row['serv_mobile']:"";
-					$client_data[$key]['corres_address']= isset($client_row['address'])?$client_row['address']:"";
-					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Individual');
-
-					$ind_count++;
-				}
-				
+				$org_count++;
 			}
+			$data['org_details'] = $org_details;
 		}
-		$data['client_details'] = $client_data;
 
-		$data['org_count'] = $org_count;
-		$data['ind_count'] = $ind_count;
+		$ind_details = Client::getAllClientDetails();
+		if(isset($ind_details) && count($ind_details) >0){
+			foreach ($ind_details as $key => $client_row) {
+				$ind_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'ind');
+
+				$ind_count++;
+			}
+			//$data['ind_details'] = $ind_details;
+		}
+
+		
+
 		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
 
-		//print_r($data['client_details']);die;
+		//print_r($data['org_details']);die;
 		return View::make('contacts_letters.index', $data);
 	}
 

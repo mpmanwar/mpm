@@ -236,21 +236,20 @@ $(function() {
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-          @if(isset($client_details) && count($client_details) >0)
-              @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Business")
+          @if(isset($org_details) && count($org_details) >0)
+              @foreach($org_details as $key=>$client_row)
                 <tr class="all_check">
-                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ (isset($client_row['corres_address']) && $client_row['corres_address'] != "")?$client_row['corres_address']:'' }}">
 
                   <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                    <input type="checkbox" class="ads_Checkbox" name="client_ids[]" value="{{ $client_row['client_id'] or "" }}" />
                   </td>
-                  <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+                  <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
                   <td align="left">
                     <select class="form-control newdropdown" >
                       <option value="trad">Trading Address</option>
                       <option value="reg">Registered Office address</option>
-                      <option value="corres">Correspondence address</option>
+                      <option value="corres" selected>Correspondence address</option>
                       <option value="bankers">Bankers</option>
                       <option value="old_acc">Old Accounts</option>
                       <option value="auditors">Auditors</option>
@@ -259,23 +258,14 @@ $(function() {
                       <option value="paye_emp">Paye Employer Office</option>
                      </select>
                   </td>
-                  <td align="left">
-                    @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
-                      <select class="form-control newdropdown">
-                      @foreach($client_row['contact_name'] as $key=>$name_row)
-                      <option>{{ $name_row['name'] }}</option>
-                      @endforeach
-                      </select>
-                    @endif
-                  </td>
-                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
-                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
-                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="left"></td>
+                  <td align="center">{{ $client_row['corres_cont_telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['corres_cont_mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['corres_cont_email'] or "" }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                 
                 </tr>
-              @endif
             @endforeach
           @endif
         
@@ -319,30 +309,26 @@ $(function() {
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-          @if(isset($client_details) && count($client_details) >0)
-              @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Individual")
-                <tr class="all_check">
-                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+        @if(isset($ind_details) && count($ind_details) >0)
+          @foreach($ind_details as $key=>$client_row)
+            <tr class="all_check">
+              <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
 
-                  <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
-                  </td>
-                  
-                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
-                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
-                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
-                  <td align="center">{{ $client_row['email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                  
-                  
-                </tr>
-              @endif
-            @endforeach
-          @endif
-        
+              <td align="center">
+                <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+              </td>
+              
+              <td align="left">{{ $client_row['client_name'] or "" }}</td>
+              <td align="center">{{ $client_row['serv_telephone'] or "" }}</td>
+              <td align="center">{{ $client_row['serv_mobile'] or "" }}</td>
+              <td align="center">{{ $client_row['serv_email'] or "" }}</td>
+              <td align="center">{{ (strlen($client_row['serv_address']) > 48)? substr($client_row['serv_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['serv_address'] }}</td>
+              <td align="center">{{ (strlen($client_row['serv_address']) > 48)? substr($client_row['serv_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['serv_address'] }}</td>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+              
+            </tr>
+          @endforeach
+        @endif
         
       </tbody>
     </table>
@@ -396,7 +382,7 @@ $(function() {
                   <td align="center">{{ $client_row['email'] or "" }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
                 </tr>
               @endif
@@ -457,7 +443,7 @@ $(function() {
                   <td align="center">{{ $client_row['email'] or "" }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
                 </tr>
               @endif
