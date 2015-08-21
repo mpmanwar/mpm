@@ -9,8 +9,19 @@ $(document).ready(function (e) {
 
   	$(".more_address").click(function(){
         var client_id   = $(this).data('client_id');
+        var client_type   = $(this).data('client_type');
+        if(client_type == "org"){
+            var address = $("#corres_add_"+client_id).val();
+        }else if(client_type == "ind"){
+            var address_type   = $(this).data('address_type');
+            if(address_type == "reg"){
+              var address = $("#reg_add_"+client_id).val();
+            }else{
+              var address = $("#serv_add_"+client_id).val();
+            }
+        }
         
-        var address = $("#corres_add_"+client_id).val();
+
         $("#show_full_address").html(address);
         $("#full_address-modal").modal("show");
     });

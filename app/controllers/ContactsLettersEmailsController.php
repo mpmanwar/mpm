@@ -31,14 +31,14 @@ class ContactsLettersEmailsController extends BaseController {
 			$data['org_details'] = $org_details;
 		}
 
-		$ind_details = Client::getAllClientDetails();
+		$ind_details = Client::getAllIndClientDetails();
 		if(isset($ind_details) && count($ind_details) >0){
 			foreach ($ind_details as $key => $client_row) {
 				$ind_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'ind');
 
 				$ind_count++;
 			}
-			//$data['ind_details'] = $ind_details;
+			$data['ind_details'] = $ind_details;
 		}
 
 		
@@ -163,7 +163,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$groupUserId = $session['group_users'];
 
 		$data['user_id']  		= $user_id;
-		$data['title'] 			= Input::get("group_name");
+		$data['title'] 			= strtoupper(Input::get("group_name"));
 		$data['short_code'] 	= strtolower(str_replace(" ", "_", $data['title']));
 		$data['status']  		= "S";
 		$data['step_type']  	= "new";

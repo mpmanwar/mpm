@@ -44,7 +44,7 @@ class ContactsStep extends Eloquent {
 				$data2[$key]['status'] 			= $details2->status;
 				$data2[$key]['step_type'] 		= $details2->step_type;
 				$data2[$key]['created'] 		= $details2->created;
-				$data2[$key]['count'] 			= 0;
+				$data2[$key]['count'] 			= "";
 			}
 		}
 		$data = array_merge($data1, $data2);
@@ -57,15 +57,8 @@ class ContactsStep extends Eloquent {
 		$count = 0;
 		if($short_code == "org"){
 			$count = $contact_count['org'];
-		}
-		if($short_code == "ind"){
-			$count = $contact_count['ind'];
-		}
-		if($short_code == "staff"){
-			$count = $contact_count['staff'];
-		}
-		if($short_code == "other"){
-			$count = $contact_count['other'];
+		}else{
+			$count = "";
 		}
 		return $count;
 	}
