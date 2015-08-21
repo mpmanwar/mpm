@@ -18,11 +18,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
 <script>
+
+
+
+
 var Table1, Table2, Table3;
 
 $(function() {
+   
+        
+    });
+    /*
 //$('#example1').dataTable();
-});
+ Table1 = $('#example1').dataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bSort": false,
+        "bInfo": false,
+        "bAutoWidth": false,
+        //"aLengthMenu": [[90], [90]],
+        //"iDisplayLength": 90,
+        
+  
+
+      "aoColumns":[
+            {"bSortable": false}
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
+            {"bSortable": false}
+        ]
+
+    });
+    
+});*/
 </script>
 
 @stop
@@ -57,7 +90,8 @@ $(function() {
 <form>
 <div class="col-xs-12">
 <div class="hmrc_main">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example1" aria-describedby="example1_info">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example1" aria-describedby="example1_info" >
 <thead>
     <th style="display: none;"></th>
     <th style="display: none;"></th>
@@ -80,9 +114,9 @@ $(function() {
    <tr>
     <td><a href="https://www.gov.uk/claim-national-insurance-refund" data-toggle="tooltip" title="Apply for a refund on your National Insurance contributions" target="_blank" class="hmrc_btn ">National Insurance refund</a></td>
     
-    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip"  title="Check a company director’s National Insurance contributions" target="_blank" class="hmrc_btn ">Director Nic Calculator</a></td>
+    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip"  title="Check a company directors National Insurance contributions" target="_blank" class="hmrc_btn ">Director NIC Calculator</a></td>
     
-    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip" title="Calculate your employee's National Insurance contributions" target="_blank" class="hmrc_btn ">Nic Calculator</a></td>
+    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip" title="Calculate your employee's National Insurance contributions" target="_blank" class="hmrc_btn ">NIC Calculator</a></td>
     
     <td><a href="http://www.hmrc.gov.uk/tools/payinghmrc/currentyear.htm" target="_blank" data-toggle="tooltip" title="PAYE/NIC current year reference checker" target="_blank" class="hmrc_btn ">PAYE/NIC Current Year reference checker</a></td>
   </tr>
@@ -97,7 +131,7 @@ $(function() {
   </tr>
   <tr>
     <td><a href="https://www.gov.uk/self-assessment-ready-reckoner" target="_blank" data-toggle="tooltip" title="A tool to help you budget for your first Self Assessment tax bill if you're self-employed" class="hmrc_btn ">Self-employed ready reconer</a></td>
-    <td><a href="http://www.hmrc.gov.uk/gds/specialist/lloyds_calculator.htm" target="_blank" data-toggle="tooltip" title="Work out adjustments under section 107 Finance Act 2000 when filing your Self Assessment tax return" class="hmrc_btn ">Lioyds Calculator</a></td>
+    <td><a href="http://www.hmrc.gov.uk/gds/specialist/lloyds_calculator.htm" target="_blank" data-toggle="tooltip" title="Work out adjustments under section 107 Finance Act 2000 when filing your Self Assessment tax return" class="hmrc_btn ">Lloyds Calculator</a></td>
     <td><a href="http://tools.hmrc.gov.uk/esi/screen/ESI/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your employment status" class="hmrc_btn ">Employment Status Indicator</a></td>
     <td><a href="http://tools.hmrc.gov.uk/rift/screen/SRT+-+Combined/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your residence status for Income Tax and Capital Gains Tax" class="hmrc_btn ">Tax residence indicator</a></td>
   </tr>
@@ -105,7 +139,7 @@ $(function() {
    <td colspan="4" class="hmrc_a">PAYE</td>
    </tr>
   <tr>
-    <td><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave/Pay when you have a..</a></td>
+    <td id="btn_1"><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave and pay when you have a child</a></td>
     <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" target="_blank" data-toggle="tooltip" title="Check your payroll calculations" class="hmrc_btn ">Nil Payroll Calculator</a></td>
     <td><a href="http://www.hmrc.gov.uk/payinghmrc/payeCumbernauld.htm" target="_blank" data-toggle="tooltip" title="Request form for PAYE CHAPS transfer" class="hmrc_btn ">PAYE CHAPS</a></td>
     <td><a href="https://www.gov.uk/basic-paye-tools" target="_blank" data-toggle="tooltip" title="Tools to help you run your payroll" class="hmrc_btn ">Basic PAYE Tools</a></td>
@@ -135,7 +169,7 @@ $(function() {
   <td colspan="4" class="hmrc_a">PENSIONS</td>
   </tr>
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance cal...</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance calculators</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/annualallowancelimit/index.htm" target="_blank" data-toggle="tooltip" title="Check if you need to pay a tax charge on your pension savings" class="hmrc_btn">Pension schemes annual all. checking tool</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/lifetimeallowance/index.htm" target="_blank" data-toggle="tooltip" title="Check if you should apply for lifetime allowance protection on your pension" class="hmrc_btn">Pension schemes lifetime all. checking tool</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/annual-allowance/calculator.htm" target="_blank" data-toggle="tooltip" title="Pension input amount calculator" class="hmrc_btn">Pension input calculator</a></td>
@@ -178,10 +212,10 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">INHERITANCE TAX AND BEREAVMENT</td>
+  <td colspan="4" class="hmrc_a">INHERITANCE TAX AND BEREAVEMENT</td>
   </tr>
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/bereavement/index.htm" target="_blank" data-toggle="tooltip" title="Find out what to do when dealing with HMRC after someone dies" class="hmrc_btn">Breavement guide</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/bereavement/index.htm" target="_blank" data-toggle="tooltip" title="Find out what to do when dealing with HMRC after someone dies" class="hmrc_btn">Bereavement guide</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/inheritancetax/interest-rate-calculator.htm" target="_blank" data-toggle="tooltip" title="Calculate how much interest is due on a payment of Inheritance Tax" class="hmrc_btn">Inheritance Tax Interest calculator</a></td>
     
     <td><a href="http://www.hmrc.gov.uk/tools/iht-reduced-rate/index.htm" target="_blank" data-toggle="tooltip" title="See if you qualify to pay a reduced rate of Inheritance Tax" class="hmrc_btn">Inheritance Tax reduced rate calculator</a></td>
@@ -209,7 +243,7 @@ $(function() {
   </tr>
   </tbody>
 </table>
-
+</table>
 
 <div class="clearfix"></div>
 
