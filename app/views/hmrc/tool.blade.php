@@ -8,6 +8,7 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/plugins/jquery.quicksearch.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/org_clients.js') }}" type="text/javascript"></script>
@@ -25,8 +26,20 @@
 var Table1, Table2, Table3;
 
 $(function() {
-   
+        $('input#id_search').quicksearch('table#table_example tbody td');
         
+       /* $("#id_search").on('keypress , keydown' , function(){
+            var txt = $(this).val();
+            
+            if($("#table_example").find("tbody").find("tr").css('display') == "none") {
+                $("#no_result").css('display','block');
+            } else{
+                $("#no_result").css('display','none');
+            }
+            if(txt.length == 1){
+                $("#no_result").css('display','none');
+            }
+        })*/
     });
     /*
 //$('#example1').dataTable();
@@ -87,11 +100,16 @@ $(function() {
     </section>
     <!-- Main content -->
     <section class="content">
-<form>
+
+
+
 <div class="col-xs-12">
 <div class="hmrc_main">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example1" aria-describedby="example1_info" >
+        <form>
+		<div style="float: right; margin-right: 15px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>	
+		</form>	
+            
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="table_example"  >
 <thead>
     <th style="display: none;"></th>
     <th style="display: none;"></th>
@@ -241,16 +259,25 @@ $(function() {
     <td><a href="https://public-online.hmrc.gov.uk/machine-games-duty-search" target="_blank" data-toggle="tooltip" title="Search business by postcode" class="hmrc_btn">Machine Games Duty registered Business</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/certtaxdeposit/index.htm" target="_blank" data-toggle="tooltip" title="Check the level of interest due against a tax deposit you have already made under the Certificate of Tax Deposit scheme" class="hmrc_btn">Certificate of Tax Deposit Interest Calculator</a></td>
   </tr>
+  
   </tbody>
 </table>
+
+<table id="no_result" style="display: none;">
+    <tbody>
+        <tr>
+            <td>No matching records found</td>
+        </tr>
+    </tbody>
 </table>
 
+
 <div class="clearfix"></div>
 
 </div>
 </div>
 <div class="clearfix"></div>
-        </form>
+        
     </section>
     <!-- /.content -->
   </aside></div>
