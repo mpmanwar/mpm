@@ -186,6 +186,7 @@ class Client extends Eloquent {
 				$client_data[$i]['services_id'] 	=   Client::getServicesIdByClient($client_id->client_id);
 
 				if (isset($client_details) && count($client_details) > 0) {
+					$serv_address = "";
 					$address = "";
 					foreach ($client_details as $client_row) {
 						//get staff name start
@@ -199,6 +200,23 @@ class Client extends Eloquent {
 						$client_data[$i]['relationship'] 	= Common::get_relationship_client($client_id->client_id);
 						//get business name end
 
+
+						//get service address
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "serv_addr_line1") {
+							$serv_address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "serv_addr_line2") {
+							$serv_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "serv_city") {
+							$serv_address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "serv_county") {
+							$serv_address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "serv_postcode") {
+							$serv_address .= $client_row->field_value.", ";
+						}
 
 						//get residencial address
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1") {
@@ -215,7 +233,7 @@ class Client extends Eloquent {
 						}	
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_postcode") {
 							$address .= $client_row->field_value.", ";
-						}			
+						}				
 
 
 						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") {
@@ -227,6 +245,7 @@ class Client extends Eloquent {
 
 					}
 
+					$client_data[$i]['serv_address'] = substr($serv_address, 0, -2);
 					$client_data[$i]['address'] = substr($address, 0, -2);
 					$i++;
 				}

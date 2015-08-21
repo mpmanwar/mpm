@@ -1,7 +1,10 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+  .bottom_space{ height: 50px;}
+</style>
 @stop
 
 @section('myjsfile')
@@ -171,9 +174,9 @@ $(function() {
                     <a href="#" class="btn btn-success" data-toggle="modal" data-target="#upload_letterhead-modal">UPLOAD LETTERHEAD</a>
                   </li>
 
-                  <li>
+                  <!-- <li>
                     <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_contact-modal">ADD CONTACT</a>
-                  </li>
+                  </li> -->
 
                   <li>
                     <a href="/email-settings" target="_blank" class="btn btn-info">MAIL SETTINGS</a>
@@ -194,10 +197,10 @@ $(function() {
       <ul class="nav nav-tabs nav-tabsbg">
         @if(isset($steps) && count($steps) >0)
           @foreach($steps as $key=>$step_row)
-            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} [{{ $step_row['count'] }}]</a></li>
+            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
           @endforeach
         @endif
-        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> New Contact Group</a></li>
+        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> Add/Edit Group</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ (isset($step_id) && $step_id == 1)?'active':''}}">
@@ -224,14 +227,14 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>NAME</th>
-          <th>TYPE</th>
-          <th>CONTACT Person</th>
-          <th>TELEPHONE</th>
-          <th>MOBILE</th>
-          <th>EMAIL</th>
-          <th>ADDRESS</th>
-          <th>NOTES</th>
+          <th>Name</th>
+          <th width="13%">Type</th>
+          <th>Contact Person</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Notes</th>
         </tr>
       </thead>
 
@@ -258,11 +261,11 @@ $(function() {
                       <option value="paye_emp">Paye Employer Office</option>
                      </select>
                   </td>
-                  <td align="left"></td>
+                  <td align="left">{{ $client_row['corres_cont_name'] or "" }}</td>
                   <td align="center">{{ $client_row['corres_cont_telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['corres_cont_mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['corres_cont_email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='org'>more</a>": $client_row['corres_address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                 
                 </tr>
@@ -276,35 +279,19 @@ $(function() {
 
   <div id="tab_2" class="tab-pane {{ (isset($step_id) && $step_id == 2)?'active':''}}">
     <div class="contact_email">
-      <p class="display_t">Display</p>
-      <div class="dis_selectbox">
-      <select class="form-control newdropdown" >
-        <option value="trad">Trading Address</option>
-        <option value="reg">Registered Office address</option>
-        <option value="corres">Correspondence address</option>
-        <option value="bankers">Bankers</option>
-        <option value="old_acc">Old Accounts</option>
-        <option value="auditors">Auditors</option>
-        <option value="solicitors">Solicitors</option>
-        <option value="tax_office">Tax Office</option>
-        <option value="paye_emp">Paye Employer Office</option>
-       </select>
-      </div>
-      <p class="display_t">for all records</p>
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
     </div>
-
     <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>NAME</th>
-          <th>TELEPHONE</th>
-          <th>MOBILE</th>
-          <th>EMAIL</th>
-          <th>RESIDENTIAL ADDRESS</th>
-          <th>SERVICE ADDRESS</th>
-          <th>NOTES</th>
+          <th>Name</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Residential Address</th>
+          <th>Service Address</th>
+          <th>Notes</th>
         </tr>
       </thead>
 
@@ -312,7 +299,8 @@ $(function() {
         @if(isset($ind_details) && count($ind_details) >0)
           @foreach($ind_details as $key=>$client_row)
             <tr class="all_check">
-              <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+              <input type="hidden" name="serv_add_{{ $client_row['client_id'] }}" id="serv_add_{{ $client_row['client_id'] }}" value="{{ $client_row['serv_address'] or "" }}">
+              <input type="hidden" name="reg_add_{{ $client_row['client_id'] }}" id="reg_add_{{ $client_row['client_id'] }}" value="{{ $client_row['address'] or "" }}">
 
               <td align="center">
                 <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
@@ -322,8 +310,8 @@ $(function() {
               <td align="center">{{ $client_row['serv_telephone'] or "" }}</td>
               <td align="center">{{ $client_row['serv_mobile'] or "" }}</td>
               <td align="center">{{ $client_row['serv_email'] or "" }}</td>
-              <td align="center">{{ (strlen($client_row['serv_address']) > 48)? substr($client_row['serv_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['serv_address'] }}</td>
-              <td align="center">{{ (strlen($client_row['serv_address']) > 48)? substr($client_row['serv_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['serv_address'] }}</td>
+              <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-address_type='reg' data-client_type='ind'>more</a>":$client_row['address']}}</td>
+              <td align="center">{{ (strlen($client_row['serv_address']) > 48)? substr($client_row['serv_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-address_type='serv' data-client_type='ind'>more</a>": $client_row['serv_address'] }}</td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
               
             </tr>
@@ -336,34 +324,18 @@ $(function() {
 
   <div id="tab_3" class="tab-pane {{ (isset($step_id) && $step_id == 3)?'active':''}}">
     <div class="contact_email">
-      <p class="display_t">Display</p>
-      <div class="dis_selectbox">
-      <select class="form-control newdropdown" >
-        <option value="trad">Trading Address</option>
-        <option value="reg">Registered Office address</option>
-        <option value="corres">Correspondence address</option>
-        <option value="bankers">Bankers</option>
-        <option value="old_acc">Old Accounts</option>
-        <option value="auditors">Auditors</option>
-        <option value="solicitors">Solicitors</option>
-        <option value="tax_office">Tax Office</option>
-        <option value="paye_emp">Paye Employer Office</option>
-       </select>
-      </div>
-      <p class="display_t">for all records</p>
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
     </div>
-
     <table class="table table-bordered table-hover dataTable email_letter" id="example3" aria-describedby="example3_info">
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>NAME</th>
-          <th>TELEPHONE</th>
-          <th>MOBILE</th>
-          <th>EMAIL</th>
-          <th>ADDRESS</th>
-          <th>NOTES</th>
+          <th>Name</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Notes</th>
         </tr>
       </thead>
 
@@ -396,35 +368,20 @@ $(function() {
 
   <div id="tab_4" class="tab-pane {{ (isset($step_id) && $step_id == 4)?'active':''}}">
     <div class="contact_email">
-      <p class="display_t">Display</p>
-      <div class="dis_selectbox">
-      <select class="form-control newdropdown" >
-        <option value="trad">Trading Address</option>
-        <option value="reg">Registered Office address</option>
-        <option value="corres">Correspondence address</option>
-        <option value="bankers">Bankers</option>
-        <option value="old_acc">Old Accounts</option>
-        <option value="auditors">Auditors</option>
-        <option value="solicitors">Solicitors</option>
-        <option value="tax_office">Tax Office</option>
-        <option value="paye_emp">Paye Employer Office</option>
-       </select>
-      </div>
-      <p class="display_t">for all records</p>
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
+      <a href="#" class="search_t" data-toggle="modal" data-target="#add_contact-modal">Add Contact</a>
     </div>
-
     <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>NAME</th>
-          <th>CONTACT Person</th>
-          <th>TELEPHONE</th>
-          <th>MOBILE</th>
-          <th>EMAIL</th>
-          <th>ADDRESS</th>
-          <th>NOTES</th>
+          <th>Name</th>
+          <th>Contact Person</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Notes</th>
         </tr>
       </thead>
 
