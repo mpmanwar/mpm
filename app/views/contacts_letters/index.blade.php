@@ -229,7 +229,7 @@ $(function() {
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
           <th>Name</th>
           <th width="13%">Type</th>
-          <th>Contact Person</th>
+          <th width="13%">Contact Person</th>
           <th>Telephone</th>
           <th>Mobile</th>
           <th>Email</th>
@@ -376,7 +376,7 @@ $(function() {
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
           <th>Name</th>
-          <th>Contact Person</th>
+          <th width="15%">Contact Person</th>
           <th>Telephone</th>
           <th>Mobile</th>
           <th>Email</th>
