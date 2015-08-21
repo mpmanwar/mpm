@@ -12,11 +12,9 @@
 
 <!-- page script -->
 <script type="text/javascript">
-var oTable;
-
 $(function() {
-    oTable = $('#example2').dataTable({
-        "aaSorting": [[2, 'asc']],
+    $('#example1').dataTable({
+        "aaSorting": [[1, 'asc']],
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -28,6 +26,74 @@ $(function() {
         "aoColumns":[
             {"bSortable": false},
             {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false}
+        ]
+
+    });
+
+    $('#example2').dataTable({
+        "aaSorting": [[1, 'asc']],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false}
+        ]
+
+    });
+
+    $('#example3').dataTable({
+        "aaSorting": [[1, 'asc']],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false}
+        ]
+
+    });
+
+    $('#example4').dataTable({
+        "aaSorting": [[1, 'asc']],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "aoColumns":[
+            {"bSortable": false},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -80,20 +146,11 @@ $(function() {
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             
-            <!-- <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li> -->
-            <!-- <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
-            
-
             <div class="clearfix"></div>
           </ul>
         </div>
         <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
-        <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
-
+        
       </div>
       <div class="practice_mid">
         
@@ -131,61 +188,295 @@ $(function() {
             </div>
             
 <div class="box-body table-responsive">
-  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper"><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"></div></div>
-    <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
-      <input type="hidden" id="client_type" value="org"> 
-        <thead>
-            <tr role="row">
-                <th width="3%"><input type="checkbox" id="allCheckSelect"/></th>
-                <th width="6%">TYPE</th>
-                <th>NAME</th>
-                <th>CONTACT NAME</th>
-                <th>TELEPHONE</th>
-                <th>MOBILE</th>
-                <th>EMAIL</th>
-                <th>NOTES</th>
-                <th>CORRESPONDENCE ADDRESS</th>
-            </tr>
-        </thead>
-
-        <tbody role="alert" aria-live="polite" aria-relevant="all">
-            @if(!empty($client_details))
-                <?php $i=1; ?>
-                @foreach($client_details as $key=>$client_row)
-                  <tr class="all_check">
-                    <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
-
-                    <td align="center">
-                      <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
-                    </td>
-                    <td align="left">{{ $client_row['contact_type'] or "" }}</td>
-                    <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
-                    <td align="left">
-                      @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
-                        <select class="form-control newdropdown">
-                        @foreach($client_row['contact_name'] as $key=>$name_row)
-                        <option>{{ $name_row['name'] }}</option>
-                        @endforeach
-                        </select>
-                      @endif
-                    </td>
-                    <td align="center">{{ $client_row['telephone'] or "" }}</td>
-                    <td align="center">{{ $client_row['mobile'] or "" }}</td>
-                    <td align="center">{{ $client_row['email'] or "" }}</td>
-                    <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                    <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                    
-                  </tr>
-                <?php $i++; ?>
-              @endforeach
-            @endif
-          
-          
-        </tbody>
-      </table>
-
-        </div>
+  <div class="tabarea">
+  <input type="hidden" id="tab_id" value="{{ $step_id or "" }}"> 
+  <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs nav-tabsbg">
+        @if(isset($steps) && count($steps) >0)
+          @foreach($steps as $key=>$step_row)
+            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} [{{ $step_row['count'] }}]</a></li>
+          @endforeach
+        @endif
+        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> New Contact Group</a></li>
+      </ul>
+<div class="tab-content">
+  <div id="tab_1" class="tab-pane {{ (isset($step_id) && $step_id == 1)?'active':''}}">
+    <div class="contact_email">
+      <p class="display_t">Display</p>
+      <div class="dis_selectbox">
+      <select class="form-control newdropdown" >
+        <option value="trad">Trading Address</option>
+        <option value="reg">Registered Office address</option>
+        <option value="corres">Correspondence address</option>
+        <option value="bankers">Bankers</option>
+        <option value="old_acc">Old Accounts</option>
+        <option value="auditors">Auditors</option>
+        <option value="solicitors">Solicitors</option>
+        <option value="tax_office">Tax Office</option>
+        <option value="paye_emp">Paye Employer Office</option>
+       </select>
+      </div>
+      <p class="display_t">for all records</p>
+      <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
     </div>
+
+    <table class="table table-bordered table-hover dataTable email_letter" id="example1" aria-describedby="example1_info">
+      <thead>
+        <tr role="row">
+          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th>NAME</th>
+          <th>TYPE</th>
+          <th>CONTACT Person</th>
+          <th>TELEPHONE</th>
+          <th>MOBILE</th>
+          <th>EMAIL</th>
+          <th>ADDRESS</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($client_details) && count($client_details) >0)
+              @foreach($client_details as $key=>$client_row)
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Business")
+                <tr class="all_check">
+                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                  </td>
+                  <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+                  <td align="left">
+                    <select class="form-control newdropdown" >
+                      <option value="trad">Trading Address</option>
+                      <option value="reg">Registered Office address</option>
+                      <option value="corres">Correspondence address</option>
+                      <option value="bankers">Bankers</option>
+                      <option value="old_acc">Old Accounts</option>
+                      <option value="auditors">Auditors</option>
+                      <option value="solicitors">Solicitors</option>
+                      <option value="tax_office">Tax Office</option>
+                      <option value="paye_emp">Paye Employer Office</option>
+                     </select>
+                  </td>
+                  <td align="left">
+                    @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
+                      <select class="form-control newdropdown">
+                      @foreach($client_row['contact_name'] as $key=>$name_row)
+                      <option>{{ $name_row['name'] }}</option>
+                      @endforeach
+                      </select>
+                    @endif
+                  </td>
+                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                
+                </tr>
+              @endif
+            @endforeach
+          @endif
+        
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab_2" class="tab-pane {{ (isset($step_id) && $step_id == 2)?'active':''}}">
+    <div class="contact_email">
+      <p class="display_t">Display</p>
+      <div class="dis_selectbox">
+      <select class="form-control newdropdown" >
+        <option value="trad">Trading Address</option>
+        <option value="reg">Registered Office address</option>
+        <option value="corres">Correspondence address</option>
+        <option value="bankers">Bankers</option>
+        <option value="old_acc">Old Accounts</option>
+        <option value="auditors">Auditors</option>
+        <option value="solicitors">Solicitors</option>
+        <option value="tax_office">Tax Office</option>
+        <option value="paye_emp">Paye Employer Office</option>
+       </select>
+      </div>
+      <p class="display_t">for all records</p>
+      <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
+    </div>
+
+    <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
+      <thead>
+        <tr role="row">
+          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th>NAME</th>
+          <th>TELEPHONE</th>
+          <th>MOBILE</th>
+          <th>EMAIL</th>
+          <th>RESIDENTIAL ADDRESS</th>
+          <th>SERVICE ADDRESS</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($client_details) && count($client_details) >0)
+              @foreach($client_details as $key=>$client_row)
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Individual")
+                <tr class="all_check">
+                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                  </td>
+                  
+                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
+                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  
+                  
+                </tr>
+              @endif
+            @endforeach
+          @endif
+        
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab_3" class="tab-pane {{ (isset($step_id) && $step_id == 3)?'active':''}}">
+    <div class="contact_email">
+      <p class="display_t">Display</p>
+      <div class="dis_selectbox">
+      <select class="form-control newdropdown" >
+        <option value="trad">Trading Address</option>
+        <option value="reg">Registered Office address</option>
+        <option value="corres">Correspondence address</option>
+        <option value="bankers">Bankers</option>
+        <option value="old_acc">Old Accounts</option>
+        <option value="auditors">Auditors</option>
+        <option value="solicitors">Solicitors</option>
+        <option value="tax_office">Tax Office</option>
+        <option value="paye_emp">Paye Employer Office</option>
+       </select>
+      </div>
+      <p class="display_t">for all records</p>
+      <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
+    </div>
+
+    <table class="table table-bordered table-hover dataTable email_letter" id="example3" aria-describedby="example3_info">
+      <thead>
+        <tr role="row">
+          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th>NAME</th>
+          <th>TELEPHONE</th>
+          <th>MOBILE</th>
+          <th>EMAIL</th>
+          <th>ADDRESS</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($client_details) && count($client_details) >0)
+              @foreach($client_details as $key=>$client_row)
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Staff")
+                <tr class="all_check">
+                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                  </td>
+                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
+                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  
+                </tr>
+              @endif
+            @endforeach
+          @endif
+        
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab_4" class="tab-pane {{ (isset($step_id) && $step_id == 4)?'active':''}}">
+    <div class="contact_email">
+      <p class="display_t">Display</p>
+      <div class="dis_selectbox">
+      <select class="form-control newdropdown" >
+        <option value="trad">Trading Address</option>
+        <option value="reg">Registered Office address</option>
+        <option value="corres">Correspondence address</option>
+        <option value="bankers">Bankers</option>
+        <option value="old_acc">Old Accounts</option>
+        <option value="auditors">Auditors</option>
+        <option value="solicitors">Solicitors</option>
+        <option value="tax_office">Tax Office</option>
+        <option value="paye_emp">Paye Employer Office</option>
+       </select>
+      </div>
+      <p class="display_t">for all records</p>
+      <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
+    </div>
+
+    <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
+      <thead>
+        <tr role="row">
+          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th>NAME</th>
+          <th>CONTACT Person</th>
+          <th>TELEPHONE</th>
+          <th>MOBILE</th>
+          <th>EMAIL</th>
+          <th>ADDRESS</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($client_details) && count($client_details) >0)
+              @foreach($client_details as $key=>$client_row)
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Other")
+                <tr class="all_check">
+                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+                  <td align="center">
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                  </td>
+                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
+                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  
+                </tr>
+              @endif
+            @endforeach
+          @endif
+        
+        
+      </tbody>
+    </table>
+  </div>
+      
+
+</div>
+
+</div>
+          
+
+</div>
+</div>
             
             
         </div>
@@ -419,5 +710,122 @@ $(function() {
   <!-- /.modal-dialog -->
 </div>        
 <!-- Notes modal start -->
+
+<!-- Create Group modal start -->
+<div class="modal fade" id="create_group-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">CREATE GROUP</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" style="margin-left: 35px">
+        <div class="loader_class"><!-- Loader Image Show--></div>
+        <input type="hidden" id="notes_client_id" name="notes_client_id">
+        <input type="hidden" id="contact_type" name="contact_type">
+        <table>
+          <tr>
+            <td align="left" width="30%"><strong>Select Step&nbsp;&nbsp; </strong></td>
+            <td align="left">
+              <select class="form-control" id="create_group_step_id">
+                @if(isset($steps) && count($steps) >0)
+                  @foreach($steps as $key=>$step_row)
+                    @if(isset($step_row['step_type']) && $step_row['step_type'] == "old")
+                      <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
+                    @endif
+                  @endforeach
+                @endif
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="30%"><strong>Enter Name&nbsp;&nbsp; </strong></td>
+            <td align="left"><input type="text" class="form-control" name="group_name" id="group_name"></td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="right">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-info create_groups">Save</button>
+            </td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>        
+<!-- Create Group modal end -->
+
+<!-- Add to Group modal start -->
+<div class="modal fade" id="addto_group-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add To Group</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" style="margin-left: 35px">
+        <input type="hidden" id="notes_client_id" name="notes_client_id">
+        <input type="hidden" id="contact_type" name="contact_type">
+        <table>
+          <tr>
+            <td align="left" width="30%"><strong>Select Group&nbsp;&nbsp; </strong></td>
+            <td align="left">
+              <select class="form-control">
+                @if(isset($steps) && count($steps) >0)
+                  @foreach($steps as $key=>$step_row)
+                    @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
+                      <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
+                    @endif
+                  @endforeach
+                @endif
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="right">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-info addto_groups">Save</button>
+            </td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>        
+<!-- Add to Group modal end -->
 
 @stop

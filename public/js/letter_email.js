@@ -1,9 +1,9 @@
 $(document).ready(function (e) {
-  $('#allCheckSelect').on('ifChecked', function(event){
+  $('.allCheckSelect').on('ifChecked', function(event){
         $(".email_letter input[class='ads_Checkbox']").iCheck('check');
     });
 
-    $('#allCheckSelect').on('ifUnchecked', function(event){
+    $('.allCheckSelect').on('ifUnchecked', function(event){
         $(".email_letter input[class='ads_Checkbox']").iCheck('uncheck');
     });
 
@@ -40,6 +40,7 @@ $(document).ready(function (e) {
       var client_id     = $("#notes_client_id").val();
       var contact_type  = $("#contact_type").val();
       var notes         = $("#notes").val();
+      var step_id       = $("#step_id").val();
 
       $.ajax({
           type: "POST",
@@ -48,12 +49,60 @@ $(document).ready(function (e) {
           data: { 'client_id': client_id, 'contact_type' : contact_type, 'notes' : notes },
           success: function (resp) {
             //$("#notes-modal").modal("hide");  
-            window.location = '/contacts-letters-emails';           
+            window.location = '/contacts-letters-emails/'+step_id;           
           }
       });
         
     });
 /* ################# Save Notes End ################### */
+
+/* ################# Create Group Start ################### */
+    $(".create_groups").click(function(){
+      var step_id       = $("#create_group_step_id").val();
+      var tab_id        = $("#tab_id").val();
+      var group_name    = $("#group_name").val();
+      $.ajax({
+          type: "POST",
+          dataType : "json",
+          url: "/contacts/save-contacts-group",
+          beforeSend : function(){
+            $(".loader_class").html('<img src="/img/spinner.gif" />');
+          },
+          data: { 'step_id': step_id, 'group_name' : group_name },
+          success: function (resp) {
+            if(resp > 0){
+              window.location = '/contacts-letters-emails/'+tab_id;            
+            }else{
+              $(".loader_class").html('');
+              alert("There are some error..., Please try again.");
+              return false;
+            }
+          }
+      });
+        
+    });
+/* ################# Create Group End ################### */
+
+/* ################# Open Add To Group Popup Start ################### */
+    $(".open_addto_group").click(function(){
+      //var step_id     = $(this).data("step_id");
+      //var contact_type  = $(this).data("contact_type");
+      $("#addto_group-modal").modal("show");
+      /*$.ajax({
+          type: "POST",
+          dataType : "json",
+          url: "/contacts/show-contacts-notes",
+          data: { 'client_id': client_id, 'contact_type' : contact_type },
+          success: function (resp) {
+            $("#notes_client_id").val(client_id);
+            $("#contact_type").val(contact_type);
+            $("#notes").val(resp['notes']);
+            $("#notes-modal").modal("show");             
+          }
+      });*/
+        
+    });
+/* ################# Open Add To Group Popup End ################### */
     
     
     
