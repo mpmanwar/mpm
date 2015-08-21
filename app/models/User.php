@@ -14,4 +14,75 @@ class User extends Eloquent {
 		}
 		return $name;
 	}
+
+	public static function getAllStaffDetails()
+    {
+        $details 		= array();
+        $step_data 		= array();
+        $session 		= Session::get('admin_details');
+        $user_id 		= $session['id'];
+        $user_type 		= $session['user_type'];
+        $groupUserId 	= $session['group_users'];
+
+        $staff = User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->get();
+        //echo $this->last_query();die;
+        if (isset($staff) && count($staff) > 0) {
+            foreach ($staff as $key => $value) {
+                $details[$key]['user_id'] 	= $value->user_id;
+                $details[$key]['parent_id'] = $value->parent_id;
+                $details[$key]['group_id'] 	= $value->group_id;
+                $details[$key]['client_id'] = $value->client_id;
+                $details[$key]['fname'] 	= $value->fname;
+                $details[$key]['lname'] 	= $value->lname;
+                $details[$key]['email'] 	= $value->email;
+                $details[$key]['password'] 	= $value->password;
+                $details[$key]['phone'] 	= $value->phone;
+                $details[$key]['website'] 	= $value->website;
+                $details[$key]['country'] 	= $value->country;
+                $details[$key]['user_type'] = $value->user_type;
+                $details[$key]['status'] 	= $value->status;
+                $details[$key]['created'] 	= $value->created;
+
+                $fields = StepsFieldsStaff::where("staff_id", "=", $value->user_id)->get();
+                if (isset($fields) && count($fields) > 0) {
+                    foreach ($fields as $value) {
+                    	$address = "";
+                    	$res_address = "";
+                    	if (isset($add['step_data']['res_addr_line1'])) {
+		                    $res_address .= $add['step_data']['res_addr_line1'] . ", ";
+		                }
+
+		                if (isset($add['step_data']['res_addr_line2'])) {
+		                    $res_address .= $add['step_data']['res_addr_line2'] . ", ";
+		                }
+
+		                if (isset($add['step_data']['res_city'])) {
+		                    $address .= $add['step_data']['res_city'] . ", ";
+		                    $res_address .= $add['step_data']['res_city'] . ", ";
+		                }
+
+		                if (isset($add['step_data']['res_county'])) {
+		                    $address .= $add['step_data']['res_county'] . ", ";
+		                    $res_address .= $add['step_data']['res_county'] . ", ";
+		                }
+		                if (isset($add['step_data']['res_postcode'])) {
+		                    $res_address .= $add['step_data']['res_postcode'];
+		                }
+
+
+		                $step_data['address'] = $address;
+		                $step_data['reg_address'] = $res_address;
+                        $step_data[$value['field_name']] = $value->field_value;
+                    }
+                }
+
+                $details[$key]['step_data'] = $step_data;
+                
+		    }
+        }
+
+        //print_r($details);die();
+
+        return $details;
+    }
 }

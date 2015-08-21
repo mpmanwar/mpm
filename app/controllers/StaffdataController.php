@@ -55,26 +55,10 @@ class StaffdataController extends BaseController
                 }
 
 
-                /* $address['res_addr'] = $add['step_data']['res_addr_line1'] . "," . $add['step_data']['res_addr_line2'] .
-                "," . $add['step_data']['res_city'] . "," . $add['step_data']['res_county'] .
-                "," . $add['step_data']['res_postcode'];
-                */
                 $data['staff_details'][$key]['fulladdress'] = $address;
             }
         }
 
-
-        //$total_address= implode(",",$address);
-
-        //echo '<pre>';
-        //print_r($data['fulladdress']);die();
-
-        //$add = $data['staff_details']['0']['step_data']['res_addr_line1'] ;
-        //echo '<pre>';print_r($add);
-        // die();
-      // echo '<pre>';
-      //  print_r($data['staff_details']);
-      //die;
 
         return View::make('staff.staffdata.staff_data', $data);
 

@@ -19,6 +19,11 @@ $(document).ready(function (e) {
             }else{
               var address = $("#serv_add_"+client_id).val();
             }
+        }else if(client_type == "staff"){
+
+        }else if(client_type == "other"){
+          var contact_id   = $(this).data('contact_id');
+          var address = $("#other_address_"+contact_id).val();
         }
         
 
