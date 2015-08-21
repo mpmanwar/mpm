@@ -306,7 +306,7 @@ $(function() {
                 <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
               </td>
               
-              <td align="left">{{ $client_row['client_name'] or "" }}</td>
+              <td align="left"><a target="_blank" href="/client/edit-ind-client/{{ $client_row['client_id'] }}/{{ base64_encode('ind_client') }}">{{ $client_row['client_name'] or "" }}</a></td>
               <td align="center">{{ $client_row['serv_telephone'] or "" }}</td>
               <td align="center">{{ $client_row['serv_mobile'] or "" }}</td>
               <td align="center">{{ $client_row['serv_email'] or "" }}</td>
@@ -330,34 +330,32 @@ $(function() {
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>Name</th>
-          <th>Telephone</th>
-          <th>Mobile</th>
-          <th>Email</th>
+          <th width="20%">Name</th>
+          <th width="10%">Telephone</th>
+          <th width="10%">Mobile</th>
+          <th width="20%">Email</th>
           <th>Address</th>
-          <th>Notes</th>
+          <th width="8%">Notes</th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-          @if(isset($client_details) && count($client_details) >0)
-              @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Staff")
-                <tr class="all_check">
-                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
-                  <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
-                  </td>
-                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
-                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
-                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
-                  <td align="center">{{ $client_row['email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                  
-                </tr>
-              @endif
+          @if(isset($staff_details) && count($staff_details) >0)
+            @foreach($staff_details as $key=>$staff_row)
+              <tr class="all_check">
+                <input type="hidden" name="address_{{ $staff_row['user_id'] }}" id="corres_add_{{ $staff_row['user_id'] }}" value="{{ $staff_row['address'] or "" }}">
+                <td align="center">
+                  <input type="checkbox" class="ads_Checkbox" name="user_ids[]" value="{{ $staff_row['user_id'] or "" }}" />
+                </td>
+                <td align="left">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</td>
+                <td align="center">{{ $staff_row['step_data']['serv_telephone'] or "" }}</td>
+                <td align="center">{{ $staff_row['step_data']['serv_mobile'] or "" }}</td>
+                <td align="center">{{ $staff_row['email'] or "" }}</td>
+                <td align="center">{{ (strlen($staff_row['step_data']['address']) > 48)? substr($staff_row['step_data']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-staff_id='".$staff_row['user_id']."'>more</a>": $staff_row['step_data']['address'] }}</td>
+                
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-staff_id="{{ $staff_row['user_id'] or "" }}" data-contact_type="staff"><span {{ (isset($staff_row['notes']) && $staff_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                
+              </tr>
             @endforeach
           @endif
         
@@ -386,24 +384,22 @@ $(function() {
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-          @if(isset($client_details) && count($client_details) >0)
-              @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Other")
+          @if(isset($contact_details) && count($contact_details) >0)
+              @foreach($contact_details as $key=>$client_row)
                 <tr class="all_check">
-                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
+                  <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['contact_id'] or "" }}" />
                   </td>
-                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
+                  <td align="left">{{ $client_row['name'] or "" }}</td>
+                  <td align="left">{{ $client_row['contact_person'] or "" }}</td>
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."'>more</a>": $client_row['address'] }}</td>
+                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-contact_id="{{ $client_row['contact_id'] or "" }}" data-contact_type="other"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
                 </tr>
-              @endif
             @endforeach
           @endif
         
@@ -475,25 +471,41 @@ $(function() {
         <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
-    
+    {{ Form::open(array('url' => '/contact/insert-contact-details', 'id'=>'basicform')) }}
+    <input type="hidden" name="tab_index" value="{{ $step_id or "" }}">
       <div class="modal-body">
-        
+        <div class="twobox">
+      <div class="twobox_1">
+        <div class="form-group">
+          <label for="exampleInputPassword1">File Contact as</label>
+          <select class="form-control" name="contact_type" id="contact_type">
+            <option value="contact_name">Contact Name</option>
+            <option value="company_name">Company Name</option>
+          </select> 
+        </div>
+      </div>
 
-     <div class="form-group">
-      <label for="exampleInputPassword1"><div style="float:left;">Contact Name</div> <div style="float:left; margin-left: 100px">File Contact as <input type="checkbox"></div></label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control">
+      <div class="twobox_2">
+        
+      </div>
+      <div class="clearfix"></div>
     </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Contact Name</label>
+        <input type="text" id="contact_name" name="contact_name" class="form-control">
+      </div>
 
     <div class="form-group">
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_tele_code" name="serv_tele_code" class="form-control" readonly>
+      <input type="text" id="telephone_code" name="telephone_code" class="form-control">
     </div>
 
     <div class="telbox">
       <label for="exampleInputPassword1">Telephone</label>
-      <input type="text" id="serv_telephone" name="serv_telephone" class="form-control"></div>
+      <input type="text" id="telephone" name="telephone" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
@@ -501,58 +513,59 @@ $(function() {
 
     <div class="n_box01">
       <label for="exampleInputPassword1">Country Code</label>
-      <input type="text" id="serv_mobile_code" name="serv_mobile_code" class="form-control" readonly>
+      <input type="text" id="mobile_code" name="mobile_code" class="form-control">
     </div>
     <div class="telbox">
     <label for="exampleInputPassword1">Mobile</label>
-        <input type="text" id="serv_mobile" name="serv_mobile" class="form-control"></div>
+        <input type="text" id="mobile" name="mobile" class="form-control"></div>
     <div class="clearfix"></div>
   </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Email</label>
-      <input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control">
+      <input type="text" id="email" name="email" class="form-control">
     </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Website</label>
-      <input type="text" id="res_addr_line2" name="res_addr_line2" class="form-control">
+      <input type="text" id="website" name="website" class="form-control">
     </div>
 
     <div class="form-group">
-      <label for="exampleInputPassword1"><div style="float:left;">Company Name</div> <div style="float:left; margin-left: 100px">File Contact as <input type="checkbox"></div></label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1"  class="form-control">
+      <label for="exampleInputPassword1">Company Name</label>
+      <input type="text" id="company_name" name="company_name"  class="form-control">
     </div>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Select or Add</label> 
 
-      <select class="form-control service_country" name="res_country" id="res_country">
+      <select class="form-control" name="address" id="address">
+        <option value="">-- Please Select --</option>
       </select>                   
     </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line 1</label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control">
+      <input type="text" id="addr_line1" name="addr_line1" class="form-control">
     </div>
 
     <div class="form-group">
       <label for="exampleInputPassword1">Address Line 2</label>
-      <input type="text" id="res_addr_line1" name="res_addr_line1" class="form-control">
+      <input type="text" id="addr_line2" name="addr_line2" class="form-control">
     </div>
 
     <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">City/Town</label>
-          <input type="text" id="res_city" name="res_city" class="form-control">
+          <input type="text" id="city" name="city" class="form-control">
         </div>
       </div>
 
       <div class="twobox_2">
         <div class="form-group">
           <label for="exampleInputPassword1">County</label>
-          <input type="text" id="res_county" name="res_county" class="form-control">
+          <input type="text" id="county" name="county" class="form-control">
         </div>
       </div>
       <div class="clearfix"></div>
@@ -562,16 +575,29 @@ $(function() {
       <div class="twobox_1">
       <div class="form-group">
       <label for="exampleInputPassword1">Postcode</label>
-      <input type="text" id="res_postcode" name="res_postcode" class="form-control">
+      <input type="text" id="postcode" name="postcode" class="form-control">
       </div>
       </div>
 
       <div class="twobox_2">
       <div class="form-group">
-      <label for="exampleInputPassword1">Country</label> 
-
-        <select class="form-control service_country" name="res_country" id="res_country">
-        </select>                   
+        <label for="exampleInputPassword1">Country</label> 
+        <select class="form-control" name="country" id="country">
+          @if(!empty($countries))
+            @foreach($countries as $key=>$country_row)
+            @if(!empty($country_row->country_code) && $country_row->country_code == "GB")
+              <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+            @endif
+            @endforeach
+          @endif
+          @if(!empty($countries))
+            @foreach($countries as $key=>$country_row)
+            @if(!empty($country_row->country_code) && $country_row->country_code != "GB")
+              <option value="{{ $country_row->country_id }}">{{ $country_row->country_name }}</option>
+            @endif
+            @endforeach
+          @endif
+        </select>                  
       </div>
       </div>
       <div class="clearfix"></div>
@@ -581,11 +607,12 @@ $(function() {
   
       <div class="modal-footer1 clearfix">
           <div class="add_client_btn">
-      <button class="btn btn-info" type="button">Save</button>
+      <button class="btn btn-info" type="submit" name="save">Save</button>
       <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
     </div>
         </div>
       </div>
+      {{ Form::close() }}
     
   </div>
     <!-- /.modal-content -->

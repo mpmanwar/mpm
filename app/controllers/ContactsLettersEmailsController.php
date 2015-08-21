@@ -20,32 +20,40 @@ class ContactsLettersEmailsController extends BaseController {
 		$staff_count 	= 0;
 		$other_count 	= 0;
 
-		$org_details = Client::getAllOrgClientDetails();
-		if(isset($org_details) && count($org_details) >0){
-			foreach ($org_details as $key => $client_row) {
-				$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
-				$org_details[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'org');
+		if($step_id == 1){
+			$org_details = Client::getAllOrgClientDetails();
+			if(isset($org_details) && count($org_details) >0){
+				foreach ($org_details as $key => $client_row) {
+					$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
+					$org_details[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'org');
 
-				$org_count++;
+					$org_count++;
+				}
+				$data['org_details'] = $org_details;
 			}
-			$data['org_details'] = $org_details;
-		}
+		}else if($step_id == 2){
+			$ind_details = Client::getAllIndClientDetails();
+			if(isset($ind_details) && count($ind_details) >0){
+				foreach ($ind_details as $key => $client_row) {
+					$ind_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'ind');
 
-		$ind_details = Client::getAllIndClientDetails();
-		if(isset($ind_details) && count($ind_details) >0){
-			foreach ($ind_details as $key => $client_row) {
-				$ind_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'ind');
-
-				$ind_count++;
+					$ind_count++;
+				}
+				$data['ind_details'] = $ind_details;
 			}
-			$data['ind_details'] = $ind_details;
-		}
+		}else if($step_id == 3){
+			$data['staff_details'] = User::getAllStaffDetails();
+		}else if($step_id == 4){
+			$data['contact_details'] = ContactAddress::getAllContactDetails();
+		}else{
 
+		}
 		
 
 		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
+		$data['countries'] 	= Country::orderBy('country_name')->get();
 
-		//print_r($data['org_details']);die;
+		//print_r($data['contact_details']);die;
 		return View::make('contacts_letters.index', $data);
 	}
 
@@ -172,6 +180,35 @@ class ContactsLettersEmailsController extends BaseController {
 		$last_id = ContactsStep::insertGetId($data);
 		echo $last_id;exit;
 	}
+
+	public function insert_contact_details()
+    {
+    	$data = array();
+    	$session = Session::get('admin_details');
+		$user_id = $session['id'];
+		$groupUserId = $session['group_users'];
+
+    	$tab_id 				= Input::get("tab_index");
+    	$data['user_id'] 		= $user_id;
+    	$data['contact_type'] 	= Input::get("contact_type");
+    	$data['contact_name'] 	= Input::get("contact_name");
+    	$data['telephone_code'] = Input::get("telephone_code");
+    	$data['telephone'] 		= Input::get("telephone");
+    	$data['mobile_code'] 	= Input::get("mobile_code");
+    	$data['mobile'] 		= Input::get("mobile");
+    	$data['email'] 			= Input::get("email");
+    	$data['website'] 		= Input::get("website");
+    	$data['company_name'] 	= Input::get("company_name");
+		$data['addr_line1'] 	= Input::get("addr_line1");
+    	$data['addr_line2'] 	= Input::get("addr_line2");
+    	$data['city'] 			= Input::get("city");
+    	$data['county'] 		= Input::get("county");
+    	$data['postcode'] 		= Input::get("postcode");
+    	$data['country'] 		= Input::get("country");
+
+    	ContactAddress::insert($data);
+    	return Redirect::to('/contacts-letters-emails/'.$tab_id);
+    }
 
     
 
