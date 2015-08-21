@@ -351,7 +351,7 @@ $(function() {
                 <td align="center">{{ $staff_row['step_data']['serv_telephone'] or "" }}</td>
                 <td align="center">{{ $staff_row['step_data']['serv_mobile'] or "" }}</td>
                 <td align="center">{{ $staff_row['email'] or "" }}</td>
-                <td align="center">{{ (strlen($staff_row['step_data']['address']) > 48)? substr($staff_row['step_data']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-staff_id='".$staff_row['user_id']."'>more</a>": $staff_row['step_data']['address'] }}</td>
+                <td align="center">{{ (strlen($staff_row['step_data']['address']) > 48)? substr($staff_row['step_data']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-staff_id='".$staff_row['user_id']."' data-client_type='staff'>more</a>": $staff_row['step_data']['address'] }}</td>
                 
                 <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-staff_id="{{ $staff_row['user_id'] or "" }}" data-contact_type="staff"><span {{ (isset($staff_row['notes']) && $staff_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                 
@@ -387,7 +387,7 @@ $(function() {
           @if(isset($contact_details) && count($contact_details) >0)
               @foreach($contact_details as $key=>$client_row)
                 <tr class="all_check">
-                  <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
+                  <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="other_address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['contact_id'] or "" }}" />
                   </td>
@@ -396,7 +396,7 @@ $(function() {
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."'>more</a>": $client_row['address'] }}</td>
+                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."' data-client_type='other'>more</a>": $client_row['address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-contact_id="{{ $client_row['contact_id'] or "" }}" data-contact_type="other"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
                 </tr>
