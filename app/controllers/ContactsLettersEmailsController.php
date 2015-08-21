@@ -14,10 +14,15 @@ class ContactsLettersEmailsController extends BaseController {
 		if (empty($user_id)) {
 			return Redirect::to('/');
 		}
+		$org_count 		= 0;
+		$ind_count 		= 0;
+		$staff_count 	= 0;
+		$other_count 	= 0;
 
 		$client_details = Client::getAllClientDetails();
 		if(isset($client_details) && count($client_details) >0)
 		{
+			
 			foreach ($client_details as $key => $client_row) {
 				$client_data[$key]['client_id'] 		= $client_row['client_id'];
 				if(isset($client_row['client_type']) && $client_row['client_type'] == "org"){
@@ -30,6 +35,8 @@ class ContactsLettersEmailsController extends BaseController {
 					$client_data[$key]['corres_address']= isset($client_row['corres_address'])?$client_row['corres_address']:"";
 					$client_data[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
 					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Business');
+
+					$org_count++;
 				}
 				else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
 					$client_data[$key]['client_name'] 	= $client_row['client_name'];
@@ -40,13 +47,17 @@ class ContactsLettersEmailsController extends BaseController {
 					$client_data[$key]['mobile'] 		= isset($client_row['serv_mobile'])?$client_row['serv_mobile']:"";
 					$client_data[$key]['corres_address']= isset($client_row['address'])?$client_row['address']:"";
 					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Individual');
+
+					$ind_count++;
 				}
 				
 			}
 		}
 		$data['client_details'] = $client_data;
 
-		$data['steps'] = ContactsStep::getAllSteps();
+		$data['org_count'] = $org_count;
+		$data['ind_count'] = $ind_count;
+		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
 
 		//print_r($data['client_details']);die;
 		return View::make('contacts_letters.index', $data);

@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(function() {
     $('#example1').dataTable({
-        "aaSorting": [[2, 'asc']],
+        "aaSorting": [[1, 'asc']],
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -146,20 +146,11 @@ $(function() {
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             
-            <!-- <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li> -->
-            <!-- <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
-            
-
             <div class="clearfix"></div>
           </ul>
         </div>
         <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
-        <!-- <div style="float: right; margin-right: 43px;"><a href="javascript:void(0)" id="archive_div">Show Archived</a></div> -->
-
+        
       </div>
       <div class="practice_mid">
         
@@ -203,7 +194,7 @@ $(function() {
       <ul class="nav nav-tabs nav-tabsbg">
         @if(isset($steps) && count($steps) >0)
           @foreach($steps as $key=>$step_row)
-            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} [0]</a></li>
+            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} [{{ $step_row['count'] }}]</a></li>
           @endforeach
         @endif
         <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> New Contact Group</a></li>
@@ -282,8 +273,7 @@ $(function() {
                   <td align="center">{{ $client_row['email'] or "" }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                  
-                  
+                
                 </tr>
               @endif
             @endforeach
@@ -394,14 +384,12 @@ $(function() {
       <tbody role="alert" aria-live="polite" aria-relevant="all">
           @if(isset($client_details) && count($client_details) >0)
               @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Individual")
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Staff")
                 <tr class="all_check">
                   <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
-
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                   </td>
-                  
                   <td align="left">{{ $client_row['client_name'] or "" }}</td>
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
@@ -409,7 +397,6 @@ $(function() {
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                  
                   
                 </tr>
               @endif
@@ -458,14 +445,12 @@ $(function() {
       <tbody role="alert" aria-live="polite" aria-relevant="all">
           @if(isset($client_details) && count($client_details) >0)
               @foreach($client_details as $key=>$client_row)
-                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Individual")
+                @if(isset($client_row['contact_type']) && $client_row['contact_type'] == "Other")
                 <tr class="all_check">
                   <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ $client_row['corres_address'] or "" }}">
-
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                   </td>
-                  
                   <td align="left">{{ $client_row['client_name'] or "" }}</td>
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
@@ -473,7 +458,6 @@ $(function() {
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."'>more</a>": $client_row['corres_address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['contact_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                  
                   
                 </tr>
               @endif
