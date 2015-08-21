@@ -18,9 +18,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
 <script>
+
+
+
+
 var Table1, Table2, Table3;
 
 $(function() {
+   
+        
+    });
+    /*
 //$('#example1').dataTable();
  Table1 = $('#example1').dataTable({
         "bPaginate": false,
@@ -36,18 +44,18 @@ $(function() {
 
       "aoColumns":[
             {"bSortable": false}
-            /*{"bSortable": true},
+            {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false},
             {"bSortable": false},
-            {"bSortable": false}*/
+            {"bSortable": false}
         ]
 
     });
     
-});
+});*/
 </script>
 
 @stop
@@ -82,8 +90,8 @@ $(function() {
 <form>
 <div class="col-xs-12">
 <div class="hmrc_main">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example1" aria-describedby="example1_info">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example1" aria-describedby="example1_info" >
 <thead>
     <th style="display: none;"></th>
     <th style="display: none;"></th>
@@ -131,7 +139,7 @@ $(function() {
    <td colspan="4" class="hmrc_a">PAYE</td>
    </tr>
   <tr>
-    <td><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave/Pay when you have a..</a></td>
+    <td id="btn_1"><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave and pay when you have a child</a></td>
     <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" target="_blank" data-toggle="tooltip" title="Check your payroll calculations" class="hmrc_btn ">Nil Payroll Calculator</a></td>
     <td><a href="http://www.hmrc.gov.uk/payinghmrc/payeCumbernauld.htm" target="_blank" data-toggle="tooltip" title="Request form for PAYE CHAPS transfer" class="hmrc_btn ">PAYE CHAPS</a></td>
     <td><a href="https://www.gov.uk/basic-paye-tools" target="_blank" data-toggle="tooltip" title="Tools to help you run your payroll" class="hmrc_btn ">Basic PAYE Tools</a></td>
@@ -161,7 +169,7 @@ $(function() {
   <td colspan="4" class="hmrc_a">PENSIONS</td>
   </tr>
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance cal...</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance calculators</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/annualallowancelimit/index.htm" target="_blank" data-toggle="tooltip" title="Check if you need to pay a tax charge on your pension savings" class="hmrc_btn">Pension schemes annual all. checking tool</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/lifetimeallowance/index.htm" target="_blank" data-toggle="tooltip" title="Check if you should apply for lifetime allowance protection on your pension" class="hmrc_btn">Pension schemes lifetime all. checking tool</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/annual-allowance/calculator.htm" target="_blank" data-toggle="tooltip" title="Pension input amount calculator" class="hmrc_btn">Pension input calculator</a></td>
