@@ -56,8 +56,9 @@ class ContactsLettersEmailsController extends BaseController {
 		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
 		$data['countries'] 	= Country::orderBy('country_name')->get();
 		$data['address_types'] 	= AddressType::getAllAddressDetails();
+		$data['all_address'] 	= ContactAddress::getAllContactAddress();
 
-		//echo "<pre>";print_r($data['staff_details']);echo "</pre>";die;
+		//echo "<pre>";print_r($data['all_address']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
 	}
 
@@ -223,6 +224,19 @@ class ContactsLettersEmailsController extends BaseController {
     	$address = ContactAddress::getContactAddressByType($client_id, $address_type);
 
 		echo json_encode($address);
+    }
+
+    public function save_edit_group()
+    {
+    	$data = array();
+    	$step_id 			= Input::get('step_id');
+    	$data['short_code'] = strtolower(Input::get("group_name"));
+    	$data['title'] 		= Input::get("group_name");
+    	
+    	$sql = ContactsStep::where("step_id", "=", $step_id)->update($data);
+    	
+    	echo $sql;
+    	exit;
     }
 
     

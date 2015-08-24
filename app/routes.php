@@ -315,6 +315,7 @@ Route::any('/contacts/save-contacts-notes', 'ContactsLettersEmailsController@sav
 Route::any('/contacts/save-contacts-group', 'ContactsLettersEmailsController@save_contacts_group');
 Route::any('/contacts/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
 Route::any('/contacts/search-address', 'ContactsLettersEmailsController@search_address');
+Route::any('/contacts/save-edit-group', 'ContactsLettersEmailsController@save_edit_group');
 
 /*================== Contacts Letters Emails End ==============*/
 

@@ -492,8 +492,8 @@ $(function() {
         <div class="form-group">
           <label for="exampleInputPassword1">File Contact as</label>
           <select class="form-control" name="contact_type" id="contact_type">
-            <option value="contact_name">Contact Name</option>
             <option value="company_name">Company Name</option>
+            <option value="contact_name">Contact Name</option>
           </select> 
         </div>
       </div>
@@ -540,11 +540,6 @@ $(function() {
     </div>
 
     <div class="form-group">
-      <label for="exampleInputPassword1">Website</label>
-      <input type="text" id="website" name="website" class="form-control">
-    </div>
-
-    <div class="form-group">
       <label for="exampleInputPassword1">Company Name</label>
       <input type="text" id="company_name" name="company_name"  class="form-control">
     </div>
@@ -553,7 +548,12 @@ $(function() {
     <label for="exampleInputPassword1">Select or Add</label> 
 
       <select class="form-control" name="address" id="address">
-        <option value="">-- Please Select --</option>
+        <option value="">-- Select --</option>
+        @if(!empty($all_address))
+          @foreach($all_address as $key=>$address_row)
+            <option value="{{ $address_row['type'] or "" }}_{{ $address_row['client_id'] or "" }}">{{ $address_row['address'] or "" }}</option>
+          @endforeach
+        @endif
       </select>                   
     </div>
 
@@ -613,6 +613,12 @@ $(function() {
         </select>                  
       </div>
       </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Website</label>
+        <input type="text" id="website" name="website" class="form-control">
+      </div>
+
       <div class="clearfix"></div>
       </div>
 
@@ -753,6 +759,7 @@ $(function() {
           <div class="clearfix"></div>
         </div>
         <div class="modal-body">
+          <div class="loader_class"><!-- Loader Image Show--></div>
         <table class="table table-bordered table-hover dataTable add_status_table">
           <thead>
             <tr>
@@ -766,9 +773,9 @@ $(function() {
               @foreach($steps as $key=>$step_row)
                 @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
                   <tr>
-                    <td><span id="group_span_{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</span></td>
+                    <td><span id="status_span{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</span></td>
                     <td align="center">
-                      <span id="action_{{ $step_row['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_group" data-step_id="{{ $step_row['step_id'] or "" }}"><img src="/img/edit_icon.png" title="Edit Group?"></a>
+                      <span id="action_{{ $step_row['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $step_row['step_id'] or "" }}"><img src="/img/edit_icon.png" title="Edit Group?"></a>
                       <a href="javascript:void(0)" class="delete_group" data-step_id="{{ $step_row['step_id'] or "" }}"><img src="/img/cross.png" height="12" title="Delete Group?"></a>
                       </span>
 

@@ -51,7 +51,7 @@
                             <div class="circle_icon">
                                 <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
                             </div>
-                        <p class="c_tagline2">EMAIL & LETTER<br>TEMPLATES</p>
+                        <p class="c_tagline">EMAIL & LETTER<br>TEMPLATES</p>
                         <div class="clearfix"></div>
                         </div>
                     </a>
@@ -115,15 +115,15 @@
                     </a>
                 </li>
 
-                <li class="hvr-grow">
+                <!-- <li class="hvr-grow">
                     <a  href="#">
                         <div class="circle_icons_inner">
                             <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-                            <p class="c_tagline">UPLOAD LETTERHEAD</p>
+                            <p class="c_tagline">UPLOAD<br>LETTERHEAD</p>
                             <div class="clearfix"></div>
                         </div>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

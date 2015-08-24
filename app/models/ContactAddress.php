@@ -130,4 +130,64 @@ class ContactAddress extends Eloquent {
 		return $data;
 	}
 
+	public static function getAllContactAddress()
+	{
+		$address_data = array();
+
+		$org_details = Client::getAllOrgClientDetails();
+		$ind_details = Client::getAllIndClientDetails();
+		$contact_details = ContactAddress::getAllContactDetails();
+		$i = 0;
+		if(isset($org_details) && count($org_details) >0){
+			foreach ($org_details as $key => $value) {
+				$array = array("trad", "corres", "reg", "bankers", "old_acc", "auditors", "solicitors");
+				
+				foreach($array as $row){
+					if(isset($value[$row.'_cont_addr_line1']) && $value[$row.'_cont_addr_line1'] != ""){
+						$address_data[$i]['address'] = $value[$row.'_cont_addr_line1'];
+						$address_data[$i]['type'] = $row;
+						$address_data[$i]['client_id'] = $value['client_id'];
+						$i++;
+					}
+				}
+
+			}
+		}
+
+		if(isset($ind_details) && count($ind_details) >0){
+			foreach ($ind_details as $key => $value) {
+				if(isset($value['serv_addr_line1']) && $value['serv_addr_line1'] != ""){
+					$address_data[$i]['address'] = $value['serv_addr_line1'];
+					$address_data[$i]['type'] = "res";
+					$address_data[$i]['client_id'] = $value['client_id'];
+					$i++;
+				}
+				if(isset($value['res_addr_line1']) && $value['res_addr_line1'] != ""){
+					$address_data[$i]['address'] = $value['res_addr_line1'];
+					$address_data[$i]['type'] = "res";
+					$address_data[$i]['client_id'] = $value['client_id'];
+					$i++;
+				}
+
+			}
+		}
+
+		if(isset($contact_details) && count($contact_details) >0){
+			foreach ($contact_details as $key => $value) {
+				if(isset($value['addr_line1']) && $value['addr_line1'] != ""){
+					$address_data[$i]['address'] = $value['addr_line1'];
+					$address_data[$i]['type'] = "other";
+					$address_data[$i]['client_id'] = "0";
+					$i++;
+				}
+				
+
+			}
+		}
+
+		return $address_data;
+		//$data['cont_address'] 	= App::make('HomeController')->get_orgcontact_address();
+
+	}
+
 }
