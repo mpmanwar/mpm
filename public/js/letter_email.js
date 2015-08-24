@@ -1,4 +1,12 @@
 $(document).ready(function (e) {
+  $(document).click(function() {
+    $(".address_type_down").hide();
+  });
+  $(".down_arrow").click(function(event) {
+      $(".address_type_down").toggle();
+      event.stopPropagation();
+  });
+
   $('.allCheckSelect').on('ifChecked', function(event){
         $(".email_letter input[class='ads_Checkbox']").iCheck('check');
     });
@@ -7,7 +15,7 @@ $(document).ready(function (e) {
         $(".email_letter input[class='ads_Checkbox']").iCheck('uncheck');
     });
 
-  	$(".more_address").click(function(){
+  	$("body").on("click", ".more_address", function(){
         var client_id   = $(this).data('client_id');
         var client_type   = $(this).data('client_type');
         if(client_type == "org"){
@@ -119,6 +127,36 @@ $(document).ready(function (e) {
         
     });
 /* ################# Open Add To Group Popup End ################### */
+
+/* ################# Search Client By Address Type Start ################### */
+    $(".address_type").change(function(){
+      var address_type  = $(this).val();
+      var client_id = $(this).data('client_id');
+      var key = $(this).data('key');
+      $.ajax({
+          type: "POST",
+          dataType : "json",
+          url: "/contacts/search-address",
+          data: { 'address_type' : address_type, 'client_id' : client_id },
+          success: function (resp) {
+            if(resp['address'].length > '48'){
+              var small_addr = resp['address'].substring(0,45)
+              var address = small_addr+"...<a href='javascript:void(0)' class='more_address' data-client_id='"+client_id+"' data-client_type='org'>more</a>"
+            }else{
+              var address = resp['address'];
+            }
+            $("#corres_add_"+client_id).val(resp['address']);
+            $(".tr_no_"+key+" td:nth-child(5)").html(resp['contact_person']);   
+            $(".tr_no_"+key+" td:nth-child(6)").html(resp['telephone']);
+            $(".tr_no_"+key+" td:nth-child(7)").html(resp['mobile']);   
+            $(".tr_no_"+key+" td:nth-child(8)").html(resp['email']);
+            $(".tr_no_"+key+" td:nth-child(9)").html(address);       
+          }
+      });
+        
+    });
+/* ################# Search Client By Address Type End ################### */
+
     
     
     

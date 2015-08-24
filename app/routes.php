@@ -313,8 +313,8 @@ Route::any('/send-letters-emails', 'ContactsLettersEmailsController@send_lettere
 Route::any('/contacts/show-contacts-notes', 'ContactsLettersEmailsController@show_contacts_notes');
 Route::any('/contacts/save-contacts-notes', 'ContactsLettersEmailsController@save_contacts_notes');
 Route::any('/contacts/save-contacts-group', 'ContactsLettersEmailsController@save_contacts_group');
-Route::any('/contact/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
-
+Route::any('/contacts/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
+Route::any('/contacts/search-address', 'ContactsLettersEmailsController@search_address');
 
 /*================== Contacts Letters Emails End ==============*/
 

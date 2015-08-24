@@ -210,6 +210,16 @@ class ContactsLettersEmailsController extends BaseController {
     	return Redirect::to('/contacts-letters-emails/'.$tab_id);
     }
 
+    public function search_address()
+    {
+    	$data = array();
+    	$address_type 	= Input::get("address_type");
+    	$client_id 		= Input::get("client_id");
+    	$address = ContactAddress::getContactAddressByType($client_id, $address_type);
+
+		echo json_encode($address);
+    }
+
     
 
 }

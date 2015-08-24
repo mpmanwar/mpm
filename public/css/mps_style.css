@@ -977,10 +977,18 @@ border: 1px solid #e2e4e6;
 .cont_add_to_date ul li{width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 3px;}
 .cont_add_to_date ul li:last-child{border-bottom: none;}
 .cont_add_to_date ul li a{color: #000; font-size: 16px; color: #3c8dbc}
+
+.address_type_down{background: #fff; position: absolute; top:24px; width: 225px; left: 0px; z-index: 10; border: 1px solid #ccc; line-height: 15px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px;padding : 0 5px 8px 5px }
+.address_type_down ul{list-style: none; padding: 4px; margin-bottom: -8px;}
+.address_type_down ul li{width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 5px;}
+.address_type_down ul li:last-child{border-bottom: none;}
+.address_type_down ul li a{color: #000; font-size: 14px;}
+
 .edit_cal{position: relative; cursor: pointer; text-align: left; color: #0866c6}
 .pagination .next{ padding: 0; background: none;}
 
 .open_adddrop{right: 0px!important; position: absolute; top: 4px;}
+.down_arrow{right: -47px!important; top: 4px;color: #0866c6; cursor: pointer;}
 /* .atc-style-blue a{pointer-events: none;} */
 
 .declined_btn{border:2px solid #b82223; color:#b82223; font-size:16px; text-align:center; outline:none; font-weight:bold; background:#fff; width:180px;}
