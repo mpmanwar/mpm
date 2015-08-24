@@ -114,6 +114,16 @@
                         </div>
                     </a>
                 </li>
+
+                <li class="hvr-grow">
+                    <a  href="#">
+                        <div class="circle_icons_inner">
+                            <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
+                            <p class="c_tagline">UPLOAD LETTERHEAD</p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

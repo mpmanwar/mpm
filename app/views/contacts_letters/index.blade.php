@@ -749,7 +749,7 @@ $(function() {
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">Add To Group</h4>
+          <h4 class="modal-title">EDIT/DELETE GROUP</h4>
           <div class="clearfix"></div>
         </div>
         <div class="modal-body">

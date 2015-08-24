@@ -57,7 +57,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$data['countries'] 	= Country::orderBy('country_name')->get();
 		$data['address_types'] 	= AddressType::getAllAddressDetails();
 
-		//echo "<pre>";print_r($data['org_details']);echo "</pre>";die;
+		//echo "<pre>";print_r($data['staff_details']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
 	}
 

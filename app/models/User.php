@@ -45,33 +45,34 @@ class User extends Eloquent {
 
                 $fields = StepsFieldsStaff::where("staff_id", "=", $value->user_id)->get();
                 if (isset($fields) && count($fields) > 0) {
+                    $address = "";
+                    $res_address = "";
                     foreach ($fields as $value) {
-                    	$address = "";
-                    	$res_address = "";
-                    	if (isset($add['step_data']['res_addr_line1'])) {
-		                    $res_address .= $add['step_data']['res_addr_line1'] . ", ";
+                    	
+                    	if (isset($value['field_name']) && $value['field_name'] == 'res_addr_line1'){
+		                    $res_address .= $value->field_value . ", ";
 		                }
 
-		                if (isset($add['step_data']['res_addr_line2'])) {
-		                    $res_address .= $add['step_data']['res_addr_line2'] . ", ";
+		                if (isset($value['field_name']) && $value['field_name'] == 'res_addr_line2'){
+		                    $res_address .= $value->field_value . ", ";
 		                }
 
-		                if (isset($add['step_data']['res_city'])) {
-		                    $address .= $add['step_data']['res_city'] . ", ";
-		                    $res_address .= $add['step_data']['res_city'] . ", ";
+		                if (isset($value['field_name']) && $value['field_name'] == 'res_city'){
+		                    $address .= $value->field_value. ", ";
+		                    $res_address .= $value->field_value. ", ";
 		                }
 
-		                if (isset($add['step_data']['res_county'])) {
-		                    $address .= $add['step_data']['res_county'] . ", ";
-		                    $res_address .= $add['step_data']['res_county'] . ", ";
+		                if (isset($value['field_name']) && $value['field_name'] == 'res_county'){
+		                    //$address .= $value->field_value . ", ";
+		                    $res_address .= $value->field_value . ", ";
 		                }
-		                if (isset($add['step_data']['res_postcode'])) {
-		                    $res_address .= $add['step_data']['res_postcode'];
+		                if (isset($value['field_name']) && $value['field_name'] == 'res_postcode'){
+		                    $res_address .= $value->field_value.", ";
 		                }
 
 
-		                $step_data['address'] = $address;
-		                $step_data['reg_address'] = $res_address;
+		                $step_data['address'] = substr($address, 0, -2);
+		                $step_data['reg_address'] = substr($res_address, 0, -2);
                         $step_data[$value['field_name']] = $value->field_value;
                     }
                 }
