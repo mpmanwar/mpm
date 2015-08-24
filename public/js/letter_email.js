@@ -65,6 +65,7 @@ $(document).ready(function (e) {
       var contact_type  = $("#contact_type").val();
       var notes         = $("#notes").val();
       var step_id       = $("#step_id").val();
+      var address_type  = $("#encoded_type").val();
 
       $.ajax({
           type: "POST",
@@ -73,7 +74,7 @@ $(document).ready(function (e) {
           data: { 'client_id': client_id, 'contact_type' : contact_type, 'notes' : notes },
           success: function (resp) {
             //$("#notes-modal").modal("hide");  
-            window.location = '/contacts-letters-emails/'+step_id;           
+            window.location = '/contacts-letters-emails/'+step_id+"/"+address_type;           
           }
       });
         

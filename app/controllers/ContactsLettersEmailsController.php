@@ -1,13 +1,15 @@
 <?php
 class ContactsLettersEmailsController extends BaseController {
 	
-	public function index($step_id)
+	public function index($step_id, $address_type)
 	{
 		$data = array();
 		$org_data 		= array();
 		$data['title'] 		= 'Contacts Letters & Emails';
 		$data['step_id'] 	= $step_id;
-		$data['heading'] 	= "CONTACTS, LETTERS & EMAILS";
+		$data['address_type'] 	= base64_decode($address_type);
+		$data['encoded_type'] 	= $address_type;
+		$data['heading'] 		= "CONTACTS, LETTERS & EMAILS";
 		$session 		= Session::get('admin_details');
 		$user_id 		= $session['id'];
 		$groupUserId 	= $session['group_users'];
@@ -24,8 +26,9 @@ class ContactsLettersEmailsController extends BaseController {
 			$org_details = Client::getAllOrgClientDetails();
 			if(isset($org_details) && count($org_details) >0){
 				foreach ($org_details as $key => $client_row) {
-					$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
-					$org_details[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'org');
+					//$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
+					$org_details[$key]['other_details'] = ContactAddress::getContactAddressByType($client_row['client_id'], $data['address_type']);
+					$org_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'org');
 
 					$org_count++;
 				}
@@ -52,8 +55,9 @@ class ContactsLettersEmailsController extends BaseController {
 
 		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
 		$data['countries'] 	= Country::orderBy('country_name')->get();
+		$data['address_types'] 	= AddressType::getAllAddressDetails();
 
-		//print_r($data['contact_details']);die;
+		//echo "<pre>";print_r($data['org_details']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
 	}
 
@@ -189,6 +193,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$groupUserId = $session['group_users'];
 
     	$tab_id 				= Input::get("tab_index");
+    	$address_type 			= Input::get("encoded_type");
     	$data['user_id'] 		= $user_id;
     	$data['contact_type'] 	= Input::get("contact_type");
     	$data['contact_name'] 	= Input::get("contact_name");
@@ -207,7 +212,7 @@ class ContactsLettersEmailsController extends BaseController {
     	$data['country'] 		= Input::get("country");
 
     	ContactAddress::insert($data);
-    	return Redirect::to('/contacts-letters-emails/'.$tab_id);
+    	return Redirect::to('/contacts-letters-emails/'.$tab_id.'/'.$address_type);
     }
 
     public function search_address()

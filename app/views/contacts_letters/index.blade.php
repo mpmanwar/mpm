@@ -193,11 +193,13 @@ $(function() {
 <div class="box-body table-responsive">
   <div class="tabarea">
   <input type="hidden" id="tab_id" value="{{ $step_id or "" }}"> 
+  <input type="hidden" id="address_type" value="{{ $address_type or "" }}">
+  <input type="hidden" id="encoded_type" value="{{ $encoded_type or "" }}">
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
         @if(isset($steps) && count($steps) >0)
           @foreach($steps as $key=>$step_row)
-            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
+            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}/{{ $encoded_type }}">{{ isset($step_row['title'])?strtoupper($step_row['title']):"" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
           @endforeach
         @endif
         
@@ -234,15 +236,11 @@ $(function() {
           
             <div class="address_type_down" style="display: none;">
               <ul>
-                <li><a href="javascript:void(0)" data-address_type="trad">Trading Address</a></li>
-                <li><a href="javascript:void(0)" data-address_type="reg">Registered Office Address</a></li>
-                <li><a href="javascript:void(0)" data-address_type="corres">Correspondence Address</a></li>
-                <li><a href="javascript:void(0)" data-address_type="bankers">Bankers</a></li>
-                <li><a href="javascript:void(0)" data-address_type="old_acc">Old Accounts</a></li>
-                <li><a href="javascript:void(0)" data-address_type="auditors">Auditors</a></li>
-                <li><a href="javascript:void(0)" data-address_type="solicitors">Solicitors</a></li>
-                <li><a href="javascript:void(0)" data-address_type="tax_office">Tax Office</a></li>
-                <li><a href="javascript:void(0)" data-address_type="paye_emp">Paye Employer Office</a></li>
+                @if(isset($address_types) && count($address_types) >0)
+                  @foreach($address_types as $key=>$type_row)
+                    <li><a href="/contacts-letters-emails/{{ $step_id }}/{{ base64_encode($type_row['short_name']) }}">{{ $type_row['title'] }}</a></li>
+                  @endforeach
+                @endif
               </ul>
             </div>
           </span>
@@ -260,7 +258,7 @@ $(function() {
           @if(isset($org_details) && count($org_details) >0)
             @foreach($org_details as $key=>$client_row)
               <tr class="all_check tr_no_{{ $key }}">
-                <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ (isset($client_row['corres_address']) && $client_row['corres_address'] != "")?$client_row['corres_address']:'' }}">
+                <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ (isset($client_row['other_details']['address']) && $client_row['other_details']['address'] != "")?$client_row['other_details']['address']:'' }}">
 
                 <td align="center">
                   <input type="checkbox" class="ads_Checkbox" name="client_ids[]" value="{{ $client_row['client_id'] or "" }}" />
@@ -268,22 +266,18 @@ $(function() {
                 <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
                 <td align="left">
                   <select class="form-control newdropdown address_type" data-key="{{ $key }}" data-client_id="{{ $client_row['client_id'] }}">
-                    <option value="trad">Trading Address</option>
-                    <option value="reg">Registered Office address</option>
-                    <option value="corres" selected>Correspondence address</option>
-                    <option value="bankers">Bankers</option>
-                    <option value="old_acc">Old Accounts</option>
-                    <option value="auditors">Auditors</option>
-                    <option value="solicitors">Solicitors</option>
-                    <option value="tax_office">Tax Office</option>
-                    <option value="paye_emp">Paye Employer Office</option>
+                    @if(isset($address_types) && count($address_types) >0)
+                      @foreach($address_types as $key=>$type_row)
+                        <option value="{{ $type_row['short_name'] }}" {{ (isset($address_type) && $address_type == $type_row['short_name'])?"selected":"" }}>{{ $type_row['title'] }}</option>
+                      @endforeach
+                    @endif
                    </select>
                 </td>
-                <td align="left">{{ $client_row['corres_cont_name'] or "" }}</td>
-                <td align="center">{{ $client_row['corres_cont_telephone'] or "" }}</td>
-                <td align="center">{{ $client_row['corres_cont_mobile'] or "" }}</td>
-                <td align="center">{{ $client_row['corres_cont_email'] or "" }}</td>
-                <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='org'>more</a>": $client_row['corres_address'] }}</td>
+                <td align="left">{{ $client_row['other_details']['contact_person'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['telephone'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['mobile'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['email'] or "" }}</td>
+                <td align="center">{{ (strlen($client_row['other_details']['address']) > 48)? substr($client_row['other_details']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='org'>more</a>": $client_row['other_details']['address'] }}</td>
                 <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
               
               </tr>
@@ -296,9 +290,9 @@ $(function() {
   </div>
 
   <div id="tab_2" class="tab-pane {{ (isset($step_id) && $step_id == 2)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
       <thead>
         <tr role="row">
@@ -341,9 +335,9 @@ $(function() {
   </div>
 
   <div id="tab_3" class="tab-pane {{ (isset($step_id) && $step_id == 3)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example3" aria-describedby="example3_info">
       <thead>
         <tr role="row">
@@ -383,10 +377,10 @@ $(function() {
   </div>
 
   <div id="tab_4" class="tab-pane {{ (isset($step_id) && $step_id == 4)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
       <a href="#" class="search_t" data-toggle="modal" data-target="#add_contact-modal">Add Contact</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
       <thead>
         <tr role="row">
@@ -491,6 +485,7 @@ $(function() {
       </div>
     {{ Form::open(array('url' => '/contacts/insert-contact-details', 'id'=>'basicform')) }}
     <input type="hidden" name="tab_index" value="{{ $step_id or "" }}">
+    <input type="hidden" name="encoded_type" value="{{ $encoded_type or "" }}">
       <div class="modal-body">
         <div class="twobox">
       <div class="twobox_1">
@@ -715,9 +710,10 @@ $(function() {
         <div class="form-group">
           <label for="exampleInputPassword1"><strong>Add to an existing group</strong></label>
           <select class="form-control" id="create_group_step_id">
+            <option value="">None</option>
             @if(isset($steps) && count($steps) >0)
               @foreach($steps as $key=>$step_row)
-                @if(isset($step_row['step_type']) && $step_row['step_type'] == "old")
+                @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
                   <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
                 @endif
               @endforeach
