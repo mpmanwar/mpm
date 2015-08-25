@@ -108,6 +108,28 @@ $(function() {
 
     });
 
+    $('#example5').dataTable({
+        "aaSorting": [[1, 'asc']],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+        "iDisplayLength": 50,
+        "aoColumns":[
+            {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": true},
+            {"bSortable": false}
+        ]
+
+    });
+
 });
 
 </script>
@@ -203,8 +225,8 @@ $(function() {
           @endforeach
         @endif
         
-        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#addto_group-modal"><i class="fa fa-minus"></i> GROUP</a></li>
-        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> GROUP</a></li>
+        <li style="float:right;"><a href="#" class="btn-block btn-primary open_addto_group"><i class="fa fa-minus"></i> GROUP</a></li>
+        <li style="float:right;"><a href="javascript:void(0)" class="btn-block btn-primary create_group"><i class="fa fa-plus"></i> GROUP</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ (isset($step_id) && $step_id == 1)?'active':''}}">
@@ -244,7 +266,7 @@ $(function() {
               </ul>
             </div>
           </span>
-          </th>
+          </th>getAllStaffDetails
           <th width="13%">Contact Person</th>
           <th width="7%">Telephone</th>
           <th width="7%">Mobile</th>
@@ -411,6 +433,46 @@ $(function() {
                   <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."' data-client_type='other'>more</a>": $client_row['address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-contact_id="{{ $client_row['contact_id'] or "" }}" data-contact_type="other"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
+                </tr>
+            @endforeach
+          @endif
+        
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab_5" class="tab-pane {{ (isset($step_id) && $step_id != 1 && $step_id != 2 && $step_id != 3 && $step_id != 4)?'active':''}}">
+    <!-- <div class="contact_email">
+      <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
+      <a href="#" class="search_t" data-toggle="modal" data-target="#add_contact-modal">Add Contact</a>
+    </div> -->
+    <table class="table table-bordered table-hover dataTable email_letter" id="example5" aria-describedby="example5_info">
+      <thead>
+        <tr role="row">
+          <th width="3%">Delete</th>
+          <th>Name</th>
+          <th width="15%">Contact Person</th>
+          <th>Telephone</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Correspondence Address</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($group_details) && count($group_details) >0)
+              @foreach($group_details as $key=>$client_row)
+                <tr class="all_check">
+                  <input type="hidden" name="custom_address_{{ $client_row['client_id'] }}" id="custom_address_{{ $client_row['client_id'] }}" value="{{ $client_row['address'] or "" }}">
+
+                  <td align="center"><a href="javascript:void(0)" class="delete_group_client" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><img src="/img/cross.png" height="14" title="Delete Group?"></a></td>
+                  <td align="left">{{ $client_row['client_name'] or "" }}</td>
+                  <td align="left">{{ $client_row['contact_person'] or "" }}</td>
+                  <td align="center">{{ $client_row['telephone'] or "" }}</td>
+                  <td align="center">{{ $client_row['mobile'] or "" }}</td>
+                  <td align="center">{{ $client_row['email'] or "" }}</td>
+                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='custom'>more</a>": $client_row['address'] }}</td>
                 </tr>
             @endforeach
           @endif
@@ -712,10 +774,10 @@ $(function() {
     
       <div class="modal-body">
         <div class="loader_class"><!-- Loader Image Show--></div>
-
+        <input type="hidden" id="clients_array" value="">
         <div class="form-group">
           <label for="exampleInputPassword1"><strong>Add to an existing group</strong></label>
-          <select class="form-control" id="create_group_step_id">
+          <select class="form-control" id="group_step_id">
             <option value="">None</option>
             @if(isset($steps) && count($steps) >0)
               @foreach($steps as $key=>$step_row)
@@ -727,15 +789,15 @@ $(function() {
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="group_show">
           <label for="exampleInputPassword1"><strong>Add to a new group</strong></label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="group_name" id="group_name" maxlength="12" class="form-control">
         </div>
 
         <div class="modal-footer1 clearfix">
           <div class="email_btns">
-            <button type="button" class="btn btn-danger pull-left save_text" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-info pull-left save_text">Save</button>
+            <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-info pull-left saveto_group">Save</button>
           </div>
         </div>
 

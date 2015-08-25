@@ -43,6 +43,42 @@ class ContactAddress extends Eloquent {
 		return $data;
 	}
 
+	public static function getContactDetailsById($contact_id)
+	{
+		$data = array();
+		$details1 = ContactAddress::where("contact_id", $contact_id)->first();
+		if(isset($details1) && count($details1) >0){
+			$data['contact_id'] 		= $details1->contact_id;
+			$data['user_id'] 			= $details1->user_id;
+			$data['contact_type'] 		= $details1->contact_type;
+			$data['contact_name'] 		= $details1->contact_name;
+			$data['telephone_code'] 	= $details1->telephone_code;
+			$data['telephone'] 			= $details1->telephone;
+			$data['mobile_code'] 		= $details1->mobile_code;
+	    	$data['mobile'] 			= $details1->mobile;
+	    	$data['email'] 				= $details1->email;
+	    	$data['website'] 			= $details1->website;
+	    	$data['company_name'] 		= $details1->company_name;
+			$data['addr_line1'] 		= $details1->addr_line1;
+	    	$data['addr_line2'] 		= $details1->addr_line2;
+	    	$data['city'] 				= $details1->city;
+	    	$data['county'] 			= $details1->county;
+	    	$data['postcode'] 			= $details1->postcode;
+	    	$data['country'] 			= $details1->country;
+	    	$data['address'] 			= $details1->addr_line1.", ".$details1->addr_line2.", ".$details1->city.", ".$details1->county.", ".$details1->postcode;
+	    	if(isset($details1->contact_type) && $details1->contact_type == "company_name"){
+	    		$data['name'] 			= $details1->company_name;
+	    		$data['contact_person'] = $details1->contact_name;
+	    	}else{
+	    		$data['name'] 			= $details1->contact_name;
+	    		$data['contact_person'] = "";
+	    	}
+			
+		}
+		//print_r($data);
+		return $data;
+	}
+
 	public static function getContactAddressByType($client_id, $type)
 	{
 		$data = array();
@@ -187,6 +223,104 @@ class ContactAddress extends Eloquent {
 
 		return $address_data;
 		//$data['cont_address'] 	= App::make('HomeController')->get_orgcontact_address();
+
+	}
+
+	public static function getGroupContactDetails($step_id)
+	{
+		$contacts = array();
+
+		$details = ContactsGroup::getContactsGroupByGroupId($step_id);
+		$count = 0;
+		if(isset($details) && count($details) >0)
+		{
+			foreach ($details as $key => $value) {
+				if(isset($value['contact_type']) && $value['contact_type'] == "org"){
+					$client_row = Common::clientDetailsById($value['client_id']);
+					if(isset($client_row) && count($client_row) >0){
+						$contacts[$count] = ContactAddress::getContactAddressByType($client_row['client_id'], "corres");
+						$contacts[$count]['client_id']		= $client_row['client_id'];
+						$contacts[$count]['client_name']	= $client_row['business_name'];
+						$contacts[$count]['client_type']	= "org";
+
+						$count++;
+					}
+				}
+
+				if(isset($value['contact_type']) && $value['contact_type'] == "ind"){
+					$client_row = Common::clientDetailsById($value['client_id']);
+					if(isset($client_row) && count($client_row) >0){
+						$contacts[$count]['client_id']		= $client_row['client_id'];
+						$contacts[$count]['client_name']	= $client_row['client_name'];
+						$contacts[$count]['client_type']	= "ind";
+						$contacts[$count]['contact_person']	= "";
+						$contacts[$count]['telephone']		= isset($client_row['serv_telephone'])?$client_row['serv_telephone']:"";
+						$contacts[$count]['mobile']			= isset($client_row['serv_mobile'])?$client_row['serv_mobile']:"";
+						$contacts[$count]['email']			= isset($client_row['serv_email'])?$client_row['serv_email']:"";
+						$contacts[$count]['address']		= ContactAddress::getResidentialAddress($client_row);
+
+						$count++;
+					}
+				}
+
+				if(isset($value['contact_type']) && $value['contact_type'] == "staff"){
+					$staff_row = User::getStaffDetailsById($value['client_id']);
+					if(isset($staff_row) && count($staff_row) >0){
+						$contacts[$count]['client_id']		= $staff_row['user_id'];
+						$contacts[$count]['client_name']	= $staff_row['fname']." ".$staff_row['lname'];
+						$contacts[$count]['client_type']	= "staff";
+						$contacts[$count]['contact_person']	= "";
+						$contacts[$count]['telephone']		= isset($staff_row['res_telephone'])?$staff_row['res_telephone']:"";
+						$contacts[$count]['mobile']			= isset($staff_row['res_mobile'])?$staff_row['res_mobile']:"";
+						$contacts[$count]['email']			= isset($staff_row['res_email'])?$staff_row['res_email']:"";
+						$contacts[$count]['address']		= isset($staff_row['res_address'])?$staff_row['res_address']:"";
+
+						$count++;
+					}
+				}
+
+				if(isset($value['contact_type']) && $value['contact_type'] == "other"){
+					$other_row = ContactAddress::getContactDetailsById($value['client_id']);
+					if(isset($other_row) && count($other_row) >0){
+						$contacts[$count]['client_id']		= $other_row['contact_id'];
+						$contacts[$count]['client_name']	= $other_row['name'];
+						$contacts[$count]['client_type']	= "other";
+						$contacts[$count]['contact_person']	= isset($other_row['contact_person'])?$other_row['contact_person']:"";;
+						$contacts[$count]['telephone']		= isset($other_row['telephone'])?$other_row['telephone']:"";
+						$contacts[$count]['mobile']			= isset($other_row['mobile'])?$other_row['mobile']:"";
+						$contacts[$count]['email']			= isset($other_row['email'])?$other_row['email']:"";
+						$contacts[$count]['address']		= isset($other_row['address'])?$other_row['address']:"";
+
+						$count++;
+					}
+				}
+
+
+			}
+		}
+
+		return $contacts;
+	}
+
+	public static function getResidentialAddress($client_row)
+	{
+		$address = "";
+		if(isset($client_row['res_addr_line1']) && $client_row['res_addr_line1'] != ""){
+			$address .= $client_row['res_addr_line1'].", ";
+		}
+		if(isset($client_row['res_addr_line2']) && $client_row['res_addr_line2'] != ""){
+			$address .= $client_row['res_addr_line2'].", ";
+		}
+		if(isset($client_row['res_city']) && $client_row['res_city'] != ""){
+			$address .= $client_row['res_city'].", ";
+		}
+		if(isset($client_row['res_county']) && $client_row['res_county'] != ""){
+			$address .= $client_row['res_county'].", ";
+		}
+		if(isset($client_row['res_postcode']) && $client_row['res_postcode'] != ""){
+			$address .= $client_row['res_postcode'].", ";
+		}
+		return substr($address, 0, -2);
 
 	}
 

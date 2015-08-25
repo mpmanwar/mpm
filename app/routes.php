@@ -316,6 +316,9 @@ Route::any('/contacts/save-contacts-group', 'ContactsLettersEmailsController@sav
 Route::any('/contacts/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
 Route::any('/contacts/search-address', 'ContactsLettersEmailsController@search_address');
 Route::any('/contacts/save-edit-group', 'ContactsLettersEmailsController@save_edit_group');
+Route::any('/contacts/copy-to-group', 'ContactsLettersEmailsController@copy_to_group');
+Route::any('/contacts/delete-group', 'ContactsLettersEmailsController@delete_group');
+Route::any('/contacts/delete-from-group', 'ContactsLettersEmailsController@delete_from_group');
 
 /*================== Contacts Letters Emails End ==============*/
 
