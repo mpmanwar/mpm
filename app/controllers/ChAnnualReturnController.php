@@ -23,9 +23,12 @@ class ChAnnualReturnController extends BaseController {
 			return Redirect::to('/');
 		}
 
-		$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
-		if(isset($autosend) && $autosend['staff_filter'] != ""){
-			$data['staff_id'] 	= $autosend['staff_filter'];
+		//$autosend = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
+		$staff_filter = JobsStaffFilter::getFilteredStaffByServiceId($data['service_id']);
+		if(isset($staff_filter['filtered_staff_id']) && $staff_filter['filtered_staff_id'] != ""){
+			$data['staff_id'] 	= $staff_filter['filtered_staff_id'];
+		}else{
+			$data['staff_id'] 	= "all";
 		}
 
 
@@ -74,6 +77,8 @@ class ChAnnualReturnController extends BaseController {
 		$data['completed_task'] = JobStatus::getCompletedTaskByServiceId( $data['service_id'], 10, $clientId );
 
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
+
+		
 
 		$data['email_templates'] = EmailTemplate::getEmailTemplateByServiceId( $data['service_id'] );
 		//echo "<prev>".print_r($data['email_templates']);die;

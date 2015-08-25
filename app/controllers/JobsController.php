@@ -46,13 +46,27 @@ class JobsController extends BaseController {
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 
-    	$staff_id      = Input::get("staff_id");	
+    	$staff_id      = base64_decode(Input::get("staff_id"));	
     	$service_id    = Input::get("service_id");
-    	if($staff_id != "all" && $staff_id != "none"){
+
+        $staff_filter = JobsStaffFilter::getFilteredStaffByServiceId($service_id);
+        if(isset($staff_filter) && count($staff_filter) >0){
+            $update_data['filtered_staff_id'] = $staff_id;
+            JobsStaffFilter::where('staff_filter_id','=',$staff_filter['staff_filter_id'])->update($update_data);
+            //echo $this->last_query();die;
+            $last_id = $staff_filter['staff_filter_id'];
+        }else{
+            $insert_data['user_id']             = $user_id;
+            $insert_data['service_id']          = $service_id;
+            $insert_data['filtered_staff_id']   = $staff_id;
+            $last_id = JobsStaffFilter::insertGetId($insert_data);
+        }
+
+    	/*if($staff_id != "all" && $staff_id != "none"){
     		$staff_id = base64_decode($staff_id);
-    	}
-    	AutosendTask::whereIn("user_id", $groupUserId)->where('service_id','=',$service_id)->update(array('staff_filter'=>$staff_id));
-    	echo 1;
+    	}*/
+    	
+    	echo $last_id;
     }
 
     public function send_global_task()
