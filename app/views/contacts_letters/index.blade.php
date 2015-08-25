@@ -266,7 +266,7 @@ $(function() {
               </ul>
             </div>
           </span>
-          </th>getAllStaffDetails
+          </th>
           <th width="13%">Contact Person</th>
           <th width="7%">Telephone</th>
           <th width="7%">Mobile</th>
