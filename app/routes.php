@@ -243,7 +243,7 @@ Route::get('/profile/to-list', 'StaffprofileController@to_list');
 
 Route::post('/prof-file', 'StaffprofileController@prof_file');
 
-
+Route::get('/staffholidays', 'StaffprofileController@getstaffholidays');
 /*=============== Staff Profile End =================*/
 
 

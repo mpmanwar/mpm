@@ -1032,3 +1032,11 @@ div.dataTables_filter input{width: 16em; }
 .dis_selectbox{float:left; margin: 0 5px 0 10px; width: 160px;}
 .search_add{ margin: 0 0 0 70px; cursor: pointer; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:2px 10px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
 .loader_class{ margin-bottom: 5px; text-align: center;}
+.holiday_enti_gapa{margin:0 0 0 20px;}
+.holiday_enti_box{width:33%; margin-left:35px; text-align: center;}
+.startdate_box{float: left; margin-right: 14px; width: 44%;}
+
+
+
+
+

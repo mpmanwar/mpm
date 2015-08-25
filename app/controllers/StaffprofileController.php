@@ -173,10 +173,10 @@ class StaffprofileController extends BaseController
         $postData = Input::all();
 
 
-        echo "<pre>";
-       // print_r($postData['staff_id']);
+      //  echo "<pre>";
+      // print_r($postData['end_date']);
        // print_r($postData['mname']);
-       // die();
+      // die();
         
         //print_r($postData['country']);die();
 
@@ -389,9 +389,9 @@ class StaffprofileController extends BaseController
                 $postData['qualifications']);
         }
 
-        if (!empty($postData['leaving_date'])) {
-            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'leaving_date',
-                $postData['leaving_date']);
+        if (!empty($postData['end_date'])) {
+            $arrData[] = $this->save_profile($user_id, $staff_id, $step_id, 'end_date',
+                $postData['end_date']);
         }
 
 
@@ -586,6 +586,19 @@ class StaffprofileController extends BaseController
 			echo $data;
 		}
 	}
+    public function getstaffholidays() {
+	//	echo
+         $staff_id = Input::get("client_id");
+       // die();
+		if (Request::ajax()) {
+		
+        $data = StepsFieldsStaff::where("staff_id", "=", $staff_id)->where("field_name", "=", "holiday_entitlement")->select('field_value')->first();
+		      //echo $this->last_query();
+             // die();
+        	echo $data;
+		}
+	}
+    
     
     
     //public function prof_file(){
