@@ -57,8 +57,10 @@ class HmrcController extends BaseController
 					$client_data[$key]['telephone'] 	= isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"";
 					$client_data[$key]['mobile'] 		= isset($client_row['corres_cont_mobile'])?$client_row['corres_cont_mobile']:"";
 					$client_data[$key]['corres_address']= isset($client_row['corres_address'])?$client_row['corres_address']:"";
-					$client_data[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
-					$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Business');
+				
+                	$client_data[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
+				
+                	$client_data[$key]['notes']			= ContactsNote::getNotes($client_row['client_id'], 'Business');
 				}else if(isset($client_row['client_type']) && $client_row['client_type'] == "ind"){
 					$client_data[$key]['client_name'] 	= $client_row['client_name'];
 					$client_data[$key]['contact_type'] 	= "Individual";
@@ -74,7 +76,7 @@ class HmrcController extends BaseController
 		}
         $data['client_details'] = $client_data;
         
-        //echo '<pre>';print_r($data['client_details']);die();
+       // echo '<pre>';print_r($data['client_details']);die();
 
          return View::make('hmrc.authorisations', $data);
     }
@@ -135,12 +137,29 @@ class HmrcController extends BaseController
          $client_id = Input::get("client_id"); 
         //die();
         
+       $relayth_data= Common::get_relationship_client($client_id); 
+       
+        //echo'<pre>';print_r($relayth_data);die();
+       
+        $datares=$data['name']=array();   
+       
+        if(isset($relayth_data) && count($relayth_data) >0 ){
+				foreach ($relayth_data as $key => $value) {
+					$data['name'][] = $value['name'];
+					
+				}
+			}
+            //	$data['name']
+            
+             echo View::make('hmrc.rsponce')->with('datares',$data['name']);
+  
+        // echo $data['name'];die();
         
-        
-   $datares=array();     
-  $data['rperson'] = StepsFieldsClient::where("client_id", "=", $client_id)->select('field_value' , 'field_name')->get(); 
+  // $datares=array();     
+  //$data['rperson'] = StepsFieldsClient::where("client_id", "=", $client_id)->select('field_value' , 'field_name')->get(); 
    //echo "<pre>";print_r($data['rperson']);die;
-            foreach ($data['rperson'] as $key => $value) {
+          
+        /*    foreach ($data['rperson'] as $key => $value) {
               
               if(isset($value->field_name) && $value->field_name == "trad_cont_name") {
                  //$datares['field_value']=$value->field_value;
@@ -168,8 +187,9 @@ class HmrcController extends BaseController
               }
                 
            }
+           */
            //echo "<pre>";print_r($datares);
-            echo View::make('hmrc.rsponce')->with('datares',$datares);
+           // echo View::make('hmrc.rsponce')->with('datares',$datares);
   
        
         
