@@ -128,7 +128,7 @@ $(function() {
 });
 
 
-    
+     
     
 
 
@@ -145,6 +145,7 @@ $(function() {
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
+                    
                     @include('layouts/inner_leftside')
 
                 </section>
