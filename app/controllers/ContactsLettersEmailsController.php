@@ -49,7 +49,7 @@ class ContactsLettersEmailsController extends BaseController {
 		}else if($step_id == 4){
 			$data['contact_details'] = ContactAddress::getAllContactDetails();
 		}else{
-
+			$data['group_details'] 	= ContactAddress::getGroupContactDetails($step_id);
 		}
 		
 
@@ -58,7 +58,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$data['address_types'] 	= AddressType::getAllAddressDetails();
 		$data['all_address'] 	= ContactAddress::getAllContactAddress();
 
-		//echo "<pre>";print_r($data['all_address']);echo "</pre>";die;
+		//echo "<pre>";print_r($data['group_details']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
 	}
 
@@ -237,6 +237,80 @@ class ContactsLettersEmailsController extends BaseController {
     	
     	echo $sql;
     	exit;
+    }
+
+    public function copy_to_group()
+    {
+    	$step = array();
+    	$data = array();
+
+    	$session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		$groupUserId 	= $session['group_users'];
+
+    	$group_id 		= Input::get('group_id');
+    	$tab_id 		= Input::get('tab_id');
+    	$group_name 	= Input::get('group_name');
+    	$client_ids 	= explode(",", Input::get('client_ids'));
+    	$contact_type 	= ContactsGroup::getContacttype($tab_id);
+
+    	if(isset($group_name) && $group_name != ""){
+    		$step['user_id'] 		= $user_id;
+    		$step['parent_step_id'] = $tab_id;
+    		$step['short_code'] 	= str_replace(" ", "_", strtolower($group_name));
+    		$step['title'] 			= $group_name;
+    		$step['status'] 		= "S";
+    		$step['step_type'] 		= "new";
+    		$group_id = ContactsStep::insertGetId($step);
+    	}
+
+    	if(isset($group_id) && $group_id != ""){
+    		if(isset($client_ids) && count($client_ids) >0){
+    			foreach ($client_ids as $key => $client_id) {
+    				$details = ContactsGroup::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("group_id", "=", $group_id)->where("contact_type", "=", $contact_type)->select("groups_contact_id")->first();
+    				if($details['groups_contact_id'] == ""){
+    					$data['user_id'] 		= $user_id;
+	    				$data['client_id'] 		= $client_id;
+			    		$data['group_id'] 		= $group_id;
+			    		$data['contact_type'] 	= $contact_type;
+			    		ContactsGroup::insert($data);
+    				}
+    				
+    			}
+	    	}
+    	}
+    	//ContactsGroup
+    	//print_r($client_ids);
+    	echo 1;die;
+    }
+
+    public function delete_group()
+    {
+    	$step_id = Input::get('step_id');
+    	$query = ContactsStep::where("step_id", "=", $step_id)->delete();
+    	if($query){
+    		echo 1;die;
+    	}else{
+    		echo 0;die;
+    	}
+    }
+
+    public function delete_from_group()
+    {
+    	$session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		$groupUserId 	= $session['group_users'];
+
+    	$client_id 		= Input::get('client_id');
+    	$group_id 		= Input::get('tab_id');
+    	$contact_type 	= Input::get('contact_type');
+
+    	$query = ContactsGroup::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("group_id", "=", $group_id)->where("contact_type", "=", $contact_type)->delete();
+    	if($query){
+    		echo 1;die;
+    	}else{
+    		echo 0;die;
+    	}
     }
 
     

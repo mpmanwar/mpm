@@ -32,7 +32,11 @@ $(document).ready(function (e) {
         }else if(client_type == "other"){
           var contact_id   = $(this).data('contact_id');
           var address = $("#other_address_"+contact_id).val();
+        }else if(client_type == "custom"){
+          var client_id   = $(this).data('client_id');
+          var address = $("#custom_address_"+client_id).val();
         }
+
         
 
         $("#show_full_address").html(address);
@@ -110,26 +114,70 @@ $(document).ready(function (e) {
     });
 /* ################# Create Group End ################### */
 
-/* ################# Open Add To Group Popup Start ################### */
-    $(".open_addto_group").click(function(){
-      //var step_id     = $(this).data("step_id");
-      //var contact_type  = $(this).data("contact_type");
+/* ################# Open Group Popup Start ################### */
+  $(".create_group").click(function(){
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    //alert(val.length);return false;
+    if(val.length>0){
+      $("#clients_array").val(val);
+      $("#create_group-modal").modal("show");
+    }else{
+      alert('You have not selected any contacts to group');
+    }
+  });
+
+  $(".open_addto_group").click(function(){
       $("#addto_group-modal").modal("show");
-      /*$.ajax({
+  });
+
+  $("#group_step_id").change(function(){
+      var group_id = $(this).val();
+      if(group_id == ""){
+        $("#group_show").show();
+      }else{
+        $("#group_name").val("");
+        $("#group_show").hide();
+      }
+  });
+
+  $(".saveto_group").click(function(){
+      var tab_id        = $("#tab_id").val();
+      var address_type  = $("#encoded_type").val();
+
+      var group_name  = $("#group_name").val();
+      var group_id    = $("#group_step_id").val();
+      var client_ids  = $("#clients_array").val();
+      //alert(client_ids+", "+group_name);return false;
+      if(group_name == "" && group_id == ""){
+        alert("Please select or enter the group name");
+        return false;
+      }
+
+      $.ajax({
           type: "POST",
-          dataType : "json",
-          url: "/contacts/show-contacts-notes",
-          data: { 'client_id': client_id, 'contact_type' : contact_type },
+          url: "/contacts/copy-to-group",
+          beforeSend : function(){
+            $(".loader_class").html('<img src="/img/spinner.gif" />');
+          },
+          data: { 'group_id':group_id, 'group_name':group_name, 'tab_id':tab_id, 'client_ids':client_ids },
           success: function (resp) {
-            $("#notes_client_id").val(client_id);
-            $("#contact_type").val(contact_type);
-            $("#notes").val(resp['notes']);
-            $("#notes-modal").modal("show");             
+            if(resp > 0){
+              window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type;            
+            }else{
+              $(".loader_class").html('There are some error..., Please try again.');
+              //alert("There are some error..., Please try again.");
+              //return false;
+            }
           }
-      });*/
+      });
         
     });
-/* ################# Open Add To Group Popup End ################### */
+/* ################# Open Group Popup End ################### */
 
 /* ################# Search Client By Address Type Start ################### */
     $(".address_type").change(function(){
@@ -164,7 +212,7 @@ $(document).ready(function (e) {
     $("#addto_group-modal").on("click", ".edit_status", function(){
         var step_id = $(this).data("step_id");
         var status_name = $("#status_span"+step_id).html();
-        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+        var text_field = "<input type='text' maxlength='12' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
         var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
         $("#status_span"+step_id).html(text_field);
         $("#action_"+step_id).html(action);
@@ -209,7 +257,62 @@ $(document).ready(function (e) {
         });
 
     });
-/* ################# Search Client By Address Type End ################### */    
+    
+    $("#addto_group-modal").on("click", ".delete_group", function(){
+        var address_type  = $("#encoded_type").val();
+        var tab_id        = $("#tab_id").val();
+        var step_id       = $(this).data("step_id");
+
+        if(confirm("Do you want to delete this group?")){
+          $.ajax({
+            type: "POST",
+            url: "/contacts/delete-group",
+            data: { 'step_id': step_id },
+            beforeSend: function() {
+                $(".loader_class").html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp == 1){
+                  window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type; 
+                }else{
+                    $(".loader_class").html("There are some problem to delete the group.");
+                }
+                
+            }
+          });
+        }
+    });
+
+/* ################# Search Client By Address Type End ################### */ 
+
+/* ################# Delete Client From group Type Start ################### */ 
+  $(".delete_group_client").click(function(){
+      var address_type  = $("#encoded_type").val();
+      var tab_id        = $("#tab_id").val();
+      var contact_type  = $(this).data("contact_type");
+      var client_id     = $(this).data("client_id");
+
+      if(confirm("Do you want to delete this address from the group?")){
+          $.ajax({
+            type: "POST",
+            url: "/contacts/delete-from-group",
+            data: { 'contact_type': contact_type, 'client_id' : client_id, 'tab_id' : tab_id },
+            beforeSend: function() {
+                $(".loader_class").html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp == 1){
+                  window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type; 
+                }else{
+                    $(".loader_class").html("There are some problem to delete the group contact.");
+                }
+                
+            }
+          });
+        }
+  });
+/* ################# Delete Client From group Type End ################### */ 
+   
     
     
 	
