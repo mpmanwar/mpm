@@ -74,7 +74,7 @@ class HmrcController extends BaseController
 		}
         $data['client_details'] = $client_data;
         
-
+        //echo '<pre>';print_r($data['client_details']);die();
 
          return View::make('hmrc.authorisations', $data);
     }
@@ -127,6 +127,69 @@ class HmrcController extends BaseController
 	}
 
     
+    
+    
+    public function getresponsibleperson()
+    {
+        
+         $client_id = Input::get("client_id"); 
+        //die();
+        
+        
+        
+   $datares=array();     
+  $data['rperson'] = StepsFieldsClient::where("client_id", "=", $client_id)->select('field_value' , 'field_name')->get(); 
+   //echo "<pre>";print_r($data['rperson']);die;
+            foreach ($data['rperson'] as $key => $value) {
+              
+              if(isset($value->field_name) && $value->field_name == "trad_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+              if(isset($value->field_name) && $value->field_name == "reg_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+              if(isset($value->field_name) && $value->field_name == "banker_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+               if(isset($value->field_name) && $value->field_name == "oldacc_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+               if(isset($value->field_name) && $value->field_name == "auditors_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+             if(isset($value->field_name) && $value->field_name == "solicitors_cont_name") {
+                 //$datares['field_value']=$value->field_value;
+                 array_push($datares,$value->field_value);
+              }
+                
+           }
+           //echo "<pre>";print_r($datares);
+            echo View::make('hmrc.rsponce')->with('datares',$datares);
+  
+       
+        
+         
+       /*  echo     $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "trad_cont_name")->select('field_value')->first();
+          echo     $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "reg_cont_name")->select('field_value')->first();
+        echo $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "corres_cont_name")->select('field_value')->first();
+        echo  $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "banker_cont_name")->select('field_value')->first();
+        echo  $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "oldacc_cont_name")->select('field_value')->first();
+        echo  $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "auditors_cont_name")->select('field_value')->first();
+		echo $data = StepsFieldsClient::where("client_id", "=", $client_id)->where("field_name", "=", "solicitors_cont_name")->select('field_value')->first();
+		
+        
+      // echo  return View::make('hmrc.responce', $data);
+        
+        
+        //echo $data; */
+         //die();    
+        
+    }
     
     public function emails(){
         $data['heading'] = "STRUCTURED EMAILS";

@@ -45,7 +45,6 @@ $(function() {
             {"bSortable": false},
             {"bSortable": false}
         ]
-
     });
   Table1.fnSort( [ [2,'asc'] ] );
 
@@ -69,7 +68,7 @@ $(function() {
       "aoColumns":[
           {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": false},
+            {"bSortable": true},
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
@@ -124,14 +123,123 @@ $(function() {
    Table3.fnSort( [ [2,'asc'] ] );*/
    
   
-
+  
+  
 });
 
+$(function() {
+     //alert('dsdsdsd')
+     $('#staffmDetails').change(function() {
+       
+        var client_id = $(this).val();
+       
+       
+        console.log(client_id);
+        // alert(client_id)
+        
+        
+        
+         $.ajax({
+                type: "GET",
+                //dataType: "json",
+                //url: '/client/client-details-by-client_id/'+client_id+"=ajax",
+                url: "/getresponsibleperson",
+               data: { 'client_id' : client_id },
+                beforeSend: function() {
+                   // $(".show_client_details").html('<img src="/img/spinner.gif" />');
+                    //return false;
+                },
+                success : function(resp){
+                    //var res = JSON.parse(resp);
+                  console.log(resp);
+                  
+                  
+                  $("#resperson").html(resp);
+                  
+               /*  if(resp!= "") {
+                    var res = JSON.parse(resp);
+                    var vsl=res.field_value;
+                   
+                    $("#shentitlement").val(vsl);
+                    
+                    //alert(vsl);
+                  // console.log(resp);
+                }*/
+               
+                
+                }
+                
+                
+                
+                
+            });
+        
+        
+        
+        
+        
+        
+        
+        
+        });
+        
+        
+        
+        $('#staffmDetailstab2').change(function() {
+       
+        var client_id = $(this).val();
+       
+       
+        console.log(client_id);
+        // alert(client_id)
+        
+        
+        
+         $.ajax({
+                type: "GET",
+                //dataType: "json",
+                //url: '/client/client-details-by-client_id/'+client_id+"=ajax",
+                url: "/getresponsibleperson",
+               data: { 'client_id' : client_id },
+                beforeSend: function() {
+                   // $(".show_client_details").html('<img src="/img/spinner.gif" />');
+                    //return false;
+                },
+                success : function(resp){
+                    //var res = JSON.parse(resp);
+                  console.log(resp);
+                  
+                  
+                  $("#restab2").html(resp);
+                  
+               /*  if(resp!= "") {
+                    var res = JSON.parse(resp);
+                    var vsl=res.field_value;
+                   
+                    $("#shentitlement").val(vsl);
+                    
+                    //alert(vsl);
+                  // console.log(resp);
+                }*/
+               
+                
+                }
+                
+                
+                
+                
+            });
+        
+        
+        
+        
+        
+        
+        
+        
+        });
 
-     
-    
-
-
+});
 
 </script>
 <!-- Date picker script -->
@@ -145,7 +253,6 @@ $(function() {
             <aside class="left-side sidebar-offcanvas {{ $left_class }}">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
-                    
                     @include('layouts/inner_leftside')
 
                 </section>
@@ -220,24 +327,33 @@ $(function() {
  
   <tbody>
   @if(!empty($client_details))
-                <?php $i=1; ?>
-                @foreach($client_details as $key=>$client_row)
+                
+                
   <tr>
     <td align="center"><input type="checkbox" /></td>
     
-    <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+   <!-- <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
     
     
-    <td align="center">
-        @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
-                        <select class="form-control newdropdown">
-                        @foreach($client_row['contact_name'] as $key=>$name_row)
-                        <option>{{ $name_row['name'] }}</option>
+    -->
+    <td>
+    <select class="form-control" id="staffmDetails">
+                         @foreach($client_details as $key=>$client_row)
+                         
+                        <option value="{{ $client_row['client_id'] }}"> {{ $client_row['client_name'] }}</option>
                         @endforeach
-                        </select>
-                      @endif
+    </select>
+    
     </td>
-   
+    
+    
+    
+    
+    
+    <td align="center" id="resperson">
+        
+    </td>
+    
    
     <td align="center"><input type="checkbox" /></td>
     <td align="center"><input type="checkbox" /></td>
@@ -250,8 +366,7 @@ $(function() {
     
     
   </tr>
-  <?php $i++; ?>
-              @endforeach
+ 
             @endif
  </tbody>
 </table>
@@ -394,22 +509,38 @@ $(function() {
  
   <tbody>
   @if(!empty($client_details))
-                <?php $i=1; ?>
-                @foreach($client_details as $key=>$client_row)
+                
+                
   <tr>
     <td align="center"><input type="checkbox" /></td>
     
-    <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td>
+    
+    <td>
+    <select class="form-control" id="staffmDetailstab2">
+                         @foreach($client_details as $key=>$client_row)
+                        <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+                        @endforeach
+    </select>
+    
+    </td>
+    
+  <!--  <td align="left"><a target="_blank" href="{{ $client_row['client_url'] or "" }}">{{ $client_row['client_name'] or "" }}</a></td> -->
     
     
-    <td align="center">
-        @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
+    
+    
+    
+    
+    
+    
+    <td align="center" id="restab2">
+       <!--  @if(isset($client_row['contact_name']) && count($client_row['contact_name']) >0)
                         <select class="form-control newdropdown">
                         @foreach($client_row['contact_name'] as $key=>$name_row)
                         <option>{{ $name_row['name'] }}</option>
                         @endforeach
                         </select>
-                      @endif
+                      @endif -->
     </td>
    
    <td align="center"><input type="checkbox" /></td>
@@ -429,8 +560,7 @@ $(function() {
     
     
   </tr>
-  <?php $i++; ?>
-              @endforeach
+ 
             @endif
  </tbody>
 </table>
