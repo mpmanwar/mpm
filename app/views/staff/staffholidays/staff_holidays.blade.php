@@ -236,7 +236,58 @@ $('#snotes').click(function() {
     
     });
     
-    
+     //var client_id = $(this).val();
+     //alert(client_id);
+    $('#staffmDetails').change(function() {
+       
+        var client_id = $(this).val();
+        // alert(client_id);
+         console.log(client_id);
+         
+         if(client_id != "" ){
+            //$("#view_edit_company").show();
+            
+            $.ajax({
+                type: "GET",
+                //dataType: "json",
+                //url: '/client/client-details-by-client_id/'+client_id+"=ajax",
+                url: "/staffholidays",
+               data: { 'client_id' : client_id },
+                beforeSend: function() {
+                   // $(".show_client_details").html('<img src="/img/spinner.gif" />');
+                    //return false;
+                },
+                success : function(resp){
+                  
+                 if(resp!= "") {
+                    var res = JSON.parse(resp);
+                    var vsl=res.field_value;
+                   
+                    $("#shentitlement").val(vsl);
+                    
+                    //alert(vsl);
+                  // console.log(resp);
+                }
+                else{
+                    $("#shentitlement").val("");
+                }
+                
+                }
+                
+                
+                
+                
+            });
+        }
+        else{
+            $("#shentitlement").val("");
+            
+        }
+         
+         
+         
+         
+          });
     
 });
 
@@ -303,6 +354,7 @@ $('.addnew_line').click(function() {
         //alert('fafafaf');return false;
     }
 
+
 </script>
 @stop
 
@@ -354,7 +406,8 @@ $('.addnew_line').click(function() {
       @if($staff_type == "staff")
        
       
-        <select style="width:120px; height:23px;">
+        <select style="width:120px; height:23px;" id="staffmDetails">
+         <option value="">-select staff- </option>
           @if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
                   <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
@@ -365,7 +418,7 @@ $('.addnew_line').click(function() {
     
     </td>
     <td width="10%">Holidays Entitlement</td>
-    <td width="3%"><input type="text" id="" style="width:50px;text-align: center;" value="20" disabled/></td>
+    <td width="3%"><input type="text" id="shentitlement" style="width:50px;text-align: center;" value="" disabled/></td>
     <td width="8%">Holidays Taken</td>
     <td width="4%"><input type="text"  style="width:50px;text-align: center; " value="18" disabled/></td>
     <td width="10%">Holidays Remaining</td>

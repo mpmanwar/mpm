@@ -22,7 +22,7 @@ $(document).ready(function(){
     $("#start_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
     $("#holiday_entitlement").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 
-    $("#leaving_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
+    $("#end_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true });
     $("#staffshort_code").mask("99-99-99");
     //$("#staffshort_code").
    // $("#staffshort_code").click(function() {
@@ -512,17 +512,17 @@ $(document).ready(function(){
            @if($page_name== 'profile')
           
     <div class="twobox">
-      <div class="n_box2">
+      <div class="startdate_box">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
           <input type="text" id="sstart_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" readonly="readonly" readonly="readonly">
         </div>
       </div>
 
-      <div class="n_box2"> 
+      <div class="n_box2 holiday_enti_gapa"> 
         <div class="form-group" >
           <label for="exampleInputPassword1">Holiday Entitlement</label>
-          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control" readonly="readonly">
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control holiday_enti_box" readonly="readonly">
         </div>
       </div>
       
@@ -540,17 +540,17 @@ $(document).ready(function(){
  @if($page_name== 'staff')
           
     <div class="twobox">
-      <div class="n_box2">
+      <div class="startdate_box">
         <div class="form-group">
           <label for="exampleInputPassword1">Start Date</label>
           <input type="text" id="start_date" name="start_date" value="{{ $staff_details['step_data']['start_date']  or "" }}" class="form-control" >
         </div>
       </div>
 
-      <div class="n_box2">
+      <div class="n_box2 holiday_enti_gapa">
         <div class="form-group" >
           <label for="exampleInputPassword1">Holiday Entitlement</label>
-          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control">
+          <input type="text" id="sholiday_entitlement" name="holiday_entitlement" value="{{ $staff_details['step_data']['holiday_entitlement']  or "" }}" class="form-control holiday_enti_box">
         </div>
       </div>
       
@@ -644,13 +644,13 @@ $(document).ready(function(){
        @if($page_name== 'staff')
          <div class="form-group">
         <label for="exampleInputPassword1">End Date</label>
-        <input type="text" id="leaving_date" name="end_date" value="{{ $staff_details['step_data']['eEnd_date']  or "" }}" class="form-control">
+        <input type="text" id="end_date" name="end_date" value="{{ $staff_details['step_data']['end_date']  or "" }}" class="form-control">
       </div>
       @endif
       @if($page_name== 'profile')
          <div class="form-group">
         <label for="exampleInputPassword1">End Date</label>
-        <input type="text" id="end_date" name="end_date" value="{{ $staff_details['step_data']['end_date']  or "" }}" class="form-control" readonly="readonly">
+        <input type="text" id="pend_date" name="end_date" value="{{ $staff_details['step_data']['end_date']  or "" }}" class="form-control" readonly="readonly">
       </div>
       @endif
       
