@@ -242,7 +242,7 @@ $('#snotes').click(function() {
        
         var client_id = $(this).val();
         // alert(client_id);
-         
+         console.log(client_id);
          
          if(client_id != "" ){
             //$("#view_edit_company").show();
@@ -258,6 +258,8 @@ $('#snotes').click(function() {
                     //return false;
                 },
                 success : function(resp){
+                  
+                 if(resp!= "") {
                     var res = JSON.parse(resp);
                     var vsl=res.field_value;
                    
@@ -266,6 +268,15 @@ $('#snotes').click(function() {
                     //alert(vsl);
                   // console.log(resp);
                 }
+                else{
+                    $("#shentitlement").val("");
+                }
+                
+                }
+                
+                
+                
+                
             });
         }
         else{
