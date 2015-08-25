@@ -29,7 +29,7 @@ $(function() {
         "aoColumns":[
             {"bSortable": false},
             {"bSortable": true},
-            {"bSortable": true},
+            {"bSortable": false},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -170,14 +170,14 @@ $(function() {
               <div class="top_search_con">
                <div class="top_bts">
                 <ul style="padding:0;">
-                  <li>
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#upload_letterhead-modal">UPLOAD LETTERHEAD</a>
-                  </li>
-
                   <!-- <li>
-                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#add_contact-modal">ADD CONTACT</a>
+                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#upload_letterhead-modal">UPLOAD LETTERHEAD</a>
                   </li> -->
-
+                  @if($step_id == 4)
+                  <li>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#add_contact-modal">NEW CONTACT</a>
+                  </li>
+                  @endif
                   <li>
                     <a href="/email-settings" target="_blank" class="btn btn-info">MAIL SETTINGS</a>
                   </li>
@@ -193,18 +193,22 @@ $(function() {
 <div class="box-body table-responsive">
   <div class="tabarea">
   <input type="hidden" id="tab_id" value="{{ $step_id or "" }}"> 
+  <input type="hidden" id="address_type" value="{{ $address_type or "" }}">
+  <input type="hidden" id="encoded_type" value="{{ $encoded_type or "" }}">
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
         @if(isset($steps) && count($steps) >0)
           @foreach($steps as $key=>$step_row)
-            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}">{{ $step_row['title'] or "" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
+            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}/{{ $encoded_type }}">{{ isset($step_row['title'])?strtoupper($step_row['title']):"" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
           @endforeach
         @endif
-        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> Add/Edit Group</a></li>
+        
+        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#addto_group-modal"><i class="fa fa-minus"></i> GROUP</a></li>
+        <li style="float:right;"><a href="#" class="btn-block btn-primary" data-toggle="modal" data-target="#create_group-modal"><i class="fa fa-plus"></i> GROUP</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ (isset($step_id) && $step_id == 1)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <p class="display_t">Display</p>
       <div class="dis_selectbox">
       <select class="form-control newdropdown" >
@@ -221,54 +225,62 @@ $(function() {
       </div>
       <p class="display_t">for all records</p>
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
-    </div>
+    </div> -->
 
     <table class="table table-bordered table-hover dataTable email_letter" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
           <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
-          <th>Name</th>
-          <th width="13%">Type</th>
+          <th width="20%">Name</th>
+          <th width="13%">Address Type <span class="glyphicon glyphicon-chevron-down down_arrow" data-client_id="531" data-tab="21">
+          
+            <div class="address_type_down" style="display: none;">
+              <ul>
+                @if(isset($address_types) && count($address_types) >0)
+                  @foreach($address_types as $key=>$type_row)
+                    <li><a href="/contacts-letters-emails/{{ $step_id }}/{{ base64_encode($type_row['short_name']) }}">{{ $type_row['title'] }}</a></li>
+                  @endforeach
+                @endif
+              </ul>
+            </div>
+          </span>
+          </th>
           <th width="13%">Contact Person</th>
-          <th>Telephone</th>
-          <th>Mobile</th>
-          <th>Email</th>
+          <th width="7%">Telephone</th>
+          <th width="7%">Mobile</th>
+          <th width="10%">Email</th>
           <th>Address</th>
-          <th>Notes</th>
+          <th width="6%">Notes</th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
           @if(isset($org_details) && count($org_details) >0)
-              @foreach($org_details as $key=>$client_row)
-                <tr class="all_check">
-                  <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ (isset($client_row['corres_address']) && $client_row['corres_address'] != "")?$client_row['corres_address']:'' }}">
+            @foreach($org_details as $key=>$client_row)
+              <tr class="all_check tr_no_{{ $key }}">
+                <input type="hidden" name="corres_add_{{ $client_row['client_id'] }}" id="corres_add_{{ $client_row['client_id'] }}" value="{{ (isset($client_row['other_details']['address']) && $client_row['other_details']['address'] != "")?$client_row['other_details']['address']:'' }}">
 
-                  <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_ids[]" value="{{ $client_row['client_id'] or "" }}" />
-                  </td>
-                  <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
-                  <td align="left">
-                    <select class="form-control newdropdown" >
-                      <option value="trad">Trading Address</option>
-                      <option value="reg">Registered Office address</option>
-                      <option value="corres" selected>Correspondence address</option>
-                      <option value="bankers">Bankers</option>
-                      <option value="old_acc">Old Accounts</option>
-                      <option value="auditors">Auditors</option>
-                      <option value="solicitors">Solicitors</option>
-                      <option value="tax_office">Tax Office</option>
-                      <option value="paye_emp">Paye Employer Office</option>
-                     </select>
-                  </td>
-                  <td align="left">{{ $client_row['corres_cont_name'] or "" }}</td>
-                  <td align="center">{{ $client_row['corres_cont_telephone'] or "" }}</td>
-                  <td align="center">{{ $client_row['corres_cont_mobile'] or "" }}</td>
-                  <td align="center">{{ $client_row['corres_cont_email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='org'>more</a>": $client_row['corres_address'] }}</td>
-                  <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
-                
-                </tr>
+                <td align="center">
+                  <input type="checkbox" class="ads_Checkbox" name="client_ids[]" value="{{ $client_row['client_id'] or "" }}" />
+                </td>
+                <td align="left"><a target="_blank" href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ $client_row['business_name'] or "" }}</a></td>
+                <td align="left">
+                  <select class="form-control newdropdown address_type" data-key="{{ $key }}" data-client_id="{{ $client_row['client_id'] }}">
+                    @if(isset($address_types) && count($address_types) >0)
+                      @foreach($address_types as $key=>$type_row)
+                        <option value="{{ $type_row['short_name'] }}" {{ (isset($address_type) && $address_type == $type_row['short_name'])?"selected":"" }}>{{ $type_row['title'] }}</option>
+                      @endforeach
+                    @endif
+                   </select>
+                </td>
+                <td align="left">{{ $client_row['other_details']['contact_person'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['telephone'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['mobile'] or "" }}</td>
+                <td align="center">{{ $client_row['other_details']['email'] or "" }}</td>
+                <td align="center">{{ (strlen($client_row['other_details']['address']) > 48)? substr($client_row['other_details']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-client_id='".$client_row['client_id']."' data-client_type='org'>more</a>": $client_row['other_details']['address'] }}</td>
+                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $client_row['client_id'] or "" }}" data-contact_type="{{ $client_row['client_type'] or "" }}"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
+              
+              </tr>
             @endforeach
           @endif
         
@@ -278,9 +290,9 @@ $(function() {
   </div>
 
   <div id="tab_2" class="tab-pane {{ (isset($step_id) && $step_id == 2)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example2" aria-describedby="example2_info">
       <thead>
         <tr role="row">
@@ -323,9 +335,9 @@ $(function() {
   </div>
 
   <div id="tab_3" class="tab-pane {{ (isset($step_id) && $step_id == 3)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example3" aria-describedby="example3_info">
       <thead>
         <tr role="row">
@@ -351,7 +363,7 @@ $(function() {
                 <td align="center">{{ $staff_row['step_data']['serv_telephone'] or "" }}</td>
                 <td align="center">{{ $staff_row['step_data']['serv_mobile'] or "" }}</td>
                 <td align="center">{{ $staff_row['email'] or "" }}</td>
-                <td align="center">{{ (strlen($staff_row['step_data']['address']) > 48)? substr($staff_row['step_data']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-staff_id='".$staff_row['user_id']."'>more</a>": $staff_row['step_data']['address'] }}</td>
+                <td align="center">{{ (strlen($staff_row['step_data']['address']) > 48)? substr($staff_row['step_data']['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-staff_id='".$staff_row['user_id']."' data-client_type='staff'>more</a>": $staff_row['step_data']['address'] }}</td>
                 
                 <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-staff_id="{{ $staff_row['user_id'] or "" }}" data-contact_type="staff"><span {{ (isset($staff_row['notes']) && $staff_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                 
@@ -365,10 +377,10 @@ $(function() {
   </div>
 
   <div id="tab_4" class="tab-pane {{ (isset($step_id) && $step_id == 4)?'active':''}}">
-    <div class="contact_email">
+    <!-- <div class="contact_email">
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
       <a href="#" class="search_t" data-toggle="modal" data-target="#add_contact-modal">Add Contact</a>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
       <thead>
         <tr role="row">
@@ -387,7 +399,7 @@ $(function() {
           @if(isset($contact_details) && count($contact_details) >0)
               @foreach($contact_details as $key=>$client_row)
                 <tr class="all_check">
-                  <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
+                  <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="other_address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
                     <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['contact_id'] or "" }}" />
                   </td>
@@ -396,7 +408,7 @@ $(function() {
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['email'] or "" }}</td>
-                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."'>more</a>": $client_row['address'] }}</td>
+                  <td align="center">{{ (strlen($client_row['address']) > 48)? substr($client_row['address'], 0, 45)."...<a href='javascript:void(0)' class='more_address' data-contact_id='".$client_row['contact_id']."' data-client_type='other'>more</a>": $client_row['address'] }}</td>
                   <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-contact_id="{{ $client_row['contact_id'] or "" }}" data-contact_type="other"><span {{ (isset($client_row['notes']) && $client_row['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a></td>
                   
                 </tr>
@@ -471,16 +483,17 @@ $(function() {
         <h4 class="modal-title">ADD NEW FIELD</h4>
         <div class="clearfix"></div>
       </div>
-    {{ Form::open(array('url' => '/contact/insert-contact-details', 'id'=>'basicform')) }}
+    {{ Form::open(array('url' => '/contacts/insert-contact-details', 'id'=>'basicform')) }}
     <input type="hidden" name="tab_index" value="{{ $step_id or "" }}">
+    <input type="hidden" name="encoded_type" value="{{ $encoded_type or "" }}">
       <div class="modal-body">
         <div class="twobox">
       <div class="twobox_1">
         <div class="form-group">
           <label for="exampleInputPassword1">File Contact as</label>
           <select class="form-control" name="contact_type" id="contact_type">
-            <option value="contact_name">Contact Name</option>
             <option value="company_name">Company Name</option>
+            <option value="contact_name">Contact Name</option>
           </select> 
         </div>
       </div>
@@ -527,11 +540,6 @@ $(function() {
     </div>
 
     <div class="form-group">
-      <label for="exampleInputPassword1">Website</label>
-      <input type="text" id="website" name="website" class="form-control">
-    </div>
-
-    <div class="form-group">
       <label for="exampleInputPassword1">Company Name</label>
       <input type="text" id="company_name" name="company_name"  class="form-control">
     </div>
@@ -540,7 +548,12 @@ $(function() {
     <label for="exampleInputPassword1">Select or Add</label> 
 
       <select class="form-control" name="address" id="address">
-        <option value="">-- Please Select --</option>
+        <option value="">-- Select --</option>
+        @if(!empty($all_address))
+          @foreach($all_address as $key=>$address_row)
+            <option value="{{ $address_row['type'] or "" }}_{{ $address_row['client_id'] or "" }}">{{ $address_row['address'] or "" }}</option>
+          @endforeach
+        @endif
       </select>                   
     </div>
 
@@ -600,6 +613,12 @@ $(function() {
         </select>                  
       </div>
       </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Website</label>
+        <input type="text" id="website" name="website" class="form-control">
+      </div>
+
       <div class="clearfix"></div>
       </div>
 
@@ -683,59 +702,43 @@ $(function() {
 
 <!-- Create Group modal start -->
 <div class="modal fade" id="create_group-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:400px;">
+  <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">CREATE GROUP</h4>
+        <h4 class="modal-title">GROUP CONTACTS</h4>
         <div class="clearfix"></div>
       </div>
     
-      <div class="modal-body" style="margin-left: 35px">
+      <div class="modal-body">
         <div class="loader_class"><!-- Loader Image Show--></div>
-        <input type="hidden" id="notes_client_id" name="notes_client_id">
-        <input type="hidden" id="contact_type" name="contact_type">
-        <table>
-          <tr>
-            <td align="left" width="30%"><strong>Select Step&nbsp;&nbsp; </strong></td>
-            <td align="left">
-              <select class="form-control" id="create_group_step_id">
-                @if(isset($steps) && count($steps) >0)
-                  @foreach($steps as $key=>$step_row)
-                    @if(isset($step_row['step_type']) && $step_row['step_type'] == "old")
-                      <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
-                    @endif
-                  @endforeach
+
+        <div class="form-group">
+          <label for="exampleInputPassword1"><strong>Add to an existing group</strong></label>
+          <select class="form-control" id="create_group_step_id">
+            <option value="">None</option>
+            @if(isset($steps) && count($steps) >0)
+              @foreach($steps as $key=>$step_row)
+                @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
+                  <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
                 @endif
-              </select>
-            </td>
-          </tr>
+              @endforeach
+            @endif
+          </select>
+        </div>
 
-          <tr>
-            <td align="left" width="20%">&nbsp;</td>
-            <td align="left">&nbsp;</td>
-          </tr>
+        <div class="form-group">
+          <label for="exampleInputPassword1"><strong>Add to a new group</strong></label>
+          <input type="text" name="" class="form-control">
+        </div>
 
-          <tr>
-            <td align="left" width="30%"><strong>Enter Name&nbsp;&nbsp; </strong></td>
-            <td align="left"><input type="text" class="form-control" name="group_name" id="group_name"></td>
-          </tr>
+        <div class="modal-footer1 clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger pull-left save_text" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-info pull-left save_text">Save</button>
+          </div>
+        </div>
 
-          <tr>
-            <td align="left" width="20%">&nbsp;</td>
-            <td align="left">&nbsp;</td>
-          </tr>
-
-          <tr>
-            <td align="left" width="20%">&nbsp;</td>
-            <td align="right">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-info create_groups">Save</button>
-            </td>
-          </tr>
-        </table>
-
-        
       </div>
     
   </div>
@@ -749,47 +752,43 @@ $(function() {
 <div class="modal fade" id="addto_group-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:400px;">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add To Group</h4>
-        <div class="clearfix"></div>
-      </div>
-    
-      <div class="modal-body" style="margin-left: 35px">
-        <input type="hidden" id="notes_client_id" name="notes_client_id">
-        <input type="hidden" id="contact_type" name="contact_type">
-        <table>
-          <tr>
-            <td align="left" width="30%"><strong>Select Group&nbsp;&nbsp; </strong></td>
-            <td align="left">
-              <select class="form-control">
-                @if(isset($steps) && count($steps) >0)
-                  @foreach($steps as $key=>$step_row)
-                    @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
-                      <option value="{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</option>
-                    @endif
-                  @endforeach
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">EDIT/DELETE GROUP</h4>
+          <div class="clearfix"></div>
+        </div>
+        <div class="modal-body">
+          <div class="loader_class"><!-- Loader Image Show--></div>
+        <table class="table table-bordered table-hover dataTable add_status_table">
+          <thead>
+            <tr>
+              <th width="70%">Group Name</th>
+              <th align="center">Action</th>
+            </tr>
+          </thead>
+          
+          <tbody role="alert" aria-live="polite" aria-relevant="all">
+            @if(isset($steps) && count($steps) >0)
+              @foreach($steps as $key=>$step_row)
+                @if(isset($step_row['step_type']) && $step_row['step_type'] == "new")
+                  <tr>
+                    <td><span id="status_span{{ $step_row['step_id'] or "" }}">{{ $step_row['title'] or "" }}</span></td>
+                    <td align="center">
+                      <span id="action_{{ $step_row['step_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $step_row['step_id'] or "" }}"><img src="/img/edit_icon.png" title="Edit Group?"></a>
+                      <a href="javascript:void(0)" class="delete_group" data-step_id="{{ $step_row['step_id'] or "" }}"><img src="/img/cross.png" height="12" title="Delete Group?"></a>
+                      </span>
+
+                    </td>
+                  </tr>
                 @endif
-              </select>
-            </td>
-          </tr>
-
-          <tr>
-            <td align="left" width="20%">&nbsp;</td>
-            <td align="left">&nbsp;</td>
-          </tr>
-
-          <tr>
-            <td align="left" width="20%">&nbsp;</td>
-            <td align="right">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-info addto_groups">Save</button>
-            </td>
-          </tr>
+              @endforeach
+            @endif               
+          </tbody>
         </table>
-
-        
-      </div>
+        </div>
+  </div>
+      
     
   </div>
     <!-- /.modal-content -->

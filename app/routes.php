@@ -308,13 +308,14 @@ Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id')
 /*================== Notes End ==============*/
 
 /*================== Contacts Letters Emails Start ==============*/
-Route::any('/contacts-letters-emails/{step_id}', 'ContactsLettersEmailsController@index');
+Route::any('/contacts-letters-emails/{step_id}/{address_type}', 'ContactsLettersEmailsController@index');
 Route::any('/send-letters-emails', 'ContactsLettersEmailsController@send_letteremail');
 Route::any('/contacts/show-contacts-notes', 'ContactsLettersEmailsController@show_contacts_notes');
 Route::any('/contacts/save-contacts-notes', 'ContactsLettersEmailsController@save_contacts_notes');
 Route::any('/contacts/save-contacts-group', 'ContactsLettersEmailsController@save_contacts_group');
-Route::any('/contact/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
-
+Route::any('/contacts/insert-contact-details', 'ContactsLettersEmailsController@insert_contact_details');
+Route::any('/contacts/search-address', 'ContactsLettersEmailsController@search_address');
+Route::any('/contacts/save-edit-group', 'ContactsLettersEmailsController@save_edit_group');
 
 /*================== Contacts Letters Emails End ==============*/
 

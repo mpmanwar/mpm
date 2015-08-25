@@ -1,4 +1,12 @@
 $(document).ready(function (e) {
+  $(document).click(function() {
+    $(".address_type_down").hide();
+  });
+  $(".down_arrow").click(function(event) {
+      $(".address_type_down").toggle();
+      event.stopPropagation();
+  });
+
   $('.allCheckSelect').on('ifChecked', function(event){
         $(".email_letter input[class='ads_Checkbox']").iCheck('check');
     });
@@ -7,7 +15,7 @@ $(document).ready(function (e) {
         $(".email_letter input[class='ads_Checkbox']").iCheck('uncheck');
     });
 
-  	$(".more_address").click(function(){
+  	$("body").on("click", ".more_address", function(){
         var client_id   = $(this).data('client_id');
         var client_type   = $(this).data('client_type');
         if(client_type == "org"){
@@ -57,6 +65,7 @@ $(document).ready(function (e) {
       var contact_type  = $("#contact_type").val();
       var notes         = $("#notes").val();
       var step_id       = $("#step_id").val();
+      var address_type  = $("#encoded_type").val();
 
       $.ajax({
           type: "POST",
@@ -65,7 +74,7 @@ $(document).ready(function (e) {
           data: { 'client_id': client_id, 'contact_type' : contact_type, 'notes' : notes },
           success: function (resp) {
             //$("#notes-modal").modal("hide");  
-            window.location = '/contacts-letters-emails/'+step_id;           
+            window.location = '/contacts-letters-emails/'+step_id+"/"+address_type;           
           }
       });
         
@@ -77,6 +86,8 @@ $(document).ready(function (e) {
       var step_id       = $("#create_group_step_id").val();
       var tab_id        = $("#tab_id").val();
       var group_name    = $("#group_name").val();
+      var address_type  = $("#encoded_type").val();
+
       $.ajax({
           type: "POST",
           dataType : "json",
@@ -87,7 +98,7 @@ $(document).ready(function (e) {
           data: { 'step_id': step_id, 'group_name' : group_name },
           success: function (resp) {
             if(resp > 0){
-              window.location = '/contacts-letters-emails/'+tab_id;            
+              window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type;            
             }else{
               $(".loader_class").html('');
               alert("There are some error..., Please try again.");
@@ -119,7 +130,86 @@ $(document).ready(function (e) {
         
     });
 /* ################# Open Add To Group Popup End ################### */
-    
+
+/* ################# Search Client By Address Type Start ################### */
+    $(".address_type").change(function(){
+      var address_type  = $(this).val();
+      var client_id = $(this).data('client_id');
+      var key = $(this).data('key');
+      $.ajax({
+          type: "POST",
+          dataType : "json",
+          url: "/contacts/search-address",
+          data: { 'address_type' : address_type, 'client_id' : client_id },
+          success: function (resp) {
+            if(resp['address'].length > '48'){
+              var small_addr = resp['address'].substring(0,45)
+              var address = small_addr+"...<a href='javascript:void(0)' class='more_address' data-client_id='"+client_id+"' data-client_type='org'>more</a>"
+            }else{
+              var address = resp['address'];
+            }
+            $("#corres_add_"+client_id).val(resp['address']);
+            $(".tr_no_"+key+" td:nth-child(5)").html(resp['contact_person']);   
+            $(".tr_no_"+key+" td:nth-child(6)").html(resp['telephone']);
+            $(".tr_no_"+key+" td:nth-child(7)").html(resp['mobile']);   
+            $(".tr_no_"+key+" td:nth-child(8)").html(resp['email']);
+            $(".tr_no_"+key+" td:nth-child(9)").html(address);       
+          }
+      });
+        
+    });
+/* ################# Search Client By Address Type End ################### */
+
+/* ################# Search Client By Address Type Start ################### */
+    $("#addto_group-modal").on("click", ".edit_status", function(){
+        var step_id = $(this).data("step_id");
+        var status_name = $("#status_span"+step_id).html();
+        var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+        var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
+        $("#status_span"+step_id).html(text_field);
+        $("#action_"+step_id).html(action);
+    });
+
+    $("#addto_group-modal").on("click", ".cancel_edit", function(){
+        var step_id = $(this).data("step_id");
+        var status_name = $("#status_name"+step_id).val();
+        var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+        action += ' <a href="javascript:void(0)" class="delete_group" data-step_id="'+step_id+'"><img src="/img/cross.png" height="12" title="Delete Group?"></a>';
+        $("#status_span"+step_id).html(status_name);
+        $("#action_"+step_id).html(action);
+    });
+
+    $("#addto_group-modal").on("click", ".save_new_status", function(){
+        var step_id       = $(this).data("step_id");
+        var address_type  = $("#encoded_type").val();
+        var tab_id        = $("#tab_id").val();
+        var group_name    = $("#status_name"+step_id).val();
+        //alert(group_name+" "+step_id);
+        $.ajax({
+            type: "POST",
+            url: "/contacts/save-edit-group",
+            //dataType: "json",
+            data: { 'step_id': step_id, 'group_name' : group_name },
+            beforeSend: function() {
+                $(".loader_class").html('<img src="/img/spinner.gif" />');
+            },
+            success: function (resp) {
+                if(resp != ""){
+                  window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type; 
+                  /*var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+                  $("#status_span"+step_id).html(status_name);
+                  $("#action_"+step_id).html(action);
+
+                  $("#step_field_"+step_id).text(status_name);*/
+                }else{
+                    alert("There are some problem to update status");
+                }
+                
+            }
+        });
+
+    });
+/* ################# Search Client By Address Type End ################### */    
     
     
 	

@@ -25,6 +25,7 @@
     <!-- Main content -->
     <section class="content">
       
+
       <div class="practice_mid">
 
         <div class="row box_border2 row_cont">
@@ -51,14 +52,28 @@
     
 
           <div class="tabarea">
-            <!-- <div class="box-header">
+
+            <div class="row">
+        <div class="top_bts">
+          <ul>
             
-              <h3 class="box-title">Email Templates</h3>
-            </div> -->
-            <div class="add_template">
+            <li>
               <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#compose-modal">
                 <i class="fa fa-plus"></i> Add template</a>
-            </div>
+            </li>
+
+            <li>
+              <button class="btn btn-info">UPLOAD LETTERHEAD</button>
+            </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
+        
+      </div>
+            
+            
             <!-- /.box-header -->
             <div class="box-body table-responsive">
              <!-- <p>Choose the user's level of access to this organisation's accounts:</p>-->
