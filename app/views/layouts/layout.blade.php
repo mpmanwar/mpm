@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8">
         
-        <title>{{ $title }}</title>
+        <title>i-Practice | Dashboard
+            @if(isset($previous_page))
+            {{ "| ".strip_tags($previous_page) }}
+            @endif
+            @if(isset($sub_url))
+            {{ "| ".$sub_url }}
+            @endif{{ "| ".$title }}</title>
         
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>

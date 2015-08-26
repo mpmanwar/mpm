@@ -110,11 +110,11 @@ class AdminController extends BaseController {
 			if (isset($admin) && count($admin) > 0) {
 				//############### Check user status ##############//
 				if($admin['status'] == "I"){
-					Session::flash('message', 'You are inactive user, Please contact with admin');
+					Session::flash('message', 'You are inactive user, Please contact the Firm');
 					return Redirect::to('/login');
 				}
 				if($admin['show_archive'] == "Y" && $admin['user_type'] != "C"){
-					Session::flash('message', 'You are Archived user, Please contact with admin');
+					Session::flash('message', 'Access denied - Please contact the Firm');
 					return Redirect::to('/login');
 				}
 				//############### Check user status ##############//
@@ -135,7 +135,7 @@ class AdminController extends BaseController {
 				if(isset($admin['user_type']) && $admin['user_type'] == "C"){
 					$client_name = Common::clientDetailsById($admin['client_id']);
 					if($client_name['show_archive'] == "Y"){
-						Session::flash('message', 'You are Archived user, Please contact with admin');
+						Session::flash('message', 'Access denied - Please contact the Firm');
 						return Redirect::to('/login');
 					}
 					$admin['fname'] 		= $client_name['fname'];
