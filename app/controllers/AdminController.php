@@ -25,7 +25,6 @@ class AdminController extends BaseController {
 			//print_r($messages);die();
 			$rules = array(
 				'fname' => 'required|alpha',
-				
 				'email' => 'required|email',
 				'password' => 'required',
 				'confirmation_password' => 'required|same:password'
@@ -33,9 +32,7 @@ class AdminController extends BaseController {
 			$validator = Validator::make($postData, $rules, $messages);
 
 			if ($validator->fails()) {
-			 
-             
-                return Redirect::to('/admin-signup')->withInput(Request::except('password'))->withErrors($validator);
+			 return Redirect::to('/admin-signup')->withInput(Request::except('password'))->withErrors($validator);
                 
             // return Redirect::back()->withErrors($validator)->withInput();
 			//	return Redirect::to('/admin-signup')->withErrors($validator)->withInput();
@@ -114,7 +111,11 @@ class AdminController extends BaseController {
 				//############### Check user status ##############//
 				if($admin['status'] == "I"){
 					Session::flash('message', 'You are inactive user, Please contact with admin');
-					return Redirect::to('/');
+					return Redirect::to('/login');
+				}
+				if($admin['show_archive'] == "Y" && $admin['user_type'] != "C"){
+					Session::flash('message', 'You are Archived user, Please contact with admin');
+					return Redirect::to('/login');
 				}
 				//############### Check user status ##############//
 
@@ -124,7 +125,7 @@ class AdminController extends BaseController {
 					$timeInFuture = date('Y-m-d H:i:s', strtotime($admin['created']) + 45*86400);
 					if($cirrentTime > strtotime($timeInFuture)){
 						Session::flash('message', 'Your free trial login is over, Please subscribe now.');
-						return Redirect::to('/');
+						return Redirect::to('/login');
 					}
 					
 				}
@@ -133,6 +134,10 @@ class AdminController extends BaseController {
 				//############### Check user free time limit end ##############//
 				if(isset($admin['user_type']) && $admin['user_type'] == "C"){
 					$client_name = Common::clientDetailsById($admin['client_id']);
+					if($client_name['show_archive'] == "Y"){
+						Session::flash('message', 'You are Archived user, Please contact with admin');
+						return Redirect::to('/login');
+					}
 					$admin['fname'] 		= $client_name['fname'];
 					$admin['lname'] 		= $client_name['lname'];
 				}
@@ -164,7 +169,7 @@ class AdminController extends BaseController {
                 
 			} else {
 				Session::flash('message', 'Your username/password doesn`t match');
-				return Redirect::to('/');
+				return Redirect::to('/login');
 			}
 		}
 		

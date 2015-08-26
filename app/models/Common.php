@@ -152,6 +152,7 @@ class Common extends Eloquent {
 
 		$clients = Client::where('client_id', '=', $client_id)->first();
 		$client_data['is_archive'] 		= $clients['is_archive'];
+		$client_data['show_archive'] 	= $clients['show_archive'];
 		$client_data['is_relation_add'] = $clients['is_relation_add'];
 		$client_data['type'] 			= $clients['type'];
 		$client_data['user_id'] 		= $clients['user_id'];
