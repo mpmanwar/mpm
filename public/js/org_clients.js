@@ -539,7 +539,19 @@ $.ajax({
 
 
 });
-  
+
+$("#savenotes").click(function(){
+    
+   if( $("#notestitle").val()==""){
+     $("#notes_error").html('Please enter  Notes Title');
+        return false;
+   }
+    else{
+        $("#notes_error").html('');
+    }
+
+
+  });
 });//end of main document ready
 
 

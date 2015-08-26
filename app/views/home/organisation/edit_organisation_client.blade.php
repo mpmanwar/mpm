@@ -2469,8 +2469,9 @@ $(document).ready(function(){
                         <div class="notes_innermsg_top">
                          {{ Form::open(array('url' => '/org-notes', 'files' => true)) }}
                          <img src="/img/icon_1.png" class="heading_icon">
+                  
                     <div id="demo">
-                    
+                    <p id="notes_error"></p>
                     <div class="form-group">
                 <label for="exampleInputPassword1">Notes Title</label>
                  <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
@@ -2486,7 +2487,7 @@ $(document).ready(function(){
                 
                 <div class="add_client_btn">
                             <button class="btn btn-danger" id="cancle_notes" type="button">Cancel</button>
-                             <button class="btn btn-info" type="submit" >Save</button>
+                             <button class="btn btn-info" id="savenotes" type="submit" >Save</button>
                            
                           </div>
                 
@@ -2517,7 +2518,7 @@ $(document).ready(function(){
                         
                         <div class="add_client_btn">
                             <button class="btn btn-danger back" type="button">Delete</button>
-                            <button class="btn btn-info" type="submit">Save</button>
+                            <button class="btn btn-info"  type="submit">Save</button>
                             <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
                           </div>
                            <div class="clearfix"></div>
