@@ -117,19 +117,19 @@ class JobStatus extends Eloquent {
 		$clients = array_merge($client_array, $client_data);
 
 		/* ============= Search portion by client id start =============== */
-		$new_client = array();
+		/*$new_client = array();
 		if(isset($clients) && count($clients)>0){
 			foreach ($clients as $key => $new_row) {
 				if((isset($clientId) && in_array($new_row['client_id'], $clientId))){
 					$new_client[$key] = $clients[$key];
 				}
 			}
-		}
+		}*/
 		/* ============= Search portion by client id end =============== */
 
 
-		//print_r($new_client);die;
-		return array_values($new_client);
+		//echo "<pre>";print_r($clients);echo "</pre>";die;
+		return array_values($clients);
 	}
 
 	

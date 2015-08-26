@@ -218,16 +218,16 @@ $(function() {
   <input type="hidden" id="address_type" value="{{ $address_type or "" }}">
   <input type="hidden" id="encoded_type" value="{{ $encoded_type or "" }}">
   <div class="nav-tabs-custom">
-      <ul class="nav nav-tabs nav-tabsbg">
-        @if(isset($steps) && count($steps) >0)
-          @foreach($steps as $key=>$step_row)
-            <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}/{{ $encoded_type }}">{{ isset($step_row['title'])?strtoupper($step_row['title']):"" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
-          @endforeach
-        @endif
-        
-        <li style="float:right;"><a href="#" class="btn-block btn-primary open_addto_group"><i class="fa fa-minus"></i> GROUP</a></li>
-        <li style="float:right;"><a href="javascript:void(0)" class="btn-block btn-primary create_group"><i class="fa fa-plus"></i> GROUP</a></li>
-      </ul>
+    <ul class="nav nav-tabs nav-tabsbg">
+      @if(isset($steps) && count($steps) >0)
+        @foreach($steps as $key=>$step_row)
+          <li {{ (isset($step_id) && $step_id == $step_row['step_id'])?'class="active"':''}}><a href="/contacts-letters-emails/{{ $step_row['step_id'] }}/{{ $encoded_type }}">{{ isset($step_row['title'])?strtoupper($step_row['title']):"" }} {{ (isset($step_row['count']) && $step_row['count'] != "")?"[".$step_row['count']."]":"" }}</a></li>
+        @endforeach
+      @endif
+      
+      <li style="float:right;"><a href="#" class="btn-block btn-primary open_addto_group"><i class="fa fa-minus"></i> GROUP</a></li>
+      <li style="float:right;"><a href="javascript:void(0)" class="btn-block btn-primary create_group"><i class="fa fa-plus"></i> GROUP</a></li>
+    </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ (isset($step_id) && $step_id == 1)?'active':''}}">
     <!-- <div class="contact_email">
@@ -248,7 +248,6 @@ $(function() {
       <p class="display_t">for all records</p>
       <a href="javascript:void(0)" class="search_add open_addto_group">Add to group</a>
     </div> -->
-
     <table class="table table-bordered table-hover dataTable email_letter" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
@@ -812,7 +811,7 @@ $(function() {
 
 <!-- Add to Group modal start -->
 <div class="modal fade" id="addto_group-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:400px;">
+  <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-content">
         <div class="modal-header">
@@ -825,7 +824,7 @@ $(function() {
         <table class="table table-bordered table-hover dataTable add_status_table">
           <thead>
             <tr>
-              <th width="70%">Group Name</th>
+              <th width="60%">Group Name</th>
               <th align="center">Action</th>
             </tr>
           </thead>

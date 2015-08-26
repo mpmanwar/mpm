@@ -73,25 +73,27 @@ class StaffdataController extends BaseController
         $user_type = $session['user_type'];
         $groupUserId = $session['group_users'];
 
-        $staff = User::whereIn("user_id", $groupUserId)->where("client_id", "=", 0)->
+        $staff = User::whereIn("user_id", $groupUserId)->where("is_archive", "=", "N")->where("client_id", "=", 0)->
             get();
         //echo $this->last_query();die;
         if (isset($staff) && count($staff) > 0) {
             foreach ($staff as $key => $value) {
-                $details[$key]['user_id'] = $value->user_id;
-                $details[$key]['parent_id'] = $value->parent_id;
-                $details[$key]['group_id'] = $value->group_id;
-                $details[$key]['client_id'] = $value->client_id;
-                $details[$key]['fname'] = $value->fname;
-                $details[$key]['lname'] = $value->lname;
-                $details[$key]['email'] = $value->email;
-                $details[$key]['password'] = $value->password;
-                $details[$key]['phone'] = $value->phone;
-                $details[$key]['website'] = $value->website;
-                $details[$key]['country'] = $value->country;
-                $details[$key]['user_type'] = $value->user_type;
-                $details[$key]['status'] = $value->status;
-                $details[$key]['created'] = $value->created;
+                $details[$key]['user_id']       = $value->user_id;
+                $details[$key]['parent_id']     = $value->parent_id;
+                $details[$key]['group_id']      = $value->group_id;
+                $details[$key]['client_id']     = $value->client_id;
+                $details[$key]['fname']         = $value->fname;
+                $details[$key]['lname']         = $value->lname;
+                $details[$key]['email']         = $value->email;
+                $details[$key]['password']      = $value->password;
+                $details[$key]['phone']         = $value->phone;
+                $details[$key]['website']       = $value->website;
+                $details[$key]['country']       = $value->country;
+                $details[$key]['user_type']     = $value->user_type;
+                $details[$key]['status']        = $value->status;
+                $details[$key]['is_archive']    = $value->is_archive;
+                $details[$key]['show_archive']  = $value->show_archive;
+                $details[$key]['created']       = $value->created;
 
                 //print_r($value->user_id);die();
 
@@ -123,12 +125,40 @@ class StaffdataController extends BaseController
             }
         }
 
-        //$dept_data=array();
-
-        
-           
-        //print_r($fields_staffid);die();
-
         return $details;
+    }
+
+    public function archive_staff() {
+        Session::put('show_staff_archive', 'Y');
+
+        $users_id = Input::get("users_id");
+        $status = Input::get("status");
+        //print_r($users_id);die;
+        foreach ($users_id as $user_id) {
+            if($status == "Archive"){
+                User::where('user_id', '=', $user_id)->update(array("is_archive"=>"Y", "show_archive"=>"Y"));
+            }else{
+                User::where('user_id', '=', $user_id)->update(array("is_archive"=>"N", "show_archive"=>"N"));
+            }
+            
+            //echo $this->last_query();die;
+        }
+    }
+
+    public function show_archive_staff() {
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $groupUserId = $session['group_users'];
+
+        $is_archive = Input::get("is_archive");
+        if($is_archive == "Y"){
+            Session::put('show_staff_archive', 'Y');
+        }else{
+            Session::put('show_staff_archive', 'N');
+        }
+
+        $affected = User::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
+        echo $affected;
+        //echo $this->last_query();die;
     }
 }
