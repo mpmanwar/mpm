@@ -471,6 +471,10 @@ class ClientController extends BaseController {
 	}
 
 	public function show_archive_client() {
+		$session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $groupUserId = $session['group_users'];
+        
 		$is_archive = Input::get("is_archive");
 		if($is_archive == "Y"){
 			Session::put('show_archive', 'Y');
@@ -478,7 +482,7 @@ class ClientController extends BaseController {
 			Session::put('show_archive', 'N');
 		}
 
-		$affected = DB::table('clients')->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
+		$affected = Client::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
 		//echo $this->last_query();die;
 	}
 

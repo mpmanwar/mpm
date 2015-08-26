@@ -146,6 +146,10 @@ class StaffdataController extends BaseController
     }
 
     public function show_archive_staff() {
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $groupUserId = $session['group_users'];
+
         $is_archive = Input::get("is_archive");
         if($is_archive == "Y"){
             Session::put('show_staff_archive', 'Y');
@@ -153,7 +157,7 @@ class StaffdataController extends BaseController
             Session::put('show_staff_archive', 'N');
         }
 
-        $affected = User::where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
+        $affected = User::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
         echo $affected;
         //echo $this->last_query();die;
     }
