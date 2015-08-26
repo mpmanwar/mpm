@@ -216,8 +216,31 @@ class ClientController extends BaseController {
        	$data['services_id'] 	=   Client::getServicesIdByClient($client_id);
       	//echo $this->last_query();
    		//print_r($data['services_id']);die;      
+        
+        
+        
+        
 
-		return View::make('home.organisation.edit_organisation_client', $data);
+
+        $data['org_notes']=OrgNotes::where('client_id','=',$client_id)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->orderBy('created', 'DESC')->get();
+        
+        
+        $data['orgdtails_notes']=OrgNotes::where('client_id','=',$client_id)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->orderBy('created', 'DESC')->first();;
+               $user=$data['orgdtails_notes']['user_id'];
+              // die();
+               
+        $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();       
+                
+       // echo '<pre>';print_r($data['orgdtails_notes']);die();
+        //echo $this->last_query();die;
+	   
+    
+    
+    
+    
+    
+    
+    	return View::make('home.organisation.edit_organisation_client', $data);
 	}
 
 	public function get_initial_badge($full_name)
