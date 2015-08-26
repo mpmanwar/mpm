@@ -33,8 +33,11 @@ class NotesController extends BaseController {
     
     public function orgnotes(){
         
+       	$admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+		$groupUserId = $admin_s['group_users'];
         
-        $postData 		= Input::all();
+     /*   $postData 		= Input::all();
        $data=array();
         //$data['title'] = 'Notes';
         //$data['heading'] = "NOTES";
@@ -42,18 +45,40 @@ class NotesController extends BaseController {
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
        
-        $client_id = $postData['client_id'];
+        $client_id = $postData['client_id'];*/
         
-        $data['title']=$postData['notestitle'];
-        $data['textmessage']=$postData['notesmsg'];
+        $notestitle = Input::get("notestitle");
+         $notesmsg = Input::get("notesmsg");
+        $client_id = Input::get("client_id");
+        
+        
+        
+        
+        $data['title']=$notestitle;
+        $data['textmessage']=$notesmsg;
         $data['client_id']=$client_id;
         $data['user_id']=$user_id;
+        //$data['modified']=date("Y-m-d h:i:s");
         
-         $notes_id = OrgNotes::insertGetId($data);
+        if (Request::ajax()) {
+          $notes_id = OrgNotes::insertGetId($data);
+        
+        
+        
+        $data['orgdtails_notes'] = OrgNotes::where('orgnotes_id','=',$notes_id)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->first();
+        $user=$data['orgdtails_notes']['user_id'];
+              // die();
+               
+        $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();  
+        $data['inserted_id']=$notes_id;
+        
+        echo View::make('home.organisation.notesedit', $data);
+        
+        //echo $this->last_query();die();
          //print_r($data);die();
          
-         return Redirect::to('/organisation-clients');
-         
+         //return Redirect::to('/organisation-clients');
+         }
     
     }
     
@@ -75,6 +100,77 @@ class NotesController extends BaseController {
         	//echo $data;
 		
         }
+        
+        
+    }
+    
+    
+    public function edit_orgnotes(){
+        
+        $data=array();
+         $editnotesval = Input::get("editnotesval");
+         $editnotesmsg = Input::get("editnotesmsg");
+         $edited_id = Input::get("edited_id");
+        $client_id = Input::get("client_id");
+        
+        //die();
+        
+        $data['title']=$editnotesval;
+        $data['textmessage']=$editnotesmsg;
+        $data['client_id']=$client_id;
+      // $data['client_id']=date('m/d/Y h:i:s a', time());
+       
+        //$data['user_id']=$user_id;
+        
+        
+        
+		if (Request::ajax()) {
+		
+        	 
+         $notes_id = OrgNotes::where("orgnotes_id","=",$edited_id)->update($data);
+        
+        $data['orgdtails_notes'] = OrgNotes::where('orgnotes_id','=',$edited_id)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->first();
+        $user=$data['orgdtails_notes']['user_id'];
+              // die();
+               
+        $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();  
+        
+        
+        echo View::make('home.organisation.notesedit', $data);
+        	//echo $data;
+		
+        }
+         
+        
+         
+    
+    }
+    
+    public function deleteorg_notes(){
+        
+        
+         
+        $edited_id = Input::get("edited_id");
+         $client_id = Input::get("client_id");
+        
+        if (Request::ajax()) {
+		
+        	 
+         $notes_id = OrgNotes::where("orgnotes_id","=",$edited_id)->delete();
+        
+        $data['orgdtails_notes']=OrgNotes::where('client_id','=',$client_id)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->orderBy('created', 'DESC')->first();
+        $user=$data['orgdtails_notes']['user_id'];
+              // die();
+               
+        $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();  
+        
+        
+        echo View::make('home.organisation.notesedit', $data);
+        	//echo $data;
+		
+        }
+        
+        
         
         
     }
