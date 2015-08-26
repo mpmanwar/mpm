@@ -500,6 +500,45 @@ $("#sync_data_button").click(function(){
 });
 // SYNC DATA upload from organisation client edit page end //
 
+
+
+
+$("#demo").hide();
+$("#addnotes_button").click(function(){
+
+//alert('fsfsfsf');
+$("#notes_font").hide();
+$("#demo").show();
+});
+
+$("#cancle_notes").click(function(){
+
+$("#demo").hide();
+$("#notes_font").show();
+});
+
+
+
+$(".title_view").click(function(){
+
+var notesmsgid =$(this).attr('data-id');
+console.log(notesmsgid);
+$.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/view-orgnotes',
+		data: {
+			'notesmsgid': notesmsgid
+		},
+		success: function(resp) {
+			console.log(resp);
+            $("#notes_font").html(resp);
+            
+            }
+	});
+
+
+});
   
 });//end of main document ready
 

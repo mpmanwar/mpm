@@ -302,6 +302,9 @@ Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
 /*==================HMRC ==============*/
 /*================== Notes Start ==============*/
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
+Route::any('/org-notes', 'NotesController@orgnotes');
+Route::any('/view-orgnotes', 'NotesController@view_orgnotes');
+
 /*================== Notes End ==============*/
 
 /*================== Notes Start ==============*/

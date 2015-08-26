@@ -2455,63 +2455,108 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
-
+  {{ Form::close() }}
 <div id="step6" class="tab-pane" style="display:none;">
-    <div class="box-body table-responsive">
-      <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
-        <div class="row">
-          <div class="col-xs-6"></div>
-          <div class="col-xs-6"></div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-xs-8">
-            <div class="col_m2 icon_poisition">
-            <div class="notes_inner">
-            <div class="notes_inner_top">
-            <img src="/img/icon_1.png" class="heading_icon" />
-            <div class="n_top_left">
-            <span class="n_heading">TB Coder</span>
-            <p><span class="n_heading_name">By Abel Asiamah</span> <span class="n_date">On: Sat, 28 July, 2015 at 5:50PM</span></p>
-            </div>
-            <div class="print">
-            <a href="#"><img src="/img/print.png" /></a>
-            </div>
-            <div class="clearfix"></div>
-            </div>
-            <p class="n_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            
-            <div class="add_client_btn">
-                <button class="btn btn-info back" data-id="5" type="button">Prev</button>
-                <button class="btn btn-danger" type="submit">Save</button>
-                <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
+                <div class="box-body table-responsive">
+                  <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                    <div class="row">
+                      <div class="col-xs-6"></div>
+                      <div class="col-xs-6"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-xs-8">
+                        <div class="col_m2 icon_poisition">
+                        <div class="notes_innermsg_top">
+                         {{ Form::open(array('url' => '/org-notes', 'files' => true)) }}
+                         <img src="/img/icon_1.png" class="heading_icon">
+                    <div id="demo">
+                    
+                    <div class="form-group">
+                <label for="exampleInputPassword1">Notes Title</label>
+                 <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
+                   <input type="text" name="notestitle" id="notestitle" class="form-control" />
+                
+              
               </div>
-               <div class="clearfix"></div>
-            </div>
-            
-            </div>
-          </div>
-          <div class="col-xs-12 col-xs-4"> 
-          <div class="col_m2">
-          <div class="noted_right">
-          <img src="/img/plus_1.png" class="icon_gap" /> <strong class="notes_h_t">New Notes</strong>
-          <div class="notes_points">
-          <span class="notes_h_t">NOTES</span>
-          <ul>
-          <li><a href="#">TB Coder System requirements</a></li>
-          <li><a href="#">How does TB coder work</a></li>
-          <li><a href="#">Is TB coder a Secure site?</a></li>
-          <li><a href="#">Sign Up for a TB coder account</a></li>
-          <li><a href="#">How can I sin up for TB coder</a></li>
-          <li><a href="#">For which contries is TB coder available?</a></li>
-          <li><a href="#">Does TB coder work any accounts</a></li>
-          </ul>
-          </div>
-          </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                    
+                    <div class="form-group">
+                <label for="exampleInputPassword1">Notes Message</label>
+                <textarea name="notesmsg" rows="4" cols="20" id="notesmsg" class="form-control"></textarea>
+                </div>
+                
+                <div class="add_client_btn">
+                            <button class="btn btn-danger" id="cancle_notes" type="button">Cancel</button>
+                             <button class="btn btn-info" type="submit" >Save</button>
+                           
+                          </div>
+                
+                   
+                    <div class="clearfix"></div>
+                    </div>
+                    {{ Form::close() }}
+                        </div>
+                        
+                        
+                    <div class="notes_inner" id="notes_font">
+                        <div class="notes_inner_top">
+                        <img src="/img/icon_1.png" class="heading_icon" />
+                        <div class="n_top_left">
+                        <span class="n_heading">{{ $orgdtails_notes['title'] or "" }}</span>
+                       
+                       
+                        <p><span class="n_heading_name">By {{$user['fname']}} {{$user['lname']}}</span> <span class="n_date">On: {{ $orgdtails_notes['created'] or "" }}</span></p>
+                        </div>
+                        <div class="print">
+                        <a  href="#"><img src="/img/print.png" /></a>
+                       
+                       
+                        </div>
+                        <div class="clearfix"></div>
+                        </div>
+                        <p class="n_text">{{ $orgdtails_notes['textmessage'] or "" }}</p>
+                        
+                        <div class="add_client_btn">
+                            <button class="btn btn-danger back" type="button">Delete</button>
+                            <button class="btn btn-info" type="submit">Save</button>
+                            <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
+                          </div>
+                           <div class="clearfix"></div>
+                 </div>
+                        
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-xs-4"> 
+                      <div class="col_m2">
+                      <div class="noted_right">
+                      <img src="/img/plus_1.png" class="icon_gap" id="addnotes_button" /> <strong class="notes_h_t">New Notes</strong>
+                      <div class="notes_points">
+                      <span class="notes_h_t">NOTES</span>
+                     
+                    
+                      @foreach($org_notes as $key=>$org_notes_row)
+                      <ul>
+                     
+                      <li><a data-id="{{ $org_notes_row->orgnotes_id }}" class="title_view" href="javascript:void(0)">{{ $org_notes_row->title }}</a></li>
+                     
+                     
+                     
+                     <!-- <li><a href="#">How does TB coder work</a></li>
+                      <li><a href="#">Is TB coder a Secure site?</a></li>
+                      <li><a href="#">Sign Up for a TB coder account</a></li>
+                      <li><a href="#">How can I sin up for TB coder</a></li>
+                      <li><a href="#">For which contries is TB coder available?</a></li>
+                      <li><a href="#">Does TB coder work any accounts</a></li> -->
+                      </ul>
+                      
+                      @endforeach
+                      
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
   </div>
 
 
@@ -2524,7 +2569,7 @@ $(document).ready(function(){
       </div>
     </section>
 
-    {{ Form::close() }}
+  <!--   {{ Form::close() }} -->
 
                 <!-- /.content -->
             </aside><!-- /.right-side -->
