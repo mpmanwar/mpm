@@ -27,7 +27,7 @@ class HomeController extends BaseController {
 		}
 
 		$data['heading'] = "DASHBOARD";
-		$data['title'] = "";
+		$data['title'] = "Dashboard";
 		return View::make('home.dashboard', $data);
 	}
 

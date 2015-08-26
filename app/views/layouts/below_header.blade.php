@@ -18,7 +18,7 @@
             <li>{{ $sub_url }}</li>
             @endif
 
-            @if(isset($title) && $title != "")
+            @if(isset($title) && $title != "Dashboard")
             {{ '<li class="active">'.$title.'</li>' }}
             @endif
             

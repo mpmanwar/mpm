@@ -45,6 +45,8 @@ https://www.liberiangeek.net/2014/09/install-memcached-ubuntu-14-04-lts/
 ssh root@106.187.95.65
 password:  AppsbEE##::321
 cd /var/www/mpm/mpm/
+git add -A
+git commit -a -m "no changes"
 git pull
 
 remove command : rm file.php
@@ -105,4 +107,12 @@ https://companycheck.co.uk/login/
 password: 123456
 Key : 74504559f9d824f16807c50fb5e3ea8ed891cf5ec169c18ef3fd8e261484
 https://companycheck.co.uk/api/json/search?name=tesco&apiKey=74504559f9d824f16807c50fb5e3ea8ed891cf5ec169c18ef3fd8e261484
+
+
+
+
+
+for mail
+apt-get install postfix
+/etc/init.d/postfix restart
 
