@@ -11,7 +11,13 @@
             <?php if(isset($sub_url)): ?>
             <?php echo "| ".$sub_url; ?>
 
-            <?php endif; ?><?php echo "| ".$title; ?></title>
+            <?php endif; ?>
+            
+            <?php if(isset($title) && $title != ""): ?>
+            <?php echo "| ".$title; ?>
+
+            <?php endif; ?>
+        </title>
         
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>

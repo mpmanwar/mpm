@@ -9,7 +9,12 @@
             @endif
             @if(isset($sub_url))
             {{ "| ".$sub_url }}
-            @endif{{ "| ".$title }}</title>
+            @endif
+            
+            @if(isset($title) && $title != "")
+            {{ "| ".$title }}
+            @endif
+        </title>
         
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
