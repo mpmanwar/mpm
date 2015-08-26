@@ -4,8 +4,9 @@
 @stop
 
 @section('myjsfile')
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
-<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/sites/users.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 <!-- page script -->
 <script type="text/javascript">
@@ -82,9 +83,25 @@ $(function() {
             <li>
               <a href="/add-user" class="btn btn-info"><!--<i class="fa fa fa-file-text-o"></i>--> Invite Staff User</a>
             </li>
+            <li>
+              <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
+            </li>
             <div class="clearfix"></div>
           </ul>
         </div>
+
+        <div class="top_search_con">
+               <div class="top_bts">
+                <ul style="padding:0;">
+                  <li>
+                    <?php $value = Session::get('show_staff_archive');?>
+                    <a href="javascript:void(0)" id="archive_div">
+                      {{ (isset($value) && $value == "Y") ? "Show Archived":"Hide Archived" }}</a>
+                  </li>
+                  <div class="clearfix"></div>
+                </ul>
+              </div>
+              </div>
         <div class="clearfix"></div>
 
       </div>
@@ -107,8 +124,8 @@ $(function() {
             <tbody role="alert" aria-live="polite" aria-relevant="all">
               @if( isset($staff_details) && count($staff_details) >0 )
                 @foreach($staff_details as $key=>$value)
-                <tr>
-                  <td><input type="checkbox" /></td>
+                <tr class="all_check" {{ ($value['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
+                  <td><input type="checkbox" data-archive="{{ $value['show_archive'] }}" class="ads_Checkbox" name="staff_delete_id[]" value="{{ $value['user_id'] }}"></td>
                   <td align="center"><a href="/my-details/{{ $value['user_id'] }}/{{ base64_encode('staff') }}">{{ $value['fname'] or "" }} {{ $value['lname'] or "" }}</a></td>
                   <td align="center">{{ $value['position_name'] or "" }}</td>
                   <td align="center">{{ isset($value['created'])?date("d-m-Y", strtotime($value['created'])):"" }}</td>

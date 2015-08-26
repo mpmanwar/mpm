@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+	$('#allCheckSelect').on('ifChecked', function(event){
+		$('input').iCheck('check');
+	});
+
+	$('#allCheckSelect').on('ifUnchecked', function(event){
+		$('input').iCheck('uncheck');
+	});
+
 	$('.iradio_minimal').on('ifChecked', function(event){
 		
 		var value = $(this).find(".handle-change-user").data('type');
@@ -182,6 +190,76 @@ $(document).ready(function(){
     	}
  	});
  	//############## Get relationship client portion end ################//
+
+	// Archive and Un-Archive staff start //
+	  $("#archivedButton").click(function(){
+	    var val = [];
+	    $(".ads_Checkbox:checked").each( function (i) {
+	      if($(this).is(':checked')){
+	        val[i] = $(this).val();
+	      }
+	    });
+	    
+	    if(val.length>0){
+	      var status = $.trim($(this).html());
+	      if(confirm("Do you want to change the status of the staff?")){
+	        $.ajax({
+	            type: "POST",
+	            url: '/staff/archive-staff',
+	            data: { 'users_id' : val, 'status' : status },
+	            success : function(resp){
+	              window.location = '/staff-details';
+	            }
+	        });
+	      }
+
+	    }else{
+	      alert('Please select atleast one staff');
+	    }
+	  
+	});
+
+	$("#archive_div").click(function(){
+	    var is_archive;
+	    var html = $(this).html();
+	    if($.trim(html) == 'Show Archived'){
+	      is_archive  = 'N';
+	    }else{
+	      is_archive  = 'Y';
+	    }
+	    //alert(is_archive);return false;
+	    $.ajax({
+	      type: "POST",
+	      url: '/staff/show-archive-staff',
+	      data: { 'is_archive' : is_archive },
+	      success : function(resp){//return false;
+	        window.location = '/staff-details';
+	      }
+	    });
+	      
+	});
+
+	$(".ads_Checkbox").on('ifChecked', function(event){
+	    $(".ads_Checkbox:checked").each( function (i) {
+	        if($(this).data("archive") == "Y"){
+	          $("#archivedButton").html('Un-Archive');
+	        }else{
+	          $("#archivedButton").html('Archive');
+	        }
+	    });
+	});
+
+	$(".ads_Checkbox").on('ifUnchecked', function(event){
+		$(".ads_Checkbox:checked").each( function (i) {
+		    if($(this).data("archive") == "Y"){
+		      $("#archivedButton").html('Un-Archive');
+		    }else{
+		      $("#archivedButton").html('Archive');
+		    }
+		});
+	});
+
+// Archive and Un-Archive client start //
 
 
 });

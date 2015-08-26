@@ -71,6 +71,9 @@ Route::any('/update-status', array("as"=>"update_status", "uses"=>'UserControlle
 Route::any('/user/get-relation-client/{id}', array("as"=>"get_relation_client", "uses"=>'UserController@get_relation_client'));
 Route::any('/user/delete-user-client', array("as"=>"delete_user_client", "uses"=>'UserController@delete_user_client'));
 Route::any('/user/update-related-company-status', array("as"=>"update_related_company_status", "uses"=>'UserController@update_related_company_status'));
+
+
+
 ### Routes for user related URL's end ###
 
 
@@ -216,7 +219,6 @@ Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardCont
 Route::any('/pdf-upload', array("as"=>"pdf_upload", "uses"=>'NoticeboardController@pdf_upload'));
 Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
 Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
-Route::any('/staff-details', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
 Route::any('/staff-holidays/{type}', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
 Route::any('/time-sheet-reports/{type}', array("as"=>"time_sheet_reports", "uses"=>'TimesheetController@time_sheet_reports'));
 Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
@@ -225,24 +227,23 @@ Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'Cp
 Route::any('/calenderview', array("as"=>"calenderview", "uses"=>'NoticeboardController@calenderview'));
 Route::any('/get-calender', array("as"=>"get_calender", "uses"=>'NoticeboardController@get_calender'));
 
+/*=============== Staff Data Start =================*/
+Route::any('/staff-details', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
+Route::any('/staff/archive-staff', 'StaffdataController@archive_staff');
+Route::any('/staff/show-archive-staff', 'StaffdataController@show_archive_staff');
+/*=============== Staff Data End =================*/
+
 /*=============== Staff Profile Start =================*/
 Route::get('/staff-profile', 'StaffprofileController@dashboard');
 Route::get('/my-details/{user_id}/{type}', 'StaffprofileController@my_details');
-//Route::get('/delete-stafffile/{user_id}', 'StaffprofileController@delete_stafffile');
 Route::any('/delete-stafffile', 'StaffprofileController@delete_stafffile');
-
 Route::any('/add-position-type', array("as"=>"add_position_type", "uses"=>'StaffprofileController@add_position_type'));
 Route::any('/delete-position-type', array("as"=>"delete_position_type", "uses"=>'StaffprofileController@delete_position_type'));
-
 Route::any('/add-department-type', array("as"=>"add_department_type", "uses"=>'StaffprofileController@add_department_type'));
 Route::any('/delete-department-type', array("as"=>"delete_department_type", "uses"=>'StaffprofileController@delete_department_type'));
-//Route::get('/my-detailsUpdate', 'StaffprofileController@my_detailsUpdate');
-
 Route::post('/staff/user-details-process', 'StaffprofileController@user_details_process');
 Route::get('/profile/to-list', 'StaffprofileController@to_list');
-
 Route::post('/prof-file', 'StaffprofileController@prof_file');
-
 Route::get('/staffholidays', 'StaffprofileController@getstaffholidays');
 /*=============== Staff Profile End =================*/
 
