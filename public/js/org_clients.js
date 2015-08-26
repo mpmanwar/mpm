@@ -554,7 +554,7 @@ $("#savenotes").click(function(){
 		},
 		success: function(resp) {
 			console.log(resp);
-           var title=
+          // var title=
             $("#notes_font").css("display", "block");
             $(".notes_innermsg_top").css("display", "none");
             

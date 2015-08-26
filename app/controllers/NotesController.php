@@ -73,7 +73,7 @@ class NotesController extends BaseController {
         $data['inserted_id']=$notes_id;
         
         echo View::make('home.organisation.notesedit', $data);
-        
+        //echo $data;
         //echo $this->last_query();die();
          //print_r($data);die();
          
