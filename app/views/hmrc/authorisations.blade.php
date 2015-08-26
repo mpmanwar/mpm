@@ -151,10 +151,15 @@ $(function() {
                 },
                 success : function(resp){
                     //var res = JSON.parse(resp);
+                
                   console.log(resp);
-                  
-                  
-                  $("#resperson").html(resp);
+                   if(resp!= "")
+                  {
+                    $("#resperson").html(resp);
+                  }
+                  else{
+                    $("#resperson").html("");
+                  }
                   
                /*  if(resp!= "") {
                     var res = JSON.parse(resp);
@@ -209,8 +214,14 @@ $(function() {
                     //var res = JSON.parse(resp);
                   console.log(resp);
                   
+                  if(resp!= "")
+                  {
+                    $("#restab2").html(resp);
+                  }
+                  else{
+                    $("#restab2").html("");
+                  }
                   
-                  $("#restab2").html(resp);
                   
                /*  if(resp!= "") {
                     var res = JSON.parse(resp);
