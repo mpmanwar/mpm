@@ -3,8 +3,20 @@
     <head>
         <meta charset="UTF-8">
         
-        <title><?php echo $title; ?></title>
-        
+        <title>i-Practice
+            <?php if(isset($title) && $title != ""): ?>
+            <?php echo "| ".$title; ?>
+
+            <?php endif; ?>
+        </title>
+        <!-- <?php if(isset($previous_page)): ?>
+        <?php echo "| ".strip_tags($previous_page); ?>
+
+        <?php endif; ?>
+        <?php if(isset($sub_url)): ?>
+        <?php echo "| ".$sub_url; ?>
+
+        <?php endif; ?> -->
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->

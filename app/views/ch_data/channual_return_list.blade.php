@@ -290,13 +290,13 @@ $(function() {
           <th width="2%"><span class="custom_chk"><input type='checkbox' id="CheckallCheckbox" /></span></th>
           <th width="8%">D0I</th>
           <th>CRN</th>
-          <th>BUSINESS NAME</th>
+          <th width="15%">BUSINESS NAME</th>
           <th>YEAR END</th>
           <th>AUTHEN CODE</th>
           <th>LAST RETURN DATE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>SEND TO TASKS</th>
+          <th>SEND TO TASKS <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>STAFF</th>
         </tr>
       </thead>

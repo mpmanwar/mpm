@@ -3,8 +3,17 @@
     <head>
         <meta charset="UTF-8">
         
-        <title>{{ $title }}</title>
-        
+        <title>i-Practice
+            @if(isset($title) && $title != "")
+            {{ "| ".$title }}
+            @endif
+        </title>
+        <!-- @if(isset($previous_page))
+        {{ "| ".strip_tags($previous_page) }}
+        @endif
+        @if(isset($sub_url))
+        {{ "| ".$sub_url }}
+        @endif -->
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
