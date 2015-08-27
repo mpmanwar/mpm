@@ -12,8 +12,8 @@
                          <p><span class="n_heading_name">By {{$user['fname']}} {{$user['lname']}}</span> <span class="n_date">On: {{ $orgdtails_notes['created'] or "" }}</span></p>
                         </div>
                         <div class="print">
-                        <a href="#"><img src="/img/print.png"></a>
-                       
+                       <!-- <a href="#"><img src="/img/print.png"></a> -->
+                        <a onclick="window.print();" href="#"><img src="/img/print.png" /></a>
                        
                         </div>
                         <div class="clearfix"></div>

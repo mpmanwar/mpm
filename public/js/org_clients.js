@@ -554,8 +554,8 @@ $("#savenotes").click(function(){
            //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
             
-            if(notestitle.length>"32"){
-                 var title = notestitle.substr(0,32);
+            if(notestitle.length>"52"){
+                 var title = notestitle.substr(0,52);
                   var finaltitle=title+'...' 
             }
             else{
@@ -637,9 +637,9 @@ $("#savenotes").click(function(){
     
     //var edittitle = editnotesval.substr(0,20);
     
-    if(editnotesval.length>"32"){
+    if(editnotesval.length>"52"){
         
-                 var edit_title = editnotesval.substr(0,32);
+                 var edit_title = editnotesval.substr(0,52);
                   var finaledittitle=edit_title+'...' 
            
             //alert(finaledittitle);

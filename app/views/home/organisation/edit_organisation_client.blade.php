@@ -2511,7 +2511,12 @@ $(document).ready(function(){
                         <p><span class="n_heading_name">By {{$user['fname']}} {{$user['lname']}}</span> <span class="n_date">On: {{ $orgdtails_notes['created'] or "" }}</span></p>
                         </div>
                         <div class="print">
-                        <a  href="#"><img src="/img/print.png" /></a>
+                        
+                        
+                        
+                        
+                        
+                        <a onclick="window.print();" href="#"><img src="/img/print.png" /></a>
                        
                        
                         </div>
@@ -2562,7 +2567,7 @@ $(document).ready(function(){
                    
                       
                       
-{{ (strlen($org_notes_row->title) > 32)? substr(strip_tags($org_notes_row->title), 0, 32)."...": strip_tags($org_notes_row->title) }}
+{{ (strlen($org_notes_row->title) > 52)? substr(strip_tags($org_notes_row->title), 0, 52)."...": strip_tags($org_notes_row->title) }}
                       
                       
                       
