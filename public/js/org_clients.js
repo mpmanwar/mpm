@@ -501,10 +501,14 @@ $("#sync_data_button").click(function(){
 // SYNC DATA upload from organisation client edit page end //
 
 
-
+//$("#notes_innermsg_top").hide();
 
 $("#demo").hide();
+//$("#notes_innermsg_top").css("display", "none");
+
 $("#addnotes_button").click(function(){
+
+$(".notes_innermsg_top").css("display", "block");
 
 //alert('fsfsfsf');
 $("#notes_font").hide();
@@ -512,16 +516,160 @@ $("#demo").show();
 });
 
 $("#cancle_notes").click(function(){
-
+$(".notes_innermsg_top").css("display", "none");
 $("#demo").hide();
 $("#notes_font").show();
 });
 
 
 
-$(".title_view").click(function(){
+
+
+$("#savenotes").click(function(){
+    
+   if( $("#notestitle").val()==""){
+     $("#notes_error").html('Please enter  Notes Title');
+        return false;
+   }
+    else{
+               
+        $("#notes_error").html('');
+        
+        
+        var notestitle= $("#notestitle").val();
+    var notesmsg= $("#notesmsg").val();
+    var client_id= $("#client_id").val();
+        
+       // console.log(notestitle);
+        //console.log(notesmsg);
+       // console.log(client_id);
+        
+        
+        $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/org-notes',
+		data: 
+			{ 'notestitle':notestitle, 'notesmsg' : notesmsg, 'client_id' : client_id 
+		},
+		success: function(resp) {
+			console.log(resp);
+          // var title=
+            $("#notes_font").css("display", "block");
+            $(".notes_innermsg_top").css("display", "none");
+            
+            var r = resp.split('|||');
+            
+            
+            
+            
+            $("#notes_font").html(r[1]);
+            
+            
+            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+notestitle+'</a></li>');
+            
+            
+            }
+	});
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+
+
+  });
+  
+   $("body").on("click", "#editsave_notes", function(){
+
+    
+    //alert('adadadadada');return false;
+    
+   
+    var editnotesval= $("#editnotestitle").val();
+    var editnotesmsg= $("#editnotesmsg").val();
+   var edited_id= $("#editorgnotes_id").val();
+    var client_id= $("#editclient_id").val();
+    
+    /*console.log(editnotesval);
+    console.log(editnotesmsg);
+    console.log(edited_id);
+    console.log(client_id);*/
+    console.log(edited_id);
+    
+    
+    
+    
+    
+    
+    
+    $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/editorg-notes',
+		data: 
+			{ 'editnotesval':editnotesval, 'editnotesmsg' : editnotesmsg,'edited_id':edited_id, 'client_id' : client_id 
+		},
+		success: function(resp) {
+			console.log(resp);
+            
+            $("#notes_font").html(resp);
+           
+           $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+editnotesval+'</a>');
+           
+            
+            }
+	});
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    });
+    
+      $("body").on("click", "#delete_notes", function(){
+        
+        var edited_id= $("#editorgnotes_id").val();
+         var client_id= $("#editclient_id").val();
+        
+        //var notesmsgid =$(this).attr('data-id');
+        
+    $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/deleteorg-notes',
+		data: 
+			{ 'edited_id':edited_id,'client_id':client_id
+		},
+		success: function(resp) {
+			console.log(resp);
+            
+            $("#notes_font").html(resp);
+            $("#listtitle"+edited_id).remove();
+            }
+	});                        
+        
+        
+        
+                                                        
+  
+    });
+  
+});//end of main document ready
+
+$("body").on("click", ".title_view", function(){
 
 var notesmsgid =$(this).attr('data-id');
+//alert(notesmsgid);
 console.log(notesmsgid);
 $.ajax({
 		type: "POST",
@@ -539,21 +687,6 @@ $.ajax({
 
 
 });
-
-$("#savenotes").click(function(){
-    
-   if( $("#notestitle").val()==""){
-     $("#notes_error").html('Please enter  Notes Title');
-        return false;
-   }
-    else{
-        $("#notes_error").html('');
-    }
-
-
-  });
-});//end of main document ready
-
 
 
 

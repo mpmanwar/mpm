@@ -298,6 +298,7 @@ Route::any('/hmrc', 'HmrcController@hmrc');
 Route::any('/hmrc/authorisations', 'HmrcController@authorisations');
 Route::any('/hmrc/emails', 'HmrcController@emails');
 Route::any('/hmrc/tool', 'HmrcController@tool');
+Route::any('/hmrc/taxrates', 'HmrcController@taxrates');
 
 Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
 /*==================HMRC ==============*/
@@ -305,6 +306,8 @@ Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
 Route::any('/org-notes', 'NotesController@orgnotes');
 Route::any('/view-orgnotes', 'NotesController@view_orgnotes');
+Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
+Route::any('/deleteorg-notes', 'NotesController@deleteorg_notes');
 
 /*================== Notes End ==============*/
 

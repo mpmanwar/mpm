@@ -71,10 +71,10 @@ CALCULATORS</p>
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/hmrc/taxrates">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-<p class="c_tagline2">CONTACTS</p>
+<p class="c_tagline">TAX RATES &<br> THRESHOLDS</p>
 <div class="clearfix"></div>
 </div></a>
 </li>

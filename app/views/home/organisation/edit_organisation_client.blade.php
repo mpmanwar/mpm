@@ -2465,15 +2465,15 @@ $(document).ready(function(){
                     </div>
                     <div class="row">
                       <div class="col-xs-12 col-xs-8">
-                        <div class="col_m2 icon_poisition">
-                        <div class="notes_innermsg_top">
-                         {{ Form::open(array('url' => '/org-notes', 'files' => true)) }}
+                        <div class="col_m2 icon_poisition" >
+                        <div class="notes_innermsg_top" style="display:none;" >
+                      <!--   {{ Form::open(array('url' => '/org-notes', 'files' => true)) }} -->
                          <img src="/img/icon_1.png" class="heading_icon">
                   
-                    <div id="demo">
+                    <div id="demo" >
                     <p id="notes_error"></p>
                     <div class="form-group">
-                <label for="exampleInputPassword1">Notes Title</label>
+                <label for="exampleInputPassword1">Title</label>
                  <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
                    <input type="text" name="notestitle" id="notestitle" class="form-control" />
                 
@@ -2481,20 +2481,22 @@ $(document).ready(function(){
               </div>
                     
                     <div class="form-group">
-                <label for="exampleInputPassword1">Notes Message</label>
+                <label for="exampleInputPassword1">Message</label>
                 <textarea name="notesmsg" rows="4" cols="20" id="notesmsg" class="form-control"></textarea>
                 </div>
                 
                 <div class="add_client_btn">
                             <button class="btn btn-danger" id="cancle_notes" type="button">Cancel</button>
-                             <button class="btn btn-info" id="savenotes" type="submit" >Save</button>
+                           <!-- <button class="btn btn-info"  type="submit">Edit</button> 
+                           <button class="btn btn-success" id="" type="submit" >Save</button>-->
+                           <button type="button" id="savenotes" class="btn btn-success"> Save</button>
                            
                           </div>
                 
                    
                     <div class="clearfix"></div>
                     </div>
-                    {{ Form::close() }}
+                   <!-- {{ Form::close() }} -->
                         </div>
                         
                         
@@ -2517,9 +2519,9 @@ $(document).ready(function(){
                         <p class="n_text">{{ $orgdtails_notes['textmessage'] or "" }}</p>
                         
                         <div class="add_client_btn">
-                            <button class="btn btn-danger back" type="button">Delete</button>
+                             <!--<button class="btn btn-danger back" type="button">Delete</button>
                             <button class="btn btn-info"  type="submit">Save</button>
-                            <!-- <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
+                            <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
                           </div>
                            <div class="clearfix"></div>
                  </div>
@@ -2528,19 +2530,17 @@ $(document).ready(function(){
                       </div>
                       <div class="col-xs-12 col-xs-4"> 
                       <div class="col_m2">
-                      <div class="noted_right">
-                      <img src="/img/plus_1.png" class="icon_gap" id="addnotes_button" /> <strong class="notes_h_t">New Notes</strong>
-                      <div class="notes_points">
+                      <div class="noted_right"> <a id="addnotes_button" href="javascript:void(0)" >
+                      <img src="/img/plus_1.png" class="icon_gap"  /> <strong class="notes_h_t">New Notes</strong></a>
+                      <div class="notes_points"> 
                       <span class="notes_h_t">NOTES</span>
                      
                     
-                      @foreach($org_notes as $key=>$org_notes_row)
-                      <ul>
-                     
-                      <li><a data-id="{{ $org_notes_row->orgnotes_id }}" class="title_view" href="javascript:void(0)">{{ $org_notes_row->title }}</a></li>
-                     
-                     
-                     
+                      
+                      <ul id="newaddnotes">
+                     @foreach($org_notes as $key=>$org_notes_row)
+                      <li id="listtitle{{ $org_notes_row->orgnotes_id }}"><a data-id="{{ $org_notes_row->orgnotes_id }}" class="title_view" href="javascript:void(0)">{{ $org_notes_row->title }}</a></li>
+                      @endforeach
                      <!-- <li><a href="#">How does TB coder work</a></li>
                       <li><a href="#">Is TB coder a Secure site?</a></li>
                       <li><a href="#">Sign Up for a TB coder account</a></li>
@@ -2549,7 +2549,7 @@ $(document).ready(function(){
                       <li><a href="#">Does TB coder work any accounts</a></li> -->
                       </ul>
                       
-                      @endforeach
+                     
                       
                       </div>
                       </div>

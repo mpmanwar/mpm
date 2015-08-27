@@ -925,7 +925,7 @@ border: 1px solid #e2e4e6;
 .icon_gap{padding-right:10px;}
 .notes_points{width:100%; margin-top:20px;}
 .notes_points ul{list-style:none; margin:0; padding:15px 0 0 0;}
-.notes_points ul li{background:url(../img/book.png) left center no-repeat; margin-bottom:10px;}
+.notes_points ul li{background:url(../img/book.png) left center no-repeat; margin-bottom:5px;}
 .notes_points ul li a{padding-left:30px; color:#049cdb; font-size:16px;}
 .notes_points ul li a:hover{text-decoration:underline;}
 
