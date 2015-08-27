@@ -289,7 +289,7 @@ $(function() {
           <th>LAST RETURN DATE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th width="11%">SEND TO TASKS <a href="javascript:void(0)" class="auto_send-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="11%">SEND TO TASKS <a href="#" data-toggle="modal" data-target="#auto_send-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>STAFF</th>
         </tr>
       </thead>
@@ -364,10 +364,10 @@ $(function() {
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>DAYS</th>
-          <th>JOB START DATE</th>
+          <th width="11%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>NOTES</th>
-          <th width="10%">EMAIL CLIENT</th>
-          <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" style="font-size: 11px;">Add/Edit list</a></th>
+          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
         </tr>
       </thead>
 
@@ -424,14 +424,32 @@ $(function() {
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
-              <td align="left">
-                <select class="form-control newdropdown">
+              <td>
+                <div class="email_client_selectbox">
+                  <span>SEND</span>
+                  <div class="small_icon" data-id="{{ $details['client_id'] }}"></div><div class="clr"></div>
+                  <div class="select_toggle" id="status{{ $details['client_id'] }}" style="display: none;">
+                    <ul>
+                      @if(isset($email_templates) && count($email_templates) >0)
+                        @foreach($email_templates as $key=>$temp_row)
+                          <li><a href="javascript:void(0)" data-template_id="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</a></li>
+                        @endforeach
+                      @endif
+                    </ul>
+                  </div>
+                </div>
+
+                <div style="float:right"><a href="javascript:void(0)"><img src="/img/corner_arrow.png" style="height:12px;"></a></div>
+
+
+
+                <!-- <select class="form-control newdropdown">
                   @if(isset($email_templates) && count($email_templates) >0)
                     @foreach($email_templates as $key=>$temp_row)
                       <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
                     @endforeach
                   @endif
-                </select>
+                </select> -->
               </td>
               
               <td align="center" width="12%">
@@ -864,12 +882,6 @@ $(function() {
   <div class="modal-dialog" style="width:370px;">
     <div class="modal-content">
       <div class="loader_show"></div>
-      <!-- <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD NEW FIELD</h4>
-        <div class="clearfix"></div>
-      </div> -->
-    {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
       <div class="modal-body">
         <div class="form-group">
             <div class="tab_topcon">
@@ -891,13 +903,97 @@ $(function() {
         </div>
 
       </div>
-    {{ Form::close() }}
+    </div>
   </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
 </div>
 <!-- Auto send modal end -->
+
+<!-- Job start date modal start -->
+<div class="modal fade" id="job_start_date-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <div class="loader_show"></div>
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="tab_topcon">
+              <div class="send_task job_start_date">
+                <div class="jsd_cont01">
+                  <label for="manage_check"> Auto Set Job Start Date at SEND Date Plus </label></div> 
+                <div class="jsd_cont02"><input type="text" name="dead_line" id="dead_line" style="width:40%; padding: 0; text-align: center; height: 19px;" value="" /> Days</div>
+              </div>
+              <div class="clearfix"></div>
+            </div>     
+        </div>
+
+        <div class="auto_modal_footer clearfix" style="margin-right: 22px;">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-info pull-left save_t2" id="jsd_save">Save</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Job start date modal end -->
+
+<!-- Email Client modal start -->
+<div class="modal fade" id="email_client-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:515px;">
+    <div class="modal-content">
+      <div class="loader_show"></div>
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="tab_topcon">
+              <div class="email_client">
+                <div class="days_count">
+                  <label for="manage_check" class="auto_t">Auto Send</label>
+                    <select class="form-control newdropdown float_c" >
+                      <option value="8">Email Template</option>
+                      <option value="17">my template</option>
+                      <option value="20">tregather</option>
+                    </select>
+                   <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /> </div>
+                   <label for="" class="auto_t"> Days</label>
+
+                    <select class="form-control newdropdown deadline_box" >
+                      <option value="8">Before</option>
+                      <option value="17">After</option>
+                      
+                    </select>
+                     <label for="manage_check" class="auto_t">deadline date</label>
+
+                </div> 
+               
+              </div>
+
+              <div class="email_client">
+                <div class="days_count">
+                  <label for="manage_check" class="auto_t">Remind Client Every</label>
+                  <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /></div>
+                    <label for="" class="auto_t"> Days after email date</label>
+                </div> 
+               
+              </div>
+
+
+              <div class="clearfix"></div>
+            </div>     
+        </div>
+
+        <div class="auto_modal_footer clearfix" style="margin-right: 5px;">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Email Client modal end -->
 
 @stop
 
