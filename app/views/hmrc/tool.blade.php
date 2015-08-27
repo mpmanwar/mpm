@@ -128,7 +128,7 @@ $(function() {
  <td class="" width="50%" colspan="2"><a href="http://www.hmrc.gov.uk/tools/r85/r85-2015.htm" target="_blank" data-toggle="tooltip" title="Check whether you can get bank or building society interest paid tax-free for the tax year 2015 to 2016" class="hmrc_btn2 ">Check if your bank or building or society can pay your interest without tax being taken off</a></td>
     </tr>
    <tr>
-    <td colspan="4" class="hmrc_a">NATIONAL INSURANCE</td>
+    <td colspan="4" class="hmrc_a gap_1">NATIONAL INSURANCE</td>
     </tr>
    <tr>
     <td><a href="https://www.gov.uk/claim-national-insurance-refund" data-toggle="tooltip" title="Apply for a refund on your National Insurance contributions" target="_blank" class="hmrc_btn ">National Insurance refund</a></td>
@@ -149,13 +149,13 @@ $(function() {
     <td><p class="hmrc_a gap_1">RESIDENCE</p></td>
   </tr>
   <tr>
-    <td><a href="https://www.gov.uk/self-assessment-ready-reckoner" target="_blank" data-toggle="tooltip" title="A tool to help you budget for your first Self Assessment tax bill if you're self-employed" class="hmrc_btn ">Self-employed ready reconer</a></td>
-    <td><a href="http://www.hmrc.gov.uk/gds/specialist/lloyds_calculator.htm" target="_blank" data-toggle="tooltip" title="Work out adjustments under section 107 Finance Act 2000 when filing your Self Assessment tax return" class="hmrc_btn ">Lloyds Calculator</a></td>
-    <td><a href="http://tools.hmrc.gov.uk/esi/screen/ESI/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your employment status" class="hmrc_btn ">Employment Status Indicator</a></td>
-    <td><a href="http://tools.hmrc.gov.uk/rift/screen/SRT+-+Combined/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your residence status for Income Tax and Capital Gains Tax" class="hmrc_btn ">Tax residence indicator</a></td>
+    <td><a href="https://www.gov.uk/self-assessment-ready-reckoner" target="_blank" data-toggle="tooltip" title="A tool to help you budget for your first Self Assessment tax bill if you're self-employed" class="hmrc_btn3 ">Self-employed ready reconer</a></td>
+    <td><a href="http://www.hmrc.gov.uk/gds/specialist/lloyds_calculator.htm" target="_blank" data-toggle="tooltip" title="Work out adjustments under section 107 Finance Act 2000 when filing your Self Assessment tax return" class="hmrc_btn3 ">Lloyds Calculator</a></td>
+    <td><a href="http://tools.hmrc.gov.uk/esi/screen/ESI/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your employment status" class="hmrc_btn3 ">Employment Status Indicator</a></td>
+    <td><a href="http://tools.hmrc.gov.uk/rift/screen/SRT+-+Combined/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your residence status for Income Tax and Capital Gains Tax" class="hmrc_btn3 ">Tax residence indicator</a></td>
   </tr>
   <tr>
-   <td colspan="4" class="hmrc_a">PAYE</td>
+   <td colspan="4" class="hmrc_a gap_1">PAYE</td>
    </tr>
   <tr>
     <td id="btn_1"><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave and pay when you have a child</a></td>
@@ -176,7 +176,7 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">STAMP DUTY LAND TAX(SDLT)</td>
+  <td colspan="4" class="hmrc_a gap_1">STAMP DUTY LAND TAX(SDLT)</td>
   </tr>
   <tr>
     <td><a href="http://www.hmrc.gov.uk/tools/sdlt/land-and-property.htm" target="_blank" data-toggle="tooltip" title="Work out how much SDLT you need to pay when buying or transferring freehold land or property" class="hmrc_btn">SDLT Freehold purchase calculator</a></td>
@@ -185,7 +185,7 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">PENSIONS</td>
+  <td colspan="4" class="hmrc_a gap_1">PENSIONS</td>
   </tr>
   <tr>
     <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance calculators</a></td>
@@ -194,7 +194,7 @@ $(function() {
     <td><a href="http://www.hmrc.gov.uk/tools/annual-allowance/calculator.htm" target="_blank" data-toggle="tooltip" title="Pension input amount calculator" class="hmrc_btn">Pension input calculator</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">CHILD BENEFIT AND CHILD TRUST FUND</td>
+  <td colspan="4" class="hmrc_a gap_1">CHILD BENEFIT AND CHILD TRUST FUND</td>
   </tr>
   <tr>
     <td><a href="https://www.gov.uk/child-benefit-tax-calculator" target="_blank" data-toggle="tooltip" title="Check if you need to pay the High Income Child Benefit Tax Charge" class="hmrc_btn">Child Benefit Tax Calculator</a></td>
@@ -203,7 +203,7 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
    <tr>
-  <td colspan="4" class="hmrc_a">TAX CREDITS</td>
+  <td colspan="4" class="hmrc_a gap_1">TAX CREDITS</td>
   </tr>
   <tr>
     <td><a href="https://www.gov.uk/childcare-vouchers-better-off-calculator" target="_blank" data-toggle="tooltip" title="Find out how childcare vouchers from your employer affect your tax credits" class="hmrc_btn">Child vouchers: Better of calculators</a></td>
@@ -213,7 +213,7 @@ $(function() {
     <td><a href="https://www.gov.uk/childcare-costs-for-tax-credits" target="_blank" data-toggle="tooltip" title="Calculate your childcare costs for claiming tax credits" class="hmrc_btn">Tax credits : working out childcare cost</a></td>
   </tr>
  <tr>
-  <td colspan="4" class="hmrc_a">VAT</td>
+  <td colspan="4" class="hmrc_a gap_1">VAT</td>
   </tr>
   <tr>
     <td><a href="https://www.gov.uk/vat-payment-deadlines" target="_blank" data-toggle="tooltip" title="Work out the VAT payment deadline for your accounting period" class="hmrc_btn">VAT Payment deadline calculator</a></td>
@@ -222,7 +222,7 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">CORPORATE TAX</td>
+  <td colspan="4" class="hmrc_a gap_1">CORPORATE TAX</td>
   </tr>
   <tr>
     <td><a href="http://www.hmrc.gov.uk/payinghmrc/ct-nil.htm" target="_blank" data-toggle="tooltip" title="Tell HMRC you have no Corporation Tax due" class="hmrc_btn">No Corporation tax due</a></td>
@@ -231,7 +231,7 @@ $(function() {
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">INHERITANCE TAX AND BEREAVEMENT</td>
+  <td colspan="4" class="hmrc_a gap_1">INHERITANCE TAX AND BEREAVEMENT</td>
   </tr>
   <tr>
     <td><a href="http://www.hmrc.gov.uk/tools/bereavement/index.htm" target="_blank" data-toggle="tooltip" title="Find out what to do when dealing with HMRC after someone dies" class="hmrc_btn">Bereavement guide</a></td>
@@ -241,7 +241,7 @@ $(function() {
     <td><a href="https://www.gov.uk/government/publications/inheritance-tax-grossing-up-calculators" target="_blank" data-toggle="tooltip" title="Work out an estate value when legacies in a will are free of tax and other assets are tax exempt" class="hmrc_btn">Inheritance Tax : grossing calculators</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">IMPORT AND EXPORT</td>
+  <td colspan="4" class="hmrc_a gap_1">IMPORT AND EXPORT</td>
   </tr>
   <tr>
     <td colspan="2"><a href="http://ec.europa.eu/taxation_customs/dds2/seed/seed_home.jsp?Lang=en&redirectionDate=2011080" target="_blank" data-toggle="tooltip" title="Check whether your SEED Excise ID is valid" class="hmrc_btn">System for the exchange of Excise Data(SEED)</a></td>
@@ -249,16 +249,16 @@ $(function() {
     <td><a href="http://www.uk-customs-tariff.com/Login.aspx?ReturnUrl=%2fDefault.aspx" target="_blank" data-toggle="tooltip" title="All 3 volumes of the Tariff, which sets out the duties and measures that affect imports, exports and goods in transit"  class="hmrc_btn2">UK intergrated Tariff</a></td>
   </tr>
   <tr>
-   <td><p class="hmrc_a">TRUSTS</p></td>
-    <td><p class="hmrc_a">IR35:WORKING THROUGH AN INTERMEDIARY</p></td>
-    <td><p class="hmrc_a">GAMBLING DUTIES</p></td>
-    <td><p class="hmrc_a">CERTIFICATS OF TAX DEPOSIT</p></td>
+   <td><p class="hmrc_a gap_1">TRUSTS</p></td>
+    <td><p class="hmrc_a gap_1">IR35:WORKING THROUGH AN INTERMEDIARY</p></td>
+    <td><p class="hmrc_a gap_1">GAMBLING DUTIES</p></td>
+    <td><p class="hmrc_a gap_1">CERTIFICATS OF TAX DEPOSIT</p></td>
   </tr>
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/trusts/index.htm" target="_blank" data-toggle="tooltip" title="Work out a discretionary trust's available tax pool" class="hmrc_btn">Tax pool calculator</a></td>
-    <td><a href="http://www.hmrc.gov.uk/ir35/ir35.xlt" data-toggle="tooltip" title="Help you calculate a deemed employment payment" target="_blank" class="hmrc_btn">Deemed payments spreadsheet</a></td>
-    <td><a href="https://public-online.hmrc.gov.uk/machine-games-duty-search" target="_blank" data-toggle="tooltip" title="Search business by postcode" class="hmrc_btn">Machine Games Duty registered Business</a></td>
-    <td><a href="http://www.hmrc.gov.uk/tools/certtaxdeposit/index.htm" target="_blank" data-toggle="tooltip" title="Check the level of interest due against a tax deposit you have already made under the Certificate of Tax Deposit scheme" class="hmrc_btn">Certificate of Tax Deposit Interest Calculator</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/trusts/index.htm" target="_blank" data-toggle="tooltip" title="Work out a discretionary trust's available tax pool" class="hmrc_btn3">Tax pool calculator</a></td>
+    <td><a href="http://www.hmrc.gov.uk/ir35/ir35.xlt" data-toggle="tooltip" title="Help you calculate a deemed employment payment" target="_blank" class="hmrc_btn3">Deemed payments spreadsheet</a></td>
+    <td><a href="https://public-online.hmrc.gov.uk/machine-games-duty-search" target="_blank" data-toggle="tooltip" title="Search business by postcode" class="hmrc_btn3">Machine Games Duty registered Business</a></td>
+    <td><a href="http://www.hmrc.gov.uk/tools/certtaxdeposit/index.htm" target="_blank" data-toggle="tooltip" title="Check the level of interest due against a tax deposit you have already made under the Certificate of Tax Deposit scheme" class="hmrc_btn3">Certificate of Tax Deposit Interest Calculator</a></td>
   </tr>
   
   </tbody>
