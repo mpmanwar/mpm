@@ -298,6 +298,7 @@ Route::any('/hmrc', 'HmrcController@hmrc');
 Route::any('/hmrc/authorisations', 'HmrcController@authorisations');
 Route::any('/hmrc/emails', 'HmrcController@emails');
 Route::any('/hmrc/tool', 'HmrcController@tool');
+Route::any('/hmrc/taxrates', 'HmrcController@taxrates');
 
 Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
 /*==================HMRC ==============*/

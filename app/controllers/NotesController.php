@@ -36,7 +36,7 @@ class NotesController extends BaseController {
        	$admin_s = Session::get('admin_details');
 		$user_id = $admin_s['id'];
 		$groupUserId = $admin_s['group_users'];
-        
+        $data=array();
      /*   $postData 		= Input::all();
        $data=array();
         //$data['title'] = 'Notes';
@@ -73,6 +73,10 @@ class NotesController extends BaseController {
         $data['inserted_id']=$notes_id;
         
         echo View::make('home.organisation.notesedit', $data);
+       /*header('Content-Type: application/json; charset=utf-8');
+
+            echo json_encode($data);
+            exit;*/
         //echo $data;
         //echo $this->last_query();die();
          //print_r($data);die();
@@ -135,7 +139,7 @@ class NotesController extends BaseController {
                
         $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();  
         
-        
+       // $data['inserted_id']=$edited_id;
         echo View::make('home.organisation.notesedit', $data);
         	//echo $data;
 		

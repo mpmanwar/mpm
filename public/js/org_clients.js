@@ -558,13 +558,15 @@ $("#savenotes").click(function(){
             $("#notes_font").css("display", "block");
             $(".notes_innermsg_top").css("display", "none");
             
-            $("#notes_font").html(resp);
+            var r = resp.split('|||');
             
             
             
             
+            $("#notes_font").html(r[1]);
             
-            $("#newaddnotes").prepend('<li><a data-id="21" class="title_view" href="javascript:void(0)">'+notestitle+'</a></li>');
+            
+            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+notestitle+'</a></li>');
             
             
             }

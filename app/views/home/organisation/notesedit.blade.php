@@ -1,4 +1,8 @@
 
+@if(!empty($inserted_id))
+ {{$inserted_id or ""}}|||
+ @endif
+
                         <div class="notes_inner_top">
                         <img src="/img/icon_1.png" class="heading_icon">
                         <div class="n_top_left">

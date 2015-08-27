@@ -249,5 +249,30 @@ class HmrcController extends BaseController
          return View::make('hmrc.tool', $data);
         
     }
+    
+    
+    public function taxrates(){
+        $data['heading'] = "TAX RATES & THRESHOLDS";
+        $data['title'] = "Tax Rates & Thresholds";
+        $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.taxrates', $data);
+        
+    }
+    
+    
+    
+    
 
 }
