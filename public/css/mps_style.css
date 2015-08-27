@@ -1002,11 +1002,13 @@ border: 1px solid #e2e4e6;
 /*.hmrc_top{width:100%; margin-bottom:15px; float: left;}
 .hmrc_top ul{list-style:none; padding:0;}
 .hmrc_top ul li{ }*/
-.hmrc_btn{background:#fff; font-size:13px; float:left; width:95%; margin:15px 0 25px 0; color:#448FE4; font-weight:bold; padding:3px 3px 3px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
-.hmrc_btn2{background:#fff; font-size:13px; float:left; width:98%; margin:15px 0 25px 0; color:#448FE4; font-weight:bold; padding:3px 3px 3px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
-.hmrc_btn:hover, .hmrc_btn2:hover{color: #000!important;}
+.hmrc_btn{background:#fff; font-size:13px; float:left; width:95%; margin:10px 0 5px 0; color:#448FE4; font-weight:bold; padding:7px 3px 7px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
+.hmrc_btn2{background:#fff; font-size:13px; float:left; width:98%; margin:15px 0 5px 0; color:#448FE4; font-weight:bold; padding:7px 3px 7px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
+.hmrc_btn3{background:#fff; font-size:13px; float:left; width:95%; margin:0px 0 5px 0; color:#448FE4; font-weight:bold; padding:7px 3px 7px 15px; text-align:left; box-shadow:-2px 2px 2px 0px #bbbbbb; outline:none; border:1px solid #dededc;}
+
+.hmrc_btn:hover, .hmrc_btn2:hover, .hmrc_btn3:hover{color: #000!important;}
 .hmrc_a{padding-bottom:5px; border-bottom:1px solid #ccc; float:left; width:95%; color:#080808!important; font-size:15px;}
-.gap_1{margin-top:39px;}
+.gap_1{margin-top:35px;}
 .hmrc_01{width:85%!important;}
 /*a.hmrc_btn:hover:after{font-size:20px!important; content: attr(data-title);} */
 

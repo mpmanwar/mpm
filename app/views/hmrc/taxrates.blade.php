@@ -121,107 +121,148 @@ $(function() {
 <tr>
   <td colspan="4" class="hmrc_a">INCOME TAX</td>
   </tr>
+  
   <tr>
-    <td class="" width="25%"><a href="https://www.gov.uk/check-income-tax" data-toggle="tooltip" title="Check you're paying the right amount of Income Tax" target="_blank" class="hmrc_btn ">HMRC Tax Checker</a></td>
+    <td class="" width="25%"><a href="https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past#personal-allowances" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax - Personal Allowances</a></td>
     
-    <td class="" width="25%"><a href="http://tools.hmrc.gov.uk/hmrctaxcalculator/screen/Personal+Tax+Calculator/en-GB/summary?user=guest"data-toggle="tooltip" title="Estimate how much Income Tax and National Insurance you'll need to pay this year" target="_blank" class="hmrc_btn ">HMRC Tax Calculator</a></td>
- <td class="" width="50%" colspan="2"><a href="http://www.hmrc.gov.uk/tools/r85/r85-2015.htm" target="_blank" data-toggle="tooltip" title="Check whether you can get bank or building society interest paid tax-free for the tax year 2015 to 2016" class="hmrc_btn2 ">Check if your bank or building or society can pay your interest without tax being taken off</a></td>
+    <td class="" width="25%"><a href="https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past#tax-rates-and-bands"data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax Rates and Bands</a></td>
+ <td class="" width="25%"><a href="https://www.gov.uk/donating-to-charity/donating-straight-from-your-wages-or-pension" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax Relief - Gift Aid</a></td>
+ <td class="" width="25%"><a href="https://www.gov.uk/income-tax-reliefs/maintenance-payments-tax-relief" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax Relief - Maintenance Payments</a></td>
+    </tr>
+  
+   <tr>
+    <td class="" width="25%"><a href="http://www.hmrc.gov.uk/manuals/vcmmanual/vcm10530.htm" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax Reducers - EIS</a></td>
+    
+    <td class="" width="25%"><a href="http://www.hmrc.gov.uk/manuals/vcmmanual/vcm31130.htm" title="" target="_blank" class="hmrc_btn ">Income Tax Reducers - SEIS</a></td>
+ <td class="" width="25%"><a href="http://webarchive.nationalarchives.gov.uk/20140109143644/http:/www.hmrc.gov.uk/guidance/vct.htm#2" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">Income Tax Reducers - VCT</a></td>
+ <td class="" width="25%"><a href="" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn ">&nbsp;</a></td>
+    </tr>
+    
+    
+   <tr>
+    <td><p class="hmrc_a gap_1">NATIONAL INSURANCE CONTRIBUTIONS</p></td>
+    <td><p class="hmrc_a gap_1">CAPTIAL GAINS TAX</p></td>
+    <td><p class="hmrc_a gap_1">PENSION PREMIUMS</p></td>
+    <td><p class="hmrc_a gap_1">STAMP TAXES</p></td>
     </tr>
    <tr>
-    <td colspan="4" class="hmrc_a">NATIONAL INSURANCE</td>
-    </tr>
-   <tr>
-    <td><a href="https://www.gov.uk/claim-national-insurance-refund" data-toggle="tooltip" title="Apply for a refund on your National Insurance contributions" target="_blank" class="hmrc_btn ">National Insurance refund</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn3 ">NIC - Rates and Allowances</a></td>
     
-    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip"  title="Check a company directors National Insurance contributions" target="_blank" class="hmrc_btn ">Director NIC Calculator</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-capital-gains-tax/capital-gains-tax-rates-and-annual-tax-free-allowances#capital-gains-tax-rates-and-annual-tax-free-allowances" data-toggle="tooltip"  title="" target="_blank" class="hmrc_btn3 ">CGT Rates and Annual Tax-Free Allowances</a></td>
     
-    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" data-toggle="tooltip" title="Calculate your employee's National Insurance contributions" target="_blank" class="hmrc_btn ">NIC Calculator</a></td>
+    <td><a href="https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn3 ">Pension Premiums - Rates and Allowances</a></td>
     
-    <td><a href="http://www.hmrc.gov.uk/tools/payinghmrc/currentyear.htm" target="_blank" data-toggle="tooltip" title="PAYE/NIC current year reference checker" target="_blank" class="hmrc_btn ">PAYE/NIC Current Year reference checker</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-stamp-duty-land-tax/stamp-duty-land-tax-rates" target="_blank" data-toggle="tooltip" title="" target="_blank" class="hmrc_btn3 ">Stamp Taxes - Rates and Thresholds</a></td>
   </tr>
- <tr>
+ <!--<tr>
     <td colspan="4"><a href="http://www.hmrc.gov.uk/tools/payinghmrc/class1anic.htm" target="_blank" data-toggle="tooltip" title="Class 1A NIC reference checker" class="hmrc_btn " style="width:24%" >Class 1A NIC Reference Checker</a></td>
-  </tr>
+  </tr>-->
  <tr>
-    <td><p class="hmrc_a gap_1">SELF EMPLOYED</p></td>
-    <td><p class="hmrc_a gap_1">SELF ASSESSMENT</p></td>
-    <td><p class="hmrc_a gap_1">EMPLOYMENT STATUS</p></td>
-    <td><p class="hmrc_a gap_1">RESIDENCE</p></td>
+    <td><p class="hmrc_a gap_1">KEY DATES AND DEADLINES</p></td>
+    <td><p class="hmrc_a gap_1">SAVING AND INVESTMENT</p></td>
+    <td><p class="hmrc_a gap_1">CHARITABLE GIVING</p></td>
+    <td><p class="hmrc_a gap_1">&nbsp;</p></td>
   </tr>
   <tr>
-    <td><a href="https://www.gov.uk/self-assessment-ready-reckoner" target="_blank" data-toggle="tooltip" title="A tool to help you budget for your first Self Assessment tax bill if you're self-employed" class="hmrc_btn ">Self-employed ready reconer</a></td>
-    <td><a href="http://www.hmrc.gov.uk/gds/specialist/lloyds_calculator.htm" target="_blank" data-toggle="tooltip" title="Work out adjustments under section 107 Finance Act 2000 when filing your Self Assessment tax return" class="hmrc_btn ">Lloyds Calculator</a></td>
-    <td><a href="http://tools.hmrc.gov.uk/esi/screen/ESI/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your employment status" class="hmrc_btn ">Employment Status Indicator</a></td>
-    <td><a href="http://tools.hmrc.gov.uk/rift/screen/SRT+-+Combined/en-GB/summary?user=guest" target="_blank" data-toggle="tooltip" title="Check your residence status for Income Tax and Capital Gains Tax" class="hmrc_btn ">Tax residence indicator</a></td>
+    <td><a href="https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/419276/AgentsTaxCal_v3_WW_20150319.pdf" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Key Dates & Deadlines</a></td>
+    <td><a href="https://www.gov.uk/individual-savings-accounts" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Savings & Investments - ISAs</a></td>
+    <td><a href="https://www.gov.uk/donating-to-charity/gift-aid" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Charitable Giving - Gift Aid</a></td>
+    <td><a href="" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">&nbsp;</a></td>
   </tr>
   <tr>
-   <td colspan="4" class="hmrc_a">PAYE</td>
+   <td><p class="hmrc_a gap_1">CORPORATION TAX</p></td>
+    <td>&nbsp;</td>
+    <td><p class="hmrc_a gap_1">MILEAGE</p></td>
+    <td>&nbsp;</td>
    </tr>
   <tr>
-    <td id="btn_1"><a href="https://www.gov.uk/pay-leave-for-parents" target="_blank" data-toggle="tooltip" title="Find out if you can get maternity, paternity or shared parental leave - for employees" class="hmrc_btn ">Calculate your leave and pay when you have a child</a></td>
-    <td><a href="https://www.gov.uk/government/collections/how-to-manually-check-your-payroll-calculations" target="_blank" data-toggle="tooltip" title="Check your payroll calculations" class="hmrc_btn ">Nil Payroll Calculator</a></td>
-    <td><a href="http://www.hmrc.gov.uk/payinghmrc/payeCumbernauld.htm" target="_blank" data-toggle="tooltip" title="Request form for PAYE CHAPS transfer" class="hmrc_btn ">PAYE CHAPS</a></td>
-    <td><a href="https://www.gov.uk/basic-paye-tools" target="_blank" data-toggle="tooltip" title="Tools to help you run your payroll" class="hmrc_btn ">Basic PAYE Tools</a></td>
+    <td id="btn_1"><a href="https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax#corporation-tax-rates" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Corporation Tax - Rates</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax#ring-fence-companies" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Corporation Tax - Ring fence companies</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-travel-mileage-and-fuel-allowances/travel-mileage-and-fuel-rates-and-allowances" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Mileage Allowances -Travel- mileage & fuel rates</a></td>
+    <td><a href="https://www.gov.uk/government/publications/advisory-fuel-rates" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn3 ">Mileage Allowances - Advisory Fuel Rates</a></td>
+  </tr>
+  
+  
+  <tr>
+  <td colspan="4" class="hmrc_a gap_1">CAPITAL ALLOWANCES</td>
+   </tr>
+  
+  <tr>
+    <td><a href="https://www.gov.uk/work-out-capital-allowances/rates-and-pools" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Rates and Pools</a></td>
+    <td><a href="https://www.gov.uk/capital-allowances/annual-investment-allowanceB39" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Annual Investment Allowance</a></td>
+    <td><a href="https://www.gov.uk/capital-allowances/first-year-allowances"  target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - First Year Allowances</a></td>
+    <td><a href="https://www.gov.uk/capital-allowances/business-carsB41" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Business Cars</a></td>
   </tr>
   <tr>
-    <td><a href="https://www.gov.uk/calculate-tax-on-company-cars" target="_blank" data-toggle="tooltip" title="Calculate the company car tax charge based on a car's taxable value and CO2 rating" class="hmrc_btn ">Company car calculator</a></td>
-    <td><a href="https://www.gov.uk/maternity-paternity-calculator" target="_blank" data-toggle="tooltip" title="Work out your employee's maternity or paternity pay and leave" class="hmrc_btn ">Maternity and pay calculator</a></td>
-    <td><a href="https://www.gov.uk/paye-online/desktop-viewer"  target="_blank" data-toggle="tooltip" title="View your employee tax codes and notices" class="hmrc_btn ">PAYE Desktop Viewer</a></td>
-    <td><a href="http://www.hmrc.gov.uk/payinghmrc/stop-cumbernauld.htm" target="_blank" data-toggle="tooltip" title="Stop receiving a PAYE payment booklet" class="hmrc_btn ">Stop PAYE Payment booklet form</a></td>
+  <td colspan="4" class="hmrc_a gap_1">VALUE ADDED TAX</td>
+   </tr>
+  
+  <tr>
+    <td><a href="https://www.gov.uk/vat-rates" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">VAT Rates</a></td>
+    <td><a href="https://www.gov.uk/vat-registration-thresholds" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">VAT Registration Thresholds</a></td>
+    <td><a href="https://www.gov.uk/government/publications/vat-road-fuel-scale-charges-table"  target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">VAT Road Scale Charges </a></td>
+    <td><a href="" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">&nbsp;</a></td>
   </tr>
+  <tr>
+  <td colspan="4" class="hmrc_a gap_1">INHERITANCE TAX</td>
+   </tr>
  <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/payinghmrc/currentyear.htm" target="_blank" data-toggle="tooltip" title="PAYE/NIC current year reference checker" class="hmrc_btn">PAYE/NIC Current year reference checker</a></td>
-    <td><a href="https://www.gov.uk/get-paye-forms-p45-p60" target="_blank" data-toggle="tooltip" title="Get P45s and P60s for your employees if you can't produce these using your payroll software" class="hmrc_btn">Order P45s and P60s</a></td>
-    <td><a href="https://www.gov.uk/calculate-statutory-sick-pay" target="_blank" data-toggle="tooltip" title="Work out your employee's statutory sick pay" class="hmrc_btn">Statutory sick pay calculator</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
+    <td><a href="https://www.gov.uk/inheritance-tax/overview" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Inheritance Rates & Thresholds</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-inheritance-tax-thresholds/inheritance-tax-thresholds" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Inheritance Tax Thresholds - Prev years</a></td>
+    <td><a href="https://www.gov.uk/government/publications/rates-and-allowances-inheritance-tax-interest-rates/rates-and-allowances-inheritance-tax-interest-rates" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Inheritance Tax interest rates</a></td>
+    <td><a href="#" target="_blank" class="hmrc_btn">&nbsp;</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a">STAMP DUTY LAND TAX(SDLT)</td>
+  <td colspan="4" class="hmrc_a gap_1">VECHILE BENEFITS</td>
   </tr>
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/sdlt/land-and-property.htm" target="_blank" data-toggle="tooltip" title="Work out how much SDLT you need to pay when buying or transferring freehold land or property" class="hmrc_btn">SDLT Freehold purchase calculator</a></td>
+  <td class="" width="50%" colspan="2"><a href="http://www.hmrc.gov.uk/tools/r85/r85-2015.htm" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn2 ">Vehicle Benefits - Percentage, 2011/12 onwards: Ty	</a></td>
+  <td class="" width="50%" colspan="2"><a href="http://www.hmrc.gov.uk/tools/r85/r85-2015.htm" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn2 ">Vehicle Benefits - Percentage, 2011/12 onwards: Ty	</a></td>
+    <!--<td><a href="http://www.hmrc.gov.uk/tools/sdlt/land-and-property.htm" target="_blank" data-toggle="tooltip" title="Work out how much SDLT you need to pay when buying or transferring freehold land or property" class="hmrc_btn">SDLT Freehold purchase calculator</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/sdlt/leases.htm" target="_blank" data-toggle="tooltip" title="Work out how much SDLT you need to pay on a new lease" class="hmrc_btn">SDLT lease transation calculator</a></td>
     <td><a href="http://www.hmrc.gov.uk/payinghmrc/sdltShipley.htm" target="_blank" data-toggle="tooltip" title="Request to pay SDLT by CHAPS" class="hmrc_btn">SDLT CHAPS request</a></td>
     <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
   </tr>
   <tr>
   <td colspan="4" class="hmrc_a">PENSIONS</td>
-  </tr>
+  </tr>-->
   <tr>
-    <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance calculators</a></td>
-    <td><a href="http://www.hmrc.gov.uk/tools/annualallowancelimit/index.htm" target="_blank" data-toggle="tooltip" title="Check if you need to pay a tax charge on your pension savings" class="hmrc_btn">Pension schemes annual all. checking tool</a></td>
-    <td><a href="http://www.hmrc.gov.uk/tools/lifetimeallowance/index.htm" target="_blank" data-toggle="tooltip" title="Check if you should apply for lifetime allowance protection on your pension" class="hmrc_btn">Pension schemes lifetime all. checking tool</a></td>
-    <td><a href="http://www.hmrc.gov.uk/tools/annual-allowance/calculator.htm" target="_blank" data-toggle="tooltip" title="Pension input amount calculator" class="hmrc_btn">Pension input calculator</a></td>
+   <!-- <td><a href="http://www.hmrc.gov.uk/tools/pension-allowance/index.htm" target="_blank" data-toggle="tooltip" title="Work out if you can top up your annual tax-free pension allowance" class="hmrc_btn">Pension saving annual allowance calculators</a></td>-->
+   <td class="" width="50%" colspan="2"><a href="http://www.hmrc.gov.uk/manuals/eimanual/EIM24705.htm" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn2 ">Vehicle Benefits - Percentage, 2002/03 onwards: Car	</a></td>
+   
+    <td><a href="http://www.hmrc.gov.uk/manuals/eimanual/EIM24400.htm" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Vehicle Benefits - Classic Cars</a></td>
+    <td><a href="http://www.hmrc.gov.uk/manuals/eimanual/EIM25580.htm" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Car fuel benefit - The multiplier</a></td>
+    <!--<td><a href="http://www.hmrc.gov.uk/tools/annual-allowance/calculator.htm" target="_blank" data-toggle="tooltip" title="Pension input amount calculator" class="hmrc_btn">Pension input calculator</a></td>-->
   </tr>
-  <tr>
+  <!--<tr>
   <td colspan="4" class="hmrc_a">CHILD BENEFIT AND CHILD TRUST FUND</td>
-  </tr>
+  </tr>-->
   <tr>
-    <td><a href="https://www.gov.uk/child-benefit-tax-calculator" target="_blank" data-toggle="tooltip" title="Check if you need to pay the High Income Child Benefit Tax Charge" class="hmrc_btn">Child Benefit Tax Calculator</a></td>
-    <td><a href="http://www.hmrc.gov.uk/tools/childtrustfundclaim/ctfaccount.htm" target="_blank" data-toggle="tooltip" title="Work out where your Child Trust Fund is held" class="hmrc_btn">Child Trust Fund Locator</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
+    <td><a href="https://www.gov.uk/expenses-and-benefits-company-vans/work-out-the-value" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Company Vans</a></td>
+    <td><a href="https://www.gov.uk/expenses-and-benefits-company-vans/whats-exempt" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Company Vans - Exemptions</a></td>
+    <td><a href="#" target="_blank" class="hmrc_btn">&nbsp;</a></td>
+    <td><a href="#" target="_blank" class="hmrc_btn">&nbsp;</a></td>
   </tr>
    <tr>
-  <td colspan="4" class="hmrc_a">TAX CREDITS</td>
+  <td colspan="4" class="hmrc_a gap_1">SOME USEFUL RATES</td>
   </tr>
   <tr>
-    <td><a href="https://www.gov.uk/childcare-vouchers-better-off-calculator" target="_blank" data-toggle="tooltip" title="Find out how childcare vouchers from your employer affect your tax credits" class="hmrc_btn">Child vouchers: Better of calculators</a></td>
-    <td><a href="https://www.gov.uk/qualify-tax-credits" target="_blank" data-toggle="tooltip" title="Find out if you qualify for tax credits" class="hmrc_btn">Tax credits questionaire</a></td>
+    <td><a href="https://www.gov.uk/state-pension" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Basic Retirement Pension</a></td>
+    <td><a href="https://www.gov.uk/child-benefit-ratesB62" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Child Benefit</a></td>
     
-    <td><a href="https://www.gov.uk/tax-credits-calculator" target="_blank" data-toggle="tooltip" title="Estimate of how much in tax credits you could get in total" class="hmrc_btn">Tax credits calculator</a></td>
-    <td><a href="https://www.gov.uk/childcare-costs-for-tax-credits" target="_blank" data-toggle="tooltip" title="Calculate your childcare costs for claiming tax credits" class="hmrc_btn">Tax credits : working out childcare cost</a></td>
+    <td><a href="https://www.gov.uk/employers-sick-pay/entitlement" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Statutory Sick Pay (SSP)</a></td>
+    <td><a href="https://www.gov.uk/employers-maternity-pay-leave/entitlement" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Statutory Maternity Pay (SMP)</a></td>
   </tr>
- <tr>
+<!-- <tr>
   <td colspan="4" class="hmrc_a">VAT</td>
-  </tr>
+  </tr>-->
   <tr>
-    <td><a href="https://www.gov.uk/vat-payment-deadlines" target="_blank" data-toggle="tooltip" title="Work out the VAT payment deadline for your accounting period" class="hmrc_btn">VAT Payment deadline calculator</a></td>
-    <td><a href="http://ec.europa.eu/taxation_customs/vies/" target="_blank" data-toggle="tooltip" title="Check a VAT number from any EU country to help you complete a EC Sales List (ESL)" class="hmrc_btn">EU VAT number validation</a></td>
-    <td><a href="http://www.hmrc.gov.uk/payinghmrc/paying-vat.htm" target="_blank" data-toggle="tooltip" title="Request to pay VAT by CHAPS" class="hmrc_btn">VAT CHAPS  request</a></td>
-    <td><a href="#" target="_blank" class="hmrc_btn">...</a></td>
+    <td><a href="https://www.gov.uk/employers-adoption-pay-leave/entitlement" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Statutory Adoption Pay (SAP)</a></td>
+    <td><a href="https://www.gov.uk/employers-paternity-pay-leave/entitlement" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Statutory Paternity Pay (SPP)*</a></td>
+    <td><a href="https://www.gov.uk/jobseekers-allowance/what-youll-get" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn">Useful Rates - Jobseeker's Allowance</a></td>
+    <td><a href="https://www.gov.uk/national-minimum-wage-rates" target="_blank" title="" class="hmrc_btn">Useful Rates - National Minimum Wage</a></td>
   </tr>
-  <tr>
+  <!--<tr>
   <td colspan="4" class="hmrc_a">CORPORATE TAX</td>
   </tr>
   <tr>
@@ -259,7 +300,7 @@ $(function() {
     <td><a href="http://www.hmrc.gov.uk/ir35/ir35.xlt" data-toggle="tooltip" title="Help you calculate a deemed employment payment" target="_blank" class="hmrc_btn">Deemed payments spreadsheet</a></td>
     <td><a href="https://public-online.hmrc.gov.uk/machine-games-duty-search" target="_blank" data-toggle="tooltip" title="Search business by postcode" class="hmrc_btn">Machine Games Duty registered Business</a></td>
     <td><a href="http://www.hmrc.gov.uk/tools/certtaxdeposit/index.htm" target="_blank" data-toggle="tooltip" title="Check the level of interest due against a tax deposit you have already made under the Certificate of Tax Deposit scheme" class="hmrc_btn">Certificate of Tax Deposit Interest Calculator</a></td>
-  </tr>
+  </tr>-->
   
   </tbody>
 </table>
