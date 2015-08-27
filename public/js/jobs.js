@@ -471,6 +471,10 @@ $(document).ready(function () {
     });
 /* ################# Job Start Date in job section end ################### */
 
+
+    $(".auto_send-modal").click(function(){
+        $("#auto_send-modal").modal("show");
+    });
     
     
 	

@@ -188,6 +188,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5098c2', end
 .job_checkbox{float:left; }
 .add_to_list{ margin-left: 20px; }
 .modal-footer1 {padding: 19px 0px 20px; margin-top: 15px; text-align: right; border-top: 1px solid #e5e5e5;}
+.auto_modal_footer { margin-right: 32px;}
 .email_btns1{float:right; width:130px;}
 .save_text {margin-right: 5px;}
 .email_btns2 {float: right; width: 150px;}
@@ -948,7 +949,7 @@ border: 1px solid #e2e4e6;
 .top_margin{ margin-top: 10px;}
 .chk_cont01{float:left; width: 136px;}
 .chk_cont02{float:left; width: 150px;}
-.auto_send{width:297px; margin: 0 0 0 30%; position: absolute; z-index: 20;}
+.auto_send{width:297px; margin: 0 0 0 8%; /* position: absolute; */ z-index: 20;}
 .delete_single_task{ margin-left: 14px;}
 .newdropdown{ cursor: pointer; border-radius:5px!important; -webkit-border-radius:5px!important; -moz-border-radius:5px!important; -o-border-radius:5px!important; border:1px solid #a9a9a9; color:#424147!important; font-size:12px; font-family:Arial, Helvetica, sans-serif; height:25px; padding:0px 5px;}
 
