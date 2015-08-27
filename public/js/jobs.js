@@ -498,9 +498,32 @@ $(document).ready(function () {
 /* ################# Job Start Date in job section end ################### */
 
 
-    $(".auto_send-modal").click(function(){
-        $("#auto_send-modal").modal("show");
+    $(".job_start_date-modal").click(function(){
+        $("#job_start_date-modal").modal("show");
     });
+
+    $(".email_client-modal").click(function(){
+        $("#email_client-modal").modal("show");
+    });
+
+    $(".ch_returns").on("click", ".small_icon", function(event){
+        var visable = 0;
+        event.stopPropagation();
+        var id = $(this).data("id");
+        if($(".select_toggle").is(':visible')){
+            visable = 1;
+        }
+        $(".select_toggle").hide();
+
+        if(visable == 1){
+            $("#status"+id).hide();
+        }else{
+            $("#status"+id).show();
+        }    
+        
+    });
+
+    //email_client-modal
     
     
 	
