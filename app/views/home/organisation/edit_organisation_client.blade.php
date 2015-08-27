@@ -2475,6 +2475,7 @@ $(document).ready(function(){
                     <div class="form-group">
                 <label for="exampleInputPassword1">Title</label>
                  <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
+                  <input name="editclient_id" id="editclient_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
                    <input type="text" name="notestitle" id="notestitle" class="form-control" />
                 
               
@@ -2482,7 +2483,7 @@ $(document).ready(function(){
                     
                     <div class="form-group">
                 <label for="exampleInputPassword1">Message</label>
-                <textarea name="notesmsg" rows="4" cols="20" id="notesmsg" class="form-control"></textarea>
+                <textarea name="notesmsg" rows="10" cols="20" id="notesmsg" class="form-control"></textarea>
                 </div>
                 
                 <div class="add_client_btn">
@@ -2505,8 +2506,8 @@ $(document).ready(function(){
                         <img src="/img/icon_1.png" class="heading_icon" />
                         <div class="n_top_left">
                         <span class="n_heading">{{ $orgdtails_notes['title'] or "" }}</span>
-                       
-                       
+                       <input type="hidden" name="msgid" id="msgid" value=" {{ $orgdtails_notes['orgnotes_id'] or "" }}"/>
+                        <input name="client_id" id="client_id" type="hidden" value="{{ $client_details['client_id'] or "" }}">
                         <p><span class="n_heading_name">By {{$user['fname']}} {{$user['lname']}}</span> <span class="n_date">On: {{ $orgdtails_notes['created'] or "" }}</span></p>
                         </div>
                         <div class="print">
@@ -2519,6 +2520,24 @@ $(document).ready(function(){
                         <p class="n_text">{{ $orgdtails_notes['textmessage'] or "" }}</p>
                         
                         <div class="add_client_btn">
+                        
+                        
+                    
+                    
+                    
+                      <button type="button" id="editsave_notes" class="btn btn-success "> Save</button>
+                       
+                       
+                       
+                       <!-- <button class="btn btn-success" id="editsave_notes" >Save</button> -->
+                        <button class="btn btn-info" id="editnotes"  type="button">Edit</button>
+                        
+                        
+                        <button type="button" id="delete_notes" class="btn btn-danger "> Delete</button>
+                      <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
+                        <a href="/organisation-clients" class="btn btn-primary">Cancel</a>
+                           
+                          
                              <!--<button class="btn btn-danger back" type="button">Delete</button>
                             <button class="btn btn-info"  type="submit">Save</button>
                             <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
@@ -2539,7 +2558,16 @@ $(document).ready(function(){
                       
                       <ul id="newaddnotes">
                      @foreach($org_notes as $key=>$org_notes_row)
-                      <li id="listtitle{{ $org_notes_row->orgnotes_id }}"><a data-id="{{ $org_notes_row->orgnotes_id }}" class="title_view" href="javascript:void(0)">{{ $org_notes_row->title }}</a></li>
+                      <li id="listtitle{{ $org_notes_row->orgnotes_id }}"><a data-id="{{ $org_notes_row->orgnotes_id }}" class="title_view" href="javascript:void(0)">
+                   
+                      
+                      
+{{ (strlen($org_notes_row->title) > 20)? substr(strip_tags($org_notes_row->title), 0, 20)."...": strip_tags($org_notes_row->title) }}
+                      
+                      
+                      
+                      
+                      </a></li>
                       @endforeach
                      <!-- <li><a href="#">How does TB coder work</a></li>
                       <li><a href="#">Is TB coder a Secure site?</a></li>
