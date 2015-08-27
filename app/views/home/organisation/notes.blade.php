@@ -28,7 +28,7 @@
                        
                        
                        <!-- <button class="btn btn-success" id="editsave_notes" >Save</button> -->
-                        <button class="btn btn-info"  type="button">Edit</button>
+                     <!--   <button class="btn btn-info"  type="button">Edit</button> -->
                         <button type="button" id="delete_notes" class="btn btn-danger"> Delete</button>
                       <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
                         <a href="/organisation-clients" class="btn btn-primary">Cancel</a>

@@ -507,6 +507,7 @@ $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
 $("#addnotes_button").click(function(){
+    $("#notes_error").html('');
 $("#notestitle").val("");
 $("#notesmsg").val("");
 
@@ -553,8 +554,8 @@ $("#savenotes").click(function(){
            //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
             
-            if(notestitle.length>"20"){
-                 var title = notestitle.substr(0,20);
+            if(notestitle.length>"32"){
+                 var title = notestitle.substr(0,32);
                   var finaltitle=title+'...' 
             }
             else{
@@ -636,9 +637,9 @@ $("#savenotes").click(function(){
     
     //var edittitle = editnotesval.substr(0,20);
     
-    if(editnotesval.length>"20"){
+    if(editnotesval.length>"32"){
         
-                 var edit_title = editnotesval.substr(0,20);
+                 var edit_title = editnotesval.substr(0,32);
                   var finaledittitle=edit_title+'...' 
            
             //alert(finaledittitle);

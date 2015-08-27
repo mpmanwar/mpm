@@ -2525,7 +2525,7 @@ $(document).ready(function(){
                     
                     
                     
-                      <button type="button" id="editsave_notes" class="btn btn-success "> Save</button>
+                   <!--   <button type="button" id="editsave_notes" class="btn btn-success "> Save</button> -->
                        
                        
                        
@@ -2562,7 +2562,7 @@ $(document).ready(function(){
                    
                       
                       
-{{ (strlen($org_notes_row->title) > 20)? substr(strip_tags($org_notes_row->title), 0, 20)."...": strip_tags($org_notes_row->title) }}
+{{ (strlen($org_notes_row->title) > 32)? substr(strip_tags($org_notes_row->title), 0, 32)."...": strip_tags($org_notes_row->title) }}
                       
                       
                       
