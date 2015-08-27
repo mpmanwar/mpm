@@ -10,7 +10,7 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
-
+        <link rel="icon" type="image/png" href="/img/favicon.ico" />
     </head>
     <body class="bg-black">
         
