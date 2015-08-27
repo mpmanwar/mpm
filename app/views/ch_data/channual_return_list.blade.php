@@ -861,8 +861,9 @@ $(function() {
 
 <!-- Auto send modal start -->
 <div class="modal fade" id="auto_send-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:400px;">
+  <div class="modal-dialog" style="width:370px;">
     <div class="modal-content">
+      <div class="loader_show"></div>
       <!-- <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">ADD NEW FIELD</h4>
@@ -873,8 +874,10 @@ $(function() {
         <div class="form-group">
             <div class="tab_topcon">
               <div class="send_task auto_send">
-                <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
-                <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 19px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
+                <div class=" chk_cont01">
+                  <!-- <input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /> -->
+                  <label for="manage_check"> Auto Send To Task </label></div> 
+                <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 19px;" value="{{ $autosend['days'] or "" }}" /> <label for=""> Days Before Deadline </label></div>
               </div>
               <div class="clearfix"></div>
             </div>     
@@ -883,7 +886,7 @@ $(function() {
         <div class="auto_modal_footer clearfix">
           <div class="email_btns">
             <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-info pull-left save_t2" data-client_type="org" id="add_business_type" name="save">Save</button>
+            <button type="button" class="btn btn-info pull-left save_t2" data-client_type="org" id="manage_check" name="save">Save</button>
           </div>
         </div>
 
