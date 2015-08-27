@@ -436,21 +436,21 @@ $(function() {
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td>
-                <div class="email_client_selectbox">
+                <div class="email_client_selectbox" style="height:24px;">
                   <span>SEND</span>
                   <div class="small_icon" data-id="{{ $details['client_id'] }}"></div><div class="clr"></div>
                   <div class="select_toggle" id="status{{ $details['client_id'] }}" style="display: none;">
                     <ul>
                       @if(isset($email_templates) && count($email_templates) >0)
                         @foreach($email_templates as $key=>$temp_row)
-                          <li><a href="javascript:void(0)" data-template_id="{{ $temp_row['email_template_id'] or "" }}" class="enter_email-modal">{{ $temp_row['name'] or "" }}</a></li>
+                          <li><a href="javascript:void(0)" data-template_id="{{ $temp_row['email_template_id'] or "" }}" class="send_template-modal">{{ $temp_row['name'] or "" }}</a></li>
                         @endforeach
                       @endif
                     </ul>
                   </div>
                 </div>
 
-                <div style="float:right"><a href="javascript:void(0)" class="send_template-modal"><img src="/img/corner_arrow.png" style="height:12px;"></a></div>
+                <div style="float:right"><a href="javascript:void(0)" class="enter_email-modal"><img src="/img/corner_arrow.png" style="height:12px;"></a></div>
 
               </td>
               
@@ -1014,8 +1014,8 @@ $(function() {
 
       <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
         <div class="form-group new_temp">                                
-            <div class="btn btn-success btn-file">
-                <i class="fa fa-paperclip"></i> Attachment
+            <div class="btn-file search_t">
+                <!-- <i class="fa fa-paperclip"></i> --> Attachment
                 <input type="file" name="add_file" id="add_file">
             </div>
             <!-- <p class="help-block">Max. 32MB</p> -->
