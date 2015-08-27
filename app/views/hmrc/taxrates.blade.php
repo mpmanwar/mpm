@@ -189,12 +189,12 @@ $(function() {
   
   <tr>
     <td><a href="https://www.gov.uk/work-out-capital-allowances/rates-and-pools" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Rates and Pools</a></td>
-    <td><a href="https://www.gov.uk/capital-allowances/annual-investment-allowanceB39" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Annual Investment Allowance</a></td>
+    <td><a href="https://www.gov.uk/capital-allowances/annual-investment-allowance" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Annual Investment Allowance</a></td>
     <td><a href="https://www.gov.uk/capital-allowances/first-year-allowances"  target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - First Year Allowances</a></td>
-    <td><a href="https://www.gov.uk/capital-allowances/business-carsB41" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Business Cars</a></td>
+    <td><a href="https://www.gov.uk/capital-allowances/business-cars" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Business Cars</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a gap_1">VALUE ADDED TAX</td>
+  <td colspan="4" class="hmrc_a gap_1">VALUE ADDED TAX </td>
    </tr>
   
   <tr>
