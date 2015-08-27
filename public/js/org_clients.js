@@ -552,7 +552,18 @@ $("#savenotes").click(function(){
          
            //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
-            var title = notestitle.substr(0,20);
+            
+            if(notestitle.length>"20"){
+                 var title = notestitle.substr(0,20);
+                  var finaltitle=title+'...' 
+            }
+            else{
+                finaltitle=notestitle;
+            }
+            
+            //alert(finaltitle);return false;
+          //  var title = notestitle.substr(0,20);
+            
            // alert(gorge);return false;
           
           
@@ -585,7 +596,7 @@ $("#savenotes").click(function(){
            // var len = notestitle.length
            // alert(len);
             
-            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+title+'...</a></li>');
+            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+finaltitle+'</a></li>');
             
             
             }
@@ -623,7 +634,25 @@ $("#savenotes").click(function(){
     
     
     
-    var edittitle = editnotesval.substr(0,20);
+    //var edittitle = editnotesval.substr(0,20);
+    
+    if(editnotesval.length>"20"){
+        
+                 var edit_title = editnotesval.substr(0,20);
+                  var finaledittitle=edit_title+'...' 
+           
+            //alert(finaledittitle);
+            }
+            
+            else{
+                finaledittitle=editnotesval;
+                //alert(finaledittitle);
+            }
+            
+    
+    
+    
+    
     
     
     $.ajax({
@@ -638,7 +667,7 @@ $("#savenotes").click(function(){
             
             $("#notes_font").html(resp);
            
-           $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+edittitle+'...</a>');
+           $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+finaledittitle+'</a>');
            
             
             }
