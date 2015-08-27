@@ -170,9 +170,9 @@ $(function() {
   });
 </script>
 
-<script src="{{ URL :: asset('ckeditor/ckeditor.js') }}"></script>
+<!-- <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}"></script> -->
 <script type="text/javascript">
-  $(window).load(function() {
+  /*$(window).load(function() {
     CKEDITOR.replace( 'add_message',
     { 
         toolbar :[['Source'],['Cut','Copy','Paste','PasteText','SpellChecker'],['Undo','Redo','-','SelectAll','RemoveFormat'],[ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ], ['SpecialChar','PageBreak']],
@@ -182,7 +182,23 @@ $(function() {
             showWordCount : true
         }
     });
-  });
+  });*/
+
+
+</script>
+
+<script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "spellchecker", "bbcode", "preview", "fullscreen" ]
+});
 </script>
 @stop
 
@@ -981,7 +997,7 @@ $(function() {
 
 <!-- Send Template modal start -->
 <div class="modal fade" id="send_template-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:700px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
