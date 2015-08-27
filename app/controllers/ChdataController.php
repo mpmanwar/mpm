@@ -801,6 +801,7 @@ class ChdataController extends BaseController {
 				$client_id = $this->import_company_details($company_number);
 				//$data['link'] = "/client/edit-org-client/".$client_id;
 				$data['link'] = "org";
+				$data['goto_link'] = base64_encode("org_client");
 			}else{
 				$client_id = $this->checkClientExists($officer->name);
 				if($client_id != ""){
@@ -811,6 +812,7 @@ class ChdataController extends BaseController {
 				
 				//$data['link'] = "/client/edit-ind-client/".$client_id;
 				$data['link'] = "ind";
+				$data['goto_link'] = base64_encode("ind_client");
 			}
 			$data['client_id'] = $client_id;
 			$data['base_url'] = url();
