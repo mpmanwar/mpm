@@ -197,7 +197,7 @@ tinymce.init({
         "insertdatetime media table contextmenu paste"
     ],
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "spellchecker", "bbcode", "preview", "fullscreen" ]
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
 });
 </script>
 @stop
