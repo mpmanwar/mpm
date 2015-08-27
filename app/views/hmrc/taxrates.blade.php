@@ -194,7 +194,7 @@ $(function() {
     <td><a href="https://www.gov.uk/capital-allowances/business-cars" target="_blank" data-toggle="tooltip" title="" class="hmrc_btn ">CA - Business Cars</a></td>
   </tr>
   <tr>
-  <td colspan="4" class="hmrc_a gap_1">VALUE ADDED TAX</td>
+  <td colspan="4" class="hmrc_a gap_1">VALUE ADDED TAX </td>
    </tr>
   
   <tr>
