@@ -16,7 +16,7 @@
                     
                     <div class="form-group">
                 <label for="exampleInputPassword1">Message</label>
-                <textarea name="notesmsg" rows="4" cols="20" id="editnotesmsg" class="form-control">{{ $orgdtails_notes['textmessage'] or "" }}</textarea>
+                <textarea name="notesmsg" rows="10" cols="20" id="editnotesmsg" class="form-control">{{ $orgdtails_notes['textmessage'] or "" }}</textarea>
                 </div>
                 
                 <div class="add_client_btn">
@@ -28,7 +28,7 @@
                        
                        
                        <!-- <button class="btn btn-success" id="editsave_notes" >Save</button> -->
-                        <button class="btn btn-info"  type="submit">Edit</button>
+                     <!--   <button class="btn btn-info"  type="button">Edit</button> -->
                         <button type="button" id="delete_notes" class="btn btn-danger"> Delete</button>
                       <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
                         <a href="/organisation-clients" class="btn btn-primary">Cancel</a>

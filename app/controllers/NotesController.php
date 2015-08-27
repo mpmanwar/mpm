@@ -100,7 +100,7 @@ class NotesController extends BaseController {
         
          //echo View::make('hmrc.rsponce')->with('datares',$data['name']);
          
-        echo View::make('home.organisation.notes', $data);
+        echo View::make('home.organisation.notesedit', $data);
         	//echo $data;
 		
         }
@@ -153,6 +153,7 @@ class NotesController extends BaseController {
     public function deleteorg_notes(){
         
         
+        
          
         $edited_id = Input::get("edited_id");
          $client_id = Input::get("client_id");
@@ -179,6 +180,29 @@ class NotesController extends BaseController {
         
     }
     
+    public function editmodeorg_notes(){
+        
+        $notesmsgid = Input::get("notesmsgid");
+        
+    if (Request::ajax()) {
+		
+        	$data['orgdtails_notes'] = OrgNotes::where('orgnotes_id','=',$notesmsgid)->select("orgnotes_id","user_id","client_id","title","textmessage","created")->first();
+		  $user=$data['orgdtails_notes']['user_id'];
+              // die();
+               
+        $data['user'] = User::where("user_id","=",$user)->select("fname", "lname","user_id")->first();  
+        
+        
+         //echo View::make('hmrc.rsponce')->with('datares',$data['name']);
+         
+        echo View::make('home.organisation.notes', $data);
+        	//echo $data;
+		
+        }
+   
+   
+   
+    }
     
     
     

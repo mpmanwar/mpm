@@ -308,7 +308,7 @@ Route::any('/org-notes', 'NotesController@orgnotes');
 Route::any('/view-orgnotes', 'NotesController@view_orgnotes');
 Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
 Route::any('/deleteorg-notes', 'NotesController@deleteorg_notes');
-
+Route::any('/editmodeorg-notes', 'NotesController@editmodeorg_notes');
 /*================== Notes End ==============*/
 
 /*================== Notes Start ==============*/

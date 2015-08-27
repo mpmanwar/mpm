@@ -507,6 +507,9 @@ $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
 $("#addnotes_button").click(function(){
+    $("#notes_error").html('');
+$("#notestitle").val("");
+$("#notesmsg").val("");
 
 $(".notes_innermsg_top").css("display", "block");
 
@@ -543,7 +546,34 @@ $("#savenotes").click(function(){
        // console.log(notestitle);
         //console.log(notesmsg);
        // console.log(client_id);
-        
+       
+       // var len = notestitle.length
+        //  alert(len);
+          
+         
+           //var toRemove = notestitle;
+            //var gorge = toRemove.replace(toRemove,'');
+            
+            if(notestitle.length>"52"){
+                 var title = notestitle.substr(0,52);
+                  var finaltitle=title+'...' 
+            }
+            else{
+                finaltitle=notestitle;
+            }
+            
+            //alert(finaltitle);return false;
+          //  var title = notestitle.substr(0,20);
+            
+           // alert(gorge);return false;
+          
+          
+          //ar stripped = strip_tags($('#text').html()
+          
+          
+          
+          
+         // return false;
         
         $.ajax({
 		type: "POST",
@@ -564,9 +594,10 @@ $("#savenotes").click(function(){
             
             
             $("#notes_font").html(r[1]);
+           // var len = notestitle.length
+           // alert(len);
             
-            
-            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+notestitle+'</a></li>');
+            $("#newaddnotes").prepend('<li id="listtitle'+r[0]+'"><a data-id="'+r[0]+'" class="title_view" href="javascript:void(0)">'+finaltitle+'</a></li>');
             
             
             }
@@ -604,6 +635,24 @@ $("#savenotes").click(function(){
     
     
     
+    //var edittitle = editnotesval.substr(0,20);
+    
+    if(editnotesval.length>"52"){
+        
+                 var edit_title = editnotesval.substr(0,52);
+                  var finaledittitle=edit_title+'...' 
+           
+            //alert(finaledittitle);
+            }
+            
+            else{
+                finaledittitle=editnotesval;
+                //alert(finaledittitle);
+            }
+            
+    
+    
+    
     
     
     
@@ -619,7 +668,7 @@ $("#savenotes").click(function(){
             
             $("#notes_font").html(resp);
            
-           $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+editnotesval+'</a>');
+           $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+finaledittitle+'</a>');
            
             
             }
@@ -637,28 +686,42 @@ $("#savenotes").click(function(){
     });
     
       $("body").on("click", "#delete_notes", function(){
-        
+        var deleted_id="";
         var edited_id= $("#editorgnotes_id").val();
          var client_id= $("#editclient_id").val();
+        var notesmsgid= $("#msgid").val();
+       if(notesmsgid){
+        deleted_id=notesmsgid;
+       }else{
+        deleted_id=edited_id;
+       }
+       deleted_id = $.trim(deleted_id);
+        //var edited_id= $("#editorgnotes_id").val();
+         //var client_id= $("#editclient_id").val();
         
+        console.log(deleted_id);
+        console.log(edited_id);
+        console.log(client_id);
+        //console.log($("#listtitle"+deleted_id));return false;
+        $("#listtitle"+deleted_id).remove();
         //var notesmsgid =$(this).attr('data-id');
-        
+        // if (confirm("Do you want to delete this field ?")) {
     $.ajax({
 		type: "POST",
 		//dataType: "html",
 		url: '/deleteorg-notes',
 		data: 
-			{ 'edited_id':edited_id,'client_id':client_id
+			{ 'edited_id':deleted_id,'client_id':client_id
 		},
 		success: function(resp) {
-			console.log(resp);
-            
+			//console.log(resp);
+            console.log(deleted_id);
             $("#notes_font").html(resp);
-            $("#listtitle"+edited_id).remove();
+            $("#listtitle"+deleted_id).remove();
             }
 	});                        
         
-        
+       // }
         
                                                         
   
@@ -681,6 +744,31 @@ $.ajax({
 		success: function(resp) {
 			console.log(resp);
             $("#notes_font").html(resp);
+            
+            }
+	});
+
+
+});
+
+$("body").on("click", "#editnotes", function(){
+
+var notesmsgid= $("#msgid").val();
+//alert(notesmsgid);return false;
+
+//var notesmsgid =$(this).attr('data-id');
+//alert(notesmsgid);
+console.log(notesmsgid);
+$.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/editmodeorg-notes',
+		data: {
+			'notesmsgid': notesmsgid
+		},
+		success: function(resp) {
+			console.log(resp);
+           $("#notes_font").html(resp);
             
             }
 	});
