@@ -244,7 +244,7 @@ $(document).ready(function () {
 /* ################# Delete to Task Management End ################### */
 
 /* ################# Global Task Management Start ################### */
-    $('#manage_check').on('ifChecked', function(event){
+    /*$('#manage_check').on('ifChecked', function(event){
         $("#dead_line").prop("disabled", true);
         var dead_line = $("#dead_line").val();
         var service_id = $("#service_id").val();
@@ -268,6 +268,32 @@ $(document).ready(function () {
 
     $('#manage_check').on('ifUnchecked', function(event){
         $("#dead_line").prop("disabled", false);
+    });*/
+
+    $('#manage_check').click(function(event){
+        var dead_line = $("#dead_line").val();
+        var service_id = $("#service_id").val();
+        if(dead_line == ""){
+            alert("Please Put The Days Before Deadline value");
+            return false;
+        }else{
+            $.ajax({
+                type: "POST",
+                dataType : 'json',
+                url: '/jobs/send-global-task',
+                data: { 'dead_line' : dead_line, 'service_id' : service_id },
+                beforeSend : function(){
+                    $(".loader_show").html('<img src="/img/spinner.gif" />');
+                },
+                success : function(resp){ 
+                    $.each(resp, function(key, value){
+                        $("#after_send_"+value.client_id).html('<button type="button" class="sent_btn">SENT</button>');
+                    });
+                    $("#auto_send-modal").modal("hide");
+                    $(".loader_show").html('');
+                }
+            });
+        }
     });
 /* ################# Global Task Management End ################### */
 
