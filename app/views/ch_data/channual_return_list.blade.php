@@ -270,20 +270,13 @@ $(function() {
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
-    <div class="tab_topcon" style="position:relative; height: 25px">
-      
+    <!-- <div class="tab_topcon" style="position:relative; height: 25px">
       <div class="send_task auto_send">
         <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
-
-         <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
+        <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
       </div>
-
-      <!-- <div class="send_task" style="width:27%; margin: 0 0 0 420px; position: absolute;">
-        <span class="custom_chk"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></span>  <input type="text" name="dead_line" id="dead_line" style="width:8%; padding: 0; text-align: center;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> Days Before Deadline
-      </div> -->
-
       <div class="clearfix"></div>
-    </div>
+    </div> -->
     <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
@@ -296,7 +289,7 @@ $(function() {
           <th>LAST RETURN DATE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>COUNT DOWN</th>
-          <th>SEND TO TASKS <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="11%">SEND TO TASKS <a href="javascript:void(0)" class="auto_send-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>STAFF</th>
         </tr>
       </thead>
@@ -865,6 +858,43 @@ $(function() {
   <!-- /.modal-dialog -->
 </div>        
 <!-- Notes modal start -->
+
+<!-- Auto send modal start -->
+<div class="modal fade" id="auto_send-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD NEW FIELD</h4>
+        <div class="clearfix"></div>
+      </div> -->
+    {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="tab_topcon">
+              <div class="send_task auto_send">
+                <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
+                <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 19px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>     
+        </div>
+
+        <div class="auto_modal_footer clearfix">
+          <div class="email_btns">
+            <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-info pull-left save_t2" data-client_type="org" id="add_business_type" name="save">Save</button>
+          </div>
+        </div>
+
+      </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Auto send modal end -->
 
 @stop
 

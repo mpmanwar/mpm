@@ -33,7 +33,6 @@ $(function() {
 
       "aoColumns":[
             {"bSortable": false},
-            
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
