@@ -26,8 +26,10 @@ class Client extends Eloquent {
 				//Common::last_query();
 		    	if(isset($jobs) && count($jobs) >0){
 		    		$client_data[$i]['ch_manage_task'] 	= $jobs['status'];
+		    		$client_data[$i]['job_start_date'] 	= $jobs['created'];
 		    	}else{
 		    		$client_data[$i]['ch_manage_task'] 	= "N";
+		    		$client_data[$i]['job_start_date'] 	= "";
 		    	}
 				// ############### GET MANAGE TASK END ################## //
 
@@ -347,6 +349,7 @@ class Client extends Eloquent {
 					$client_array[$key] = $client_details[$key];
 					$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
 					$client_array[$key]['allocated_staffs'] = ClientListAllocation::getAllocatedStaff($details['client_id'], $service_id);
+					$client_array[$key]['jobs_start_days'] = JobsStartDate::getJobStartDaysByServiceId($service_id);
 				}
 			}
 		}

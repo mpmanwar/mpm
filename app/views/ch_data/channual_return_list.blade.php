@@ -424,7 +424,7 @@ tinymce.init({
               <td align="center">
                 <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
                    <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
-                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ $details['jobs_notes']['job_start_date'] or "" }}</a>
+                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("d-m-Y H:i", strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date'])) ):"" }}</a>
                   <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
                   <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
                     <ul>
@@ -433,8 +433,8 @@ tinymce.init({
                    <li>
                     <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
                       <var class="atc_event">
-                        <var class="atc_date_start">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</var>
-                        <var class="atc_date_end">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime($details['jobs_notes']['job_start_date'])) ):"" }}</var>
+                        <var class="atc_date_start">{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date'])) ):"" }}</var>
+                        <var class="atc_date_end">{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date']))) ):"" }}</var>
                         <var class="atc_timezone">Europe/London</var>
                         <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
                         <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
@@ -919,7 +919,7 @@ tinymce.init({
               <div class="send_task job_start_date">
                 <div class="jsd_cont01">
                   <label for="manage_check"> Auto Set Job Start Date at SEND Date Plus </label></div> 
-                <div class="jsd_cont02"><input type="text" name="dead_line" id="dead_line" style="width:40%; padding: 0; text-align: center; height: 19px;" value="" /> Days</div>
+                <div class="jsd_cont02"><input type="text" name="job_start_date" id="job_start_date" style="width:40%; padding: 0; text-align: center; height: 19px;" value="{{ (isset($jobs_start_days) && $jobs_start_days != "")?$jobs_start_days:"" }}" /> Days</div>
               </div>
               <div class="clearfix"></div>
             </div>     

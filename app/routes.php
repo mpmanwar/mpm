@@ -264,6 +264,8 @@ Route::post('/jobs/send-global-task', 'JobsController@send_global_task');
 Route::post('/jobs/save-made-up-date', 'JobsController@save_made_up_date');
 Route::post('/jobs/sync-jobs-clients', 'JobsController@sync_jobs_clients');
 Route::post('/jobs/save-jobs-startdate', 'JobsController@save_jobs_startdate');
+Route::post('/jobs/save-start-days', 'JobsController@save_start_days');
+
 
 /*=============== Jobs Dashboard Section End =================*/
 

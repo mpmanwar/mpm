@@ -279,6 +279,26 @@ class JobsController extends BaseController {
     }
     
 
+    public function save_start_days(){
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $service_id   = Input::get("service_id");
+        $days = JobsStartDate::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->first();
+
+        $data["days"] = Input::get("days");
+        if(isset($days) && count($days) >0){
+            JobsStartDate::where("start_date_id", "=", $days['start_date_id'])->update($data);
+            $last_id = $days['start_date_id'];
+        }else{
+            $data["user_id"]    = $user_id;
+            $data["service_id"] = $service_id;
+            $last_id = JobsStartDate::insertGetId($data);
+        }
+
+        echo $last_id;
+    }
 
 
     
