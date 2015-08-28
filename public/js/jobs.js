@@ -506,6 +506,14 @@ $(document).ready(function () {
         $("#email_client-modal").modal("show");
     });
 
+    $(".send_template-modal").click(function(){
+        $("#send_template-modal").modal("show");
+    });
+
+    $(".enter_email-modal").click(function(){
+        $("#enter_email-modal").modal("show");
+    });
+
     $(".ch_returns").on("click", ".small_icon", function(event){
         var visable = 0;
         event.stopPropagation();
@@ -521,6 +529,10 @@ $(document).ready(function () {
             $("#status"+id).show();
         }    
         
+    });
+
+    $(document).click(function() {
+        $(".select_toggle").hide();
     });
 
     //email_client-modal

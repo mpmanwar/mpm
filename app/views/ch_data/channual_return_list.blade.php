@@ -169,6 +169,37 @@ $(function() {
     //disable_keyboard_mobile: true
   });
 </script>
+
+<!-- <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}"></script> -->
+<script type="text/javascript">
+  /*$(window).load(function() {
+    CKEDITOR.replace( 'add_message',
+    { 
+        toolbar :[['Source'],['Cut','Copy','Paste','PasteText','SpellChecker'],['Undo','Redo','-','SelectAll','RemoveFormat'],[ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ], ['SpecialChar','PageBreak']],
+        extraPlugins : 'wordcount',
+        wordcount : {
+            showCharCount : true,
+            showWordCount : true
+        }
+    });
+  });*/
+
+
+</script>
+
+<script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+</script>
 @stop
 
 @section('content')
@@ -366,7 +397,7 @@ $(function() {
           <th>DAYS</th>
           <th width="11%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>NOTES</th>
-          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="13%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
         </tr>
       </thead>
@@ -414,42 +445,29 @@ $(function() {
                     </span>
                    </li>
                   </ul>
-
-
-                  </div>
-                    
-                  
                 </div>
+              </div>
                 
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td>
-                <div class="email_client_selectbox">
+                <div class="email_client_selectbox" style="height:24px;">
                   <span>SEND</span>
                   <div class="small_icon" data-id="{{ $details['client_id'] }}"></div><div class="clr"></div>
                   <div class="select_toggle" id="status{{ $details['client_id'] }}" style="display: none;">
                     <ul>
                       @if(isset($email_templates) && count($email_templates) >0)
                         @foreach($email_templates as $key=>$temp_row)
-                          <li><a href="javascript:void(0)" data-template_id="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</a></li>
+                          <li><a href="javascript:void(0)" data-template_id="{{ $temp_row['email_template_id'] or "" }}" class="send_template-modal">{{ $temp_row['name'] or "" }}</a></li>
                         @endforeach
                       @endif
                     </ul>
                   </div>
                 </div>
 
-                <div style="float:right"><a href="javascript:void(0)"><img src="/img/corner_arrow.png" style="height:12px;"></a></div>
+                <div style="float:right"><a href="javascript:void(0)" class="enter_email-modal"><img src="/img/corner_arrow.png" style="height:12px;"></a></div>
 
-
-
-                <!-- <select class="form-control newdropdown">
-                  @if(isset($email_templates) && count($email_templates) >0)
-                    @foreach($email_templates as $key=>$temp_row)
-                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
-                    @endforeach
-                  @endif
-                </select> -->
               </td>
               
               <td align="center" width="12%">
@@ -511,13 +529,7 @@ $(function() {
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td align="left">
-                <select class="form-control newdropdown">
-                  @if(isset($email_templates) && count($email_templates) >0)
-                    @foreach($email_templates as $key=>$temp_row)
-                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
-                    @endforeach
-                  @endif
-                </select>
+                
               </td>
               <td align="center" width="12%">
                 <input type="hidden" name="22_prev_status_{{ $details['client_id'] }}" id="22_prev_status_{{ $details['client_id'] }}" value="2">
@@ -578,13 +590,7 @@ $(function() {
                 <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
                 <td align="left">
-                <select class="form-control newdropdown">
-                  @if(isset($email_templates) && count($email_templates) >0)
-                    @foreach($email_templates as $key=>$temp_row)
-                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
-                    @endforeach
-                  @endif
-                </select>
+                
               </td>
                 <td align="center" width="12%">
                   <input type="hidden" name="2{{ $k }}_prev_status_{{ $details['client_id'] }}" id="2{{ $k }}_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
@@ -645,13 +651,7 @@ $(function() {
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td align="left">
-                <select class="form-control newdropdown">
-                  @if(isset($email_templates) && count($email_templates) >0)
-                    @foreach($email_templates as $key=>$temp_row)
-                      <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
-                    @endforeach
-                  @endif
-                </select>
+                
               </td>
               <td align="center" width="12%">
                 <input type="hidden" name="210_prev_status_{{ $details['client_id'] }}" id="210_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
@@ -950,19 +950,19 @@ $(function() {
                 <div class="days_count">
                   <label for="manage_check" class="auto_t">Auto Send</label>
                     <select class="form-control newdropdown float_c" >
-                      <option value="8">Email Template</option>
-                      <option value="17">my template</option>
-                      <option value="20">tregather</option>
+                      @if(isset($email_templates) && count($email_templates) >0)
+                        @foreach($email_templates as $key=>$temp_row)
+                          <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                        @endforeach
+                      @endif
                     </select>
                    <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /> </div>
-                   <label for="" class="auto_t"> Days</label>
-
+                    <label for="" class="auto_t"> Days</label>
                     <select class="form-control newdropdown deadline_box" >
                       <option value="8">Before</option>
                       <option value="17">After</option>
-                      
                     </select>
-                     <label for="manage_check" class="auto_t">deadline date</label>
+                    <label for="manage_check" class="auto_t">deadline date</label>
 
                 </div> 
                
@@ -994,6 +994,115 @@ $(function() {
   </div>
 </div>
 <!-- Email Client modal end -->
+
+<!-- Send Template modal start -->
+<div class="modal fade" id="send_template-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:700px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">SEND EMAIL TEMPLATE</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="input_box_g">
+            <label for="exampleInputEmail1">Template Name</label>
+            <input type="text" class="form-control" name="add_name" id="add_name" placeholder="Template Name">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group">
+          <div class="input_box_g">
+            <label for="exampleInputEmail1">Message Subject</label>
+            <input name="add_title" id="add_title" type="text" class="form-control" placeholder="Message Subject">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group">
+          <textarea name="add_message" id="add_message" class="form-control" placeholder="Message" style="height: 250px;"></textarea>
+        </div>
+        
+      </div>
+
+      <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
+        <div class="form-group new_temp">                                
+            <div class="btn-file search_t">
+                <!-- <i class="fa fa-paperclip"></i> --> Attachment
+                <input type="file" name="add_file" id="add_file">
+            </div>
+            <!-- <p class="help-block">Max. 32MB</p> -->
+        </div>
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+        </div>
+      </div>
+    
+  </div>
+  </div>
+</div>
+<!-- Send Template modal end -->
+
+<!-- Enter Email Address modal start -->
+<div class="modal fade" id="enter_email-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding-bottom: 0">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
+        <!-- <h4 class="modal-title">ENTER EMAIL ADDRESS</h4> -->
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="loader_show"></div>
+      
+      <div class="modal-body">
+        <div class="enter_email_box">
+          <table>
+            <tr>
+              <td width="60%"><h4 class="modal-title">ENTER EMAIL ADDRESS</h4></td>
+              <td class="stop_email">Stop Email Reminders</td>
+              <td><input type='checkbox'></td>
+            </tr>
+          </table>
+        
+
+          <table width="100%" class="table table-bordered" style="margin-top: 10px;">
+            <tbody>
+              <tr>
+                <td width="6%">&nbsp;</td>
+                <td width="47%" align="center"><strong>Contact Name</strong></td>
+                <td width="47%" align="center"><strong>Email Address</strong></td>
+              </tr>
+
+              <tr id="database_tr145">
+                <td><a href="javascript:void(0)" class="delete_database_rel"><img src="/img/cross_icon.png" height="15"></a></td>
+                <td align="center"><input type="text" class="form-control" placeholder="Search"></td>
+                <td align="center"><input type="text" class="form-control"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer clearfix" style="padding: 10px 0 0; border-top: none;">
+        <div class="form-group new_temp">                                
+            <button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new</p></button>
+        </div>
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+        </div>
+      
+
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Enter Email Address modal end -->
 
 @stop
 

@@ -665,7 +665,7 @@ only screen and (min-device-width: 360x) and (max-device-width: 640px){
 
     overflow: hidden;
 
- color:#707070;
+ /* color:#707070; */
 
  font-size:16px;
 
@@ -1060,7 +1060,7 @@ div.dataTables_filter input{width: 16em; }
 .deadline_box{float: left; margin: 0 10px 0 10px; width: 74px;}
 .days_box {float: left; width: 30px; margin: 0 5px 0 5px;}
 
-.email_client_selectbox {position: relative; height: 20px; border: 1px solid #388ebd; border-radius: 4px; width: 78px!important; float: left; display: inline; margin: 0px 0px 0px 5px; font-size: 14px; font-family: Arial; color: #444; padding: 0;
+.email_client_selectbox {position: relative; height: 20px; border: 1px solid #388ebd; border-radius: 4px; width: 125px!important; float: left; display: inline; margin: 0px 0px 0px 5px; font-size: 14px; font-family: Arial; color: #444; padding: 0;
 background: #f6f7f8;
 background: -moz-linear-gradient(top,  #f6f7f8 0%, #e7ebed 65%, #e7ebed 65%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f7f8), color-stop(65%,#e7ebed), color-stop(65%,#e7ebed));
@@ -1074,6 +1074,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .select_toggle{width:100%; position:absolute; z-index:999; top:20px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
 .select_toggle ul{list-style:none; padding:0; margin:0;}
 .select_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer; font-size: 10px;}
+
+.enter_email_box{width:100%; border:1px solid #dbdbdb; padding:10px;}
+.stop_email{ color: #CCC; font-size: 16px; font-style: italic;}
+.border_none{padding-top: 0; border-top: none;}
 
 
 
