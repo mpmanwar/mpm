@@ -18,6 +18,7 @@
 
 <!-- page script -->
 <script type="text/javascript">
+/*
 $(".date_of_meeting").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
 
 var Table1, Table2;
@@ -50,7 +51,7 @@ $(function() {//date_of_meeting
         ]
 
     });
-  /*Table1.fnSort( [ [1,'asc'] ] );*/
+  //Table1.fnSort( [ [1,'asc'] ] );
   Table2 = $('#example2').dataTable({
         "bPaginate": true,
         "bLengthChange": true,
@@ -80,7 +81,30 @@ $(function() {//date_of_meeting
 
     });
 });
+*/
 </script>
+<script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
+
+<script type="text/javascript">
+
+/*
+tinymce.init({
+    selector: "#notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+*/
+</script>
+
+
+
+
+
 @stop
 
 @section('content')
@@ -121,7 +145,7 @@ $(function() {//date_of_meeting
                     
                     <div class="form-group">
                 <label for="exampleInputPassword1">Message</label>
-                <textarea name="notesmsg" rows="10" cols="20" id="notesmsg" class="form-control"></textarea>
+                <textarea name="notesmsg" rows="15" cols="20" id="notesmsg" class="form-control"></textarea>
                 </div>
                 
                 <div class="add_client_btn">

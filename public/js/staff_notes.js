@@ -3,51 +3,62 @@
 $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
-$("#addnotes_button").click(function(){
+$("#addnotes_button").click(function(){   
+    tinymce.remove();
+    tinymce.init({
+    selector: "#notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    //tinyMCE.activeEditor.setContent("");
+    
+    
+    $("#notes_font").html("");
     $("#notes_error").html('');
-$("#notestitle").val("");
-$("#notesmsg").val("");
-
-$(".notes_innermsg_top").css("display", "block");
-
-//alert('fsfsfsf');
-$("#notes_font").hide();
-$("#demo").show();
+    $("#notestitle").val("");
+    //$("#notesmsg").val("");
+    
+    $(".notes_innermsg_top").css("display", "block");
+    
+    //alert('fsfsfsf');
+   
+    //$("#notes_font").hide();
+    $("#demo").show();
 });
 
-$("#cancle_notes").click(function(){
-$(".notes_innermsg_top").css("display", "none");
-$("#demo").hide();
-$("#notes_font").show();
+$("#cancle_notes").click(function(){    
+    $(".notes_innermsg_top").css("display", "none");
+    $("#demo").hide();
+    $("#notes_font").show();
 });
 
 
 
 $("body").on("click", "#savenotes", function(){
-
-   
+ 
    if( $("#notestitle").val()==""){
      $("#notes_error").html('Please enter  Notes Title');
+       $("#notestitle").focus();
         return false;
    }
     else{
-               
+        
+        
         $("#notes_error").html('');
         
         
         var notestitle= $("#notestitle").val();
-    var notesmsg= $("#notesmsg").val();
-    var client_id= $("#client_id").val();
+    
+         //var notesmsg= $("#notesmsg").val();
+   
+   var notesmsg = tinyMCE.activeEditor.getContent();
         
-       // console.log(notestitle);
-        //console.log(notesmsg);
-       // console.log(client_id);
-       
-       // var len = notestitle.length
-        //  alert(len);
-          
-         
-           //var toRemove = notestitle;
+        //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
             
             if(notestitle.length>"40"){
@@ -58,18 +69,7 @@ $("body").on("click", "#savenotes", function(){
                 finaltitle=notestitle;
             }
             
-            //alert(finaltitle);return false;
-          //  var title = notestitle.substr(0,20);
             
-           // alert(gorge);return false;
-          
-          
-          //ar stripped = strip_tags($('#text').html()
-          
-          
-          
-          
-         // return false;
         
         $.ajax({
 		type: "POST",
@@ -82,6 +82,8 @@ $("body").on("click", "#savenotes", function(){
 			console.log(resp);
           // var title=
             $("#notes_font").css("display", "block");
+            //$('#notesmsg').tinymce().remove();
+            tinymce.remove('textarea');
             $(".notes_innermsg_top").css("display", "none");
             
             var r = resp.split('|||');
@@ -118,12 +120,14 @@ $("body").on("click", "#savenotes", function(){
     
     if( $("#editnotestitle").val()==""){
      $("#notes_error1").html('Please enter  Notes Title');
+      $("#editnotestitle").focus();
         return false;
    }
     else{
    
     var editnotesval= $("#editnotestitle").val();
-    var editnotesmsg= $("#editnotesmsg").val();
+    //var editnotesmsg= $("#editnotesmsg").val();
+    var editnotesmsg = tinyMCE.activeEditor.getContent();
    var edited_id= $("#editstaffnotes_id").val();
     var client_id= $("#editclient_id").val();
     
@@ -153,10 +157,6 @@ $("body").on("click", "#savenotes", function(){
             
     
     
-    
-    
-    
-    
     $.ajax({
 		type: "POST",
 		//dataType: "html",
@@ -165,8 +165,13 @@ $("body").on("click", "#savenotes", function(){
 			{ 'editnotesval':editnotesval, 'editnotesmsg' : editnotesmsg,'edited_id':edited_id
 		},
 		success: function(resp) {
+		  
+		 // $("#notes_font").css("display", "block");
+          //  $(".notes_innermsg_top").css("display", "none");
+          
 			console.log(resp);
-            
+            $("#notes_font").html("");
+           
             $("#notes_font").html(resp);
            
            $("#listtitle"+edited_id).html('<a data-id='+edited_id+' class="title_view" href="javascript:void(0)">'+finaledittitle+'</a>');
@@ -274,7 +279,6 @@ $.ajax({
 
 $("body").on("click", "#editnotes", function(){
 
-
 var numItems = $('.title_view').length;
     //alert(numItems);return false;
     if (numItems >0 ) {
@@ -291,11 +295,16 @@ $.ajax({
 		data: {
 			'notesmsgid': notesmsgid
 		},
+        beforeSend: function(){
+            tinymce.remove();  
+        },
 		success: function(resp) {
+		 // tinymce.get('#notes_font').setContent('');
 			console.log(resp);
-           $("#notes_font").html(resp);
+            $("#notes_font").html("");
+            $("#notes_font").html(resp);
             
-            }
+        }
 	});
        
        
