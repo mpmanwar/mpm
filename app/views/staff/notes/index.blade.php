@@ -8,7 +8,7 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/staff_appraisal.js') }}" type="text/javascript"></script>
-
+<script src="{{ URL :: asset('js/staff_notes.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
@@ -102,60 +102,131 @@ $(function() {//date_of_meeting
     <!-- Main content -->
     <section class="content">
       <div class="row">
-                        <div class="col-xs-12 col-xs-8">
-                          <div class="col_m2 icon_poisition">
-                          <div class="notes_inner">
-                          <div class="notes_inner_top">
-                          <img src="img/icon_1.png" class="heading_icon">
-                          <div class="n_top_left">
-                          <span class="n_heading">TB Coder</span>
-                          <p><span class="n_heading_name">By Abel Asiamah</span> <span class="n_date">On: Sat, 28 July, 2015 at 5:50PM</span></p>
+                      <div class="col-xs-12 col-xs-8">
+                        <div class="col_m2 icon_poisition" >
+                        
+                        <div class="notes_innermsg_top" style="display:none;" >
+                      <!--   {{ Form::open(array('url' => '/org-notes', 'files' => true)) }} -->
+                         <img src="/img/icon_1.png" class="heading_icon">
+                  
+                    <div id="demo" >
+                    <p id="notes_error"></p>
+                    <div class="form-group">
+                <label for="exampleInputPassword1">Title</label>
+                
+                   <input type="text" name="notestitle" id="notestitle" class="form-control" />
+                
+              
+              </div>
+                    
+                    <div class="form-group">
+                <label for="exampleInputPassword1">Message</label>
+                <textarea name="notesmsg" rows="10" cols="20" id="notesmsg" class="form-control"></textarea>
+                </div>
+                
+                <div class="add_client_btn">
+                            <button class="btn btn-danger" id="cancle_notes" type="button">Cancel</button>
+                           <!-- <button class="btn btn-info"  type="submit">Edit</button> 
+                           <button class="btn btn-success" id="" type="submit" >Save</button>-->
+                           <button type="button" id="savenotes" class="btn btn-success"> Save</button>
+                           
                           </div>
-                          <div class="print">
-                          <a href="#"><img src="img/print.png"></a>
-                          </div>
-                          <div class="clearfix"></div>
-                          </div>
-                          <p class="n_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                
+                   
+                    <div class="clearfix"></div>
+                    </div>
+                   <!-- {{ Form::close() }} -->
+                        </div>
+                        
+                        
+                    <div class="notes_inner" id="notes_font">
+                        <div class="notes_inner_top">
+                        <img src="/img/icon_1.png" class="heading_icon" />
+                        <div class="n_top_left">
+                        <span class="n_heading">{{ $staffprof_notes['title'] or "" }}</span>
+                       <input type="hidden" name="msgid" id="msgid" value=" {{ $staffprof_notes['staffprofnotes_id'] or "" }}"/>
+                    
+                        <p><span class="n_heading_name">By {{$user['fname']}} {{$user['lname']}}</span> <span class="n_date">On: {{ $staffprof_notes['created'] or "" }}</span></p>
+                        </div>
+                        <div class="print">
+                        
+                        
+                        
+                        
+                        
+                        <a onclick="window.print();" href="#"><img src="/img/print.png" /></a>
+                       
+                       
+                        </div>
+                        <div class="clearfix"></div>
+                        </div>
+                        <p class="n_text">{{ $staffprof_notes['textmessage'] or "" }}</p>
+                        
+                        <div class="add_client_btn">
+                        
+                        
+                    
+                    
+                    
+                   <!--   <button type="button" id="editsave_notes" class="btn btn-success "> Save</button> -->
+                       
+                       
+                       
+                       <!-- <button class="btn btn-success" id="editsave_notes" >Save</button> -->
+                        <button class="btn btn-info" id="editnotes"  type="button">Edit</button>
+                        
+                        
+                        <button type="button" id="delete_notes" class="btn btn-danger "> Delete</button>
+                      <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
+                        <a href="/staff-profile" class="btn btn-primary">Cancel</a>
+                           
                           
-                          <!-- <div class="add_client_btn">
-                              <button class="btn btn-warning">Edit</button>
-                              <button class="btn btn-info">Delete</button>
-                              <button class="btn btn-success">Save</button>
-                              <button class="btn btn-danger">Cancel</button>
-                            </div> -->
-                             <div class="clearfix"></div>
+                             <!--<button class="btn btn-danger back" type="button">Delete</button>
+                            <button class="btn btn-info"  type="submit">Save</button>
+                            <button class="btn btn-info open" data-id="7" type="button">Next</button> -->
                           </div>
-                          
-                            <div class="add_client_btn">
-                              <button class="btn btn-warning">Edit</button>
-                              <button class="btn btn-info">Delete</button>
-                              <button class="btn btn-success">Save</button>
-                              <button class="btn btn-danger">Cancel</button>
-                            </div>
-
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-xs-4"> 
-                        <div class="col_m2">
-                        <div class="noted_right">
-                        <img src="img/plus_1.png" class="icon_gap"> <strong class="notes_h_t">New Notes</strong>
-                        <div class="notes_points">
-                        <span class="notes_h_t">NOTES</span>
-                        <ul>
-                        <li><a href="#">TB Coder System requirements</a></li>
-                        <li><a href="#">How does TB coder work</a></li>
-                        <li><a href="#">Is TB coder a Secure site?</a></li>
-                        <li><a href="#">Sign Up for a TB coder account</a></li>
-                        <li><a href="#">How can I sin up for TB coder</a></li>
-                        <li><a href="#">For which contries is TB coder available?</a></li>
-                        <li><a href="#">Does TB coder work any accounts</a></li>
-                        </ul>
-                        </div>
-                        </div>
-                        </div>
+                           <div class="clearfix"></div>
+                 </div>
+                        
                         </div>
                       </div>
+                      <div class="col-xs-12 col-xs-4"> 
+                      <div class="col_m2">
+                      <div class="noted_right"> <a id="addnotes_button" href="javascript:void(0)" >
+                      <img src="/img/plus_1.png" class="icon_gap"  /> <strong class="notes_h_t">New Notes</strong></a>
+                      <div class="notes_points"> 
+                      <span class="notes_h_t">NOTES</span>
+                     
+                    
+                      
+                      <ul id="newaddnotes">
+                     @foreach($staffs_notes as $key=>$staffs_notes_row)
+                      <li id="listtitle{{ $staffs_notes_row->staffprofnotes_id }}"><a data-id="{{ $staffs_notes_row->staffprofnotes_id }}" class="title_view" href="javascript:void(0)">
+                   
+                      
+                      
+{{ (strlen($staffs_notes_row->title) > 40)? substr(strip_tags($staffs_notes_row->title), 0, 40)."...": strip_tags($staffs_notes_row->title) }}
+                      
+                      
+                      
+                      
+                      </a></li>
+                      @endforeach
+                     <!-- <li><a href="#">How does TB coder work</a></li>
+                      <li><a href="#">Is TB coder a Secure site?</a></li>
+                      <li><a href="#">Sign Up for a TB coder account</a></li>
+                      <li><a href="#">How can I sin up for TB coder</a></li>
+                      <li><a href="#">For which contries is TB coder available?</a></li>
+                      <li><a href="#">Does TB coder work any accounts</a></li> -->
+                      </ul>
+                      
+                     
+                      
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
 
     </section>
     <!-- /.content -->
