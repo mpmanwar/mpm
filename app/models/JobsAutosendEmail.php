@@ -25,4 +25,6 @@ class JobsAutosendEmail extends Eloquent {
 		return $data;
 	}
 
+	
+
 }

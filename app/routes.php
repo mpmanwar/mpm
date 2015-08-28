@@ -20,6 +20,10 @@
 Route::get('/contact', 'ContactController@index');
 /* =========== Outer Routes End =============== */
 
+/* =========== Cron Job Start =============== */
+Route::get('/jobs_email_client', 'CronJobController@jobs_email_client');
+/* =========== Cron Job End =============== */
+
 ### Routes for Dashboard related URL's start ###
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
