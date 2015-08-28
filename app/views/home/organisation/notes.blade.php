@@ -40,7 +40,7 @@ tinymce.init({
                     
                     <div class="form-group">
                 <label for="exampleInputPassword1">Message</label>
-                <textarea name="notesmsg" rows="10" cols="20" id="editnotesmsg" class="form-control">{{ $orgdtails_notes['textmessage'] or "" }}</textarea>
+                <textarea name="notesmsg" rows="15" cols="20" id="editnotesmsg" class="form-control">{{ $orgdtails_notes['textmessage'] or "" }}</textarea>
                 </div>
                 
                 <div class="add_client_btn">
