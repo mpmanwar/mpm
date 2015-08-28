@@ -554,8 +554,8 @@ $("#savenotes").click(function(){
            //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
             
-            if(notestitle.length>"52"){
-                 var title = notestitle.substr(0,52);
+            if(notestitle.length>"40"){
+                 var title = notestitle.substr(0,40);
                   var finaltitle=title+'...' 
             }
             else{
@@ -620,6 +620,11 @@ $("#savenotes").click(function(){
     
     //alert('adadadadada');return false;
     
+   if( $("#editnotestitle").val()==""){
+     $("#notes_error1").html('Please enter  Notes Title');
+        return false;
+   }
+   else{
    
     var editnotesval= $("#editnotestitle").val();
     var editnotesmsg= $("#editnotesmsg").val();
@@ -637,9 +642,9 @@ $("#savenotes").click(function(){
     
     //var edittitle = editnotesval.substr(0,20);
     
-    if(editnotesval.length>"52"){
+    if(editnotesval.length>"40"){
         
-                 var edit_title = editnotesval.substr(0,52);
+                 var edit_title = editnotesval.substr(0,40);
                   var finaledittitle=edit_title+'...' 
            
             //alert(finaledittitle);
@@ -679,11 +684,14 @@ $("#savenotes").click(function(){
     
     
     
-    
+    }
     
     
    
     });
+    
+    
+    
     
       $("body").on("click", "#delete_notes", function(){
         var deleted_id="";

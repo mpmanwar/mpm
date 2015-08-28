@@ -2567,7 +2567,7 @@ $(document).ready(function(){
                    
                       
                       
-{{ (strlen($org_notes_row->title) > 52)? substr(strip_tags($org_notes_row->title), 0, 52)."...": strip_tags($org_notes_row->title) }}
+{{ (strlen($org_notes_row->title) > 40)? substr(strip_tags($org_notes_row->title), 0, 40)."...": strip_tags($org_notes_row->title) }}
                       
                       
                       

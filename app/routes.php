@@ -306,6 +306,14 @@ Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
 /*==================HMRC ==============*/
 /*================== Notes Start ==============*/
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));
+
+Route::any('/staffprof-notes', 'NotesController@staffprofnotes');
+Route::any('/deletestaffprof-notes', 'NotesController@deletestaffprof_notes');
+Route::any('/editmodestaff-notes', 'NotesController@edit_viewstaffnotes');
+Route::any('/view-staffnotes', 'NotesController@view_staffnotes');
+Route::any('/editstaff-notes', 'NotesController@edit_staffnotes');
+
+
 Route::any('/org-notes', 'NotesController@orgnotes');
 Route::any('/view-orgnotes', 'NotesController@view_orgnotes');
 Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
