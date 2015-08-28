@@ -7,6 +7,7 @@
                     <div id="demo" >
                     <p id="notes_error"></p>
                     <div class="form-group">
+                    <p id="notes_error1"></p>
                 <label for="exampleInputPassword1">Title</label>
                  
                    <input type="text" name="notestitle" id="editnotestitle" class="form-control" value="{{ $staffprof_notes['title'] or "" }}" />

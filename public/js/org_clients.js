@@ -620,6 +620,11 @@ $("#savenotes").click(function(){
     
     //alert('adadadadada');return false;
     
+   if( $("#editnotestitle").val()==""){
+     $("#notes_error1").html('Please enter  Notes Title');
+        return false;
+   }
+   else{
    
     var editnotesval= $("#editnotestitle").val();
     var editnotesmsg= $("#editnotesmsg").val();
@@ -679,11 +684,14 @@ $("#savenotes").click(function(){
     
     
     
-    
+    }
     
     
    
     });
+    
+    
+    
     
       $("body").on("click", "#delete_notes", function(){
         var deleted_id="";

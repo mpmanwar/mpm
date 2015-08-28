@@ -116,6 +116,11 @@ $("body").on("click", "#savenotes", function(){
     
     //alert('adadadadada');return false;
     
+    if( $("#editnotestitle").val()==""){
+     $("#notes_error1").html('Please enter  Notes Title');
+        return false;
+   }
+    else{
    
     var editnotesval= $("#editnotestitle").val();
     var editnotesmsg= $("#editnotesmsg").val();
@@ -172,7 +177,7 @@ $("body").on("click", "#savenotes", function(){
     
     
     
-    
+    }
     
     
     

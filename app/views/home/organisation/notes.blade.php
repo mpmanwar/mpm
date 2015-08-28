@@ -5,7 +5,7 @@
                          <img src="/img/icon_1.png" class="heading_icon">
                   
                     <div id="demo" >
-                    <p id="notes_error"></p>
+                    <p id="notes_error1"></p>
                     <div class="form-group">
                 <label for="exampleInputPassword1">Title</label>
                  
