@@ -292,22 +292,12 @@ tinymce.init({
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
-        <!-- <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
-        <li><a data-toggle="tab" href="#tab_2">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
-        <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li> -->
         <li class="{{ ($page_open == 1)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
         <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
         <li class="{{ ($page_open == 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('3') }}/{{ base64_encode($staff_id) }}">COMPLETED TASKS</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
-    <!-- <div class="tab_topcon" style="position:relative; height: 25px">
-      <div class="send_task auto_send">
-        <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
-        <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
-      </div>
-      <div class="clearfix"></div>
-    </div> -->
     <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
@@ -397,7 +387,7 @@ tinymce.init({
           <th>DAYS</th>
           <th width="11%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>NOTES</th>
-          <th width="13%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
         </tr>
       </thead>
@@ -422,7 +412,35 @@ tinymce.init({
                 @endif
               </td>
               <td align="center">
+                @if(isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")
                 <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
+                   <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
+                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("d-m-Y H:i", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</a>
+                  <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
+                  <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
+                    <ul>
+
+                    <li><a href="javascript:void(0)" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Add/Edit Start Date</a></li>
+                   <li>
+                    <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
+                      <var class="atc_event">
+                        <var class="atc_date_start">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("d-m-Y H:i", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</var>
+                        <var class="atc_date_end">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime($details['jobs_notes']['job_start_date'])) ):"" }}</var>
+                        <var class="atc_timezone">Europe/London</var>
+                        <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_location">Office</var>
+                        <var class="atc_organizer">{{ $admin_name }}</var>
+                        <var class="atc_organizer_email">{{ $logged_email }}</var>
+                      </var>
+                    </span>
+                   </li>
+                  </ul>
+                </div>
+              </div>
+                
+              @else
+              <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
                    <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
                    <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("d-m-Y H:i", strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date'])) ):"" }}</a>
                   <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
@@ -447,7 +465,7 @@ tinymce.init({
                   </ul>
                 </div>
               </div>
-                
+              @endif 
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
