@@ -190,7 +190,8 @@ $(function() {
 <script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
 <script type="text/javascript">
 tinymce.init({
-    selector: "textarea",
+    //selector: "textarea",
+    selector: "#add_message",
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -385,9 +386,9 @@ tinymce.init({
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>DAYS</th>
-          <th width="11%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="12%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"  style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>NOTES</th>
-          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"  style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
         </tr>
       </thead>
