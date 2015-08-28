@@ -190,7 +190,8 @@ $(function() {
 <script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
 <script type="text/javascript">
 tinymce.init({
-    selector: "textarea",
+    //selector: "textarea",
+    selector: "#add_message",
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -292,22 +293,12 @@ tinymce.init({
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
-        <!-- <li class="active"><a data-toggle="tab" href="#tab_1">ANNUAL RETURNS - PERMANENT DATA</a></li>
-        <li><a data-toggle="tab" href="#tab_2">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
-        <li><a data-toggle="tab" href="#tab_3">COMPLETED TASKS</a></li> -->
         <li class="{{ ($page_open == 1)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - PERMANENT DATA</a></li>
         <li class="{{ ($page_open != 1 && $page_open != 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('21') }}/{{ base64_encode($staff_id) }}">ANNUAL RETURNS - TASK MANAGEMENT</a></li>
         <li class="{{ ($page_open == 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('3') }}/{{ base64_encode($staff_id) }}">COMPLETED TASKS</a></li>
       </ul>
 <div class="tab-content">
   <div id="tab_1" class="tab-pane {{ ($page_open == 1)?'active':'' }}">
-    <!-- <div class="tab_topcon" style="position:relative; height: 25px">
-      <div class="send_task auto_send">
-        <div class=" chk_cont01"><input type='checkbox' id="manage_check" {{ (isset($autosend['days']) && $autosend['days'] != "")?"checked":"" }} /><label for="manage_check"> Auto Send To Task </label></div> 
-        <div class="chk_cont02"><input type="text" name="dead_line" id="dead_line" style="width:18%; padding: 0; text-align: center; height: 18px;" value="{{ $autosend['days'] or "" }}"  {{ (isset($autosend['days']) && $autosend['days'] != "")?"disabled":"" }} /> <label for=""> Days Before Deadline </label></div>
-      </div>
-      <div class="clearfix"></div>
-    </div> -->
     <table class="table table-bordered table-hover dataTable ch_returns" id="example1" aria-describedby="example1_info">
       <thead>
         <tr role="row">
@@ -395,9 +386,9 @@ tinymce.init({
           <th>AUTHEN CODE</th>
           <th>NEXT RETURN DUE ON</th>
           <th>DAYS</th>
-          <th width="11%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="12%">JOB START DATE <a href="javascript:void(0)" class="job_start_date-modal"  style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th>NOTES</th>
-          <th width="13%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="10%">EMAIL CLIENT <a href="javascript:void(0)" class="email_client-modal"  style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="11%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
         </tr>
       </thead>
@@ -422,9 +413,10 @@ tinymce.init({
                 @endif
               </td>
               <td align="center">
+                @if(isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")
                 <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
                    <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
-                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ $details['jobs_notes']['job_start_date'] or "" }}</a>
+                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("d-m-Y H:i", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</a>
                   <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
                   <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
                     <ul>
@@ -433,7 +425,7 @@ tinymce.init({
                    <li>
                     <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
                       <var class="atc_event">
-                        <var class="atc_date_start">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</var>
+                        <var class="atc_date_start">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("d-m-Y H:i", strtotime($details['jobs_notes']['job_start_date']) ):"" }}</var>
                         <var class="atc_date_end">{{ (isset($details['jobs_notes']['job_start_date']) && $details['jobs_notes']['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime($details['jobs_notes']['job_start_date'])) ):"" }}</var>
                         <var class="atc_timezone">Europe/London</var>
                         <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
@@ -448,6 +440,33 @@ tinymce.init({
                 </div>
               </div>
                 
+              @else
+              <div id="edit_calender_{{ $details['client_id'] }}_21" class="edit_cal">
+                   <!-- <a href="javascript:void(0)" class="open_calender_drop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">10-08-2015 12:98</a> -->
+                   <a href="javascript:void(0)" id="date_view_{{ $details['client_id'] }}_21" />{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("d-m-Y H:i", strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date'])) ):"" }}</a>
+                  <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"></span>
+                  <div class="cont_add_to_date open_dropdown_{{ $details['client_id'] }}_21" style="display:none;">
+                    <ul>
+
+                    <li><a href="javascript:void(0)" class="open_calender_pop" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21">Add/Edit Start Date</a></li>
+                   <li>
+                    <span id="view_calender_{{ $details['client_id'] }}_21" class="addtocalendar atc-style-blue">
+                      <var class="atc_event">
+                        <var class="atc_date_start">{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date'])) ):"" }}</var>
+                        <var class="atc_date_end">{{ (isset($details['job_start_date']) && $details['job_start_date'] != "")?date("Y-m-d H:i:s", strtotime('+1 hour', strtotime('+'.$jobs_start_days.' day', strtotime($details['job_start_date']))) ):"" }}</var>
+                        <var class="atc_timezone">Europe/London</var>
+                        <var class="atc_title">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_description">{{$title}} - {{$details['business_name'] or ""}}</var>
+                        <var class="atc_location">Office</var>
+                        <var class="atc_organizer">{{ $admin_name }}</var>
+                        <var class="atc_organizer_email">{{ $logged_email }}</var>
+                      </var>
+                    </span>
+                   </li>
+                  </ul>
+                </div>
+              </div>
+              @endif 
               </td>
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
@@ -919,7 +938,7 @@ tinymce.init({
               <div class="send_task job_start_date">
                 <div class="jsd_cont01">
                   <label for="manage_check"> Auto Set Job Start Date at SEND Date Plus </label></div> 
-                <div class="jsd_cont02"><input type="text" name="dead_line" id="dead_line" style="width:40%; padding: 0; text-align: center; height: 19px;" value="" /> Days</div>
+                <div class="jsd_cont02"><input type="text" name="job_start_date" id="job_start_date" style="width:40%; padding: 0; text-align: center; height: 19px;" value="{{ (isset($jobs_start_days) && $jobs_start_days != "")?$jobs_start_days:"" }}" /> Days</div>
               </div>
               <div class="clearfix"></div>
             </div>     
@@ -949,18 +968,18 @@ tinymce.init({
               <div class="email_client">
                 <div class="days_count">
                   <label for="manage_check" class="auto_t">Auto Send</label>
-                    <select class="form-control newdropdown float_c" >
+                    <select class="form-control newdropdown float_c" id="email_tmplt_id">
                       @if(isset($email_templates) && count($email_templates) >0)
                         @foreach($email_templates as $key=>$temp_row)
-                          <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                          <option value="{{ $temp_row['email_template_id'] or "" }}" {{ (isset($email_clients['template_id']) && $email_clients['template_id'] == $temp_row['email_template_id'])?"selected":"" }}>{{ $temp_row['name'] or "" }}</option>
                         @endforeach
                       @endif
                     </select>
-                   <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /> </div>
+                   <div class="days_box"><input type="text" id="email_days" class="small_box" value="{{ (isset($email_clients['days']) && $email_clients['days'] != "")?$email_clients['days']:"" }}" /> </div>
                     <label for="" class="auto_t"> Days</label>
-                    <select class="form-control newdropdown deadline_box" >
-                      <option value="8">Before</option>
-                      <option value="17">After</option>
+                    <select class="form-control newdropdown deadline_box" id="email_deadline">
+                      <option value="before" {{ (isset($email_clients['deadline']) && $email_clients['deadline'] == "before")?"selected":"" }}>Before</option>
+                      <option value="after"{{ (isset($email_clients['deadline']) && $email_clients['deadline'] == "after")?"selected":"" }}>After</option>
                     </select>
                     <label for="manage_check" class="auto_t">deadline date</label>
 
@@ -971,7 +990,7 @@ tinymce.init({
               <div class="email_client">
                 <div class="days_count">
                   <label for="manage_check" class="auto_t">Remind Client Every</label>
-                  <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /></div>
+                  <div class="days_box"><input type="text" name="remind_days" id="remind_days" class="small_box" value="{{ (isset($email_clients['remind_days']) && $email_clients['remind_days'] != "")?$email_clients['remind_days']:"" }}" /></div>
                     <label for="" class="auto_t"> Days after email date</label>
                 </div> 
                
@@ -985,7 +1004,7 @@ tinymce.init({
         <div class="auto_modal_footer clearfix" style="margin-right: 5px;">
           <div class="email_btns">
             <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+            <button type="button" class="btn btn-info pull-left save_t2" id="save_send_email">Save</button>
           </div>
         </div>
 

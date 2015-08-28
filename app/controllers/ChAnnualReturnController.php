@@ -78,10 +78,13 @@ class ChAnnualReturnController extends BaseController {
 
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 
+		$data['jobs_start_days'] = JobsStartDate::getJobStartDaysByServiceId( $data['service_id'] );
+		$data['email_clients'] = JobsAutosendEmail::getJobsAutosendEmailByServiceId( $data['service_id'] );
+
 		
 
 		$data['email_templates'] = EmailTemplate::getEmailTemplateByServiceId( $data['service_id'] );
-		//echo "<prev>".print_r($data['email_templates']);die;
+		//echo "<pre>";print_r($data['company_details']);echo "</pre>";die;
 		return View::make('ch_data.channual_return_list', $data);
 	}
 

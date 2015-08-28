@@ -96,7 +96,7 @@ $(document).ready(function () {
     });
 
 /* ################# Send to Task Management Start ################### */
-    $(".send_manage_task").click(function(){
+    /*$(".send_manage_task").click(function(){
         var client_id = $(this).data("client_id");
         var field_name = $(this).data("field_name");
         //alert(step_id);return false;
@@ -111,7 +111,7 @@ $(document).ready(function () {
             });
         //}
         
-    });
+    });*/
 /* ################# Send to Task Management End ################### */
 
 
@@ -535,8 +535,69 @@ $(document).ready(function () {
         $(".select_toggle").hide();
     });
 
-    //email_client-modal
+    /* ################# Job start date in job section start ################### */
+    $("#jsd_save").click(function(){
+        var service_id          = $("#service_id").val();
+        var encode_staff_id     = $("#encode_staff_id").val();
+        var encode_page_open    = $("#encode_page_open").val();
+
+        var days  = $("#job_start_date").val();
+        if(days == ""){
+            alert("Please enter the days");
+            return false;
+        }
+        //alert(days);return false;
+        $.ajax({
+            type: "POST",
+            url: '/jobs/save-start-days',
+            data: { 'days' : days, 'service_id' : service_id },
+            beforeSend : function(){
+                $(".loader_show").html('<img src="/img/spinner.gif" />');
+            },
+            success : function(resp){
+                if(resp > 0){
+                    window.location = '/ch-annual-return/'+service_id+'/'+encode_page_open+'/'+encode_staff_id;
+                }else{
+                    $(".loader_show").html('There are some error..Please try again...');
+                }
+                
+            }
+        });
+    });
+    /* ################# Job start date in job section end ################### */
+
+
+    /* ################# Email Client in job section start ################### */
+    $("#save_send_email").click(function(){
+        var service_id          = $("#service_id").val();
+        var encode_staff_id     = $("#encode_staff_id").val();
+        var encode_page_open    = $("#encode_page_open").val();
+
+        var template_id  = $("#email_tmplt_id").val();
+        var days         = $("#email_days").val();
+        var deadline     = $("#email_deadline").val();
+        var remind_days  = $("#remind_days").val();
+
+        //alert(days);return false;
+        $.ajax({
+            type: "POST",
+            url: '/jobs/save-email-client-days',
+            data: { 'template_id' : template_id, 'days' : days, 'deadline' : deadline, 'remind_days' : remind_days, 'service_id' : service_id },
+            beforeSend : function(){
+                $(".loader_show").html('<img src="/img/spinner.gif" />');
+            },
+            success : function(resp){
+                if(resp > 0){
+                    window.location = '/ch-annual-return/'+service_id+'/'+encode_page_open+'/'+encode_staff_id;
+                }else{
+                    $(".loader_show").html('There are some error..Please try again...');
+                }
+                
+            }
+        });
+    });
+    /* ################# Email Client in job section end ################### */
     
     
 	
-});//document end
+});//document end 
