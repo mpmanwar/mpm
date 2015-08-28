@@ -507,10 +507,24 @@ $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
 $("#addnotes_button").click(function(){
+    tinymce.remove();
+    tinymce.init({
+    selector: "#notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    
+    
+    
     $("#notes_error").html('');
 $("#notestitle").val("");
 $("#notesmsg").val("");
-
+//tinyMCE.activeEditor.setContent("")
 $(".notes_innermsg_top").css("display", "block");
 
 //alert('fsfsfsf');
@@ -532,6 +546,7 @@ $("#savenotes").click(function(){
     
    if( $("#notestitle").val()==""){
      $("#notes_error").html('Please enter  Notes Title');
+     $("#notestitle").focus();
         return false;
    }
     else{
@@ -540,7 +555,8 @@ $("#savenotes").click(function(){
         
         
         var notestitle= $("#notestitle").val();
-    var notesmsg= $("#notesmsg").val();
+    //var notesmsg= $("#notesmsg").val();
+     var notesmsg = tinyMCE.activeEditor.getContent();
     var client_id= $("#client_id").val();
         
        // console.log(notestitle);
@@ -622,12 +638,14 @@ $("#savenotes").click(function(){
     
    if( $("#editnotestitle").val()==""){
      $("#notes_error1").html('Please enter  Notes Title');
+      $("#editnotestitle").focus();
         return false;
    }
    else{
    
     var editnotesval= $("#editnotestitle").val();
-    var editnotesmsg= $("#editnotesmsg").val();
+  //  var editnotesmsg= $("#editnotesmsg").val();
+    var editnotesmsg = tinyMCE.activeEditor.getContent();
    var edited_id= $("#editorgnotes_id").val();
     var client_id= $("#editclient_id").val();
     
@@ -774,6 +792,9 @@ $.ajax({
 		data: {
 			'notesmsgid': notesmsgid
 		},
+        beforeSend: function(){
+            tinymce.remove();  
+        },
 		success: function(resp) {
 			console.log(resp);
            $("#notes_font").html(resp);
