@@ -968,18 +968,18 @@ tinymce.init({
               <div class="email_client">
                 <div class="days_count">
                   <label for="manage_check" class="auto_t">Auto Send</label>
-                    <select class="form-control newdropdown float_c" >
+                    <select class="form-control newdropdown float_c" id="email_tmplt_id">
                       @if(isset($email_templates) && count($email_templates) >0)
                         @foreach($email_templates as $key=>$temp_row)
-                          <option value="{{ $temp_row['email_template_id'] or "" }}">{{ $temp_row['name'] or "" }}</option>
+                          <option value="{{ $temp_row['email_template_id'] or "" }}" {{ (isset($email_clients['template_id']) && $email_clients['template_id'] == $temp_row['email_template_id'])?"selected":"" }}>{{ $temp_row['name'] or "" }}</option>
                         @endforeach
                       @endif
                     </select>
-                   <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /> </div>
+                   <div class="days_box"><input type="text" id="email_days" class="small_box" value="{{ (isset($email_clients['days']) && $email_clients['days'] != "")?$email_clients['days']:"" }}" /> </div>
                     <label for="" class="auto_t"> Days</label>
-                    <select class="form-control newdropdown deadline_box" >
-                      <option value="8">Before</option>
-                      <option value="17">After</option>
+                    <select class="form-control newdropdown deadline_box" id="email_deadline">
+                      <option value="before" {{ (isset($email_clients['deadline']) && $email_clients['deadline'] == "before")?"selected":"" }}>Before</option>
+                      <option value="after"{{ (isset($email_clients['deadline']) && $email_clients['deadline'] == "after")?"selected":"" }}>After</option>
                     </select>
                     <label for="manage_check" class="auto_t">deadline date</label>
 
@@ -990,7 +990,7 @@ tinymce.init({
               <div class="email_client">
                 <div class="days_count">
                   <label for="manage_check" class="auto_t">Remind Client Every</label>
-                  <div class="days_box"><input type="text" name="dead_line" id="dead_line" style="width:100%; padding: 0; text-align: center; height: 24px;" value="" /></div>
+                  <div class="days_box"><input type="text" name="remind_days" id="remind_days" class="small_box" value="{{ (isset($email_clients['remind_days']) && $email_clients['remind_days'] != "")?$email_clients['remind_days']:"" }}" /></div>
                     <label for="" class="auto_t"> Days after email date</label>
                 </div> 
                
@@ -1004,7 +1004,7 @@ tinymce.init({
         <div class="auto_modal_footer clearfix" style="margin-right: 5px;">
           <div class="email_btns">
             <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+            <button type="button" class="btn btn-info pull-left save_t2" id="save_send_email">Save</button>
           </div>
         </div>
 

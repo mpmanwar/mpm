@@ -564,8 +564,40 @@ $(document).ready(function () {
             }
         });
     });
-/* ################# Job start date in job section end ################### */
+    /* ################# Job start date in job section end ################### */
+
+
+    /* ################# Email Client in job section start ################### */
+    $("#save_send_email").click(function(){
+        var service_id          = $("#service_id").val();
+        var encode_staff_id     = $("#encode_staff_id").val();
+        var encode_page_open    = $("#encode_page_open").val();
+
+        var template_id  = $("#email_tmplt_id").val();
+        var days         = $("#email_days").val();
+        var deadline     = $("#email_deadline").val();
+        var remind_days  = $("#remind_days").val();
+
+        //alert(days);return false;
+        $.ajax({
+            type: "POST",
+            url: '/jobs/save-email-client-days',
+            data: { 'template_id' : template_id, 'days' : days, 'deadline' : deadline, 'remind_days' : remind_days, 'service_id' : service_id },
+            beforeSend : function(){
+                $(".loader_show").html('<img src="/img/spinner.gif" />');
+            },
+            success : function(resp){
+                if(resp > 0){
+                    window.location = '/ch-annual-return/'+service_id+'/'+encode_page_open+'/'+encode_staff_id;
+                }else{
+                    $(".loader_show").html('There are some error..Please try again...');
+                }
+                
+            }
+        });
+    });
+    /* ################# Email Client in job section end ################### */
     
     
 	
-});//document end
+});//document end 

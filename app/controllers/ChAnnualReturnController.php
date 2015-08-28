@@ -79,6 +79,7 @@ class ChAnnualReturnController extends BaseController {
 		$data['autosend'] = AutosendTask::whereIn("user_id", $groupUserId)->where('service_id', '=', $data['service_id'])->first();
 
 		$data['jobs_start_days'] = JobsStartDate::getJobStartDaysByServiceId( $data['service_id'] );
+		$data['email_clients'] = JobsAutosendEmail::getJobsAutosendEmailByServiceId( $data['service_id'] );
 
 		
 

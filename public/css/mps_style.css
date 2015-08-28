@@ -1078,6 +1078,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .enter_email_box{width:100%; border:1px solid #dbdbdb; padding:10px;}
 .stop_email{ color: #CCC; font-size: 16px; font-style: italic;}
 .border_none{padding-top: 0; border-top: none;}
+.small_box{width:100%; padding: 0; text-align: center; height: 24px;}
 
 
 
