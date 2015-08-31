@@ -96,6 +96,7 @@ class JobStatus extends Eloquent {
         				//echo $details['job_status'][$service_id]['status_id'];
 						$client_array[$key] = $client_details[$key];
 						$client_array[$key]['completed_tasks'] = JobsCompletedTask::getTaskByClientAndServiceId($details['client_id'], $service_id);
+						$client_array[$key]['jobs_notes'] = JobsNote::getNotesByClientAndServiceId($details['client_id'], $service_id);
 					}
 				}
 				
@@ -110,6 +111,7 @@ class JobStatus extends Eloquent {
 				$client_data[$key] = Common::clientDetailsById( $row['client_id'] );
 				$client_data[$key]['completed_tasks'] = JobsCompletedTask::getTaskByClientAndServiceId($row['client_id'], $service_id);
 				$client_data[$key]['job_status'][$service_id] = JobStatus::getCompletedJobStatusByClientId($service_id, $row['client_id']);
+				$client_data[$key]['jobs_notes'] = JobsNote::getCompletedTaskNotes($row['client_id'], $service_id);
 			}
 		}
 

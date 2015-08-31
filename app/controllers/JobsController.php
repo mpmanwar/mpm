@@ -30,6 +30,12 @@ class JobsController extends BaseController {
         if(isset($jobs) && count($jobs) >0){
     		JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($data);
     		$last_id = $jobs['job_manage_id'];
+
+            $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+            if(isset($notes) && count($notes) > 0){
+                $update_data['notes'] =  "";
+                JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->update($update_data);
+            }
     	}else{
             $data["user_id"]    = $user_id;
     		$data["service_id"] = $service_id;
@@ -140,6 +146,10 @@ class JobsController extends BaseController {
             if($tab == 3){
                 JobStatus::where("job_status_id", "=", $job_status['job_status_id'])->delete();
             }else{
+                $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+                if(isset($notes) && count($notes) > 0){
+                    $update_data['notes'] =  $notes['notes'];
+                }
                 $update_data['is_completed'] =  'Y';
                 JobStatus::where("job_status_id", "=", $job_status['job_status_id'])->update($update_data);
             }
@@ -147,6 +157,8 @@ class JobsController extends BaseController {
         }else{
             JobStatus::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("is_completed", "=", "N")->where("service_id", "=", $service_id)->delete();
         }
+
+        
 
         echo 1;
     }
@@ -194,6 +206,14 @@ class JobsController extends BaseController {
 
         if(isset($notes) && count($notes) >0){
             $data['notes'] = $notes['notes'];
+        }
+
+        if(!isset($data['notes']) || $data['notes'] == ""){
+            $JobStatus  = JobStatus::whereIn("user_id", $groupUserId)->where("client_id","=", $client_id)->where("service_id","=", $service_id)->where("is_completed","=", "Y")->where("status_id","=", 10)->first();
+            if(isset($JobStatus) && count($JobStatus) >0){
+                $data['notes'] = $JobStatus['notes'];
+            }
+            
         }
         echo json_encode($data);
     }
