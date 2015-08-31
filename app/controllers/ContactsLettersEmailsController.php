@@ -58,6 +58,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$data['address_types'] 	= AddressType::getAllAddressDetails();
 		$data['all_address'] 	= ContactAddress::getAllContactAddress();
 
+
 		//echo "<pre>";print_r($data['group_details']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
 	}
@@ -312,6 +313,30 @@ class ContactsLettersEmailsController extends BaseController {
     		echo 0;die;
     	}
     }
+
+    public function show_contact_group() {
+		$data = array();
+		$contact_type = Input::get('contact_type');
+		$contact = explode("_", $contact_type);
+		if($contact[0] == "other"){
+			$address = ContactAddress::getContactDetailsById($contact[1]);
+			if(isset($address) && count($address) >0){
+				$data['address1'] 	= $address['addr_line1'];
+				$data['address2'] 	= $address['addr_line2'];
+				$data['city'] 		= $address['city'];
+				$data['county'] 	= $address['county'];
+				$data['postcode'] 	= $address['postcode'];
+				$data['country'] 	= $address['country'];
+			}
+
+		}else{
+			$data = ContactAddress::getClientContactAddress($contact[1], $contact[0]);
+		}
+		//print_r($data);die;
+		echo json_encode($data);
+		exit;
+
+	}
 
     
 

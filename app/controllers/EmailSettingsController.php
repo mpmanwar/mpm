@@ -4,12 +4,29 @@
 
 class EmailSettingsController extends BaseController {
 
+	public function __construct()
+	{
+		parent::__construct();
+	    $session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+		if (isset($session['user_type']) && $session['user_type'] == "C") {
+			return Redirect::to('/client-portal');exit;
+		}
+	    
+	}
+
 	public function index() {
 		$data['heading'] = "";
 
 		$session = Session::get('admin_details');
 		$groupUserId = $session['group_users'];
-		
+		$user_id 		= $session['id'];
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
 		/*if (Cache::has('template_list')) {
 			$data = Cache::get('template_list');
 		} else {*/
@@ -201,5 +218,7 @@ class EmailSettingsController extends BaseController {
 		}
 
 	}
+
+	
 
 }

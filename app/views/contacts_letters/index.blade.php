@@ -607,8 +607,7 @@ $(function() {
 
     <div class="form-group">
     <label for="exampleInputPassword1">Select or Add</label> 
-
-      <select class="form-control" name="address" id="address">
+      <select class="form-control change_address" name="address" id="address">
         <option value="">-- Select --</option>
         @if(!empty($all_address))
           @foreach($all_address as $key=>$address_row)

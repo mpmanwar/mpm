@@ -342,6 +342,7 @@ Route::any('/contacts/save-edit-group', 'ContactsLettersEmailsController@save_ed
 Route::any('/contacts/copy-to-group', 'ContactsLettersEmailsController@copy_to_group');
 Route::any('/contacts/delete-group', 'ContactsLettersEmailsController@delete_group');
 Route::any('/contacts/delete-from-group', 'ContactsLettersEmailsController@delete_from_group');
+Route::any('/contacts/show-contact-group', 'ContactsLettersEmailsController@show_contact_group');
 
 /*================== Contacts Letters Emails End ==============*/
 

@@ -1,7 +1,9 @@
 $(document).ready(function (e) {
+
   $(document).click(function() {
     $(".address_type_down").hide();
   });
+
   $(".down_arrow").click(function(event) {
       $(".address_type_down").toggle();
       event.stopPropagation();
@@ -36,8 +38,6 @@ $(document).ready(function (e) {
           var client_id   = $(this).data('client_id');
           var address = $("#custom_address_"+client_id).val();
         }
-
-        
 
         $("#show_full_address").html(address);
         $("#full_address-modal").modal("show");
@@ -310,6 +310,28 @@ $(document).ready(function (e) {
             }
           });
         }
+  });
+/* ################# Delete Client From group Type End ################### */ 
+
+/* ################# Delete Client From group Type Start ################### */ 
+  $(".change_address").change(function(){
+      var contact_type  = $(this).val();
+      
+      $.ajax({
+        type: "POST",
+        url: "/contacts/show-contact-group",
+        dataType: "json",
+        data: { 'contact_type': contact_type },
+        success: function (resp) {
+            $("#addr_line1").val(resp['address1']);
+            $("#addr_line2").val(resp['address2']);
+            $("#city").val(resp['city']);
+            $("#county").val(resp['county']);
+            $("#postcode").val(resp['postcode']);
+            $("#country").val(resp['country']);
+        }
+      });
+       
   });
 /* ################# Delete Client From group Type End ################### */ 
    

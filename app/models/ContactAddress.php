@@ -211,9 +211,9 @@ class ContactAddress extends Eloquent {
 		if(isset($contact_details) && count($contact_details) >0){
 			foreach ($contact_details as $key => $value) {
 				if(isset($value['addr_line1']) && $value['addr_line1'] != ""){
-					$address_data[$i]['address'] = $value['addr_line1'];
-					$address_data[$i]['type'] = "other";
-					$address_data[$i]['client_id'] = "0";
+					$address_data[$i]['address'] 	= $value['addr_line1'];
+					$address_data[$i]['type'] 		= "other";
+					$address_data[$i]['client_id'] 	= $value['contact_id'];
 					$i++;
 				}
 				
@@ -322,6 +322,81 @@ class ContactAddress extends Eloquent {
 		}
 		return substr($address, 0, -2);
 
+	}
+
+	public static function getClientContactAddress($client_id, $type)
+	{
+		$data = array();
+		$details = Common::clientDetailsById($client_id);
+		if(isset($details) && count($details) >0){
+			if($type == "res" || $type == "serv"){
+				if(isset($details[$type.'_addr_line1']) && $details[$type.'_addr_line1'] != ""){
+					$data['address1'] = $details[$type.'_addr_line1'];
+				}else{
+					$data['address1'] = "";
+				}
+				if(isset($details[$type.'_addr_line2']) && $details[$type.'_addr_line2'] != ""){
+					$data['address2'] = $details[$type.'_addr_line2'];
+				}else{
+					$data['address2'] = "";
+				}
+				if(isset($details[$type.'_city']) && $details[$type.'_city'] != ""){
+					$data['city'] = $details[$type.'_city'];
+				}else{
+					$data['city'] = "";
+				}
+				if(isset($details[$type.'_county']) && $details[$type.'_county'] != ""){
+					$data['county'] = $details[$type.'_county'];
+				}else{
+					$data['county'] = "";
+				}
+				if(isset($details[$type.'_postcode']) && $details[$type.'_postcode'] != ""){
+					$data['postcode'] = $details[$type.'_postcode'];
+				}else{
+					$data['postcode'] = "";
+				}
+				if(isset($details[$type.'_country']) && $details[$type.'_country'] != ""){
+					$data['country'] = $details[$type.'_country'];
+				}else{
+					$data['country'] = "";
+				}
+
+			}else{
+
+				if(isset($details[$type.'_cont_addr_line1']) && $details[$type.'_cont_addr_line1'] != ""){
+					$data['address1'] = $details[$type.'_cont_addr_line1'];
+				}else{
+					$data['address1'] = "";
+				}
+				if(isset($details[$type.'_cont_addr_line2']) && $details[$type.'_cont_addr_line2'] != ""){
+					$data['address2'] = $details[$type.'_cont_addr_line2'];
+				}else{
+					$data['address2'] = "";
+				}
+				if(isset($details[$type.'_cont_city']) && $details[$type.'_cont_city'] != ""){
+					$data['city'] = $details[$type.'_cont_city'];
+				}else{
+					$data['city'] = "";
+				}
+				if(isset($details[$type.'_cont_county']) && $details[$type.'_cont_county'] != ""){
+					$data['county'] = $details[$type.'_cont_county'];
+				}else{
+					$data['county'] = "";
+				}
+				if(isset($details[$type.'_cont_postcode']) && $details[$type.'_cont_postcode'] != ""){
+					$data['postcode'] = $details[$type.'_cont_postcode'];
+				}else{
+					$data['postcode'] = "";
+				}
+				if(isset($details[$type.'_cont_country']) && $details[$type.'_cont_country'] != ""){
+					$data['country'] = $details[$type.'_cont_country'];
+				}else{
+					$data['country'] = "";
+				}
+			
+			}
+		}
+		return $data;
 	}
 
 }
