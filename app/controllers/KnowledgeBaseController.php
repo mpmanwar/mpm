@@ -58,6 +58,13 @@ class KnowledgeBaseController extends BaseController {
           $notes_id = Knowledgebase::insertGetId($data);
         
         
+        $path = "uploads/knowledgebase/".$user_id;
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
+        
+        
+        
         
         if ($notes_id) {
                 //////////////////file upload start//////////////////
@@ -166,7 +173,10 @@ class KnowledgeBaseController extends BaseController {
          
          $update = Knowledgebase::where("knowledgebase_id","=",$edited_id)->update($data);
          // echo $this->last_query();die();
-         
+         $path = "uploads/knowledgebase/".$user_id;
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
          
          if ($_FILES) {
             //echo 'fafafaf';die();
