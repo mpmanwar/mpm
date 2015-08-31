@@ -345,3 +345,14 @@ Route::any('/contacts/delete-from-group', 'ContactsLettersEmailsController@delet
 
 /*================== Contacts Letters Emails End ==============*/
 
+Route::any('/knowledgebase', 'KnowledgeBaseController@index');
+
+Route::any('/knowledgebase-notesinsert', 'KnowledgeBaseController@knowledgebase_notesinsert');
+Route::any('/editmodekbase-notes', 'KnowledgeBaseController@editmodekbase_notes');
+
+
+/*Route::any('/view-orgnotes', 'NotesController@view_orgnotes');
+Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
+Route::any('/deleteorg-notes', 'NotesController@deleteorg_notes');
+Route::any('/editmodeorg-notes', 'NotesController@editmodeorg_notes');
+*/
