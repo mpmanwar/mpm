@@ -344,12 +344,13 @@ $(document).ready(function () {
       var client_id = $(this).data("client_id");
       var tab = $(this).data("tab");
       var service_id = $("#service_id").val();
+      var job_status_id = $(this).data("job_status_id");
 
       $.ajax({
           type: "POST",
           dataType : "json",
           url: "/jobs/show-jobs-notes",
-          data: { 'client_id': client_id, 'service_id' : service_id },
+          data: { 'client_id': client_id, 'service_id' : service_id, 'tab' : tab, 'job_status_id' : job_status_id },
           success: function (resp) {
             $("#notes_client_id").val(client_id);
             $("#notes_tab").val(tab);
