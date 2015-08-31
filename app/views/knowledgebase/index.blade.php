@@ -228,7 +228,7 @@ tinymce.init({
                         
                         <button type="button" id="delete_notes" class="btn btn-danger "> Delete</button>
                       <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
-                        <a href="/staff-profile" class="btn btn-primary">Cancel</a>
+                        <a href="/knowledgebase" class="btn btn-primary">Cancel</a>
                            
                           
                              <!--<button class="btn btn-danger back" type="button">Delete</button>
@@ -246,7 +246,7 @@ tinymce.init({
                       <img src="/img/plus_1.png" class="icon_gap"  /> <strong class="notes_h_t">New Article </strong></a>
                       <div class="notes_points"> 
                      
-                      <span class="notes_h_t">NOTES</span>
+                      <span class="notes_h_t">HOW TO</span>
                      
                     
                       
@@ -260,7 +260,7 @@ tinymce.init({
                       </a></li>
                       
                       
-                      
+                         
                       @endforeach 
                      <!-- <li><a href="#">How does TB coder work</a></li>
                       <li><a href="#">Is TB coder a Secure site?</a></li>

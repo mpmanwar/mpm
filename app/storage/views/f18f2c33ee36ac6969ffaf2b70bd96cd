@@ -147,7 +147,10 @@ LETTERS & EMAILS</p>
 <a  href="/knowledgebase">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="<?php echo URl::asset('img/dashboard_circle.png'); ?>" /></div>
-<p class="c_tagline2">KNOWLEDGE BASE</p>
+
+<p class="c_tagline">HOUSE <br>
+KNOWLEDGE BASE</p>
+
 <div class="clearfix"></div>
 </div></a>
 </li>

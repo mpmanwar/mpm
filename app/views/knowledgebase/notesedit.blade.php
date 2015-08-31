@@ -1,4 +1,3 @@
-
 @if(!empty($inserted_id))
  {{$inserted_id or ""}}|||
  @endif
@@ -34,7 +33,7 @@
                         <button class="btn btn-info" id="editnotes"  type="button">Edit</button>
                         <button type="button" id="delete_notes" class="btn btn-danger "> Delete</button>
                       <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
-                        <a href="/staff-profile" class="btn btn-primary">Cancel</a>
+                        <a href="/knowledgebase" class="btn btn-primary">Cancel</a>
                            
                           </div>
                           <div class="clearfix"></div>
