@@ -349,6 +349,12 @@ Route::any('/knowledgebase', 'KnowledgeBaseController@index');
 
 Route::any('/knowledgebase-notesinsert', 'KnowledgeBaseController@knowledgebase_notesinsert');
 Route::any('/editmodekbase-notes', 'KnowledgeBaseController@editmodekbase_notes');
+Route::any('/view-article', 'KnowledgeBaseController@view_article');
+
+Route::any('/editsave-article', 'KnowledgeBaseController@editsave_article');
+
+Route::any('/deletearticle-notes', 'KnowledgeBaseController@delete_article');
+Route::any('/deletearticlefile', 'KnowledgeBaseController@deletearticlefile');
 
 
 /*Route::any('/view-orgnotes', 'NotesController@view_orgnotes');

@@ -3,10 +3,16 @@
 $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
-$("#addnotes_button").click(function(){   
+$("#addnotes_button").click(function(){
+    $("#notesmsg").val("");
+    //var s="fafafafaffafa"
+   // tinyMCE.activeEditor.setContent(s);
+    
+     //tinyMCE.activeEditor.setContent("");
     tinymce.remove();
     tinymce.init({
     selector: "#notesmsg",
+   // elements : "notesmsg",
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -54,6 +60,9 @@ $("body").on("click", "#savenotes", function(){
          //var notesmsg= $("#notesmsg").val();
    
    var notesmsg = tinyMCE.activeEditor.getContent();
+       // console.log(notesmsg);return false;
+        
+        $("#notesmsg").val(notesmsg);
         
         //var toRemove = notestitle;
             //var gorge = toRemove.replace(toRemove,'');
@@ -66,15 +75,16 @@ $("body").on("click", "#savenotes", function(){
                 finaltitle=notestitle;
             }
             
-            
-        
-        $.ajax({
+     /*   $.ajax({
 		type: "POST",
 		//dataType: "html",
 		url: '/knowledgebase-notesinsert',
 		data: 
 			{ 'notestitle':notestitle, 'notesmsg' : notesmsg
-		},
+		},*/
+        $("#atricale").ajaxForm(
+	
+		{
 		success: function(resp) {
 			console.log(resp);
           // var title=
@@ -84,10 +94,6 @@ $("body").on("click", "#savenotes", function(){
             $(".notes_innermsg_top").css("display", "none");
             
             var r = resp.split('|||');
-            
-            
-            
-            
             $("#notes_font").html(r[1]);
            // var len = notestitle.length
            // alert(len);
@@ -96,7 +102,8 @@ $("body").on("click", "#savenotes", function(){
             
             
             }
-	});
+            	}).submit();
+	//});
     
     
     
@@ -125,8 +132,10 @@ $("body").on("click", "#savenotes", function(){
     var editnotesval= $("#editnotestitle").val();
     //var editnotesmsg= $("#editnotesmsg").val();
     var editnotesmsg = tinyMCE.activeEditor.getContent();
-   var edited_id= $("#editstaffnotes_id").val();
-    var client_id= $("#editclient_id").val();
+    //console.log(editnotesmsg);return false;
+    $("#editnotesmsg").val(editnotesmsg);
+   var edited_id= $("#knowledgebase_id").val();
+    //var client_id= $("#editclient_id").val();
     
     /*console.log(editnotesval);
     console.log(editnotesmsg);
@@ -154,14 +163,16 @@ $("body").on("click", "#savenotes", function(){
             
     
     
-    $.ajax({
+  /*  $.ajax({
 		type: "POST",
 		//dataType: "html",
 		url: '/editstaff-notes',
 		data: 
 			{ 'editnotesval':editnotesval, 'editnotesmsg' : editnotesmsg,'edited_id':edited_id
-		},
-		success: function(resp) {
+		},*/
+	$("#editatricale").ajaxForm(
+    {
+    	success: function(resp) {
 		  
 		 // $("#notes_font").css("display", "block");
           //  $(".notes_innermsg_top").css("display", "none");
@@ -175,7 +186,8 @@ $("body").on("click", "#savenotes", function(){
            
             
             }
-	});
+            }).submit();
+//	});
     
     
     
@@ -198,7 +210,7 @@ $("body").on("click", "#savenotes", function(){
     if (numItems >0 ) {
        
         var deleted_id="";
-        var edited_id= $("#editstaffnotes_id").val();
+        var edited_id= $("#knowledgebase_id").val();
          //var client_id= $("#editclient_id").val();
         var notesmsgid= $("#msgid").val();
        if(notesmsgid){
@@ -209,15 +221,15 @@ $("body").on("click", "#savenotes", function(){
        deleted_id = $.trim(deleted_id);
         
         
-        console.log(deleted_id);
-        console.log(edited_id);
+        //console.log(deleted_id);
+       // console.log(edited_id);return false;
        
         $("#listtitle"+deleted_id).remove();
-       
+      // return false;
     $.ajax({
 		type: "POST",
 		//dataType: "html",
-		url: '/deletestaffprof-notes',
+		url: '/deletearticle-notes',
 		data: 
 			{ 'edited_id':deleted_id
 		},
@@ -252,7 +264,7 @@ console.log(notesmsgid);
 $.ajax({
 		type: "POST",
 		//dataType: "html",
-		url: '/view-staffnotes',
+		url: '/view-article',
 		data: {
 			'notesmsgid': notesmsgid
 		},
@@ -319,5 +331,36 @@ $.ajax({
 
 });
 
+function delfile(del_id){
+    
+    
+    //alert(del_id);
+    
+  var deleted_id=del_id
+    $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/deletearticlefile',
+		data: 
+			{ 'deleted_id':deleted_id
+		},
+		success: function(resp) {
+			//console.log(resp);
+            console.log(deleted_id);
+           // $("#notes_font").html(resp);
+            $("#attach").html("");
+            
+           // $("#listtitle"+deleted_id).remove();
+            }
+	});                        
+        
+       // }
+        
+            
+    
+    
+    
+    
+}
 
 
