@@ -79,7 +79,7 @@ tinymce.init({
                            
                           </div>
                 
-                   
+                      
                     <div class="clearfix"></div>
                     </div>
                      {{ Form::close() }} 

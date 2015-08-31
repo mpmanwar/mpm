@@ -1,4 +1,3 @@
-
 @if(!empty($inserted_id))
  {{$inserted_id or ""}}|||
  @endif
