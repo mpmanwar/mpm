@@ -36,7 +36,6 @@ class JobsCompletedTask  extends Eloquent{
 	        	$made_up_date = "";
 	        }
 
-
 			$JobStatus	= JobsCompletedTask::whereIn("user_id", $groupUserId)->where("client_id","=", $client_id)->where("service_id","=", $service_id)->first();
 			if((!isset($JobStatus) && count($JobStatus) <=0) && $made_up_date != ""){
 				$status_data['client_id'] 		= $client_id;

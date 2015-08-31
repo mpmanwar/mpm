@@ -26,16 +26,18 @@ class JobsController extends BaseController {
     	$client_id         = Input::get("client_id");
     	$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
 
-        $data["status"]    = "Y";
+        $data["status"]         = "Y";
+        //$job_data["created"]    = date("Y-m-d H:i:s");
         if(isset($jobs) && count($jobs) >0){
     		JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($data);
     		$last_id = $jobs['job_manage_id'];
 
-            $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+            /*$notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
             if(isset($notes) && count($notes) > 0){
-                $update_data['notes'] =  "";
+                $update_data['notes']           =  "";
+                $update_data['job_start_date']  =  "";
                 JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->update($update_data);
-            }
+            }*/
     	}else{
             $data["user_id"]    = $user_id;
     		$data["service_id"] = $service_id;
@@ -98,12 +100,14 @@ class JobsController extends BaseController {
                     $job_data["user_id"]    = $user_id;
                     $job_data["service_id"] = $service_id;
                     $job_data["client_id"]  = $details['client_id'];
+                    //$job_data["created"]    = date("Y-m-d H:i:s");
                     if(isset($jobs) && count($jobs) >0){
-                        $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $job_data["client_id"])->where("service_id", "=", $service_id)->first();
+                        /*$notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $job_data["client_id"])->where("service_id", "=", $service_id)->first();
                         if(isset($notes) && count($notes) > 0){
-                            $update_data['notes'] =  "";
+                            $update_data['notes']           =  "";
+                            $update_data['job_start_date']  =  "";
                             JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $job_data["client_id"])->where("service_id", "=", $service_id)->update($update_data);
-                        }
+                        }*/
                         JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($job_data);
                         $last_id = $jobs['job_manage_id'];
                     }else{
@@ -130,6 +134,38 @@ class JobsController extends BaseController {
     }
 
     public function delete_single_task()
+    {
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $client_id  = Input::get("client_id");
+        $service_id = Input::get("service_id");
+        $tab        = Input::get("tab");
+
+        $jobs = JobsManage::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->where("client_id", "=", $client_id)->first();
+        if(isset($jobs) && count($jobs) > 0){
+            $job_data['filling_date'] =  $jobs['created'];
+            JobsCompletedTask::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->where("client_id", "=", $client_id)->update($job_data);
+        }
+
+        JobsManage::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->where("client_id", "=", $client_id)->delete();
+
+        JobStatus::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->where("client_id", "=", $client_id)->delete();
+
+        $notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+        if(isset($notes) && count($notes) > 0){
+            $update_data['notes'] =  $notes['notes'];
+            JobsCompletedTask::whereIn("user_id", $groupUserId)->where("service_id", "=", $service_id)->where("client_id", "=", $client_id)->update($update_data);
+        }
+
+        JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->delete();
+
+        
+        echo 1;
+    }
+
+    /*public function delete_single_task()
     {
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
@@ -167,7 +203,7 @@ class JobsController extends BaseController {
         
 
         echo 1;
-    }
+    }*/
 
     public function change_job_status()
     {
@@ -216,8 +252,8 @@ class JobsController extends BaseController {
             $data['notes'] = $notes['notes'];
         }
 
-        if( (!isset($data['notes']) || $data['notes'] == "") && $tab == 3 && $job_status_id > 0){
-            $JobStatus  = JobStatus::where("job_status_id","=", $job_status_id)->first();
+        if( (!isset($data['notes']) || $data['notes'] == "") && $tab == 3){
+            $JobStatus  = JobsCompletedTask::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
             if(isset($JobStatus) && count($JobStatus) >0){
                 $data['notes'] = $JobStatus['notes'];
             }

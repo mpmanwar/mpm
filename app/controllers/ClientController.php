@@ -895,6 +895,7 @@ class ClientController extends BaseController {
 		$key 				= Input::get("key");
 		$relation_client_id = Input::get("client_id");
 
+
 		// ################# INSERT CLIENT START ################### //
 		$officers 	= Common::getOfficerDetails($company_number);//print_r($officers->items[$key]);die;
 		if(isset($officers->items[$key]) && count($officers->items[$key]) > 0){
@@ -907,6 +908,7 @@ class ClientController extends BaseController {
 
 				$client_id = App::make('ChdataController')->import_company_details($company_number);
 				$data['link'] = "/client/edit-org-client/".$client_id;
+				$data['goto_link'] = base64_encode("org_client");
 			}else{
 				$client_id = App::make('ChdataController')->checkClientExists($officer->name);
 				if($client_id != ""){
@@ -916,6 +918,7 @@ class ClientController extends BaseController {
 				}
 				
 				$data['link'] = "/client/edit-ind-client/".$client_id;
+				$data['goto_link'] = base64_encode("ind_client");
 			}
 			$data['client_id'] = $client_id;
 			Client::where("client_id", "=", $client_id)->update(array("is_relation_add" => "Y", 'type'=>'non'));

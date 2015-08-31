@@ -97,7 +97,7 @@ $(document).ready(function(){
         <li class="active" id="tab_1"><a class="open_header" data-id="1" href="javascript:void(0)">GENERAL</a></li>
         <li id="tab_2"><a class="open_header" data-id="2" href="javascript:void(0)">TAX INFORMATION</a></li>
         <li id="tab_3"><a class="open_header" data-id="3" href="javascript:void(0)">CONTACT INFORMATION</a></li>
-        <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIP</a></li>
+        <li id="tab_4"><a class="open_header" data-id="4" href="javascript:void(0)">RELATIONSHIPS</a></li>
         <li id="tab_5"><a class="open_header" data-id="5" href="javascript:void(0)">OTHERS</a></li>
          
         <li><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> New Field
@@ -918,7 +918,7 @@ $(document).ready(function(){
                    <div class="col-xs-12">
  <div class="col_m2"> 
  <div class="director_table"> 
-<h3 class="box-title">RELATIONSHIP</h3> 
+<h3 class="box-title">RELATIONSHIPS</h3> 
 
 <div class="j_selectbox">
 <span>ADD NEW ENTITY</span>
