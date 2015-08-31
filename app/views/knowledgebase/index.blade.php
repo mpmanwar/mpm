@@ -228,7 +228,7 @@ tinymce.init({
                         
                         <button type="button" id="delete_notes" class="btn btn-danger "> Delete</button>
                       <!--  <button class="btn btn-danger"  type="submit">Delete</button> -->
-                        <a href="/staff-profile" class="btn btn-primary">Cancel</a>
+                        <a href="/knowledgebase" class="btn btn-primary">Cancel</a>
                            
                           
                              <!--<button class="btn btn-danger back" type="button">Delete</button>
