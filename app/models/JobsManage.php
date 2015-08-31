@@ -12,6 +12,12 @@ class JobsManage extends Eloquent {
 		$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
         $job_data["status"]    = "Y";
         if(isset($jobs) && count($jobs) >0){
+            /*$notes = JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->first();
+            if(isset($notes) && count($notes) > 0){
+                $update_data['notes'] =  "";
+                JobsNote::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("service_id", "=", $service_id)->update($update_data);
+            }*/
+            
             JobsManage::where("job_manage_id", "=", $jobs['job_manage_id'])->update($job_data);
             $last_id = $jobs['job_manage_id'];
         }else{

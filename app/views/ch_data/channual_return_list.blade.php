@@ -704,8 +704,8 @@ tinymce.init({
     <table class="table table-bordered table-hover dataTable ch_returns" id="example3" aria-describedby="example3_info">
       <thead>
         <tr role="row">
-          <th>DELETE</th>
-          <th>STAFF</th>
+          <th width="6%">DELETE</th>
+          <th width="13%">STAFF</th>
           <th>CRN</th>
           <th>BUSINESS NAME</th>
           <th width="22%">LAST RETURN DATE</th>
@@ -720,7 +720,15 @@ tinymce.init({
           @foreach($completed_task as $key=>$details)
             <tr id="data_tr_{{ $details['client_id'] }}_3">
               <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3"><img src="/img/cross.png"></a></td>
-              <td align="left"></td>
+              <td align="left">
+                @if(isset($details['allocated_staffs']) && count($details['allocated_staffs']) >0)
+                <select class="form-control newdropdown table_select staff_dropdown" id="1_staff_dropdown_{{ $details['client_id'] }}" data-client_id="{{$details['client_id']}}">
+                  @foreach($details['allocated_staffs'] as $key=>$staff_row)
+                    <option value="{{ $staff_row['staff_id'] or "" }}">{{ $staff_row['staff_name'] or "" }}</option>
+                  @endforeach
+                </select>
+              @endif
+              </td>
               <td align="left">{{ $details['registration_number'] or "" }}</td>
               <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}">{{ $details['business_name'] or "" }}</a></td>
               <td align="center">
@@ -731,7 +739,7 @@ tinymce.init({
                   <a href="javascript:void(0)" class="search_t cancel_made_date" data-client_id="{{ $details['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Cancel</a>
                 </span>
               </td>
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
+              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-is_completed="{{ (isset($details['jobs_notes']['is_completed']))?$details['jobs_notes']['is_completed']:'N' }}" data-job_status_id="{{ (isset($details['jobs_notes']['job_status_id']))?$details['jobs_notes']['job_status_id']:'0' }}" data-tab="3"><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td align="center" width="12%">
                 {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
