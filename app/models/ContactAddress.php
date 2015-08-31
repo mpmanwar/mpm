@@ -194,7 +194,7 @@ class ContactAddress extends Eloquent {
 			foreach ($ind_details as $key => $value) {
 				if(isset($value['serv_addr_line1']) && $value['serv_addr_line1'] != ""){
 					$address_data[$i]['address'] = $value['serv_addr_line1'];
-					$address_data[$i]['type'] = "res";
+					$address_data[$i]['type'] = "serv";
 					$address_data[$i]['client_id'] = $value['client_id'];
 					$i++;
 				}
