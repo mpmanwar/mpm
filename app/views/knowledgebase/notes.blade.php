@@ -5,7 +5,7 @@
 tinymce.init({
 
     selector: "textarea",
-
+    
     plugins: [
 
         "advlist autolink lists link image charmap print preview anchor",
@@ -24,14 +24,17 @@ tinymce.init({
 
 </script>
  
- <input name="staffprofnotes_id" id="editstaffnotes_id" type="hidden" value="{{ $staffprof_notes['staffprofnotes_id'] or "" }}">
+
 
                          <img src="/img/icon_1.png" class="heading_icon">
-                  
+                    {{ Form::open(array('url' => '/editsave-article', 'files' => true,'id'=>'editatricale', 'name'=>'editatricale')) }}   
+                        
+                 <!-- <input name="staffprofnotes_id" id="editstaffnotes_id" type="hidden" value="{{ $staffprof_notes['staffprofnotes_id'] or "" }}"> -->
                     <div id="demo" >
                     <p id="notes_error"></p>
                     <div class="form-group">
                     <p id="notes_error1"></p>
+                    <input name="knowledgebase_id" id="knowledgebase_id" type="hidden" value="{{ $staffprof_notes['knowledgebase_id'] or "" }}"> 
                 <label for="exampleInputPassword1">Title</label>
                  
                    <input type="text" name="notestitle" id="editnotestitle" class="form-control" value="{{ $staffprof_notes['title'] or "" }}" />
@@ -44,6 +47,19 @@ tinymce.init({
                 <textarea name="notesmsg" rows="15" cols="20" id="editnotesmsg" class="form-control">{{ $staffprof_notes['textmessage'] or "" }}</textarea>
                 </div>
                 
+                 <div class="twobox_1">
+							<i class="fa fa-attach">
+							</i>
+							Attachment
+							<input type="file" name="edit_attach_file" id="edit_attach_file">
+						</div>
+                        
+                        
+                        
+                        
+                        
+                        
+                <p >{{ $staffprof_notes['file'] or "" }}</p>
                 <div class="add_client_btn">
                     
                     
@@ -63,6 +79,6 @@ tinymce.init({
                    
                     <div class="clearfix"></div>
                     </div>
-                     
+                     {{ Form::close() }} 
                     
 

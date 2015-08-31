@@ -7,6 +7,8 @@
 @stop
 
 @section('myjsfile')
+ <script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="{{ URL :: asset('js/plugins/jquery.quicksearch.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/staff_appraisal.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/kbase.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
@@ -18,6 +20,12 @@
 
 <!-- page script -->
 <script type="text/javascript">
+
+$(function() {
+        $('input#id_search').quicksearch('.notes_points ul li');
+        
+       
+    });
 /*
 $(".date_of_meeting").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
 
@@ -141,7 +149,7 @@ tinymce.init({
                         <div class="col_m2 icon_poisition" >
                         
                         <div class="notes_innermsg_top" style="display:none;" >
-                      <!--   {{ Form::open(array('url' => '/org-notes', 'files' => true)) }} -->
+                       {{ Form::open(array('url' => '/knowledgebase-notesinsert', 'files' => true,'id'=>'atricale', 'name'=>'atricale')) }} 
                          <img src="/img/icon_1.png" class="heading_icon">
                   
                     <div id="demo" >
@@ -158,8 +166,15 @@ tinymce.init({
                 <label for="exampleInputPassword1">Message</label>
                 <textarea name="notesmsg" rows="15" cols="20" id="notesmsg" class="form-control"></textarea>
                 </div>
-                
+                <div class="twobox_1">
+							<i class="fa fa-attach">
+							</i>
+							Attachment
+							<input type="file" name="add_file" id="add_file">
+						</div>
                 <div class="add_client_btn">
+                
+                
                             <button class="btn btn-danger" id="cancle_notes" type="button">Cancel</button>
                            <!-- <button class="btn btn-info"  type="submit">Edit</button> 
                            <button class="btn btn-success" id="" type="submit" >Save</button>-->
@@ -170,7 +185,7 @@ tinymce.init({
                    
                     <div class="clearfix"></div>
                     </div>
-                   <!-- {{ Form::close() }} -->
+                    {{ Form::close() }} 
                         </div>
                         
                         
@@ -236,7 +251,7 @@ tinymce.init({
                     
                       
                       <ul id="newaddnotes">
-                   <!--  @foreach($knowledge_notes as $key=>$kb_notes_row)
+                   @foreach($knowledge_notes as $key=>$kb_notes_row)
                       <li id="listtitle{{ $kb_notes_row->knowledgebase_id }}"><a data-id="{{ $kb_notes_row->knowledgebase_id }}" class="title_view" href="javascript:void(0)">
                    
 {{ (strlen($kb_notes_row->title) > 40)? substr(strip_tags($kb_notes_row->title), 0, 40)."...": strip_tags($kb_notes_row->title) }}
@@ -246,13 +261,13 @@ tinymce.init({
                       
                       
                       
-                      @endforeach -->
-                      <li><a href="#">How does TB coder work</a></li>
+                      @endforeach 
+                     <!-- <li><a href="#">How does TB coder work</a></li>
                       <li><a href="#">Is TB coder a Secure site?</a></li>
                       <li><a href="#">Sign Up for a TB coder account</a></li>
                       <li><a href="#">How can I sin up for TB coder</a></li>
                       <li><a href="#">For which contries is TB coder available?</a></li>
-                      <li><a href="#">Does TB coder work any accounts</a></li>
+                      <li><a href="#">Does TB coder work any accounts</a></li> -->
                       </ul>
                       
                      

@@ -507,6 +507,7 @@ $("#demo").hide();
 //$("#notes_innermsg_top").css("display", "none");
 
 $("#addnotes_button").click(function(){
+    $("#notesmsg").val("");
     tinymce.remove();
     tinymce.init({
     selector: "#notesmsg",
