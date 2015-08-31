@@ -57,9 +57,12 @@ tinymce.init({
                         
                         
                         
-                        
-                        
-                <p >{{ $staffprof_notes['file'] or "" }}</p>
+         @if(!empty($staffprof_notes['file']))
+            <p id="attach">{{ $staffprof_notes['file'] or "" }}
+            <a onclick="delfile('{{ $staffprof_notes['knowledgebase_id'] }}')" href="javascript:void(0)"><img src="img/cross.png" /></a></p>
+         @endif
+                                
+                
                 <div class="add_client_btn">
                     
                     

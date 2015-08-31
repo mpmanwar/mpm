@@ -245,8 +245,29 @@ class KnowledgeBaseController extends BaseController {
         
     }
     
-    
-    
+    public function deletearticlefile()
+    {
+        $deleted_id = Input::get("deleted_id");
+         //$client_id = Input::get("client_id");
+        $admin_s = Session::get('admin_details');
+		$user_id = $admin_s['id'];
+        
+        
+        
+        $data['file']="";
+        if (Request::ajax()) {
+		
+        	 Knowledgebase::where("knowledgebase_id", "=", $deleted_id)->update($data);
+            echo 1;
+        	
+		
+        }
+        
+        
+        
+        
+        
+    }
     
 
 }

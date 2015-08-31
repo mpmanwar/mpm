@@ -331,5 +331,36 @@ $.ajax({
 
 });
 
+function delfile(del_id){
+    
+    
+    //alert(del_id);
+    
+  var deleted_id=del_id
+    $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/deletearticlefile',
+		data: 
+			{ 'deleted_id':deleted_id
+		},
+		success: function(resp) {
+			//console.log(resp);
+            console.log(deleted_id);
+           // $("#notes_font").html(resp);
+            $("#attach").html("");
+            
+           // $("#listtitle"+deleted_id).remove();
+            }
+	});                        
+        
+       // }
+        
+            
+    
+    
+    
+    
+}
 
 
