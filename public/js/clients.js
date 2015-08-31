@@ -442,7 +442,7 @@ $(".back").click(function(){
     var client_type = $("#client_type").val();
     var is_archive;
     var html = $(this).html();
-    if($.trim(html) == 'Show Archived'){
+    if($.trim(html) == 'Show Archived Clients'){
       is_archive  = 'N';
       //$(this).html('Hide Archived');
     }else{

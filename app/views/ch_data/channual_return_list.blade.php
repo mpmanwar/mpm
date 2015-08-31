@@ -716,6 +716,7 @@ tinymce.init({
 
       
         <tbody role="alert" aria-live="polite" aria-relevant="all">
+          <?php $i = 1;?>
         @if(isset($completed_task) && count($completed_task) >0)
           @foreach($completed_task as $key=>$details)
             <tr id="data_tr_{{ $details['client_id'] }}_3">
@@ -742,9 +743,10 @@ tinymce.init({
               <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-is_completed="{{ (isset($details['jobs_notes']['is_completed']))?$details['jobs_notes']['is_completed']:'N' }}" data-job_status_id="{{ (isset($details['jobs_notes']['job_status_id']))?$details['jobs_notes']['job_status_id']:'0' }}" data-tab="3"><span {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
               </td>
               <td align="center" width="12%">
-                {{ isset($details['job_status'][$service_id]['created'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['created'])):"" }}
+                {{ isset($details['job_status'][$service_id]['filling_date'])?date("d-m-Y", strtotime($details['job_status'][$service_id]['filling_date'])):"" }}
               </td>
             </tr>
+            <?php $i++;?>
           @endforeach
         @endif
         

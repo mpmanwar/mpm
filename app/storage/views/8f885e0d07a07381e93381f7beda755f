@@ -33,7 +33,11 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
+                            <?php if(isset($user_type) && $user_type != "C"): ?>
                             <a href="/staff-profile" class="btn btn-default btn-flat">Profile</a>
+                            <?php else: ?>
+                            <a href="/client/edit-ind-client/<?php echo isset($client_id) ? $client_id : ""; ?>/<?php echo base64_encode('client_portal'); ?>" class="btn btn-default btn-flat">Profile</a>
+                            <?php endif; ?>
                         </div>
                         <div class="pull-left" style="margin-left: 3px;">
                             <a href="/change-password" class="btn btn-default btn-flat">Edit Password</a>

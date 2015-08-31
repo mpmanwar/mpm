@@ -11,7 +11,7 @@ class HomeController extends BaseController {
 
 	public function index() {
 		//$data['heading'] = "DASHBOARD";
-		$data['page_title'] = "Home";
+		$data['page_title'] = "i-Practice | Practice Automation";
 		return View::make('home.index', $data);
 	}
 

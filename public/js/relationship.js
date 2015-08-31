@@ -127,11 +127,11 @@ $("#officers_details-modal").on("click", ".officer_addto_relation", function(){
 
         	var url, name;
         	if(resp['link'] == 'org'){
-                url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id'];
+                url  = resp['base_url']+'/client/edit-org-client/'+resp['client_id']+"/"+resp['goto_link'];
                 name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>';
             }
             else if(resp['link'] == 'ind'){
-                url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id'];
+                url = resp['base_url']+'/client/edit-ind-client/'+resp['client_id']+"/"+resp['goto_link'];
                 name = '<a href="'+url+'" target="_blank">'+resp['appointment_name']+'</a>'
             }else{
             	url = "";

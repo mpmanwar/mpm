@@ -34,7 +34,7 @@ $(function() {
       "aoColumns":[
             {"bSortable": false},
             
-            {"bSortable": true},
+            /*{"bSortable": true},*/
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
@@ -177,9 +177,9 @@ $(function() {
             <input type="hidden" id="client_type" value="ind">  
             <thead>
               <tr role="row">
-                <th><input type="checkbox" id="allCheckSelect"/></th>
+                <th width="3%"><input type="checkbox" id="allCheckSelect"/></th>
                 <!-- <th>#</th> -->
-                <th>STAFF</th>
+                <!-- <th>STAFF</th> -->
                 <th><span id="dob_text">DOB</span>
                   <span id="dob_select" style="display:none;">
                     <select id="four" style="width:100px;">
@@ -260,13 +260,13 @@ $(function() {
                   <td align="center">
                     <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" id="client_delete_id"/>
                   </td>
-                  <td align="left">{{ $client_row['staff_name'] or "" }}</td>
+                  <!-- <td align="left">{{ $client_row['staff_name'] or "" }}</td> -->
                   <td align="center">{{ isset($client_row['dob'])?date("d-m-Y", strtotime($client_row['dob'])):"" }}</td>
                   <td align="left"><a href="/client/edit-ind-client/{{ $client_row['client_id'] }}/{{ base64_encode('ind_client') }}">{{ (!empty($client_row['client_name']))? $client_row['client_name']: '' }}</a></td>
                   <td align="left">
                     
                     @if(isset($client_row['relationship']) && count($client_row['relationship']) >0 )
-                      <select class="form-control">
+                      <select class="form-control newdropdown">
                       @foreach($client_row['relationship'] as $key=>$relation_row)
                         <option value="{{ $relation_row['client_id'] or "" }}">{{ $relation_row['name'] or "" }}</option>
                       @endforeach

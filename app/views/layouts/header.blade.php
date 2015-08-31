@@ -32,7 +32,11 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
+                            @if(isset($user_type) && $user_type != "C")
                             <a href="/staff-profile" class="btn btn-default btn-flat">Profile</a>
+                            @else
+                            <a href="/client/edit-ind-client/{{ $client_id or "" }}/{{ base64_encode('client_portal') }}" class="btn btn-default btn-flat">Profile</a>
+                            @endif
                         </div>
                         <div class="pull-left" style="margin-left: 3px;">
                             <a href="/change-password" class="btn btn-default btn-flat">Edit Password</a>

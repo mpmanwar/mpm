@@ -92,6 +92,9 @@ $(function() {
             <li>
               <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
             </li>
+            <li>
+              <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
+            </li>
             <!-- <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li> -->
@@ -156,23 +159,22 @@ $(function() {
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
 
-            <li>
-              <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
-            </li>
+            
                   <div class="clearfix"></div>
                 </ul>
               </div>
               <div class="top_search_con">
                <div class="top_bts">
                 <ul style="padding:0;">
-                  <li>
-                    <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
-                  </li>
-                  <li>
+                  
+                  <li style="margin-top: 8px;">
                     <!-- <button type="button" id="show_search" class="btn btn-success">Search</button> -->
                     <?php $value = Session::get('show_archive');?>
                     <a href="javascript:void(0)" id="archive_div">
-                      {{ (isset($value) && $value == "Y") ? "Show Archived":"Hide Archived" }}</a>
+                      {{ (isset($value) && $value == "Y") ? "Show Archived Clients":"Hide Archived Clients" }}</a>
+                  </li>
+                  <li>
+                    <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
                   </li>
                   <div class="clearfix"></div>
                 </ul>

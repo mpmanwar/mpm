@@ -86,6 +86,34 @@ class JobStatus extends Eloquent {
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 
+		$client_data = array();
+		$JobStatus	= JobsCompletedTask::whereIn("user_id", $groupUserId)->where("service_id","=",$service_id)->get();
+		//Common::last_query();
+		if(isset($JobStatus) && count($JobStatus) >0){
+			foreach ($JobStatus as $key => $row) {
+				$client_data[$key] = Common::clientDetailsById( $row->client_id );
+				//$client_data[$key]['completed_tasks'] = JobsCompletedTask::getTaskByClientAndServiceId($row['client_id'], $service_id);
+				//$client_data[$key]['job_status'][$service_id] = JobStatus::getCompletedJobStatusByClientId($service_id, $row['client_id']);
+				$client_data[$key]['jobs_notes']['notes'] = $row->notes;
+				$client_data[$key]['completed_tasks']['date'] = $row->date;
+				$client_data[$key]['job_status'][$service_id]['filling_date'] = $row->filling_date;
+			}
+		}
+
+		
+		//$clients = array_merge($client_array, $client_data);
+
+		//echo "<pre>";print_r($client_data);echo "</pre>";die;
+		return array_values($client_data);
+	}
+
+	/*public static function getCompletedTaskByServiceId( $service_id, $status_id, $clientId )
+	{
+		$clients 		= array();
+		$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
 		$client_array = array();
 		$client_details = Client::getClientByServiceId( $service_id );
 		if(isset($client_details) && count($client_details) >0){
@@ -118,21 +146,9 @@ class JobStatus extends Eloquent {
 		
 		$clients = array_merge($client_array, $client_data);
 
-		/* ============= Search portion by client id start =============== */
-		/*$new_client = array();
-		if(isset($clients) && count($clients)>0){
-			foreach ($clients as $key => $new_row) {
-				if((isset($clientId) && in_array($new_row['client_id'], $clientId))){
-					$new_client[$key] = $clients[$key];
-				}
-			}
-		}*/
-		/* ============= Search portion by client id end =============== */
-
-
 		//echo "<pre>";print_r($clients);echo "</pre>";die;
 		return array_values($clients);
-	}
+	}*/
 
 	
 	

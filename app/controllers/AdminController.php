@@ -3,7 +3,7 @@
 class AdminController extends BaseController {
 
 	public function signup() {
-		$data['title'] = "Sign Up";
+		$data['title'] = "i-Practice | Signup";
 
 		$data['coun'] = Country::where("country_id", "!=", 1)->orderBy('country_name')->
 		get();
@@ -79,7 +79,7 @@ class AdminController extends BaseController {
 	}
 
 	public function login() {
-		$data['title'] = "Login";
+		$data['title'] = "i-Practice | Login";
 		return View::make('admin/login', $data);
 
 	}
@@ -232,8 +232,8 @@ class AdminController extends BaseController {
 	}
 
 	public function forgot_password() {
-
-		return View::make('admin/password');
+		$data['title'] = "i-Practice | Forget Password";
+		return View::make('admin/password', $data);
 
 	}
 
