@@ -405,7 +405,7 @@ $(function() {
     <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
       <thead>
         <tr role="row">
-          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th width="4%">Delete<!-- <input type="checkbox" class="allCheckSelect"/> --></th>
           <th>Name</th>
           <th width="15%">Contact Person</th>
           <th>Telephone</th>
@@ -422,7 +422,8 @@ $(function() {
                 <tr class="all_check">
                   <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="other_address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['contact_id'] or "" }}" />
+                    <a href="javascript:void(0)" data-link="" class="delete_client" data-client_id="{{ $client_row['contact_id'] or "" }}"><img src="/img/cross.png" height="15"></a>
+                    
                   </td>
                   <td align="left">{{ $client_row['name'] or "" }}</td>
                   <td align="left">{{ $client_row['contact_person'] or "" }}</td>
