@@ -246,7 +246,7 @@ tinymce.init({
                       <img src="/img/plus_1.png" class="icon_gap"  /> <strong class="notes_h_t">New Article </strong></a>
                       <div class="notes_points"> 
                      
-                      <span class="notes_h_t">NOTES</span>
+                      <span class="notes_h_t">HOW TO</span>
                      
                     
                       
