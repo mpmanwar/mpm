@@ -343,6 +343,8 @@ Route::any('/contacts/copy-to-group', 'ContactsLettersEmailsController@copy_to_g
 Route::any('/contacts/delete-group', 'ContactsLettersEmailsController@delete_group');
 Route::any('/contacts/delete-from-group', 'ContactsLettersEmailsController@delete_from_group');
 Route::any('/contacts/show-contact-group', 'ContactsLettersEmailsController@show_contact_group');
+Route::any('/contacts/get-contact-details', 'ContactsLettersEmailsController@get_contact_details');
+Route::any('/contacts/delete-contact-address', 'ContactsLettersEmailsController@delete_contact_address');
 
 /*================== Contacts Letters Emails End ==============*/
 

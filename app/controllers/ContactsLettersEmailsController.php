@@ -192,11 +192,11 @@ class ContactsLettersEmailsController extends BaseController {
     	$data = array();
     	$session = Session::get('admin_details');
 		$user_id = $session['id'];
-		$groupUserId = $session['group_users'];
+		$groupUserId 	= $session['group_users'];
+		$contact_id		= Input::get("contact_id");
 
     	$tab_id 				= Input::get("tab_index");
     	$address_type 			= Input::get("encoded_type");
-    	$data['user_id'] 		= $user_id;
     	$data['contact_type'] 	= Input::get("contact_type");
     	$data['contact_name'] 	= Input::get("contact_name");
     	$data['telephone_code'] = Input::get("telephone_code");
@@ -213,7 +213,13 @@ class ContactsLettersEmailsController extends BaseController {
     	$data['postcode'] 		= Input::get("postcode");
     	$data['country'] 		= Input::get("country");
 
-    	ContactAddress::insert($data);
+    	if($contact_id >0){
+    		ContactAddress::where("contact_id", "=", $contact_id)->update($data);
+    	}else{
+    		$data['user_id'] 	= $user_id;
+    		ContactAddress::insert($data);
+    	}
+    	
     	return Redirect::to('/contacts-letters-emails/'.$tab_id.'/'.$address_type);
     }
 
@@ -337,6 +343,28 @@ class ContactsLettersEmailsController extends BaseController {
 		exit;
 
 	}
+
+	public function get_contact_details() {
+		$address = array();
+		$contact_type 	= Input::get('contact_type');
+		$contact_id 	= Input::get('contact_id');
+		$address = ContactAddress::getContactDetailsById($contact_id);
+		//print_r($data);die;
+		echo json_encode($address);
+		exit;
+
+	}
+
+	public function delete_contact_address()
+    {
+    	$contact_id = Input::get('contact_id');
+    	$query = ContactAddress::where("contact_id", "=", $contact_id)->delete();
+    	if($query){
+    		echo 1;die;
+    	}else{
+    		echo 0;die;
+    	}
+    }
 
     
 

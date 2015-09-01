@@ -335,7 +335,64 @@ $(document).ready(function (e) {
   });
 /* ################# Delete Client From group Type End ################### */ 
    
-    
+    $(".add_contact-modal").click(function(){
+      var contact_id  = $(this).data("contact_id");
+      $("#contact_id").val(contact_id);
+
+      if(contact_id > 0){
+        $.ajax({
+          type: "POST",
+          url: "/contacts/get-contact-details",
+          dataType: "json",
+          data: { 'contact_id': contact_id, 'contact_type': "other" },
+          success: function (resp) {
+            $("#contact_type").val(resp['contact_type']);
+            $("#contact_name").val(resp['contact_name']);
+            $("#telephone_code").val(resp['telephone_code']);
+            $("#telephone").val(resp['telephone']);
+            $("#mobile_code").val(resp['mobile_code']);
+            $("#mobile").val(resp['mobile']);
+            $("#email").val(resp['email']);
+            $("#company_name").val(resp['company_name']);
+            $("#addr_line1").val(resp['addr_line1']);
+            $("#addr_line2").val(resp['addr_line2']);
+            $("#city").val(resp['city']);
+            $("#county").val(resp['county']);
+            $("#postcode").val(resp['postcode']);
+            $("#country").val(resp['country']);
+            $("#website").val(resp['website']);
+
+            $("#add_contact-modal").modal("show");
+          }
+        });
+      }else{
+        $("#add_contact-modal").modal("show");
+      }
+    });
+
+/* ################# Delete Other Contact Details Start ################### */ 
+  $(".delete_contact").click(function(){
+      var address_type  = $("#encoded_type").val();
+      var tab_id        = $("#tab_id").val();
+      var contact_id     = $(this).data("contact_id");
+
+      if(confirm("Do you want to delete this contact address?")){
+          $.ajax({
+            type: "POST",
+            url: "/contacts/delete-contact-address",
+            data: { 'contact_type': 'other', 'contact_id' : contact_id },
+            success: function (resp) {
+                if(resp == 1){
+                  window.location = '/contacts-letters-emails/'+tab_id+'/'+address_type; 
+                }else{
+                    alert("There are some problem to delete the contact.");
+                }
+                
+            }
+          });
+        }
+  });
+/* ################# Delete Other Contact Details End ################### */ 
     
 	
 });

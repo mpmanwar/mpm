@@ -197,7 +197,7 @@ $(function() {
                   </li> -->
                   @if($step_id == 4)
                   <li>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#add_contact-modal">NEW CONTACT</a>
+                    <a href="javascript:void(0)" class="btn btn-primary add_contact-modal" data-contact_id="0">NEW CONTACT</a>
                   </li>
                   @endif
                   <li>
@@ -422,11 +422,10 @@ $(function() {
                 <tr class="all_check">
                   <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="other_address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
-                    <a href="javascript:void(0)" data-link="" class="delete_client" data-client_id="{{ $client_row['contact_id'] or "" }}"><img src="/img/cross.png" height="15"></a>
-                    
+                    <a href="javascript:void(0)" class="delete_contact" data-contact_id="{{ $client_row['contact_id'] or "" }}"><img src="/img/cross.png" height="15"></a>
                   </td>
-                  <td align="left">{{ $client_row['name'] or "" }}</td>
-                  <td align="left">{{ $client_row['contact_person'] or "" }}</td>
+                  <td align="left"><a href="javascript:void(0)" class="add_contact-modal" data-contact_id="{{ $client_row['contact_id'] }}">{{ $client_row['name'] or "" }}</a></td>
+                  <td align="left"><a href="javascript:void(0)" class="add_contact-modal" data-contact_id="{{ $client_row['contact_id'] }}">{{ $client_row['contact_person'] or "" }}</a></td>
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['email'] or "" }}</td>
@@ -548,6 +547,8 @@ $(function() {
     {{ Form::open(array('url' => '/contacts/insert-contact-details', 'id'=>'basicform')) }}
     <input type="hidden" name="tab_index" value="{{ $step_id or "" }}">
     <input type="hidden" name="encoded_type" value="{{ $encoded_type or "" }}">
+    <input type="hidden" name="contact_id" id="contact_id" value="">
+
       <div class="modal-body">
         <div class="twobox">
       <div class="twobox_1">
