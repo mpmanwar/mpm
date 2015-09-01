@@ -18,6 +18,8 @@ class CrmController extends BaseController
         $data['countries']      = Country::orderBy('country_name')->get();
         $data['old_org_types'] = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();
         $data['new_org_types'] = OrganisationType::where("client_type", "=", "org")->whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+        $data['industry_lists'] = IndustryList::getIndustryList();
+        $data['staff_details']  = User::getAllStaffDetails();
         return View::make('crm.index', $data);
     }
     

@@ -134,29 +134,6 @@
           </ul>
         </div>
 
-        <!-- <div style="float: right;">
-          <table>
-            <tr>
-              <td width="50%" class="head_txt">&nbsp;</td>
-              <td width="18%" class="head_txt">Filter per deal owner</td>
-              <td width="2%">&nbsp;</td>
-              <td width="30%">
-                <select class="form-control filter_by_staff" name="filter_by_staff" id="filter_by_staff">
-                  <option value="{{ base64_encode('all') }}" {{ (isset($owner_id) && $owner_id == 'all')?"selected":"" }}>Show All</option>
-                  @if(!empty($staff_details))
-                    @foreach($staff_details as $key=>$staff_row)
-                      <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  
-                    @endforeach
-                  @endif
-                  <option value="{{ base64_encode('none') }}" {{ (isset($staff_id) && $staff_id == 'none')?"selected":"" }}>Unassigned</option>
-                </select>
-              </td>
-            </tr>
-          </table>
-           <div class="clearfix"></div>
-        </div> -->
-       
         <div id="message_div"><!-- Loader image show while sync data --></div>
       </div>
 
@@ -205,12 +182,7 @@
           <li>
             <select class="form-control" style="width:150px;" name="filter_by_staff" id="filter_by_staff">
               <option value="{{ base64_encode('all') }}" {{ (isset($owner_id) && $owner_id == 'all')?"selected":"" }}>Show All</option>
-              @if(!empty($staff_details))
-                @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ base64_encode($staff_row->user_id) }}" {{ (isset($staff_id) && $staff_id == $staff_row->user_id)?"selected":"" }}>{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
               
-                @endforeach
-              @endif
             </select>
           </li>
 
@@ -530,6 +502,11 @@
               <label for="exampleInputPassword1">Lead Owner</label>
               <select class="form-control" name="business_type" id="business_type">
                 <option value="">-- None --</option>
+                @if(isset($staff_details) && count($staff_details) >0)
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+                  @endforeach
+                @endif
              </select>
             </div>
           </div>
@@ -670,7 +647,11 @@
               <label for="exampleInputPassword1">Industry</label>
               <select class="form-control select_title" id="" name="">
                 <option value="">-- None --</option>
-                
+                @if(isset($industry_lists) && count($industry_lists) >0)
+                  @foreach($industry_lists as $key=>$industry_row)
+                  <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>
+                  @endforeach
+                @endif
               </select>
             </div>
           </div>
