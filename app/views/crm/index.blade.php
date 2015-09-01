@@ -41,8 +41,7 @@
     });
 
   for(var k=2; k<=10;k++){
-    //var table = Table2+""+k;
-    var table = $('#example2'+k).dataTable({
+    $('#example1'+k).dataTable({
       "bPaginate": true,
       "bLengthChange": true,
       "bFilter": true,
@@ -53,17 +52,21 @@
       "iDisplayLength": 25,
 
       "aoColumns":[
-          {"bSortable": false},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": true},
-          {"bSortable": false},
-          {"bSortable": false},
-          {"bSortable": false}
+        {"bSortable": false},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
       ],
-      "aaSorting": [[4, 'asc']]
+      "aaSorting": [[2, 'asc']]
 
     });
   }
@@ -264,40 +267,38 @@
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-        
-          <tr>
-            <td></td>
-            <td align="left"></td>
-            <td align="left"></td>
-            <td align="left"></td>
-            <td align="left"></td>
-            <td align="left"></td>
-            <td align="center"></td>
-            <td align="center">
-              <div class="email_client_selectbox" style="height:24px;">
-                <span>SEND</span>
-                <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
-                <div class="select_toggle" id="status152_11" style="display: none;">
-                  <ul>
-                    <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
-                    <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
-                    <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
-                    <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
-                  </ul>
-                </div>
+        <tr>
+          <td><input type='checkbox'></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="center"></td>
+          <td align="center">
+            <div class="email_client_selectbox" style="height:24px;">
+              <span>SEND</span>
+              <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
+              <div class="select_toggle" id="status152_11" style="display: none;">
+                <ul>
+                  <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
+                </ul>
               </div>
-            </td>
-            <td align="center"></td>
-            <td align="center">
-              <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
-                <option value="2">Incoming</option>
-              </select>
-            </td>
-            <td align="center"></td>
-            <td><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
-            <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
-          </tr>
-                
+            </div>
+          </td>
+          <td align="center"></td>
+          <td align="center">
+            <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
+              <option value="2">Incoming</option>
+            </select>
+          </td>
+          <td align="center"></td>
+          <td><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
+          <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
+        </tr>
       </tbody>
     </table>
     </div>
@@ -306,59 +307,55 @@
       <table class="table table-bordered table-hover dataTable crm" id="example12" aria-describedby="example12_info">
       <thead>
         <tr role="row">
-          <th width="5%">DELETE</th>
-          <th width="8%">DOI</th>
-          <th>BUSINESS NAME</th>
-          <th>AUTHEN CODE</th>
-          <th>NEXT RETURN DUE ON</th>
-          <th>COUNT DOWN</th>
-          <th>NOTES</th>
-          <th width="10%">EMAIL CLIENT</th>
-          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
+          <th width="3%"><input type='checkbox'></th>
+          <th width="8%">Lead Owner</th>
+          <th>Prospect Name</th>
+          <th>Contact Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th width="6%">Deal Age</th>
+          <th width="6%">Quote</th>
+          <th width="10%">Quote Status</th>
+          <th width="11%">Lead Status <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="8%">Quoted Value</th>
+          <th width="6%">Notes</th>
+          <th width="10%">Start Onboarding</th>
         </tr>
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-        @if(isset($company_details) && count($company_details) >0)
-        @foreach($company_details as $key=>$details)
-          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
-            @if(!isset($details['job_status'][$service_id]['status_id']))
-            <tr id="data_tr_{{ $details['client_id'] }}_22">
-              <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}"  data-tab="22" ><img src="/img/cross.png"></a></td>
-              <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-              <!-- <td align="left">{{ $details['business_type'] or "" }}</td> -->
-              <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
-              <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
-              <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-              <td align="left">
-                @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
-                  <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
-                @else
-                   {{ $details['deadret_count'] or "" }}
-                @endif
-              </td>
-              
-              <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
-              </td>
-              <td align="left">
-                
-              </td>
-              <td align="center" width="12%">
-                <input type="hidden" name="22_prev_status_{{ $details['client_id'] }}" id="22_prev_status_{{ $details['client_id'] }}" value="2">
-                <select class="form-control newdropdown table_select status_dropdown" id="22_status_dropdown_{{ $details['client_id'] }}" data-client_id="{{ $details['client_id'] }}">
-                  <option value="2">Not Started</option>
-                  @if(isset($jobs_steps) && count($jobs_steps) >0)
-                    @foreach($jobs_steps as $key=>$value)
-                      <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
-                    @endforeach
-                  @endif
-                </select>
-              </td>
-            </tr>
-            @endif
-          @endif 
-        @endforeach
-      @endif
+        <tr>
+          <td><input type='checkbox'></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="center"></td>
+          <td align="center">
+            <div class="email_client_selectbox" style="height:24px;">
+              <span>SEND</span>
+              <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
+              <div class="select_toggle" id="status152_11" style="display: none;">
+                <ul>
+                  <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
+                  <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td align="center"></td>
+          <td align="center">
+            <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
+              <option value="2">Incoming</option>
+            </select>
+          </td>
+          <td align="center"></td>
+          <td><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
+          <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
+        </tr>
         
       </tbody>
     </table>  
@@ -435,7 +432,7 @@
 
   <div id="tab_2" class="tab-pane {{ ($page_open == '2')?'active':'' }}">
     <table class="table table-bordered table-hover dataTable ch_returns" id="example3" aria-describedby="example3_info">
-      <thead>
+      <!-- <thead>
         <tr role="row">
           <th width="6%">DELETE</th>
           <th width="13%">STAFF</th>
@@ -445,7 +442,7 @@
           <th>NOTES</th>
           <th>FILING DATE</th>
         </tr>
-      </thead>
+      </thead> -->
 
       
         <tbody role="alert" aria-live="polite" aria-relevant="all">
