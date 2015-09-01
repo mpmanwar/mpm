@@ -182,7 +182,11 @@
           <li>
             <select class="form-control" style="width:150px;" name="filter_by_staff" id="filter_by_staff">
               <option value="{{ base64_encode('all') }}" {{ (isset($owner_id) && $owner_id == 'all')?"selected":"" }}>Show All</option>
-              
+              @if(isset($staff_details) && count($staff_details) >0)
+                @foreach($staff_details as $key=>$staff_row)
+                <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+                @endforeach
+              @endif
             </select>
           </li>
 
@@ -499,7 +503,7 @@
           </div>
           <div class="twobox_2">
             <div class="form-group">
-              <label for="exampleInputPassword1">Lead Owner</label>
+              <label for="exampleInputPassword1">Deal Owner</label>
               <select class="form-control" name="business_type" id="business_type">
                 <option value="">-- None --</option>
                 @if(isset($staff_details) && count($staff_details) >0)
