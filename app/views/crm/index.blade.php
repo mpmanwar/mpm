@@ -183,7 +183,7 @@
           <li>
             <div class="import_fromch_main" style="width:190px;">
               <div class="import_fromch">
-                <a href="/import-from-ch/b3JnX2xpc3Q=" class="import_fromch_link">+ NEW OPPORTUNITY</a>
+                <a href="javascript:void(0)" class="import_fromch_link">+ NEW OPPORTUNITY</a>
                 <a href="javascript:void(0)" class="i_selectbox" id="select_icon"><img src="/img/arrow_icon.png"></a>
                 <div class="clearfix"></div>
               </div>
