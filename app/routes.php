@@ -365,3 +365,7 @@ Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
 Route::any('/deleteorg-notes', 'NotesController@deleteorg_notes');
 Route::any('/editmodeorg-notes', 'NotesController@editmodeorg_notes');
 */
+
+/*================== CRM Start ==============*/
+Route::any('/crm/{page_open}/{owner_id}', 'CrmController@index');
+/*================== CRM End ==============*/

@@ -101,7 +101,7 @@ INDIVIDUALS</p>
 
 
 <li class="hvr-grow">
-<a  href="#">
+<a  href="/crm/{{ base64_encode('11') }}/{{ base64_encode('all') }}">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
 <p class="c_tagline2">CRM</p>

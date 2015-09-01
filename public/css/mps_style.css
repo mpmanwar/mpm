@@ -493,7 +493,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', end
 .bulk_text{text-align: center; font-size: 18px; margin-top: -20px; font-weight: bold; color: #999;}
 .bulk_header{ text-align: center; font-size: 22px; margin-top: 10px;}
 .loop_sec{margin-bottom: 10px;}
-
+.crm_dropdown{z-index:10; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; color: #555; height:65px; padding: 6px 5px; font-size: 14px; position:absolute; cursor: pointer; top:35px; width:60%; left:145px;}
+.crm_dropdown ul li{ margin-bottom: 0; width:100%;}
 
 
 /*===========holiday features=======*/
@@ -1073,13 +1074,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .small_icon{float: right; background: url("../img/select-icons.png") 0 -3px; width: 23px; height: 18px; cursor: pointer;}
 .email_client_selectbox .select_toggle{width:130px; position:absolute; z-index:999; top:20px; border: 1px solid #cbcbcb; left:56px; background: #fff; display: none; }
 .email_client_selectbox .select_toggle ul{list-style:none; padding:0; margin:0;}
-.email_client_selectbox .select_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer; font-size: 10px;}
+.email_client_selectbox .select_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer; font-size: 12px;}
 
 .enter_email_box{width:100%; border:1px solid #dbdbdb; padding:10px;}
 .stop_email{ color: #CCC; font-size: 16px; font-style: italic;}
 .border_none{padding-top: 0; border-top: none;}
 .small_box{width:100%; padding: 0; text-align: center; height: 24px;}
-
+.active_text{ color: #0866c6}
+.box_60{width:60%;}
+.box_30{width:30%;}
+.f_namebox {float: left; margin-right: 10px; width: 37.3%;}
 
 
 
