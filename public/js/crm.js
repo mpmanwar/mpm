@@ -25,6 +25,8 @@ $(document).ready(function () {
         $("#org_name_div").hide();
         $("#prospect_name_div").show();
       }
+
+      $("#modal_type").val(type);
       $("#open_form-modal").modal("show");
       
     });
@@ -50,7 +52,7 @@ $("#add_business_type").click(function(){
 });
 // Save Business type while add organization client end //
 
-//Delete organisation name while add individual/organisation user start
+//Delete Business Type end start //
 $("#append_bussiness_type").on("click", ".delete_org_name", function(){
   var field_id = $(this).data('field_id');
   if (confirm("Do you want to delete this field ?")) {
@@ -72,8 +74,55 @@ $("#append_bussiness_type").on("click", ".delete_org_name", function(){
   }
   
 }); 
-//Delete organisation name while add individual/organisation user end
+//Delete Business Type end //
 
+$(".lead_source-modal").click(function(){
+    $("#lead_source-modal").modal("show");
+});
+
+// Save Lead Source start //
+$("#add_lead_source").click(function(){
+    var source_name     = $("#new_source").val();
+    var modal_type      = $("#modal_type").val();
+    
+    $.ajax({
+      type: "POST",
+      url: '/crm/add-new-source',
+      data: { 'source_name':source_name, 'modal_type' : modal_type },
+      success : function(field_id){
+        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_source" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+source_name+'">'+source_name+'</label></div>';
+        $("#append_new_source").append(append);
+
+        $("#new_source").val("");
+        $("#lead_source").append('<option value="'+field_id+'">'+source_name+'</option>');
+
+      }
+    });
+});
+// Save Lead Source end //
+
+//Delete Lead Source end start //
+$("#append_new_source").on("click", ".delete_source", function(){
+  var field_id = $(this).data('field_id');
+  if (confirm("Do you want to delete this field ?")) {
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/crm/delete-source-name',
+      data: { 'field_id' : field_id },
+      success : function(resp){
+        if(resp != ""){
+          $("#hide_div_"+field_id).hide();
+          $("#lead_source option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this type, Please try again");
+        }
+      }
+    });
+  }
+  
+}); 
+//Delete Lead Source end //
 
 
 

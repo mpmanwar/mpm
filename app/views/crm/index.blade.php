@@ -144,7 +144,8 @@
       <input type="hidden" name="page_open" id="page_open" value="{{ $page_open }}">
       <input type="hidden" name="encode_page_open" id="encode_page_open" value="{{ $encode_page_open }}">
       <input type="hidden" name="encode_owner_id" id="encode_owner_id" value="{{ $encode_owner_id }}">
-          <div class="tabarea">
+      <input type="hidden" name="modal_type" id="modal_type" value="">
+    <div class="tabarea">
   
   <div class="nav-tabs-custom">
       <ul class="nav nav-tabs nav-tabsbg">
@@ -203,21 +204,105 @@
       <div class="clearfix"></div>
     </div>
 
-    <ul class="nav nav-tabs nav-tabsbg">
+    <!-- <ul class="nav nav-tabs nav-tabsbg">
         <li class="{{ ($page_open == 11)?'active':'' }}">
           <a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}">
-            <span class="{{($page_open==11)?'active_text':''}}">ALL [<span id="task_count_11">1</span>]</span>
+            <span style="background: #000;" class="{{($page_open==11)?'active_text':''}}">ALL [<span id="task_count_11">1</span>]</span>
             <div>&#163;50.000.00<br>&#163;50.000.00<br>&#163;50.000.00</div></a>
         </li>
-
+    
         <li class="{{ ($page_open == 12)?'active':'' }}">
           <a href="{{ $goto_url }}/{{ base64_encode('12') }}/{{ base64_encode($owner_id) }}">
             <span class="{{ ($page_open == 12)?'active_text':'' }}">INCOMING [<span id="task_count_21">1</span>]</span>
             <div>&#163;50.000.00<br>&#163;50.000.00<br>&#163;50.000.00</div></a>
           </a>
         </li>
+    </ul> -->
+
+    <ul class="leads_tab">
+        <li><h3 style="background:#0066FF;">All[12]</h3></a>
+          <p>&#163;50.000.00</p>
+          <p>&#163;50.000.00</p>
+          <p>&#163;50.000.00</p>
+        </li>
+
+        @if(isset($leads_tabs) && count($leads_tabs) >0)
+          @foreach($leads_tabs as $key=>$tab_row)
+          <li><h3 style="background:#{{ $tab_row['color_code'] or "" }};">{{ $tab_row['tab_name'] or "" }} [12]</h3></a>
+          <p>&#163;50.000.00</p>
+          <p>&#163;50.000.00</p>
+          <p>&#163;50.000.00</p>
+        </li>
+          @endforeach
+        @endif
+
+        <!-- <li><h3 style="background:#FFD119;">INCOMING[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
         
+        <li><h3 style="background:#33CC33;">QUALIFIED[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
         
+        <li><h3 style="background:#FF0000;">UNQUALIFIED[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#00CCFF;">QUOTED[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        <li><h3 style="background:#CC4040;">NEGOTIATED[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#4DA2A2;">WARM[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#FF3399;">COLD[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#66CCFF;">LOST[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#CC3300;">HOT[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#9933FF;">WON[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li>
+        
+        <li><h3 style="background:#D1A319;">INVOICED[20]</h3>
+          <p>avijit</p>
+          <p>avijit</p>
+          <p>avijit</p>
+        </li> -->
+
+
+        <div class="clearfix"></div>
     </ul>
     
   <div class="tab-content">
@@ -490,7 +575,7 @@
         <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
         <div class="clearfix"></div>
       </div>
-    {{ Form::open(array('url' => '/crm/save-crm-data', 'id'=>'field_form')) }}
+    {{ Form::open(array('url' => '/crm/save-leads-data')) }}
       <div class="modal-body">
         <div class="twobox">
           <div class="twobox_1">
@@ -639,11 +724,20 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Lead Source</label>
-                <a href="javascript:void(0)" class="add_to_list"> Add/Edit list</a>
+                <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a>
                 <select class="form-control select_title" id="lead_source" name="lead_source">
                   <option value="">-- None --</option>
-                
-              </select>
+                  @if(isset($old_lead_sources) && count($old_lead_sources) >0)
+                    @foreach($old_lead_sources as $key=>$lead_row)
+                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
+                    @endforeach
+                  @endif
+                  @if(isset($new_lead_sources) && count($new_lead_sources) >0)
+                    @foreach($new_lead_sources as $key=>$lead_row)
+                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
+                    @endforeach
+                  @endif
+                </select>
               </div> 
           </div>
           <div class="twobox_2">
@@ -653,7 +747,7 @@
                 <option value="">-- None --</option>
                 @if(isset($industry_lists) && count($industry_lists) >0)
                   @foreach($industry_lists as $key=>$industry_row)
-                  <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>
+                    <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>
                   @endforeach
                 @endif
               </select>
@@ -687,7 +781,7 @@
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Postal Code</label>
-                <input type="text" id="post_code" name="post_code" class="form-control" >
+                <input type="text" id="postal_code" name="postal_code" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -733,7 +827,7 @@
       <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
         <div class="email_btns">
           <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-          <button type="submit" name="save" class="btn btn-info pull-left save_t2">Save</button>
+          <button type="submit" class="btn btn-info pull-left save_t2">Save</button>
         </div>
       </div>
       {{ Form::close() }}
@@ -753,7 +847,6 @@
         <div class="clearfix"></div>
       </div>
     
-    <input type="hidden" name="client_type" id="client_type" value="org">
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
@@ -782,6 +875,54 @@
       <div class="modal-footer1 clearfix">
         <div class="email_btns">
           <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- add/edit list -->
+<div class="modal fade" id="lead_source-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD LEAD SOURCE</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Lead Source</label>
+        <input type="text" id="new_source" name="new_source" class="form-control">
+      </div>
+      
+      <div id="append_new_source">
+      @if( isset($old_lead_sources) && count($old_lead_sources) >0 )
+        @foreach($old_lead_sources as $key=>$source_row)
+        <div class="form-group">
+          <label for="{{ $source_row['source_id'] }}">{{ $source_row['source_name'] }}</label>
+        </div>
+        @endforeach
+      @endif
+      @if( isset($new_lead_sources) && count($new_lead_sources) >0 )
+        @foreach($new_lead_sources as $key=>$source_row)
+        <div class="form-group" id="hide_div_{{ $source_row['source_id'] }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_source" data-field_id="{{ $source_row['source_id'] }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $source_row['source_name'] }}">{{ $source_row['source_name'] }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_lead_source" name="save">Save</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
       </div>

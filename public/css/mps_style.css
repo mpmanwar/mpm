@@ -1093,7 +1093,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .pgentright_sec{ padding:0; margin:120px 0 0 40px; float:left; width:70%;}
 .sry_con{ padding:0; margin:0; font-size:34px; color:#ee9e07; font-weight:bold;}
 .pls_con{ padding:15px 0 0 0px; margin:0; font-size:24px; color:#02a0fb; text-align:center; }
-
+.leads_tab{ border:#ccc solid 1px; list-style: none; padding: 0; margin: 0;}
+.leads_tab li{ float: left; width: 8.3%; text-align: center;}
+.leads_tab li h3{ color:#fff; background: #000; font-size: 13px; padding: 8px 0; height: 32px; cursor: pointer;}
 
 
 

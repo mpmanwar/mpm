@@ -368,4 +368,7 @@ Route::any('/editmodeorg-notes', 'NotesController@editmodeorg_notes');
 
 /*================== CRM Start ==============*/
 Route::any('/crm/{page_open}/{owner_id}', 'CrmController@index');
+Route::any('/crm/save-leads-data', 'CrmController@save_leads_data');
+Route::any('/crm/add-new-source', 'CrmController@add_new_source');
+Route::any('/crm/delete-source-name', 'CrmController@delete_source_name');
 /*================== CRM End ==============*/
