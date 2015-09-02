@@ -1084,6 +1084,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .box_60{width:60%;}
 .box_30{width:30%;}
 .f_namebox {float: left; margin-right: 10px; width: 37.3%;}
+.notes_btn{ margin-right:10px; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:0px 10px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
+
+
+/* 404 not found */
+.pagentfndsec{ padding:0; margin:0; width:100%; height:401px; background:url(../img/pagent_img.jpg) no-repeat;}
+.smilesec{ padding:70px 0 0 20px; margin:0; float:left;}
+.pgentright_sec{ padding:0; margin:120px 0 0 40px; float:left; width:70%;}
+.sry_con{ padding:0; margin:0; font-size:34px; color:#ee9e07; font-weight:bold;}
+.pls_con{ padding:15px 0 0 0px; margin:0; font-size:24px; color:#02a0fb; text-align:center; }
 
 
 

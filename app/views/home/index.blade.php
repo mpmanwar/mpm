@@ -245,9 +245,9 @@
         <div id="pricing_div" class="lst_pan"><img src="/img/lst_img.jpg" alt="" /></div>
         
         
-<!--Header Start-->  
+<!--Footer Start-->  
 @include('layouts/outer/footer')
-<!--Header End-->
+<!--Footer End-->
 
    </div>
         

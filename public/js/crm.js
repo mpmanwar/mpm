@@ -28,5 +28,56 @@ $(document).ready(function () {
       $("#open_form-modal").modal("show");
       
     });
+
+// Save Business type while add organization client start //
+$("#add_business_type").click(function(){
+    var org_name      = $("#org_name").val();
+    var client_type   = $(this).data("client_type");
+    
+    $.ajax({
+      type: "POST",
+      url: '/client/add-business-type',
+      data: { 'org_name':org_name, 'client_type' : client_type },
+      success : function(field_id){
+        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+org_name+'">'+org_name+'</label></div>';
+        $("#append_bussiness_type").append(append);
+
+        $("#org_name").val("");
+        $("#business_type").append('<option value="'+field_id+'">'+org_name+'</option>');
+
+      }
+    });
+});
+// Save Business type while add organization client end //
+
+//Delete organisation name while add individual/organisation user start
+$("#append_bussiness_type").on("click", ".delete_org_name", function(){
+  var field_id = $(this).data('field_id');
+  if (confirm("Do you want to delete this field ?")) {
+    $.ajax({
+      type: "POST",
+      //dataType: "json",
+      url: '/client/delete-org-name',
+      data: { 'field_id' : field_id },
+      success : function(resp){//console.log(resp);return false;
+        if(resp != ""){
+          //location.reload();
+          $("#hide_div_"+field_id).hide();
+          $("#business_type option[value='"+field_id+"']").remove();
+        }else{
+          alert("There are some error to delete this type, Please try again");
+        }
+      }
+    });
+  }
+  
+}); 
+//Delete organisation name while add individual/organisation user end
+
+
+
+
+
+
 	
 });//document end 

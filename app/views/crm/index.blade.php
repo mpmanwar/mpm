@@ -272,7 +272,7 @@
             </select>
           </td>
           <td align="center"></td>
-          <td><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
+          <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
           <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
         </tr>
       </tbody>
@@ -284,7 +284,7 @@
       <thead>
         <tr role="row">
           <th width="3%"><input type='checkbox'></th>
-          <th width="8%">Lead Owner</th>
+          <th width="8%">Deal Owner</th>
           <th>Prospect Name</th>
           <th>Contact Name</th>
           <th>Phone</th>
@@ -329,7 +329,7 @@
             </select>
           </td>
           <td align="center"></td>
-          <td><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
+          <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
           <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
         </tr>
         
@@ -490,21 +490,21 @@
         <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
         <div class="clearfix"></div>
       </div>
-    
+    {{ Form::open(array('url' => '/crm/save-crm-data', 'id'=>'field_form')) }}
       <div class="modal-body">
         <div class="twobox">
           <div class="twobox_1">
             <div class="box_30">
               <div class="form-group">
                 <label for="exampleInputPassword1">Deal Certainty</label>
-                <input type="text" id="client_code" name="client_code" class="form-control box_60">
+                <input type="text" id="deal_certainty" name="deal_certainty" class="form-control box_60">
               </div>
             </div>
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Deal Owner</label>
-              <select class="form-control" name="business_type" id="business_type">
+              <select class="form-control" name="deal_owner" id="deal_owner">
                 <option value="">-- None --</option>
                 @if(isset($staff_details) && count($staff_details) >0)
                   @foreach($staff_details as $key=>$staff_row)
@@ -521,7 +521,7 @@
           <div class="twobox_1">
             <div class="form-group">
               <label for="exampleInputPassword1">Business Type</label>
-              <a href="javascript:void(0)" class="add_to_list"> Add/Edit list</a>
+              <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
               <select class="form-control" name="business_type" id="business_type">
                 @if( isset($old_org_types) && count($old_org_types) >0 )
                   @foreach($old_org_types as $key=>$old_org_row)
@@ -541,7 +541,7 @@
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Prospect Name</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" name="prospect_name" id="prospect_name">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -551,7 +551,7 @@
           <label for="exampleInputPassword1">Contact Name</label>
           <div class="clearfix"></div>
           <div class="n_box1">
-            <select class="form-control select_title" id="title" name="title">
+            <select class="form-control select_title" id="contact_title" name="contact_title">
               @if(!empty($titles))
                 @foreach($titles as $key=>$title_row)
                 <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
@@ -560,10 +560,10 @@
             </select>
           </div>
           <div class="f_namebox">
-            <input type="text" id="" class="form-control" placeholder="First Name">
+            <input type="text" id="contact_fname" name="contact_fname" class="form-control" placeholder="First Name">
           </div>
           <div class="f_namebox">
-            <input type="text" id="" class="form-control" placeholder="Last Name">
+            <input type="text" id="contact_lname" name="contact_lname" class="form-control" placeholder="Last Name">
           </div>
           <div class="clearfix"></div>
         </div>
@@ -572,7 +572,7 @@
           <label for="exampleInputPassword1">Prospect Name</label>
           <div class="clearfix"></div>
           <div class="n_box1">
-            <select class="form-control select_title" id="title" name="title">
+            <select class="form-control select_title" id="prospect_title" name="prospect_title">
               @if(!empty($titles))
                 @foreach($titles as $key=>$title_row)
                 <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
@@ -581,10 +581,10 @@
             </select>
           </div>
           <div class="f_namebox">
-            <input type="text" id="" class="form-control" placeholder="First Name">
+            <input type="text" id="prospect_fname" name="prospect_fname" class="form-control" placeholder="First Name">
           </div>
           <div class="f_namebox">
-            <input type="text" id="" class="form-control" placeholder="Last Name">
+            <input type="text" id="prospect_lname" name="prospect_lname" class="form-control" placeholder="Last Name">
           </div>
           <div class="clearfix"></div>
         </div>
@@ -593,13 +593,13 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Phone</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="phone" name="phone" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Mobile</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="mobile" name="mobile" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -609,13 +609,13 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Email</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="email" name="email" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Website</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="website" name="website" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -624,13 +624,13 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Annual Revenue</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="annual_revenue" name="annual_revenue" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Quoted Value</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="quoted_value" name="quoted_value" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -640,7 +640,7 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">Lead Source</label>
                 <a href="javascript:void(0)" class="add_to_list"> Add/Edit list</a>
-                <select class="form-control select_title" id="" name="">
+                <select class="form-control select_title" id="lead_source" name="lead_source">
                   <option value="">-- None --</option>
                 
               </select>
@@ -649,7 +649,7 @@
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Industry</label>
-              <select class="form-control select_title" id="" name="">
+              <select class="form-control select_title" id="industry" name="industry">
                 <option value="">-- None --</option>
                 @if(isset($industry_lists) && count($industry_lists) >0)
                   @foreach($industry_lists as $key=>$industry_row)
@@ -666,13 +666,13 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Street</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="street" name="street" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">City</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="city" name="city" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -681,13 +681,13 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">Province</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="province" name="province" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Postal Code</label>
-                <input type="text" id="" class="form-control" >
+                <input type="text" id="post_code" name="post_code" class="form-control" >
             </div>
           </div>
           <div class="clearfix"></div>
@@ -723,26 +723,75 @@
           <div class="clearfix"></div>
         </div>
 
- <div class="form-group" style="width:98%;">
-              <label for="exampleInputPassword1">Notes</label>
-                <textarea class="form-control" rows="4"></textarea>
-            </div>
-<div class="clearfix"></div>
+        <div class="form-group" style="width:98%;">
+          <label for="exampleInputPassword1">Notes</label>
+          <textarea class="form-control" rows="4" name="notes" id="notes"></textarea>
+        </div>
+        <div class="clearfix"></div>
       </div>
-
+      
       <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
         <div class="email_btns">
           <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-info pull-left save_t2">Save</button>
+          <button type="submit" name="save" class="btn btn-info pull-left save_t2">Save</button>
         </div>
       </div>
+      {{ Form::close() }}
     
   </div>
   </div>
 </div>
 <!-- Send Template modal end -->
 
+<!-- add/edit list -->
+<div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add to List</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+    <input type="hidden" name="client_type" id="client_type" value="org">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="org_name" name="org_name" placeholder="Business Type" class="form-control">
+      </div>
+      
+      <div id="append_bussiness_type">
+      @if( isset($old_org_types) && count($old_org_types) >0 )
+        @foreach($old_org_types as $key=>$old_org_row)
+        <div class="form-group">
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
 
+      @if( isset($new_org_types) && count($new_org_types) >0 )
+        @foreach($new_org_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->organisation_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_org_name" data-field_id="{{ $new_org_row->organisation_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+      
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_business_type" name="save">Save</button>
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 @stop
 
 

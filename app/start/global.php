@@ -67,6 +67,14 @@ App::down(function()
 	return Response::make("Be right back!", 503);
 });
 
+App::missing(function($exception)
+{
+    Log::error($exception);
+    $data['title'] = "404 Not Found";
+    $data['page_title'] = "404 Not Found";
+    return View::make('error/404', $data)->withMessage($exception->getMessage());
+});
+
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File

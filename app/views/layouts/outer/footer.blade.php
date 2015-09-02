@@ -1,7 +1,7 @@
 <div class="footer">
         
           <div class="footer_lft_sec">
-            <a href="#"><img src="/img/footer_logo.jpg" alt="" /></a>
+            <a href="/"><img src="/img/footer_logo.jpg" alt="" /></a>
           </div>
           
           <div class="footer_rgt_sec">
