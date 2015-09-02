@@ -25,7 +25,9 @@ class CrmController extends BaseController
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
-
+        $data['existing_clients']   = Client::getAllClientDetails();
+        $data['leads_details']      = CrmLead::getAllDetails();
+        //echo "<pre>";print_r($data['existing_clients']);echo "</pre>";die;
         return View::make('crm.index', $data);
     }
 
@@ -35,6 +37,10 @@ class CrmController extends BaseController
         $session    = Session::get('admin_details');        
 
         $details    = Input::get();
+        $encode_page_open   = $details['encode_page_open'];
+        $encode_owner_id    = $details['encode_owner_id'];
+        $type               = $details['type'];
+
         if($type == "ind"){
             $data['prospect_title'] = $details['prospect_title'];
             $data['prospect_fname'] = $details['prospect_fname'];
@@ -47,7 +53,7 @@ class CrmController extends BaseController
             $data['contact_lname']  = $details['contact_lname'];
         }
         $data['user_id']        = $session['id'];
-        $data['client_type']    = $details['client_type'];
+        $data['client_type']    = $details['type'];
         $data['deal_certainty'] = $details['deal_certainty'];
         $data['deal_owner']     = $details['deal_owner'];
         $data['phone']          = $details['phone'];
@@ -66,6 +72,7 @@ class CrmController extends BaseController
         $data['notes']          = $details['notes'];
         
         CrmLead::insert($data);
+        return Redirect::to('/crm/'.$encode_page_open.'/'.$encode_owner_id);
         //print_r($data);die;
     }
 

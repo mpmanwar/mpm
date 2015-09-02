@@ -1082,6 +1082,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .small_box{width:100%; padding: 0; text-align: center; height: 24px;}
 .active_text{ color: #0866c6}
 .box_60{width:60%;}
+.box_70{width:70%;}
 .box_30{width:30%;}
 .f_namebox {float: left; margin-right: 10px; width: 37.3%;}
 .notes_btn{ margin-right:10px; background-color: #fafafa; color: #3a8cc1; font-size:16px; font-weight:bold; box-shadow:0 1px 1px 1px #d2cdcf; border:1px solid #ddd; padding:0px 10px; text-align:center; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px;}
@@ -1093,11 +1094,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .pgentright_sec{ padding:0; margin:120px 0 0 40px; float:left; width:70%;}
 .sry_con{ padding:0; margin:0; font-size:34px; color:#ee9e07; font-weight:bold;}
 .pls_con{ padding:15px 0 0 0px; margin:0; font-size:24px; color:#02a0fb; text-align:center; }
-.leads_tab{ border:#ccc solid 1px; list-style: none; padding: 0; margin: 0;}
+.leads_tab{ border:#ccc solid 1px; list-style: none; padding: 0; margin: 0; border-bottom: 0;}
 .leads_tab li{ float: left; width: 8%; text-align: center;}
-.leads_tab li h3{ color:#fff; background: #000; font-size: 13px; padding: 8px 0 !important; margin: 0 0 10px 0!important; cursor: pointer;}
-.active_leads{ background: #3c8dbc;}
-.active_leads p{ color: #fff}
-
+.leads_tab li h3{ color:#fff; background: #000; font-size: 13px; padding: 8px 0 !important; margin: 0 0 0px 0!important; cursor: pointer;}
+.active_leads{ background: #deedf5; border-bottom: #008080 solid 1px; padding-bottom: 2px;}
+.leads_tab li p{ border-bottom:#008080 solid 1px; padding:3px 0;border-right:#008080 solid 1px; margin: 0!important; }
+.active_leads p{ color: #008080; border:0 !important; margin: 0!important;}
 
 

@@ -26,7 +26,7 @@ $(document).ready(function () {
         $("#prospect_name_div").show();
       }
 
-      $("#modal_type").val(type);
+      $("#type").val(type);
       $("#open_form-modal").modal("show");
       
     });

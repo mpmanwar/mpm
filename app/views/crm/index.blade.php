@@ -144,7 +144,7 @@
       <input type="hidden" name="page_open" id="page_open" value="{{ $page_open }}">
       <input type="hidden" name="encode_page_open" id="encode_page_open" value="{{ $encode_page_open }}">
       <input type="hidden" name="encode_owner_id" id="encode_owner_id" value="{{ $encode_owner_id }}">
-      <input type="hidden" name="modal_type" id="modal_type" value="">
+      
     <div class="tabarea">
   
   <div class="nav-tabs-custom">
@@ -239,9 +239,9 @@
         @endif
 
         <li style="width:6%;"><h3 style="background:#0866c6;">&nbsp;</h3>
-          <p><strong>Total</strong></p>
-          <p><strong>Average</strong></p>
-          <p><strong>Likely</strong></p>
+          <p style="border-right: 0px"><strong>Total</strong></p>
+          <p style="border-right: 0px"><strong>Average</strong></p>
+          <p style="border-right: 0px"><strong>Likely</strong></p>
         </li>
 
         <!-- <li><h3 style="background:#FFD119;">INCOMING[20]</h3>
@@ -336,38 +336,43 @@
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-        <tr>
-          <td><input type='checkbox'></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="center"></td>
-          <td align="center">
-            <div class="email_client_selectbox" style="height:24px;">
-              <span>SEND</span>
-              <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
-              <div class="select_toggle" id="status152_11" style="display: none;">
-                <ul>
-                  <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
-                </ul>
-              </div>
-            </div>
-          </td>
-          <td align="center"></td>
-          <td align="center">
-            <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
-              <option value="2">Incoming</option>
-            </select>
-          </td>
-          <td align="center"></td>
-          <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
-          <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
-        </tr>
+        @if(isset($leads_details) && count($leads_details) >0)
+          @foreach($leads_details as $key=>$leads_row)
+            <tr>
+              <td><input type='checkbox'></td>
+              <td align="left"></td>
+              <td align="left"></td>
+              <td align="left"></td>
+              <td align="left">{{ $leads_row['phone'] or "" }}</td>
+              <td align="left">{{ $leads_row['email'] or "" }}</td>
+              <td align="center"></td>
+              <td align="center">
+                <div class="email_client_selectbox" style="height:24px;">
+                  <span>SEND</span>
+                  <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
+                  <div class="select_toggle" id="status152_11" style="display: none;">
+                    <ul>
+                      <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                      <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
+                      <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
+                      <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td align="center"></td>
+              <td align="center">
+                <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
+                  <option value="2">Incoming</option>
+                </select>
+              </td>
+              <td align="center"></td>
+              <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
+              <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
+            </tr>
+          @endforeach
+        @endif
+        
       </tbody>
     </table>
     </div>
@@ -584,8 +589,12 @@
         <div class="clearfix"></div>
       </div>
     {{ Form::open(array('url' => '/crm/save-leads-data')) }}
+      <input type="hidden" name="encode_page_open" value="{{ $encode_page_open }}">
+      <input type="hidden" name="encode_owner_id" value="{{ $encode_owner_id }}">
+      <input type="hidden" name="type" id="type" value="">
       <div class="modal-body">
-        <div class="twobox">
+
+        <!-- <div class="twobox">
           <div class="twobox_1">
             <div class="box_30">
               <div class="form-group">
@@ -593,6 +602,7 @@
                 <input type="text" id="deal_certainty" name="deal_certainty" class="form-control box_60">
               </div>
             </div>
+        
           </div>
           <div class="twobox_2">
             <div class="form-group">
@@ -606,9 +616,52 @@
                 @endif
              </select>
             </div>
+        
+        
           </div>
           <div class="clearfix"></div>
         </div>
+              <div class="clearfix"></div> -->
+      <div class="form-group">
+          
+          <div class="n_box1">
+            <div class="box_70">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Deal Certainty</label>
+                <input type="text" id="deal_certainty" name="deal_certainty" class="form-control box_60">
+              </div>
+            </div>
+          </div>
+          <div class="f_namebox">
+            <label for="exampleInputPassword1">Deal Owner</label>
+              <select class="form-control" name="deal_owner" id="deal_owner">
+                <option value="">-- None --</option>
+                @if(isset($staff_details) && count($staff_details) >0)
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+                  @endforeach
+                @endif
+             </select>
+          </div>
+          <div class="f_namebox">
+            <label for="exampleInputPassword1">Existing Client</label>
+            <select class="form-control" name="deal_owner" id="deal_owner">
+              <option value="">-- None --</option>
+              @if(isset($existing_clients) && count($existing_clients) >0)
+                @foreach($existing_clients as $key=>$client_row)
+                <option value="{{ $client_row['client_id'] }}">{{ (isset($client_row['client_type']) && $client_row['client_type'] == "org")?$client_row['business_name']:$client_row['client_name'] }}</option>
+                @endforeach
+              @endif
+             </select>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+
+
+
+
+
 
         <div class="twobox" id="org_name_div">
           <div class="twobox_1">
