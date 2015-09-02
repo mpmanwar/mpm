@@ -1097,8 +1097,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .leads_tab{ border:#ccc solid 1px; list-style: none; padding: 0; margin: 0; border-bottom: 0;}
 .leads_tab li{ float: left; width: 8%; text-align: center;}
 .leads_tab li h3{ color:#fff; background: #000; font-size: 13px; padding: 8px 0 !important; margin: 0 0 0px 0!important; cursor: pointer;}
-.active_leads{ background: #deedf5; border-bottom: #3c8dbc solid 1px; padding-bottom: 2px;}
+.active_leads{ background: #deedf5;/*  border-bottom: #3c8dbc solid 1px; padding-bottom: 2px; */}
 .leads_tab li p{ border-bottom:#3c8dbc solid 1px; padding:3px 0;border-right:#3c8dbc solid 1px; margin: 0!important; }
-.active_leads p{ color: #008080; border:0 !important; margin: 0!important;}
+.active_leads p{ color: #008080; margin: 0!important;}
 
 
