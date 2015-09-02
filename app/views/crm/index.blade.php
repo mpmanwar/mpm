@@ -644,7 +644,7 @@
              </select>
           </div>
           <div class="f_namebox">
-            <label for="exampleInputPassword1">Existing Client</label>
+            <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
             <select class="form-control" name="deal_owner" id="deal_owner">
               <option value="">-- None --</option>
               @if(isset($existing_clients) && count($existing_clients) >0)
