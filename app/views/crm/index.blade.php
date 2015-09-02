@@ -220,21 +220,29 @@
     </ul> -->
 
     <ul class="leads_tab">
-        <li><h3 style="background:#0066FF;">All[12]</h3></a>
+        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All[12]</h3></a>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
         </li>
 
         @if(isset($leads_tabs) && count($leads_tabs) >0)
+          <?php $i = 2;?>
           @foreach($leads_tabs as $key=>$tab_row)
-          <li><h3 style="background:#{{ $tab_row['color_code'] or "" }};">{{ $tab_row['tab_name'] or "" }} [12]</h3></a>
+          <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};">{{ $tab_row['tab_name'] or "" }} [12]</h3></a>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
         </li>
+          <?php $i++;?>
           @endforeach
         @endif
+
+        <li style="width:6%;"><h3 style="background:#0866c6;">&nbsp;</h3>
+          <p><strong>Total</strong></p>
+          <p><strong>Average</strong></p>
+          <p><strong>Likely</strong></p>
+        </li>
 
         <!-- <li><h3 style="background:#FFD119;">INCOMING[20]</h3>
           <p>avijit</p>
@@ -323,7 +331,7 @@
           <th width="11%">Lead Status <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="8%">Quoted Value</th>
           <th width="6%">Notes</th>
-          <th width="10%">Start Onboarding</th>
+          <th width="10%">Client Onboarding</th>
         </tr>
       </thead>
 
@@ -380,7 +388,7 @@
           <th width="11%">Lead Status <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="8%">Quoted Value</th>
           <th width="6%">Notes</th>
-          <th width="10%">Start Onboarding</th>
+          <th width="10%">Client Onboarding</th>
         </tr>
       </thead>
 

@@ -32,12 +32,39 @@ class CrmController extends BaseController
     public function save_leads_data()
     {
         $data       = array();
-        $session             = Session::get('admin_details');        
+        $session    = Session::get('admin_details');        
 
-        $data    = Input::get();
-        $data['user_id']     = $session['id'];
-        unset($data['_token']);
-        unset($data['q']);
+        $details    = Input::get();
+        if($type == "ind"){
+            $data['prospect_title'] = $details['prospect_title'];
+            $data['prospect_fname'] = $details['prospect_fname'];
+            $data['prospect_lname'] = $details['prospect_lname'];
+        }else{
+            $data['business_type']  = $details['business_type'];
+            $data['prospect_name']  = $details['prospect_name'];
+            $data['contact_title']  = $details['contact_title'];
+            $data['contact_fname']  = $details['contact_fname'];
+            $data['contact_lname']  = $details['contact_lname'];
+        }
+        $data['user_id']        = $session['id'];
+        $data['client_type']    = $details['client_type'];
+        $data['deal_certainty'] = $details['deal_certainty'];
+        $data['deal_owner']     = $details['deal_owner'];
+        $data['phone']          = $details['phone'];
+        $data['mobile']         = $details['mobile'];
+        $data['email']          = $details['email'];
+        $data['website']        = $details['website'];
+        $data['annual_revenue'] = $details['annual_revenue'];
+        $data['quoted_value']   = $details['quoted_value'];
+        $data['lead_source']    = $details['lead_source'];
+        $data['industry']       = $details['industry'];
+        $data['street']         = $details['street'];
+        $data['city']           = $details['city'];
+        $data['province']       = $details['province'];
+        $data['postal_code']    = $details['postal_code'];
+        $data['country_id']     = $details['country_id'];
+        $data['notes']          = $details['notes'];
+        
         CrmLead::insert($data);
         //print_r($data);die;
     }
