@@ -5,7 +5,8 @@ $('body').on('focus',".app_date", function(){
 
 
 $(document).ready(function(){
-
+    $('#onboard_drop').hide();
+    
 	$('#allCheckSelect').on('ifChecked', function(event){
 		/*$('#example2 input[type=checkbox]').attr('checked', 'checked');
 		$('.all_check div').addClass('checked');*/
@@ -475,10 +476,13 @@ $(".back").click(function(){
         val[i] = $(this).val();
       }
     });
+    //alert(val);return false;
     //alert(val.length);return false;
     if(val.length>0){
       var client_type = $("#client_type").val();
+      //alert(client_type);return false;
       var status = $.trim($(this).html());
+        //alert(status);return false;
       if(confirm("Do you want to change the status of the client?")){
         $.ajax({
             type: "POST",
@@ -501,6 +505,67 @@ $(".back").click(function(){
   
   });
 // Archive and Un-Archive client start //  
+
+
+$(document).click(function() {
+    $("#onboard_drop").hide();
+  });
+  $("#select_onboard").click(function(event) {
+      $("#onboard_drop").toggle();
+      event.stopPropagation();
+  });
+
+
+  $("#onboard_drop").click(function(){
+    //$('#onboard_drop').show();
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    
+    //alert(val);return false;
+    //alert(val.length);return false;
+    
+    
+    if(val.length>0){
+      var client_type = $("#client_type").val();
+     // alert(client_type);return false;
+      var status = $.trim($(this).html());
+        //alert(status);return false;
+     // if(confirm("Move to Onboard ?????")){
+       // alert(val);return false;
+        $.ajax({
+            type: "POST",
+            url: '/client/onboard-client',
+            data: { 'client_id' : val},
+            success : function(resp){
+                //console.log(resp);
+                //return false;
+              window.location = '/onboard';
+           
+            /*   if(client_type == "org"){
+               
+                window.location = '/onboard';
+              }
+              else{
+                window.location = '/individual-clients';
+              }
+              */
+            }
+        });
+     // }
+
+    }else{
+      alert('Please select atleast one clients');
+    }
+    
+    
+    
+    });
+
+
 
 
 //Get Service country code

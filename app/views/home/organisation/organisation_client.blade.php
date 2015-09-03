@@ -93,7 +93,27 @@ $(function() {
               <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
             </li>
             <li>
-              <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
+       
+         <!--   <div class="import_fromch_main">
+                      <div class="import_fromch">
+                        <a href="/onboard" class="import_fromch_link1">ON-BOARD NEW CLIENT</a>
+                        <a href="javascript:void(0)" class="i_selectbox" id="select_onboard"><img src="/img/arrow_icon.png"></a>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>MOVE TO ONBOARD</div>
+                    </div> -->
+                    
+                    <div class="import_fromch_main">
+                      <div class="import_fromch1">
+                        <a href="/onboard" class="import_fromch_link">ON-BOARD NEW CLIENT</a>
+                        <a href="javascript:void(0)" class="i_selectbox" id="select_onboard"><img src="/img/arrow_icon.png"></a>
+                        <div class="clearfix"></div>
+                      </div>
+                     <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>Client On-boarding</div>
+                    </div>
+          
+            
+           <!--   <button class="btn btn-info">ON-BOARD NEW CLIENT</button> -->
             </li>
             <!-- <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>

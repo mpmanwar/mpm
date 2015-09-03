@@ -29,6 +29,11 @@ Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
+
+Route::any('/onboard', 'HomeController@onboard');
+Route::any('/client/onboard-client', 'ClientController@onboard_client');
+
+
 Route::any('/individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
 Route::post('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
@@ -141,7 +146,7 @@ Route::any('/client/edit-ind-client/{id}/{type}', array("as"=>"edit_ind_client",
 Route::any('/client/delete-client-service', array("as"=>"delete_client_services", "uses"=>'ClientController@delete_client_services'));
 
 Route::any('/client/save-client', array("as"=>"save_client", "uses"=>'ClientController@save_client'));
-Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client'));
+Route::any('/client/archive-client', array("as"=>"archive_client", "uses"=>'ClientController@archive_client')); 
 Route::any('/client/show-archive-client', array("as"=>"show_archive_client", "uses"=>'ClientController@show_archive_client'));
 Route::any('/client/edit-relation-type', array("as"=>"edit_relation_type", "uses"=>'ClientController@edit_relation_type'));
 Route::any('/client/delete-relationship', array("as"=>"delete_relationship", "uses"=>'ClientController@delete_relationship'));

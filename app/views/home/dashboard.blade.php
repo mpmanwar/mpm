@@ -147,8 +147,7 @@ LETTERS & EMAILS</p>
 <a  href="/knowledgebase">
 <div class="circle_icons_inner">
 <div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
-
-<p class="c_tagline">IN - HOUSE <br>
+<p class="c_tagline">IN- HOUSE <br>
 KNOWLEDGE BASE</p>
 
 <div class="clearfix"></div>

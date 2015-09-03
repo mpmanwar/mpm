@@ -133,7 +133,92 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
+	  //echo'<pre>'; print_r($client_ids);die();
+    
+    	//echo $this->last_query();die;
+		$i = 0;
+		if (isset($client_ids) && count($client_ids) > 0) {
+			foreach ($client_ids as $client_id) {
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+				$client_data[$i]['client_id'] = $client_id->client_id;
+				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
+                //$client_data[$i]['created'] 	= $client_id->created;
+				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//echo $this->last_query();//die;
+				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();
+
+				if (isset($client_details) && count($client_details) > 0) {
+					$corres_address = "";
+					foreach ($client_details as $client_row) {
+						//get business name start
+						if (!empty($relation_name['field_value'])) {
+							$client_data[$i]['staff_name'] = $relation_name['field_value'];
+						}
+
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_acc_due"){
+							$client_data[$i]['deadacc_count'] = $this->getDayCount($client_row->field_value);
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "next_ret_due"){
+							$client_data[$i]['deadret_count'] = $this->getDayCount($client_row->field_value);
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "acc_ref_month"){
+							$client_data[$i]['ref_month'] = App::make('ChdataController')->getMonthNameShort($client_row->field_value);
+						}
+
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") 
+						{
+							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
+							$client_data[$i][$client_row['field_name']] = $business_type['name'];
+						} else {
+							$client_data[$i][$client_row['field_name']] = $client_row->field_value;
+						}
+
+						// ############### GET CORRESPONDENSE ADDRESS START ################## //
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line1"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line2"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_county"){
+							$corres_address .= $client_row->field_value.", ";
+						}
+						// ############### GET CORRESPONDENSE ADDRESS END ################## //
+					}
+					$client_data[$i]['corres_address'] = substr($corres_address, 0 ,-2);
+
+					$i++;
+				}
+
+				//echo $this->last_query();die;
+			}
+		}
+		$data['client_details'] = $client_data;
+
+		$data['client_fields'] = ClientField::where("field_type", "=", "org")->get();
+
+		//echo '<pre>';print_r($data['client_details']);die;
+
+		return View::make('home.organisation.organisation_client', $data);
+	}
+
+
+
+
+	public function onboard() {
+		$client_data 		= array();
+		$data['heading'] 	= "";
+		$data['title'] 		= "Organisation Clients List";
+		$admin_s 			= Session::get('admin_details'); // session
+		$user_id 			= $admin_s['id']; //session user id
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
+
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+		
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_onboard", "=", "Y")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -141,7 +226,7 @@ class HomeController extends BaseController {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
-
+                $client_data[$i]['created'] 	= $client_id->created;
 				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
 				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();
@@ -198,8 +283,12 @@ class HomeController extends BaseController {
 
 		//print_r($data['client_details']);die;
 
-		return View::make('home.organisation.organisation_client', $data);
+		return View::make('home.organisation.onboard', $data);
 	}
+
+
+
+
 
 	function getDayCount($from)
 	{

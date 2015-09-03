@@ -1102,3 +1102,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .active_leads p{ color: #008080; margin: 0!important;}
 
 
+
+
+
+.import_fromch1 {
+    background: none repeat scroll 0 0 #00C0EF;
+    border-color: #00ACD6;
+    border-radius: 3px;
+    box-shadow: 2px -3px 0 0 rgba(0, 0, 0, 0.09) inset;
+    float: left;
+    font-weight: 500;
+    height: 34px;
+    width:195px;
+}
+
+.onopen_toggle {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CBCBCB;
+    display: none;
+    left: 174px;
+    position: absolute;
+    top: 37px;
+    width: 81%;
+    color: #3C8DBC;
+}
+
+
+
+
