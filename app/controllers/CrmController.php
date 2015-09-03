@@ -36,7 +36,6 @@ class CrmController extends BaseController{
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
-        $data['lead_status']        = CrmLeadsTab::getAllTabDetails();
         $data['leads_details']      = CrmLead::getAllDetails();
         //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
@@ -51,6 +50,7 @@ class CrmController extends BaseController{
         $encode_page_open   = $details['encode_page_open'];
         $encode_owner_id    = $details['encode_owner_id'];
         $type               = $details['type'];
+        $leads_id           = $details['leads_id'];
 
         if($type == "ind"){
             $data['prospect_title'] = $details['prospect_title'];
@@ -63,6 +63,7 @@ class CrmController extends BaseController{
             $data['contact_fname']  = $details['contact_fname'];
             $data['contact_lname']  = $details['contact_lname'];
         }
+        $data['existing_client'] = $details['existing_client'];
         $data['user_id']        = $session['id'];
         $data['client_type']    = $details['type'];
         $data['deal_certainty'] = $details['deal_certainty'];
@@ -77,12 +78,17 @@ class CrmController extends BaseController{
         $data['industry']       = $details['industry'];
         $data['street']         = $details['street'];
         $data['city']           = $details['city'];
-        $data['province']       = $details['province'];
+        $data['county']         = $details['county'];
         $data['postal_code']    = $details['postal_code'];
         $data['country_id']     = $details['country_id'];
         $data['notes']          = $details['notes'];
         
-        CrmLead::insert($data);
+        if($leads_id == 0){
+            CrmLead::insert($data);
+        }else{
+            CrmLead::where('leads_id', '=', $leads_id)->update($data);
+        }
+        
         return Redirect::to('/crm/'.$encode_page_open.'/'.$encode_owner_id);
         //print_r($data);die;
     }
@@ -110,7 +116,8 @@ class CrmController extends BaseController{
     {
         $data = array();
         $client_data = array();
-        $type = Input::get("type");
+        $type       = Input::get("type");
+        $leads_id   = Input::get("leads_id");
 
         //======== Client Details ========//
         if($type == "ind"){
@@ -140,6 +147,9 @@ class CrmController extends BaseController{
         //======== Client Details ========//
         
 
+        if($leads_id != '0'){
+            $data['leads_details'] = CrmLead::getLeadsByLeadsId($leads_id);
+        }
 
         $data['existing_clients'] = $client_data;
 
@@ -168,9 +178,34 @@ class CrmController extends BaseController{
         echo $title;
         exit;
     }
+
+    public function delete_leads_details()
+    {
+        $leads_ids  = Input::get('leads_delete_id');
+        foreach ($leads_ids as $leads_id) {
+            CrmLead::where('leads_id', '=', $leads_id)->delete();
+        }
+    }
     
-    
-    
+    public function sendto_another_tab()
+    {
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+
+        $data['leads_tab_id']   = Input::get('tab_id');
+        $data['leads_id']       = Input::get('leads_id');
+        $data['user_id']        = $user_id;
+
+        $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
+        if(isset($leads_status) && count($leads_status) >0){
+            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
+            $last_id = $leads_status['leads_status_id'];
+        }else{
+            $data['created'] = date("Y-m-d H:i:s");
+            $last_id = CrmLeadsStatus::insertGetId($data);
+        }
+        echo $last_id;
+    }
     
     
     

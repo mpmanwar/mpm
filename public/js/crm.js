@@ -1,4 +1,12 @@
 $(document).ready(function () {
+  $('#CheckallCheckbox').on('ifChecked', function(event){
+      $(".crm input[class='ads_Checkbox']").iCheck('check');
+  });
+
+  $('#CheckallCheckbox').on('ifUnchecked', function(event){
+      $(".crm input[class='ads_Checkbox']").iCheck('uncheck');
+  });
+
     $(document).click(function() {
         $(".open_toggle").hide();
     });
@@ -15,36 +23,69 @@ $(document).ready(function () {
     });
 
     $(".open_form-modal").click(function(){
-      var type  = $(this).data("type");
-      $("#type").val(type);
-      if(type == "org"){
-        $("#prospect_name_div").hide();
-        $("#contact_name_div").show();
-        $("#org_name_div").show();
-      }else{
-        $("#contact_name_div").hide();
-        $("#org_name_div").hide();
-        $("#prospect_name_div").show();
-      }
+        var type      = $(this).data("type");
+        var leads_id  = $(this).data("leads_id");
 
-      $.ajax({
-        type: "POST",
-        url: '/crm/get-form-dropdown',
-        dataType : 'json',
-        data: { 'type' : type },
-        success : function(resp){
-          var client_dropdown = "<option value=''>-- None --</option>";
-          $.each(resp['existing_clients'], function(key){
-            client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
-          });
-          $("#existing_client").html(client_dropdown);
-
-          $("#open_form-modal").modal("show");
+        $("#type").val(type);
+        $("#leads_id").val(leads_id);
+        if(type == "org"){
+          $("#prospect_name_div").hide();
+          $("#contact_name_div").show();
+          $("#org_name_div").show();
+        }else{
+          $("#contact_name_div").hide();
+          $("#org_name_div").hide();
+          $("#prospect_name_div").show();
         }
-      });
-      
-      
-      
+
+        $.ajax({
+          type: "POST",
+          url: '/crm/get-form-dropdown',
+          dataType : 'json',
+          data: { 'type' : type, 'leads_id' : leads_id },
+          success : function(resp){
+            var client_dropdown = "<option value=''>-- None --</option>";
+            $.each(resp['existing_clients'], function(key){
+              client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
+            });
+            $("#existing_client").html(client_dropdown);
+
+            //==================Edit =================//
+            if(leads_id != "0"){
+              if(type == 'ind'){
+                $("#prospect_title").val(resp['leads_details'].prospect_title);
+                $("#prospect_fname").val(resp['leads_details'].prospect_fname);
+                $("#prospect_lname").val(resp['leads_details'].prospect_lname);
+              }
+              $("#leads_id").val(resp['leads_details'].leads_id);
+              $("#deal_certainty").val(resp['leads_details'].deal_certainty);
+              $("#existing_client").val(resp['leads_details'].existing_client);
+              $("#deal_owner").val(resp['leads_details'].deal_owner);
+              $("#existing_client").val(resp['leads_details'].existing_client);
+              $("#business_type").val(resp['leads_details'].business_type);
+              $("#prospect_name").val(resp['leads_details'].prospect_name);
+              $("#contact_title").val(resp['leads_details'].contact_title);
+              $("#contact_fname").val(resp['leads_details'].contact_fname);
+              $("#contact_lname").val(resp['leads_details'].contact_lname);
+              $("#phone").val(resp['leads_details'].phone);
+              $("#mobile").val(resp['leads_details'].mobile);
+              $("#email").val(resp['leads_details'].email);
+              $("#website").val(resp['leads_details'].website);
+              $("#annual_revenue").val(resp['leads_details'].annual_revenue);
+              $("#quoted_value").val(resp['leads_details'].quoted_value);
+              $("#lead_source").val(resp['leads_details'].lead_source);
+              $("#industry").val(resp['leads_details'].industry);
+              $("#street").val(resp['leads_details'].street);
+              $("#city").val(resp['leads_details'].city);
+              $("#county").val(resp['leads_details'].county);
+              $("#postal_code").val(resp['leads_details'].postal_code);
+              $("#country").val(resp['leads_details'].country);
+              $("#notes").val(resp['leads_details'].notes);
+            }
+
+            $("#open_form-modal").modal("show");
+          }
+        });
     });
 
 // Save Business type while add organization client start //
@@ -149,7 +190,7 @@ $("#append_new_source").on("click", ".delete_source", function(){
   $("#lead_status-modal").on("click", ".edit_status", function(){
       var step_id = $(this).data("step_id");
       var status_name = $("#status_span"+step_id).html();
-      var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+      var text_field = "<input type='text'  maxlength='13' id='status_name"+step_id+"' value='"+status_name+"' style='width:37%; height:30px'>";
       var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
       $("#status_span"+step_id).html(text_field);
       $("#action_"+step_id).html(action);
@@ -194,6 +235,62 @@ $("#append_new_source").on("click", ".delete_source", function(){
   });
 
 /* ################# Send to Task Management End ################### */
+
+/* ################# View Notes Start ################### */
+  $(".open_notes_popup").click(function(){
+    var leads_id  = $(this).data("leads_id");
+    var notes     = $("#notes_"+leads_id).val();
+    $("#show_full_notes").html(notes);
+    $("#full_notes-modal").modal("show");
+  });
+/* ################# View Notes End ################### */
+
+/* ################# Delete Leads Details Start ################### */
+$(".deleteLeads").click(function(){
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    //alert(val.length);return false;
+    if(val.length>0){
+      var page_open = $("#encode_page_open").val();
+      var owner_id = $("#encode_owner_id").val();
+      if(confirm("Do you want to delete??")){
+        $.ajax({
+            type: "POST",
+            url: '/crm/delete-leads-details',
+            data: { 'leads_delete_id' : val },
+            success : function(resp){
+              window.location = '/crm/'+page_open+"/"+owner_id;
+            }
+        });
+      }
+
+    }else{
+      alert('Please select atleast one details');
+    }
+  });
+/* ################# Delete Leads Details End ################### */
+
+/* ################# Delete Leads Details Start ################### */
+  $(".status_dropdown").change(function(){
+      var tab_id = $(this).val();
+      var leads_id = $(this).data('leads_id');
+      var page_open = $("#encode_page_open").val();
+      var owner_id = $("#encode_owner_id").val();
+
+      $.ajax({
+          type: "POST",
+          url: '/crm/sendto-another-tab',
+          data: { 'tab_id' : tab_id, 'leads_id' : leads_id },
+          success : function(resp){
+            window.location = '/crm/'+page_open+"/"+owner_id;
+          }
+      });
+  });
+
 
 
 
