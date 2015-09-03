@@ -243,7 +243,7 @@ function notesmodal(){
                 <th>Client Type</th>
                 <th>Client Name</th>
                 <th>Contact Name</th>
-                <th>%Done</th>
+                <th>% Completed</th>
                 <th>Telephone</th>
                 <th>Notes</th>
                 
@@ -261,7 +261,11 @@ function notesmodal(){
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td align="center">{{ isset($client_row['created'])?$client_row['created']:"" }}</td>
+                    <td align="center">{{ 
+                    
+                    
+                    
+                    date('d-m-Y',strtotime($client_row['created'])) }}</td>
                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
                     
                  <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->
