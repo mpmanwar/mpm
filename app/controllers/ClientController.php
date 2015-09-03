@@ -1104,7 +1104,23 @@ class ClientController extends BaseController {
 		$file_details = ClientFile::where('client_id', "=", $client_id)->select('client_file_id')->first();
 		echo $file_details['client_file_id'];
 	}
-
+        
+        
+    public function onboard_client() {
+		
+         $clients_id = Input::get("client_id"); 
+		//$status = Input::get("status");
+		//print_r($clients_id);die;
+		foreach ($clients_id as $client_id) {
+		//	if($status == "Archive"){
+				Client::where('client_id', '=', $client_id)->update(array("is_onboard"=>"Y"));
+		//	}else{
+//				Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"N", "show_archive"=>"N"));
+//			}
+			
+			//echo $this->last_query();die;
+		}
+	}
 
 
 
