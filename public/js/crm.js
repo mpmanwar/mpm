@@ -38,10 +38,12 @@ $(document).ready(function () {
             client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
           });
           $("#existing_client").html(client_dropdown);
+
+          $("#open_form-modal").modal("show");
         }
       });
       
-      $("#open_form-modal").modal("show");
+      
       
     });
 
@@ -139,6 +141,59 @@ $("#append_new_source").on("click", ".delete_source", function(){
 //Delete Lead Source end //
 
 
+
+/* ================== Manage Tasks ================== */
+  $(".lead_status-modal").click(function(){
+    $("#lead_status-modal").modal("show");
+  });
+  $("#lead_status-modal").on("click", ".edit_status", function(){
+      var step_id = $(this).data("step_id");
+      var status_name = $("#status_span"+step_id).html();
+      var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+      var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
+      $("#status_span"+step_id).html(text_field);
+      $("#action_"+step_id).html(action);
+  });
+
+  $("#lead_status-modal").on("click", ".cancel_edit", function(){
+      var step_id = $(this).data("step_id");
+      var status_name = $("#status_name"+step_id).val();
+      var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+      $("#status_span"+step_id).html(status_name);
+      $("#action_"+step_id).html(action);
+  });
+
+  $("#lead_status-modal").on("click", ".save_new_status", function(){
+      var step_id = $(this).data("step_id");
+      var status_name = $("#status_name"+step_id).val();
+      //alert(status_name+" "+step_id);
+      $.ajax({
+          type: "POST",
+          url: "/crm/save-edit-status",
+          //dataType: "json",
+          data: { 'step_id': step_id, 'status_name' : status_name, 'type' : 'title' },
+          beforeSend: function() {
+              //$("#goto"+key).html('<img src="/img/spinner.gif" />');
+          },
+          success: function (resp) {
+              if(resp != ""){
+                  var action = "<a href='javascript:void(0)' class='edit_status' data-step_id='"+step_id+"'><img src='/img/edit_icon.png'></a>";
+                  $("#status_span"+step_id).html(status_name);
+                  $("#action_"+step_id).html(action);
+
+                  $("#step_field_"+step_id).text(status_name);
+                  $(".status_dropdown option[value='"+step_id+"']").html(status_name);
+
+              }else{
+                  alert("There are some problem to update status");
+              }
+              
+          }
+      });
+
+  });
+
+/* ################# Send to Task Management End ################### */
 
 
 

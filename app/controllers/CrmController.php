@@ -36,9 +36,9 @@ class CrmController extends BaseController{
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
-        
+        $data['lead_status']        = CrmLeadsTab::getAllTabDetails();
         $data['leads_details']      = CrmLead::getAllDetails();
-        //echo "<pre>";print_r($data['existing_clients']);echo "</pre>";die;
+        //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
     }
 
@@ -144,6 +144,29 @@ class CrmController extends BaseController{
         $data['existing_clients'] = $client_data;
 
         echo json_encode($data);
+    }
+
+    public function save_edit_status()
+    {
+        $data = array();
+        $step_id        = Input::get('step_id');
+        $type           = Input::get('type');
+        if(isset($type) && $type == "title"){
+            $data['tab_name'] = Input::get("status_name");
+            $title = $data['tab_name'];
+        }else{
+            $value = CrmLeadsTab::where("tab_id", "=", $step_id)->first();
+            if($value['status'] == "S"){
+                $data['status'] = "H";
+            }else{
+                $data['status'] = "S";
+            }
+            $title = $value['tab_name'];
+        }
+        $sql = CrmLeadsTab::where("tab_id", "=", $step_id)->update($data);
+        
+        echo $title;
+        exit;
     }
     
     

@@ -229,7 +229,7 @@
         @if(isset($leads_tabs) && count($leads_tabs) >0)
           <?php $i = 2;?>
           @foreach($leads_tabs as $key=>$tab_row)
-          <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};">{{ $tab_row['tab_name'] or "" }} [12]</h3></a>
+          <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">1</span>]</h3></a>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
@@ -243,72 +243,6 @@
           <p style="border-right: 0px"><strong>Average</strong></p>
           <p style="border-right: 0px"><strong>Likely</strong></p>
         </li>
-
-        <!-- <li><h3 style="background:#FFD119;">INCOMING[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#33CC33;">QUALIFIED[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#FF0000;">UNQUALIFIED[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#00CCFF;">QUOTED[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        <li><h3 style="background:#CC4040;">NEGOTIATED[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#4DA2A2;">WARM[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#FF3399;">COLD[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#66CCFF;">LOST[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#CC3300;">HOT[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#9933FF;">WON[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li>
-        
-        <li><h3 style="background:#D1A319;">INVOICED[20]</h3>
-          <p>avijit</p>
-          <p>avijit</p>
-          <p>avijit</p>
-        </li> -->
-
 
         <div class="clearfix"></div>
     </ul>
@@ -328,7 +262,7 @@
           <th width="6%">Deal Age</th>
           <th width="6%">Quote</th>
           <th width="10%">Quote Status</th>
-          <th width="11%">Lead Status <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="11%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="8%">Quoted Value</th>
           <th width="6%">Notes</th>
           <th width="10%">Client Onboarding</th>
@@ -349,8 +283,8 @@
               <td align="center">
                 <div class="email_client_selectbox" style="height:24px;">
                   <span>SEND</span>
-                  <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
-                  <div class="select_toggle" id="status152_11" style="display: none;">
+                  <div class="small_icon" data-id="{{ $leads_row['leads_id'] }}" data-tab="11"></div><div class="clr"></div>
+                  <div class="select_toggle" id="status{{ $leads_row['leads_id'] }}_11" style="display: none;">
                     <ul>
                       <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
@@ -362,13 +296,17 @@
               </td>
               <td align="center"></td>
               <td align="center">
-                <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
-                  <option value="2">Incoming</option>
+                <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] }}" data-client_id="{{ $leads_row['leads_id'] }}">
+                  @if(isset($leads_tabs) && count($leads_tabs) >0)
+                    @foreach($leads_tabs as $key=>$tab_row)
+                      <option value="{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</option>
+                    @endforeach
+                  @endif
                 </select>
               </td>
               <td align="center"></td>
-              <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
-              <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
+              <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="{{ $leads_row['leads_id'] }}" data-tab="11"><span>notes</span></a></td>
+              <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] }}" data-field_name="ch_manage_task">Start</button></td>
             </tr>
           @endforeach
         @endif
@@ -795,7 +733,7 @@
         <div class="twobox">
           <div class="twobox_1">
               <div class="form-group">
-                <label for="exampleInputPassword1">Province</label>
+                <label for="exampleInputPassword1">County</label>
                 <input type="text" id="province" name="province" class="form-control" >
               </div> 
           </div>
@@ -954,6 +892,52 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="lead_status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">EDIT LEAD STATUS</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '', 'id'=>'field_form')) }}
+      <div class="modal-body">
+      <table class="table table-bordered table-hover dataTable add_status_table">
+        <thead>
+          <tr>
+            <!-- <th align="center" width="20%">Show/Unshow</th> -->
+            <th >Status Name</th>
+            <th align="center">Action</th>
+          </thead>
+
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
+          @if(isset($lead_status) && count($lead_status) >0)
+            @foreach($lead_status as $key=>$value)
+              <tr id="change_status_tr_{{ $value['tab_id'] or "" }}">
+                <!-- <td align="center"><input type="checkbox" id="step_check_2{{ $value['step_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" {{ ((isset($value['count']) && $value['count'] !=0) || $value['step_id'] == 10)?"disabled":"" }} /></td> -->
+                <td><span id="status_span{{ $value['tab_id'] or "" }}">{{ $value['tab_name'] or "" }}</span></td>
+                <td align="center"><span id="action_{{ $value['tab_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['tab_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
+              </tr>
+            @endforeach
+          @endif
+
+        </tbody>
+    
+    </table>
+
+        
+      </div>
+    {{ Form::close() }}
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
 @stop
 
 

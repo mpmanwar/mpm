@@ -372,4 +372,5 @@ Route::any('/crm/save-leads-data', 'CrmController@save_leads_data');
 Route::any('/crm/add-new-source', 'CrmController@add_new_source');
 Route::any('/crm/delete-source-name', 'CrmController@delete_source_name');
 Route::any('/crm/get-form-dropdown', 'CrmController@get_form_dropdown');
+Route::any('/crm/save-edit-status', 'CrmController@save_edit_status');
 /*================== CRM End ==============*/
