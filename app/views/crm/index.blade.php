@@ -170,8 +170,8 @@
               </div>
               <div class="crm_dropdown open_toggle">
               <ul>
-                <li><href="javascript:void(0)" data-type="ind" class="open_form-modal">Individual</a></li>
-                <li><href="javascript:void(0)" data-type="org" class="open_form-modal">Organisation</a></li>
+                <li><href="javascript:void(0)" data-type="ind" data-leads_id="0" class="open_form-modal">Individual</a></li>
+                <li><href="javascript:void(0)" data-type="org" data-leads_id="0" class="open_form-modal">Organisation</a></li>
               </ul>
             </div>
           </div>
@@ -262,7 +262,7 @@
           <th>Contact Name</th>
           <th>Phone</th>
           <th>Email</th>
-          <th width="6%">Deal Age</th>
+          <th width="6%">Deal Age(Days)</th>
           <th width="6%">Quote</th>
           <th width="10%">Quote Status</th>
           <th width="10%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
@@ -280,15 +280,15 @@
               <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
               <td align="left">
                 @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
-                  {{ $leads_row['prospect_name'] or "" }}
+                  <a href="javascript:void(0)" data-type="org" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_form-modal">{{ $leads_row['prospect_name'] or "" }}</a>
                 @else
-                  {{ $leads_row['prospect_title'] or "" }} {{ $leads_row['prospect_fname'] or "" }} {{ $leads_row['prospect_lname'] or "" }}
+                  <a href="javascript:void(0)" data-type="ind" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_form-modal">{{ $leads_row['prospect_title'] or "" }} {{ $leads_row['prospect_fname'] or "" }} {{ $leads_row['prospect_lname'] or "" }}</a>
                 @endif
               </td>
               <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
               <td align="left">{{ $leads_row['phone'] or "" }}</td>
               <td align="left">{{ $leads_row['email'] or "" }}</td>
-              <td align="center"></td>
+              <td align="center">0</td>
               <td align="center">
                 <div class="email_client_selectbox" style="height:24px;">
                   <span>SEND</span>
@@ -542,6 +542,7 @@
       <input type="hidden" name="encode_page_open" value="{{ $encode_page_open }}">
       <input type="hidden" name="encode_owner_id" value="{{ $encode_owner_id }}">
       <input type="hidden" name="type" id="type" value="">
+      <input type="hidden" name="leads_id" id="leads_id" value="">
       <div class="modal-body">
         <div class="form-group">
           <div class="n_box1">

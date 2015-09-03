@@ -46,6 +46,47 @@ class CrmLead extends Eloquent {
 		return $data;
     }
 
+    public static function getLeadsByLeadsId( $leads_id )
+    {
+    	$data = array();
+    	$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+		$details = CrmLead::where("leads_id", "=", $leads_id)->first();
+		if(isset($details) && count($details) >0){
+			$data['leads_id']       = $details->leads_id;
+			$data['user_id']        = $details->user_id;
+			$data['existing_client']= $details['existing_client'];
+			$data['client_type']    = $details->client_type;
+			$data['deal_certainty'] = $details->deal_certainty;
+	        $data['deal_owner']     = $details->deal_owner;
+	        $data['phone']          = $details->phone;
+	        $data['mobile']         = $details->mobile;
+	        $data['email']          = $details->email;
+	        $data['website']        = $details->website;
+			$data['prospect_title'] = $details->prospect_title;
+        	$data['prospect_fname'] = $details->prospect_fname;
+        	$data['prospect_lname'] = $details->prospect_lname;
+        	$data['business_type']  = $details->business_type;
+            $data['prospect_name']  = $details->prospect_name;
+            $data['contact_title']  = $details->contact_title;
+            $data['contact_fname']  = $details->contact_fname;
+            $data['contact_lname']  = $details->contact_lname;
+			$data['annual_revenue'] = $details->annual_revenue;
+	        $data['quoted_value']   = $details->quoted_value;
+	        $data['lead_source']    = $details->lead_source;
+	        $data['industry']       = $details->industry;
+	        $data['street']         = $details->street;
+	        $data['city']           = $details->city;
+	        $data['county']         = $details->county;
+	        $data['postal_code']    = $details->postal_code;
+	        $data['country_id']     = $details->country_id;
+	        $data['notes']          = $details->notes;
+		}
+		//echo "<pre>";print_r($data);echo "</pre>";die;
+		return $data;
+    }
+
     public static function getLeadsCount()
     {
     	$session        = Session::get('admin_details');

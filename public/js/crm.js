@@ -23,36 +23,69 @@ $(document).ready(function () {
     });
 
     $(".open_form-modal").click(function(){
-      var type  = $(this).data("type");
-      $("#type").val(type);
-      if(type == "org"){
-        $("#prospect_name_div").hide();
-        $("#contact_name_div").show();
-        $("#org_name_div").show();
-      }else{
-        $("#contact_name_div").hide();
-        $("#org_name_div").hide();
-        $("#prospect_name_div").show();
-      }
+        var type      = $(this).data("type");
+        var leads_id  = $(this).data("leads_id");
 
-      $.ajax({
-        type: "POST",
-        url: '/crm/get-form-dropdown',
-        dataType : 'json',
-        data: { 'type' : type },
-        success : function(resp){
-          var client_dropdown = "<option value=''>-- None --</option>";
-          $.each(resp['existing_clients'], function(key){
-            client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
-          });
-          $("#existing_client").html(client_dropdown);
-
-          $("#open_form-modal").modal("show");
+        $("#type").val(type);
+        $("#leads_id").val(leads_id);
+        if(type == "org"){
+          $("#prospect_name_div").hide();
+          $("#contact_name_div").show();
+          $("#org_name_div").show();
+        }else{
+          $("#contact_name_div").hide();
+          $("#org_name_div").hide();
+          $("#prospect_name_div").show();
         }
-      });
-      
-      
-      
+
+        $.ajax({
+          type: "POST",
+          url: '/crm/get-form-dropdown',
+          dataType : 'json',
+          data: { 'type' : type, 'leads_id' : leads_id },
+          success : function(resp){
+            var client_dropdown = "<option value=''>-- None --</option>";
+            $.each(resp['existing_clients'], function(key){
+              client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
+            });
+            $("#existing_client").html(client_dropdown);
+
+            //==================Edit =================//
+            if(leads_id != "0"){
+              if(type == 'ind'){
+                $("#prospect_title").val(resp['leads_details'].prospect_title);
+                $("#prospect_fname").val(resp['leads_details'].prospect_fname);
+                $("#prospect_lname").val(resp['leads_details'].prospect_lname);
+              }
+              $("#leads_id").val(resp['leads_details'].leads_id);
+              $("#deal_certainty").val(resp['leads_details'].deal_certainty);
+              $("#existing_client").val(resp['leads_details'].existing_client);
+              $("#deal_owner").val(resp['leads_details'].deal_owner);
+              $("#existing_client").val(resp['leads_details'].existing_client);
+              $("#business_type").val(resp['leads_details'].business_type);
+              $("#prospect_name").val(resp['leads_details'].prospect_name);
+              $("#contact_title").val(resp['leads_details'].contact_title);
+              $("#contact_fname").val(resp['leads_details'].contact_fname);
+              $("#contact_lname").val(resp['leads_details'].contact_lname);
+              $("#phone").val(resp['leads_details'].phone);
+              $("#mobile").val(resp['leads_details'].mobile);
+              $("#email").val(resp['leads_details'].email);
+              $("#website").val(resp['leads_details'].website);
+              $("#annual_revenue").val(resp['leads_details'].annual_revenue);
+              $("#quoted_value").val(resp['leads_details'].quoted_value);
+              $("#lead_source").val(resp['leads_details'].lead_source);
+              $("#industry").val(resp['leads_details'].industry);
+              $("#street").val(resp['leads_details'].street);
+              $("#city").val(resp['leads_details'].city);
+              $("#county").val(resp['leads_details'].county);
+              $("#postal_code").val(resp['leads_details'].postal_code);
+              $("#country").val(resp['leads_details'].country);
+              $("#notes").val(resp['leads_details'].notes);
+            }
+
+            $("#open_form-modal").modal("show");
+          }
+        });
     });
 
 // Save Business type while add organization client start //

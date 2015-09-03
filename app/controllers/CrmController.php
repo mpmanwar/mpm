@@ -50,6 +50,7 @@ class CrmController extends BaseController{
         $encode_page_open   = $details['encode_page_open'];
         $encode_owner_id    = $details['encode_owner_id'];
         $type               = $details['type'];
+        $leads_id           = $details['leads_id'];
 
         if($type == "ind"){
             $data['prospect_title'] = $details['prospect_title'];
@@ -62,6 +63,7 @@ class CrmController extends BaseController{
             $data['contact_fname']  = $details['contact_fname'];
             $data['contact_lname']  = $details['contact_lname'];
         }
+        $data['existing_client'] = $details['existing_client'];
         $data['user_id']        = $session['id'];
         $data['client_type']    = $details['type'];
         $data['deal_certainty'] = $details['deal_certainty'];
@@ -81,7 +83,12 @@ class CrmController extends BaseController{
         $data['country_id']     = $details['country_id'];
         $data['notes']          = $details['notes'];
         
-        CrmLead::insert($data);
+        if($leads_id == 0){
+            CrmLead::insert($data);
+        }else{
+            CrmLead::where('leads_id', '=', $leads_id)->update($data);
+        }
+        
         return Redirect::to('/crm/'.$encode_page_open.'/'.$encode_owner_id);
         //print_r($data);die;
     }
@@ -109,7 +116,8 @@ class CrmController extends BaseController{
     {
         $data = array();
         $client_data = array();
-        $type = Input::get("type");
+        $type       = Input::get("type");
+        $leads_id   = Input::get("leads_id");
 
         //======== Client Details ========//
         if($type == "ind"){
@@ -139,6 +147,9 @@ class CrmController extends BaseController{
         //======== Client Details ========//
         
 
+        if($leads_id != '0'){
+            $data['leads_details'] = CrmLead::getLeadsByLeadsId($leads_id);
+        }
 
         $data['existing_clients'] = $client_data;
 
