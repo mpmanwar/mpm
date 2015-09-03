@@ -1,6 +1,17 @@
 <?php
-class CrmController extends BaseController
-{
+class CrmController extends BaseController{
+    public function __construct()
+    {
+        parent::__construct();
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        if (empty($user_id)) {
+            Redirect::to('/login');
+        }
+        if (isset($session['user_type']) && $session['user_type'] == "C") {
+            Redirect::to('/client-portal')->send();
+        }
+    }
 
     public function index($page_open, $owner_id){
         $data['heading']= "CRM";
@@ -25,7 +36,7 @@ class CrmController extends BaseController
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
-        $data['existing_clients']   = Client::getAllClientDetails();
+        
         $data['leads_details']      = CrmLead::getAllDetails();
         //echo "<pre>";print_r($data['existing_clients']);echo "</pre>";die;
         return View::make('crm.index', $data);
@@ -93,6 +104,46 @@ class CrmController extends BaseController
         $source_id = Input::get("field_id");
         LeadSource::where("source_id", "=", $source_id)->delete();
         echo $source_id;
+    }
+
+    public function get_form_dropdown()
+    {
+        $data = array();
+        $client_data = array();
+        $type = Input::get("type");
+
+        //======== Client Details ========//
+        if($type == "ind"){
+            $existing_clients  = Client::getAllIndClientDetails();
+            if(isset($existing_clients) && count($existing_clients) >0){
+                foreach ($existing_clients as $key => $value) {
+                    $client_data[$key]['client_id']    = $value['client_id'];
+                    $client_data[$key]['client_name']  = $value['client_name'];
+                }
+            }
+        }else{
+            $existing_clients  = Client::getAllOrgClientDetails();
+            if(isset($existing_clients) && count($existing_clients) >0){
+                foreach ($existing_clients as $key => $value) {
+                    $client_data[$key]['client_id']    = $value['client_id'];
+                    $client_data[$key]['client_name']  = $value['business_name'];
+                }
+            }
+        }
+
+        if(isset($client_data) && count($client_data) >0){
+            foreach ($client_data as $value){
+            $client_name[]  = strtolower($value['client_name']);
+            } 
+            array_multisort($client_name, SORT_ASC, $client_data);
+        }
+        //======== Client Details ========//
+        
+
+
+        $data['existing_clients'] = $client_data;
+
+        echo json_encode($data);
     }
     
     

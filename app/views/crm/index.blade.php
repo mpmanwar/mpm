@@ -593,37 +593,7 @@
       <input type="hidden" name="encode_owner_id" value="{{ $encode_owner_id }}">
       <input type="hidden" name="type" id="type" value="">
       <div class="modal-body">
-
-        <!-- <div class="twobox">
-          <div class="twobox_1">
-            <div class="box_30">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Deal Certainty</label>
-                <input type="text" id="deal_certainty" name="deal_certainty" class="form-control box_60">
-              </div>
-            </div>
-        
-          </div>
-          <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Deal Owner</label>
-              <select class="form-control" name="deal_owner" id="deal_owner">
-                <option value="">-- None --</option>
-                @if(isset($staff_details) && count($staff_details) >0)
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
-                  @endforeach
-                @endif
-             </select>
-            </div>
-        
-        
-          </div>
-          <div class="clearfix"></div>
-        </div>
-              <div class="clearfix"></div> -->
-      <div class="form-group">
-          
+        <div class="form-group">
           <div class="n_box1">
             <div class="box_70">
               <div class="form-group">
@@ -645,23 +615,13 @@
           </div>
           <div class="f_namebox">
             <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
-            <select class="form-control" name="deal_owner" id="deal_owner">
+            <select class="form-control" name="existing_client" id="existing_client">
               <option value="">-- None --</option>
-              @if(isset($existing_clients) && count($existing_clients) >0)
-                @foreach($existing_clients as $key=>$client_row)
-                <option value="{{ $client_row['client_id'] }}">{{ (isset($client_row['client_type']) && $client_row['client_type'] == "org")?$client_row['business_name']:$client_row['client_name'] }}</option>
-                @endforeach
-              @endif
+              
              </select>
           </div>
           <div class="clearfix"></div>
         </div>
-
-
-
-
-
-
 
         <div class="twobox" id="org_name_div">
           <div class="twobox_1">

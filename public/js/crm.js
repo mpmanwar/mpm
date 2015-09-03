@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     $(".open_form-modal").click(function(){
       var type  = $(this).data("type");
+      $("#type").val(type);
       if(type == "org"){
         $("#prospect_name_div").hide();
         $("#contact_name_div").show();
@@ -26,7 +27,20 @@ $(document).ready(function () {
         $("#prospect_name_div").show();
       }
 
-      $("#type").val(type);
+      $.ajax({
+        type: "POST",
+        url: '/crm/get-form-dropdown',
+        dataType : 'json',
+        data: { 'type' : type },
+        success : function(resp){
+          var client_dropdown = "<option value=''>-- None --</option>";
+          $.each(resp['existing_clients'], function(key){
+            client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
+          });
+          $("#existing_client").html(client_dropdown);
+        }
+      });
+      
       $("#open_form-modal").modal("show");
       
     });
