@@ -36,7 +36,6 @@ class CrmController extends BaseController{
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
-        $data['lead_status']        = CrmLeadsTab::getAllTabDetails();
         $data['leads_details']      = CrmLead::getAllDetails();
         //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
@@ -77,7 +76,7 @@ class CrmController extends BaseController{
         $data['industry']       = $details['industry'];
         $data['street']         = $details['street'];
         $data['city']           = $details['city'];
-        $data['province']       = $details['province'];
+        $data['county']         = $details['county'];
         $data['postal_code']    = $details['postal_code'];
         $data['country_id']     = $details['country_id'];
         $data['notes']          = $details['notes'];
@@ -168,9 +167,34 @@ class CrmController extends BaseController{
         echo $title;
         exit;
     }
+
+    public function delete_leads_details()
+    {
+        $leads_ids  = Input::get('leads_delete_id');
+        foreach ($leads_ids as $leads_id) {
+            CrmLead::where('leads_id', '=', $leads_id)->delete();
+        }
+    }
     
-    
-    
+    public function sendto_another_tab()
+    {
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+
+        $data['leads_tab_id']   = Input::get('tab_id');
+        $data['leads_id']       = Input::get('leads_id');
+        $data['user_id']        = $user_id;
+
+        $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
+        if(isset($leads_status) && count($leads_status) >0){
+            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
+            $last_id = $leads_status['leads_status_id'];
+        }else{
+            $data['created'] = date("Y-m-d H:i:s");
+            $last_id = CrmLeadsStatus::insertGetId($data);
+        }
+        echo $last_id;
+    }
     
     
     

@@ -14,9 +14,9 @@ class CrmLead extends Eloquent {
 			foreach ($crm_data as $key => $details) {
 				$data[$key]['leads_id']       = $details->leads_id;
 				$data[$key]['user_id']        = $details->user_id;
-				$data[$key]['type']    		  = $details->client_type;
+				$data[$key]['client_type']    = $details->client_type;
 				$data[$key]['deal_certainty'] = $details->deal_certainty;
-		        $data[$key]['deal_owner']     = $details->deal_owner;
+		        $data[$key]['deal_owner']     = User::getStaffNameById($details->deal_owner);
 		        $data[$key]['phone']          = $details->phone;
 		        $data[$key]['mobile']         = $details->mobile;
 		        $data[$key]['email']          = $details->email;
@@ -35,15 +35,48 @@ class CrmLead extends Eloquent {
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
-		        $data[$key]['province']       = $details->province;
+		        $data[$key]['county']         = $details->county;
 		        $data[$key]['postal_code']    = $details->postal_code;
 		        $data[$key]['country_id']     = $details->country_id;
 		        $data[$key]['notes']          = $details->notes;
+		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
-		//print_r($data);die;
+		//echo "<pre>";print_r($data);echo "</pre>";die;
 		return $data;
     }
+
+    public static function getLeadsCount()
+    {
+    	$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+		$crm_count = CrmLead::whereIn("user_id", $groupUserId)->get()->count();
+		return $crm_count;
+    }
+
+    public static function getTotalQuotedValue( $leads_tab_id )
+    {
+    	$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+		$status_details = CrmLeadsStatus::leadsStatusByTabId($leads_tab_id);
+
+		if(isset($status_details) && count($status_details) >0){
+			$total = 0;
+			foreach ($status_details as $key => $value) {
+				$crn_lead = CrmLead::where("leads_id", "=", $value['leads_id'])->first();
+				if(isset($crn_lead->quoted_value) && $crn_lead->quoted_value != ""){
+					$total += $crn_lead->quoted_value;
+				}
+			}
+			
+		}
+
+		return $total;
+    }
+
+
 
 
 }

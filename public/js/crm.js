@@ -1,4 +1,12 @@
 $(document).ready(function () {
+  $('#CheckallCheckbox').on('ifChecked', function(event){
+      $(".crm input[class='ads_Checkbox']").iCheck('check');
+  });
+
+  $('#CheckallCheckbox').on('ifUnchecked', function(event){
+      $(".crm input[class='ads_Checkbox']").iCheck('uncheck');
+  });
+
     $(document).click(function() {
         $(".open_toggle").hide();
     });
@@ -149,7 +157,7 @@ $("#append_new_source").on("click", ".delete_source", function(){
   $("#lead_status-modal").on("click", ".edit_status", function(){
       var step_id = $(this).data("step_id");
       var status_name = $("#status_span"+step_id).html();
-      var text_field = "<input type='text' id='status_name"+step_id+"' value='"+status_name+"' style='width:100%; height:30px'>";
+      var text_field = "<input type='text'  maxlength='13' id='status_name"+step_id+"' value='"+status_name+"' style='width:37%; height:30px'>";
       var action = "<a href='javascript:void(0)' class='save_new_status' data-step_id='"+step_id+"'>Save</a>&nbsp;&nbsp;<a href='javascript:void(0)' class='cancel_edit' data-step_id='"+step_id+"'>Cancel</a>";
       $("#status_span"+step_id).html(text_field);
       $("#action_"+step_id).html(action);
@@ -194,6 +202,62 @@ $("#append_new_source").on("click", ".delete_source", function(){
   });
 
 /* ################# Send to Task Management End ################### */
+
+/* ################# View Notes Start ################### */
+  $(".open_notes_popup").click(function(){
+    var leads_id  = $(this).data("leads_id");
+    var notes     = $("#notes_"+leads_id).val();
+    $("#show_full_notes").html(notes);
+    $("#full_notes-modal").modal("show");
+  });
+/* ################# View Notes End ################### */
+
+/* ################# Delete Leads Details Start ################### */
+$(".deleteLeads").click(function(){
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    //alert(val.length);return false;
+    if(val.length>0){
+      var page_open = $("#encode_page_open").val();
+      var owner_id = $("#encode_owner_id").val();
+      if(confirm("Do you want to delete??")){
+        $.ajax({
+            type: "POST",
+            url: '/crm/delete-leads-details',
+            data: { 'leads_delete_id' : val },
+            success : function(resp){
+              window.location = '/crm/'+page_open+"/"+owner_id;
+            }
+        });
+      }
+
+    }else{
+      alert('Please select atleast one details');
+    }
+  });
+/* ################# Delete Leads Details End ################### */
+
+/* ################# Delete Leads Details Start ################### */
+  $(".status_dropdown").change(function(){
+      var tab_id = $(this).val();
+      var leads_id = $(this).data('leads_id');
+      var page_open = $("#encode_page_open").val();
+      var owner_id = $("#encode_owner_id").val();
+
+      $.ajax({
+          type: "POST",
+          url: '/crm/sendto-another-tab',
+          data: { 'tab_id' : tab_id, 'leads_id' : leads_id },
+          success : function(resp){
+            window.location = '/crm/'+page_open+"/"+owner_id;
+          }
+      });
+  });
+
 
 
 

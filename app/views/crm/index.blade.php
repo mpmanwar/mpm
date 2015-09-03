@@ -159,6 +159,9 @@
       <div class="top_bts" style="float:left;">
         <ul style="padding:0;">
           <li>
+            <a class="btn btn-danger deleteLeads" href="javascript:void(0)">DELETE</a>
+          </li>
+          <li>
             <div class="import_fromch_main" style="width:190px;">
               <div class="import_fromch">
                 <a href="javascript:void(0)" class="import_fromch_link">+ NEW OPPORTUNITY</a>
@@ -220,7 +223,7 @@
     </ul> -->
 
     <ul class="leads_tab">
-        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All[12]</h3></a>
+        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) }}</span>]</h3></a>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
@@ -229,7 +232,7 @@
         @if(isset($leads_tabs) && count($leads_tabs) >0)
           <?php $i = 2;?>
           @foreach($leads_tabs as $key=>$tab_row)
-          <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">1</span>]</h3></a>
+          <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "" }}</span>]</h3></a>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
           <p>&#163;50.000.00</p>
@@ -253,8 +256,8 @@
     <table class="table table-bordered table-hover dataTable crm" id="example11" aria-describedby="example11_info">
       <thead>
         <tr role="row">
-          <th width="3%"><input type='checkbox'></th>
-          <th width="8%">Lead Owner</th>
+          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+          <th width="8%">Deal Owner</th>
           <th>Prospect Name</th>
           <th>Contact Name</th>
           <th>Phone</th>
@@ -262,7 +265,7 @@
           <th width="6%">Deal Age</th>
           <th width="6%">Quote</th>
           <th width="10%">Quote Status</th>
-          <th width="11%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
+          <th width="10%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
           <th width="8%">Quoted Value</th>
           <th width="6%">Notes</th>
           <th width="10%">Client Onboarding</th>
@@ -273,10 +276,16 @@
         @if(isset($leads_details) && count($leads_details) >0)
           @foreach($leads_details as $key=>$leads_row)
             <tr>
-              <td><input type='checkbox'></td>
-              <td align="left"></td>
-              <td align="left"></td>
-              <td align="left"></td>
+              <td><input type='checkbox' class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] }}"></td>
+              <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
+              <td align="left">
+                @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
+                  {{ $leads_row['prospect_name'] or "" }}
+                @else
+                  {{ $leads_row['prospect_title'] or "" }} {{ $leads_row['prospect_fname'] or "" }} {{ $leads_row['prospect_lname'] or "" }}
+                @endif
+              </td>
+              <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
               <td align="left">{{ $leads_row['phone'] or "" }}</td>
               <td align="left">{{ $leads_row['email'] or "" }}</td>
               <td align="center"></td>
@@ -296,16 +305,19 @@
               </td>
               <td align="center"></td>
               <td align="center">
-                <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] }}" data-client_id="{{ $leads_row['leads_id'] }}">
+                <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] }}" data-leads_id="{{ $leads_row['leads_id'] }}">
                   @if(isset($leads_tabs) && count($leads_tabs) >0)
                     @foreach($leads_tabs as $key=>$tab_row)
-                      <option value="{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</option>
+                      <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
                     @endforeach
                   @endif
                 </select>
               </td>
-              <td align="center"></td>
-              <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="{{ $leads_row['leads_id'] }}" data-tab="11"><span>notes</span></a></td>
+              <td align="center">{{ $leads_row['quoted_value'] or "" }}</td>
+              <td>
+                <input type="hidden" id="notes_{{ $leads_row['leads_id'] or "" }}" value="{{ $leads_row['notes'] or "" }}">
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] }}" data-tab="11"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
+              </td>
               <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] }}" data-field_name="ch_manage_task">Start</button></td>
             </tr>
           @endforeach
@@ -536,7 +548,7 @@
             <div class="box_70">
               <div class="form-group">
                 <label for="exampleInputPassword1">Deal Certainty</label>
-                <input type="text" id="deal_certainty" name="deal_certainty" class="form-control box_60">
+                <input type="text" id="deal_certainty" name="deal_certainty" value="100" class="form-control box_60" maxlength="3"><span style="margin-top: 7px; float:left;">%</span>
               </div>
             </div>
           </div>
@@ -734,7 +746,7 @@
           <div class="twobox_1">
               <div class="form-group">
                 <label for="exampleInputPassword1">County</label>
-                <input type="text" id="province" name="province" class="form-control" >
+                <input type="text" id="county" name="county" class="form-control" >
               </div> 
           </div>
           <div class="twobox_2">
@@ -913,10 +925,10 @@
           </thead>
 
         <tbody role="alert" aria-live="polite" aria-relevant="all">
-          @if(isset($lead_status) && count($lead_status) >0)
-            @foreach($lead_status as $key=>$value)
+          @if(isset($leads_tabs) && count($leads_tabs) >0)
+            @foreach($leads_tabs as $key=>$value)
               <tr id="change_status_tr_{{ $value['tab_id'] or "" }}">
-                <!-- <td align="center"><input type="checkbox" id="step_check_2{{ $value['step_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['step_id'] or "" }}" data-step_id="{{ $value['step_id'] }}" {{ ((isset($value['count']) && $value['count'] !=0) || $value['step_id'] == 10)?"disabled":"" }} /></td> -->
+                <!-- <td align="center"><input type="checkbox" id="step_check_2{{ $value['tab_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['tab_id'] or "" }}" data-step_id="{{ $value['tab_id'] }}" {{ ((isset($value['count']) && $value['count'] !=0) || $value['tab_id'] == 10)?"disabled":"" }} /></td> -->
                 <td><span id="status_span{{ $value['tab_id'] or "" }}">{{ $value['tab_name'] or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value['tab_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['tab_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>
@@ -937,6 +949,45 @@
 </div>
 
 
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="full_address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">FULL ADDRESS</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" id="show_full_address">
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="full_notes-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">NOTES</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" id="show_full_notes">
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 @stop
 

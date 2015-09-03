@@ -1081,7 +1081,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .border_none{padding-top: 0; border-top: none;}
 .small_box{width:100%; padding: 0; text-align: center; height: 24px;}
 .active_text{ color: #0866c6}
-.box_60{width:60%;}
+.box_60{width:60%; float: left; margin-right: 3px;}
 .box_70{width:70%;}
 .box_30{width:30%;}
 .f_namebox {float: left; margin-right: 10px; width: 37.3%;}
