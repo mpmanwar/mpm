@@ -10,6 +10,15 @@
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
+
+
+
+
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
+
+
 <!-- page script -->
 <script type="text/javascript">
 var oTable;
@@ -28,20 +37,26 @@ $(function() {
             {"bSortable": false},
             {"bSortable": true},
             {"bSortable": true},
+            //{"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false}
+            {"bSortable": false},
+           // {"bSortable": true},
+           // {"bSortable": true},
+            //{"bSortable": false}
         ]
 
     });
     oTable.fnSort( [ [3,'asc'] ] );
 
 });
+
+
+function notesmodal(){
+    //$("#compose-modal").modal("hide");
+}
 
 /*$(document).ready(function(){
   $("#archivedButton").click(function(){
@@ -191,16 +206,14 @@ $(function() {
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>Business Type</th>
-                <th>CRN</th>
-                <th>Business Name</th>
-                <th>Year End</th>
-                <th>Accounts</th>
-                <th>Annual returns</th>
-                <th>Tax reference</th>
-                <th>Vat number</th>
-                <th>VAT Stagger</th>
-                <th>Correspondence Address</th>
+                <th>Joining Date</th>
+                <th>Client Type</th>
+                <th>Client Name</th>
+                <th>Contact Name</th>
+                <th>%Done</th>
+                <th>Telephone</th>
+                <th>Notes</th>
+                
             </tr>
         </thead>
 
@@ -209,31 +222,54 @@ $(function() {
                 <?php $i=1; ?>
                 @foreach($client_details as $key=>$client_row)
                   <tr class="all_check" {{ ($client_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
+                   
+                   
+                   
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
+                    <td align="center">{{ isset($client_row['created'])?$client_row['created']:"" }}</td>
                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
-                    <td align="center">{{ $client_row['registration_number'] or "" }}</td>
+                    
+                 <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->
+                    
                     <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
-                    <td align="center">{{ $client_row['acc_ref_day'] or "" }}-{{ $client_row['ref_month'] or "" }}</td>
+                    
+                    <td align="center">{{ $client_row['corres_cont_name'] or "" }}-{{ $client_row['corres_cont_name'] or "" }}</td>
+                    
                     <td align="center">
-                      @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
+                    %
+                    <!--  @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
                       @else
                          {{ $client_row['deadacc_count'] or "" }}
-                      @endif
+                      @endif -->
                     </td>
+                    
                     <td align="center">
-                      @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
+                   {{ $client_row['corres_cont_telephone'] or "" }}-{{ $client_row['corres_cont_telephone'] or "" }}
+                   <!--   @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>
                       @else
                          {{ $client_row['deadret_count'] or "" }}
                       @endif
+                   -->
                     </td>
-                    <td align="center">{{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}</td>
-                    <td align="center">{{ isset($client_row['vat_number'])?$client_row['vat_number']:"" }}</td>
-                    <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
-                    <td align="left">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...": $client_row['corres_address'] }}</td>
+                    
+                    
+                    
+                    <td align="center">
+                    
+                    <button class="btn btn-default" onclick="return notesmodal()" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">Notes</span></button>
+                    
+                    
+                    <!--
+                    {{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}
+                    -->
+                    </td>
+                    
+                    
+                    
                   </tr>
                 <?php $i++; ?>
               @endforeach
@@ -259,5 +295,39 @@ $(function() {
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+        
+
+<div>
+<div class="modal fade" id="composenotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
+     
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+     
+      <div style="width:100%;">
+             <label for="f_name" style="font-size: 18px;">Notes</label>
+             
+          <textarea rows="4" cols="50"  name="notes1[]" id="notess" value="" ></textarea>
+         
+         
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button>   
+          <div class="clr"></div>       
+         </div>
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
+        
+        
 
 @stop

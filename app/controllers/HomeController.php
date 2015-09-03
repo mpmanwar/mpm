@@ -133,15 +133,17 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
-		//echo $this->last_query();die;
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
+	  //echo'<pre>'; print_r($client_ids);die();
+    
+    	//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
-
+                //$client_data[$i]['created'] 	= $client_id->created;
 				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
 				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();
@@ -196,7 +198,7 @@ class HomeController extends BaseController {
 
 		$data['client_fields'] = ClientField::where("field_type", "=", "org")->get();
 
-		//print_r($data['client_details']);die;
+		//echo '<pre>';print_r($data['client_details']);die;
 
 		return View::make('home.organisation.organisation_client', $data);
 	}
@@ -216,7 +218,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_onboard", "=", "Y")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_onboard", "=", "Y")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -224,7 +226,7 @@ class HomeController extends BaseController {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
-
+                $client_data[$i]['created'] 	= $client_id->created;
 				$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
 				//echo $this->last_query();//die;
 				$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "name")->select("field_value")->first();

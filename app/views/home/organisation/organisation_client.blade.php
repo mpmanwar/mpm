@@ -109,7 +109,7 @@ $(function() {
                         <a href="javascript:void(0)" class="i_selectbox" id="select_onboard"><img src="/img/arrow_icon.png"></a>
                         <div class="clearfix"></div>
                       </div>
-                     <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>MOVE TO ONBOARD</div>
+                     <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>Client On-boarding</div>
                     </div>
           
             
