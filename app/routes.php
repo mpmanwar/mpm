@@ -347,6 +347,9 @@ Route::any('/contacts/save-edit-group', 'ContactsLettersEmailsController@save_ed
 Route::any('/contacts/copy-to-group', 'ContactsLettersEmailsController@copy_to_group');
 Route::any('/contacts/delete-group', 'ContactsLettersEmailsController@delete_group');
 Route::any('/contacts/delete-from-group', 'ContactsLettersEmailsController@delete_from_group');
+Route::any('/contacts/show-contact-group', 'ContactsLettersEmailsController@show_contact_group');
+Route::any('/contacts/get-contact-details', 'ContactsLettersEmailsController@get_contact_details');
+Route::any('/contacts/delete-contact-address', 'ContactsLettersEmailsController@delete_contact_address');
 
 /*================== Contacts Letters Emails End ==============*/
 
@@ -367,3 +370,12 @@ Route::any('/editorg-notes', 'NotesController@edit_orgnotes');
 Route::any('/deleteorg-notes', 'NotesController@deleteorg_notes');
 Route::any('/editmodeorg-notes', 'NotesController@editmodeorg_notes');
 */
+
+/*================== CRM Start ==============*/
+Route::any('/crm/{page_open}/{owner_id}', 'CrmController@index');
+Route::any('/crm/save-leads-data', 'CrmController@save_leads_data');
+Route::any('/crm/add-new-source', 'CrmController@add_new_source');
+Route::any('/crm/delete-source-name', 'CrmController@delete_source_name');
+Route::any('/crm/get-form-dropdown', 'CrmController@get_form_dropdown');
+Route::any('/crm/save-edit-status', 'CrmController@save_edit_status');
+/*================== CRM End ==============*/

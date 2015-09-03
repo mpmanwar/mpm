@@ -1,6 +1,5 @@
 <?php
-class StaffprofileController extends BaseController
-{
+class StaffprofileController extends BaseController{
 
     public function dashboard()
     {

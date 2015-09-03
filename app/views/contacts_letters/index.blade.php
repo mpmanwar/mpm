@@ -197,7 +197,7 @@ $(function() {
                   </li> -->
                   @if($step_id == 4)
                   <li>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#add_contact-modal">NEW CONTACT</a>
+                    <a href="javascript:void(0)" class="btn btn-primary add_contact-modal" data-contact_id="0">NEW CONTACT</a>
                   </li>
                   @endif
                   <li>
@@ -405,7 +405,7 @@ $(function() {
     <table class="table table-bordered table-hover dataTable email_letter" id="example4" aria-describedby="example4_info">
       <thead>
         <tr role="row">
-          <th width="3%"><input type="checkbox" class="allCheckSelect"/></th>
+          <th width="4%">Delete<!-- <input type="checkbox" class="allCheckSelect"/> --></th>
           <th>Name</th>
           <th width="15%">Contact Person</th>
           <th>Telephone</th>
@@ -422,10 +422,10 @@ $(function() {
                 <tr class="all_check">
                   <input type="hidden" name="other_address_{{ $client_row['contact_id'] }}" id="other_address_{{ $client_row['contact_id'] }}" value="{{ $client_row['address'] or "" }}">
                   <td align="center">
-                    <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['contact_id'] or "" }}" />
+                    <a href="javascript:void(0)" class="delete_contact" data-contact_id="{{ $client_row['contact_id'] or "" }}"><img src="/img/cross.png" height="15"></a>
                   </td>
-                  <td align="left">{{ $client_row['name'] or "" }}</td>
-                  <td align="left">{{ $client_row['contact_person'] or "" }}</td>
+                  <td align="left"><a href="javascript:void(0)" class="add_contact-modal" data-contact_id="{{ $client_row['contact_id'] }}">{{ $client_row['name'] or "" }}</a></td>
+                  <td align="left"><a href="javascript:void(0)" class="add_contact-modal" data-contact_id="{{ $client_row['contact_id'] }}">{{ $client_row['contact_person'] or "" }}</a></td>
                   <td align="center">{{ $client_row['telephone'] or "" }}</td>
                   <td align="center">{{ $client_row['mobile'] or "" }}</td>
                   <td align="center">{{ $client_row['email'] or "" }}</td>
@@ -547,6 +547,8 @@ $(function() {
     {{ Form::open(array('url' => '/contacts/insert-contact-details', 'id'=>'basicform')) }}
     <input type="hidden" name="tab_index" value="{{ $step_id or "" }}">
     <input type="hidden" name="encoded_type" value="{{ $encoded_type or "" }}">
+    <input type="hidden" name="contact_id" id="contact_id" value="">
+
       <div class="modal-body">
         <div class="twobox">
       <div class="twobox_1">
@@ -607,8 +609,7 @@ $(function() {
 
     <div class="form-group">
     <label for="exampleInputPassword1">Select or Add</label> 
-
-      <select class="form-control" name="address" id="address">
+      <select class="form-control change_address" name="address" id="address">
         <option value="">-- Select --</option>
         @if(!empty($all_address))
           @foreach($all_address as $key=>$address_row)

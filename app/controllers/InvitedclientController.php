@@ -2,7 +2,6 @@
 
 class InvitedclientController extends BaseController {
 
-	
 	public function Invitedclient_dashboard() {
 	    $session 	= Session::get('admin_details');
 		$user_id 	= $session['id'];

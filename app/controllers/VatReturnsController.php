@@ -1,5 +1,17 @@
 <?php
 class VatReturnsController extends BaseController {
+	public function __construct()
+	{
+		parent::__construct();
+	    $session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		if (empty($user_id)) {
+			Redirect::to('/login');
+		}
+		if (isset($session['user_type']) && $session['user_type'] == "C") {
+			Redirect::to('/client-portal')->send();
+		}
+	}
 	
 	public function index($page_open, $staff_id){
 		$data['goto_url']	= "/vat-returns";

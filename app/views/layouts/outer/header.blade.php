@@ -28,7 +28,7 @@ function pricingfun() {
 <div class="header">
 <div class="wrapper1">
 
- <div class="main_logo"><a href="#"><img src="/img/logo.jpg" alt="" /></a></div>
+ <div class="main_logo"><a href="/"><img src="/img/logo.jpg" alt="" /></a></div>
  <div class="hdr_menu">
  
     <ul>

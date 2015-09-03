@@ -1,6 +1,7 @@
 <?php
 
 class HomeController extends BaseController {
+	
 
 	public function db_connect() {
 		if (DB::connection()->getDatabaseName()) {

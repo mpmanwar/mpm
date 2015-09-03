@@ -1,5 +1,17 @@
 <?php
 class ContactsLettersEmailsController extends BaseController {
+	public function __construct()
+	{
+		parent::__construct();
+	    $session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		if (empty($user_id)) {
+			Redirect::to('/login');
+		}
+		if (isset($session['user_type']) && $session['user_type'] == "C") {
+			Redirect::to('/client-portal')->send();
+		}
+	}
 	
 	public function index($step_id, $address_type)
 	{
@@ -57,6 +69,7 @@ class ContactsLettersEmailsController extends BaseController {
 		$data['countries'] 	= Country::orderBy('country_name')->get();
 		$data['address_types'] 	= AddressType::getAllAddressDetails();
 		$data['all_address'] 	= ContactAddress::getAllContactAddress();
+
 
 		//echo "<pre>";print_r($data['group_details']);echo "</pre>";die;
 		return View::make('contacts_letters.index', $data);
@@ -191,11 +204,11 @@ class ContactsLettersEmailsController extends BaseController {
     	$data = array();
     	$session = Session::get('admin_details');
 		$user_id = $session['id'];
-		$groupUserId = $session['group_users'];
+		$groupUserId 	= $session['group_users'];
+		$contact_id		= Input::get("contact_id");
 
     	$tab_id 				= Input::get("tab_index");
     	$address_type 			= Input::get("encoded_type");
-    	$data['user_id'] 		= $user_id;
     	$data['contact_type'] 	= Input::get("contact_type");
     	$data['contact_name'] 	= Input::get("contact_name");
     	$data['telephone_code'] = Input::get("telephone_code");
@@ -212,7 +225,13 @@ class ContactsLettersEmailsController extends BaseController {
     	$data['postcode'] 		= Input::get("postcode");
     	$data['country'] 		= Input::get("country");
 
-    	ContactAddress::insert($data);
+    	if($contact_id >0){
+    		ContactAddress::where("contact_id", "=", $contact_id)->update($data);
+    	}else{
+    		$data['user_id'] 	= $user_id;
+    		ContactAddress::insert($data);
+    	}
+    	
     	return Redirect::to('/contacts-letters-emails/'.$tab_id.'/'.$address_type);
     }
 
@@ -306,6 +325,52 @@ class ContactsLettersEmailsController extends BaseController {
     	$contact_type 	= Input::get('contact_type');
 
     	$query = ContactsGroup::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id)->where("group_id", "=", $group_id)->where("contact_type", "=", $contact_type)->delete();
+    	if($query){
+    		echo 1;die;
+    	}else{
+    		echo 0;die;
+    	}
+    }
+
+    public function show_contact_group() {
+		$data = array();
+		$contact_type = Input::get('contact_type');
+		$contact = explode("_", $contact_type);
+		if($contact[0] == "other"){
+			$address = ContactAddress::getContactDetailsById($contact[1]);
+			if(isset($address) && count($address) >0){
+				$data['address1'] 	= $address['addr_line1'];
+				$data['address2'] 	= $address['addr_line2'];
+				$data['city'] 		= $address['city'];
+				$data['county'] 	= $address['county'];
+				$data['postcode'] 	= $address['postcode'];
+				$data['country'] 	= $address['country'];
+			}
+
+		}else{
+			$data = ContactAddress::getClientContactAddress($contact[1], $contact[0]);
+		}
+		//print_r($data);die;
+		echo json_encode($data);
+		exit;
+
+	}
+
+	public function get_contact_details() {
+		$address = array();
+		$contact_type 	= Input::get('contact_type');
+		$contact_id 	= Input::get('contact_id');
+		$address = ContactAddress::getContactDetailsById($contact_id);
+		//print_r($data);die;
+		echo json_encode($address);
+		exit;
+
+	}
+
+	public function delete_contact_address()
+    {
+    	$contact_id = Input::get('contact_id');
+    	$query = ContactAddress::where("contact_id", "=", $contact_id)->delete();
     	if($query){
     		echo 1;die;
     	}else{
