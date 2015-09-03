@@ -1121,7 +1121,34 @@ class ClientController extends BaseController {
 			//echo $this->last_query();die;
 		}
 	}
+    
+    public function add_checklist(){
+       
+		$session_data = Session::get('admin_details');
+        $user_id =$session_data['id'];
+        
+        $data['client_id'] 	= Input::get("client_id"); 
+	 	$data['name'] 	= Input::get("type_name"); 
+		$data['user_id'] 			= $user_id;
+		$data['status'] 			= "new";
+		$insert_id = Checklist::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
 
+        
+        
+    }
+    
+    public function delete_checklist(){
+        
+        
+		$field_id = Input::get("field_id");
+		if (Request::ajax()) {
+			$data = Checklist::where("checklist_id", "=", $field_id)->delete();
+			echo $data;
+		}
+
+    }
 
 
 }

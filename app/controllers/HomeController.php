@@ -283,6 +283,27 @@ class HomeController extends BaseController {
 
 		//print_r($data['client_details']);die;
 
+
+
+
+
+//staff
+
+
+
+        
+ 
+        $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
+
+        
+    
+    $data['allClients'] = $this->get_all_clients();
+    $data['old_postion_types'] = Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_postion_types'] = Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+
+//  
+    //echo '<pre>'; print_r($data);die();
+
 		return View::make('home.organisation.onboard', $data);
 	}
 
