@@ -681,7 +681,9 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-         
+  
+</div>
+
 
 <div id="step4" class="tab-pane" style="display:none;">
   <div class="box-body table-responsive">
@@ -1002,9 +1004,6 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
-       
-
-</div>
           </div>
           
 

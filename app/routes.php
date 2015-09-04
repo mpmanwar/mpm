@@ -32,6 +32,8 @@ Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses'
 
 Route::any('/onboard', 'HomeController@onboard');
 Route::any('/client/onboard-client', 'ClientController@onboard_client');
+Route::any('/client/add-checklist', 'ClientController@add_checklist');
+Route::any('/delete-checklist-type', 'ClientController@delete_checklist');
 
 
 Route::any('/individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));

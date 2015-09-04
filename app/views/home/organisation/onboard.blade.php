@@ -5,6 +5,7 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/onboard.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
@@ -52,8 +53,40 @@ $(function() {
     oTable.fnSort( [ [3,'asc'] ] );
 
 });
-
-
+$(function() {
+var cloneCount = 0;
+   
+   
+ 	
+    $('.addnew_line').click(function() {
+		
+				//alert('AAAAAAAAAAAA');	
+				
+				
+               // $(".dpick").datepicker("destroy");      
+				
+				
+				
+				var $newRow = $('#TemplateRow').clone(true);
+			
+            	//$newRow.find('#date_picker').val('');
+			//	$newRow.find('.dpick').val('');
+        		$newRow.find('#checklist_type').val('');
+                $newRow.find('#client_id').val('');
+				$newRow.find('#owner').val('');
+				$newRow.find('#frequency').val('');
+                $newRow.find('#status').val('');
+        		
+				var noOfDivs = $('.makeCloneClass').length + 1;
+				
+                // $newRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
+			
+				$('#BoxTable tr:last').after($newRow);
+				//$(".dpick").datepicker({dateFormat: 'dd-mm-yy'});    
+				return false;
+			
+	})
+    	});
 function notesmodal(){
     //$("#compose-modal").modal("hide");
 }
@@ -210,7 +243,7 @@ function notesmodal(){
                 <th>Client Type</th>
                 <th>Client Name</th>
                 <th>Contact Name</th>
-                <th>%Done</th>
+                <th>% Completed</th>
                 <th>Telephone</th>
                 <th>Notes</th>
                 
@@ -228,12 +261,22 @@ function notesmodal(){
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td align="center">{{ isset($client_row['created'])?$client_row['created']:"" }}</td>
+                    <td align="center">{{ 
+                    
+                    
+                    
+                    date('d-m-Y',strtotime($client_row['created'])) }}</td>
                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
                     
                  <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->
                     
-                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
+                    
+                    
+                    
+                    
+                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
+                    <!--
+                    <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td> -->
                     
                     <td align="center">{{ $client_row['corres_cont_name'] or "" }}-{{ $client_row['corres_cont_name'] or "" }}</td>
                     
@@ -260,7 +303,7 @@ function notesmodal(){
                     
                     <td align="center">
                     
-                    <button class="btn btn-default" onclick="return notesmodal()" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">Notes</span></button>
+                    <button class="notes_btn" onclick="return notesmodal()" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">notes</span></button>
                     
                     
                     <!--
@@ -328,6 +371,254 @@ function notesmodal(){
 
 </div>
         
+<!-- -->
+<div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:80%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+      
+      <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <table width="100%" border="0" class="staff_holidays">
+            <tr>
+              <td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30%"><strong>On Boarding checklist</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+			  <?php 
+			  		
+					//echo '<pre>';
+					//print_r($staff_details);
+			  
+			  ?>
+			   {{ Form::open(array('url' => '/timesheet/insert-time-sheet')) }}
+              <table width="100%" class="table table-bordered" id="BoxTable">
+            <tbody>
+              <!-- <tr class="table_heading_bg"> -->
+              <tr>
+                <td width="20%" align="center"id="allCheckSelect"> Delete</td>
+                <td width="20%" align="center"><strong>Checklist</strong>
+                <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
+                </td>
+                <td width="20%" align="center"><strong>Client</strong></td>
+                <td width="20%" align="center"><strong>Owner</strong>
+                </td>
+                <td width="6%" align="center"><strong>Frequency of Reminder</strong></td>
+                <td width="14%" align="center"><strong>Status</strong></td>
+              </tr>
+              
+              
+              
+              <tr id="TemplateRow" class="makeCloneClass">
+              
+              
+              
+                <td align="center"><input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="" /></td>
+                <td align="center">
+                
+                
+                    <select class="form-control" name="checklist_type" id="checklist_type">
+                     
+                      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+                        @foreach($old_postion_types as $key=>$old_org_row)
+                        <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
+                        @endforeach
+                      @endif
+
+                      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+                        @foreach($new_postion_types as $key=>$new_org_row)
+                        <option value="{{ $new_org_row->checklist_id }}">{{ $new_org_row->name }}</option>
+                        
+                        @endforeach
+                      @endif
+                     
+                     
+                    </select>
+                  
+                  </td>
+                <td align="center">
+                
+                
+                
+                   
+                    <select class="form-control" name="client_id" id="client_id">
+    				<option value="">None</option>
+    					@if(isset($allClients) && count($allClients)>0)
+					       @foreach($allClients as $key=>$client_row)
+						      <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
+					       @endforeach
+					   @endif
+                </select>
+                  
+                  
+                  
+                  </td>
+                  
+                  
+                <td align="center">
+                                 
+                  <select class="form-control" name="owner" id="owner">
+    				<option value="">None</option>
+    					@if(!empty($staff_details))
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
+                  @endforeach
+                @endif
+                       </select>
+                  
+                  
+                  
+                <!--    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                -->
+                
+                  </select></td>
+                <td align="center"><input type="text" id="frequency" ></td>
+                <td align="center">
+                
+                <select class="form-control" name="status" id="status">
+                    <option value="done">Done</option>
+                    <option value="wip">WIP</option>
+                    <option value="na">N/A</option>
+                  </select>
+                
+                
+                </td>
+              </tr>
+              <!--<tr>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><input type="text" ></td>
+                <td align="center"><input type="text"></td>
+              </tr>-->
+              <!--<tr>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><input type="text" ></td>
+                <td align="center"><input type="text"></td>
+              </tr>-->
+              <!-- <tr>
+                <td align="left" colspan="5"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></td>
+                <td align="center"><button class="btn btn-primary">Submit</button></td>
+              </tr> -->
+            </tbody>
+          </table>
+              </td>
+            </tr>
+          </table>
+          <div class="save_btncon">
+            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add Another Item</p></button></div>
+          <!--  <div class="right_side"> <button class="btn btn-primary">Submit</button></div> -->
+            <div class="clearfix"></div>
+            </div>
+         
+        </div>
         
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>  
+
+ <!-- Client -->
+			<div class="modal fade" id="checklist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px; ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+      <input type="hidden" id="hiddenclient" value="" />
+              
+   {{ Form::open(array('url' => '/client/add-checklist', 'id'=>'field_form')) }}
+    <input type="hidden" name="client_type" value="org">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="checklist" id="checklist" placeholder="Checklist" class="form-control">
+      </div>
+      
+      <div id="append_position_type">
+      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+        @foreach($old_postion_types as $key=>$old_org_row)
+        <div class="form-group">
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+
+      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+        @foreach($new_postion_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->checklist_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="{{ $new_org_row->checklist_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+         
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">Save</button>
+          
+          
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }} 
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>      
 
 @stop
