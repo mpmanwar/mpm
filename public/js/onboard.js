@@ -17,6 +17,7 @@ $(document).on("click", "#businessclient", function(event){
       success : function(resp){
         
         console.log(resp);
+        $("#ownerdrop").html(resp);
        
 
       }

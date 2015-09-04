@@ -1155,22 +1155,89 @@ class ClientController extends BaseController {
     
     public function getowner(){
             
-            
+            $data=array();
             $client_id = Input::get("client_id");
             
-     $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+             $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        //$data['user_type'] 	= $session['user_type'];
+        //$data['client_id'] 	= $client_id;
+        $groupUserId 		= $session['group_users'];
+    
+    $staff_details = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
+   $j=0;
+   $f_name = $l_name ="";
+    foreach ($staff_details as $key => $staff) {
+        
+        if(isset($staff->fname) ){
+           $f_name .=$staff->fname;
+          }
           
-          if(isset($client_details->field_name) && $client_details->field_name=="reg_cont_name" ){
-            echo $data['reg_cont_name']=$client_details->field_value;
+          if(isset($staff->lname) ){
+           $l_name .=" ".$staff->lname;
+          }
+          
+          $staff_name=$f_name.$l_name;
+          $data[$j]['contact_type']="staff";
+          $data[$j]['name']=$staff_name;
+        $j++;
+        
+    }
+    
+    //print_r($data);die();
+            
+     $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+          $i=0;
+          foreach ($client_details as $key => $details) {
+          
+          
+          if(isset($details->field_name) && $details->field_name=="reg_cont_name" ){
+             $data[$i]['contact_type'] = "reg";
+             $data[$i]['name']=$details->field_value;
+          }
+          
+          if(isset($details->field_name) && $details->field_name=="trad_cont_name" ){
+            $data[$i]['contact_type'] = "trad";
+             $data[$i]['name']=$details->field_value;
+          }
+           if(isset($details->field_name) && $details->field_name=="corres_cont_name" ){
+            $data[$i]['contact_type'] = "corres";
+             $data[$i]['name']=$details->field_value;
+          }
+         
+          
+          if(isset($details->field_name) && $details->field_name=="banker_cont_name" ){
+            $data[$i]['contact_type'] = "banker";
+             $data[$i]['name']=$details->field_value;
+          }
+          if(isset($details->field_name) && $details->field_name=="oldacc_cont_name" ){
+            $data[$i]['contact_type'] = "oldacc";
+             $data[$i]['name']=$details->field_value;
+          }
+          if(isset($details->field_name) && $details->field_name=="auditors_cont_name" ){
+            $data[$i]['contact_type'] = "auditors";
+             $data[$i]['name']=$details->field_value;
+          }
+         
+          if(isset($details->field_name) && $details->field_name=="solicitors_cont_name" ){
+            $data[$i]['contact_type'] = "solicitors";
+             $data[$i]['name']=$details->field_value;
           }
           
           
           
+          $i++;
+          }
+         
           
+        // print_r($data);
+          //print_r($data['name']);
           
-           //
+           //array_merge($a1,$a2)
+           
+           echo View::make('home.organisation.ownerdropdown',$data)->with('data',$data);
+            //echo View::make('home.organisation.ownerdropdown',$data);
             
-            die();
             
         }
 

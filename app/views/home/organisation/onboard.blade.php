@@ -507,16 +507,9 @@ function notesmodal(){
                 </td> -->
                   
                   
-                <td align="center">
+                <td align="center" id="ownerdrop">
                                  
-                  <select class="form-control newdropdown status_dropdown" name="owner" id="owner">
-    				<option value="">None</option>
-    					@if(!empty($staff_details))
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row->user_id }}">{{ $staff_row->fname }} {{ $staff_row->lname }}</option>
-                  @endforeach
-                @endif
-                       </select>
+                 
                   
                   
                   
@@ -525,7 +518,7 @@ function notesmodal(){
                     <option>wef werfg</option>
                 -->
                 
-                  </select></td>
+                  </td>
                 <td align="center" id="frequency">Task Date</td>
                 <td align="center">
                 
@@ -588,7 +581,7 @@ function notesmodal(){
             </tr>
           </table>
           <div class="save_btncon">
-            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add Another Item</p></button></div>
+            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
           <!--  <div class="right_side"> <button class="btn btn-primary">Submit</button></div> -->
             <div class="clearfix"></div>
             </div>

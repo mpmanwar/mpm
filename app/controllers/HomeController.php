@@ -295,11 +295,11 @@ class HomeController extends BaseController {
 
 //staff
 
-
-
-        
- 
         $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
+        
+        
+        
+        
 
         
     
