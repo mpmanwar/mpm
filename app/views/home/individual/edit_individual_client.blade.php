@@ -763,12 +763,12 @@ $(document).ready(function(){
   <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
   <option value="44">44</option>
   </select> -->
-  <input type="text" id="serv_tele_code" value="{{ $client_details['serv_tele_code']  or "" }}" name="serv_tele_code" class="form-control" readonly />
+  <input type="text" id="res_tele_code" value="{{ $client_details['res_tele_code']  or "" }}" name="res_tele_code" class="form-control" readonly />
 </div>
 
 <div class="telbox">
 <label for="exampleInputPassword1">Telephone</label>
-    <input type="text" id="serv_telephone" name="serv_telephone" value="{{ $client_details['serv_telephone']  or "" }}" class="form-control"></div>
+    <input type="text" id="res_telephone" name="res_telephone" value="{{ $client_details['res_telephone']  or "" }}" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
@@ -776,31 +776,31 @@ $(document).ready(function(){
 
 <div class="n_box01">
   <label for="exampleInputPassword1">Country Code</label>
-  <input type="text" id="serv_mobile_code" value="{{ $client_details['serv_mobile_code']  or "" }}" name="serv_mobile_code" class="form-control" readonly />
+  <input type="text" id="res_mobile_code" value="{{ $client_details['res_mobile_code']  or "" }}" name="res_mobile_code" class="form-control" readonly />
 <!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
 <option value="44">44</option>
 </select> -->
 </div>
 <div class="telbox">
 <label for="exampleInputPassword1">Mobile</label>
-    <input type="text" id="serv_mobile" name="serv_mobile" value="{{ $client_details['serv_mobile']  or "" }}" class="form-control"></div>
+    <input type="text" id="res_mobile" name="res_mobile" value="{{ $client_details['res_mobile']  or "" }}" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
 
 <div class="form-group">
 <label for="exampleInputPassword1">Email</label>
-<input type="text" id="serv_email" name="serv_email" value="{{ $client_details['serv_email']  or "" }}" class="form-control">
+<input type="text" id="res_email" name="res_email" value="{{ $client_details['res_email']  or "" }}" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Website</label>
-<input type="text" id="serv_website" name="serv_website" value="{{ $client_details['serv_website']  or "" }}" class="form-control">
+<input type="text" id="res_website" name="res_website" value="{{ $client_details['res_website']  or "" }}" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Skype</label>
-<input type="text" id="serv_skype" name="serv_skype" value="{{ $client_details['serv_skype']  or "" }}" class="form-control">
+<input type="text" id="res_skype" name="res_skype" value="{{ $client_details['res_skype']  or "" }}" class="form-control">
 </div>
 
 

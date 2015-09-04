@@ -761,12 +761,12 @@ $(document).ready(function(){
   <!-- <select class="form-control" id="serv_tele_code" name="serv_tele_code">
   <option value="44">44</option>
   </select> -->
-  <input type="text" id="serv_tele_code" value="44" name="serv_tele_code" class="form-control" readonly />
+  <input type="text" id="res_tele_code" value="44" name="res_tele_code" class="form-control" readonly />
 </div>
 
 <div class="telbox">
 <label for="exampleInputPassword1">Telephone</label>
-    <input type="text" id="serv_telephone" name="serv_telephone" class="form-control"></div>
+    <input type="text" id="res_telephone" name="res_telephone" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
@@ -774,31 +774,31 @@ $(document).ready(function(){
 
 <div class="n_box01">
   <label for="exampleInputPassword1">Country Code</label>
-  <input type="text" id="serv_mobile_code" value="44" name="serv_mobile_code" class="form-control" readonly />
+  <input type="text" id="res_mobile_code" value="44" name="res_mobile_code" class="form-control" readonly />
 <!-- <select class="form-control" id="serv_mobile_code" name="serv_mobile_code">
 <option value="44">44</option>
 </select> -->
 </div>
 <div class="telbox">
 <label for="exampleInputPassword1">Mobile</label>
-    <input type="text" id="serv_mobile" name="serv_mobile" class="form-control"></div>
+    <input type="text" id="res_mobile" name="res_mobile" class="form-control"></div>
 <div class="clearfix"></div>
 </div>
 
 
 <div class="form-group">
 <label for="exampleInputPassword1">Email</label>
-<input type="text" id="serv_email" name="serv_email" class="form-control">
+<input type="text" id="res_email" name="res_email" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Website</label>
-<input type="text" id="serv_website" name="serv_website" class="form-control">
+<input type="text" id="res_website" name="res_website" class="form-control">
 </div>
 
 <div class="form-group">
 <label for="exampleInputPassword1">Skype</label>
-<input type="text" id="serv_skype" name="serv_skype" class="form-control">
+<input type="text" id="res_skype" name="res_skype" class="form-control">
 </div>
 
 

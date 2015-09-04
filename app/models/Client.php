@@ -367,6 +367,26 @@ class Client extends Eloquent {
 		return $number;
 	}
 
+	public static function getCorresAddressByClientId( $client_id )
+	{
+		$data = array();
+		$client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select('field_name', 'field_value')->get();
+		if(isset($client_details) && count($client_details) >0){
+			foreach ($client_details as $key=>$client_row) {
+				if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line1"){
+					$data['address1'] .= $client_row->field_value.", ";
+				}
+				if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_addr_line2"){
+					$corres_address .= $client_row->field_value.", ";
+				}
+				if (isset($client_row->field_name) && $client_row->field_name == "corres_cont_county"){
+					$corres_address .= $client_row->field_value.", ";
+				}
+			}
+		}
+		return $number;
+	}
+
 
 
 

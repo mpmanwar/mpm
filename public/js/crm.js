@@ -180,8 +180,6 @@ $("#append_new_source").on("click", ".delete_source", function(){
 }); 
 //Delete Lead Source end //
 
-
-
 /* ================== Manage Tasks ================== */
   $(".lead_status-modal").click(function(){
     $("#lead_status-modal").modal("show");
@@ -273,7 +271,7 @@ $(".deleteLeads").click(function(){
   });
 /* ################# Delete Leads Details End ################### */
 
-/* ################# Delete Leads Details Start ################### */
+/* ################# Status change Start ################### */
   $(".status_dropdown").change(function(){
       var tab_id = $(this).val();
       var leads_id = $(this).data('leads_id');
@@ -289,7 +287,32 @@ $(".deleteLeads").click(function(){
           }
       });
   });
+/* ################# Status change End ################### */
 
+/* ################# Existing Client Start ################### */
+  $("#existing_client").change(function(){
+      var client_type = $("#type").val();
+      var client_id = $(this).val();
+
+      $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: '/crm/get-client-address',
+          data: { 'client_id' : client_id, 'client_type' : client_type },
+          success : function(resp){
+            $("#phone").val(resp['address'].telephone);
+            $("#mobile").val(resp['address'].mobile);
+            $("#email").val(resp['address'].email);
+            $("#website").val(resp['address'].website);
+            $("#street").val(resp['address'].address1);
+            $("#city").val(resp['address'].city);
+            $("#county").val(resp['address'].county);
+            $("#postal_code").val(resp['address'].postcode);
+            $("#country_id").val(resp['address'].country);
+          }
+      });
+  });
+/* ################# Existing Client End ################### */
 
 
 
