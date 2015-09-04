@@ -66,6 +66,7 @@ class CrmController extends BaseController{
         $data['existing_client'] = $details['existing_client'];
         $data['user_id']        = $session['id'];
         $data['client_type']    = $details['type'];
+        $data['date']           = $details['date'];
         $data['deal_certainty'] = $details['deal_certainty'];
         $data['deal_owner']     = $details['deal_owner'];
         $data['phone']          = $details['phone'];
@@ -213,12 +214,49 @@ class CrmController extends BaseController{
         $data = array();
         $client_id      = Input::get('client_id');
         $client_type    = Input::get('client_type');
+        $details = Common::clientDetailsById($client_id);
         if($client_type == "org"){
             $type = "corres";
+            $data['address'] = ContactAddress::getClientContactAddress($client_id, $type);
+            if(isset($details['business_name'])){
+                $data['address']['business_name'] = $details['business_name'];
+            }
+            if(isset($details['business_type'])){
+                if(strtolower($details['business_type']) == "llp"){
+                    $business_type = 1;
+                }
+                if(strtolower($details['business_type']) == "company"){
+                    $business_type = 2;
+                }
+                if(strtolower($details['business_type']) == "partnership"){
+                    $business_type = 3;
+                }
+                if(strtolower($details['business_type']) == "sole trader"){
+                    $business_type = 4;
+                }
+                $data['address']['business_type'] = $business_type;
+            }
+            if(isset($details['corres_cont_name'])){
+                $name = explode(" ", $details['corres_cont_name']);
+                $data['address']['contact_fname'] = isset($name[0])?$name[0]:"";
+                $data['address']['contact_lname'] = isset($name[1])?$name[1]:"";
+            }
         }else{
             $type = "res";
+            $data['address'] = ContactAddress::getClientContactAddress($client_id, $type);
+            if(isset($details['title'])){
+                $data['address']['prospect_title'] = $details['title'];
+            }
+            if(isset($details['fname'])){
+                $data['address']['prospect_fname'] = $details['fname'];
+            }
+            if(isset($details['lname'])){
+                $data['address']['prospect_lname'] = $details['lname'];
+            }
+            
         }
-        $data['address'] = ContactAddress::getClientContactAddress($client_id, $type);
+        //print_r($data);
+        
         echo json_encode($data);
         exit;
     }

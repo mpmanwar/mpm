@@ -1267,7 +1267,7 @@ tinymce.init({
             <div id="show_corres_cont" style="display: {{ (isset($client_details['corres_name_check']) && $client_details['corres_name_check'] == "corres_cont")?"block":"none"}};">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="corres_name" name="corres_cont_name" value="{{ $client_details['corres_cont_name'] or "" }}" class="form-control">
+                <input type="text" id="corres_cont_name" name="corres_cont_name" value="{{ $client_details['corres_cont_name'] or "" }}" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">

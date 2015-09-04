@@ -789,24 +789,6 @@ class HomeController extends BaseController {
 
 //################ CONTACT INFORMATION SECTION START #################//
 		$step_id = 3;
-		if (!empty($postData['res_addr_line1'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line1', $postData['res_addr_line1']);
-		}
-		if (!empty($postData['res_addr_line2'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line2', $postData['res_addr_line2']);
-		}
-		if (!empty($postData['res_city'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_city', $postData['res_city']);
-		}
-		if (!empty($postData['res_county'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_county', $postData['res_county']);
-		}
-		if (!empty($postData['res_postcode'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_postcode', $postData['res_postcode']);
-		}
-		if (!empty($postData['res_country'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_country', $postData['res_country']);
-		}
 		if (!empty($postData['serv_addr_line1'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_addr_line1', $postData['serv_addr_line1']);
 		}
@@ -826,28 +808,47 @@ class HomeController extends BaseController {
 		if (!empty($postData['serv_country'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_country', $postData['serv_country']);
 		}
-		if (!empty($postData['serv_tele_code'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_tele_code', $postData['serv_tele_code']);
+		if (!empty($postData['res_addr_line1'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line1', $postData['res_addr_line1']);
 		}
-		if (!empty($postData['serv_telephone'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_telephone', $postData['serv_telephone']);
+		if (!empty($postData['res_addr_line2'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_addr_line2', $postData['res_addr_line2']);
 		}
-		if (!empty($postData['serv_mobile_code'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_mobile_code', $postData['serv_mobile_code']);
+		if (!empty($postData['res_city'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_city', $postData['res_city']);
+		}
+		if (!empty($postData['res_county'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_county', $postData['res_county']);
+		}
+		if (!empty($postData['res_postcode'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_postcode', $postData['res_postcode']);
+		}
+		if (!empty($postData['res_country'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_country', $postData['res_country']);
+		}
+		
+		if (!empty($postData['res_tele_code'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_tele_code', $postData['res_tele_code']);
+		}
+		if (!empty($postData['res_telephone'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_telephone', $postData['res_telephone']);
+		}
+		if (!empty($postData['res_mobile_code'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_mobile_code', $postData['res_mobile_code']);
 
 		}
-		if (!empty($postData['serv_mobile'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_mobile', $postData['serv_mobile']);
+		if (!empty($postData['res_mobile'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_mobile', $postData['res_mobile']);
 
 		}
-		if (!empty($postData['serv_email'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_email', $postData['serv_email']);
+		if (!empty($postData['res_email'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_email', $postData['res_email']);
 		}
-		if (!empty($postData['serv_website'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_website', $postData['serv_website']);
+		if (!empty($postData['res_website'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_website', $postData['res_website']);
 		}
-		if (!empty($postData['serv_skype'])) {
-			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'serv_skype', $postData['serv_skype']);
+		if (!empty($postData['res_skype'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'res_skype', $postData['res_skype']);
 		}
 //################ CONTACT INFORMATION SECTION END #################//
 
