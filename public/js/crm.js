@@ -51,7 +51,7 @@ $(document).ready(function () {
             $("#existing_client").html(client_dropdown);
 
             //==================Edit =================//
-            if(leads_id != "0"){
+            //if(leads_id != "0"){
               if(type == 'ind'){
                 $("#prospect_title").val(resp['leads_details'].prospect_title);
                 $("#prospect_fname").val(resp['leads_details'].prospect_fname);
@@ -81,7 +81,7 @@ $(document).ready(function () {
               $("#postal_code").val(resp['leads_details'].postal_code);
               $("#country").val(resp['leads_details'].country);
               $("#notes").val(resp['leads_details'].notes);
-            }
+            //}
 
             $("#open_form-modal").modal("show");
           }

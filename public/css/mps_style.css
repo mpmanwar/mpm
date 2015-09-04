@@ -1100,9 +1100,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 .active_leads{ background: #deedf5;/*  border-bottom: #3c8dbc solid 1px; padding-bottom: 2px; */}
 .leads_tab li p{ border-bottom:#3c8dbc solid 1px; padding:3px 0;border-right:#3c8dbc solid 1px; margin: 0!important; }
 .active_leads p{ color: #008080; margin: 0!important;}
-
-
-
+.chk_gap{margin-left:32px;}
+.client_code{float: left;margin-right: 10px;width: 32%;}
+.business_type{ float: left; margin-right: 20px; width: 40%; }
 
 
 .import_fromch1 {

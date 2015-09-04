@@ -161,47 +161,82 @@ tinymce.init({
                         <div class="col-xs-12 col-xs-6">
                           <div class="col_m2">
 
-                      <div class="twobox">
-                      @if(isset($user_type) && $user_type != "C") 
+                       <!-- <div class="twobox">
+                                             @if(isset($user_type) && $user_type != "C") 
                         <div class="twobox_1">
                           <div class="small_box">
                             <div class="form-group">
                               <label for="exampleInputPassword1">Client Code</label>
-                
+                                       
                               <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase">
-
+                       
                             </div>
                           </div>
                         </div>
-                      @endif
-                        <div class="twobox_2">
-                        
-                        
-                        
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Business Type</label>
-                  @if(isset($user_type) && $user_type != "C") 
-                   <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
-                   @endif
-                      
-                    <select class="form-control" name="business_type" id="business_type">
-                      @if( isset($old_org_types) && count($old_org_types) >0 )
+                                             @endif
+                                     <div class="twobox_2">
+                                       <div class="form-group">
+                                         <label for="exampleInputPassword1">Business Type</label>
+                                         @if(isset($user_type) && $user_type != "C") 
+                                          <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                                          @endif
+                                             
+                                           <select class="form-control" name="business_type" id="business_type">
+                                             @if( isset($old_org_types) && count($old_org_types) >0 )
                         @foreach($old_org_types as $key=>$old_org_row)
                         <option value="{{ $old_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $old_org_row->organisation_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
                         @endforeach
-                      @endif
-
-                      @if( isset($new_org_types) && count($new_org_types) >0 )
+                                             @endif
+                       
+                                             @if( isset($new_org_types) && count($new_org_types) >0 )
                         @foreach($new_org_types as $key=>$new_org_row)
                         <option value="{{ $new_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $new_org_row->organisation_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
                         @endforeach
-                      @endif
-                     
-                    </select>
+                                             @endif
+                                            
+                                           </select>
+                                       </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                   </div> -->
+
+
+
+            <div class="form-group">
+                @if(isset($user_type) && $user_type != "C")
+                <div class="client_code">
+                  <label for="exampleInputPassword1">Client Code</label>
+                  <div class="clearfix"></div>
+                  <input type="text" id="client_code" name="client_code" value="{{ $client_details['client_code'] or "" }}" class="form-control toUpperCase" style="width:120px;">
                 </div>
+                @endif
+                <div class="business_type">
+                  <label for="exampleInputPassword1">Business Type</label>
+                  @if(isset($user_type) && $user_type != "C")
+                  <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+                  @endif
+                  <select class="form-control select_business_types" name="business_type" id="business_type">
+                    @if( isset($old_org_types) && count($old_org_types) >0 )
+                      @foreach($old_org_types as $key=>$old_org_row)
+                      <option value="{{ $old_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $old_org_row->organisation_id)?"selected":"" }}>{{ $old_org_row->name }}</option>
+                      @endforeach
+                    @endif
+
+                    @if( isset($new_org_types) && count($new_org_types) >0 )
+                      @foreach($new_org_types as $key=>$new_org_row)
+                      <option value="{{ $new_org_row->organisation_id }}" {{ (isset($client_details['business_type']) && $client_details['business_type'] == $new_org_row->organisation_id)?"selected":"" }}>{{ $new_org_row->name }}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                </div>
+                <div class="n_box1">
+                  <label for="exampleInputPassword1">Display in CH Data</label>
+                    <div class="form-group chk_gap">
+                      <input type="checkbox" id="display_in_ch" name="display_in_ch" value="Y" class="form-control" {{ (isset($client_details['display_in_ch']) && $client_details['display_in_ch'] == 'Y')?'checked':'' }}>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="clearfix"></div>
-            </div>
 
 
                             

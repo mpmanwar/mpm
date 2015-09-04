@@ -115,7 +115,8 @@ class CrmController extends BaseController{
     public function get_form_dropdown()
     {
         $data = array();
-        $client_data = array();
+        $client_data    = array();
+        $leads_details  = array();
         $type       = Input::get("type");
         $leads_id   = Input::get("leads_id");
 
@@ -148,10 +149,10 @@ class CrmController extends BaseController{
         
 
         if($leads_id != '0'){
-            $data['leads_details'] = CrmLead::getLeadsByLeadsId($leads_id);
+            $leads_details = CrmLead::getLeadsByLeadsId($leads_id);
         }
-
-        $data['existing_clients'] = $client_data;
+        $data['leads_details']      = $leads_details;
+        $data['existing_clients']   = $client_data;
 
         echo json_encode($data);
     }
