@@ -286,7 +286,7 @@ class HmrcController extends BaseController{
     
     public function technicalupdates(){
         $data['heading'] = "TECHNICAL UPDATES";
-        $data['title'] = "Technicalupdates";
+        $data['title'] = "Technical Updates";
         $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
         $session = Session::get('admin_details');
         $user_id = $session['id'];

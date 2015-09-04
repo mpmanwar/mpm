@@ -1,6 +1,6 @@
 $(document).on("click", "#businessclient", function(event){
 
-   
+   var client_id =$(event.target).attr("data-clientid");
     console.log($(event.target).attr("data-clientid"));
     
     //$('#checklist-modal').modal('show');
@@ -8,6 +8,23 @@ $(document).on("click", "#businessclient", function(event){
     
     console.log($(event.target).attr("data-businessname"));
     $("#businessname").html($(event.target).attr("data-businessname"));
+        
+    
+    $.ajax({
+      type: "POST",
+      url: '/client/getowner',
+      data: { 'client_id':client_id },
+      success : function(resp){
+        
+        console.log(resp);
+       
+
+      }
+    });
+        
+        
+        
+        
         
 
 });

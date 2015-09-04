@@ -979,7 +979,7 @@ border: 1px solid #e2e4e6;
 .save_made_date{ margin-right: 3px;}
 .made_up_date{margin-right: 3px;width:40%; height: 25px}
 .form-inline select.form-control{width: 100%;}
-.dataTables_length select{ width: 40%!important;}
+.dataTables_length select{ width: 18%!important;}
 .cont_add_to_date{background: #fff; position: absolute; top:16px; width: 150px; left: 110px; z-index: 10; border: 1px solid #ccc; line-height: 15px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; padding: 5px; display: block; }
 .cont_add_to_date ul{list-style: none; padding: 4px; margin-bottom: -8px;}
 .cont_add_to_date ul li{width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 3px;}
@@ -1128,5 +1128,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
 }
 
 
-
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  width: 307px !important;
+  margin-top:15px;
+}
 

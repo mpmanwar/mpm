@@ -87,6 +87,17 @@ var cloneCount = 0;
 			
 	})
     	});
+        
+$('.DeleteBoxRow').click(function() {
+    
+    //find the closest parent row and remove it
+	var size = $(".DeleteBoxRow").size();
+		if(size>1){
+        	$(this).closest('tr').remove();
+		}
+    });
+        
+        
 function notesmodal(){
     //$("#compose-modal").modal("hide");
 }
@@ -443,7 +454,7 @@ function notesmodal(){
               
                 <td align="center">
                 
-                <a href="javascript:void(0)" class="delete_single_task" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
                 
                <!-- <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="" /> -->
                 
