@@ -291,8 +291,8 @@ $(document).ready(function(){
           @foreach($leads_details as $key=>$leads_row)
             <tr>
               <td><input type='checkbox' class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] }}"></td>
-              <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
               <td align="left">{{ $leads_row['date'] or "" }}</td>
+              <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
               <td align="left">
                 @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
                   <a href="javascript:void(0)" data-type="org" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_form-modal">{{ $leads_row['prospect_name'] or "" }}</a>
