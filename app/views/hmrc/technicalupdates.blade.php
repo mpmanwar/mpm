@@ -3,6 +3,11 @@
 
 @section('mycssfile')
 
+<style>
+#example1_filter{position: absolute; left: -18%;} 
+</style>
+
+
 
 <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -31,7 +36,7 @@ $(function() {
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
-        "aLengthMenu": [[50], [50]],
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
         "iDisplayLength": 50,
         "language": {
             "lengthMenu": "Show _MENU_ entries",
@@ -84,11 +89,10 @@ $(function() {
             
                             <thead>
                               <tr>
-                              <!-- <th align="center"><input type="checkbox" id="allCheckSelect"/></th> -->
-                                <th  width="5%" align="center"><strong>Delete</strong></th>
-                                <th width="15%" align="center"><strong>Date & Time</strong></th>
-                                <th width="55%" align="center"><strong>Topic</strong></th>
-                                <th width="15%" align="center"><strong>Commentary</strong></th>
+                                <td  width="5%" align="center"><strong>Delete</strong></td>
+                                <td width="15%" align="center"><strong>Date & Time</strong></td>
+                                <td width="55%" align="center"><strong>Topic</strong></td>
+                                <td width="15%" align="center"><strong>Commentary</strong></td>
                                 
                               </tr>
                             </thead>

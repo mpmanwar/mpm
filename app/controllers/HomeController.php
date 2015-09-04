@@ -141,6 +141,12 @@ class HomeController extends BaseController {
 		if (isset($client_ids) && count($client_ids) > 0) {
 			foreach ($client_ids as $client_id) {
 				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+                
+                    //echo '<pre>';print_r($client_details);die;
+
+                
+                
+                
 				$client_data[$i]['client_id'] = $client_id->client_id;
 				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
                 //$client_data[$i]['created'] 	= $client_id->created;

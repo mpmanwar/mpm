@@ -1149,6 +1149,20 @@ class ClientController extends BaseController {
 		}
 
     }
-
+    
+    
+    
+    
+    public function getowner(){
+            
+            
+            $client_id = Input::get("client_id");
+            
+     $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+           echo $data['reg_cont_name']=$client_details->reg_cont_name;
+            
+            die();
+            
+        }
 
 }
