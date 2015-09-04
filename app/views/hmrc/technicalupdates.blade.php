@@ -4,7 +4,7 @@
 @section('mycssfile')
 
 <style>
-#example1_filter{position: absolute; left: -18%;}
+#example1_filter{position: absolute; left: -18%;} 
 </style>
 
 
