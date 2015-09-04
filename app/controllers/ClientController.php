@@ -1159,7 +1159,16 @@ class ClientController extends BaseController {
             $client_id = Input::get("client_id");
             
      $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
-           echo $data['reg_cont_name']=$client_details->reg_cont_name;
+          
+          if(isset($client_details->field_name) && $client_details->field_name=="reg_cont_name" ){
+            echo $data['reg_cont_name']=$client_details->field_value;
+          }
+          
+          
+          
+          
+          
+           //
             
             die();
             

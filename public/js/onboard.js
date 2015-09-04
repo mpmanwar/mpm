@@ -90,3 +90,37 @@ $("#append_position_type").on("click", ".delete_checklist_name", function(){
   }
   
 }); 
+
+
+$(document).ready(function() {
+
+	$("#txtboxToFilter").keydown(function(event) {
+    
+        
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+
+			// let it happen, don't do anything
+
+		}
+
+		else {
+		  
+          
+          if($("#txtboxToFilter").val().length>=3){
+			event.preventDefault();	
+        return false;
+        }
+
+			// Ensure that it is a number and stop the keypress
+
+			 if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+
+            e.preventDefault();
+
+        }	
+
+		}
+
+	});
+
+});

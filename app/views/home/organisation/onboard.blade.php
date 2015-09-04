@@ -291,7 +291,12 @@ function notesmodal(){
                     <!--
                     <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td> -->
                     
-                    <td align="center">{{ $client_row['corres_cont_name'] or "" }}-{{ $client_row['corres_cont_name'] or "" }}</td>
+                    <td align="center">
+                    
+                    {{ isset($client_row['corres_cont_name'])?$client_row['corres_cont_name']:"" }}
+                    
+                    
+                    </td>
                     
                     <td align="center">
                     %
@@ -303,7 +308,10 @@ function notesmodal(){
                     </td>
                     
                     <td align="center">
-                   {{ $client_row['corres_cont_telephone'] or "" }}-{{ $client_row['corres_cont_telephone'] or "" }}
+                    
+                    {{ isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"" }}
+                    
+                   
                    <!--   @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>
                       @else
@@ -312,7 +320,8 @@ function notesmodal(){
                    -->
                     </td>
                     <td align="center">
-                     {{ $client_row['corres_cont_email'] or "" }}-{{ $client_row['corres_cont_email'] or "" }}
+                    {{ isset($client_row['corres_cont_email'])?$client_row['corres_cont_email']:"" }}
+                     
                     </td>
                     <td align="center">
                     
@@ -409,7 +418,7 @@ function notesmodal(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="30%"><strong>On Boarding checklist</strong></td>
-    <td width="30%"><strong>Remind Every</strong><input type="checkbox" class="ads_Checkbox" /><strong>Days </strong></td>
+    <td width="30%"><strong>Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong>Days </strong></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
