@@ -609,6 +609,7 @@
           <div class="clearfix"></div>
           <div class="n_box1">
             <select class="form-control select_title" id="contact_title" name="contact_title">
+              <option value="">-- Title --</option>
               @if(!empty($titles))
                 @foreach($titles as $key=>$title_row)
                 <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
@@ -630,6 +631,7 @@
           <div class="clearfix"></div>
           <div class="n_box1">
             <select class="form-control select_title" id="prospect_title" name="prospect_title">
+              <option value="">-- Title --</option>
               @if(!empty($titles))
                 @foreach($titles as $key=>$title_row)
                 <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
