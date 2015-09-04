@@ -324,8 +324,8 @@ function notesmodal(){
                      
                     </td>
                     <td align="center">
-                    
-                     {{ $client_row['corres_cont_mobile'] or "" }}-{{ $client_row['corres_cont_mobile'] or "" }}
+                    {{ isset($client_row['corres_cont_mobile'])?$client_row['corres_cont_mobile']:"" }}
+                     
                     </td>
                     
                     
