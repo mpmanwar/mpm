@@ -330,6 +330,42 @@ class ContactAddress extends Eloquent {
 		$details = Common::clientDetailsById($client_id);
 		if(isset($details) && count($details) >0){
 			if($type == "res" || $type == "serv"){
+				if(isset($details[$type.'_tele_code']) && $details[$type.'_tele_code'] != ""){
+					$data['telephone_code'] = $details[$type.'_tele_code'];
+				}else{
+					$data['telephone_code'] = "";
+				}
+				if(isset($details[$type.'_telephone']) && $details[$type.'_telephone'] != ""){
+					$data['telephone'] = $details[$type.'_telephone'];
+				}else{
+					$data['telephone'] = "";
+				}
+				if(isset($details[$type.'_mobile_code']) && $details[$type.'_mobile_code'] != ""){
+					$data['mobile_code'] = $details[$type.'_mobile_code'];
+				}else{
+					$data['mobile_code'] = "";
+				}
+				if(isset($details[$type.'_mobile']) && $details[$type.'_mobile'] != ""){
+					$data['mobile'] = $details[$type.'_mobile'];
+				}else{
+					$data['mobile'] = "";
+				}
+				if(isset($details[$type.'_email']) && $details[$type.'_email'] != ""){
+					$data['email'] = $details[$type.'_email'];
+				}else{
+					$data['email'] = "";
+				}
+				if(isset($details[$type.'_skype']) && $details[$type.'_skype'] != ""){
+					$data['skype'] = $details[$type.'_skype'];
+				}else{
+					$data['skype'] = "";
+				}
+				if(isset($details[$type.'_website']) && $details[$type.'_website'] != ""){
+					$data['website'] = $details[$type.'_website'];
+				}else{
+					$data['website'] = "";
+				}
+
 				if(isset($details[$type.'_addr_line1']) && $details[$type.'_addr_line1'] != ""){
 					$data['address1'] = $details[$type.'_addr_line1'];
 				}else{
@@ -362,6 +398,46 @@ class ContactAddress extends Eloquent {
 				}
 
 			}else{
+				if(isset($details[$type.'_cont_name']) && $details[$type.'_cont_name'] != ""){
+					$data['contact_name'] = $details[$type.'_cont_name'];
+				}else{
+					$data['contact_name'] = "";
+				}
+				if(isset($details[$type.'_cont_tele_code']) && $details[$type.'_cont_tele_code'] != ""){
+					$data['telephone_code'] = $details[$type.'_cont_tele_code'];
+				}else{
+					$data['telephone_code'] = "";
+				}
+				if(isset($details[$type.'_cont_telephone']) && $details[$type.'_cont_telephone'] != ""){
+					$data['telephone'] = $details[$type.'_cont_telephone'];
+				}else{
+					$data['telephone'] = "";
+				}
+				if(isset($details[$type.'_cont_mobile_code']) && $details[$type.'_cont_mobile_code'] != ""){
+					$data['mobile_code'] = $details[$type.'_cont_mobile_code'];
+				}else{
+					$data['mobile_code'] = "";
+				}
+				if(isset($details[$type.'_cont_mobile']) && $details[$type.'_cont_mobile'] != ""){
+					$data['mobile'] = $details[$type.'_cont_mobile'];
+				}else{
+					$data['mobile'] = "";
+				}
+				if(isset($details[$type.'_cont_email']) && $details[$type.'_cont_email'] != ""){
+					$data['email'] = $details[$type.'_cont_email'];
+				}else{
+					$data['email'] = "";
+				}
+				if(isset($details[$type.'_cont_skype']) && $details[$type.'_cont_skype'] != ""){
+					$data['skype'] = $details[$type.'_cont_skype'];
+				}else{
+					$data['skype'] = "";
+				}
+				if(isset($details[$type.'_cont_website']) && $details[$type.'_cont_website'] != ""){
+					$data['website'] = $details[$type.'_cont_website'];
+				}else{
+					$data['website'] = "";
+				}
 
 				if(isset($details[$type.'_cont_addr_line1']) && $details[$type.'_cont_addr_line1'] != ""){
 					$data['address1'] = $details[$type.'_cont_addr_line1'];
@@ -393,6 +469,7 @@ class ContactAddress extends Eloquent {
 				}else{
 					$data['country'] = "";
 				}
+				
 			
 			}
 		}

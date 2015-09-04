@@ -207,6 +207,21 @@ class CrmController extends BaseController{
         }
         echo $last_id;
     }
+
+    public function get_client_address()
+    {
+        $data = array();
+        $client_id      = Input::get('client_id');
+        $client_type    = Input::get('client_type');
+        if($client_type == "org"){
+            $type = "corres";
+        }else{
+            $type = "res";
+        }
+        $data['address'] = ContactAddress::getClientContactAddress($client_id, $type);
+        echo json_encode($data);
+        exit;
+    }
     
     
     
