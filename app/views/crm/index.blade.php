@@ -576,9 +576,8 @@
 
         <div class="twobox" id="org_name_div">
           <div class="twobox_1">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Business Type</label>
-              <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a>
+            <div class="form-group" style="width:57%">
+              <label for="exampleInputPassword1">Business Type <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a></label>
               <select class="form-control" name="business_type" id="business_type">
                 @if( isset($old_org_types) && count($old_org_types) >0 )
                   @foreach($old_org_types as $key=>$old_org_row)

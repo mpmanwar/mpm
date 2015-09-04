@@ -300,6 +300,16 @@ $(".deleteLeads").click(function(){
           url: '/crm/get-client-address',
           data: { 'client_id' : client_id, 'client_type' : client_type },
           success : function(resp){
+            if(client_type=="org"){
+              $("#business_type").val(resp['address'].business_type);
+              $("#prospect_name").val(resp['address'].business_name);
+              $("#contact_fname").val(resp['address'].contact_fname);
+              $("#contact_lname").val(resp['address'].contact_lname);
+            }else{
+              $("#prospect_title").val(resp['address'].prospect_title);
+              $("#prospect_fname").val(resp['address'].prospect_fname);
+              $("#prospect_lname").val(resp['address'].prospect_lname);
+            }
             $("#phone").val(resp['address'].telephone);
             $("#mobile").val(resp['address'].mobile);
             $("#email").val(resp['address'].email);

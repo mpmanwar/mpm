@@ -1158,7 +1158,7 @@ $(document).ready(function(){
             <div id="show_corres_cont" style="display:none;">
               <div class="form-group">
                 <!-- <label for="exampleInputPassword1">Address Line1</label> -->
-                <input type="text" id="corres_name" name="corres_cont_name" class="form-control">
+                <input type="text" id="corres_cont_name" name="corres_cont_name" class="form-control">
               </div>
               <div class="form-group">
                 <div class="n_box01">
