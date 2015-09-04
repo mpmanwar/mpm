@@ -262,7 +262,7 @@
           <th>Contact Name</th>
           <th>Phone</th>
           <th>Email</th>
-          <th width="6%">Deal Age(Days)</th>
+          <th width="6%">Age(days)</th>
           <th width="6%">Quote</th>
           <th width="10%">Quote Status</th>
           <th width="10%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
