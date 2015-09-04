@@ -416,6 +416,8 @@ class ChdataController extends BaseController {
 		
 		$ret_check = 0;
 		$acc_check = 0;
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'display_in_ch', 'Y');
+		
 		if (isset($details->company_name)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_name', $details->company_name);
 		}
@@ -435,6 +437,7 @@ class ChdataController extends BaseController {
 			}
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_type', $type);
 		}
+		
 		if (isset($details->jurisdiction)) {
 			$reg_in = RegisteredAddress::where("reg_name", "=", ucwords($details->jurisdiction))->select("reg_id")->first();
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'registered_in', $reg_in['reg_id']);
@@ -560,6 +563,8 @@ class ChdataController extends BaseController {
 				if (isset($details->items[0]->company_number)) {
 					$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'registration_number', $details->items[0]->company_number);
 				}
+				$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'display_in_ch', 'Y');
+
 				if (isset($row->name) && $row->name != "") {
 					$arrNewData[] = App::make('HomeController')->save_client($user_id, $app_client_id, 1, 'business_name', $row->name);
 				}
@@ -671,6 +676,8 @@ class ChdataController extends BaseController {
 		
 		$ret_check = 0;
 		$acc_check = 0;
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'display_in_ch', 'Y');
+
 		if (isset($details->company_name)) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_name', $details->company_name);
 		}

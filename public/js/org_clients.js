@@ -375,6 +375,17 @@ $("#add_business_type").click(function(){
 });
 // Save Business type while add organization client end //
 
+// Business type related to ch data start //
+$(".select_business_types").change(function(){
+    var type   = $(this).val();
+    if(type == 1 || type == 2){
+      $(".chk_gap input[name='display_in_ch']").iCheck('check');
+    }else{
+      $(".chk_gap input[name='display_in_ch']").iCheck('uncheck');
+    }
+});
+// Business type related to ch data end //
+
 	
   
 
@@ -383,92 +394,50 @@ $("#add_business_type").click(function(){
     
     //after add edit
     
- $("#myServTable").on("click", ".serviceclass", function(){
+  $("#myServTable").on("click", ".serviceclass", function(){
     var id = $(this).attr('id');
     var option = $("#"+id+" option:selected").val();
     var num = id.match(/[\d\.]+/g);
     $("#servicetxt_id"+num).val(option);
     //alert(num);
-    })
- $("#myServTable").on("click", ".staffclass", function(){
+  });
+  $("#myServTable").on("click", ".staffclass", function(){
     var id = $(this).attr('id');
     var option = $("#"+id+" option:selected").val();
     var num = id.match(/[\d\.]+/g);
     $("#stafftxt_id"+num).val(option);
     //alert(num);
-    })
- $(".row").on("click", ".edit_service", function(){
-  
-  var id = $(this).attr('id');
-  //alert(id);
-  //alert($(this).attr('id'));
-  
-  //$("#added_service_tr'+service+'").hide('slow');
-  var servicetxt_id = $("#servicetxt_id"+id).val();
-  var stafftxt_id = $("#stafftxt_id"+id).val();
-  //alert(servicetxt_id);
-  //alert(stafftxt_id);
-  
-  //$('#service_id').contents().unwrap();
-  
-  //$("#added_service_tr'+id+'").html();
-  
-  
-  $.ajax({
+  });
+
+  $(".row").on("click", ".edit_service", function(){
+    var id = $(this).attr('id');
+    var servicetxt_id = $("#servicetxt_id"+id).val();
+    var stafftxt_id = $("#stafftxt_id"+id).val();
+    $.ajax({
       type: "POST",
       dataType: "html",
       url: '/organisation/editserv-services',
       data: { 'servicetxt_id' : servicetxt_id, 'stafftxt_id' : stafftxt_id, 'id' : id },
       success : function(resp){
-                //alert("#added_service_tr"+id);
-                var arr = new Array();
-                
-                arr  = resp.split("*");
-                //alert($("#serviceselect_id"+id).val());
-                $("#added_service_tr"+id).find("td:eq(0)").html(arr[0]);
-                $("#added_service_tr"+id).find("td:eq(1)").html(arr[1]);
-                $("#added_service_tr"+id).find("td:eq(2)").html('<button class="btn btn-success saveclass" id="'+id+'" type="button" >save</button><input type="hidden" value="'+servicetxt_id+'" id="servicetxt_id'+id+'" name="stafftxt_id[]"><input type="hidden" value="'+stafftxt_id+'" id="stafftxt_id'+id+'" name="servicetxt_id[]">');
-                
-                //console.log(resp);
-        }
-        
-      }); 
-  
-  
- // alert('resp');
-  
-  //var edit_index    = $(this).data("edit_index");
-  //var service     = $("#service_tr"+edit_index+" td:nth-child(1)").html();
-  //var staff     = $("#service_tr"+edit_index+" td:nth-child(2)").html();
-  /* var second_staff = '<input type="text" id="edit_staff" value="'+staff+'" name="edit_staff" class="form-control staff edit_staff">';
-  $('#save' + id).html('<input type="text" id="edit_staff" value="'+staff+'" name="edit_staff" class="form-control staff edit_staff">');  
-  //alert(second_staff);
-  }); */
-  
+        var arr = new Array();
+        arr  = resp.split("*");
+        $("#added_service_tr"+id).find("td:eq(0)").html(arr[0]);
+        $("#added_service_tr"+id).find("td:eq(1)").html(arr[1]);
+        $("#added_service_tr"+id).find("td:eq(2)").html('<button class="btn btn-success saveclass" id="'+id+'" type="button" >save</button><input type="hidden" value="'+servicetxt_id+'" id="servicetxt_id'+id+'" name="stafftxt_id[]"><input type="hidden" value="'+stafftxt_id+'" id="stafftxt_id'+id+'" name="servicetxt_id[]">');
+      }
+    }); 
   });
   
-   $(".row").on("click", ".saveclass", function(){
-        var id = $(this).attr('id');
-      //alert();
-        
-        //alert(added_service_tr1);
-        
-        var service = $("#serviceselect_id"+id+" option:selected" ).text()
-        
-        $("#serviceselect_id"+id).remove();
-        $("#added_service_tr"+id).find("td:eq(0)").html(service);
-        
-        var staff = $("#staffselect_id"+id+" option:selected" ).text()
-        
-        $("#staffselect_id"+id).remove();
-        $("#added_service_tr"+id).find("td:eq(1)").html(staff);
-        
-        $("#added_service_tr"+id).find("td:eq(2)").html('<a href="javascript:void(0)" class="edit_service" data-edit_index="'+id+'" id="'+id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_service" data-delete_index="'+id+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+$("#stafftxt_id"+id).val()+'" id="stafftxt_id'+id+'" name="stafftxt_id[]"><input type="hidden" value="'+$("#servicetxt_id"+id).val()+'" id="servicetxt_id'+id+'" name="servicetxt_id[]">');
-        //alert(id);
-        //$("#serviceselect_id"+id).prop("selectedIndex", );
-         // $("#serviceselect_id"+id+" option[value='"+$("#servicetxt_id"+id).val()+"']").attr('selected','selected');
-        
-    });
+  $(".row").on("click", ".saveclass", function(){
+    var id = $(this).attr('id');
+    var service = $("#serviceselect_id"+id+" option:selected" ).text()
+    $("#serviceselect_id"+id).remove();
+    $("#added_service_tr"+id).find("td:eq(0)").html(service);
+    var staff = $("#staffselect_id"+id+" option:selected" ).text()
+    $("#staffselect_id"+id).remove();
+    $("#added_service_tr"+id).find("td:eq(1)").html(staff);
+    $("#added_service_tr"+id).find("td:eq(2)").html('<a href="javascript:void(0)" class="edit_service" data-edit_index="'+id+'" id="'+id+'"><i class="fa fa-edit"></i></a> <a href="javascript:void(0)" class="delete_service" data-delete_index="'+id+'"><i class="fa fa-trash-o fa-fw"></i><input type="hidden" value="'+$("#stafftxt_id"+id).val()+'" id="stafftxt_id'+id+'" name="stafftxt_id[]"><input type="hidden" value="'+$("#servicetxt_id"+id).val()+'" id="servicetxt_id'+id+'" name="servicetxt_id[]">');
+  });
      
 
 // SYNC DATA upload from organisation client edit page start //

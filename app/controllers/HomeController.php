@@ -1387,6 +1387,11 @@ class HomeController extends BaseController {
 		if (!empty($postData['business_type'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'business_type', $postData['business_type']);
 		}
+		if (!empty($postData['display_in_ch'])) {
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'display_in_ch', 'Y');
+		}else{
+			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'display_in_ch', 'N');
+		}
 		if (!empty($postData['business_name'])) {
 			$arrData[] = $this->save_client($user_id, $client_id, $step_id, 'business_name', $postData['business_name']);
 		}

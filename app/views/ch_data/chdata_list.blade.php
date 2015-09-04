@@ -163,7 +163,7 @@ $(function() {
     <tbody role="alert" aria-live="polite" aria-relevant="all">
       @if(isset($company_details) && count($company_details) >0)
         @foreach($company_details as $key=>$details)
-          @if(isset($details['registration_number']) && $details['registration_number']!= "")
+          @if(isset($details['display_in_ch']) && $details['display_in_ch'] == "Y")
             <tr class="{{ (isset($details['deadret_count']) && $details['deadret_count'] < 0 )?'sorting_disabled':"" }}">
                 <td><span class="custom_chk"><input type='checkbox' class="checkbox" name="checkbox[]" value="{{ $details['client_id'] or "" }}"/></span></td>
                 <td align="center">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
