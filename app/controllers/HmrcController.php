@@ -284,7 +284,26 @@ class HmrcController extends BaseController{
     }
     
     
-    
+    public function technicalupdates(){
+        $data['heading'] = "TECHNICAL UPDATES";
+        $data['title'] = "Technicalupdates";
+        $data['previous_page'] = '<a href="/hmrc">HMRC</a>';
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+
+
+
+
+
+
+
+         return View::make('hmrc.technicalupdates', $data);
+        
+        
+    }
     
 
 }

@@ -5,6 +5,10 @@ $(document).on("click", "#businessclient", function(event){
     
     //$('#checklist-modal').modal('show');
     $("#hiddenclient").val($(event.target).attr("data-clientid"));
+    
+    console.log($(event.target).attr("data-businessname"));
+    $("#businessname").html($(event.target).attr("data-businessname"));
+        
 
 });
 
