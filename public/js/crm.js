@@ -61,7 +61,6 @@ $(document).ready(function () {
               $("#deal_certainty").val(resp['leads_details'].deal_certainty);
               $("#existing_client").val(resp['leads_details'].existing_client);
               $("#deal_owner").val(resp['leads_details'].deal_owner);
-              $("#existing_client").val(resp['leads_details'].existing_client);
               $("#business_type").val(resp['leads_details'].business_type);
               $("#prospect_name").val(resp['leads_details'].prospect_name);
               $("#contact_title").val(resp['leads_details'].contact_title);

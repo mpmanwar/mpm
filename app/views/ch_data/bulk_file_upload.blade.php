@@ -7,8 +7,7 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
- 
-    var options = { 
+  var options = { 
     beforeSend: function() 
     {
         $("#upload_loader").html('<img src="/img/spinner.gif" />');
@@ -17,14 +16,24 @@ $(document).ready(function()
     {
         $("#upload_loader").html('progress');
     },*/
-    success: function() 
+    success: function(resp) 
     {
-      var message = "Your file has been uploaded";
-       
+      var message;
+      if(resp == "0"){
+        message = "<font color='red'>There are some error to upload files</font>";
+      }
+      if(resp == "1"){
+        message = "<font color='red'>Please ensure file contains a max of 100 rows</font>";
+      }
+      if(resp == "2"){
+        message = "Client details has been uploaded successfully.";
         $("#upload_loader").html(message);
         window.location="{{URL::to('/organisation-clients')}}";
-        //window.location('/organisation-clients');
- 
+      }
+      if(resp == "3"){
+        message = "<font color='red'>Company number is not available in the file, please check.</font>";
+      }
+      $("#upload_loader").html(message);
     },
     /*complete: function(response) 
     {
@@ -32,7 +41,7 @@ $(document).ready(function()
     },*/
     error: function()
     {
-        $("#upload_loader").html("<font color='red'> ERROR: unable to upload files</font>");
+        $("#upload_loader").html("<font color='red'>There are some error to upload files</font>");
  
     }
  
@@ -92,32 +101,9 @@ $(document).ready(function()
               <div style="text-align: center; color:green; font-size: 20px;" id="upload_loader"></div>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- <h2>Results</h2> -->
-            <!-- <div class="details_table">
-              <div class="registered_table">
-                <table width="100%" border="1" bordercolor="60aad2" style="text-align:center;" id="result">
-                  <tr class="td_color">
-                    <td colspan="3"><span class="sub_header">COMPANY NAME</span></td>
-                  </tr>
-                  
-                </table>
-              </div>
-            </div> -->
           </div>
 
-        <div class="bulk_text">File must be in either excel or CSV format with the company numbers laid out in a single column, with no column heading.</div>
+        <div class="bulk_text">File must be in either excel or CSV format with the company numbers laid out in a single column, with no column heading. Please also ensure company number has the preceeding "0".</div>
       </div>
     </section>
 

@@ -1079,12 +1079,12 @@ class ChdataController extends BaseController {
 	{
 		////
 		$output_dir = "uploads/bulkfile/";
-		$client_id = "";
+		$return = '0';
  		if(isset($_FILES["bulk_file"]))
 		{
 		    if ($_FILES["bulk_file"]["error"] > 0)
 		    {
-		      echo 0;die;
+		      $return = '0';
 		    }
 		    else
 		    {
@@ -1094,25 +1094,34 @@ class ChdataController extends BaseController {
 				$areas = $this->csv_to_array($csvFile);
 
 				//print_r($areas);die;
-				if(isset($areas) && count($areas) > 0 && count($areas) <=100){
-					foreach ($areas as $key => $value) {
-						$value = $value['company_number']."=function";
-						$client_id = $this->import_company_details($value);
-					}
+				if(isset($areas) && count($areas) > 0){
+					if(count($areas) > 100){
+						$return = '1';
+					}else{
+						foreach ($areas as $key => $value) {
+							$value = $value['company_number']."=function";
+							$client_id = $this->import_company_details($value);
+						}
 
-					if (file_exists($destinationPath)) {
-						unlink($destinationPath);
+						if (file_exists($destinationPath)) {
+							unlink($destinationPath);
+						}
+						$return = '2';
 					}
+					
+				}else{
+					$return = '3';
 				}
 				
 		    }
 		 
 		}
 		/////
-
+		echo $return;die;
 
 
 		$back_url 	= Input::get("back_url");
+
 		// ########### File Upload Start ########### //
 		/*$file 		= Input::get("bulk_file");
 		if (Input::hasFile('bulk_file')) {
@@ -1149,13 +1158,7 @@ class ChdataController extends BaseController {
 			return Redirect::to('/chdata/bulk-company-upload-page/'.base64_encode($back_url));
 		}*/
 
-		if(isset($client_id) && $client_id != ""){
-			echo $client_id;
-			die;
-		}else{
-			echo 0;
-			die;
-		}
+		
 		
 	}
 
