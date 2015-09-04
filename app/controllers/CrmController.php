@@ -66,6 +66,7 @@ class CrmController extends BaseController{
         $data['existing_client'] = $details['existing_client'];
         $data['user_id']        = $session['id'];
         $data['client_type']    = $details['type'];
+        $data['date']           = $details['date'];
         $data['deal_certainty'] = $details['deal_certainty'];
         $data['deal_owner']     = $details['deal_owner'];
         $data['phone']          = $details['phone'];

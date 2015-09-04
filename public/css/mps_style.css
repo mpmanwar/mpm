@@ -1135,4 +1135,23 @@ label {
   width: 307px !important;
   margin-top:15px;
 }
-
+.n_box11 {
+float: left;
+margin-right: 12px;
+width: 13%;
+}
+.n_box12 {
+float: left;
+margin-right: 12px;
+width: 22%;
+}
+.f_namebox2 {
+float: left;
+margin-right: 10px;
+width: 23%;
+}
+.f_namebox3 {
+float: left;
+margin-right: 10px;
+width: 35.3%;
+}

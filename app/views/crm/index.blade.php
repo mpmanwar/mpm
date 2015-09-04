@@ -2,6 +2,9 @@
 
 @section('mycssfile')
   <link href="{{URL :: asset('css/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
+  <!-- Date picker script -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<!-- Date picker script -->
 @stop
 
 @section('myjsfile')
@@ -10,6 +13,16 @@
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 <!-- page script -->
+
+<!-- Date picker script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Date picker script -->
+<script>
+$(document).ready(function(){
+    $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+});
+
+</script>
 <script type="text/javascript">
   $(function() {
     $('#example11').dataTable({
@@ -257,6 +270,7 @@
       <thead>
         <tr role="row">
           <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+          <th width="8%">Date</th>
           <th width="8%">Deal Owner</th>
           <th>Prospect Name</th>
           <th>Contact Name</th>
@@ -278,6 +292,7 @@
             <tr>
               <td><input type='checkbox' class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] }}"></td>
               <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
+              <td align="left">{{ $leads_row['date'] or "" }}</td>
               <td align="left">
                 @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
                   <a href="javascript:void(0)" data-type="org" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_form-modal">{{ $leads_row['prospect_name'] or "" }}</a>
@@ -544,16 +559,25 @@
       <input type="hidden" name="type" id="type" value="">
       <input type="hidden" name="leads_id" id="leads_id" value="">
       <div class="modal-body">
-        <div class="form-group">
-          <div class="n_box1">
-            <div class="box_70">
+        <div class="form-group" style="margin:0;">
+           <div class="n_box12">
+           
               <div class="form-group">
-                <label for="exampleInputPassword1">Deal Certainty</label>
-                <input type="text" id="deal_certainty" name="deal_certainty" value="100" class="form-control box_60" maxlength="3"><span style="margin-top: 7px; float:left;">%</span>
+                <label for="exampleInputPassword1">Date</label>
+                <input type="text" id="date" name="date" class="form-control">
               </div>
+            
+          </div>
+          <div class="n_box11">
+            <div class="form-group">
+              <label for="deal_certainty">Deal Certainty</label>
+              <input type="text" id="deal_certainty" name="deal_certainty" value="100" class="form-control box_60" maxlength="3"><span style="margin-top: 7px; float:left;">%</span>
             </div>
           </div>
-          <div class="f_namebox">
+
+          
+
+          <div class="f_namebox2">
             <label for="exampleInputPassword1">Deal Owner</label>
               <select class="form-control" name="deal_owner" id="deal_owner">
                 <option value="">-- None --</option>
@@ -564,7 +588,7 @@
                 @endif
              </select>
           </div>
-          <div class="f_namebox">
+          <div class="f_namebox3">
             <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
             <select class="form-control" name="existing_client" id="existing_client">
               <option value="">-- None --</option>
