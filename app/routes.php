@@ -315,6 +315,9 @@ Route::any('/hmrc/tool', 'HmrcController@tool');
 Route::any('/hmrc/taxrates', 'HmrcController@taxrates');
 
 Route::get('/getresponsibleperson', 'HmrcController@getresponsibleperson');
+
+Route::get('/hmrc/technicalupdates', 'HmrcController@technicalupdates');
+
 /*==================HMRC ==============*/
 /*================== Notes Start ==============*/
 Route::any('/profile-notes', array("as"=>"index", "uses"=>'NotesController@index'));

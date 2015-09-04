@@ -44,8 +44,8 @@ $(function() {
             {"bSortable": true},
             {"bSortable": true},
             {"bSortable": false},
-           // {"bSortable": true},
-           // {"bSortable": true},
+            {"bSortable": false},
+            {"bSortable": false},
             //{"bSortable": false}
         ]
 
@@ -239,13 +239,15 @@ function notesmodal(){
         <thead>
             <tr role="row">
                 <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>Joining Date</th>
+                <th>Join Date</th>
                 <th>Client Type</th>
                 <th>Client Name</th>
                 <th>Contact Name</th>
                 <th>% Completed</th>
                 <th>Telephone</th>
-                <th>Notes</th>
+                <th align="center">Email</th>
+                <th align="center">Mobile</th>
+                <th align="center">Notes</th>
                 
             </tr>
         </thead>
@@ -274,7 +276,7 @@ function notesmodal(){
                     
                     
                     
-                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
+                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
                     <!--
                     <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td> -->
                     
@@ -298,7 +300,13 @@ function notesmodal(){
                       @endif
                    -->
                     </td>
+                    <td align="center">
+                     {{ $client_row['corres_cont_email'] or "" }}-{{ $client_row['corres_cont_email'] or "" }}
+                    </td>
+                    <td align="center">
                     
+                     {{ $client_row['corres_cont_mobile'] or "" }}-{{ $client_row['corres_cont_mobile'] or "" }}
+                    </td>
                     
                     
                     <td align="center">
@@ -381,7 +389,7 @@ function notesmodal(){
         <div class="clearfix"></div>
       </div>-->
       <!--<form action="#" method="post">-->
-      
+      <p id="businessname" align="center" style="margin: 17px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p>
       <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           <table width="100%" border="0" class="staff_holidays">
@@ -390,7 +398,7 @@ function notesmodal(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="30%"><strong>On Boarding checklist</strong></td>
-    <td>&nbsp;</td>
+    <td width="30%"><strong>Remind Every</strong><input type="checkbox" class="ads_Checkbox" /><strong>Days </strong></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -406,20 +414,25 @@ function notesmodal(){
 					//print_r($staff_details);
 			  
 			  ?>
+              
+              
+              
+              
+              
 			   {{ Form::open(array('url' => '/timesheet/insert-time-sheet')) }}
               <table width="100%" class="table table-bordered" id="BoxTable">
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
               <tr>
-                <td width="20%" align="center"id="allCheckSelect"> Delete</td>
-                <td width="20%" align="center"><strong>Checklist</strong>
+                <td width="5%" align="center"id="allCheckSelect"> Delete</td>
+                <td width="40%" align="center"><strong>Checklist</strong>
                 <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
                 </td>
-                <td width="20%" align="center"><strong>Client</strong></td>
-                <td width="20%" align="center"><strong>Owner</strong>
+                <!--<td width="20%" align="center"><strong>Client</strong></td>-->
+                <td width="20%" align="center"><strong>Task Owner</strong>
                 </td>
-                <td width="6%" align="center"><strong>Frequency of Reminder</strong></td>
-                <td width="14%" align="center"><strong>Status</strong></td>
+                <td width="15%" align="center"><strong>Task Date</strong></td>
+                <td width="20%" align="center"><strong>Status</strong></td>
               </tr>
               
               
@@ -428,13 +441,20 @@ function notesmodal(){
               
               
               
-                <td align="center"><input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="" /></td>
+                <td align="center">
+                
+                <a href="javascript:void(0)" class="delete_single_task" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                
+               <!-- <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="" /> -->
+                
+                </td>
+                
                 <td align="center">
                 
                 
-                    <select class="form-control" name="checklist_type" id="checklist_type">
-                     
-                      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+                
+                <select class="form-control newdropdown status_dropdown" name="checklist_type" id="checklist_type">
+                                           @if( isset($old_postion_types) && count($old_postion_types) >0 )
                         @foreach($old_postion_types as $key=>$old_org_row)
                         <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
                         @endforeach
@@ -446,17 +466,17 @@ function notesmodal(){
                         
                         @endforeach
                       @endif
-                     
-                     
-                    </select>
+                                                      </select>
+                
+                
+                
+                
+                
+                    
                   
                   </td>
-                <td align="center">
-                
-                
-                
-                   
-                    <select class="form-control" name="client_id" id="client_id">
+              <!--  <td align="center">
+                <select class="form-control newdropdown status_dropdown" name="client_id" id="client_id">
     				<option value="">None</option>
     					@if(isset($allClients) && count($allClients)>0)
 					       @foreach($allClients as $key=>$client_row)
@@ -464,15 +484,12 @@ function notesmodal(){
 					       @endforeach
 					   @endif
                 </select>
-                  
-                  
-                  
-                  </td>
+                </td> -->
                   
                   
                 <td align="center">
                                  
-                  <select class="form-control" name="owner" id="owner">
+                  <select class="form-control newdropdown status_dropdown" name="owner" id="owner">
     				<option value="">None</option>
     					@if(!empty($staff_details))
                   @foreach($staff_details as $key=>$staff_row)
@@ -489,10 +506,10 @@ function notesmodal(){
                 -->
                 
                   </select></td>
-                <td align="center"><input type="text" id="frequency" ></td>
+                <td align="center" id="frequency">Task Date</td>
                 <td align="center">
                 
-                <select class="form-control" name="status" id="status">
+                <select class="form-control newdropdown status_dropdown" name="status" id="status">
                     <option value="done">Done</option>
                     <option value="wip">WIP</option>
                     <option value="na">N/A</option>
