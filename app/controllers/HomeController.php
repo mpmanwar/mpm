@@ -123,7 +123,7 @@ class HomeController extends BaseController {
 
 	public function organisation_clients() {
 		$client_data 		= array();
-		$data['heading'] 	= "";
+		$data['heading'] 	= "CLIENT LIST - ORGANISATIONS";
 		$data['title'] 		= "Organisation Clients List";
 		$admin_s 			= Session::get('admin_details'); // session
 		$user_id 			= $admin_s['id']; //session user id
@@ -214,8 +214,8 @@ class HomeController extends BaseController {
 
 	public function onboard() {
 		$client_data 		= array();
-		$data['heading'] 	= "";
-		$data['title'] 		= "Organisation Clients List";
+		$data['heading'] 	= "CLIENT - ONBOARDING";
+		$data['title'] 		= "Onboarding Clients List";
 		$admin_s 			= Session::get('admin_details'); // session
 		$user_id 			= $admin_s['id']; //session user id
 		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);

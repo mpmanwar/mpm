@@ -105,11 +105,11 @@ $(function() {
                     
                     <div class="import_fromch_main">
                       <div class="import_fromch1">
-                        <a href="/onboard" class="import_fromch_link">ON-BOARD NEW CLIENT</a>
+                        <a href="/onboard" class="import_fromch_link">CLIENT ON-BOARDING</a>
                         <a href="javascript:void(0)" class="i_selectbox" id="select_onboard"><img src="/img/arrow_icon.png"></a>
                         <div class="clearfix"></div>
                       </div>
-                     <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>Client On-boarding</div>
+                     <div class="i_dropdown onopen_toggle" id="onboard_drop"><a href="#"></a>On-Board New Client</div>
                     </div>
           
             

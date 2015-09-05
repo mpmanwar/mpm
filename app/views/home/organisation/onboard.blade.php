@@ -98,9 +98,7 @@ $('.DeleteBoxRow').click(function() {
     });
         
         
-function notesmodal(){
-    //$("#compose-modal").modal("hide");
-}
+
 
 /*$(document).ready(function(){
   $("#archivedButton").click(function(){
@@ -148,10 +146,10 @@ function notesmodal(){
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
-            <li>
+          <!--  <li>
               <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
             </li>
-           <!-- <li>
+            <li>
               <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
             </li> -->
             <!-- <li>
@@ -191,7 +189,7 @@ function notesmodal(){
             <div class="tab_topcon">
               <div class="top_bts" style="float:left;">
                 <ul style="padding:0;">
-                  <li>
+                <!--   <li>
                     <a href="/organisation/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
                   </li>
                   <li>
@@ -205,15 +203,15 @@ function notesmodal(){
                     </div>
 
 
-                    <!-- <div class="import_fromch">
+                    <div class="import_fromch">
                       <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
                       <a href="/chdata/bulk-company-upload-page/{{ base64_encode('org_list') }}" class="i_selectbox"><img src="img/arrow_icon.png" /></a>
                     </div> -->
-                    <!-- <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a> -->
+                    <!-- <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a> 
                   </li>
                   <li>
                     <button type="button" class="btn btn-info">CSV IMPORT</button>
-                  </li>
+                  </li>-->
                   <li>
               <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
             </li>
@@ -226,15 +224,20 @@ function notesmodal(){
                <div class="top_bts">
                 <ul style="padding:0;">
                   
-                  <li style="margin-top: 8px;">
-                    <!-- <button type="button" id="show_search" class="btn btn-success">Search</button> -->
+                 <!-- <li style="margin-top: 8px;">
+                     <button type="button" id="show_search" class="btn btn-success">Search</button> 
                     <?php $value = Session::get('show_archive');?>
                     <a href="javascript:void(0)" id="archive_div">
                       {{ (isset($value) && $value == "Y") ? "Show Archived Clients":"Hide Archived Clients" }}</a>
+                  </li>-->
+                  <li>
+                    <button type="button" id="" style="  width: 95px;" class="btn btn-warning">AML</button>
                   </li>
                   <li>
-                    <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
+                 <a href="/hmrc/authorisations" 
+                    <button type="button" id="" class="btn btn-info" style="width: 95px;">64-8</button></a>
                   </li>
+                  
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -249,16 +252,16 @@ function notesmodal(){
       <input type="hidden" id="client_type" value="org"> 
         <thead>
             <tr role="row">
-                <th><input type="checkbox" id="allCheckSelect"/></th>
-                <th>Join Date</th>
-                <th>Client Type</th>
-                <th>Client Name</th>
-                <th>Contact Name</th>
-                <th>% Completed</th>
-                <th>Telephone</th>
-                <th align="center">Email</th>
-                <th align="center">Mobile</th>
-                <th align="center">Notes</th>
+                <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
+                <td>Join Date</td>
+                <td>Client Type</td>
+                <td>Client Name</td>
+                <td>Contact Name</td>
+                <td>% Completed</td>
+                <td>Telephone</td>
+                <td align="center">Email</td>
+                <td align="center">Mobile</td>
+                <td align="center">Notes</td>
                 
             </tr>
         </thead>
@@ -331,7 +334,7 @@ function notesmodal(){
                     
                     <td align="center">
                     
-                    <button class="notes_btn" onclick="return notesmodal()" data-toggle="modal" data-target="#composenotes-modal"><span class="requ_t">notes</span></button>
+                    <button class="notes_btn" data-cid="{{ $client_row['client_id'] }}" id="notesmodal"  ><span class="requ_t">notes</span></button>
                     
                     
                     <!--
@@ -373,7 +376,7 @@ function notesmodal(){
   <div class="modal-dialog" style="width:36%;">
     
     <div class="modal-content">
-     
+     <input type="hidden" id="notescid" value="">
       
       <div class="modal-body">
       <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>

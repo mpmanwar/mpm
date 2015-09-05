@@ -125,3 +125,75 @@ $(document).ready(function() {
 	});
 
 });
+
+
+
+function notes(){
+    
+    
+     var notes      = $("#notess").val();
+      var client_id      = $("#notescid").val();
+    
+    console.log(notes)
+    console.log(client_id)
+    
+    $.ajax({
+      type: "POST",
+      url: '/client/onboardsnotes',
+      data: { 'client_id':client_id,'notes':notes },
+      success : function(resp){
+        
+        console.log(resp);
+        
+       $("#composenotes-modal").modal("hide");
+
+      }
+    });
+    
+    
+    
+    
+    
+    
+        
+}
+$(document).on("click", "#notesmodal", function(event){
+    
+    
+    $("#notess").val("");
+    var client_id =$(this).attr('data-cid');
+    
+    console.log($(this).attr('data-cid'))
+    $("#notescid").val(client_id);
+    
+    $.ajax({
+      type: "POST",
+      url: '/client/getonboardsnotes',
+      data: { 'client_id':client_id },
+      success : function(resp){
+        
+        console.log(resp);
+        
+      $("#notess").val(resp);
+
+      }
+    });
+    
+    
+    
+    
+    
+    $("#composenotes-modal").modal("show");
+     
+    
+    
+    
+    event.preventDefault();
+    
+    
+});
+/*
+function notesmodal(){
+     $("#composenotes-modal").modal("show");
+     return false;
+ }*/

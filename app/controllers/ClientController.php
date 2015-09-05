@@ -1240,5 +1240,49 @@ class ClientController extends BaseController {
             
             
         }
+        
+        public function onboardsnotes(){
+            
+            $insert_id="";
+           $data=array(); 
+        $session_data = Session::get('admin_details');
+		$data['client_id'] 	= Input::get("client_id");
+		$data['user_id'] 		= $session_data['id'];
+		$data['notes'] 		= Input::get("notes");
+		
+	   $getclientid=Onboardingnote::where("client_id","=",$data['client_id'])->select('onboardingnotes_id','notes')->first();      
+       
+        
+        
+       if($getclientid['onboardingnotes_id']){
+        Onboardingnote::where("onboardingnotes_id","=",$getclientid->onboardingnotes_id)->update($data);
+       }
+       else{
+        $insert_id = Onboardingnote::insertGetId($data);
+       
+       }
+	   
+		
+        echo $insert_id;exit();
+          
+          
+		
+		}
+            
+            
+  public function getonboardsnotes(){
+    
+    $notes="";
+    $data['client_id'] 	= Input::get("client_id");
+    
+    $getclientid=Onboardingnote::where("client_id","=",$data['client_id'])->select('onboardingnotes_id','notes')->first();
+    
+    $notes= $getclientid['notes'];
+    echo $notes;exit();
+  }
+            
+           // Onboardingnote
+            
+        
 
 }
