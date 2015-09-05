@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
+
     <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    
 @stop
 
 @section('myjsfile')
@@ -11,7 +13,9 @@
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
-
+<!-- Time picker script -->
+<script src="{{ URL :: asset('js/timepicki.js') }}"></script>
+<!-- Time picker script -->
 
 
 
@@ -19,9 +23,13 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 
-
+<!-- Date picker script -->
+<script src="{{ URL :: asset('js/jquery-ui.min.js') }}"></script>
+<!-- Date picker script -->
 <!-- page script -->
 <script type="text/javascript">
+$(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+
 var oTable;
 
 $(function() {
@@ -253,12 +261,12 @@ $('.DeleteBoxRow').click(function() {
         <thead>
             <tr role="row">
                 <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
-                <td>Join Date</td>
-                <td>Client Type</td>
-                <td>Client Name</td>
-                <td>Contact Name</td>
-                <td>% Completed</td>
-                <td>Telephone</td>
+                <td align="center">Join Date</td>
+                <td align="center">Client Type</td>
+                <td align="center">Client Name</td>
+                <td align="center">Contact Name</td>
+                <td align="center">% Completed</td>
+                <td align="center">Telephone</td>
                 <td align="center">Email</td>
                 <td align="center">Mobile</td>
                 <td align="center">Notes</td>
@@ -277,11 +285,42 @@ $('.DeleteBoxRow').click(function() {
                     <td align="center">
                       <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
                     </td>
-                    <td align="center">{{ 
                     
                     
                     
-                    date('d-m-Y',strtotime($client_row['created'])) }}</td>
+                    
+                    <td align="center">
+              
+                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}" data-prev_date="{{ date('d-m-Y',strtotime($client_row['created'])) }}"> {{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
+                
+                <span class="3_save_made_span_{{ $key }}"  style="display:none;">
+                
+                
+                  <input type="text" class="made_up_date" id="3_made_up_date_{{ $key }}" />
+                  <a href="javascript:void(0)" class="search_t save_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Save</a>
+                  <a href="javascript:void(0)" class="search_t cancel_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Cancel</a>
+                </span>
+              </td>
+                    
+                    
+                   <!-- <td align="center">
+                    <a href="javascript:void(0)" class="change_last_date" >{{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
+                    
+                    
+                   
+                    <span class="3_save_made_span_{{ $key }}"  style="display:none;">
+                    
+                     <input type="text" class="made_up_date" id="made_up_date" />
+                    
+                    
+                    
+                     <a href="javascript:void(0)" class="search_t save_made_date">Save</a>
+                  <a href="javascript:void(0)" class="search_t cancel_made_date" >Cancel</a>
+                   </span>
+                    </td> -->
+                    
+                    
+                    
                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
                     
                  <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->

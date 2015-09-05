@@ -197,6 +197,23 @@ $(document).on("click", "#notesmodal", function(event){
     
     
 });
+
+
+ $(".change_last_date").click(function(){
+        var key         = $(this).data('key');
+        var tab         = $(this).data('tab');
+        var prev_date   = $(this).data('prev_date');
+        $(this).hide();
+        $("."+tab+"_save_made_span_"+key).show();
+        $("#"+tab+"_made_up_date_"+key).val(prev_date); 
+    });
+    $(".cancel_made_date").click(function(){
+        var key   = $(this).data('key');
+        var tab   = $(this).data('tab');
+        $("#"+tab+"_dateanchore_"+key).show();
+        $("."+tab+"_save_made_span_"+key).hide();
+    });
+
 /*
 function notesmodal(){
      $("#composenotes-modal").modal("show");
