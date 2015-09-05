@@ -41,12 +41,15 @@ $("#add_position_type").click(function(){
     //alert(clientid);
    // return false;
         
+        if(type_name !=""){
+            
+        
     $.ajax({
       type: "POST",
       url: '/client/add-checklist',
       data: { 'type_name':type_name, 'client_id':client_id },
       success : function(field_id){
-        
+        $("#checklist").val("");
         //alert(field_id)
        var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+type_name+'">'+type_name+'</label></div>';
         $("#append_position_type").append(append);
@@ -56,6 +59,8 @@ $("#add_position_type").click(function(){
 
       }
     });
+    }
+    
 });
 
 $("#positionopen").click(function(){
