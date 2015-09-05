@@ -213,6 +213,36 @@ $(document).on("click", "#notesmodal", function(event){
         $("#"+tab+"_dateanchore_"+key).show();
         $("."+tab+"_save_made_span_"+key).hide();
     });
+    
+    
+    $(".save_made_date").click(function(){
+        var client_id   = $(this).data('client_id');
+       // var service_id  = $(this).data('service_id');
+        var tab         = $(this).data('tab');
+        var key         = $(this).data('key');
+        var date        = $("#"+tab+"_made_up_date_"+key).val();
+console.log(client_id);
+//console.log(service_id);
+console.log(tab);
+console.log(key);
+console.log(date);
+//return false;
+        $.ajax({
+          type: "POST",
+          //dataType : "json",
+          url: "/onboardsave-made-up-date",
+          data: { 'client_id': client_id, 'date': date },
+          success: function (resp) {
+            window.location = "/onboard";
+            
+            console.log(resp);
+            //$("#"+tab+"_dateanchore_"+key).show();
+            //$("."+tab+"_save_made_span_"+key).hide();         
+          }
+        });
+    });
+    
+    
 
 /*
 function notesmodal(){

@@ -1280,6 +1280,30 @@ class ClientController extends BaseController {
     $notes= $getclientid['notes'];
     echo $notes;exit();
   }
+        
+        
+        
+        public function onboardsave(){
+            $date=$data=$update=array();
+            $data['client_id'] 	= Input::get("client_id");
+            $data['date'] 	= Input::get("date");
+            $update['created']=Input::get("date");
+            $created=Client::where("client_id","=",$data['client_id'])->select('client_id','created')->first();
+           
+            //echo $created['created'];die();
+            
+           $date=explode ( " " , $created['created'] );
+            
+            $new_created = $data['date']." ".$date[1];
+            
+            
+            
+            
+            Client::where("client_id","=",$data['client_id'])->update($update);
+            echo $new_created;
+            die();
+        
+        }
             
            // Onboardingnote
             

@@ -34,6 +34,8 @@ Route::any('/onboard', 'HomeController@onboard');
 Route::any('/client/onboard-client', 'ClientController@onboard_client');
 
 Route::any('/client/onboardsnotes', 'ClientController@onboardsnotes');
+Route::any('/onboardsave-made-up-date', 'ClientController@onboardsave');
+
 
 Route::any('/client/getonboardsnotes', 'ClientController@getonboardsnotes');
 Route::any('/client/add-checklist', 'ClientController@add_checklist');
