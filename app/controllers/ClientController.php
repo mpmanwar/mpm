@@ -1287,7 +1287,7 @@ class ClientController extends BaseController {
             $date=$data=$update=array();
             $data['client_id'] 	= Input::get("client_id");
             $data['date'] 	= Input::get("date");
-            $update['created']=Input::get("date");
+            
             $created=Client::where("client_id","=",$data['client_id'])->select('client_id','created')->first();
            
             //echo $created['created'];die();
@@ -1295,7 +1295,7 @@ class ClientController extends BaseController {
            $date=explode ( " " , $created['created'] );
             
             $new_created = $data['date']." ".$date[1];
-            
+            $update['created']=$new_created;
             
             
             
