@@ -51,8 +51,8 @@ $(document).ready(function () {
             $("#existing_client").html(client_dropdown);
 //alert(resp['leads_details'].lead_source);
             //==================Edit =================//
-            if(leads_id != "0"){
-              //$("#existing_client").html(resp['leads_details'].existing_client);
+            if(leads_id != "0" && resp['leads_details'].existing_client != "0"){
+              $("#existing_client").val(resp['leads_details'].existing_client);
             }
             if(type == 'ind'){
               $("#prospect_title").val(resp['leads_details'].prospect_title);
@@ -330,3 +330,30 @@ $(".deleteLeads").click(function(){
 
 	
 });//document end 
+
+
+/*function validation()
+{
+  var client_type = $("#type").val();//alert(client_type);return false;
+  if(client_type == "org"){
+    var prospect_name = $("#prospect_name").val();
+    if(prospect_name == ""){
+      aler("Please enter prospect name");
+      return false;
+    }
+  }else{
+    var prospect_fname = $("#prospect_fname").val();
+    var prospect_lname = $("#prospect_lname").val();
+    if(prospect_fname == ""){
+      aler("Please enter first name");
+      return false;
+    }
+    if(prospect_lname == ""){
+      aler("Please enter last name");
+      return false;
+    }
+  }
+
+  return false;
+  
+}*/

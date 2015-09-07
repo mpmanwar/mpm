@@ -30,6 +30,12 @@ $(document).ready(function(){
         thousandsSeparator: ',',
         centsLimit: '',
     });
+    $('#annual_revenue').priceFormat({
+        prefix: '',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        centsLimit: '',
+    });
 });
 
 </script>
@@ -591,7 +597,7 @@ $(document).ready(function(){
            
               <div class="form-group">
                 <label for="exampleInputPassword1">Date</label>
-                <input type="text" id="date" name="date" value="{{ $staff_row['date'] or "" }}" class="form-control">
+                <input type="text" id="date" name="date" value="{{ $staff_row['date'] or '' }}" class="form-control">
               </div>
             
           </div>

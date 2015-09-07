@@ -114,14 +114,18 @@ class CrmLead extends Eloquent {
 			foreach ($status_details as $key => $value) {
 				$crn_lead = CrmLead::where("leads_id", "=", $value['leads_id'])->first();
 				if(isset($crn_lead->quoted_value) && $crn_lead->quoted_value != ""){
-					$total += $crn_lead->quoted_value;
-					$likely += ($crn_lead->deal_certainty*$crn_lead->quoted_value)/100;
+					$quoted_value = str_replace(",", "", $crn_lead->quoted_value);
+					$total += $quoted_value;
+					$likely += ($crn_lead->deal_certainty*$quoted_value)/100;
 				}
 				$average = $total/count($status_details);
 			}
-			$data['total']     = number_format($total, 2, '.', '');
+			/*$data['total']     = number_format($total, 2, '.', '');
 	        $data['average']   = number_format($average, 2, '.', '');
-	        $data['likely']    = number_format($likely, 2, '.', '');
+	        $data['likely']    = number_format($likely, 2, '.', '');*/
+	        $data['total']     = number_format($total, 2);
+	        $data['average']   = number_format($average, 2);
+	        $data['likely']    = number_format($likely, 2);
 			
 		}
 

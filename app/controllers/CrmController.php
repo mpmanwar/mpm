@@ -43,14 +43,15 @@ class CrmController extends BaseController{
         $likely   = 0;
         if(isset($data['leads_details']) && count($data['leads_details']) >0){
             foreach ($data['leads_details'] as $key => $value) {
-                $total += $value['quoted_value'];
-                $likely += ($value['deal_certainty']*$value['quoted_value'])/100;
+                $quoted_value = str_replace(",", "", $value['quoted_value']);
+                $total += $quoted_value;
+                $likely += ($value['deal_certainty']*$quoted_value)/100;
             }
             $average = $total/count($data['leads_details']);
         }
-        $data['all_total']     = number_format($total, 2, '.', '');
-        $data['all_average']   = number_format($average, 2, '.', '');
-        $data['all_likely']    = number_format($likely, 2, '.', '');
+        $data['all_total']     = number_format($total, 2);
+        $data['all_average']   = number_format($average, 2);
+        $data['all_likely']    = number_format($likely, 2);
         //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
     }
@@ -72,7 +73,7 @@ class CrmController extends BaseController{
             $data['prospect_fname'] = $details['prospect_fname'];
             $data['prospect_lname'] = $details['prospect_lname'];
         }else{
-            $data['business_type']  = $details['business_type'];
+            $data['business_type']  = isset($details['business_type'])?$details['business_type']:"0";
             $data['prospect_name']  = $details['prospect_name'];
             $data['contact_title']  = $details['contact_title'];
             $data['contact_fname']  = $details['contact_fname'];
@@ -83,7 +84,7 @@ class CrmController extends BaseController{
         $data['client_type']    = $details['type'];
         $data['date']           = $details['date'];
         $data['deal_certainty'] = $details['deal_certainty'];
-        $data['deal_owner']     = $details['deal_owner'];
+        $data['deal_owner']     = isset($details['deal_owner'])?$details['deal_owner']:"0";
         $data['phone']          = $details['phone'];
         $data['mobile']         = $details['mobile'];
         $data['email']          = $details['email'];
@@ -138,6 +139,7 @@ class CrmController extends BaseController{
         $data = array();
         $client_data    = array();
         $leads_details  = array();
+        $leads_details['date'] = date("d-m-Y");
         $type       = Input::get("type");
         $leads_id   = Input::get("leads_id");
 
