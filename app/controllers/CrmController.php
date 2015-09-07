@@ -103,7 +103,7 @@ class CrmController extends BaseController{
             $last_id = CrmLead::insertGetId($data);
             $leadstatus['user_id']      = $user_id;
             $leadstatus['leads_id']     = $last_id;
-            $leadstatus['leads_tab_id'] = 1;
+            $leadstatus['leads_tab_id'] = 2;
             $leadstatus['created']      = date("Y-m-d H:i:s");
             CrmLeadsStatus::insert($leadstatus);
         }else{

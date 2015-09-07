@@ -250,7 +250,7 @@ $(document).ready(function(){
 
         @if(isset($leads_tabs) && count($leads_tabs) >0)
           <?php 
-            $i = 1;
+            $i = 2;
             $total    = 0;
             $average  = 0;
             $likely   = 0;
