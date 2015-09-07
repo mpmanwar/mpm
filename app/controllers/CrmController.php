@@ -63,7 +63,7 @@ class CrmController extends BaseController{
             $data['contact_fname']  = $details['contact_fname'];
             $data['contact_lname']  = $details['contact_lname'];
         }
-        $data['existing_client'] = $details['existing_client'];
+        $data['existing_client'] = isset($details['existing_client'])?$details['existing_client']:"0";
         $data['user_id']        = $session['id'];
         $data['client_type']    = $details['type'];
         $data['date']           = $details['date'];
@@ -75,13 +75,13 @@ class CrmController extends BaseController{
         $data['website']        = $details['website'];
         $data['annual_revenue'] = $details['annual_revenue'];
         $data['quoted_value']   = $details['quoted_value'];
-        $data['lead_source']    = $details['lead_source'];
-        $data['industry']       = $details['industry'];
+        $data['lead_source']    = isset($details['lead_source'])?$details['lead_source']:"0";
+        $data['industry']       = isset($details['industry'])?$details['industry']:"0";
         $data['street']         = $details['street'];
         $data['city']           = $details['city'];
         $data['county']         = $details['county'];
         $data['postal_code']    = $details['postal_code'];
-        $data['country_id']     = $details['country_id'];
+        $data['country_id']     = isset($details['country_id'])?$details['country_id']:"0";
         $data['notes']          = $details['notes'];
         
         if($leads_id == 0){
