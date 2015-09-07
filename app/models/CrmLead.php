@@ -59,8 +59,9 @@ class CrmLead extends Eloquent {
 			$data['user_id']        = $details->user_id;
 			$data['existing_client']= $details['existing_client'];
 			$data['client_type']    = $details->client_type;
+			$data['date'] 			= $details->date;
 			$data['deal_certainty'] = $details->deal_certainty;
-	        $data['deal_owner']     = $details->deal_owner;
+			$data['deal_owner']     = $details->deal_owner;
 	        $data['phone']          = $details->phone;
 	        $data['mobile']         = $details->mobile;
 	        $data['email']          = $details->email;

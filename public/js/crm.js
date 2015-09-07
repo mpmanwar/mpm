@@ -51,15 +51,17 @@ $(document).ready(function () {
             $("#existing_client").html(client_dropdown);
 
             //==================Edit =================//
-            //if(leads_id != "0"){
-              if(type == 'ind'){
-                $("#prospect_title").val(resp['leads_details'].prospect_title);
-                $("#prospect_fname").val(resp['leads_details'].prospect_fname);
-                $("#prospect_lname").val(resp['leads_details'].prospect_lname);
-              }
+            if(leads_id != "0"){
+              //$("#existing_client").html(resp['leads_details'].existing_client);
+            }
+            if(type == 'ind'){
+              $("#prospect_title").val(resp['leads_details'].prospect_title);
+              $("#prospect_fname").val(resp['leads_details'].prospect_fname);
+              $("#prospect_lname").val(resp['leads_details'].prospect_lname);
+            }
               $("#leads_id").val(resp['leads_details'].leads_id);
+              $("#date").val(resp['leads_details'].date);
               $("#deal_certainty").val(resp['leads_details'].deal_certainty);
-              $("#existing_client").val(resp['leads_details'].existing_client);
               $("#deal_owner").val(resp['leads_details'].deal_owner);
               $("#business_type").val(resp['leads_details'].business_type);
               $("#prospect_name").val(resp['leads_details'].prospect_name);

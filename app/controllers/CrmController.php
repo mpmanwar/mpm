@@ -151,6 +151,8 @@ class CrmController extends BaseController{
 
         if($leads_id != '0'){
             $leads_details = CrmLead::getLeadsByLeadsId($leads_id);
+        }else{
+            $leads_details['deal_certainty'] = 100;
         }
         $data['leads_details']      = $leads_details;
         $data['existing_clients']   = $client_data;

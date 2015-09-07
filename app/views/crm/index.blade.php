@@ -42,6 +42,7 @@ $(document).ready(function(){
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true},
+        {"bSortable": true},
         {"bSortable": false},
         {"bSortable": false},
         {"bSortable": false},
@@ -564,7 +565,7 @@ $(document).ready(function(){
            
               <div class="form-group">
                 <label for="exampleInputPassword1">Date</label>
-                <input type="text" id="date" name="date" class="form-control">
+                <input type="text" id="date" name="date" value="{{ $staff_row['date'] or "" }}" class="form-control">
               </div>
             
           </div>
@@ -720,8 +721,7 @@ $(document).ready(function(){
         <div class="twobox">
           <div class="twobox_1">
               <div class="form-group">
-                <label for="exampleInputPassword1">Lead Source</label>
-                <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a>
+                <label for="exampleInputPassword1">Lead Source <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a></label>
                 <select class="form-control select_title" id="lead_source" name="lead_source">
                   <option value="">-- None --</option>
                   @if(isset($old_lead_sources) && count($old_lead_sources) >0)
