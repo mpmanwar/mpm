@@ -58,7 +58,8 @@ class CrmController extends BaseController{
     public function save_leads_data()
     {
         $data       = array();
-        $session    = Session::get('admin_details');        
+        $session    = Session::get('admin_details'); 
+        $user_id    = $session['id'];     
 
         $details    = Input::get();
         $encode_page_open   = $details['encode_page_open'];
@@ -78,7 +79,7 @@ class CrmController extends BaseController{
             $data['contact_lname']  = $details['contact_lname'];
         }
         $data['existing_client'] = isset($details['existing_client'])?$details['existing_client']:"0";
-        $data['user_id']        = $session['id'];
+        $data['user_id']        = $user_id;
         $data['client_type']    = $details['type'];
         $data['date']           = $details['date'];
         $data['deal_certainty'] = $details['deal_certainty'];
@@ -99,7 +100,12 @@ class CrmController extends BaseController{
         $data['notes']          = $details['notes'];
         
         if($leads_id == 0){
-            CrmLead::insert($data);
+            $last_id = CrmLead::insertGetId($data);
+            $leadstatus['user_id']      = $user_id;
+            $leadstatus['leads_id']     = $last_id;
+            $leadstatus['leads_tab_id'] = 1;
+            $leadstatus['created']      = date("Y-m-d H:i:s");
+            CrmLeadsStatus::insert($leadstatus);
         }else{
             CrmLead::where('leads_id', '=', $leads_id)->update($data);
         }

@@ -198,8 +198,8 @@ $(document).ready(function(){
       </div>
       <div class="top_search_con">
        <div class="top_bts">
-        <!-- <ul style="padding:0;">
-          <li style="margin-top: 8px;">Filter per deal owner</li>
+        <ul style="padding:0;">
+          <!-- <li style="margin-top: 8px;">Filter per deal owner</li>
           <li>
             <select class="form-control" style="width:150px;" name="filter_by_staff" id="filter_by_staff">
               <option value="{{ base64_encode('all') }}" {{ (isset($owner_id) && $owner_id == 'all')?"selected":"" }}>Show All</option>
@@ -209,7 +209,7 @@ $(document).ready(function(){
                 @endforeach
               @endif
             </select>
-          </li>
+          </li> -->
         
           <li style="margin-top: 8px;">
             <a href="javascript:void(0)" id="archive_div">Hide Archived</a>
@@ -218,7 +218,7 @@ $(document).ready(function(){
             <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
           </li>
           <div class="clearfix"></div>
-        </ul> -->
+        </ul>
       </div>
       </div>
       <div class="clearfix"></div>
@@ -248,7 +248,7 @@ $(document).ready(function(){
 
         @if(isset($leads_tabs) && count($leads_tabs) >0)
           <?php 
-            $i = 2;
+            $i = 1;
             $total    = 0;
             $average  = 0;
             $likely   = 0;
@@ -279,19 +279,19 @@ $(document).ready(function(){
       <thead>
         <tr role="row">
           <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
-          <th width="8%">Date</th>
-          <th width="8%">Deal Owner</th>
-          <th>Prospect Name</th>
+          <th width="7%">Date</th>
+          <th width="12%">Deal Owner</th>
+          <th width="12%">Prospect Name</th>
           <th>Contact Name</th>
           <th>Phone</th>
           <th>Email</th>
-          <th width="6%">Age(days)</th>
+          <th width="3%">Age</th>
           <th width="6%">Quote</th>
           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
-          <th width="10%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
           <th width="8%">Quoted Value</th>
-          <th width="6%">Notes</th>
-          <th width="10%">Client Onboarding</th>
+          <th width="5%">Notes</th>
+          <th width="6%">Client Onboarding</th>
         </tr>
       </thead>
 
@@ -344,7 +344,13 @@ $(document).ready(function(){
                 <input type="hidden" id="notes_{{ $leads_row['leads_id'] or "" }}" value="{{ $leads_row['notes'] or "" }}">
                 <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
               </td>
-              <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] or "" }}" data-field_name="ch_manage_task">Start</button></td>
+              <td align="center">
+                @if(isset($leads_row['existing_client']) && $leads_row['existing_client'] != '0')
+                  <button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] or "" }}" data-field_name="ch_manage_task">Start</button>
+                @else
+                  {{ "N/A" }}
+                  @endif
+              </td>
             </tr>
           @endforeach
         @endif
