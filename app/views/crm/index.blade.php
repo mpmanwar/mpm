@@ -592,7 +592,7 @@ $(document).ready(function(){
           <div class="f_namebox3">
             <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
             <select class="form-control" name="existing_client" id="existing_client">
-              <option value="">-- None --</option>
+              <option value="0">-- None --</option>
               
              </select>
           </div>
@@ -723,7 +723,7 @@ $(document).ready(function(){
               <div class="form-group">
                 <label for="exampleInputPassword1">Lead Source <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a></label>
                 <select class="form-control select_title" id="lead_source" name="lead_source">
-                  <option value="">-- None --</option>
+                  <option value="0">-- None --</option>
                   @if(isset($old_lead_sources) && count($old_lead_sources) >0)
                     @foreach($old_lead_sources as $key=>$lead_row)
                       <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
@@ -741,7 +741,7 @@ $(document).ready(function(){
             <div class="form-group">
               <label for="exampleInputPassword1">Industry</label>
               <select class="form-control select_title" id="industry" name="industry">
-                <option value="">-- None --</option>
+                <option value="0">-- None --</option>
                 @if(isset($industry_lists) && count($industry_lists) >0)
                   @foreach($industry_lists as $key=>$industry_row)
                     <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>

@@ -154,6 +154,7 @@ class CrmController extends BaseController{
         }else{
             $leads_details['deal_certainty'] = 100;
         }
+        
         $data['leads_details']      = $leads_details;
         $data['existing_clients']   = $client_data;
 

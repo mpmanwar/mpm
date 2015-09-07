@@ -49,7 +49,7 @@ $(document).ready(function () {
               client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
             });
             $("#existing_client").html(client_dropdown);
-
+//alert(resp['leads_details'].lead_source);
             //==================Edit =================//
             if(leads_id != "0"){
               //$("#existing_client").html(resp['leads_details'].existing_client);
