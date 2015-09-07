@@ -240,10 +240,10 @@ $(document).ready(function(){
     </ul> -->
 
     <ul class="leads_tab">
-        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) }}</span>]</h3></a>
-          <p>&#163;{{ $all_total or "0" }}</p>
-          <p>&#163;{{ $all_average or "0" }}</p>
-          <p>&#163;{{ $all_likely or "0" }}</p>
+        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) or "0" }}</span>]</h3></a>
+          <p>&#163;{{ $all_total or "0.00" }}</p>
+          <p>&#163;{{ $all_average or "0.00" }}</p>
+          <p>&#163;{{ $all_likely or "0.00" }}</p>
         </li>
 
         @if(isset($leads_tabs) && count($leads_tabs) >0)
@@ -255,9 +255,9 @@ $(document).ready(function(){
           ?>
           @foreach($leads_tabs as $key=>$tab_row)
           <li class="{{ ($page_open == '1'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('1'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
-          <p>&#163;{{ $tab_row['table_value']['total'] or "0" }}</p>
-          <p>&#163;{{ $tab_row['table_value']['average'] or "0" }}</p>
-          <p>&#163;{{ $tab_row['table_value']['likely'] or "0" }}</p>
+          <p>&#163;{{ $tab_row['table_value']['total'] or "0.00" }}</p>
+          <p>&#163;{{ $tab_row['table_value']['average'] or "0.00" }}</p>
+          <p>&#163;{{ $tab_row['table_value']['likely'] or "0.00" }}</p>
         </li>
           <?php $i++;?>
           @endforeach
