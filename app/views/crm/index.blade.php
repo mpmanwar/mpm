@@ -21,7 +21,7 @@
 <script>
 $(document).ready(function(){
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-    $('.money').mask('000.000.000.000.000,00');
+    //$('.money').mask('000.000.000.000.000,00');
 });
 
 </script>
