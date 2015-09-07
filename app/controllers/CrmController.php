@@ -203,6 +203,7 @@ class CrmController extends BaseController{
         $leads_ids  = Input::get('leads_delete_id');
         foreach ($leads_ids as $leads_id) {
             CrmLead::where('leads_id', '=', $leads_id)->delete();
+            CrmLeadsStatus::where('leads_id', '=', $leads_id)->delete();
         }
     }
     
