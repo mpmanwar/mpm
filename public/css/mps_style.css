@@ -484,6 +484,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', end
 .import_fromch_main{position:relative; width:160px;}
 .import_fromch{background:#00c0ef;border-color: #00acd6; height: 34px; float:left; border-color: rgb(0, 172, 214); border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; -ms-border-radius: 3px; box-shadow: 2px -3px 0 0 rgba(0, 0, 0, 0.09) inset; font-weight: 500; }
 .import_fromch_link{color:#fff; font-size:14px; text-transform:uppercase; float:left;  padding: 6px 10px; border-right:1px solid #fff;}
+.import_fromch_link:hover{color:#fff!important; background-color:rgb(0, 172, 214);}
+.import_fromch_link a{color:#fff;}
+.import_fromch_link a:hover{color:#fff!important;}
 .import_fromch:hover{color:#fff!important; background-color:rgb(0, 172, 214);}
 .import_fromch a{color:#fff;}
 .import_fromch a:hover{color:#fff!important;}
@@ -1123,7 +1126,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f7f8', end
     left: 174px;
     position: absolute;
     top: 37px;
-    width: 81%;
+    width: 88%;
     color: #3C8DBC;
 }
 
