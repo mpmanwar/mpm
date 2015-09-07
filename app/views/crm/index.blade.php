@@ -17,9 +17,11 @@
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
+<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $('.money').mask('000.000.000.000.000,00');
 });
 
 </script>
@@ -51,7 +53,7 @@ $(document).ready(function(){
         {"bSortable": false},
         {"bSortable": false}
       ],
-      "aaSorting": [[2, 'asc']]
+      "aaSorting": [[1, 'desc']]
     });
 
   for(var k=2; k<=10;k++){
@@ -80,7 +82,7 @@ $(document).ready(function(){
         {"bSortable": false},
         {"bSortable": false}
       ],
-      "aaSorting": [[2, 'asc']]
+      "aaSorting": [[1, 'asc']]
 
     });
   }
@@ -240,7 +242,7 @@ $(document).ready(function(){
     </ul> -->
 
     <ul class="leads_tab">
-        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) or "0" }}</span>]</h3></a>
+        <li style="width:6%;" class="{{ ($page_open == 11)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('11') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) }}</span>]</h3></a>
           <p>&#163;{{ $all_total or "0.00" }}</p>
           <p>&#163;{{ $all_average or "0.00" }}</p>
           <p>&#163;{{ $all_likely or "0.00" }}</p>
@@ -346,10 +348,10 @@ $(document).ready(function(){
               </td>
               <td align="center">
                 @if(isset($leads_row['existing_client']) && $leads_row['existing_client'] != '0')
-                  <button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] or "" }}" data-field_name="ch_manage_task">Start</button>
-                @else
                   {{ "N/A" }}
-                  @endif
+                @else
+                  <button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] or "" }}" data-field_name="ch_manage_task">START</button>
+                @endif
               </td>
             </tr>
           @endforeach
@@ -729,7 +731,7 @@ $(document).ready(function(){
           <div class="twobox_2">
             <div class="form-group">
               <label for="exampleInputPassword1">Quoted Value</label>
-                <input type="text" id="quoted_value" name="quoted_value" class="form-control" >
+                <input type="text" id="quoted_value" name="quoted_value" class="form-control money" >
             </div>
           </div>
           <div class="clearfix"></div>
