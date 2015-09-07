@@ -57,7 +57,7 @@ class CrmLead extends Eloquent {
 		if(isset($details) && count($details) >0){
 			$data['leads_id']       = $details->leads_id;
 			$data['user_id']        = $details->user_id;
-			$data['existing_client']= $details['existing_client'];
+			$data['existing_client']= $details->existing_client;
 			$data['client_type']    = $details->client_type;
 			$data['date'] 			= $details->date;
 			$data['deal_certainty'] = $details->deal_certainty;
@@ -100,23 +100,31 @@ class CrmLead extends Eloquent {
 
     public static function getTotalQuotedValue( $leads_tab_id )
     {
+    	$data = array();
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 		$status_details = CrmLeadsStatus::leadsStatusByTabId($leads_tab_id);
 
 		if(isset($status_details) && count($status_details) >0){
-			$total = 0;
+			$total    = 0;
+	        $average  = 0;
+	        $likely   = 0;
 			foreach ($status_details as $key => $value) {
 				$crn_lead = CrmLead::where("leads_id", "=", $value['leads_id'])->first();
 				if(isset($crn_lead->quoted_value) && $crn_lead->quoted_value != ""){
 					$total += $crn_lead->quoted_value;
+					$likely += ($crn_lead->deal_certainty*$crn_lead->quoted_value)/100;
 				}
+				$average = $total/count($status_details);
 			}
+			$data['total']     = number_format($total, 2, '.', '');
+	        $data['average']   = number_format($average, 2, '.', '');
+	        $data['likely']    = number_format($likely, 2, '.', '');
 			
 		}
 
-		return $total;
+		return $data;
     }
 
 

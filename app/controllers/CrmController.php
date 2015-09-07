@@ -36,7 +36,21 @@ class CrmController extends BaseController{
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
+
         $data['leads_details']      = CrmLead::getAllDetails();
+        $total    = 0;
+        $average  = 0;
+        $likely   = 0;
+        if(isset($data['leads_details']) && count($data['leads_details']) >0){
+            foreach ($data['leads_details'] as $key => $value) {
+                $total += $value['quoted_value'];
+                $likely += ($value['deal_certainty']*$value['quoted_value'])/100;
+            }
+            $average = $total/count($data['leads_details']);
+        }
+        $data['all_total']     = number_format($total, 2, '.', '');
+        $data['all_average']   = number_format($average, 2, '.', '');
+        $data['all_likely']    = number_format($likely, 2, '.', '');
         //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
     }
