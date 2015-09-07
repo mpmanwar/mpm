@@ -17,11 +17,19 @@
 <!-- Date picker script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Date picker script -->
-<script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
+<!-- <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script> -->
+<script src="{{ URL :: asset('js/jquery.price_format.2.0.js') }}" type="text/javascript"></script>
+
 <script>
 $(document).ready(function(){
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     //$('.money').mask('000.000.000.000.000,00');
+    $('#quoted_value').priceFormat({
+        prefix: '',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        centsLimit: '',
+    });
 });
 
 </script>
