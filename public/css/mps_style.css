@@ -1172,3 +1172,7 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .close_btn1{background:#c1c1c1; padding:8px 25px 8px 25px; color:#fff; border:none; outline:none; float:left; margin-right:15px;}
 .download_btn1{background:#4d8eea; padding:8px 25px 8px 25px; color:#fff;  border:none; outline:none; float:left;}
 .shared_t{text-align:center; padding:5px; font-size:18px; font-weight:700;}
+.red_point{position: absolute; top:-5px; right: -5px; color: #fff; background: #f00; border-radius:10px;font-size: 10px; text-align: center; width: 14px; height: 14px;}
+.chk_right{float:right!important; margin-top:7px; position: relative;}
+
+ 
