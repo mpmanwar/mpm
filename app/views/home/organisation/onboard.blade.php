@@ -421,14 +421,16 @@ $('.DeleteBoxRow').click(function() {
       <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
      
       <div style="width:100%;">
-             <label for="f_name" style="font-size: 18px;">Notes</label>
+      <h2 style="padding:0px; margin:0px;">
+             <label for="f_name" >Notes</label></h2>
              
-          <textarea rows="4" cols="50"  name="notes1[]" id="notess" value="" ></textarea>
+          <textarea rows="4" cols="50" style="width:100%"  name="notes1[]" id="notess" value="" ></textarea>
          
-         
-          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button>   
-          <div class="clr"></div>       
+         <div class="clr"></div>   
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right;">Save</button>   
+               
          </div>
+          <div class="clr"></div>   
         </div>
         
        

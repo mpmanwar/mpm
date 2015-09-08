@@ -4,9 +4,9 @@
 
     			
                 	<option value="">None</option>
-    					//@if(!empty($data))
+    					@if(!empty($data))
                   @foreach($data as $key=>$staff_row)
-                  <option value="{{ $staff_row['contact_type'] }}">{{ $staff_row['name'] }}</option>
+                  <option value="{{ $staff_row['contact_type'] }}">{{ ucwords($staff_row['name']) }}</option>
                   @endforeach
                 @endif
                       
