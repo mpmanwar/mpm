@@ -35,7 +35,7 @@ $(function () {
             tooltipColor: '#fff',
             gridColor: 'black',
             tooltipBoxColor: 'green',
-            averageLineColor: 'none',
+            averageLineColor: 'green',
         }
     });
   bar.init();
