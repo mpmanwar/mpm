@@ -148,7 +148,7 @@ $(function () {
       [32, 15, 75, 20, 45, 90, 52, 15, 75, 20, 45, 90]
     ],
     colors: ['red', 'orange'],
-    dataNames: ['Hot', 'Warm'],
+    dataNames: ['Total', 'Won'],
     xName: 'Month',
     tooltipWidth: 15,
     design: {
