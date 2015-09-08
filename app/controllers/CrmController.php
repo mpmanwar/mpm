@@ -292,7 +292,7 @@ class CrmController extends BaseController{
         $data = array();
         $from_date  = Input::get('from_date');
         $to_date    = Input::get('to_date');
-        $divided_by = 1000;
+        $divided_by = 10000;
 
         $details = CrmLead::getDataWithDateRange($from_date, $to_date);
         if(isset($details) && count($details) >0){

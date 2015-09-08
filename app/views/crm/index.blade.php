@@ -163,6 +163,10 @@ $(document).ready(function(){
   bar.init();
 });*/
 </script>
+<style type="text/css">
+  svg:not(:root){overflow: inherit; margin-right: 20px; float:right;}
+
+</style>
 @stop
 
 @section('content')
@@ -1084,7 +1088,7 @@ $(document).ready(function(){
 
 <!-- GRAPHS MODAL -->
 <div class="modal fade" id="graphs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:660px;">
+  <div class="modal-dialog" style="width:790px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1112,8 +1116,10 @@ $(document).ready(function(){
         <div class="form-group">
           <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph">
         </div> 
+ <div class="clearfix"></div>
 
         <div class="form-group" id="show_graph"></div>
+         <div class="clearfix"></div>
       </div>
     
     </div>
