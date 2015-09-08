@@ -128,6 +128,39 @@ $(document).ready(function(){
 });
 
 </script>
+
+<script src="{{ URL :: asset('js/graph.js') }}" type="text/javascript"></script>
+<script>
+$(function () {
+  var bar = new GraphBar({
+    attachTo: '#graph',
+    special: 'combo',
+    height: 475,
+    width: '100%',
+    yDist: 30,
+    xDist: 50,
+    showPoints: false,
+    xGrid: false,
+    legend: true,
+    averageLineColor:false,
+    points: [
+      [17, 21, 51, 74, 12, 49, 100, 17, 21, 51, 74, 12],
+      [32, 15, 75, 20, 45, 90, 52, 15, 75, 20, 45, 90]
+    ],
+    colors: ['red', 'orange'],
+    dataNames: ['Total', 'Won'],
+    xName: 'Month',
+    tooltipWidth: 15,
+    design: {
+        tooltipColor: '#fff',
+        gridColor: 'black',
+        tooltipBoxColor: 'green',
+        averageLineColor: 'blue',
+    }
+  });
+  bar.init();
+});
+</script>
 @stop
 
 @section('content')
@@ -207,7 +240,7 @@ $(document).ready(function(){
           </div>
           </li>
           <li>
-            <a class="btn btn-info" href="javascript:void(0)">GRAPHS</a>
+            <a class="btn btn-info graphs-modal" href="javascript:void(0)">GRAPHS</a>
           </li>
         <div class="clearfix"></div>
         </ul>
@@ -1045,6 +1078,24 @@ $(document).ready(function(){
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+</div>
+
+<!-- GRAPHS MODAL -->
+<div class="modal fade" id="graphs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:612px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">GRAPHS</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" id="graph">
+        
+      </div>
+    
+    </div>
+  </div>
 </div>
 
 @stop
