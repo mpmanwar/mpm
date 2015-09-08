@@ -23,6 +23,14 @@ class SettingsController extends BaseController {
 		}
 		$data['heading'] = "";
 		$data['title'] = "Settings Dashboard";
+        $groupUserId 		= $admin_s['group_users'];
+        
+        
+        $data['old_postion_types'] = Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_postion_types'] = Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+        
+        
+        
 		return View::make('settings.index', $data);
 	}
 

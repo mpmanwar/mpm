@@ -87,7 +87,8 @@ $("#append_position_type").on("click", ".delete_checklist_name", function(){
           //location.reload();
           $("#hide_div_"+field_id).hide();
           
-          $("#position_type option[value='"+field_id+"']").remove();
+          $("#checklist_type option[value='"+field_id+"']").remove();
+        
         }else{
           alert("There are some error to delete this type, Please try again");
         }
@@ -119,9 +120,9 @@ $(document).ready(function() {
 
 			// Ensure that it is a number and stop the keypress
 
-			 if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			 if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
 
-            e.preventDefault();
+            event.preventDefault();
 
         }	
 

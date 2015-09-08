@@ -393,3 +393,5 @@ Route::any('/crm/sendto-another-tab', 'CrmController@sendto_another_tab');
 Route::any('/crm/get-client-address', 'CrmController@get_client_address');
 Route::any('/crm/show-graph', 'CrmController@show_graph');
 /*================== CRM End ==============*/
+Route::any('/fileandsign', 'FileandsignController@fileandsign');
+

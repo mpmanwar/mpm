@@ -1,4 +1,8 @@
 @extends('layouts.layout')
+@section('myjsfile')
+<script src="{{ URL :: asset('js/onboard.js') }}" type="text/javascript"></script>
+@stop
+
 @section('content')
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -63,7 +67,14 @@
                             <div class="circle_icon">
                                 <img src="{{ URl::asset('img/dashboard_circle.png') }}" />
                             </div>
-                        <p class="small_tagline">NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</p>
+                   
+                       <a href="#" class="small_tagline" data-toggle="modal" id="positionopen" data-target="#checklist-modal">
+                       
+                       
+                        NEW CLIENT- ON BOARDING<br>CHECKLIST / TASK</a>
+                      
+                      
+                      
                         <div class="clearfix"></div>
                         </div>
                     </a>
@@ -134,5 +145,61 @@
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+        
+         <!-- Client -->
+			<div class="modal fade" id="checklist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:430px; ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD to List</h4>
+        <div class="clearfix"></div>
+      </div>
+      <input type="hidden" id="hiddenclient" value="staff" />
+              
+   {{ Form::open(array('url' => '/client/add-checklist', 'id'=>'field_form')) }}
+    <input type="hidden" name="client_type" value="org">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="checklist" id="checklist" placeholder="Checklist" class="form-control">
+      </div>
+      
+      <div id="append_position_type">
+      @if( isset($old_postion_types) && count($old_postion_types) >0 )
+        @foreach($old_postion_types as $key=>$old_org_row)
+        <div class="form-group">
+          <label for="{{ $old_org_row->name }}">{{ $old_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+
+      @if( isset($new_postion_types) && count($new_postion_types) >0 )
+        @foreach($new_postion_types as $key=>$new_org_row)
+        <div class="form-group" id="hide_div_{{ $new_org_row->checklist_id }}">
+          <a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="{{ $new_org_row->checklist_id }}"><img src="/img/cross.png" width="12"></a>
+          <label for="{{ $new_org_row->name }}">{{ $new_org_row->name }}</label>
+        </div>
+        @endforeach
+      @endif
+      </div>
+     
+      <div class="modal-footer1 clearfix">
+        <div class="email_btns">
+         
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">Save</button>
+          
+          
+          <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    {{ Form::close() }} 
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>  
+        
 
 @stop
