@@ -1179,7 +1179,7 @@ class ClientController extends BaseController {
           
           $staff_name=$f_name.$l_name;
           $data[$j]['contact_type']="staff";
-          $data[$j]['name']=ucwords($staff_name);
+          $data[$j]['name']=ucwords(strtolower($staff_name));
         $j++;
         
     }
@@ -1194,30 +1194,30 @@ class ClientController extends BaseController {
           if(isset($details->field_name) && $details->field_name=="reg_cont_name" ){
             
              $data[$i]['contact_type'] = "reg";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
           
           if(isset($details->field_name) && $details->field_name=="trad_cont_name" ){
             $data[$i]['contact_type'] = "trad";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
            if(isset($details->field_name) && $details->field_name=="corres_cont_name" ){
             $data[$i]['contact_type'] = "corres";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
          
           
           if(isset($details->field_name) && $details->field_name=="banker_cont_name" ){
             $data[$i]['contact_type'] = "banker";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
           if(isset($details->field_name) && $details->field_name=="oldacc_cont_name" ){
             $data[$i]['contact_type'] = "oldacc";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
           if(isset($details->field_name) && $details->field_name=="auditors_cont_name" ){
             $data[$i]['contact_type'] = "auditors";
-             $data[$i]['name']=ucwords($details->field_value);
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
          
           if(isset($details->field_name) && $details->field_name=="solicitors_cont_name" ){
