@@ -295,8 +295,8 @@ class CrmController extends BaseController{
         $divided_by = 10000;
 
         $details = CrmLead::getDataWithDateRange($from_date, $to_date);
+        $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
         if(isset($details) && count($details) >0){
-            $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
             foreach ($details as $key => $value) {
                 $date = explode("-", $value['date']);
                 $month = $date[1];
@@ -338,19 +338,19 @@ class CrmController extends BaseController{
                     $dec_total += $value['quoted_value'];
                 }
             }
-            $data['jan_total'] = $jan_total/$divided_by;
-            $data['feb_total'] = $feb_total/$divided_by;
-            $data['mar_total'] = $mar_total/$divided_by;
-            $data['apr_total'] = $apr_total/$divided_by;
-            $data['may_total'] = $may_total/$divided_by;
-            $data['jun_total'] = $jun_total/$divided_by;
-            $data['jul_total'] = $jul_total/$divided_by;
-            $data['aug_total'] = $aug_total/$divided_by;
-            $data['sep_total'] = $sep_total/$divided_by;
-            $data['oct_total'] = $oct_total/$divided_by;
-            $data['nov_total'] = $nov_total/$divided_by;
-            $data['dec_total'] = $dec_total/$divided_by;
         }
+        $data['jan_total'] = $jan_total/$divided_by;
+        $data['feb_total'] = $feb_total/$divided_by;
+        $data['mar_total'] = $mar_total/$divided_by;
+        $data['apr_total'] = $apr_total/$divided_by;
+        $data['may_total'] = $may_total/$divided_by;
+        $data['jun_total'] = $jun_total/$divided_by;
+        $data['jul_total'] = $jul_total/$divided_by;
+        $data['aug_total'] = $aug_total/$divided_by;
+        $data['sep_total'] = $sep_total/$divided_by;
+        $data['oct_total'] = $oct_total/$divided_by;
+        $data['nov_total'] = $nov_total/$divided_by;
+        $data['dec_total'] = $dec_total/$divided_by;
         //print_r($data);
         //Common::last_query();
         echo view::make("crm/ajax.graph", $data);
