@@ -1165,7 +1165,8 @@ class ClientController extends BaseController {
         $groupUserId 		= $session['group_users'];
     
     $staff_details = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
-   $j=0;
+   
+   $i=0;
    
     foreach ($staff_details as $key => $staff) {
         $f_name = $l_name ="";
@@ -1178,16 +1179,16 @@ class ClientController extends BaseController {
           }
           
           $staff_name=$f_name.$l_name;
-          $data[$j]['contact_type']="staff";
-          $data[$j]['name']=ucwords(strtolower($staff_name));
-        $j++;
+          $data[$i]['contact_type']="staff";
+          $data[$i]['name']=ucwords(strtolower($staff_name));
+        $i++;
         
     } 
     
-    //print_r($data);die();
+    //echo '<pre>';print_r($staff_details);die();
             
      $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
-          $i=0;
+          //$i=0;
           foreach ($client_details as $key => $details) {
           
           
@@ -1238,12 +1239,12 @@ class ClientController extends BaseController {
         //echo'<pre>';print_r($relayth_data);die();
        
        // $data=array();   
-       $k=0;
+       //$k=0;
         if(isset($relayth_data) && count($relayth_data) >0 ){
 				foreach ($relayth_data as $key => $value) {
-				     $data[$k]['contact_type'] = "relation";
-					$data[$k]['name'] = ucwords(strtolower($value['name']));
-				$k++;	
+				     $data[$i]['contact_type'] = "relation";
+					$data[$i]['name'] = ucwords(strtolower($value['name']));
+				$i++;	
 				}
             
 			}
