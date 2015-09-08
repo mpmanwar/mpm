@@ -1192,6 +1192,7 @@ class ClientController extends BaseController {
           
           
           if(isset($details->field_name) && $details->field_name=="reg_cont_name" ){
+            
              $data[$i]['contact_type'] = "reg";
              $data[$i]['name']=$details->field_value;
           }
@@ -1229,10 +1230,34 @@ class ClientController extends BaseController {
           $i++;
           }
          
+         
+         //
+         
+          $relayth_data= Common::get_relationship_client($client_id); 
+       
+        //echo'<pre>';print_r($relayth_data);die();
+       
+        //$data=array();   
+       $k=0;
+        if(isset($relayth_data) && count($relayth_data) >0 ){
+				foreach ($relayth_data as $key => $value) {
+				     $data[$k]['contact_type'] = "relation";
+					$data[$k]['name'] = $value['name'];
+				$k++;	
+				}
+            
+			}
+         
+         
+         //
+         
+         
+         
+         
           
         // print_r($data);
           //print_r($data['name']);
-          
+          //die();
            //array_merge($a1,$a2)
            
            echo View::make('home.organisation.ownerdropdown',$data)->with('data',$data);
