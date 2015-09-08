@@ -328,6 +328,10 @@ $(".deleteLeads").click(function(){
 
 /* ################# Graphs Modal Start #################### */
   $(".graphs-modal").click(function(){
+    $("#show_graph").html('');
+    $("#show_graph_loader").html('');
+    $("#from_date").val('');
+    $("#to_date").val('');
     $("#graphs-modal").modal("show");
   });
 
@@ -338,7 +342,12 @@ $(".deleteLeads").click(function(){
           type: "POST",
           url: '/crm/show-graph',
           data: { 'from_date' : from_date, 'to_date' : to_date },
+          beforeSend: function() {
+            $("#show_graph").html('');
+            $("#show_graph_loader").html('<img src="/img/spinner.gif" />');
+          },
           success : function(resp){
+            $("#show_graph_loader").html('');
             $("#show_graph").html(resp);
           }
       });

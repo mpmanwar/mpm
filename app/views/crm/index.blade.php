@@ -1116,7 +1116,8 @@ $(document).ready(function(){
         <div class="form-group">
           <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph">
         </div> 
- <div class="clearfix"></div>
+        <div id="show_graph_loader" style="text-align: center;"></div>
+        <div class="clearfix"></div>
 
         <div class="form-group" id="show_graph"></div>
          <div class="clearfix"></div>
