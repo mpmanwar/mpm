@@ -326,7 +326,12 @@ $(".deleteLeads").click(function(){
   });
 /* ################# Existing Client End ################### */
 
+/* ################# Graphs Modal Start #################### */
+  $(".graphs-modal").click(function(){
+      $("#graphs-modal").modal("show");
+  });
 
+/* ################# Graphs Modal Start #################### */
 
 	
 });//document end 
