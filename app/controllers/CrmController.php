@@ -36,7 +36,22 @@ class CrmController extends BaseController{
         $data['old_lead_sources']   = LeadSource::getOldLeadSource();
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
+
         $data['leads_details']      = CrmLead::getAllDetails();
+        $total    = 0;
+        $average  = 0;
+        $likely   = 0;
+        if(isset($data['leads_details']) && count($data['leads_details']) >0){
+            foreach ($data['leads_details'] as $key => $value) {
+                $quoted_value = str_replace(",", "", $value['quoted_value']);
+                $total += $quoted_value;
+                $likely += ($value['deal_certainty']*$quoted_value)/100;
+            }
+            $average = $total/count($data['leads_details']);
+        }
+        $data['all_total']     = number_format($total, 2);
+        $data['all_average']   = number_format($average, 2);
+        $data['all_likely']    = number_format($likely, 2);
         //echo "<pre>";print_r($data['leads_details']);echo "</pre>";die;
         return View::make('crm.index', $data);
     }
@@ -44,7 +59,8 @@ class CrmController extends BaseController{
     public function save_leads_data()
     {
         $data       = array();
-        $session    = Session::get('admin_details');        
+        $session    = Session::get('admin_details'); 
+        $user_id    = $session['id'];     
 
         $details    = Input::get();
         $encode_page_open   = $details['encode_page_open'];
@@ -57,35 +73,40 @@ class CrmController extends BaseController{
             $data['prospect_fname'] = $details['prospect_fname'];
             $data['prospect_lname'] = $details['prospect_lname'];
         }else{
-            $data['business_type']  = $details['business_type'];
+            $data['business_type']  = isset($details['business_type'])?$details['business_type']:"0";
             $data['prospect_name']  = $details['prospect_name'];
             $data['contact_title']  = $details['contact_title'];
             $data['contact_fname']  = $details['contact_fname'];
             $data['contact_lname']  = $details['contact_lname'];
         }
-        $data['existing_client'] = $details['existing_client'];
-        $data['user_id']        = $session['id'];
+        $data['existing_client'] = isset($details['existing_client'])?$details['existing_client']:"0";
+        $data['user_id']        = $user_id;
         $data['client_type']    = $details['type'];
         $data['date']           = $details['date'];
         $data['deal_certainty'] = $details['deal_certainty'];
-        $data['deal_owner']     = $details['deal_owner'];
+        $data['deal_owner']     = isset($details['deal_owner'])?$details['deal_owner']:"0";
         $data['phone']          = $details['phone'];
         $data['mobile']         = $details['mobile'];
         $data['email']          = $details['email'];
         $data['website']        = $details['website'];
         $data['annual_revenue'] = $details['annual_revenue'];
         $data['quoted_value']   = $details['quoted_value'];
-        $data['lead_source']    = $details['lead_source'];
-        $data['industry']       = $details['industry'];
+        $data['lead_source']    = isset($details['lead_source'])?$details['lead_source']:"0";
+        $data['industry']       = isset($details['industry'])?$details['industry']:"0";
         $data['street']         = $details['street'];
         $data['city']           = $details['city'];
         $data['county']         = $details['county'];
         $data['postal_code']    = $details['postal_code'];
-        $data['country_id']     = $details['country_id'];
+        $data['country_id']     = isset($details['country_id'])?$details['country_id']:"0";
         $data['notes']          = $details['notes'];
         
         if($leads_id == 0){
-            CrmLead::insert($data);
+            $last_id = CrmLead::insertGetId($data);
+            $leadstatus['user_id']      = $user_id;
+            $leadstatus['leads_id']     = $last_id;
+            $leadstatus['leads_tab_id'] = 2;
+            $leadstatus['created']      = date("Y-m-d H:i:s");
+            CrmLeadsStatus::insert($leadstatus);
         }else{
             CrmLead::where('leads_id', '=', $leads_id)->update($data);
         }
@@ -118,6 +139,7 @@ class CrmController extends BaseController{
         $data = array();
         $client_data    = array();
         $leads_details  = array();
+        $leads_details['date'] = date("d-m-Y");
         $type       = Input::get("type");
         $leads_id   = Input::get("leads_id");
 
@@ -151,7 +173,10 @@ class CrmController extends BaseController{
 
         if($leads_id != '0'){
             $leads_details = CrmLead::getLeadsByLeadsId($leads_id);
+        }else{
+            $leads_details['deal_certainty'] = 100;
         }
+        
         $data['leads_details']      = $leads_details;
         $data['existing_clients']   = $client_data;
 
@@ -186,6 +211,7 @@ class CrmController extends BaseController{
         $leads_ids  = Input::get('leads_delete_id');
         foreach ($leads_ids as $leads_id) {
             CrmLead::where('leads_id', '=', $leads_id)->delete();
+            CrmLeadsStatus::where('leads_id', '=', $leads_id)->delete();
         }
     }
     

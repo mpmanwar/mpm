@@ -49,17 +49,19 @@ $(document).ready(function () {
               client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
             });
             $("#existing_client").html(client_dropdown);
-
+//alert(resp['leads_details'].lead_source);
             //==================Edit =================//
-            //if(leads_id != "0"){
-              if(type == 'ind'){
-                $("#prospect_title").val(resp['leads_details'].prospect_title);
-                $("#prospect_fname").val(resp['leads_details'].prospect_fname);
-                $("#prospect_lname").val(resp['leads_details'].prospect_lname);
-              }
-              $("#leads_id").val(resp['leads_details'].leads_id);
-              $("#deal_certainty").val(resp['leads_details'].deal_certainty);
+            if(leads_id != "0" && resp['leads_details'].existing_client != "0"){
               $("#existing_client").val(resp['leads_details'].existing_client);
+            }
+            if(type == 'ind'){
+              $("#prospect_title").val(resp['leads_details'].prospect_title);
+              $("#prospect_fname").val(resp['leads_details'].prospect_fname);
+              $("#prospect_lname").val(resp['leads_details'].prospect_lname);
+            }
+              $("#leads_id").val(resp['leads_details'].leads_id);
+              $("#date").val(resp['leads_details'].date);
+              $("#deal_certainty").val(resp['leads_details'].deal_certainty);
               $("#deal_owner").val(resp['leads_details'].deal_owner);
               $("#business_type").val(resp['leads_details'].business_type);
               $("#prospect_name").val(resp['leads_details'].prospect_name);
@@ -328,3 +330,30 @@ $(".deleteLeads").click(function(){
 
 	
 });//document end 
+
+
+/*function validation()
+{
+  var client_type = $("#type").val();//alert(client_type);return false;
+  if(client_type == "org"){
+    var prospect_name = $("#prospect_name").val();
+    if(prospect_name == ""){
+      aler("Please enter prospect name");
+      return false;
+    }
+  }else{
+    var prospect_fname = $("#prospect_fname").val();
+    var prospect_lname = $("#prospect_lname").val();
+    if(prospect_fname == ""){
+      aler("Please enter first name");
+      return false;
+    }
+    if(prospect_lname == ""){
+      aler("Please enter last name");
+      return false;
+    }
+  }
+
+  return false;
+  
+}*/
