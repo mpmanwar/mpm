@@ -23,6 +23,8 @@
 <script>
 $(document).ready(function(){
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $("#to_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     //$('.money').mask('000.000.000.000.000,00');
     $('#quoted_value').priceFormat({
         prefix: '',
@@ -131,7 +133,7 @@ $(document).ready(function(){
 
 <script src="{{ URL :: asset('js/graph.js') }}" type="text/javascript"></script>
 <script>
-$(function () {
+/*$(function () {
   var bar = new GraphBar({
     attachTo: '#graph',
     special: 'combo',
@@ -159,7 +161,7 @@ $(function () {
     }
   });
   bar.init();
-});
+});*/
 </script>
 @stop
 
@@ -1082,7 +1084,7 @@ $(function () {
 
 <!-- GRAPHS MODAL -->
 <div class="modal fade" id="graphs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:612px;">
+  <div class="modal-dialog" style="width:660px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -1090,8 +1092,28 @@ $(function () {
         <div class="clearfix"></div>
       </div>
     
-      <div class="modal-body" id="graph">
-        
+      <div class="modal-body">
+        <div class="twobox">
+          <div class="twobox_1">
+              <div class="form-group">
+                <label for="exampleInputPassword1">From Date</label>
+                <input type="text" id="from_date" name="from_date" class="form-control" >
+              </div> 
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">To Date</label>
+                <input type="text" id="to_date" name="to_date" class="form-control" >
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group">
+          <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph">
+        </div> 
+
+        <div class="form-group" id="show_graph"></div>
       </div>
     
     </div>

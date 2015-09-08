@@ -286,6 +286,75 @@ class CrmController extends BaseController{
         echo json_encode($data);
         exit;
     }
+
+    public function show_graph()
+    {
+        $data = array();
+        $from_date  = Input::get('from_date');
+        $to_date    = Input::get('to_date');
+        $divided_by = 1000;
+
+        $details = CrmLead::getDataWithDateRange($from_date, $to_date);
+        if(isset($details) && count($details) >0){
+            $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
+            foreach ($details as $key => $value) {
+                $date = explode("-", $value['date']);
+                $month = $date[1];
+                if($month == "01"){
+                    $jan_total += $value['quoted_value'];
+                    //$jan_won += $value['quoted_value'];
+                }
+                if($month == "02"){
+                    $feb_total += $value['quoted_value'];
+                }
+                if($month == "03"){
+                    $mar_total += $value['quoted_value'];
+                }
+                if($month == "04"){
+                    $apr_total += $value['quoted_value'];
+                }
+                if($month == "05"){
+                    $may_total += $value['quoted_value'];
+                }
+                if($month == "06"){
+                    $jun_total += $value['quoted_value'];
+                }
+                if($month == "07"){
+                    $jul_total += $value['quoted_value'];
+                }
+                if($month == "08"){
+                    $aug_total += $value['quoted_value'];
+                }
+                if($month == "09"){
+                    $sep_total += $value['quoted_value'];
+                }
+                if($month == "10"){
+                    $oct_total += $value['quoted_value'];
+                }
+                if($month == "11"){
+                    $nov_total += $value['quoted_value'];
+                }
+                if($month == "12"){
+                    $dec_total += $value['quoted_value'];
+                }
+            }
+            $data['jan_total'] = $jan_total/$divided_by;
+            $data['feb_total'] = $feb_total/$divided_by;
+            $data['mar_total'] = $mar_total/$divided_by;
+            $data['apr_total'] = $apr_total/$divided_by;
+            $data['may_total'] = $may_total/$divided_by;
+            $data['jun_total'] = $jun_total/$divided_by;
+            $data['jul_total'] = $jul_total/$divided_by;
+            $data['aug_total'] = $aug_total/$divided_by;
+            $data['sep_total'] = $sep_total/$divided_by;
+            $data['oct_total'] = $oct_total/$divided_by;
+            $data['nov_total'] = $nov_total/$divided_by;
+            $data['dec_total'] = $dec_total/$divided_by;
+        }
+        //print_r($data);
+        //Common::last_query();
+        echo view::make("crm/ajax.graph", $data);
+    }
     
     
     

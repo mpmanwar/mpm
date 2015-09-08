@@ -328,7 +328,21 @@ $(".deleteLeads").click(function(){
 
 /* ################# Graphs Modal Start #################### */
   $(".graphs-modal").click(function(){
-      $("#graphs-modal").modal("show");
+    $("#graphs-modal").modal("show");
+  });
+
+  $("#show_graph_button").click(function(){
+    var from_date = $("#from_date").val();
+    var to_date = $("#to_date").val();
+    $.ajax({
+          type: "POST",
+          url: '/crm/show-graph',
+          data: { 'from_date' : from_date, 'to_date' : to_date },
+          success : function(resp){
+            $("#show_graph").html(resp);
+          }
+      });
+      
   });
 
 /* ################# Graphs Modal Start #################### */
