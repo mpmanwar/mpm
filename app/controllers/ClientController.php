@@ -1166,9 +1166,9 @@ class ClientController extends BaseController {
     
     $staff_details = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
    $j=0;
-   $f_name = $l_name ="";
+   
     foreach ($staff_details as $key => $staff) {
-        
+        $f_name = $l_name ="";
         if(isset($staff->fname) ){
            $f_name .=$staff->fname;
           }

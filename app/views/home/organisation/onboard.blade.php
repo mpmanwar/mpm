@@ -567,6 +567,7 @@ $('.DeleteBoxRow').click(function() {
                 <td align="center">
                 
                 <select class="form-control newdropdown status_dropdown" name="status" id="status">
+                   <option value="notstarted">Not Started</option>
                     <option value="done">Done</option>
                     <option value="wip">WIP</option>
                     <option value="na">N/A</option>

@@ -154,6 +154,16 @@ KNOWLEDGE BASE</p>
 </div></a>
 </li>
 
+
+<li class="hvr-grow">
+<a  href="/fileandsign">
+<div class="circle_icons_inner">
+<div class="circle_icon"><img src="{{ URl::asset('img/dashboard_circle.png') }}" /></div>
+<p class="c_tagline2">FILE & SIGN</p>
+<div class="clearfix"></div>
+</div></a>
+</li>
+
     </ul>
     </div>
  
