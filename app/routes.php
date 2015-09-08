@@ -391,6 +391,7 @@ Route::any('/crm/save-edit-status', 'CrmController@save_edit_status');
 Route::any('/crm/delete-leads-details', 'CrmController@delete_leads_details');
 Route::any('/crm/sendto-another-tab', 'CrmController@sendto_another_tab');
 Route::any('/crm/get-client-address', 'CrmController@get_client_address');
+Route::any('/crm/show-graph', 'CrmController@show_graph');
 /*================== CRM End ==============*/
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
