@@ -162,7 +162,7 @@
 </div>
 <div class="closeand_download">
 <button class="close_btn1">Close</button>
-<button class="download_btn1">Download</button>
+<!-- <button class="download_btn1">Download</button> -->
  <div class="clearfix"></div>
 </div>
 </div>
@@ -211,7 +211,7 @@
                                 </table>
 <div class="closeand_download">
 <button class="close_btn1">Close</button>
-<button class="download_btn1">Download</button>
+<!-- <button class="download_btn1">Download</button> -->
  <div class="clearfix"></div>
 </div>
 </div>
@@ -264,7 +264,7 @@
 
 <div class="closeand_download">
 <button class="close_btn1">Close</button>
-<button class="download_btn1">Download</button>
+<!--<button class="download_btn1">Download</button> -->
  <div class="clearfix"></div>
 </div>
 </div>
@@ -317,7 +317,6 @@
                                       <td width="10%" align="center"><strong>Delete</strong></td>
                                     </tr>
                                     <tr>
-                                     
                                       <td align="center">08/09/2015</td>
                                       <td align="center">wfw werfwerf</td>
                                       <td align="center">R Sharma</td>
@@ -338,7 +337,7 @@
           
           <div class="closeand_download">
 <button class="close_btn1">Close</button>
-<button class="download_btn1">Download</button>
+<!-- <button class="download_btn1">Download</button> -->
  <div class="clearfix"></div>
 </div>
         
