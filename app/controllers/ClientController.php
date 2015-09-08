@@ -1179,7 +1179,7 @@ class ClientController extends BaseController {
           
           $staff_name=$f_name.$l_name;
           $data[$j]['contact_type']="staff";
-          $data[$j]['name']=$staff_name;
+          $data[$j]['name']=ucwords($staff_name);
         $j++;
         
     }
@@ -1194,35 +1194,35 @@ class ClientController extends BaseController {
           if(isset($details->field_name) && $details->field_name=="reg_cont_name" ){
             
              $data[$i]['contact_type'] = "reg";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
           
           if(isset($details->field_name) && $details->field_name=="trad_cont_name" ){
             $data[$i]['contact_type'] = "trad";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
            if(isset($details->field_name) && $details->field_name=="corres_cont_name" ){
             $data[$i]['contact_type'] = "corres";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
          
           
           if(isset($details->field_name) && $details->field_name=="banker_cont_name" ){
             $data[$i]['contact_type'] = "banker";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
           if(isset($details->field_name) && $details->field_name=="oldacc_cont_name" ){
             $data[$i]['contact_type'] = "oldacc";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
           if(isset($details->field_name) && $details->field_name=="auditors_cont_name" ){
             $data[$i]['contact_type'] = "auditors";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords($details->field_value);
           }
          
           if(isset($details->field_name) && $details->field_name=="solicitors_cont_name" ){
             $data[$i]['contact_type'] = "solicitors";
-             $data[$i]['name']=$details->field_value;
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
           }
           
           
@@ -1231,23 +1231,23 @@ class ClientController extends BaseController {
           }
          
          
-         //
+        
          
           $relayth_data= Common::get_relationship_client($client_id); 
        
         //echo'<pre>';print_r($relayth_data);die();
        
-        //$data=array();   
+       // $data=array();   
        $k=0;
         if(isset($relayth_data) && count($relayth_data) >0 ){
 				foreach ($relayth_data as $key => $value) {
 				     $data[$k]['contact_type'] = "relation";
-					$data[$k]['name'] = $value['name'];
+					$data[$k]['name'] = ucwords(strtolower($value['name']));
 				$k++;	
 				}
             
 			}
-         
+         // echo'<pre>';print_r($data);die();
          
          //
          
