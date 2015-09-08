@@ -64,8 +64,9 @@
                 <li class=""><a data-toggle="tab" id="tab2send" href="#tab_2">SEND FOR SIGNATURE</a></li>
                 <li><a data-toggle="tab" id="tab3signdocs" href="#tab_3">SIGNED DOCS</a></li>
                 <li><a data-toggle="tab" id="tab4sharefile" href="#tab_4">SHARE FILES WITH CLIENT PORTAL(DROPBOX LINKS)</a></li>
+              
+              <li style="float:right;"> <input type="checkbox" name="notification" id="notification" /> </li>
                 <li style="float:right;" id="sharefiles"><a href="#" class=" btn-block btn-primary " data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i> Share New Document </a></li>
-              <li> <input type="checkbox" name="notification" id="notification" /> </li>
               </ul>
               <div class="tab-content">
                 <div id="tab_1" class="tab-pane active">
