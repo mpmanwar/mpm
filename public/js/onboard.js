@@ -87,7 +87,8 @@ $("#append_position_type").on("click", ".delete_checklist_name", function(){
           //location.reload();
           $("#hide_div_"+field_id).hide();
           
-          $("#position_type option[value='"+field_id+"']").remove();
+          $("#checklist_type option[value='"+field_id+"']").remove();
+        
         }else{
           alert("There are some error to delete this type, Please try again");
         }
