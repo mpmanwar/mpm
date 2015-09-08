@@ -1182,7 +1182,7 @@ class ClientController extends BaseController {
           $data[$j]['name']=ucwords(strtolower($staff_name));
         $j++;
         
-    }
+    } 
     
     //print_r($data);die();
             
