@@ -6,7 +6,7 @@ class CrmLeadsTab extends Eloquent {
 	public static function getAllTabDetails()
     {
     	$data = array();
-		$leads_data = CrmLeadsTab::get();
+		$leads_data = CrmLeadsTab::where('status', '=', 'S')->get();
 		if(isset($leads_data) && count($leads_data) >0){
 			foreach ($leads_data as $i => $details) {
 				$data[$i]['tab_id'] 		= $details->tab_id;
