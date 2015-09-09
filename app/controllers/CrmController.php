@@ -26,7 +26,7 @@ class CrmController extends BaseController{
         $data['owner_id']           = base64_decode($owner_id);
         $data['goto_url']           = "/crm";
         
-        
+        //echo "<pre>";print_r($data);die;
         $data['titles']         = Title::orderBy("title_id")->get();
         $data['countries']      = Country::orderBy('country_name')->get();
         $data['old_org_types']  = OrganisationType::where("client_type", "=", "all")->orderBy("name")->get();

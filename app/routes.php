@@ -395,3 +395,4 @@ Route::any('/crm/show-graph', 'CrmController@show_graph');
 /*================== CRM End ==============*/
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
+Route::any('/quotes', 'QuotesController@quotes');
