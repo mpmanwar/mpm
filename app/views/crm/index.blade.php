@@ -72,7 +72,7 @@ $(document).ready(function(){
       "aaSorting": [[1, 'desc']]
     });
 
-  for(var k=2; k<=10;k++){
+  for(var k=2; k<=11;k++){
     $('#example1'+k).dataTable({
       "bPaginate": true,
       "bLengthChange": true,
@@ -90,6 +90,7 @@ $(document).ready(function(){
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true},
+        {"bSortable": true},
         {"bSortable": false},
         {"bSortable": false},
         {"bSortable": false},
@@ -98,32 +99,37 @@ $(document).ready(function(){
         {"bSortable": false},
         {"bSortable": false}
       ],
-      "aaSorting": [[1, 'asc']]
-
+      "aaSorting": [[1, 'desc']]
     });
   }
 
-  $('#example2').dataTable({
-    "bPaginate": true,
-    "bLengthChange": true,
-    "bFilter": true,
-    "bSort": true,
-    "bInfo": true,
-    "bAutoWidth": false,
-    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
-    "iDisplayLength": 25,
+  $('#example112').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
 
-    "aoColumns":[
+      "aoColumns":[
         {"bSortable": false},
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true},
         {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
         {"bSortable": false},
-        {"bSortable": true}
-    ],
-    "aaSorting": [[6, 'asc']],
-
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        //{"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
     });
         
 
@@ -248,6 +254,9 @@ $(document).ready(function(){
           <li>
             <a class="btn btn-info graphs-modal" href="javascript:void(0)">GRAPHS</a>
           </li>
+          <li>
+            <a class="btn btn-info" href="javascript:void(0)">REPORT</a>
+          </li>
         <div class="clearfix"></div>
         </ul>
       </div>
@@ -267,7 +276,7 @@ $(document).ready(function(){
           </li> -->
         
           <li style="margin-top: 8px;">
-            <a href="javascript:void(0)" id="archive_div">Hide Archived</a>
+            <a href="javascript:void(0)" id="archive_div">{{ $archive }}</a>
           </li>
           <li>
             <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
@@ -341,6 +350,92 @@ $(document).ready(function(){
           <th>Phone</th>
           <th>Email</th>
           <th width="3%">Age</th>
+          <th width="9%">Quote</th>
+          <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
+          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+          <th width="8%">Quoted Value</th>
+          <th width="5%">Notes</th>
+          <th width="6%">Client Onboarding</th>
+        </tr>
+      </thead>
+
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+        @if(isset($leads_details) && count($leads_details) >0)
+          @foreach($leads_details as $key=>$leads_row)
+            <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
+              <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
+              <td align="left">{{ $leads_row['date'] or "" }}</td>
+              <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
+              <td align="left">
+                @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
+                  <a href="javascript:void(0)" data-type="org" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_form-modal">{{ $leads_row['prospect_name'] or "" }}</a>
+                @else
+                  <a href="javascript:void(0)" data-type="ind" data-leads_id="{{ $leads_row['leads_id'] or "" }}" class="open_form-modal">{{ $leads_row['prospect_title'] or "" }} {{ $leads_row['prospect_fname'] or "" }} {{ $leads_row['prospect_lname'] or "" }}</a>
+                @endif
+              </td>
+              <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
+              <td align="left">{{ $leads_row['phone'] or "" }}</td>
+              <td align="left">{{ $leads_row['email'] or "" }}</td>
+              <td align="center">0</td>
+              <td align="center">
+                <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                  <span>{{ (isset($leads_row['is_invoiced']) && $leads_row['is_invoiced'] == 'Y')?'Invoiced':'SEND' }}</span>
+                  <div class="small_icon" data-id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"></div><div class="clr"></div>
+                  <div class="select_toggle" id="status{{ $leads_row['leads_id'] or "" }}_11" style="display: none;">
+                    <ul>
+                      <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                      <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
+                      <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
+                      <li><a href="javascript:void(0)" class="sendto_invoiced" data-tab_id="12" data-leads_id="{{ $leads_row['leads_id'] or "" }}">Generate Invoice</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td align="center">
+                <a href="javascript:void(0)" class="notes_btn" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11">View</a>
+              </td>
+              <td align="center">
+                <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
+                  @if(isset($leads_tabs) && count($leads_tabs) >0)
+                    @foreach($leads_tabs as $key=>$tab_row)
+                      <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </td>
+              <td align="center">{{ $leads_row['quoted_value'] or "" }}</td>
+              <td>
+                <input type="hidden" id="notes_{{ $leads_row['leads_id'] or "" }}" value="{{ $leads_row['notes'] or "" }}">
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
+              </td>
+              <td align="center">
+                @if(isset($leads_row['existing_client']) && $leads_row['existing_client'] != '0')
+                  {{ "N/A" }}
+                @else
+                  <button type="button" class="send_btn send_manage_task" data-client_id="{{ $leads_row['leads_id'] or "" }}" data-field_name="ch_manage_task">START</button>
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        @endif
+        
+      </tbody>
+    </table>
+    </div>
+           
+    @for($k=2; $k <=11;$k++)                          
+    <div id="tab_1{{$k}}" class="tab-pane top_margin {{ ($page_open == '1'.$k)?'active':'' }}">
+      <table class="table table-bordered table-hover dataTable crm" id="example1{{$k}}" aria-describedby="example1{{$k}}_info">
+      <thead>
+        <tr role="row">
+          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+          <th width="7%">Date</th>
+          <th width="12%">Deal Owner</th>
+          <th width="12%">Prospect Name</th>
+          <th>Contact Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th width="3%">Age</th>
           <th width="6%">Quote</th>
           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
           <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
@@ -353,6 +448,7 @@ $(document).ready(function(){
       <tbody role="alert" aria-live="polite" aria-relevant="all">
         @if(isset($leads_details) && count($leads_details) >0)
           @foreach($leads_details as $key=>$leads_row)
+            @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == $k)
             <tr>
               <td><input type='checkbox' class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
               <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -407,134 +503,14 @@ $(document).ready(function(){
                 @endif
               </td>
             </tr>
+            @endif
           @endforeach
         @endif
         
       </tbody>
-    </table>
-    </div>
-           
-    <div id="tab_12" class="tab-pane top_margin {{ ($page_open == '12')?'active':'' }}">
-      <table class="table table-bordered table-hover dataTable crm" id="example12" aria-describedby="example12_info">
-      <thead>
-        <tr role="row">
-          <th width="3%"><input type='checkbox'></th>
-          <th width="8%">Deal Owner</th>
-          <th>Prospect Name</th>
-          <th>Contact Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th width="6%">Deal Age</th>
-          <th width="6%">Quote</th>
-          <th width="10%">Quote Status</th>
-          <th width="11%">Lead Status <a href="#" data-toggle="modal" data-target="#status-modal" class="auto_send-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></th>
-          <th width="8%">Quoted Value</th>
-          <th width="6%">Notes</th>
-          <th width="10%">Client Onboarding</th>
-        </tr>
-      </thead>
-
-      <tbody role="alert" aria-live="polite" aria-relevant="all">
-        <tr>
-          <td><input type='checkbox'></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="left"></td>
-          <td align="center"></td>
-          <td align="center">
-            <div class="email_client_selectbox" style="height:24px;">
-              <span>SEND</span>
-              <div class="small_icon" data-id="152" data-tab="11"></div><div class="clr"></div>
-              <div class="select_toggle" id="status152_11" style="display: none;">
-                <ul>
-                  <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
-                  <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>
-                </ul>
-              </div>
-            </div>
-          </td>
-          <td align="center"></td>
-          <td align="center">
-            <select class="form-control newdropdown" id="21_status_dropdown_152" data-client_id="152">
-              <option value="2">Incoming</option>
-            </select>
-          </td>
-          <td align="center"></td>
-          <td><a href="javascript:void(0)" class="notes_btn open_notes_popup" data-client_id="" data-tab="11"><span>notes</span></a></td>
-          <td align="center"><button type="button" class="send_btn send_manage_task" data-client_id="156" data-field_name="ch_manage_task">Start</button></td>
-        </tr>
-        
-      </tbody>
-    </table>  
-    </div>
-     
-    @for($k=3; $k <= 9;$k++)                          
-    <div id="tab_1{{$k}}" class="tab-pane top_margin {{ ($page_open == '1'.$k)?'active':'' }}">
-      <table class="table table-bordered table-hover dataTable crm" id="example1{{$k}}" aria-describedby="example1{{$k}}_info">
-      <thead>
-        <tr role="row">
-          <th width="5%">DELETE</th>
-          <th width="8%">DOI</th>
-          <th>BUSINESS NAME</th>
-          <th>AUTHEN CODE</th>
-          <th>NEXT RETURN DUE ON</th>
-          <th>COUNT DOWN</th>
-          <th>NOTES</th>
-          <th width="10%">EMAIL CLIENT</th>
-          <th width="13%">STATUS <a href="#" data-toggle="modal" data-target="#status-modal">Add/Edit list</a></th>
-        </tr>
-      </thead>
-
-      <tbody role="alert" aria-live="polite" aria-relevant="all">
-        @if(isset($company_details) && count($company_details) >0)
-        @foreach($company_details as $key=>$details)
-          @if(isset($details['ch_manage_task']) && $details['ch_manage_task'] == "Y")
-              @if(isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $k)
-              <tr id="data_tr_{{ $details['client_id'] }}_2{{ $k }}">
-                <td><a href="javascript:void(0)" class="delete_single_task" data-client_id="{{ $details['client_id'] or "" }}" data-tab="2{{ $k }}"><img src="/img/cross.png"></a></td>
-                <td align="left">{{ isset($details['incorporation_date'])?date("d-m-Y", strtotime($details['incorporation_date'])):"" }}</td>
-                <td align="left"><a href="/client/edit-org-client/{{ $details['client_id'] }}/{{ base64_encode('org_client') }}" target="_blank">{{ $details['business_name'] or "" }}</a></td>
-                <td align="left">{{ $details['ch_auth_code'] or "" }}</td>
-                <td align="left">{{ isset($details['next_ret_due'])?date("d-m-Y", strtotime($details['next_ret_due'])):"" }}</td>
-                <td align="left">
-                  @if( isset($details['deadret_count']) && $details['deadret_count'] < 0 )
-                    <span style="color:red">{{ $details['deadret_count'] or "" }}</span>
-                  @else
-                     {{ $details['deadret_count'] or "" }}
-                  @endif
-                </td>
-                <td align="center"><a href="javascript:void(0)" class="search_t open_notes_popup" data-client_id="{{ $details['client_id'] or "" }}" data-tab="21"><span  {{ (isset($details['jobs_notes']['notes']) && $details['jobs_notes']['notes'] != "")?'style="border-bottom:3px dotted #3a8cc1 !important"':'' }}>notes</span></a>
-              </td>
-                <td align="left">
-                
-              </td>
-                <td align="center" width="12%">
-                  <input type="hidden" name="2{{ $k }}_prev_status_{{ $details['client_id'] }}" id="2{{ $k }}_prev_status_{{ $details['client_id'] }}" value="{{ $details['job_status'][$service_id]['status_id'] or '2' }}">
-                  <select class="form-control newdropdown table_select status_dropdown" id="2{{ $k }}_status_dropdown" data-client_id="{{ $details['client_id'] }}">
-                    <option value="2">Not Started</option>
-                    @if(isset($jobs_steps) && count($jobs_steps) >0)
-                      @foreach($jobs_steps as $key=>$value)
-                        <!-- <option value="{{ $value['step_id'] or "" }}"  style="display: {{ ($value['status'] == 'H')?'none':'block'}}">{{ $value['title'] or "" }}</option> -->
-                        <option value="{{ $value['step_id'] or "" }}" {{ ((isset($details['job_status'][$service_id]['status_id']) && $details['job_status'][$service_id]['status_id'] == $value['step_id']) && (isset($details['job_status'][$service_id]['client_id']) && $details['job_status'][$service_id]['client_id'] == $details['client_id']))?"selected":"" }}>{{ $value['title'] or "" }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </td>
-              </tr>
-              @endif
-            @endif
-        @endforeach
-      @endif
-        
-      </tbody>
     </table> 
     </div>
-    @endfor     
-   
+    @endfor  
 
   </div>
 
@@ -1116,7 +1092,8 @@ $(document).ready(function(){
         <div class="form-group">
           <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph">
         </div> 
- <div class="clearfix"></div>
+        <div id="show_graph_loader" style="text-align: center;"></div>
+        <div class="clearfix"></div>
 
         <div class="form-group" id="show_graph"></div>
          <div class="clearfix"></div>

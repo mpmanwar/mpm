@@ -7,87 +7,108 @@ $(document).ready(function () {
       $(".crm input[class='ads_Checkbox']").iCheck('uncheck');
   });
 
-    $(document).click(function() {
-        $(".open_toggle").hide();
-    });
-    $("#select_icon").click(function(event) {
-        $(".open_toggle").toggle();
-        event.stopPropagation();
-    });
-
-    $(".small_icon").click(function(event) {
-        var id = $(this).data("id");
-        var tab = $(this).data("tab");
-        $("#status"+id+"_"+tab).toggle();
-        event.stopPropagation();
-    });
-
-    $(".open_form-modal").click(function(){
-        var type      = $(this).data("type");
-        var leads_id  = $(this).data("leads_id");
-
-        $("#type").val(type);
-        $("#leads_id").val(leads_id);
-        if(type == "org"){
-          $("#prospect_name_div").hide();
-          $("#contact_name_div").show();
-          $("#org_name_div").show();
+  $(".ads_Checkbox").on('ifChecked', function(event){
+    $(".ads_Checkbox:checked").each( function (i) {
+        if($(this).data("archive") == "Y"){
+          $("#archivedButton").html('Un-Archive');
         }else{
-          $("#contact_name_div").hide();
-          $("#org_name_div").hide();
-          $("#prospect_name_div").show();
+          $("#archivedButton").html('Archive');
         }
-
-        $.ajax({
-          type: "POST",
-          url: '/crm/get-form-dropdown',
-          dataType : 'json',
-          data: { 'type' : type, 'leads_id' : leads_id },
-          success : function(resp){
-            var client_dropdown = "<option value=''>-- None --</option>";
-            $.each(resp['existing_clients'], function(key){
-              client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
-            });
-            $("#existing_client").html(client_dropdown);
-//alert(resp['leads_details'].lead_source);
-            //==================Edit =================//
-            if(leads_id != "0" && resp['leads_details'].existing_client != "0"){
-              $("#existing_client").val(resp['leads_details'].existing_client);
-            }
-            if(type == 'ind'){
-              $("#prospect_title").val(resp['leads_details'].prospect_title);
-              $("#prospect_fname").val(resp['leads_details'].prospect_fname);
-              $("#prospect_lname").val(resp['leads_details'].prospect_lname);
-            }
-              $("#leads_id").val(resp['leads_details'].leads_id);
-              $("#date").val(resp['leads_details'].date);
-              $("#deal_certainty").val(resp['leads_details'].deal_certainty);
-              $("#deal_owner").val(resp['leads_details'].deal_owner);
-              $("#business_type").val(resp['leads_details'].business_type);
-              $("#prospect_name").val(resp['leads_details'].prospect_name);
-              $("#contact_title").val(resp['leads_details'].contact_title);
-              $("#contact_fname").val(resp['leads_details'].contact_fname);
-              $("#contact_lname").val(resp['leads_details'].contact_lname);
-              $("#phone").val(resp['leads_details'].phone);
-              $("#mobile").val(resp['leads_details'].mobile);
-              $("#email").val(resp['leads_details'].email);
-              $("#website").val(resp['leads_details'].website);
-              $("#annual_revenue").val(resp['leads_details'].annual_revenue);
-              $("#quoted_value").val(resp['leads_details'].quoted_value);
-              $("#lead_source").val(resp['leads_details'].lead_source);
-              $("#industry").val(resp['leads_details'].industry);
-              $("#street").val(resp['leads_details'].street);
-              $("#city").val(resp['leads_details'].city);
-              $("#county").val(resp['leads_details'].county);
-              $("#postal_code").val(resp['leads_details'].postal_code);
-              $("#country").val(resp['leads_details'].country);
-              $("#notes").val(resp['leads_details'].notes);
-            //}
-
-            $("#open_form-modal").modal("show");
-          }
-        });
     });
+    
+  });
+  $(".ads_Checkbox").on('ifUnchecked', function(event){
+    $(".ads_Checkbox:checked").each( function (i) {
+        if($(this).data("archive") == "Y"){
+          $("#archivedButton").html('Un-Archive');
+        }else{
+          $("#archivedButton").html('Archive');
+        }
+    });
+    
+  });
+
+  $(document).click(function() {
+      $(".open_toggle").hide();
+  });
+  $("#select_icon").click(function(event) {
+      $(".open_toggle").toggle();
+      event.stopPropagation();
+  });
+
+  $(".small_icon").click(function(event) {
+      var id = $(this).data("id");
+      var tab = $(this).data("tab");
+      $("#status"+id+"_"+tab).toggle();
+      event.stopPropagation();
+  });
+
+  $(".open_form-modal").click(function(){
+      var type      = $(this).data("type");
+      var leads_id  = $(this).data("leads_id");
+
+      $("#type").val(type);
+      $("#leads_id").val(leads_id);
+      if(type == "org"){
+        $("#prospect_name_div").hide();
+        $("#contact_name_div").show();
+        $("#org_name_div").show();
+      }else{
+        $("#contact_name_div").hide();
+        $("#org_name_div").hide();
+        $("#prospect_name_div").show();
+      }
+
+      $.ajax({
+        type: "POST",
+        url: '/crm/get-form-dropdown',
+        dataType : 'json',
+        data: { 'type' : type, 'leads_id' : leads_id },
+        success : function(resp){
+          var client_dropdown = "<option value=''>-- None --</option>";
+          $.each(resp['existing_clients'], function(key){
+            client_dropdown+= "<option value='"+resp['existing_clients'][key].client_id+"'>"+resp['existing_clients'][key].client_name+"</option>";
+          });
+          $("#existing_client").html(client_dropdown);
+//alert(resp['leads_details'].lead_source);
+          //==================Edit =================//
+          if(leads_id != "0" && resp['leads_details'].existing_client != "0"){
+            $("#existing_client").val(resp['leads_details'].existing_client);
+          }
+          if(type == 'ind'){
+            $("#prospect_title").val(resp['leads_details'].prospect_title);
+            $("#prospect_fname").val(resp['leads_details'].prospect_fname);
+            $("#prospect_lname").val(resp['leads_details'].prospect_lname);
+          }
+            $("#leads_id").val(resp['leads_details'].leads_id);
+            $("#date").val(resp['leads_details'].date);
+            $("#deal_certainty").val(resp['leads_details'].deal_certainty);
+            $("#deal_owner").val(resp['leads_details'].deal_owner);
+            $("#business_type").val(resp['leads_details'].business_type);
+            $("#prospect_name").val(resp['leads_details'].prospect_name);
+            $("#contact_title").val(resp['leads_details'].contact_title);
+            $("#contact_fname").val(resp['leads_details'].contact_fname);
+            $("#contact_lname").val(resp['leads_details'].contact_lname);
+            $("#phone").val(resp['leads_details'].phone);
+            $("#mobile").val(resp['leads_details'].mobile);
+            $("#email").val(resp['leads_details'].email);
+            $("#website").val(resp['leads_details'].website);
+            $("#annual_revenue").val(resp['leads_details'].annual_revenue);
+            $("#quoted_value").val(resp['leads_details'].quoted_value);
+            $("#lead_source").val(resp['leads_details'].lead_source);
+            $("#industry").val(resp['leads_details'].industry);
+            $("#street").val(resp['leads_details'].street);
+            $("#city").val(resp['leads_details'].city);
+            $("#county").val(resp['leads_details'].county);
+            $("#postal_code").val(resp['leads_details'].postal_code);
+            $("#country").val(resp['leads_details'].country);
+            $("#notes").val(resp['leads_details'].notes);
+          //}
+
+          $("#open_form-modal").modal("show");
+        }
+      });
+  });
 
 // Save Business type while add organization client start //
 $("#add_business_type").click(function(){
@@ -289,6 +310,24 @@ $(".deleteLeads").click(function(){
           }
       });
   });
+  $(".sendto_invoiced").click(function(){
+      var tab_id = $(this).data('tab_id');
+      var leads_id = $(this).data('leads_id');
+      var page_open = $("#encode_page_open").val();
+      var owner_id = $("#encode_owner_id").val();
+
+      $.ajax({
+          type: "POST",
+          url: '/crm/sendto-another-tab',
+          data: { 'tab_id' : tab_id, 'leads_id' : leads_id },
+          beforeSend : function(){
+            $(".select_toggle").hide();
+          },
+          success : function(resp){
+            window.location = '/crm/'+page_open+"/"+owner_id;
+          }
+      });
+  });
 /* ################# Status change End ################### */
 
 /* ################# Existing Client Start ################### */
@@ -328,6 +367,10 @@ $(".deleteLeads").click(function(){
 
 /* ################# Graphs Modal Start #################### */
   $(".graphs-modal").click(function(){
+    $("#show_graph").html('');
+    $("#show_graph_loader").html('');
+    $("#from_date").val('');
+    $("#to_date").val('');
     $("#graphs-modal").modal("show");
   });
 
@@ -338,7 +381,12 @@ $(".deleteLeads").click(function(){
           type: "POST",
           url: '/crm/show-graph',
           data: { 'from_date' : from_date, 'to_date' : to_date },
+          beforeSend: function() {
+            $("#show_graph").html('');
+            $("#show_graph_loader").html('<img src="/img/spinner.gif" />');
+          },
           success : function(resp){
+            $("#show_graph_loader").html('');
             $("#show_graph").html(resp);
           }
       });
@@ -346,6 +394,58 @@ $(".deleteLeads").click(function(){
   });
 
 /* ################# Graphs Modal Start #################### */
+
+//Show Archived in add individual client
+  $("#archive_div").click(function(){
+    var page_open = $("#encode_page_open").val();
+    var owner_id = $("#encode_owner_id").val();
+
+    var is_archive;
+    var html = $(this).html();
+    if($.trim(html) == 'Show Archived'){
+      is_archive  = 'N';
+    }else{
+      is_archive  = 'Y';
+    }
+    $.ajax({
+      type: "POST",
+      url: '/crm/show-archive-leads',
+      data: { 'is_archive' : is_archive },
+      success : function(resp){//return false;
+        window.location = '/crm/'+page_open+"/"+owner_id;
+      }
+    });
+  });
+
+// Archive and Un-Archive client start //
+  $("#archivedButton").click(function(){
+    var page_open = $("#encode_page_open").val();
+    var owner_id = $("#encode_owner_id").val();
+
+    var val = [];
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    if(val.length>0){
+      var status = $.trim($(this).html());
+      if(confirm("Do you want to "+status+" the items?")){
+        $.ajax({
+            type: "POST",
+            url: '/crm/archive-leads',
+            data: { 'leads_ids' : val, 'status' : status },
+            success : function(resp){
+              window.location = '/crm/'+page_open+"/"+owner_id;
+            }
+        });
+      }
+    }else{
+      alert('Please select atleast one item');
+    }
+  
+  });
+// Archive and Un-Archive client start //
 
 	
 });//document end 

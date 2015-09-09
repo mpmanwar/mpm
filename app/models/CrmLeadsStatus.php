@@ -3,13 +3,18 @@ class CrmLeadsStatus extends Eloquent {
 
 	public $timestamps = false;
 
-	public static function countLeadsStatusCount( $tab_id )
+	public static function leadsStatusCount( $tab_id )
 	{
 		$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 
-		$stattus_count = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_tab_id", "=", $tab_id)->get()->count();
+        if($tab_id == 12){
+        	$stattus_count = CrmLead::whereIn("user_id", $groupUserId)->where('is_invoiced', '=', 'Y')->get()->count();
+        }else{
+        	$stattus_count = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_tab_id", "=", $tab_id)->get()->count();
+        }
+		
 		return $stattus_count;
 	}
 

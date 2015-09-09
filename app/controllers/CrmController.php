@@ -19,6 +19,12 @@ class CrmController extends BaseController{
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
+        $value          = Session::get('show_archive_leads');
+        if(isset($value) && $value == 'Y'){
+            $data['archive'] = 'Show Archived';
+        }else{
+            $data['archive'] = 'Hide Archived';
+        }
 
         $data['page_open']          = base64_decode($page_open);
         $data['encode_page_open']   = $page_open;
@@ -37,6 +43,7 @@ class CrmController extends BaseController{
         $data['new_lead_sources']   = LeadSource::getNewLeadSource();
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
 
+        $data['invoice_leads_details']  = CrmLead::getInvoiceLeadsDetails();
         $data['leads_details']      = CrmLead::getAllDetails();
         $total    = 0;
         $average  = 0;
@@ -210,7 +217,7 @@ class CrmController extends BaseController{
     {
         $leads_ids  = Input::get('leads_delete_id');
         foreach ($leads_ids as $leads_id) {
-            CrmLead::where('leads_id', '=', $leads_id)->delete();
+            CrmLead::where('leads_id', '=', $leads_id)->update(array('is_deleted'=>'Y'));
             CrmLeadsStatus::where('leads_id', '=', $leads_id)->delete();
         }
     }
@@ -224,13 +231,18 @@ class CrmController extends BaseController{
         $data['leads_id']       = Input::get('leads_id');
         $data['user_id']        = $user_id;
 
-        $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
-        if(isset($leads_status) && count($leads_status) >0){
-            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
-            $last_id = $leads_status['leads_status_id'];
+        if($data['leads_tab_id'] == 12){
+            CrmLead::where('leads_id', '=', $data['leads_id'])->update(array('is_invoiced'=>'Y'));
+            $last_id = $data['leads_id'];
         }else{
-            $data['created'] = date("Y-m-d H:i:s");
-            $last_id = CrmLeadsStatus::insertGetId($data);
+            $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
+            if(isset($leads_status) && count($leads_status) >0){
+                CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
+                $last_id = $leads_status['leads_status_id'];
+            }else{
+                $data['created'] = date("Y-m-d H:i:s");
+                $last_id = CrmLeadsStatus::insertGetId($data);
+            }
         }
         echo $last_id;
     }
@@ -354,6 +366,40 @@ class CrmController extends BaseController{
         //print_r($data);
         //Common::last_query();
         echo view::make("crm/ajax.graph", $data);
+    }
+
+    public function archive_leads() {
+        Session::put('show_archive_leads', 'Y');
+
+        $leads_ids = Input::get("leads_ids");
+        $status     = Input::get("status");
+        //print_r($clients_id);die;
+        foreach ($leads_ids as $leads_id) {
+            if($status == "Archive"){
+                $up_data['is_archive']      = 'Y';
+                $up_data['show_archive']    = 'Y';
+            }else{
+                $up_data['is_archive']      = 'N';
+                $up_data['show_archive']    = 'N';
+            }
+            CrmLead::where('leads_id', '=', $leads_id)->update($up_data);
+        }
+    }
+
+    public function show_archive_leads() {
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $groupUserId = $session['group_users'];
+        
+        $is_archive = Input::get("is_archive");
+        if($is_archive == "Y"){
+            Session::put('show_archive_leads', 'Y');
+        }else{
+            Session::put('show_archive_leads', 'N');
+        }
+
+        $affected = CrmLead::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
+        //echo $this->last_query();die;
     }
     
     
