@@ -1174,5 +1174,11 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .shared_t{text-align:center; padding:5px; font-size:18px; font-weight:700;}
 .red_point{position: absolute; top:-5px; right: -5px; color: #fff; background: #f00; border-radius:10px;font-size: 10px; text-align: center; width: 14px; height: 14px;}
 .chk_right{float:right!important; margin-top:7px; position: relative;}
-
- 
+.crm_graph{margin: 15px auto; width: 45%;}
+.crm_graph_box {
+width: 31%;
+float: left;
+margin-right: 10px;
+}
+ .deleted_items{float:left; margin-right: 15px; width:40%;}
+ .deleted_items_input{float:left;}

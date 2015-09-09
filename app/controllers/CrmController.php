@@ -401,6 +401,21 @@ class CrmController extends BaseController{
         $affected = CrmLead::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
         //echo $this->last_query();die;
     }
+
+    public function graph_page()
+    {
+        $data = array();
+        $data['heading']= "GRAPH";
+        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        $data['back_url'] = '/crm/MTE=/YWxs';
+        $data['title']  = "Graph";
+        $data['sub_title']  = "Graph";
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        return view::make("crm/graph_page", $data);
+    }
     
     
     
