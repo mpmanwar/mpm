@@ -9,7 +9,7 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->get();
+		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->where("is_deleted", "=", "N")->get();
 		if(isset($crm_data) && count($crm_data) >0){
 			foreach ($crm_data as $key => $details) {
 				$data[$key]['leads_id']       = $details->leads_id;
@@ -17,7 +17,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['client_type']    = $details->client_type;
 				$data[$key]['date']    		  = $details->date;
 				$data[$key]['deal_certainty'] = $details->deal_certainty;
-				$data[$key]['existing_client']	  = $details->existing_client;
+				$data[$key]['existing_client']= $details->existing_client;
 		        $data[$key]['deal_owner']     = User::getStaffNameById($details->deal_owner);
 		        $data[$key]['phone']          = $details->phone;
 		        $data[$key]['mobile']         = $details->mobile;
@@ -54,7 +54,7 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->whereBetween('date', array($from_date, $to_date))->get();
+		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->whereBetween('date', array($from_date, $to_date))->where("is_deleted", "=", "N")->get();
 		if(isset($crm_data) && count($crm_data) >0){
 			foreach ($crm_data as $key => $details) {
 				$data[$key]['leads_id']       = $details->leads_id;
@@ -99,7 +99,7 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$details = CrmLead::where("leads_id", "=", $leads_id)->first();
+		$details = CrmLead::where("leads_id", "=", $leads_id)->where("is_deleted", "=", "N")->first();
 		if(isset($details) && count($details) >0){
 			$data['leads_id']       = $details->leads_id;
 			$data['user_id']        = $details->user_id;
@@ -140,7 +140,7 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$crm_count = CrmLead::whereIn("user_id", $groupUserId)->get()->count();
+		$crm_count = CrmLead::whereIn("user_id", $groupUserId)->where("is_deleted", "=", "N")->get()->count();
 		return $crm_count;
     }
 
@@ -157,7 +157,7 @@ class CrmLead extends Eloquent {
 	        $average  = 0;
 	        $likely   = 0;
 			foreach ($status_details as $key => $value) {
-				$crn_lead = CrmLead::where("leads_id", "=", $value['leads_id'])->first();
+				$crn_lead = CrmLead::where("leads_id", "=", $value['leads_id'])->where("is_deleted", "=", "N")->first();
 				if(isset($crn_lead->quoted_value) && $crn_lead->quoted_value != ""){
 					$quoted_value = str_replace(",", "", $crn_lead->quoted_value);
 					$total += $quoted_value;

@@ -210,7 +210,7 @@ class CrmController extends BaseController{
     {
         $leads_ids  = Input::get('leads_delete_id');
         foreach ($leads_ids as $leads_id) {
-            CrmLead::where('leads_id', '=', $leads_id)->delete();
+            CrmLead::where('leads_id', '=', $leads_id)->update(array('is_deleted'=>'Y'));
             CrmLeadsStatus::where('leads_id', '=', $leads_id)->delete();
         }
     }
@@ -224,13 +224,18 @@ class CrmController extends BaseController{
         $data['leads_id']       = Input::get('leads_id');
         $data['user_id']        = $user_id;
 
-        $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
-        if(isset($leads_status) && count($leads_status) >0){
-            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
-            $last_id = $leads_status['leads_status_id'];
+        if($data['leads_tab_id'] == 12){
+            CrmLead::where('leads_id', '=', $data['leads_id'])->update(array('is_invoiced'=>'Y'));
+            $last_id = $data['leads_id'];
         }else{
-            $data['created'] = date("Y-m-d H:i:s");
-            $last_id = CrmLeadsStatus::insertGetId($data);
+            $leads_status = CrmLeadsStatus::getDetailsByLeadsId( $data['leads_id'] );
+            if(isset($leads_status) && count($leads_status) >0){
+                CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->update($data);
+                $last_id = $leads_status['leads_status_id'];
+            }else{
+                $data['created'] = date("Y-m-d H:i:s");
+                $last_id = CrmLeadsStatus::insertGetId($data);
+            }
         }
         echo $last_id;
     }

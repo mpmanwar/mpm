@@ -13,7 +13,7 @@ class CrmLeadsTab extends Eloquent {
 				$data[$i]['tab_name'] 		= $details->tab_name;
 				$data[$i]['status'] 		= $details->status;
 				$data[$i]['color_code'] 	= $details->color_code;
-				$data[$i]['count'] 			= CrmLeadsStatus::countLeadsStatusCount( $details->tab_id );
+				$data[$i]['count'] 			= CrmLeadsStatus::leadsStatusCount( $details->tab_id );
 				$data[$i]['table_value'] 	= CrmLead::getTotalQuotedValue( $details->tab_id );
 			}
 		}
