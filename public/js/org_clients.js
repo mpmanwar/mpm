@@ -49,11 +49,14 @@ $(document).ready(function(){
   //Trading Address show while add organisation client start
   $('.cont_all_addr').on('ifChecked', function(event){//show_trad_office_addr  
       var value = $(this).val();
+      
       $("#show_"+value+"_office_addr").show("slow");
+      //alert(value);
   });
   $('.cont_all_addr').on('ifUnchecked', function(event){
       var value = $(this).val();
       $("#show_"+value+"_office_addr").hide("slow");
+       //alert(value);
   });
   //Trading Address show while add organisation client end
 
