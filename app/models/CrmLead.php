@@ -9,7 +9,8 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->where("is_deleted", "=", "N")->where("is_archive", "=", "N")->get();
+		$crm_data 		= CrmLead::whereIn("user_id", $groupUserId)->where("is_deleted", "=", "N")->where("is_archive", "=", "N")->get();
+
 		if(isset($crm_data) && count($crm_data) >0){
 			foreach ($crm_data as $key => $details) {
 				$data[$key]['leads_id']       = $details->leads_id;
