@@ -407,7 +407,6 @@ $(".deleteLeads").click(function(){
     }else{
       is_archive  = 'Y';
     }
-    //alert(is_archive);return false;
     $.ajax({
       type: "POST",
       url: '/crm/show-archive-leads',
