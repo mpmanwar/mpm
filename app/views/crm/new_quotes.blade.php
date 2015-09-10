@@ -289,15 +289,15 @@ tinymce.init({
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="11%"><strong>Quote Type</strong></td>
-                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="ltemisedservices" value="Ltemised Services"></td>
-                              <td width="17%">Ltemised Services</td>
-                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="menupackagedpricing" value="Menu/Packaged pricing"></td>
-                              <td width="17%">Menu/Packaged pricing</td>
-                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="tailoredquote" value="Tailored quote"></td>
+                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="17%">Ltemised Services <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
+                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="17%">Menu/Packaged pricing <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
+                              <td width="2%"><input type="radio" name="" id="" value=""></td>
                               <td width="11%">Tailored quote</td>
-                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="importfrommexcel" value="Import fromm Excel"></td>
+                              <td width="2%"><input type="radio" name="" id="" value=""></td>
                               <td width="14%">Import fromm Excel</td>
-                              <td width="2%"><input type="radio" name="quotetype" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="" id="" value=""></td>
                               <td width="20%">Select sample quote</td>
                             </tr>
                             <tr>
@@ -311,7 +311,7 @@ tinymce.init({
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><span class="btn btn-default btn-file"> Browse
+                              <td><span class="btn btn-default btn-file m_top"> Browse
                                 <input type="file">
                                 </span></td>
                               <td>&nbsp;</td>
@@ -347,10 +347,10 @@ tinymce.init({
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><select class="form-control">
+                              <td><div class="m_top"><select class="form-control">
                                   <option>BLACK COMMERCIAL</option>
                                   <option>BLACK COMMERCIAL</option>
-                                </select></td>
+                                </select></div></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -366,10 +366,7 @@ tinymce.init({
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><select class="form-control">
-                                  <option>BLACK COMMERCIAL</option>
-                                  <option>BLACK COMMERCIAL</option>
-                                </select></td>
+                              <td>&nbsp;</td>
                             </tr>
                           </table>
                           <div class="ltemised_services">
@@ -382,86 +379,101 @@ tinymce.init({
                                 <td width="3%"><input type="checkbox" name="" id="" value=""></td>
                                 <td width="10%">Days</td>
                                 <td width="1%">&nbsp;</td>
-                                <td width="13%"><a href="#">Add/Edit list</a></td>
+                                <td width="13%">&nbsp;</td>
                                 <td width="9%">&nbsp;</td>
                                 <td width="4%">Fees</td>
                                 <td width="14%"><input type="text" id="" class="form-control"></td>
                               </tr>
                             </table>
-                            <div class="first_item" id="firsttable">
+                            <div class="first_item">
+                            
+                            
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
+                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
                                       <tr>
-                                        <th width="3%" align="center">Item</th>
-                                        <th width="6%" align="center">Item</th>
-                                        <th width="16%" align="center">Description</th>
+                                        <th width="2%" align="center">&nbsp;</th>
+                                        <th width="10%" align="center">Item <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                                        <th width="15%" align="center">Description</th>
                                         <th width="7%" align="center">Qty</th>
                                         <th width="9%" align="center">Unit Price</th>
                                         <th width="5%" align="center">Disc%</th>
-                                        <th width="15%" align="center">Tax Rate</th>
+                                        <th width="11%" align="center">Tax Rate <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
                                         <th width="10%" align="center">Per Year</th>
                                         <th width="15%" align="center">Per Month</th>
                                         <th width="12%" align="center">Flex fees</th>
-                                        <th width="2%" align="center">&nbsp;</th>
+                                        <th width="4%" align="center">&nbsp;</th>
                                       </tr>
                                       <tr>
+                                       <td align="center"><img src="img/dotted_icon.png"></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
                                       </tr>
                                       <tr>
+                                        <td align="center"><img src="img/dotted_icon.png"></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
                                       </tr>
                                       <tr>
+                                      <td align="center"><img src="img/dotted_icon.png"></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      </tr>
+                                       <tr>
+                                       <td align="center"><img src="img/dotted_icon.png"></td>
+                                       <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
                                       </tr>
                                     </table></td>
                                 </tr>
                                 <tr>
                                   <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                       <tr>
-                                        <td width="3%">&nbsp;</td>
-                                        <td width="6%"><button class="addnew_line" style="width:82px;"><i class="add_icon_img"><img src="img/add_icon.png"></i>
+                                        <td width="2%">&nbsp;</td>
+                                        <td width="6%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
                                           <p class="add_line_t">Add</p>
                                           </button></td>
-                                        <td width="16%" align="center">&nbsp;</td>
+                                        <td width="15%" align="center">&nbsp;</td>
                                         <td width="7%">&nbsp;</td>
                                         <td width="9%">&nbsp;</td>
                                         <td width="5%">&nbsp;</td>
-                                        <td width="15%">&nbsp;</td>
-                                        <td width="10%" align="center">Sub Total</td>
-                                        <td width="15%" align="center">0.00</td>
-                                        <td width="12%">0.00</td>
-                                        <td width="2%">&nbsp;</td>
+                                        <td width="15%" align="center" class="bottom_border">Sub Total</td>
+                                        <td width="10%" align="center" class="bottom_border">0.00</td>
+                                        <td width="15%" align="center" class="bottom_border">0.00</td>
+                                        <td width="12%">&nbsp;</td>
+                                        <td width="4%">&nbsp;</td>
                                       </tr>
                                       <tr>
                                         <td>&nbsp;</td>
@@ -470,9 +482,9 @@ tinymce.init({
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td align="center"><strong>GBP</strong></td>
-                                        <td align="center"><strong>Total</strong></td>
-                                        <td align="center"><strong>0.00</strong></td>
-                                        <td align="center"><strong>0.00</strong></td>
+                                        <td align="center" class="bottom_border1"><strong class="total_t">TOTAL</strong></td>
+                                        <td align="center" class="bottom_border1"><strong class="total_t">0.00</strong></td>
+                                        <td align="center" class="bottom_border1"><strong class="total_t">0.00</strong></td>
                                         <td align="center">&nbsp;</td>
                                         <td align="center">&nbsp;</td>
                                       </tr>
@@ -492,118 +504,126 @@ tinymce.init({
                                     </table></td>
                                 </tr>
                               </table>
+                              
                             </div>
-                            <div class="second_item" id="secondtable">
-                              <p>
-                                <input type="checkbox" name="" id="" value="">
-                                One Off Fees</p>
-                              <div class="first_item">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tr>
-                                    <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
-                                        <tr>
-                                          <th width="3%" align="center">Item</th>
-                                          <th width="6%" align="center">Item</th>
-                                          <th width="16%" align="center">Description</th>
-                                          <th width="7%" align="center">Qty</th>
-                                          <th width="9%" align="center">Unit Price</th>
-                                          <th width="5%" align="center">Disc%</th>
-                                          <th width="15%" align="center">Tax Rate</th>
-                                          <th width="10%" align="center">Per Year</th>
-                                          <th width="15%" align="center">Per Month</th>
-                                          <th width="12%" align="center">Flex fees</th>
-                                          <th width="2%" align="center">&nbsp;</th>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                      </table></td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                          <td width="3%">&nbsp;</td>
-                                          <td width="6%"><button class="addnew_line" style="width:82px;"><i class="add_icon_img"><img src="img/add_icon.png"></i>
-                                            <p class="add_line_t">Add</p>
-                                            </button></td>
-                                          <td width="16%" align="center">&nbsp;</td>
-                                          <td width="7%">&nbsp;</td>
-                                          <td width="9%">&nbsp;</td>
-                                          <td width="5%">&nbsp;</td>
-                                          <td width="15%">&nbsp;</td>
-                                          <td width="10%" align="center">Sub Total</td>
-                                          <td width="15%" align="center">0.00</td>
-                                          <td width="12%">0.00</td>
-                                          <td width="2%">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><strong>GBP</strong></td>
-                                          <td align="center"><strong>Total</strong></td>
-                                          <td align="center"><strong>0.00</strong></td>
-                                          <td align="center"><strong>0.00</strong></td>
-                                          <td align="center">&nbsp;</td>
-                                          <td align="center">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                        </tr>
-                                      </table></td>
-                                  </tr>
-                                </table>
-                              </div>
+                            <div class="">
+                                  <input type="checkbox" id="" class="form-control">
+                                  <label for="exampleInputPassword1">One - Off Fees</label>
+                                </div>
+                            <div class="first_item">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
+                                      <tr>
+                                        <th width="2%">&nbsp;</th>
+                                        <th width="10%" align="center">Item <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                                        <th width="26%" align="center">Description</th>
+                                        <th width="10%" align="center">Qty</th>
+                                        <th width="10%" align="center">Unit Price</th>
+                                        <th width="10%" align="center">Disc%</th>
+                                        <th width="10%" align="center">Tax Rate <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                                        <th width="10%" align="center">Amount GBP</th>
+                                        
+                                        <th width="10%" align="center">Flex fees</th>
+                                        <th width="4%" align="center">&nbsp;</th>
+                                      </tr>
+                                      <tr>
+                                        <td align="center"><img src="img/dotted_icon.png" /></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      </tr>
+                                      <tr>
+                                      <td align="center"><img src="img/dotted_icon.png" /></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      </tr>
+                                      <tr>
+                                      <td align="center"><img src="img/dotted_icon.png" /></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      </tr>
+                                       <tr>
+                                       <td align="center"><img src="img/dotted_icon.png" /></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg">&nbsp;</td>
+                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                                <tr>
+                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td width="6%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px; margin-left:5px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
+                                          <p class="add_line_t">Add</p>
+                                          </button></td>
+                                        <td width="30%" align="center">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="10%" align="center" class="bottom_border">Sub Total</td>
+                                        <td width="10%" align="center" class="bottom_border">0.00</td>
+                                        <td width="10%" align="center"></td>
+                                        <td width="4%">&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                        
+                                        
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center" class="bottom_border1"><strong class="total_t">TOTAL</strong></td>
+                                        <td align="center" class="bottom_border1"><strong class="total_t">0.00</strong></td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                        
+                                        
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table>
                             </div>
-                            <div class="col-xs-12" id="thirdtable">
+                           
+                            <div class="col-xs-12" style="padding:0; margin-bottom:15px;">
                               <div class="top_buttons">
                                 <div class="form-group email_top_left">
                                   <input type="checkbox" id="" class="form-control">
@@ -621,121 +641,82 @@ tinymce.init({
                                 <div class="clearfix"></div>
                               </div>
                               <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
-                              <div class="add_client_btn">
-                                <button class="btn btn-info">Prev</button>
-                                <button class="btn btn-danger">Save</button>
-                                <button class="btn btn-info">Next</button>
-                                <div class="clearfix"></div>
-                              </div>
+                              
                             </div>
-                            <div class="second_item" id="forthtable">
+                            <div class="second_item">
                               <p>
                                 <input type="checkbox" name="" id="" value="">
                                 Optional Services</p>
                               <div class="first_item">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tr>
-                                    <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
-                                        <tr>
-                                          <th width="3%" align="center">Item</th>
-                                          <th width="6%" align="center">Item</th>
-                                          <th width="16%" align="center">Description</th>
-                                          <th width="7%" align="center">Qty</th>
-                                          <th width="9%" align="center">Unit Price</th>
-                                          <th width="5%" align="center">Disc%</th>
-                                          <th width="15%" align="center">Tax Rate</th>
-                                          <th width="10%" align="center">Per Year</th>
-                                          <th width="15%" align="center">Per Month</th>
-                                          <th width="12%" align="center">Flex fees</th>
-                                          <th width="2%" align="center">&nbsp;</th>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                        </tr>
-                                      </table></td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                          <td width="3%">&nbsp;</td>
-                                          <td width="6%"><button class="addnew_line" style="width:82px;"><i class="add_icon_img"><img src="img/add_icon.png"></i>
-                                            <p class="add_line_t">Add</p>
-                                            </button></td>
-                                          <td width="16%" align="center">&nbsp;</td>
-                                          <td width="7%">&nbsp;</td>
-                                          <td width="9%">&nbsp;</td>
-                                          <td width="5%">&nbsp;</td>
-                                          <td width="15%">&nbsp;</td>
-                                          <td width="10%" align="center">Sub Total</td>
-                                          <td width="15%" align="center">0.00</td>
-                                          <td width="12%">0.00</td>
-                                          <td width="2%">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td align="center"><strong>GBP</strong></td>
-                                          <td align="center"><strong>Total</strong></td>
-                                          <td align="center"><strong>0.00</strong></td>
-                                          <td align="center"><strong>0.00</strong></td>
-                                          <td align="center">&nbsp;</td>
-                                          <td align="center">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                        </tr>
-                                      </table></td>
-                                  </tr>
-                                </table>
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
+                                      <tr>
+                                        <th align="center" width="2%" >&nbsp;</th>
+                                        <th width="10%" align="center" >Item</th>
+                                        <th width="88%" align="left" style="text-align:left;">Description</th>
+                                      </tr>
+                                      <tr>
+                                       
+                                        <td align="center"><img src="img/dotted_icon.png"></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        
+                                      </tr>
+                                      <tr>
+                                        
+                                       <td align="center"><img src="img/dotted_icon.png"></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        
+                                      </tr>
+                                      <tr>
+                                        <td align="center"><img src="img/dotted_icon.png"></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        
+                                      </tr>
+                                       <tr>
+                                        <td align="center"><img src="img/dotted_icon.png"></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                                <tr>
+                                  <td valign="top">
+                                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td width="10%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px; margin-left:5px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
+                                          <p class="add_line_t">Add</p>
+                                          </button></td>
+                                        <td width="90%" align="center">&nbsp;</td>
+                                        
+                                      </tr>
+                                      <tr>
+                                        
+                                        
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                       
+                                      </tr>
+                                      <tr>
+                                        
+                                        
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                       
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table>
+                            </div>
+                            <div class="add_client_btn">
+                                <button class="btn btn-info">Prev</button>
+                                <button class="btn btn-danger">Save</button>
+                                <button class="btn btn-info">Next</button>
+                                <div class="clearfix"></div>
                               </div>
                             </div>
                           </div>
