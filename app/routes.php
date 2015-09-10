@@ -395,8 +395,12 @@ Route::any('/crm/show-graph', 'CrmController@show_graph');
 Route::any('/crm/graph-page', 'CrmController@graph_page');
 Route::any('/crm/archive-leads','CrmController@archive_leads'); 
 Route::any('/crm/show-archive-leads', 'CrmController@show_archive_leads');
+Route::any('/crm/report', 'CrmController@report');
 /*================== CRM End ==============*/
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
 Route::any('/quotes', 'QuotesController@quotes');
+
 Route::any('/renewals', 'CrmController@renewals');
+
+
