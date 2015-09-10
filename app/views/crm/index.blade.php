@@ -252,7 +252,8 @@ $(document).ready(function(){
           </div>
           </li>
           <li>
-            <a class="btn btn-info graphs-modal" href="javascript:void(0)">GRAPHS</a>
+            <!-- <a class="btn btn-info graphs-modal" href="javascript:void(0)">GRAPHS</a> -->
+            <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
           </li>
           <li>
             <a class="btn btn-info" href="javascript:void(0)">REPORT</a>
@@ -383,7 +384,7 @@ $(document).ready(function(){
                   <div class="small_icon" data-id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"></div><div class="clr"></div>
                   <div class="select_toggle" id="status{{ $leads_row['leads_id'] or "" }}_11" style="display: none;">
                     <ul>
-                      <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                      <li><a href="/quotes" class="send_template-modal">+ New</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
                       <li><a href="javascript:void(0)" class="sendto_invoiced" data-tab_id="12" data-leads_id="{{ $leads_row['leads_id'] or "" }}">Generate Invoice</a></li>
@@ -470,7 +471,7 @@ $(document).ready(function(){
                   <div class="small_icon" data-id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"></div><div class="clr"></div>
                   <div class="select_toggle" id="status{{ $leads_row['leads_id'] or "" }}_11" style="display: none;">
                     <ul>
-                      <li><a href="javascript:void(0)" class="send_template-modal">+ New</a></li>
+                      <li><a href="/quotes" class="send_template-modal">+ New</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">Resend</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">View</a></li>
                       <li><a href="javascript:void(0)" class="send_template-modal">Generate Invoice</a></li>

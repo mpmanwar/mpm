@@ -375,12 +375,14 @@ $(".deleteLeads").click(function(){
   });
 
   $("#show_graph_button").click(function(){
-    var from_date = $("#from_date").val();
-    var to_date = $("#to_date").val();
+    var month = $("#month").val();
+    var year = $("#year").val();
+    var compare = $("#compare").val();
+
     $.ajax({
           type: "POST",
           url: '/crm/show-graph',
-          data: { 'from_date' : from_date, 'to_date' : to_date },
+          data: { 'month' : month, 'year' : year, 'compare' : compare },
           beforeSend: function() {
             $("#show_graph").html('');
             $("#show_graph_loader").html('<img src="/img/spinner.gif" />');

@@ -1174,13 +1174,23 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .shared_t{text-align:center; padding:5px; font-size:18px; font-weight:700;}
 .red_point{position: absolute; top:-5px; right: -5px; color: #fff; background: #f00; border-radius:10px;font-size: 10px; text-align: center; width: 14px; height: 14px;}
 .chk_right{float:right!important; margin-top:7px; position: relative;}
+.crm_graph{margin: 15px auto; width: 45%;}
+.crm_graph_box { width: 31%; float: left; margin-right: 10px; }
+.deleted_items{float:left; margin-right: 15px; width:40%;}
+.deleted_items_input{float:left;}
 
 
 /*=============crm new client========*/
 .select_template{float:right; width:13%;}
+
 .ltemised_services{width:85%; margin:30px auto;}
 .first_item{width:100%; margin:10px 0 10px 0; background:#deedf5; border:1px solid #60aad2;}
 .second_item{width:100%; margin:20px 0 10px 0;}
+
+.ltemised_services{width:85%; margin:15px auto;}
+.first_item{width:100%; margin:10px 0 10px 0; background:#e8f1ff;}
+.second_item{width:100%; margin:10px 0 10px 0;}
+
 .first_item table tr th{text-align:center;}
 .engement_table tr td{padding:10px;}
 .new_section{width:100%; margin-top:20px;}
@@ -1188,6 +1198,7 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .new_section ul li{margin-bottom:10px; float:left;}
 .new_section ul li strong{float:left;}
 .new_sec_chkbox{float: left; width: 26px; margin-right: 10px;}
+
 .white_table{background:#fff; margin-bottom:3px; line-height: 24px;}
 .white_table tr td{border-right:1px solid #60aad2;}
 .white_table tr th{background:#deedf5; padding:5px; border-bottom:1px solid #60aad2;}
@@ -1197,4 +1208,8 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .total_t{font-size:16px; font-weight:bold;}
 .m_top{margin-top:10px;}
 .td_bg{background: #e5f1f8;}
+
+/* .white_table{background:#fff; margin-bottom:10px}
+.white_table tr td{border-right:1px solid #ccc;} */
+ 
 

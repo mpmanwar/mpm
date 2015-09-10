@@ -89,7 +89,7 @@ class CrmController extends BaseController{
         $data['existing_client'] = isset($details['existing_client'])?$details['existing_client']:"0";
         $data['user_id']        = $user_id;
         $data['client_type']    = $details['type'];
-        $data['date']           = $details['date'];
+        $data['date']           = date('Y-m-d', strtotime($details['date']));
         $data['deal_certainty'] = $details['deal_certainty'];
         $data['deal_owner']     = isset($details['deal_owner'])?$details['deal_owner']:"0";
         $data['phone']          = $details['phone'];
@@ -299,12 +299,19 @@ class CrmController extends BaseController{
         exit;
     }
 
-    public function show_graph()
+    /*public function show_graph()
     {
         $data = array();
-        $from_date  = Input::get('from_date');
-        $to_date    = Input::get('to_date');
-        $divided_by = 10000;
+        $month      = Input::get('month');
+        $year       = Input::get('year');
+        $compare    = Input::get('compare');
+        $day = $this->getDay($month, $year);
+        ///////////////////////////
+        $to_date    = $day.'-'.$month.'-'.$year;
+        $from_date  = date('d-m-Y', strtotime('-1 months', strtotime('01-'.$month.'-'.$year)));
+        //////////////////////////
+        //echo $from_date."=".$to_date;die;
+        $divided_by = 1000;
 
         $details = CrmLead::getDataWithDateRange($from_date, $to_date);
         $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
@@ -366,6 +373,110 @@ class CrmController extends BaseController{
         //print_r($data);
         //Common::last_query();
         echo view::make("crm/ajax.graph", $data);
+    }*/
+    public function show_graph()
+    {
+        $data = array();
+        $month      = Input::get('month');
+        $year       = Input::get('year');
+        $compare    = Input::get('compare');
+        $day = $this->getDay($month, $year);
+        ///////////////////////////
+        $to_date    = $year.'-'.$month.'-'.$day;
+        $from_date  = date('Y-m-d', strtotime('-'.$compare.' months', strtotime('01-'.$month.'-'.$year)));
+        //$from_year = explode('-', $from_date);
+        //////////////////////////
+        //echo $from_date."=".$to_date;die;
+        $divided_by = 1000;
+
+        $lead_status = CrmLeadsStatus::leadsStatusByTabId( 11 );//print_r($lead_status);die;
+        if(isset($lead_status) && count($lead_status) >0){
+            $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
+            foreach ($lead_status as $i => $row) {
+                $details = CrmLead::getDataWithDateRangeAndLeadsId($from_date, $to_date, $row['leads_id']);
+                //echo $this->last_query();
+                if(isset($details) && count($details) >0){
+                    foreach ($details as $key => $value) {
+                        $date = explode("-", $value['date']);
+                        $month = $date[1];
+                        if(isset($value['quoted_value']) && $value['quoted_value'] !=""){
+                            $quoted_value = str_replace(',', '', $value['quoted_value']);
+                        }else{
+                            $quoted_value = 0;
+                        }
+
+                        if($month == "01"){
+                            $jan_total += $quoted_value;
+                        }
+                        if($month == "02"){
+                            $feb_total += $quoted_value;
+                        }
+                        if($month == "03"){
+                            $mar_total += $quoted_value;
+                        }
+                        if($month == "04"){
+                            $apr_total += $quoted_value;
+                        }
+                        if($month == "05"){
+                            $may_total += $quoted_value;
+                        }
+                        if($month == "06"){
+                            $jun_total += $quoted_value;
+                        }
+                        if($month == "07"){
+                            $jul_total += $quoted_value;
+                        }
+                        if($month == "08"){
+                            $aug_total += $quoted_value;
+                        }
+                        if($month == "09"){
+                            $sep_total += $quoted_value;
+                        }
+                        if($month == "10"){
+                            $oct_total += $quoted_value;
+                        }
+                        if($month == "11"){
+                            $nov_total += $quoted_value;
+                        }
+                        if($month == "12"){
+                            $dec_total += $quoted_value;
+                        }
+                    }
+                }
+            }
+        }
+
+        $data['jan_total'] = $jan_total/$divided_by;
+        $data['feb_total'] = $feb_total/$divided_by;
+        $data['mar_total'] = $mar_total/$divided_by;
+        $data['apr_total'] = $apr_total/$divided_by;
+        $data['may_total'] = $may_total/$divided_by;
+        $data['jun_total'] = $jun_total/$divided_by;
+        $data['jul_total'] = $jul_total/$divided_by;
+        $data['aug_total'] = $aug_total/$divided_by;
+        $data['sep_total'] = $sep_total/$divided_by;
+        $data['oct_total'] = $oct_total/$divided_by;
+        $data['nov_total'] = $nov_total/$divided_by;
+        $data['dec_total'] = $dec_total/$divided_by;
+        //print_r($data);
+        //Common::last_query();
+        echo view::make("crm/ajax.graph", $data);
+    }
+
+    public function getDay($month, $year){
+        if($month == '01' || $month == '03' || $month == '05' || $month == '07' || $month == '08' || $month == '10' || $month == '12'){
+            $day = 31;
+        }else if($month == '04' || $month == '06' || $month == '09' || $month == '11'){
+            $day = 30;
+        }else{
+            $value = $year%4;
+            if($value == 0){
+                $day = 28;
+            }else{
+                $day = 29;
+            }
+        }
+        return $day;
     }
 
     public function archive_leads() {
@@ -400,6 +511,23 @@ class CrmController extends BaseController{
 
         $affected = CrmLead::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->update(array("is_archive"=>$is_archive));
         //echo $this->last_query();die;
+    }
+
+    public function graph_page()
+    {
+        $data = array();
+        $data['heading']= "GRAPH";
+        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        $data['back_url'] = '/crm/MTE=/YWxs';
+        $data['title']  = "Graph";
+        $data['sub_title']  = "Graph";
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $data['months'] = array('01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June', '07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December');
+
+        return view::make("crm/graph_page", $data);
     }
     
     
