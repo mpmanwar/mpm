@@ -545,6 +545,23 @@ class CrmController extends BaseController{
 
         return view::make("crm/graph_page", $data);
     }
+
+    public function report()
+    {
+        $data = array();
+        $data['heading']= "REPORT";
+        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        $data['back_url'] = '/crm/MTE=/YWxs';
+        $data['title']  = "Report";
+        $data['sub_title']  = "Report";
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        $data['staff_details']  = User::getAllStaffDetails();
+
+        return view::make("crm/report", $data);
+    }
     
     
     

@@ -73,7 +73,7 @@ $(function () {
         points: [jan_total, feb_total, mar_total, apr_total, may_total, jun_total, jul_total, aug_total, sep_total, oct_total, nov_total, dec_total],
         x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
         //x: [ months ],
-        colors: ['blue'],
+        colors: ['red'],
         //dataNames: ['Won'],
         xName: 'Month',
         tooltipWidth: 15,
