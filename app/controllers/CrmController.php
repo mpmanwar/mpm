@@ -563,6 +563,22 @@ class CrmController extends BaseController{
     }
     
     
+    public function renewals()
+    {
+        $data = array();
+        $data['heading']= "Renewals";
+        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        
+        $data['title']  = "Renewals";
+        
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+        
+
+        return view::make("crm/renwal", $data);
+    }
     
 
 }

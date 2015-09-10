@@ -400,3 +400,7 @@ Route::any('/crm/report', 'CrmController@report');
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
 Route::any('/quotes', 'QuotesController@quotes');
+
+Route::any('/renewals', 'CrmController@renewals');
+
+

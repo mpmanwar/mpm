@@ -1212,4 +1212,13 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 /* .white_table{background:#fff; margin-bottom:10px}
 .white_table tr td{border-right:1px solid #ccc;} */
  
+ /*=============renwal========*/
 
+.social_icon{padding-left:40px;}
+.basic_info_relationship{ width:100%;}
+.basic_info_relationship ul{list-style:none; padding:0;}
+.basic_info_relationship ul li{width:100%; margin-top:15px; border-top:4px solid #2c6db1; border-left:1px solid #e5e5e6; border-right:1px solid #e5e5e6; border-bottom:1px solid #e5e5e6;}
+.table_h{font-size:16px; font-weight:700; padding:5px 0 0 10px;}
+.pay_method{width:15%;}
+.top_tabs{float:right; width:50%; margin-top: 10px;}
+.top_tabs li{float:left; margin-right: 15px;}

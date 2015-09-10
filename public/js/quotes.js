@@ -111,9 +111,9 @@ $("#tctab6").hide();
     // $(".ltemised_services").hide("");
     
    // $("#firsttable").hide("");
-   // $("#secondtable").hide("");
-   // $("#thirdtable").hide("");
-  //  $("#forthtable").hide("");
+    $("#secondtable").hide("");
+    $("#thirdtable").hide("");
+    $("#forthtable").hide("");
     
     
    // if ($("#ltemisedservices input[type='radio']:checked").val() == 'Ltemised Services') {
@@ -132,13 +132,22 @@ $("#tctab6").hide();
    console.log(value);
    });*/
    
-   
+   $('#ltemisedservices').on('ifChecked', function(event){
+    
+       $("#noteschk").show("");
+  
+    $("#optionalserviceschk").show("");
+    
+   });
    
    $('.quotetype').on('ifChecked', function(event){
 
       var value = $(this).val();
        //console.log(value);return false;
   if(value == "Ltemised Services"){
+    
+ 
+    
     $("#firsttable").show("");
     $("#secondtable").show("");
     $("#thirdtable").show("");
@@ -150,12 +159,45 @@ $("#tctab6").hide();
    
    if(value == "Tailored quote"){
     
-    $("#firsttable").show("");
-    $("#secondtable").show("");
+    
+    $("#oneofffees").show("");
+    $("#noteschk").hide("");
+  
+    $("#optionalserviceschk").hide("");
+    
     $("#thirdtable").hide("");
     $("#forthtable").hide("");
+    //$("#forthtable").hide("");
     
     
    }
 
   });
+  
+   $('#oneofffees').on('ifChecked', function(event){
+		  
+          $("#secondtable").show("");
+          
+	});
+  $('#oneofffees').on('ifUnchecked', function(event){
+      $("#secondtable").hide("");
+  });
+  
+   $('#notes').on('ifChecked', function(event){
+		  
+          $("#thirdtable").show("");
+          
+	});
+  $('#notes').on('ifUnchecked', function(event){
+      $("#thirdtable").hide("");
+  });
+  $('#optionalservices').on('ifChecked', function(event){
+		  
+          $("#forthtable").show("");
+          
+	});
+  $('#optionalservices').on('ifUnchecked', function(event){
+      $("#forthtable").hide("");
+  });
+  
+  
