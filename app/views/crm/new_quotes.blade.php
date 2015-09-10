@@ -289,7 +289,7 @@ tinymce.init({
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="11%"><strong>Quote Type</strong></td>
-                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="ltemisedservices" value="Ltemised Services" checked="checked"></td>
+                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="ltemisedservices" value="Itemised Services" checked="checked"></td>
                               <td width="17%">Ltemised Services <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
                               <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="menupricing" value="Menu/Packaged pricing"></td>
                               <td width="17%">Menu/Packaged pricing <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
@@ -414,8 +414,9 @@ tinymce.init({
                                 <td width="14%"><input type="text" id="" class="form-control"></td>
                               </tr>
                             </table>
-                            <div class="first_item" id="firsttable">
                             
+                            <div id="firsttable">
+                            <div class="first_item">
                             
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -487,8 +488,13 @@ tinymce.init({
                                       </tr>
                                     </table></td>
                                 </tr>
-                                <tr>
-                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                
+                              </table>
+                              
+                              
+                            </div>
+                            
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                       <tr>
                                         <td width="2%">&nbsp;</td>
                                         <td width="6%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
@@ -530,16 +536,16 @@ tinymce.init({
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                       </tr>
-                                    </table></td>
-                                </tr>
-                              </table>
-                              
-                            </div>
+                                    </table>
+                                    </div>
+                            
+                            
                             <div class="">
-                                  <input type="checkbox" id="" class="form-control">
+                                  <input type="checkbox" id="oneofffees" name="oneofffees" value="oneofffees" class="form-control">
                                   <label for="exampleInputPassword1">One - Off Fees</label>
                                 </div>
-                            <div class="first_item" id="secondtable">
+                                <div id="secondtable">
+                            <div class="first_item" >
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
@@ -607,7 +613,11 @@ tinymce.init({
                                     </table></td>
                                 </tr>
                                 <tr>
-                                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+                            </div>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                       <tr>
                                         <td width="6%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px; margin-left:5px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
                                           <p class="add_line_t">Add</p>
@@ -647,17 +657,21 @@ tinymce.init({
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                       </tr>
-                                    </table></td>
-                                </tr>
-                              </table>
+                                    </table>
                             </div>
                            
-                            <div class="col-xs-12" style="padding:0; margin-bottom:15px;"id="thirdtable">
-                              <div class="top_buttons" >
-                                <div class="form-group email_top_left">
-                                  <input type="checkbox" id="" class="form-control">
+                           <p id="noteschk">
+                                <input type="checkbox" name="notes" id="notes" value="notes"  class="form-control">
+                                Notes</p>
+                           
+                            <div class="col-xs-12" style="padding:0; margin-bottom:15px;"id="thirdtable" >
+                            <!--  <div class="form-group email_top_left">
+                                  <input type="checkbox" id="notes" name="notes" value="Notes" class="form-control">
                                   <label for="exampleInputPassword1">Notes</label>
-                                </div>
+                                </div> -->
+                              
+                              <div class="top_buttons" >
+                                
                                 <div class="form-group select_template">
                                   <label for="exampleInputPassword1">Select Template <a href="#">Add</a></label>
                                   <select class="form-control">
@@ -672,11 +686,14 @@ tinymce.init({
                               <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea </textarea>
                               
                             </div>
-                            <div class="second_item" id="forthtable">
-                              <p>
-                                <input type="checkbox" name="" id="" value="">
+                            
+                            
+                            <div class="second_item" id="">
+                              <p id="optionalserviceschk">
+                                <input type="checkbox" name="optionalservices" id="optionalservices" value="optionalservices">
                                 Optional Services</p>
-                              <div class="first_item" id="">
+                              <div id="forthtable">
+                              <div class="first_item">
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
@@ -713,9 +730,10 @@ tinymce.init({
                                       </tr>
                                     </table></td>
                                 </tr>
-                                <tr>
-                                  <td valign="top">
-                                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                
+                              </table>
+                            </div>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                       <tr>
                                         <td width="10%"><button class="addnew_line" style="width:70px; margin-bottom: 0; height: 29px; margin-left:5px;"><i class="add_icon_img" style="padding-right: 5px;"><img src="img/add_icon.png"></i>
                                           <p class="add_line_t">Add</p>
@@ -737,9 +755,7 @@ tinymce.init({
                                         <td>&nbsp;</td>
                                        
                                       </tr> -->
-                                    </table></td>
-                                </tr>
-                              </table>
+                                    </table>
                             </div>
                             <div class="add_client_btn">
                                 <button class="btn btn-info">Prev</button>

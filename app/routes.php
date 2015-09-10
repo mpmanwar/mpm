@@ -399,3 +399,4 @@ Route::any('/crm/show-archive-leads', 'CrmController@show_archive_leads');
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
 Route::any('/quotes', 'QuotesController@quotes');
+Route::any('/renewals', 'CrmController@renewals');
