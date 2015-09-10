@@ -89,7 +89,7 @@ class CrmController extends BaseController{
         $data['existing_client'] = isset($details['existing_client'])?$details['existing_client']:"0";
         $data['user_id']        = $user_id;
         $data['client_type']    = $details['type'];
-        $data['date']           = $details['date'];
+        $data['date']           = date('Y-m-d', strtotime($details['date']));
         $data['deal_certainty'] = $details['deal_certainty'];
         $data['deal_owner']     = isset($details['deal_owner'])?$details['deal_owner']:"0";
         $data['phone']          = $details['phone'];
@@ -382,8 +382,9 @@ class CrmController extends BaseController{
         $compare    = Input::get('compare');
         $day = $this->getDay($month, $year);
         ///////////////////////////
-        $to_date    = $day.'-'.$month.'-'.$year;
-        $from_date  = date('d-m-Y', strtotime('-1 months', strtotime('01-'.$month.'-'.$year)));
+        $to_date    = $year.'-'.$month.'-'.$day;
+        $from_date  = date('Y-m-d', strtotime('-1 months', strtotime('01-'.$month.'-'.$year)));
+        //$from_year = explode('-', $from_date);
         //////////////////////////
         //echo $from_date."=".$to_date;die;
         $divided_by = 1000;
@@ -392,54 +393,53 @@ class CrmController extends BaseController{
         if(isset($lead_status) && count($lead_status) >0){
             $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
             foreach ($lead_status as $i => $row) {
-                $details = CrmLead::getDataWithDateRange($from_date, $to_date);
+                $details = CrmLead::getDataWithDateRangeAndLeadsId($from_date, $to_date, $row['leads_id']);
+                //echo $this->last_query();
                 if(isset($details) && count($details) >0){
                     foreach ($details as $key => $value) {
-                        if(isset($value['leads_id']) && $value['leads_id'] == $row['leads_id']){
-                            $date = explode("-", $value['date']);
-                            $month = $date[1];
-                            if(isset($value['quoted_value']) && $value['quoted_value'] !=""){
-                                $quoted_value = str_replace(',', '', $value['quoted_value']);
-                            }else{
-                                $quoted_value = 0;
-                            }
+                        $date = explode("-", $value['date']);
+                        $month = $date[1];
+                        if(isset($value['quoted_value']) && $value['quoted_value'] !=""){
+                            $quoted_value = str_replace(',', '', $value['quoted_value']);
+                        }else{
+                            $quoted_value = 0;
+                        }
 
-                            if($month == "01"){
-                                $jan_total += $quoted_value;
-                            }
-                            if($month == "02"){
-                                $feb_total += $quoted_value;
-                            }
-                            if($month == "03"){
-                                $mar_total += $quoted_value;
-                            }
-                            if($month == "04"){
-                                $apr_total += $quoted_value;
-                            }
-                            if($month == "05"){
-                                $may_total += $quoted_value;
-                            }
-                            if($month == "06"){
-                                $jun_total += $quoted_value;
-                            }
-                            if($month == "07"){
-                                $jul_total += $quoted_value;
-                            }
-                            if($month == "08"){
-                                $aug_total += $quoted_value;
-                            }
-                            if($month == "09"){
-                                $sep_total += $quoted_value;
-                            }
-                            if($month == "10"){
-                                $oct_total += $quoted_value;
-                            }
-                            if($month == "11"){
-                                $nov_total += $quoted_value;
-                            }
-                            if($month == "12"){
-                                $dec_total += $quoted_value;
-                            }
+                        if($month == "01"){
+                            $jan_total += $quoted_value;
+                        }
+                        if($month == "02"){
+                            $feb_total += $quoted_value;
+                        }
+                        if($month == "03"){
+                            $mar_total += $quoted_value;
+                        }
+                        if($month == "04"){
+                            $apr_total += $quoted_value;
+                        }
+                        if($month == "05"){
+                            $may_total += $quoted_value;
+                        }
+                        if($month == "06"){
+                            $jun_total += $quoted_value;
+                        }
+                        if($month == "07"){
+                            $jul_total += $quoted_value;
+                        }
+                        if($month == "08"){
+                            $aug_total += $quoted_value;
+                        }
+                        if($month == "09"){
+                            $sep_total += $quoted_value;
+                        }
+                        if($month == "10"){
+                            $oct_total += $quoted_value;
+                        }
+                        if($month == "11"){
+                            $nov_total += $quoted_value;
+                        }
+                        if($month == "12"){
+                            $dec_total += $quoted_value;
                         }
                     }
                 }
