@@ -1,10 +1,7 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
-  <link href="{{URL :: asset('css/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
-  <!-- Date picker script -->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-<!-- Date picker script -->
+  
 @stop
 
 @section('myjsfile')
@@ -12,7 +9,7 @@
 <!-- DATA TABES SCRIPT -->
 
 <script src="{{ URL :: asset('js/graph.js') }}" type="text/javascript"></script>
-<script>
+<!-- <script>
 $(function () {
   var bar = new GraphBar({
     attachTo: '#show_graph',
@@ -39,7 +36,7 @@ $(function () {
   });
   bar.init();
 });
-</script>
+</script>-->
 <style type="text/css">
   svg:not(:root){overflow: inherit; margin-right: 20px; float:right;}
 
