@@ -10,38 +10,6 @@
 @section('myjsfile')
 <script src="{{ URL :: asset('js/crm.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-<!-- page script -->
-
-<!-- Date picker script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<!-- Date picker script -->
-<!-- <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script> -->
-<script src="{{ URL :: asset('js/jquery.price_format.2.0.js') }}" type="text/javascript"></script>
-
-<script>
-$(document).ready(function(){
-    $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-    $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-    $("#to_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-    //$('.money').mask('000.000.000.000.000,00');
-    $('#quoted_value').priceFormat({
-        prefix: '',
-        centsSeparator: '.',
-        thousandsSeparator: ',',
-        centsLimit: '',
-    });
-    $('#annual_revenue').priceFormat({
-        prefix: '',
-        centsSeparator: '.',
-        thousandsSeparator: ',',
-        centsLimit: '',
-    });
-});
-
-</script>
-
 
 <script src="{{ URL :: asset('js/graph.js') }}" type="text/javascript"></script>
 <script>
@@ -52,24 +20,21 @@ $(function () {
     height: 475,
     width: '100%',
     yDist: 40,
-    xDist: 92,
+    xDist: 105,
     showPoints: false,
     xGrid: false,
-    legend: true,
+    legend: false,
     averageLineColor:false,
-    points: [
-      //[17, 21, 51, 74, 12, 49, 100, 17, 21, 51, 74, 12],
-      [32, 15, 75, 20, 45, 90, 52, 15, 75, 20, 45, 90]
-    ],
+    points: [32, 15, 75, 20, 45, 90, 52, 15, 75, 20, 45, 90],
     colors: ['blue'],
-    dataNames: ['Won'],
+    //dataNames: ['Won'],
     xName: 'Month',
     tooltipWidth: 15,
     design: {
         //tooltipColor: '#fff',
         gridColor: 'black',
-        tooltipBoxColor: 'green',
-        averageLineColor: 'green',
+        tooltipBoxColor: 'none',
+        averageLineColor: 'none',
     }
   });
   bar.init();
@@ -124,40 +89,46 @@ $(function () {
                 <div class="crm_graph">
                   <div class="crm_graph_box">
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Monthly</label>
-                        <select class="form-control " name="business_type" id="business_type">
-                          <option></option>  
+                        <label for="exampleInputPassword1">Select Month</label>
+                        <select class="form-control " name="month" id="month">
+                          @foreach($months as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option> 
+                          @endforeach
                         </select>
                       </div> 
                   </div>
                   <div class="crm_graph_box">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Yearly</label>
-                        <select class="form-control " name="business_type" id="business_type">
-                          <option></option>  
+                      <label for="exampleInputPassword1">Select Year</label>
+                        <select class="form-control " name="year" id="year">
+                          @for($i=1900; $i <=date('Y')+50; $i++)
+                            <option value="{{ $i }}" {{ $i == date('Y')?'selected':'' }}>{{ $i }}</option> 
+                          @endfor  
                         </select>
                     </div>
                   </div>
                   <div class="crm_graph_box">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Month</label>
-                        <select class="form-control " name="business_type" id="business_type">
-                          <option></option>  
+                      <label for="exampleInputPassword1">Compare with Previous</label>
+                        <select class="form-control " name="compare" id="compare">
+                          @for($i=1; $i <=11; $i++)
+                            <option value="{{ $i }}">{{ $i }} {{ ($i==1)?'Month':'Months' }}</option> 
+                          @endfor
                         </select>
                     </div>
                   </div>
                  
                       <div class="deleted_items">
                     <div class="form-group">
-                        <input type="checkbox" id="" name="" class="form-control deleted_items_input" >
+                        <input type="checkbox" id="" name="" class="form-control" checked>
                         <label for="exampleInputPassword1" style="width: 75%!important;">Include Deleted Items</label>
                     </div>
                      </div>
 
                    <div class="deleted_items">
                     <div class="form-group">
-                        <input type="checkbox" id="" name="" class="form-control deleted_items_input" >
-                       <label for="exampleInputPassword1" style="width: 75%!important;">Include Deleted Items</label>
+                        <input type="checkbox" id="" name="" class="form-control" checked>
+                       <label for="exampleInputPassword1" style="width: 75%!important;">Include Archived Items</label>
                     </div>
                      </div>
                   
@@ -170,18 +141,15 @@ $(function () {
                     </div>
                   </div>
 
-<div class="crm_graph_box">
+                  <div class="crm_graph_box">
                     <div class="form-group">
                       <label for="exampleInputPassword1"></label>
                   <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph" style="margin-top: 14px;">
                 </div> </div>
 
- <div class="clearfix"></div>
+                <div class="clearfix"></div>
                 </div>
 
-                <div class="form-group">
-                  <input type="button" id="show_graph_button" class="btn btn-info" value="Show Graph">
-                </div> 
                 <div id="show_graph_loader" style="text-align: center;"></div>
                 <div class="clearfix"></div>
 

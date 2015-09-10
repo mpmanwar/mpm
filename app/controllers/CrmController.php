@@ -302,9 +302,16 @@ class CrmController extends BaseController{
     public function show_graph()
     {
         $data = array();
-        $from_date  = Input::get('from_date');
-        $to_date    = Input::get('to_date');
-        $divided_by = 10000;
+        $month      = Input::get('month');
+        $year       = Input::get('year');
+        $compare    = Input::get('compare');
+        $day = $this->getDay($month, $year);
+        ///////////////////////////
+        $to_date    = $day.'-'.$month.'-'.$year;
+        $from_date  = date('d-m-Y', strtotime('-1 months', strtotime('01-'.$month.'-'.$year)));
+        //////////////////////////
+        //echo $from_date."=".$to_date;die;
+        $divided_by = 1000;
 
         $details = CrmLead::getDataWithDateRange($from_date, $to_date);
         $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
@@ -368,6 +375,22 @@ class CrmController extends BaseController{
         echo view::make("crm/ajax.graph", $data);
     }
 
+    public function getDay($month, $year){
+        if($month == '01' || $month == '03' || $month == '05' || $month == '07' || $month == '08' || $month == '10' || $month == '12'){
+            $day = 31;
+        }else if($month == '04' || $month == '06' || $month == '09' || $month == '11'){
+            $day = 30;
+        }else{
+            $value = $year%4;
+            if($value == 0){
+                $day = 28;
+            }else{
+                $day = 29;
+            }
+        }
+        return $day;
+    }
+
     public function archive_leads() {
         Session::put('show_archive_leads', 'Y');
 
@@ -413,6 +436,8 @@ class CrmController extends BaseController{
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
+
+        $data['months'] = array('01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June', '07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December');
 
         return view::make("crm/graph_page", $data);
     }
