@@ -75,7 +75,7 @@ $(function () {
         tooltipWidth: 15,
         design: {
             //tooltipColor: '#fff',
-            gridColor: 'black',
+            gridColor: 'none',
             tooltipBoxColor: 'none',
             averageLineColor: 'none',
         }

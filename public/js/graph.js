@@ -369,7 +369,7 @@ var Graph = Graph || (function($) {
 		}
 		return {
 			xLabels: xLabels,
-			yLabels: yLabels
+			yLabels: ""
 		};
 	};
 	Graph.prototype.addTitle = function(yLines) {

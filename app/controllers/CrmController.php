@@ -383,7 +383,7 @@ class CrmController extends BaseController{
         $day = $this->getDay($month, $year);
         ///////////////////////////
         $to_date    = $year.'-'.$month.'-'.$day;
-        $from_date  = date('Y-m-d', strtotime('-1 months', strtotime('01-'.$month.'-'.$year)));
+        $from_date  = date('Y-m-d', strtotime('-'.$compare.' months', strtotime('01-'.$month.'-'.$year)));
         //$from_year = explode('-', $from_date);
         //////////////////////////
         //echo $from_date."=".$to_date;die;
