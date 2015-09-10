@@ -549,7 +549,7 @@ class CrmController extends BaseController{
     public function report()
     {
         $data = array();
-        $data['heading']= "LEAD VALUE  REPORTS";
+        $data['heading']= "LEAD VALUE REPORTS";
         $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
         $data['back_url'] = '/crm/MTE=/YWxs';
         $data['title']  = "Lead Reports";
@@ -568,16 +568,30 @@ class CrmController extends BaseController{
         $data = array();
         $data['heading']= "Renewals";
         $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
-        
         $data['title']  = "Renewals";
         
+        return view::make("crm/renwal", $data);
+    }
+
+    public function show_leads_report()
+    {
+        $data = array();
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
 
-        
+        $details     = Input::get();
+        $status_id   = $details['status_id'];
+        $user_id     = $details['user_id'];
+        $is_deleted  = $details['is_deleted'];
+        $is_archive  = $details['is_archive'];
+        $date_from   = $details['date_from'];
+        $date_to     = $details['date_to'];
 
-        return view::make("crm/renwal", $data);
+
+        $data['avg_age']        = 10;
+        $data['converson_rate'] = 20;
+        echo json_encode($data);
     }
     
 
