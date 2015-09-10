@@ -392,13 +392,15 @@ class CrmController extends BaseController{
         $lead_status = CrmLeadsStatus::leadsStatusByTabId( 11 );//print_r($lead_status);die;
         if(isset($lead_status) && count($lead_status) >0){
             $jan_total = $feb_total = $mar_total = $apr_total = $may_total = $jun_total = $jul_total = $aug_total = $sep_total = $oct_total = $nov_total = $dec_total = 0;
+            $jan_year = $feb_year = $mar_year = $apr_year = $may_year = $jun_year = $jul_year = $aug_year = $sep_year = $oct_year = $nov_year = $dec_year = '';
             foreach ($lead_status as $i => $row) {
                 $details = CrmLead::getDataWithDateRangeAndLeadsId($from_date, $to_date, $row['leads_id']);
                 //echo $this->last_query();
                 if(isset($details) && count($details) >0){
                     foreach ($details as $key => $value) {
                         $date = explode("-", $value['date']);
-                        $month = $date[1];
+                        $month  = $date[1];
+                        $year   = $date[2];
                         if(isset($value['quoted_value']) && $value['quoted_value'] !=""){
                             $quoted_value = str_replace(',', '', $value['quoted_value']);
                         }else{
@@ -407,39 +409,51 @@ class CrmController extends BaseController{
 
                         if($month == "01"){
                             $jan_total += $quoted_value;
+                            $jan_year = '"Jan-'.$year.'"';
                         }
                         if($month == "02"){
                             $feb_total += $quoted_value;
+                            $feb_year = '"Feb-'.$year.'"';
                         }
                         if($month == "03"){
                             $mar_total += $quoted_value;
+                            $mar_year = '"Mar-'.$year.'"';
                         }
                         if($month == "04"){
                             $apr_total += $quoted_value;
+                            $apr_year = '"Apr-'.$year.'"';
                         }
                         if($month == "05"){
                             $may_total += $quoted_value;
+                            $may_year = '"May-'.$year.'"';
                         }
                         if($month == "06"){
                             $jun_total += $quoted_value;
+                            $jun_year = '"Jun-'.$year.'"';
                         }
                         if($month == "07"){
                             $jul_total += $quoted_value;
+                            $jul_year = '"Jul-'.$year.'"';
                         }
                         if($month == "08"){
                             $aug_total += $quoted_value;
+                            $aug_year = '"Aug-'.$year.'"';
                         }
                         if($month == "09"){
                             $sep_total += $quoted_value;
+                            $sep_year = '"Sept-'.$year.'"';
                         }
                         if($month == "10"){
                             $oct_total += $quoted_value;
+                            $oct_year = '"Oct-'.$year.'"';
                         }
                         if($month == "11"){
                             $nov_total += $quoted_value;
+                            $nov_year = '"Nov-'.$year.'"';
                         }
                         if($month == "12"){
                             $dec_total += $quoted_value;
+                            $dec_year = '"Dec-'.$year.'"';
                         }
                     }
                 }
@@ -458,6 +472,8 @@ class CrmController extends BaseController{
         $data['oct_total'] = $oct_total/$divided_by;
         $data['nov_total'] = $nov_total/$divided_by;
         $data['dec_total'] = $dec_total/$divided_by;
+
+        $data['months'] = $jan_year.', '.$feb_year.', '.$mar_year.', '.$apr_year.', '.$may_year.', '.$jun_year.', '.$jul_year.', '.$aug_year.', '.$sep_year.', '.$oct_year.', '.$nov_year.', '.$dec_year;
         //print_r($data);
         //Common::last_query();
         echo view::make("crm/ajax.graph", $data);
