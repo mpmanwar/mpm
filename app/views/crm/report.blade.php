@@ -126,23 +126,17 @@ $(document).ready(function(){
 	              	<div class="clr"></div>
                 </div>
 
-                <!-- <div class="select_con1">
-                	<table class="table table-bordered" style="margin-top:20px;">
-						<tr>
-							<td align="left" ><strong>Average Deal Age : 0</strong></td>
-							<td align="left" ><strong>Conversion rate : 0</strong></td>
-						</tr>
-					</table>
+                <div class="select_con1">
 					<div class="selec_seclf2">
 					    <span class="slct_con"><strong>Average Deal Age : </strong></span>
-					    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
+					    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px"></div>
 					</div>
-						            	<div class="selec_seclf3" >
-						                    <span class="slct_con"><strong>conversion rate : </strong></span>
-						                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
-						              	</div>
+	            	<div class="selec_seclf3" >
+	                    <span class="slct_con"><strong>conversion rate : </strong></span>
+	                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px"></div>
+	              	</div>
 	              	<div class="clr"></div>
-                </div> -->
+                </div>
               
                 <div id="display_result"><!-- Result Display -->
 					@include('crm/ajax/report')
