@@ -310,7 +310,7 @@ tinymce.init({
                                   <option>Option2</option>
                                   <option>Option3</option>
                                  
-                                </select>
+                                </select> 
                              <!--
                               <input type="checkbox" name="" id="" value="">
                                 Option1 -->
