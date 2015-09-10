@@ -449,6 +449,28 @@ $(".deleteLeads").click(function(){
   });
 // Archive and Un-Archive client start //
 
+  $("#display").click(function(){
+    //var page_open = $("#encode_page_open").val();
+    //var owner_id = $("#encode_owner_id").val();
+    var status_id   = $("#status_id").val();
+    var user_id     = $("#user_id").val();
+    var is_deleted  = $("#is_deleted").val();
+    var is_archive  = $("#is_archive").val();
+    var date_from   = $("#date_from").val();
+    var date_to     = $("#date_to").val();
+    
+    $.ajax({
+      type: "POST",
+      url: '/crm/show-leads-report',
+      dataType:'json',
+      data: { 'status_id' : status_id, 'user_id' : user_id, 'is_deleted' : is_deleted, 'is_archive' : is_archive, 'date_from' : date_from, 'date_to' : date_to },
+      success : function(resp){//return false;
+        $("#avg_age").val(resp['avg_age']);
+        $("#converson_rate").val(resp['converson_rate']);
+      }
+    });
+  });
+
 	
 });//document end 
 

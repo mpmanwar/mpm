@@ -20,11 +20,9 @@
 
 <script>
 $(document).ready(function(){
-    $("#to_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-    $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-
+    $("#date_to").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $("#date_from").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
 });
-
 </script>
 @stop
  
@@ -76,10 +74,10 @@ $(document).ready(function(){
           
           <div class="popupclienttime">
           	<input type="hidden" name="type" id="ctr" value="client_tr">
-          	<p class="clnt_con">LEAD VALUE  REPORTS</p>
+          	<p class="clnt_con">LEAD VALUE REPORTS</p>
              	<div class="selec_seclf">
           			<span class="slct_con"><strong>Select Status</strong></span>
-                  	<select class="form-control2 newdropdown" name="ctr_client" id="ctr_clientc">
+                  	<select class="form-control2 newdropdown" name="status_id" id="status_id">
     					<option value="">None</option>
     					<option value="10">LOST</option>
     					<option value="11">WON</option>
@@ -89,7 +87,7 @@ $(document).ready(function(){
               
               	<div class="selec_seclf_r">
           			<span class="slct_con"><strong>Deal Owner</span>
-                  	<select class="form-control2 newdropdown" name="ctr_serv" id="ctr_servc">
+                  	<select class="form-control2 newdropdown" name="user_id" id="user_id">
     					<option value="">None</option>
     					@if(isset($staff_details) && count($staff_details) >0)
 		                  @foreach($staff_details as $key=>$staff_row)
@@ -103,11 +101,11 @@ $(document).ready(function(){
 
               	<div class="select_con1">
 				<div class="selec_seclf2">
-				    <span class="slct_con"><input type="checkbox" id="" name="" class="form-control" checked></span>
+				    <span class="slct_con"><input type="checkbox" id="is_deleted" name="is_deleted" class="form-control" value="Y" checked></span>
 				    <label for="exampleInputPassword1" style="width: 75%!important; margin:6px 0 0 5px;">Include Deleted Items</label>
 				</div>
             	<div class="selec_seclf3" >
-                    <span class="slct_con"><input type="checkbox" id="" name="" class="form-control" checked></span>
+                    <span class="slct_con"><input type="checkbox" id="is_archive" name="is_archive" class="form-control" value="Y" checked></span>
                     <label for="exampleInputPassword1" style="width: 75%!important; margin:6px 0 0 5px;">Include Archived Items</label>
               	</div>
               	<div class="clr"></div>
@@ -116,30 +114,20 @@ $(document).ready(function(){
               	<div class="select_con1">
 					<div class="selec_seclf2">
 					    <span class="slct_con"><strong>Date From</strong></span>
-					    <input class="dpick dpick1" type="text" id="from_date" name="from_date"  />
+					    <input class="dpick dpick1" type="text" id="date_from" name="date_from" />
 					</div>
 	            	<div class="selec_seclf3" >
 	                    <span class="slct_con"><strong>Date To</strong></span>
-	                    <input class="dpick dpick1" type="text" id="to_date" name="to_date"  />
+	                    <input class="dpick dpick1" type="text" id="date_to" name="date_to" />
 	                    <button type="button" class="clnt_button" id="display">Display</button>   
 	              	</div>
 	              	<div class="clr"></div>
                 </div>
 
-                <div class="select_con1">
-					<div class="selec_seclf2">
-					    <span class="slct_con"><strong>Average Deal Age : </strong></span>
-					    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px"></div>
-					</div>
-	            	<div class="selec_seclf3" >
-	                    <span class="slct_con"><strong>conversion rate : </strong></span>
-	                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px"></div>
-	              	</div>
-	              	<div class="clr"></div>
-                </div>
+                
               
                 <div id="display_result"><!-- Result Display -->
-					@include('crm/ajax/report')
+                	@include('crm/ajax/report')
                 </div>
 	              	<div class="clr"></div>
 	              	<div id="dropctrerror" style="text-align: center; padding: 20px 10px 10px 10px; ">

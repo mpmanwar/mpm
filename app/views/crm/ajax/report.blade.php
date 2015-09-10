@@ -1,9 +1,14 @@
-<!-- <table class="table table-bordered" style="margin-top:20px;">
-	<tr>
-		<td align="left" ><strong>Average Deal Age : 0</strong></td>
-		<td align="left" ><strong>Conversion rate : 0</strong></td>
-	</tr>
-</table> -->
+<div class="select_con1">
+	<div class="selec_seclf2">
+	    <span class="slct_con"><strong>Average Deal Age : </strong></span>
+	    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px" id="avg_age"></div>
+	</div>
+	<div class="selec_seclf3" >
+        <span class="slct_con"><strong>conversion rate : </strong></span>
+        <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="0" style="width:40px; height:25px; padding:5px" id="converson_rate"></div>
+  	</div>
+  	<div class="clr"></div>
+</div>
 
 <table class="table table-bordered" style="margin-top:20px;">
 
