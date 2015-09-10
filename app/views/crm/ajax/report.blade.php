@@ -1,9 +1,9 @@
-<table class="table table-bordered" style="margin-top:20px;">
+<!-- <table class="table table-bordered" style="margin-top:20px;">
 	<tr>
 		<td align="left" ><strong>Average Deal Age : 0</strong></td>
 		<td align="left" ><strong>Conversion rate : 0</strong></td>
 	</tr>
-</table>
+</table> -->
 
 <table class="table table-bordered" style="margin-top:20px;">
 
