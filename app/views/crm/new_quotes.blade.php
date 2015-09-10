@@ -290,7 +290,7 @@ tinymce.init({
                             <tr>
                               <td width="11%"><strong>Quote Type</strong></td>
                               <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="ltemisedservices" value="Itemised Services" checked="checked"></td>
-                              <td width="17%">Ltemised Services <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
+                              <td width="17%">Itemised Services <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
                               <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="menupricing" value="Menu/Packaged pricing"></td>
                               <td width="17%">Menu/Packaged pricing <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
                               <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="tailoredquote" value="Tailored quote"></td>
