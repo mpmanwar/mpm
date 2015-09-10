@@ -65,18 +65,18 @@ $(document).ready(function(){
           </div>
 
 	<div class="modal-content" style="width: 59%; margin: 30px auto;">
-		<div class="modal-header">
+		<div class="modal-header" style="padding-bottom: 0px; border-bottom: none;">
 	        <button onclick="window.history.back(-1)" type="button" class="close save_btn">×</button>
-	        <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
+	        <!-- <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4> -->
 	        <div class="clearfix"></div>
       	</div>
 
-		<div class="modal-body">
+		<div class="modal-body" style="padding-top: 0px">
         <!--  <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button> -->
           
           <div class="popupclienttime">
           	<input type="hidden" name="type" id="ctr" value="client_tr">
-          	<p class="clnt_con">CRM REPORT</p>
+          	<p class="clnt_con">LEAD VALUE  REPORTS</p>
              	<div class="selec_seclf">
           			<span class="slct_con"><strong>Select Status</strong></span>
                   	<select class="form-control2 newdropdown" name="ctr_client" id="ctr_clientc">
@@ -126,17 +126,23 @@ $(document).ready(function(){
 	              	<div class="clr"></div>
                 </div>
 
-                <div class="select_con1">
+                <!-- <div class="select_con1">
+                	<table class="table table-bordered" style="margin-top:20px;">
+						<tr>
+							<td align="left" ><strong>Average Deal Age : 0</strong></td>
+							<td align="left" ><strong>Conversion rate : 0</strong></td>
+						</tr>
+					</table>
 					<div class="selec_seclf2">
 					    <span class="slct_con"><strong>Average Deal Age : </strong></span>
 					    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
 					</div>
-	            	<div class="selec_seclf3" >
-	                    <span class="slct_con"><strong>conversion rate : </strong></span>
-	                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
-	              	</div>
+						            	<div class="selec_seclf3" >
+						                    <span class="slct_con"><strong>conversion rate : </strong></span>
+						                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
+						              	</div>
 	              	<div class="clr"></div>
-                </div>
+                </div> -->
               
                 <div id="display_result"><!-- Result Display -->
 					@include('crm/ajax/report')

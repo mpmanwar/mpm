@@ -549,11 +549,10 @@ class CrmController extends BaseController{
     public function report()
     {
         $data = array();
-        $data['heading']= "REPORT";
+        $data['heading']= "LEAD VALUE  REPORTS";
         $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
         $data['back_url'] = '/crm/MTE=/YWxs';
-        $data['title']  = "Report";
-        $data['sub_title']  = "Report";
+        $data['title']  = "Lead Reports";
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
