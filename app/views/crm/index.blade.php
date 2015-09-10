@@ -256,7 +256,7 @@ $(document).ready(function(){
             <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
           </li>
           <li>
-            <a class="btn btn-info" href="/crm/report" target="_blank">REPORT</a>
+            <a class="btn btn-info" href="/crm/report">REPORT</a>
           </li>
         <div class="clearfix"></div>
         </ul>

@@ -63,8 +63,15 @@ $(document).ready(function(){
             </div>
             <div class="clearfix"></div>
           </div>
-<div class="modal-content" style="width: 59%; margin: 30px auto;">
-<div class="modal-body">
+
+	<div class="modal-content" style="width: 59%; margin: 30px auto;">
+		<div class="modal-header">
+	        <button onclick="window.history.back(-1)" type="button" class="close save_btn">×</button>
+	        <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
+	        <div class="clearfix"></div>
+      	</div>
+
+		<div class="modal-body">
         <!--  <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button> -->
           
           <div class="popupclienttime">
@@ -106,17 +113,29 @@ $(document).ready(function(){
               	<div class="clr"></div>
               </div>
               
-              <div class="select_con1">
-				<div class="selec_seclf2">
-				    <span class="slct_con"><strong>Date From</strong></span>
-				    <input class="dpick dpick1" type="text" id="from_date" name="from_date"  />
-				</div>
-            	<div class="selec_seclf3" >
-                    <span class="slct_con"><strong>Date To</strong></span>
-                    <input class="dpick dpick1" type="text" id="to_date" name="to_date"  />
-                    <button type="button" class="clnt_button" id="display">Display</button>   
-              	</div>
-              	<div class="clr"></div>
+              	<div class="select_con1">
+					<div class="selec_seclf2">
+					    <span class="slct_con"><strong>Date From</strong></span>
+					    <input class="dpick dpick1" type="text" id="from_date" name="from_date"  />
+					</div>
+	            	<div class="selec_seclf3" >
+	                    <span class="slct_con"><strong>Date To</strong></span>
+	                    <input class="dpick dpick1" type="text" id="to_date" name="to_date"  />
+	                    <button type="button" class="clnt_button" id="display">Display</button>   
+	              	</div>
+	              	<div class="clr"></div>
+                </div>
+
+                <div class="select_con1">
+					<div class="selec_seclf2">
+					    <span class="slct_con"><strong>Average Deal Age : </strong></span>
+					    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
+					</div>
+	            	<div class="selec_seclf3" >
+	                    <span class="slct_con"><strong>conversion rate : </strong></span>
+	                    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;">0</div>
+	              	</div>
+	              	<div class="clr"></div>
                 </div>
               
                 <div id="display_result"><!-- Result Display -->

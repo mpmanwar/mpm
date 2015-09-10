@@ -7,8 +7,9 @@
 <tr>
 	<td width="30%" align="left">Deal Owner </td>
 	<td width="30%" align="left">Prospect Name</td>
-	<td width="15%" align="left">Date</td>
-	<td width="15%" align="left">Status</td>
+	<td width="10%" align="left">Date</td>
+	<td width="10%" align="left">Age</td>
+	<td width="10%" align="left">Status</td>
 	<td width="10%" align="left">Amount</td>
 </tr>
 </table>
@@ -25,8 +26,9 @@
 	<tr>
 	<td width="30%" align="left">aaa</td>
 	<td width="30%" align="left">aaa</td>
-	<td width="15%" align="left">aaa</td>
-	<td width="15%" align="left">aaa</td>
+	<td width="10%" align="left">aaa</td>
+	<td width="10%" align="left">aaa</td>
+	<td width="10%" align="left">aaa</td>
 	<td width="10%" align="left">aaa</td>
 	</tr>
 
