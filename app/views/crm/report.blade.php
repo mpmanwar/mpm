@@ -71,7 +71,7 @@ $(document).ready(function(){
           	<input type="hidden" name="type" id="ctr" value="client_tr">
           	<p class="clnt_con">CRM REPORT</p>
              	<div class="selec_seclf">
-          			<span class="slct_con">Select Status</span>
+          			<span class="slct_con"><strong>Select Status</strong></span>
                   	<select class="form-control2 newdropdown" name="ctr_client" id="ctr_clientc">
     					<option value="">None</option>
     					<option value="10">LOST</option>
@@ -81,7 +81,7 @@ $(document).ready(function(){
           		</div>
               
               	<div class="selec_seclf_r">
-          			<span class="slct_con">Deal Owner</span>
+          			<span class="slct_con"><strong>Deal Owner</span>
                   	<select class="form-control2 newdropdown" name="ctr_serv" id="ctr_servc">
     					<option value="">None</option>
     					@if(isset($staff_details) && count($staff_details) >0)
