@@ -58,16 +58,62 @@ $("#tctab6").hide();
   
  
  
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+	$("#quotevalidity").keydown(function(event) {
+    
+        
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+
+			// let it happen, don't do anything
+
+		}
+
+		else {
+		  
+          
+          if($("#quotevalidity").val().length>=3){
+			event.preventDefault();	
+        return false;
+        }
+
+			// Ensure that it is a number and stop the keypress
+
+			 if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
+
+            event.preventDefault();
+
+        }	
+
+		}
+
+	});
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   });
   
   $("body").on("click", "#tabletab4", function(){
     
     // $(".ltemised_services").hide("");
     
-    $("#firsttable").hide("");
-    $("#secondtable").hide("");
-    $("#thirdtable").hide("");
-    $("#forthtable").hide("");
+   // $("#firsttable").hide("");
+   // $("#secondtable").hide("");
+   // $("#thirdtable").hide("");
+  //  $("#forthtable").hide("");
     
     
    // if ($("#ltemisedservices input[type='radio']:checked").val() == 'Ltemised Services') {
@@ -91,6 +137,7 @@ $("#tctab6").hide();
    $('.quotetype').on('ifChecked', function(event){
 
       var value = $(this).val();
+       //console.log(value);return false;
   if(value == "Ltemised Services"){
     $("#firsttable").show("");
     $("#secondtable").show("");
