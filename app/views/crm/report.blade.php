@@ -22,9 +22,7 @@
 $(document).ready(function(){
     $("#date_to").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#date_from").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
-
 });
-
 </script>
 @stop
  
