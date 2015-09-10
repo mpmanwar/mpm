@@ -7,7 +7,7 @@
 @stop
 
 @section('myjsfile')
-<!-- <script src="{{ URL :: asset('js/quotes.js') }}" type="text/javascript"></script> -->
+ <script src="{{ URL :: asset('js/quotes.js') }}" type="text/javascript"></script> 
 <!-- <script src="{{ URL :: asset('js/onboard.js') }}" type="text/javascript"></script> -->
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
@@ -224,7 +224,7 @@ tinymce.init({
                             </div>
                             <div class="clearfix"></div>
                           </div>
-                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea</textarea>
                           <div class="add_client_btn">
                             <button class="btn btn-info">Prev</button>
                             <button class="btn btn-danger">Save</button>
@@ -263,7 +263,7 @@ tinymce.init({
                             </div>
                             <div class="clearfix"></div>
                           </div>
-                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea</textarea>
                           <div class="add_client_btn">
                             <button class="btn btn-info">Prev</button>
                             <button class="btn btn-danger">Save</button>
@@ -289,25 +289,51 @@ tinymce.init({
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="11%"><strong>Quote Type</strong></td>
-                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="quotetype" class="quotetype" id="ltemisedservices" value="Ltemised Services" checked="checked"></td>
                               <td width="17%">Ltemised Services <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
-                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="menupricing" value="Menu/Packaged pricing"></td>
                               <td width="17%">Menu/Packaged pricing <a href="javascript:void(0)" class="lead_status-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></td>
-                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="tailoredquote" value="Tailored quote"></td>
                               <td width="11%">Tailored quote</td>
-                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="quotetype" class="quotetype"  id="importfrommexcel" value="Import fromm Excel"></td>
                               <td width="14%">Import fromm Excel</td>
-                              <td width="2%"><input type="radio" name="" id="" value=""></td>
+                              <td width="2%"><input type="radio" name="" class="quotetype"  id="" value=""></td>
                               <td width="20%">Select sample quote</td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option1</td>
+                              <td>
+                              
+                              <select class="form-control">
+                                  <option>Option1</option>
+                                  <option>Option2</option>
+                                  <option>Option3</option>
+                                 
+                                </select>
+                             <!--
+                              <input type="checkbox" name="" id="" value="">
+                                Option1 -->
+                                
+                                
+                                
+                                
+                                </td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option1</td>
+                              <td>
+                              
+                              <select class="form-control">
+                                  <option>Option1</option>
+                                  <option>Option2</option>
+                                  <option>Option3</option>
+                                 
+                                </select>
+                                <!--
+                              <input type="checkbox" name="" id="" value="">
+                                Option1
+                                -->
+                                
+                                </td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
@@ -321,11 +347,9 @@ tinymce.init({
                             <tr>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option2</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option2</td>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
@@ -337,11 +361,9 @@ tinymce.init({
                             <tr>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option3</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option3</td>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
@@ -355,12 +377,17 @@ tinymce.init({
                             <tr>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
-                              <td><input type="checkbox" name="" id="" value="">
-                                Option3</td>
                               <td>&nbsp;</td>
-                              <td valign="top">Or Import <span class="btn btn-default btn-file"> Browse
+                              <td>&nbsp;</td>
+                              <td valign="top">
+                              &nbsp;
+                              <!--
+                              Or Import <span class="btn btn-default btn-file"> Browse
                                 <input type="file">
-                                </span></td>
+                                </span>
+                                -->
+                                
+                                </td> 
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
@@ -376,7 +403,9 @@ tinymce.init({
                                 <td width="13%"><input type="text" id="" class="form-control"></td>
                                 <td width="12%">&nbsp;</td>
                                 <td width="9%">Quote validity</td>
-                                <td width="3%"><input type="checkbox" name="" id="" value=""></td>
+                              
+                                <td width="3%"><input type="text" name="quotevalidity" id="quotevalidity" style="width:34px;" value=""></td>
+                               
                                 <td width="10%">Days</td>
                                 <td width="1%">&nbsp;</td>
                                 <td width="13%">&nbsp;</td>
@@ -385,7 +414,7 @@ tinymce.init({
                                 <td width="14%"><input type="text" id="" class="form-control"></td>
                               </tr>
                             </table>
-                            <div class="first_item">
+                            <div class="first_item" id="firsttable">
                             
                             
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -510,7 +539,7 @@ tinymce.init({
                                   <input type="checkbox" id="" class="form-control">
                                   <label for="exampleInputPassword1">One - Off Fees</label>
                                 </div>
-                            <div class="first_item">
+                            <div class="first_item" id="secondtable">
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
@@ -623,8 +652,8 @@ tinymce.init({
                               </table>
                             </div>
                            
-                            <div class="col-xs-12" style="padding:0; margin-bottom:15px;">
-                              <div class="top_buttons">
+                            <div class="col-xs-12" style="padding:0; margin-bottom:15px;"id="thirdtable">
+                              <div class="top_buttons" >
                                 <div class="form-group email_top_left">
                                   <input type="checkbox" id="" class="form-control">
                                   <label for="exampleInputPassword1">Notes</label>
@@ -640,14 +669,14 @@ tinymce.init({
                                 </div>
                                 <div class="clearfix"></div>
                               </div>
-                              <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                              <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea </textarea>
                               
                             </div>
-                            <div class="second_item">
+                            <div class="second_item" id="forthtable">
                               <p>
                                 <input type="checkbox" name="" id="" value="">
                                 Optional Services</p>
-                              <div class="first_item">
+                              <div class="first_item" id="">
                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="white_table table-bordered">
@@ -701,13 +730,13 @@ tinymce.init({
                                         <td>&nbsp;</td>
                                        
                                       </tr>
-                                      <tr>
+                               <!--       <tr>
                                         
                                         
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                        
-                                      </tr>
+                                      </tr> -->
                                     </table></td>
                                 </tr>
                               </table>
@@ -794,7 +823,7 @@ tinymce.init({
                             </div>
                             <div class="clearfix"></div>
                           </div>
-                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                          <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea</textarea>
                           <!--<div class="add_client_btn">
 <button class="btn btn-info">Prev</button>
 <button class="btn btn-danger">Save</button>
@@ -812,7 +841,7 @@ tinymce.init({
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Message</label>
-                                  <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                                  <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea</textarea>
                                 </div>
                               </div>
                             </div>
@@ -879,7 +908,7 @@ tinymce.init({
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Message</label>
-                                  <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea to be replaced with CKEditor.</textarea>
+                                  <textarea name="" rows="10" cols="" style="width:100%;">This is my textarea</textarea>
                                 </div>
                               </div>
                             </div>
