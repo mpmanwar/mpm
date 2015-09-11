@@ -454,19 +454,47 @@ $(".deleteLeads").click(function(){
     //var owner_id = $("#encode_owner_id").val();
     var status_id   = $("#status_id").val();
     var user_id     = $("#user_id").val();
-    var is_deleted  = $("#is_deleted").val();
-    var is_archive  = $("#is_archive").val();
     var date_from   = $("#date_from").val();
     var date_to     = $("#date_to").val();
-    
+
+    if($("#is_deleted").is(':checked')){
+      var is_deleted  = 'Y';
+    }else{
+      var is_deleted  = 'N';
+    }
+    if($("#is_archive").is(':checked')){
+      var is_archive  = 'Y';
+    }else{
+      var is_archive  = 'N';
+    }
+
+    if(status_id == ""){
+      alert("Please select The status");
+      $("#status_id").focus();
+      return false;
+    }
+    if(date_from == ""){
+      alert("Please select Date form field");
+      $("#date_from").focus();
+      return false;
+    }
+    if(date_to == ""){
+      alert("Please select Date to field");
+      $("#date_to").focus();
+      return false;
+    }
+
     $.ajax({
       type: "POST",
       url: '/crm/show-leads-report',
-      dataType:'json',
+      //dataType:'json',
       data: { 'status_id' : status_id, 'user_id' : user_id, 'is_deleted' : is_deleted, 'is_archive' : is_archive, 'date_from' : date_from, 'date_to' : date_to },
+      beforeSend: function() {
+        $("#display_result").html('');
+        $("#display_result").html('<div style="text-align:center;"><img src="/img/spinner.gif" /></div>');
+      },
       success : function(resp){//return false;
-        $("#avg_age").val(resp['avg_age']);
-        $("#converson_rate").val(resp['converson_rate']);
+        $("#display_result").html(resp);
       }
     });
   });

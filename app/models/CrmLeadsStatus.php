@@ -48,9 +48,9 @@ class CrmLeadsStatus extends Eloquent {
 		$details = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_id", "=", $leads_id)->first();
 		if(isset($details) && count($details) >0){
 			$data['leads_status_id'] 	= $details->leads_status_id;
-			$data['leads_tab_id'] 		= $details->leads_tab_id;
 			$data['user_id'] 			= $details->user_id;
 			$data['leads_id'] 			= $details->leads_id;
+			$data['leads_tab_id'] 		= $details->leads_tab_id;
 			$data['likely'] 			= $details->created;
 		}
 		return $data;

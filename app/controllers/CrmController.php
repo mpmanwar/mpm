@@ -44,7 +44,7 @@ class CrmController extends BaseController{
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
 
         $data['invoice_leads_details']  = CrmLead::getInvoiceLeadsDetails();
-        $data['leads_details']      = CrmLead::getAllDetails();
+        $data['leads_details']          = CrmLead::getAllDetails();
         $total    = 0;
         $average  = 0;
         $likely   = 0;
@@ -53,6 +53,16 @@ class CrmController extends BaseController{
                 $quoted_value = str_replace(",", "", $value['quoted_value']);
                 $total += $quoted_value;
                 $likely += ($value['deal_certainty']*$quoted_value)/100;
+
+                $status = CrmLeadsStatus::getDetailsByLeadsId( $value['leads_id'] );
+                //echo $this->last_query();
+                if(isset($status) && ($status['leads_tab_id'] == 11 || $status['leads_tab_id'] == 10)){
+                    $date = explode(' ', $status['likely']);
+                    $data['leads_details'][$key]['deal_age'] = $this->getDealAge($value['date'], $date[0]);
+                }else{
+                    $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
+                }
+                
             }
             $average = $total/count($data['leads_details']);
         }
@@ -550,9 +560,9 @@ class CrmController extends BaseController{
     {
         $data = array();
         $data['heading']= "LEAD VALUE REPORTS";
-        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        //$data['previous_page'] = '<a href="/crm/MTE=/YWxs">CRM</a>';
         $data['back_url'] = '/crm/MTE=/YWxs';
-        $data['title']  = "Lead Reports";
+        $data['title']  = "CRM";
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
@@ -567,7 +577,6 @@ class CrmController extends BaseController{
 
     public function renewals()
     {
-        
         $data = array();
         $data['heading']= "Renewals";
         $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
@@ -578,7 +587,9 @@ class CrmController extends BaseController{
 
     public function show_leads_report()
     {
-        $data = array();
+        $data   = array();
+        $data1   = array();
+        $where  = array();
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
@@ -588,13 +599,152 @@ class CrmController extends BaseController{
         $user_id     = $details['user_id'];
         $is_deleted  = $details['is_deleted'];
         $is_archive  = $details['is_archive'];
-        $date_from   = $details['date_from'];
-        $date_to     = $details['date_to'];
+        $date_from   = date('Y-m-d', strtotime($details['date_from']));
+        $date_to     = date('Y-m-d', strtotime($details['date_to']));
 
+        if(isset($status_id) && $status_id != ""){
+            $where['cls.leads_tab_id'] = $status_id;
+        }
 
-        $data['avg_age']        = 10;
-        $data['converson_rate'] = 20;
-        echo json_encode($data);
+        if(isset($user_id) && $user_id != ""){
+            if($user_id == "unassigned"){
+                $where['cl.deal_owner'] = 0;
+                $converson_user = "0";
+            }else{
+                $where['cl.deal_owner'] = $user_id;
+                $converson_user = $user_id;
+            }
+        }else{
+            $converson_user = "all";
+        }
+
+        if(isset($is_deleted) && $is_deleted == "N"){
+            $where['cl.is_deleted'] = 'N';
+        }
+
+        if(isset($is_archive) && $is_archive == 'N'){
+            $where['cl.is_archive'] = 'N';
+        }
+//echo $user_id;die;
+        /*$details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+            ->whereBetween('cl.date', array($date_from, $date_to))
+            ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
+            ->join('users as u', 'cl.deal_owner', '=', 'u.user_id')
+            ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
+            ->select('cl.*', 'u.fname', 'u.lname', 'clt.tab_name')->get();*/
+
+        $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+            ->whereBetween('cl.date', array($date_from, $date_to))
+            ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
+            ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
+            ->select('cl.*', 'clt.tab_name')->get();
+        
+        //echo $this->last_query();die;
+        $outer_details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+            ->whereBetween('cl.date', array($date_from, $date_to))
+            ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
+            ->groupBy('cl.deal_owner')
+            ->select('cl.deal_owner')->get();
+
+        //echo $this->last_query();die;
+        $avg_age = $total_amount = 0;
+        $count = 1;
+        $won = $lost = 0;
+        if(isset($details) && count($details) >0 )
+        {
+            foreach ($details as $key => $row) {
+                if(isset($row->deal_owner) && $row->deal_owner != "0"){
+                    $name = User::getStaffNameById($row->deal_owner);
+                }else{
+                    $name = "";
+                }
+
+                if($row->client_type == 'org'){
+                    $prospect_name = $row->prospect_name;
+                }else{
+                    $prospect_name = $row->prospect_title." ".$row->prospect_fname." ".$row->prospect_lname;
+                }
+
+                $data1[$key]['leads_id']         = $row->leads_id;
+                $data1[$key]['deal_owner']       = $row->deal_owner;
+                $data1[$key]['deal_owner_name']  = $name;
+                $data1[$key]['prospect_name']    = $prospect_name;
+                $data1[$key]['date']             = date('d-m-Y', strtotime($row->date));
+                $data1[$key]['tab_name']         = $row->tab_name;
+                $data1[$key]['quoted_value']     = number_format(str_replace(',', '', $row->quoted_value), 2);
+                $data1[$key]['age']              = $this->getAgeCount($row->date);
+
+                $avg_age += $data1[$key]['age'];
+                $count++;
+            }
+            $count--;
+        }
+        $data['details']        = $data1;
+        $data['outer_details']  = $outer_details;
+        $data['avg_age']        = $avg_age/$count;
+
+        /////////////Converson Rate////////////
+        $leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
+        if(isset($leads_details) && count($leads_details) > 0){
+            foreach ($leads_details as $key => $value) {
+                if($converson_user == "all"){
+                    $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
+                    if(isset($tab_id) && $tab_id == '11'){
+                        $won++;
+                    }
+                    if(isset($tab_id) && $tab_id == '10'){
+                        $lost++;
+                    }
+                }else{
+                     if($value['deal_owner_id'] == $converson_user){
+                        $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
+                        if(isset($tab_id) && $tab_id == '11'){
+                            $won++;
+                        }
+                        if(isset($tab_id) && $tab_id == '10'){
+                            $lost++;
+                        }
+                     }
+                }
+                
+            }
+            
+        }
+
+        if( ($won + $lost) == 0){
+            $data['converson_rate'] = 0;
+        }else{
+            $data['converson_rate'] = $won*100/($won + $lost);
+        }
+        
+        //echo "Total : ".($won + $lost);
+        /////////////Converson Rate////////////
+        //print_r($data);die;
+        echo view::make("crm/ajax/report", $data);
+    }
+
+    public function getAgeCount($from)
+    {
+        $days = 0;
+        if( $from != "" ){
+            $date1 = $from;
+            $date2 = date("Y-m-d");
+            //echo $date2;die;
+
+            $diff = strtotime($date2) - strtotime($date1);
+            $days = round($diff/86400);
+        }
+        
+        return $days;
+    }
+
+    public function getDealAge($date1, $date2)
+    {
+        $days = 0;
+        $diff = strtotime($date2) - strtotime($date1);
+        $days = round($diff/86400);
+        
+        return $days;
     }
     
     

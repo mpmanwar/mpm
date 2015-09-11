@@ -256,7 +256,7 @@ $(document).ready(function(){
             <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
           </li>
           <li>
-            <a class="btn btn-info" href="/crm/report">REPORT</a>
+            <a class="btn btn-info" href="/crm/report" target="_blank">REPORT</a>
           </li>
         <div class="clearfix"></div>
         </ul>
@@ -377,7 +377,7 @@ $(document).ready(function(){
               <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
               <td align="left">{{ $leads_row['phone'] or "" }}</td>
               <td align="left">{{ $leads_row['email'] or "" }}</td>
-              <td align="center">0</td>
+              <td align="center">{{ $leads_row['deal_age'] or "0" }}</td>
               <td align="center">
                 <div class="email_client_selectbox" style="height:24px; width:93px!important">
                   <span>{{ (isset($leads_row['is_invoiced']) && $leads_row['is_invoiced'] == 'Y')?'Invoiced':'SEND' }}</span>
@@ -464,7 +464,7 @@ $(document).ready(function(){
               <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
               <td align="left">{{ $leads_row['phone'] or "" }}</td>
               <td align="left">{{ $leads_row['email'] or "" }}</td>
-              <td align="center">0</td>
+              <td align="center">{{ $leads_row['deal_age'] or "0" }}</td>
               <td align="center">
                 <div class="email_client_selectbox" style="height:24px;">
                   <span>SEND</span>
