@@ -674,14 +674,14 @@ class CrmController extends BaseController{
         if(isset($leads_details) && count($leads_details) > 0){
             foreach ($leads_details as $key => $value) {
                 $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
-                echo "Tab_id : ".$tab_id.", Lead_id : ".$value['leads_id']."<br>";
+                //echo "Tab_id : ".$tab_id.", Lead_id : ".$value['leads_id']."<br>";
                 if(isset($tab_id) && $tab_id == '11'){
                     $won++;
                 }
                 if(isset($tab_id) && $tab_id == '10'){
                     $lost++;
                 }
-                echo "won : ".$won.", lost : ".$lost."<br>";
+                //echo "won : ".$won.", lost : ".$lost."<br>";
             }
             
         }//die;
@@ -692,7 +692,7 @@ class CrmController extends BaseController{
             $data['converson_rate'] = $won*100/($won + $lost);
         }
         
-echo "Total : ".($won + $lost);
+//echo "Total : ".($won + $lost);
         /////////////Converson Rate////////////
         //print_r($data);die;
         echo view::make("crm/ajax/report", $data);
