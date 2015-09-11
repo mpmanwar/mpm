@@ -126,9 +126,7 @@ $(document).ready(function(){
 
                 
               
-                <div id="display_result"><!-- Result Display -->
-                	@include('crm/ajax/report')
-                </div>
+                <div id="display_result"><!-- Result Display --></div>
 	              	<div class="clr"></div>
 	              	<div id="dropctrerror" style="text-align: center; padding: 20px 10px 10px 10px; ">
                 </div>
