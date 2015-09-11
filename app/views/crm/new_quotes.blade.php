@@ -985,9 +985,6 @@ tinymce.init({
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
         
-
-    
-
-     
+ 
 
 @stop
