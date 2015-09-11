@@ -618,7 +618,7 @@ class CrmController extends BaseController{
 
         //echo $this->last_query();die;
         $avg_age = 0;
-        $count = 0;
+        $count = 1;
         $total_amount = 0;
         if(isset($details) && count($details) >0 )
         {
@@ -636,6 +636,7 @@ class CrmController extends BaseController{
                 $total_amount += str_replace(',', '', $row->quoted_value);
                 $count++;
             }
+            $count--;
         }
         $data['details'] = $data1;
         $data['avg_age']        = $avg_age/$count;

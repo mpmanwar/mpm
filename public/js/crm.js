@@ -489,6 +489,10 @@ $(".deleteLeads").click(function(){
       url: '/crm/show-leads-report',
       //dataType:'json',
       data: { 'status_id' : status_id, 'user_id' : user_id, 'is_deleted' : is_deleted, 'is_archive' : is_archive, 'date_from' : date_from, 'date_to' : date_to },
+      beforeSend: function() {
+        $("#display_result").html('');
+        $("#display_result").html('<div style="text-align:center;"><img src="/img/spinner.gif" /></div>');
+      },
       success : function(resp){//return false;
         $("#display_result").html(resp);
       }
