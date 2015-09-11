@@ -664,27 +664,35 @@ class CrmController extends BaseController{
                 $count++;
             }
             $count--;
+
+            /////////////Converson Rate Start////////////
+            $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $row->leads_id );
+            if(isset($tab_id) && $tab_id == '11'){
+                $won++;
+            }
+            if(isset($tab_id) && $tab_id == '10'){
+                $lost++;
+            }
+            /////////////Converson Rate End////////////
         }
         $data['details']        = $data1;
         $data['outer_details']  = $outer_details;
         $data['avg_age']        = $avg_age/$count;
-//
+
         /////////////Converson Rate////////////
-        $leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
+        /*$leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
         if(isset($leads_details) && count($leads_details) > 0){
             foreach ($leads_details as $key => $value) {
                 $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
-                //echo "Tab_id : ".$tab_id.", Lead_id : ".$value['leads_id']."<br>";
                 if(isset($tab_id) && $tab_id == '11'){
                     $won++;
                 }
                 if(isset($tab_id) && $tab_id == '10'){
                     $lost++;
                 }
-                //echo "won : ".$won.", lost : ".$lost."<br>";
             }
             
-        }//die;
+        }*/
 
         if( ($won + $lost) == 0){
             $data['converson_rate'] = 0;
