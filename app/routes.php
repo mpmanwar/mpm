@@ -32,15 +32,23 @@ Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses'
 
 Route::any('/onboard', 'HomeController@onboard');
 Route::any('/client/onboard-client', 'ClientController@onboard_client');
+Route::any('/client/indonboard-client', 'ClientController@indonboard_client');
 
 Route::any('/client/onboardsnotes', 'ClientController@onboardsnotes');
+Route::any('/client/indonboardsnotes', 'ClientController@indonboardsnotes');
 Route::any('/onboardsave-made-up-date', 'ClientController@onboardsave');
-
+Route::any('/indonboardsave-made-up-date', 'ClientController@indonboardsave');
 
 Route::any('/client/getonboardsnotes', 'ClientController@getonboardsnotes');
+
+
+Route::any('/client/indgetonboardsnotes', 'ClientController@indgetonboardsnotes');
+
 Route::any('/client/add-checklist', 'ClientController@add_checklist');
+Route::any('/client/indadd-checklist', 'ClientController@indadd_checklist');
 Route::any('/delete-checklist-type', 'ClientController@delete_checklist');
 Route::any('/client/getowner', 'ClientController@getowner');
+Route::any('/client/indgetowner', 'ClientController@indgetowner');
 Route::any('/individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
 Route::post('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
@@ -404,4 +412,7 @@ Route::any('/quotes', 'QuotesController@quotes');
 
 Route::any('/renewals', 'CrmController@renewals');
 
+Route::any('/inboxmail', 'CrmController@inboxmail');
+Route::any('/getmail', 'CrmController@getmail');
+Route::any('/indonboard', 'HomeController@indonboard');
 

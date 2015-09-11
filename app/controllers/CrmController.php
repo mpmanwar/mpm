@@ -597,5 +597,60 @@ class CrmController extends BaseController{
         echo json_encode($data);
     }
     
+    
+    public function inboxmail(){
+                
+          return view::make("crm/inboxmail");
+       }
+    
+    public function getmail(){
+        
+    //echo phpinfo();die();
+       // die('dsdsdsdsdsd');
+                     /**
+ *	Uses PHP IMAP extension, so make sure it is enabled in your php.ini,
+ *	extension=php_imap.dll
+  */
+ set_time_limit(3000); 
+ /* connect to gmail with your credentials */
+ 
+ $hostname = "{imap.gmail.com:143/imap/ssl}INBOX";
+                
+ // imap_open("{imap.googlemail.com:993/ssl}INBOX", "ipracticeuk@googlemail.com", "manager02");
+//$hostname = '{imap.gmail.com:993/imap/ssl/novalidate-cert/norsh}Inbox';
+                $username = 'ipracticeuk@gmail.com'; # e.g somebody@gmail.com
+                $password = 'manager02';
+/* try to connect */
+                
+    $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Gmail: ' . imap_last_error());
+    //$inbox = imap_open("{imap.googlemail.com:143/ssl}INBOX", "ipracticeuk@gmail.com", "manager02") or print ("Can't connect: " . imap_last_error());
+    $emails = imap_search($inbox,'ALL');
+/* useful only if the above search is set to 'ALL' */
+    $max_emails = 16;
+/* if any emails found, iterate through each email */
+if($emails) {
+    $count = 1;
+        /* put the newest emails on top */
+    rsort($emails);
+        /* for every email... */
+    foreach($emails as $email_number) 
+    {
+        /* get information specific to this email */
+        $overview = imap_fetch_overview($inbox,$email_number,0);
+        /* get mail message */
+        $message = imap_fetchbody($inbox,$email_number,2);
+       echo $message; 
+                
+        if($count++ >= $max_emails) break;
+    }
+  } 
+/* close the connection */
+imap_close($inbox);
+echo "Done";
 
+        
+       // return view::make("crm/inboxmail");
+        
+    }
+    
 }

@@ -1122,6 +1122,138 @@ class ClientController extends BaseController {
 		}
 	}
     
+    public function indonboard_client() {
+		
+          $clients_id = Input::get("client_id"); 
+		//$status = Input::get("status");
+	//	print_r($clients_id);die;
+		foreach ($clients_id as $client_id) {
+		//	if($status == "Archive"){
+				Client::where('client_id', '=', $client_id)->update(array("is_onboard"=>"Y"));
+		//	}else{
+//				Client::where('client_id', '=', $client_id)->update(array("is_archive"=>"N", "show_archive"=>"N"));
+//			}
+			
+			//echo $this->last_query();die;
+		}
+	}
+    
+    
+    public function indgetowner(){
+            
+            $data=array();
+            $client_id = Input::get("client_id");
+            
+             $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        //$data['user_type'] 	= $session['user_type'];
+        //$data['client_id'] 	= $client_id;
+        $groupUserId 		= $session['group_users'];
+    
+    $staff_details = User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
+   
+   $i=0;
+   
+    foreach ($staff_details as $key => $staff) {
+        $f_name = $l_name ="";
+        if(isset($staff->fname) ){
+           $f_name .=$staff->fname;
+          }
+          
+          if(isset($staff->lname) ){
+           $l_name .=" ".$staff->lname;
+          }
+          
+          $staff_name=$f_name.$l_name;
+          $data[$i]['contact_type']="staff";
+          $data[$i]['name']=ucwords(strtolower($staff_name));
+        $i++;
+        
+    } 
+    
+    //echo '<pre>';print_r($staff_details);die();
+            
+     $client_details = StepsFieldsClient::where('client_id', '=', $client_id)->select("field_id", "field_name", "field_value")->get();
+          //$i=0;
+          foreach ($client_details as $key => $details) {
+          
+          
+          if(isset($details->field_name) && $details->field_name=="reg_cont_name" ){
+            
+             $data[$i]['contact_type'] = "reg";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+          
+          if(isset($details->field_name) && $details->field_name=="trad_cont_name" ){
+            $data[$i]['contact_type'] = "trad";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+           if(isset($details->field_name) && $details->field_name=="corres_cont_name" ){
+            $data[$i]['contact_type'] = "corres";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+         
+          
+          if(isset($details->field_name) && $details->field_name=="banker_cont_name" ){
+            $data[$i]['contact_type'] = "banker";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+          if(isset($details->field_name) && $details->field_name=="oldacc_cont_name" ){
+            $data[$i]['contact_type'] = "oldacc";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+          if(isset($details->field_name) && $details->field_name=="auditors_cont_name" ){
+            $data[$i]['contact_type'] = "auditors";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+         
+          if(isset($details->field_name) && $details->field_name=="solicitors_cont_name" ){
+            $data[$i]['contact_type'] = "solicitors";
+             $data[$i]['name']=ucwords(strtolower($details->field_value));
+          }
+          
+          
+          
+          $i++;
+          }
+         
+         
+        
+         
+          $relayth_data= Common::get_relationship_client($client_id); 
+       
+        //echo'<pre>';print_r($relayth_data);die();
+       
+       // $data=array();   
+       //$k=0;
+        if(isset($relayth_data) && count($relayth_data) >0 ){
+				foreach ($relayth_data as $key => $value) {
+				     $data[$i]['contact_type'] = "relation";
+					$data[$i]['name'] = ucwords(strtolower($value['name']));
+				$i++;	
+				}
+            
+			}
+         // echo'<pre>';print_r($data);die();
+         
+         //
+         
+         
+         
+         
+          
+        // print_r($data);
+          //print_r($data['name']);
+          //die();
+           //array_merge($a1,$a2)
+           
+           echo View::make('home.organisation.ownerdropdown',$data)->with('data',$data);
+            //echo View::make('home.organisation.ownerdropdown',$data);
+            
+            
+        }
+        
+    
     public function add_checklist(){
        
 		$session_data = Session::get('admin_details');
@@ -1138,6 +1270,24 @@ class ClientController extends BaseController {
         
         
     }
+    public function indadd_checklist(){
+       
+		$session_data = Session::get('admin_details');
+        $user_id =$session_data['id'];
+        
+        $data['client_id'] 	= Input::get("client_id"); 
+	 	$data['name'] 	= Input::get("type_name"); 
+		$data['user_id'] 			= $user_id;
+		$data['status'] 			= "new";
+		$insert_id = Indchecklist::insertGetId($data);
+		echo $insert_id;exit();
+		//return Redirect::to('/organisation/add-client');
+
+        
+        
+    }
+    
+    
     
     public function delete_checklist(){
         
@@ -1261,7 +1411,7 @@ class ClientController extends BaseController {
           //die();
            //array_merge($a1,$a2)
            
-           echo View::make('home.organisation.ownerdropdown',$data)->with('data',$data);
+           echo View::make('home.individual.ownerdropdown',$data)->with('data',$data);
             //echo View::make('home.organisation.ownerdropdown',$data);
             
             
@@ -1294,7 +1444,33 @@ class ClientController extends BaseController {
           
 		
 		}
+           public function indonboardsnotes(){
             
+            $insert_id="";
+           $data=array(); 
+        $session_data = Session::get('admin_details');
+		$data['client_id'] 	= Input::get("client_id");
+		$data['user_id'] 		= $session_data['id'];
+		$data['notes'] 		= Input::get("notes");
+		
+	   $getclientid=Indonboardingnote::where("client_id","=",$data['client_id'])->select('onboardingnotes_id','notes')->first();      
+       
+        
+        
+       if($getclientid['onboardingnotes_id']){
+        Indonboardingnote::where("onboardingnotes_id","=",$getclientid->onboardingnotes_id)->update($data);
+       }
+       else{
+        $insert_id = Indonboardingnote::insertGetId($data);
+       
+       }
+	   
+		
+        echo $insert_id;exit();
+          
+          
+		
+		}  
             
   public function getonboardsnotes(){
     
@@ -1302,6 +1478,16 @@ class ClientController extends BaseController {
     $data['client_id'] 	= Input::get("client_id");
     
     $getclientid=Onboardingnote::where("client_id","=",$data['client_id'])->select('onboardingnotes_id','notes')->first();
+    
+    $notes= $getclientid['notes'];
+    echo $notes;exit();
+  }
+   public function indgetonboardsnotes(){
+    
+    $notes="";
+    $data['client_id'] 	= Input::get("client_id");
+    
+    $getclientid=Indonboardingnote::where("client_id","=",$data['client_id'])->select('onboardingnotes_id','notes')->first();
     
     $notes= $getclientid['notes'];
     echo $notes;exit();
@@ -1332,7 +1518,30 @@ class ClientController extends BaseController {
         }
             
            // Onboardingnote
+           
+           
+           
+            public function indonboardsave(){
+            $date=$data=$update=array();
+            $data['client_id'] 	= Input::get("client_id");
+            $data['date'] 	= Input::get("date");
             
+            $created=Client::where("client_id","=",$data['client_id'])->select('client_id','created')->first();
+           
+            //echo $created['created'];die();
+            
+           $date=explode ( " " , $created['created'] );
+            
+            $new_created = $data['date']." ".$date[1];
+            $update['created']=$new_created;
+            
+            
+            
+            Client::where("client_id","=",$data['client_id'])->update($update);
+            echo $new_created;
+            die();
+        
+        }
         
 
 }

@@ -6,6 +6,9 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
+
+<script src="{{ URL :: asset('js/indonboarding.js') }}" type="text/javascript"></script>
+
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
@@ -97,8 +100,22 @@ $(function() {
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
             <li>
-              <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
+            
+             <div class="import_fromch_main">
+                      <div class="import_fromch1">
+                        <a href="/indonboard" class="import_fromch_link">CLIENT ON-BOARDING</a>
+                        <a href="javascript:void(0)" class="i_selectbox" id="selectclient_onboard"><img src="/img/arrow_icon.png"></a>
+                        <div class="clearfix"></div>
+                      </div>
+                     <div class="i_dropdown onopen_toggle" id="onboardind_drop"><a href="#"></a>On-Board New Client</div>
+                    </div>
+             
+             
             </li>
+            
+            
+           
+            
             
             <!-- <li>
             
