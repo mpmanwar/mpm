@@ -599,9 +599,13 @@ class CrmController extends BaseController{
         if(isset($user_id) && $user_id != ""){
             if($user_id == "unassigned"){
                 $where['cl.deal_owner'] = 0;
+                $converson_user = "0";
             }else{
                 $where['cl.deal_owner'] = $user_id;
+                $converson_user = $user_id;
             }
+        }else{
+            $converson_user = "all";
         }
 
         if(isset($is_deleted) && $is_deleted == "N"){
@@ -664,35 +668,38 @@ class CrmController extends BaseController{
                 $count++;
             }
             $count--;
-
-            /////////////Converson Rate Start////////////
-            $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $row->leads_id );
-            if(isset($tab_id) && $tab_id == '11'){
-                $won++;
-            }
-            if(isset($tab_id) && $tab_id == '10'){
-                $lost++;
-            }
-            /////////////Converson Rate End////////////
         }
         $data['details']        = $data1;
         $data['outer_details']  = $outer_details;
         $data['avg_age']        = $avg_age/$count;
 
         /////////////Converson Rate////////////
-        /*$leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
+        $leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
         if(isset($leads_details) && count($leads_details) > 0){
             foreach ($leads_details as $key => $value) {
-                $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
-                if(isset($tab_id) && $tab_id == '11'){
-                    $won++;
+                if($converson_user == "all"){
+                    $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
+                    if(isset($tab_id) && $tab_id == '11'){
+                        $won++;
+                    }
+                    if(isset($tab_id) && $tab_id == '10'){
+                        $lost++;
+                    }
+                }else{
+                     if($value['deal_owner_id'] == $converson_user){
+                        $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
+                        if(isset($tab_id) && $tab_id == '11'){
+                            $won++;
+                        }
+                        if(isset($tab_id) && $tab_id == '10'){
+                            $lost++;
+                        }
+                     }
                 }
-                if(isset($tab_id) && $tab_id == '10'){
-                    $lost++;
-                }
+                
             }
             
-        }*/
+        }
 
         if( ($won + $lost) == 0){
             $data['converson_rate'] = 0;
