@@ -396,8 +396,8 @@ $('.DeleteBoxRow').click(function() {
    
         </div>
    
-    </div>
     
+   
             
 
             
