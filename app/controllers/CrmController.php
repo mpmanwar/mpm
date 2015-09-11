@@ -550,9 +550,9 @@ class CrmController extends BaseController{
     {
         $data = array();
         $data['heading']= "LEAD VALUE REPORTS";
-        $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
+        //$data['previous_page'] = '<a href="/crm/MTE=/YWxs">CRM</a>';
         $data['back_url'] = '/crm/MTE=/YWxs';
-        $data['title']  = "Lead Reports";
+        $data['title']  = "CRM";
         $session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
@@ -567,7 +567,6 @@ class CrmController extends BaseController{
 
     public function renewals()
     {
-        
         $data = array();
         $data['heading']= "Renewals";
         $data['previous_page'] = '<a href="/crm/MTE=/YWxs">Crm</a>';
@@ -615,15 +614,21 @@ class CrmController extends BaseController{
             ->join('users as u', 'cl.deal_owner', '=', 'u.user_id')
             ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
             ->select('cl.*', 'u.fname', 'u.lname', 'clt.tab_name')->get();
+        //echo $this->last_query();die;
+        $outer_details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+            ->whereBetween('cl.date', array($date_from, $date_to))
+            ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
+            ->groupBy('deal_owner')
+            ->select('cl.deal_owner')->get();
 
         //echo $this->last_query();die;
-        $avg_age = 0;
-        $count = 1;
-        $total_amount = 0;
+        $avg_age = $total_amount = 0;
+        $count = $won = $lost = 1;
         if(isset($details) && count($details) >0 )
         {
             foreach ($details as $key => $row) {
                 $data1[$key]['leads_id']         = $row->leads_id;
+                $data1[$key]['deal_owner']         = $row->deal_owner;
                 $data1[$key]['deal_owner_fname'] = $row->fname;
                 $data1[$key]['deal_owner_lname'] = $row->lname;
                 $data1[$key]['prospect_name']    = $row->prospect_name;
@@ -633,16 +638,36 @@ class CrmController extends BaseController{
                 $data1[$key]['age']              = $this->getAgeCount($row->date);
 
                 $avg_age += $data1[$key]['age'];
-                $total_amount += str_replace(',', '', $row->quoted_value);
                 $count++;
             }
             $count--;
         }
-        $data['details'] = $data1;
+        $data['details']        = $data1;
+        $data['outer_details']  = $outer_details;
         $data['avg_age']        = $avg_age/$count;
-        $data['converson_rate'] = 20;
-        $data['total_amount']   = number_format($total_amount);
-        //print_r($data['details']);die;
+
+        /////////////Converson Rate////////////
+        $leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
+        if(isset($leads_details) && count($leads_details) > 0){
+            foreach ($leads_details as $key => $value) {
+                $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
+                //echo $tab_id."=";
+                if(isset($tab_id) && $tab_id == '11'){
+                    $won++;$won--;
+                }
+                if(isset($tab_id) && $tab_id == '10'){
+                    $lost++;//$lost--;
+                }
+                
+            }
+            
+        }//die;
+        $data['converson_rate'] = $won*100/($won + $lost);
+
+        /////////////Converson Rate////////////
+
+
+        //print_r($data['outer_details']);die;
         echo view::make("crm/ajax/report", $data);
     }
 
