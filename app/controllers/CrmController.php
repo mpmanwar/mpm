@@ -634,7 +634,8 @@ class CrmController extends BaseController{
 
         //echo $this->last_query();die;
         $avg_age = $total_amount = 0;
-        $count = $won = $lost = 1;
+        $count = 1;
+        $won = $lost = 0;
         if(isset($details) && count($details) >0 )
         {
             foreach ($details as $key => $row) {
@@ -643,10 +644,17 @@ class CrmController extends BaseController{
                 }else{
                     $name = "";
                 }
+
+                if($row->client_type == 'org'){
+                    $prospect_name = $row->prospect_name;
+                }else{
+                    $prospect_name = $row->prospect_title." ".$row->prospect_fname." ".$row->prospect_lname;
+                }
+
                 $data1[$key]['leads_id']         = $row->leads_id;
                 $data1[$key]['deal_owner']       = $row->deal_owner;
                 $data1[$key]['deal_owner_name']  = $name;
-                $data1[$key]['prospect_name']    = $row->prospect_name;
+                $data1[$key]['prospect_name']    = $prospect_name;
                 $data1[$key]['date']             = date('d-m-Y', strtotime($row->date));
                 $data1[$key]['tab_name']         = $row->tab_name;
                 $data1[$key]['quoted_value']     = number_format(str_replace(',', '', $row->quoted_value), 2);
@@ -668,7 +676,7 @@ class CrmController extends BaseController{
                 $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
                 
                 if(isset($tab_id) && $tab_id == '11'){
-                    $won++;$won--;
+                    $won++;
                 }
                 if(isset($tab_id) && $tab_id == '10'){
                     $lost++;
@@ -677,7 +685,13 @@ class CrmController extends BaseController{
             }
             
         }//die;
-        $data['converson_rate'] = $won*100/($won + $lost);
+
+        if( ($won + $lost) == 0){
+            $data['converson_rate'] = 0;
+        }else{
+            $data['converson_rate'] = $won*100/($won + $lost);
+        }
+        
 
         /////////////Converson Rate////////////
         //print_r($data);die;
@@ -692,7 +706,7 @@ class CrmController extends BaseController{
             $date2 = date("Y-m-d");
             //echo $date2;die;
 
-            $diff = abs(strtotime($date2) - strtotime($date1));
+            $diff = strtotime($date2) - strtotime($date1);
             $days = round($diff/86400);
         }
         
