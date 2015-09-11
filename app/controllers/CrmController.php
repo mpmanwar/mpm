@@ -53,7 +53,16 @@ class CrmController extends BaseController{
                 $quoted_value = str_replace(",", "", $value['quoted_value']);
                 $total += $quoted_value;
                 $likely += ($value['deal_certainty']*$quoted_value)/100;
-                $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
+
+                $status = CrmLeadsStatus::getDetailsByLeadsId( $value['leads_id'] );
+                //echo $this->last_query();
+                if(isset($status) && ($status['leads_tab_id'] == 11 || $status['leads_tab_id'] == 10)){
+                    $date = explode(' ', $status['likely']);
+                    $data['leads_details'][$key]['deal_age'] = $this->getDealAge($value['date'], $date[0]);
+                }else{
+                    $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
+                }
+                
             }
             $average = $total/count($data['leads_details']);
         }
@@ -714,7 +723,7 @@ class CrmController extends BaseController{
         echo view::make("crm/ajax/report", $data);
     }
 
-    public static function getAgeCount($from)
+    public function getAgeCount($from)
     {
         $days = 0;
         if( $from != "" ){
@@ -725,6 +734,15 @@ class CrmController extends BaseController{
             $diff = strtotime($date2) - strtotime($date1);
             $days = round($diff/86400);
         }
+        
+        return $days;
+    }
+
+    public function getDealAge($date1, $date2)
+    {
+        $days = 0;
+        $diff = strtotime($date2) - strtotime($date1);
+        $days = round($diff/86400);
         
         return $days;
     }
