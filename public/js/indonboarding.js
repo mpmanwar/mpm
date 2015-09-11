@@ -35,7 +35,7 @@
             success : function(resp){
                 //console.log(resp);
                 //return false;
-              window.location = '/indonboard';
+              window.location = '/onboard';
            
             /*   if(client_type == "org"){
                

@@ -319,17 +319,30 @@ $('.DeleteBoxRow').click(function() {
                    </span>
                     </td> -->
                     
+                     @if( isset($client_row['business_type']))
+                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
+                    
+                    @endif
                     
                     
-                    <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
+                   
+                    @if( isset($client_row['client_name']))
+                      <td align="center">{{ isset($client_row['client_name'])?"Individual":"" }}</td>
+                    
+                    @endif
                     
                  <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->
                     
                     
+                    @if( isset($client_row['business_name']))
                     
                     
+                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>          
+                     @endif
+                     @if( isset($client_row['client_name']))
+                     <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['client_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['client_name'])?$client_row['client_name']:"" }}</a></td>
                     
-                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>
+                    @endif
                     <!--
                     <td align="left"><a href="/client/edit-org-client/{{ $client_row['client_id'] }}/{{ base64_encode('org_client') }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td> -->
                     
@@ -361,13 +374,16 @@ $('.DeleteBoxRow').click(function() {
                       @endif
                    -->
                     </td>
+                  
+                  
                     <td align="center">
                     {{ isset($client_row['corres_cont_email'])?$client_row['corres_cont_email']:"" }}
                      
                     </td>
+                    
+                    
                     <td align="center">
                     {{ isset($client_row['corres_cont_mobile'])?$client_row['corres_cont_mobile']:"" }}
-                     
                     </td>
                     
                     
