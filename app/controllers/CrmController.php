@@ -596,10 +596,12 @@ class CrmController extends BaseController{
             $where['cls.leads_tab_id'] = $status_id;
         }
 
-        if(isset($user_id) && $user_id != "unassigned"){
-            $where['cl.deal_owner'] = $user_id;
-        }else{
-            $where['cl.deal_owner'] = 0;
+        if(isset($user_id) && $user_id != ""){
+            if($user_id == "unassigned"){
+                $where['cl.deal_owner'] = 0;
+            }else{
+                $where['cl.deal_owner'] = $user_id;
+            }
         }
 
         if(isset($is_deleted) && $is_deleted == "N"){
@@ -610,25 +612,24 @@ class CrmController extends BaseController{
             $where['cl.is_archive'] = 'N';
         }
 //echo $user_id;die;
-        $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+        /*$details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
             ->whereBetween('cl.date', array($date_from, $date_to))
             ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
             ->join('users as u', 'cl.deal_owner', '=', 'u.user_id')
             ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
-            ->select('cl.*', 'u.fname', 'u.lname', 'clt.tab_name')->get();
+            ->select('cl.*', 'u.fname', 'u.lname', 'clt.tab_name')->get();*/
 
-        if(isset($user_id) && $user_id == "unassigned"){
-            $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+        $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
             ->whereBetween('cl.date', array($date_from, $date_to))
             ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
             ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
             ->select('cl.*', 'clt.tab_name')->get();
-        }
+        
         //echo $this->last_query();die;
         $outer_details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
             ->whereBetween('cl.date', array($date_from, $date_to))
             ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
-            ->groupBy('deal_owner')
+            ->groupBy('cl.deal_owner')
             ->select('cl.deal_owner')->get();
 
         //echo $this->last_query();die;
@@ -637,14 +638,18 @@ class CrmController extends BaseController{
         if(isset($details) && count($details) >0 )
         {
             foreach ($details as $key => $row) {
+                if(isset($row->deal_owner) && $row->deal_owner != "0"){
+                    $name = User::getStaffNameById($row->deal_owner);
+                }else{
+                    $name = "";
+                }
                 $data1[$key]['leads_id']         = $row->leads_id;
                 $data1[$key]['deal_owner']       = $row->deal_owner;
-                $data1[$key]['deal_owner_fname'] = isset($row->fname)?$row->fname:'';
-                $data1[$key]['deal_owner_lname'] = isset($row->lname)?$row->lname:'';
+                $data1[$key]['deal_owner_name']  = $name;
                 $data1[$key]['prospect_name']    = $row->prospect_name;
                 $data1[$key]['date']             = date('d-m-Y', strtotime($row->date));
                 $data1[$key]['tab_name']         = $row->tab_name;
-                $data1[$key]['quoted_value']     = $row->quoted_value;
+                $data1[$key]['quoted_value']     = number_format(str_replace(',', '', $row->quoted_value), 2);
                 $data1[$key]['age']              = $this->getAgeCount($row->date);
 
                 $avg_age += $data1[$key]['age'];
@@ -655,18 +660,18 @@ class CrmController extends BaseController{
         $data['details']        = $data1;
         $data['outer_details']  = $outer_details;
         $data['avg_age']        = $avg_age/$count;
-
+//
         /////////////Converson Rate////////////
         $leads_details = CrmLead::getDataWithDateRange($date_from, $date_to);
         if(isset($leads_details) && count($leads_details) > 0){
             foreach ($leads_details as $key => $value) {
                 $tab_id = CrmLeadsStatus::getTabIdByLeadsId( $value['leads_id'] );
-                //echo $tab_id."=";
+                
                 if(isset($tab_id) && $tab_id == '11'){
                     $won++;$won--;
                 }
                 if(isset($tab_id) && $tab_id == '10'){
-                    $lost++;//$lost--;
+                    $lost++;
                 }
                 
             }
@@ -675,9 +680,7 @@ class CrmController extends BaseController{
         $data['converson_rate'] = $won*100/($won + $lost);
 
         /////////////Converson Rate////////////
-
-
-        //print_r($data['outer_details']);die;
+        //print_r($data);die;
         echo view::make("crm/ajax/report", $data);
     }
 
