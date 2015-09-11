@@ -1,11 +1,11 @@
 <div class="select_con1">
 	<div class="selec_seclf2">
 	    <span class="slct_con"><strong>Average Deal Age : </strong></span>
-	    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="{{ number_format($avg_age, 2, '.', '') }}" style="width:40px; height:25px; padding:5px" id="avg_age"></div>
+	    <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="{{ number_format($avg_age, 2, '.', '') }}" style="width:65px; height:25px; padding:5px" id="avg_age"></div>
 	</div>
 	<div class="selec_seclf3" >
-        <span class="slct_con"><strong>conversion rate : </strong></span>
-        <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="{{ number_format($converson_rate, 2, '.', '') }}" style="width:40px; height:25px; padding:5px" id="converson_rate"> %</div>
+        <span class="slct_con"><strong>Conversion Rate : </strong></span>
+        <div style="width: 25%!important; margin:6px 0 0 5px; float:left;"><input type="text" value="{{ number_format($converson_rate, 2, '.', '') }}" style="width:65px; height:25px; padding:5px" id="converson_rate"> %</div>
   	</div>
   	<div class="clr"></div>
 </div>

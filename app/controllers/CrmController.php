@@ -44,7 +44,7 @@ class CrmController extends BaseController{
         $data['leads_tabs']         = CrmLeadsTab::getAllTabDetails();
 
         $data['invoice_leads_details']  = CrmLead::getInvoiceLeadsDetails();
-        $data['leads_details']      = CrmLead::getAllDetails();
+        $data['leads_details']          = CrmLead::getAllDetails();
         $total    = 0;
         $average  = 0;
         $likely   = 0;
@@ -53,6 +53,7 @@ class CrmController extends BaseController{
                 $quoted_value = str_replace(",", "", $value['quoted_value']);
                 $total += $quoted_value;
                 $likely += ($value['deal_certainty']*$quoted_value)/100;
+                $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
             }
             $average = $total/count($data['leads_details']);
         }
@@ -707,7 +708,7 @@ class CrmController extends BaseController{
             $data['converson_rate'] = $won*100/($won + $lost);
         }
         
-//echo "Total : ".($won + $lost);
+        //echo "Total : ".($won + $lost);
         /////////////Converson Rate////////////
         //print_r($data);die;
         echo view::make("crm/ajax/report", $data);
