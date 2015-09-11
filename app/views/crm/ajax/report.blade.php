@@ -45,7 +45,7 @@
 										<td width="15%" align="left">{{ $value['date'] or "" }}</td>
 										<td width="10%" align="left">{{ $value['age'] or "" }}</td>
 										<td width="10%" align="left">{{ $value['tab_name'] or "" }}</td>
-										<td width="10%" align="left">{{ $value['quoted_value'] or '0.00' }}</td>
+										<td width="10%" align="right"><b style="margin-right: 15px">{{ $value['quoted_value'] or '0.00' }}</b></td>
 									</tr>
 									<?php 
 										$total_val = str_replace(',', '', $value['quoted_value']);
@@ -72,8 +72,7 @@
 							<tr>
 								<td width="25%" align="center">&nbsp;</td>
 								<td width="15%" align="center">&nbsp;</td>
-								<td width="40%" align="center">&nbsp;</td>
-								<td width="20%" align="left"><b>Total&nbsp;:&nbsp; <?php echo number_format($total, 2);?> </b> </td>
+								<td width="40%" align="right"><b style="margin-right: 15px;">Total&nbsp;:&nbsp; <?php echo number_format($total, 2);?> </b> </td>
 
 							</tr>
 						</table>
@@ -96,8 +95,7 @@
 							<tr>
 								<td width="25%" align="center">&nbsp;</td>
 								<td width="15%" align="center">&nbsp;</td>
-								<td width="30%" align="center">&nbsp;</td>
-								<td width="25%" align="left"><b>Grand Total&nbsp;:&nbsp; <?php echo number_format($grand_total, 2);?></b> </td>
+								<td width="55%" align="right"><b style="margin-right: 15px;">Grand Total&nbsp;:&nbsp; <?php echo number_format($grand_total, 2);?></b> </td>
 
 							</tr>
 						</table>
