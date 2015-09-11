@@ -87,14 +87,15 @@ $(document).ready(function(){
               
               	<div class="selec_seclf_r">
           			<span class="slct_con"><strong>Deal Owner</span>
-                  	<select class="form-control2 newdropdown" name="user_id" id="user_id">
-    					<option value="">None</option>
-    					@if(isset($staff_details) && count($staff_details) >0)
+                  <select class="form-control2 newdropdown" name="user_id" id="user_id">
+          					<option value="">None</option>
+          					@if(isset($staff_details) && count($staff_details) >0)
 		                  @foreach($staff_details as $key=>$staff_row)
 		                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
 		                  @endforeach
 		                @endif
-    				</select>
+                    <option value="unassigned">Unassigned</option>
+    				      </select>
                   	<div class="clr"></div>
           		</div>
               	<div class="clr"></div>

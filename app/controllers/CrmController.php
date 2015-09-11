@@ -596,8 +596,10 @@ class CrmController extends BaseController{
             $where['cls.leads_tab_id'] = $status_id;
         }
 
-        if(isset($user_id) && $user_id != ""){
+        if(isset($user_id) && $user_id != "unassigned"){
             $where['cl.deal_owner'] = $user_id;
+        }else{
+            $where['cl.deal_owner'] = 0;
         }
 
         if(isset($is_deleted) && $is_deleted == "N"){
@@ -607,13 +609,21 @@ class CrmController extends BaseController{
         if(isset($is_archive) && $is_archive == 'N'){
             $where['cl.is_archive'] = 'N';
         }
-
+//echo $user_id;die;
         $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
             ->whereBetween('cl.date', array($date_from, $date_to))
             ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
             ->join('users as u', 'cl.deal_owner', '=', 'u.user_id')
             ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
             ->select('cl.*', 'u.fname', 'u.lname', 'clt.tab_name')->get();
+
+        if(isset($user_id) && $user_id == "unassigned"){
+            $details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
+            ->whereBetween('cl.date', array($date_from, $date_to))
+            ->join('crm_leads as cl', 'cls.leads_id', '=', 'cl.leads_id')
+            ->join('crm_leads_tabs as clt', 'clt.tab_id', '=', 'cls.leads_tab_id')
+            ->select('cl.*', 'clt.tab_name')->get();
+        }
         //echo $this->last_query();die;
         $outer_details = DB::table('crm_leads_statuses as cls')->whereIn("cl.user_id", $groupUserId)->where($where)
             ->whereBetween('cl.date', array($date_from, $date_to))
@@ -628,9 +638,9 @@ class CrmController extends BaseController{
         {
             foreach ($details as $key => $row) {
                 $data1[$key]['leads_id']         = $row->leads_id;
-                $data1[$key]['deal_owner']         = $row->deal_owner;
-                $data1[$key]['deal_owner_fname'] = $row->fname;
-                $data1[$key]['deal_owner_lname'] = $row->lname;
+                $data1[$key]['deal_owner']       = $row->deal_owner;
+                $data1[$key]['deal_owner_fname'] = isset($row->fname)?$row->fname:'';
+                $data1[$key]['deal_owner_lname'] = isset($row->lname)?$row->lname:'';
                 $data1[$key]['prospect_name']    = $row->prospect_name;
                 $data1[$key]['date']             = date('d-m-Y', strtotime($row->date));
                 $data1[$key]['tab_name']         = $row->tab_name;
