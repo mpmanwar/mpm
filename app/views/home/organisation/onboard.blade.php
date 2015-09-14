@@ -528,10 +528,12 @@ $('.DeleteBoxRow').click(function() {
               
               
               
-			   {{ Form::open(array('url' => '/timesheet/insert-time-sheet')) }}
+			   {{ Form::open(array('url' => '/insert-onboarding')) }}
+               
               <table width="100%" class="table table-bordered" id="BoxTable">
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
+              <input type="text" name="cid" id="c_id" value="">
               <tr>
                 <td width="5%" align="center"id="allCheckSelect"> Delete</td>
                 <td width="40%" align="center"><strong>Checklist</strong>
@@ -562,7 +564,7 @@ $('.DeleteBoxRow').click(function() {
                 
                 
                 
-                <select class="form-control newdropdown status_dropdown" name="checklist_type" id="checklist_type">
+                <select class="form-control newdropdown status_dropdown" name="checklist_type[]" id="checklist_type">
                                            @if( isset($old_postion_types) && count($old_postion_types) >0 )
                         @foreach($old_postion_types as $key=>$old_org_row)
                         <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
@@ -609,14 +611,15 @@ $('.DeleteBoxRow').click(function() {
                 
                   </td>
                 <td align="center" id="">
-                <div style="position: relative;">
-                <span id="frequency"></span>
+                <div style="position: relative;" class="edit_cal">
+               
+              <a href=""><span id="frequency"></span> </a>
               
-              0.00<span class="glyphicon glyphicon-chevron-down opendropcal" ></span>
+              <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
                
                
                 
-              <div class="cont_add_to_date open_dropdown" id="idopen_dropdown" >
+              <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
                     <ul>
 
                     <li><a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a></li>
@@ -634,7 +637,7 @@ $('.DeleteBoxRow').click(function() {
                 </td>
                 <td align="center">
                 
-                <select class="form-control newdropdown status_dropdown" name="status" id="status">
+                <select class="form-control newdropdown status_dropdown" name="status[]" id="status">
                    <option value="notstarted">Not Started</option>
                     <option value="done">Done</option>
                     <option value="wip">WIP</option>
@@ -695,7 +698,7 @@ $('.DeleteBoxRow').click(function() {
           </table>
           <div class="save_btncon">
             <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
-          <!--  <div class="right_side"> <button class="btn btn-primary">Submit</button></div> -->
+          <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
             <div class="clearfix"></div>
             </div>
          

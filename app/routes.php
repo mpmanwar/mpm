@@ -415,4 +415,6 @@ Route::any('/renewals', 'CrmController@renewals');
 Route::any('/inboxmail', 'CrmController@inboxmail');
 Route::any('/getmail', 'CrmController@getmail');
 Route::any('/indonboard', 'HomeController@indonboard');
+Route::any('/insert-onboarding', 'ClientController@insert_onboarding');
+
 
