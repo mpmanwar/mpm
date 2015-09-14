@@ -3,7 +3,7 @@
 @section('mycssfile')
 
     <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
-    
+    <link rel="stylesheet" href="{{ URL :: asset('css/timepicki.css') }}" />
 @stop
 
 @section('myjsfile')
@@ -29,6 +29,8 @@
 <!-- page script -->
 <script type="text/javascript">
 $(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+
+$(".addto_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-5:+100" });
 
 var oTable;
 
@@ -116,7 +118,17 @@ $('.DeleteBoxRow').click(function() {
   })
 })*/
 
+ $('#calender_time').timepicki({
+    show_meridian:false,
+    //min_hour_value:0,
+    max_hour_value:23,
+    //step_size_minutes:15,
+    //overflow_minutes:true,
+    increase_direction:'up',
+    //disable_keyboard_mobile: true
+  });
 </script>
+
 @stop
 
 @section('content')
@@ -291,7 +303,7 @@ $('.DeleteBoxRow').click(function() {
                     
                     <td align="center">
               
-                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}" data-prev_date="{{ date('d-m-Y',strtotime($client_row['created'])) }}"> {{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
+                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}"  data-prev_date="{{ date('d-m-Y',strtotime($client_row['created'])) }}"> {{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
                 
                 <span class="3_save_made_span_{{ $key }}"  style="display:none;">
                 
@@ -337,10 +349,10 @@ $('.DeleteBoxRow').click(function() {
                     @if( isset($client_row['business_name']))
                     
                     
-                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>          
+                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-date="{{ date('d-m-Y',strtotime($client_row['created'])) }}" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>          
                      @endif
                      @if( isset($client_row['client_name']))
-                     <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-businessname="{{$client_row['client_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['client_name'])?$client_row['client_name']:"" }}</a></td>
+                     <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-date="{{ date('d-m-Y',strtotime($client_row['created'])) }}" data-businessname="{{$client_row['client_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['client_name'])?$client_row['client_name']:"" }}</a></td>
                     
                     @endif
                     <!--
@@ -596,7 +608,30 @@ $('.DeleteBoxRow').click(function() {
                 -->
                 
                   </td>
-                <td align="center" id="frequency">Task Date</td>
+                <td align="center" id="">
+                <div style="position: relative;">
+                <span id="frequency"></span>
+              
+              0.00<span class="glyphicon glyphicon-chevron-down opendropcal" ></span>
+               
+               
+                
+              <div class="cont_add_to_date open_dropdown" id="idopen_dropdown" >
+                    <ul>
+
+                    <li><a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a></li>
+                   <li>
+                
+                
+               
+                
+                
+                <a href="javascript:void(0)" id="gocalender" class="" data-client_id="">Add to Calender</a>
+                   </li>
+                  </ul>
+                
+                 </div></div>
+                </td>
                 <td align="center">
                 
                 <select class="form-control newdropdown status_dropdown" name="status" id="status">
@@ -728,5 +763,51 @@ $('.DeleteBoxRow').click(function() {
   </div>
   <!-- /.modal-dialog -->
 </div>      
+<div class="modal fade" id="addto_calender-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:410px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD JOB START DATE</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div id="start_date_loader" style="text-align: center; padding-bottom: 10px;"><!-- Show loader --></div>
+        <input type="hidden" id="calender_client_id" name="calender_client_id">
+        <input type="hidden" id="calender_tab" name="calender_tab">
+        <table>
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left" width="20%"><strong>Date : </strong></td>
+            <td align="left"><input id="calender_date" name="calender_date" class="form-control addto_date"></td>
+          </tr>
+          <tr>
+            <td align="left" colspan="3">&nbsp;</td>
+          </tr>
 
+          <tr>
+            <td align="left" width="20%">&nbsp;</td>
+            <td align="left" width="20%"><strong>Time : </strong></td>
+            <td align="left"><input id="calender_time" name="calender_time" class="form-control"></textarea></td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="3">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="2" width="20%"></td>
+            <td align="right"><button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-info save_job_start_date">Save</button></td>
+          </tr>
+        </table>
+
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>   
 @stop

@@ -1,8 +1,16 @@
 $(document).on("click", "#businessclient", function(event){
-
+    
+    
+$("#idopen_dropdown").hide();
    var client_id =$(event.target).attr("data-clientid");
     console.log($(event.target).attr("data-clientid"));
     
+    var date= $(event.target).attr("data-date");
+    
+    //alert(date);return false;
+    $("#clientspanid").html(client_id)
+    
+    $("#frequency").html(date)
     //$('#checklist-modal').modal('show');
     $("#hiddenclient").val($(event.target).attr("data-clientid"));
     
@@ -30,6 +38,20 @@ $(document).on("click", "#businessclient", function(event){
 
 });
 
+
+
+$(".opendropcal").click(function(event) {
+    
+    $("#idopen_dropdown").show();
+      //alert('afaffaf')
+      //$("#addeditshow").show();
+});
+
+
+ $(".open_calender_pop").click(function(){
+       
+        $("#addto_calender-modal").modal("show");
+    });
 $("#add_position_type").click(function(){
     
                 

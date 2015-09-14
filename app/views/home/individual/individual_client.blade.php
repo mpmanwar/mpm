@@ -103,7 +103,7 @@ $(function() {
             
              <div class="import_fromch_main">
                       <div class="import_fromch1">
-                        <a href="/indonboard" class="import_fromch_link">CLIENT ON-BOARDING</a>
+                        <a href="/onboard" class="import_fromch_link">CLIENT ON-BOARDING</a>
                         <a href="javascript:void(0)" class="i_selectbox" id="selectclient_onboard"><img src="/img/arrow_icon.png"></a>
                         <div class="clearfix"></div>
                       </div>
