@@ -533,7 +533,7 @@ $('.DeleteBoxRow').click(function() {
               <table width="100%" class="table table-bordered" id="BoxTable">
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
-              <input type="text" name="cid" id="c_id" value="">
+              <input type="hidden" name="cid" id="c_id" value="">
               <tr>
                 <td width="5%" align="center"id="allCheckSelect"> Delete</td>
                 <td width="40%" align="center"><strong>Checklist</strong>
