@@ -1540,16 +1540,31 @@ class ClientController extends BaseController
         $update['client_id'] = $client_id;
         $update['taskdate'] = $date_g;
         $update['user_id'] = $user_id;
-
+        
         //$insert_id = Cleinttaskdate::insertGetId($update);
 
-
-       // $created = Cleinttaskdate::where('client_id', '=', $client_id)->select('taskdate')->
-       //     first();
+/*
+        $festchtask = Cleinttaskdate::where('client_id', '=', $client_id)->select('cleinttaskdate_id','user_id','client_id','taskdate','cteatedtaskdate','check_list','task_owner','status')-> get();
+        
+        if (isset($festchtask) && count($festchtask) > 0) {
+            foreach ($festchtask as $festchtaskdata) {
+                
+                Checklist::where('checklist_id', '=', $festchtask['check_list'])->
+                
+            }
+            
+            
+            
+            
+            
+        }
+        
+        echo '<pre>';print_r($festchtask);die();*/
+        
         //$date_gtask = $created['taskdate'];
 
         echo View::make('home.organisation.ownerdropdown', $data)->with('data', $data)->
-            with('date_g', $date_g);
+            with('date_g', $date_g)->with('festchtask', $festchtask);
         //echo View::make('home.organisation.ownerdropdown',$data);
 
 

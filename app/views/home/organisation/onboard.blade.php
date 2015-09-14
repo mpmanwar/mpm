@@ -616,7 +616,9 @@ $('.DeleteBoxRow').click(function() {
               <a href=""><span id="frequency"></span> </a>
               
               <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
+               <span>
                
+               </span>
                
                 
               <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
