@@ -74,7 +74,6 @@ $("#add_position_type").click(function(){
     // var clientid = $("#businessclient").attr("data-clientid");
     // $("#hiddenclient").val();
     //alert(clientid);
-   // return false;
         
         if(type_name !=""){
             
