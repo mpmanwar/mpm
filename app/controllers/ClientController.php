@@ -1564,7 +1564,7 @@ class ClientController extends BaseController
         //$date_gtask = $created['taskdate'];
 
         echo View::make('home.organisation.ownerdropdown', $data)->with('data', $data)->
-            with('date_g', $date_g)->with('festchtask', $festchtask);
+            with('date_g', $date_g);
         //echo View::make('home.organisation.ownerdropdown',$data);
 
 

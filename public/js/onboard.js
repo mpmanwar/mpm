@@ -30,7 +30,7 @@ $("#idopen_dropdown").hide();
       success : function(resp){
         
         console.log(resp);
-        return false;
+           //return false;
         
         var r = resp.split('|||');
         
