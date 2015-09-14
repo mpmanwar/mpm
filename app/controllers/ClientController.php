@@ -1626,6 +1626,8 @@ class ClientController extends BaseController
 
 
     }
+    
+    //SELECT (SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21) as total , (SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21 AND status = "done") as done FROM `cleinttaskdates` WHERE client_id = 3 GROUP BY client_id
 
     public function getonboardsnotes()
     {
@@ -1728,6 +1730,8 @@ class ClientController extends BaseController
         //print_r($cid);
         return Redirect::to('/onboard');
     }
+
+
 
 
 }
