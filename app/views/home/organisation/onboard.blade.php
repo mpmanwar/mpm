@@ -363,8 +363,12 @@ $('.DeleteBoxRow').click(function() {
                     </td>
                     
                     <td align="center">
-                    
+                     @if( isset($client_row['corres_cont_telephone']))
                     {{ isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"" }}
+                      @endif
+                    @if( isset($client_row['res_telephone']))
+                    {{ isset($client_row['res_telephone'])?$client_row['res_telephone']:"" }}
+                      @endif
                     
                    
                    <!--   @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
@@ -375,15 +379,28 @@ $('.DeleteBoxRow').click(function() {
                    -->
                     </td>
                   
-                  
+                 
                     <td align="center">
+                     @if( isset($client_row['corres_cont_email']))
                     {{ isset($client_row['corres_cont_email'])?$client_row['corres_cont_email']:"" }}
-                     
+                      @endif
+                      
+                      @if( isset($client_row['res_email']))
+                    {{ isset($client_row['res_email'])?$client_row['res_email']:"" }}
+                      @endif
+                      
                     </td>
-                    
+                   
                     
                     <td align="center">
+                   @if( isset($client_row['corres_cont_mobile']))
                     {{ isset($client_row['corres_cont_mobile'])?$client_row['corres_cont_mobile']:"" }}
+                      @endif
+                    
+                  @if( isset($client_row['res_mobile']))
+                    {{ isset($client_row['res_mobile'])?$client_row['res_mobile']:"" }}
+                      @endif
+                  
                     </td>
                     
                     
