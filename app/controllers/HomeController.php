@@ -224,7 +224,7 @@ class HomeController extends BaseController {
 			return Redirect::to('/');
 		}
 		
-		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "org")->where("is_archive", "=", "N")->where("is_onboard", "=", "Y")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
+		$client_ids = Client::where("is_deleted", "=", "N")->where("is_archive", "=", "N")->where("is_onboard", "=", "Y")->where("is_relation_add", "=", "N")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->orderBy("client_id", "DESC")->get();
 		//echo $this->last_query();die;
 		$i = 0;
 		if (isset($client_ids) && count($client_ids) > 0) {
@@ -1910,7 +1910,102 @@ if(isset($field_added) && count($field_added) > 0){
 
     	return $data;
     }
+    
+    public function indonboard(){
+        $client_data 		= array();
+		$data['heading'] 	= "Individual On Boarding Clients List";
+		$data['title'] 		= "Individual On Boarding Clients List";
+		$admin_s 			= Session::get('admin_details');
+		$user_id 			= $admin_s['id'];
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
 
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+
+		$client_ids = Client::where("is_deleted", "=", "N")->where("type", "=", "ind")->where("is_archive", "=", "N")->where("is_relation_add", "=", "N")->where("is_onboard", "=", "Y")->whereIn("user_id", $groupUserId)->select("client_id", "created","show_archive")->get();
+		//echo $this->last_query();die;
+		$i = 0;
+		if (isset($client_ids) && count($client_ids) > 0) {
+			foreach ($client_ids as $client_id) {
+				$client_details = StepsFieldsClient::where('client_id', '=', $client_id->client_id)->select("field_id", "field_name", "field_value")->get();
+				
+                $client_data[$i]['client_id'] 		= $client_id->client_id;
+                $client_data[$i]['show_archive'] 	= $client_id->show_archive;
+                $client_data[$i]['created'] 	= $client_id->created;
+
+				//$appointment_name = ClientRelationship::where('client_id', '=', $client_id->client_id)->select("appointment_with")->first();
+				//echo $this->last_query();//die;
+				//$relation_name = StepsFieldsClient::where('client_id', '=', $appointment_name['appointment_with'])->where('field_name', '=', "business_name")->select("field_value")->first();
+
+				if (isset($client_details) && count($client_details) > 0) {
+					$address = "";
+					foreach ($client_details as $client_row) {
+						//get staff name start
+						if (!empty($client_row['field_name']) && $client_row['field_name'] == "resp_staff") {
+							$staff_name = User::where('user_id', '=', $client_row->field_value)->select("fname", "lname")->first();
+							//echo $this->last_query();die;
+							$client_data[$i]['staff_name'] = strtoupper(substr($staff_name['fname'], 0, 1)) . " " . strtoupper(substr($staff_name['lname'], 0, 1));
+						}
+						//get staff name end
+
+						//get business name start
+						/*if (!empty($relation_name['field_value'])) {
+							$client_data[$i]['business_name'] = $relation_name['field_value'];
+						}*/
+						$client_data[$i]['relationship'] 	= Common::get_relationship_client($client_id->client_id);
+						//get business name end
+
+
+						//get residencial address
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line1") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_addr_line2") {
+							$address .= $client_row->field_value.", ";
+						}
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_city") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_county") {
+							$address .= $client_row->field_value.", ";
+						}	
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "res_postcode") {
+							$address .= $client_row->field_value.", ";
+						}			
+
+
+						if (isset($client_row['field_name']) && $client_row['field_name'] == "business_type") {
+							$business_type = OrganisationType::where('organisation_id', '=', $client_row->field_value)->first();
+							$client_data[$i][$client_row['field_name']] = $business_type['name'];
+						} else {
+							$client_data[$i][$client_row['field_name']] = $client_row->field_value;
+						}
+
+					}
+
+					$client_data[$i]['address'] = substr($address, 0, -2);
+					$i++;
+				}
+
+				
+
+			}
+		}
+		//print_r($client_data);die;
+		$data['client_details'] = $client_data;
+
+		$data['client_fields'] = ClientField::where("field_type", "=", "ind")->get();
+//die;$data['allClients'] = $this->get_all_clients();
+    $data['old_postion_types'] = Indchecklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_postion_types'] = Indchecklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+		//print_r($data['client_details']);die;
+		return View::make('home.individual.indonboard', $data);
+        
+        
+        
+        
+    }
 
 
 

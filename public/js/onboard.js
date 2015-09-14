@@ -1,14 +1,27 @@
-$(document).on("click", "#businessclient", function(event){
 
+$(document).on("click", "#businessclient", function(event){
+    
+    
+$("#idopen_dropdown").hide();
    var client_id =$(event.target).attr("data-clientid");
     console.log($(event.target).attr("data-clientid"));
     
+    //var date= $(event.target).attr("data-date");
+    
+    //alert(date);return false;
+    $("#clientspanid").html(client_id)
+    $("#c_id").val(client_id)
+    
+    
+    //$("#frequency").html(date)
     //$('#checklist-modal').modal('show');
     $("#hiddenclient").val($(event.target).attr("data-clientid"));
     
     console.log($(event.target).attr("data-businessname"));
     $("#businessname").html($(event.target).attr("data-businessname"));
         
+    
+    
     
     $.ajax({
       type: "POST",
@@ -17,8 +30,12 @@ $(document).on("click", "#businessclient", function(event){
       success : function(resp){
         
         console.log(resp);
-        $("#ownerdrop").html(resp);
-       
+           //return false;
+        
+        var r = resp.split('|||');
+        
+        $("#ownerdrop").html(r[1]);
+       //$("#frequency").html(r[0]);
 
       }
     });
@@ -30,6 +47,24 @@ $(document).on("click", "#businessclient", function(event){
 
 });
 
+
+$(".open_adddrop").click(function(event) {
+    var onboarding_id = $(this).data("onboarding_id");//alert(onboarding_id);
+    $("#idopen_dropdown_"+onboarding_id).toggle();
+    event.stopPropagation();
+});
+//$(".opendropcal").click(function(event) {
+//    
+//    $("#idopen_dropdown").show();
+//      //alert('afaffaf')
+//      //$("#addeditshow").show();
+//});
+
+
+ $(".open_calender_pop").click(function(){
+       
+        $("#addto_calender-modal").modal("show");
+    });
 $("#add_position_type").click(function(){
     
                 
@@ -39,7 +74,6 @@ $("#add_position_type").click(function(){
     // var clientid = $("#businessclient").attr("data-clientid");
     // $("#hiddenclient").val();
     //alert(clientid);
-   // return false;
         
         if(type_name !=""){
             

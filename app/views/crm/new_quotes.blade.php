@@ -43,6 +43,53 @@ tinymce.init({
     plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
 });
 </script>
+
+
+<script>
+
+$(function() {
+    //attach the a function to the click event of the 
+    //"Add Box Attribute" button that will add a new row
+   var cloneCount = 0;
+   
+   
+ 	
+    $('.addnew_line').click(function() {
+		
+				alert('AAAAAAAAAAAA');return false;
+				
+					var $newRow = $('#TemplateRow').clone(true);
+			
+            	$newRow.find('#item').val('');
+				$newRow.find('#description').val('');
+        		$newRow.find('#qty').val('');
+                $newRow.find('#unitprice').val('');
+				$newRow.find('#disc').val('');
+				$newRow.find('#tax').val('');
+				$newRow.find('#peryear').val('');
+                $newRow.find('#permonth').val('');
+				$newRow.find('#flexfees').val('');
+                $newRow.find('#delrow').val('');
+        		
+				var noOfDivs = $('.makeCloneClass').length + 1;
+				// $newRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
+			
+				$('#BoxTable tr:last').after($newRow);
+				
+				 return false;
+			
+	})
+
+	
+})
+
+
+
+
+</script>
+
+
+
 @stop
 
 @section('content')
@@ -434,20 +481,24 @@ tinymce.init({
                                         <th width="12%" align="center">Flex fees</th>
                                         <th width="4%" align="center">&nbsp;</th>
                                       </tr>
-                                      <tr>
-                                       <td align="center"><img src="img/dotted_icon.png"></td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td class="td_bg">&nbsp;</td>
-                                        <td class="td_bg">&nbsp;</td>
-                                        <td class="td_bg">&nbsp;</td>
-                                        <td class="td_bg">&nbsp;</td>
-                                        <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
+                                      <tr id="TemplateRow" class="makeCloneClass">
+                                       <td  align="center"><img src="img/dotted_icon.png" id="dotted" ></td>
+                                        <td >&nbsp;<input type="text" name="" id="item"  /></td>
+                                        <td  >&nbsp;<input type="text" name="" id="description"  /></td>
+                                        <td >&nbsp;<input type="text" name="" id="qty"  /></td>
+                                        <td >&nbsp;<input type="text" name="" id="unitprice"  /></td>
+                                        <td >&nbsp;<input type="text" name="" id="disc"   /></td>
+                                        <td  class="td_bg">&nbsp;<input type="text" name="" id="tax" /></td>
+                                        <td  class="td_bg">&nbsp;<input type="text" name="" id="peryear"  /></td>
+                                        <td  class="td_bg">&nbsp;<input type="text" name="" id="permonth"  /></td>
+                                        <td  class="td_bg">&nbsp;<input type="text" name="" id="flexfees"  /></td>
+                                        <td  class="td_bg" align="center">
+                 <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                                       <!-- <a href="#"><img src="img/cross_icon.png"></a> -->
+                                        
+                                        </td>
                                       </tr>
-                                      <tr>
+                                 <!--     <tr>
                                         <td align="center"><img src="img/dotted_icon.png"></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -485,7 +536,7 @@ tinymce.init({
                                         <td class="td_bg">&nbsp;</td>
                                         <td class="td_bg">&nbsp;</td>
                                         <td class="td_bg" align="center"><a href="#"><img src="img/cross_icon.png"></a></td>
-                                      </tr>
+                                      </tr> -->
                                     </table></td>
                                 </tr>
                                 
