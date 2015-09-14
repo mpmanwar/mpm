@@ -30,8 +30,13 @@ $(document).ready(function () {
 
   $(document).click(function() {
       $(".open_toggle").hide();
+      $(".open_lead_drop").hide();
   });
   $("#select_icon").click(function(event) {
+      $(".open_toggle").toggle();
+      event.stopPropagation();
+  });
+  $("#select_new_lead").click(function(event) {
       $(".open_toggle").toggle();
       event.stopPropagation();
   });
@@ -106,6 +111,34 @@ $(document).ready(function () {
           //}
 
           $("#open_form-modal").modal("show");
+        }
+      });
+  });
+
+  $(".open_new_lead-modal").click(function(){
+      var type      = $(this).data("type");
+      var leads_id  = $(this).data("leads_id");
+
+      $("#type").val(type);
+      $("#leads_id").val(leads_id);
+      if(type == "org"){
+        $("#lead_name_div").hide();
+        $("#lead_contact_name_div").show();
+        $("#lead_org_name_div").show();
+      }else{
+        $("#lead_contact_name_div").hide();
+        $("#lead_org_name_div").hide();
+        $("#lead_name_div").show();
+      }
+
+      $.ajax({
+        type: "POST",
+        url: '/crm/get-form-dropdown',
+        dataType : 'json',
+        data: { 'type' : type, 'leads_id' : leads_id },
+        success : function(resp){
+          
+          $("#open_new_lead-modal").modal("show");
         }
       });
   });
