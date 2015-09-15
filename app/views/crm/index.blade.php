@@ -44,6 +44,37 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
   $(function() {
+    
+    $('#exampletab3').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        //{"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
+    
+    
+    
     $('#example611').dataTable({
       "bPaginate": true,
       "bLengthChange": true,
@@ -337,7 +368,126 @@ $(document).ready(function(){
 
 <!-- Tab 3 Start-->
   <div id="tab_3" class="tab-pane {{ ($page_open == 3)?'active':'' }}">
-  Tab 3
+ <!-- Tab 3 -->
+ 
+                            <!--sub tab -->
+                            <div class="nav-tabs-custom">
+                              <ul class="nav nav-tabs nav-tabsbg" style="cursor: move;">
+                                <li class="active"><a data-toggle="tab" href="#tab_6">All [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Not Started [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">In Progress [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Renewals sent [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Client Review [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Renegotiated [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Accpted [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Client Invoiced [8]</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                <div id="tab_6" class="tab-pane active">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                           
+                                            
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                               
+                                                <tr>
+                                                  
+                                                  
+                                                <table class="table table-bordered table-hover dataTable crm" id="exampletab3" aria-describedby="exampletab3_info">
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                        <td><strong>Delete</strong></td>
+                                                          <td><strong>DOJ</strong></td>
+                                                          <td align="center"><strong>Business Name</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Days</strong></td>
+                                                         
+                                                          <td align="center"><strong>Job Start Date</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Notes</strong></td>
+                                                          <td align="center"><strong>Quotes</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Status</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr><td> 
+                                                        <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                                                        </td>
+                                                          <td>28-08-2015</td>
+                                                          <td>Business Name  Co Limited</td>
+                                                          <td align="center">&nbsp; </td>
+                                                          <td align="center">08-08-2015</td>
+                                                          <td align="center">39</td>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          <td align="center">18-08-2015
+                                               <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="4" data-tab="21"></span>
+                                                          
+                                                          </td>
+                                                           
+                                                          <td align="center">
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="33" data-tab="11"><span style="">notes</span></a>
+                                                          
+                                                          
+                                                          </td>
+                                                         
+                                                          <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>SEND</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>  <img src="/img/corner_arrow.png" style="height:12px;">                      
+                                                          
+                                                          </td>
+                                                          
+                                                          <td align="center"><select class="form-control newdropdown status_dropdown" id="11_status_dropdown_27" data-leads_id="27">
+                                                                                                            <option value="2">INCOMING</option>
+                                                                          <option value="4">QUALIFIED</option>
+                                                                          <option value="6">DISCUSSIONS</option>
+                                                                          <option value="7">PROPOSAL</option>
+                                                                          <option value="8" selected="">NEGITIATIONS</option>
+                                                                          <option value="10">CLOSING</option>
+                                                                                                      </select></td>
+                                                        </tr>
+                                                       
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                                
+                                <!-- /.tab-pane -->
+                              </div>
+                            </div>
+                            <!--end sub tab-->
+                         
   </div>
 <!-- Tab 3 End-->
 
