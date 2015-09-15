@@ -281,9 +281,15 @@ class HomeController extends BaseController {
         
         $result = DB::select(DB::raw($sql));
         if(isset($result[0]->avg)) {
+            
             $client_data[$i]['avg'] = number_format($result[0]->avg,2);  
+            if(number_format($result[0]->avg)=="0.00"){
+                $client_data[$i]['avg'] = '0';
+                
+            }
+            
         } else {
-            $client_data[$i]['avg'] = '';
+            $client_data[$i]['avg'] = '0';
         }      
         
       // $data['avg']=$result[0]->avg;

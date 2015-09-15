@@ -366,7 +366,7 @@ $('.DeleteBoxRow').click(function() {
                     </td>
                     
                     <td align="center">
-                    {{ isset($client_row['avg'])?$client_row['avg']:"" }} %
+                    {{ $client_row['avg'] }} %
                     <!--  @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
                       @else
