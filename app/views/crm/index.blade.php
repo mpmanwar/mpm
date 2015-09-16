@@ -1464,8 +1464,106 @@ $(document).ready(function(){
 <!-- Tab 7 Start-->
   <div id="tab_7" class="tab-pane {{ ($page_open == '7')?'active':'' }}">
    
-  
-   Tab 7 
+   <div class="tab_topcon">
+                      <div style="float:left;" class="top_bts">
+                        <ul style="padding:0;">
+                          <li>
+                            <div style="width:182px;" class="import_fromch_main">
+                              <div class="import_fromch">
+                                <a class="import_fromch_link" href="javascript:void(0)">+ NEW OPPORTUNITY</a>
+                              <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
+                                <div class="clearfix"></div>
+                              </div>
+                              
+                          </div>
+                          </li>
+                          <li>
+                            <div style="width:182px;" class="import_fromch_main">
+                              <div class="import_fromch">
+                                <a class="import_fromch_link" href="javascript:void(0)">Show Total</a>
+                              <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
+                                <div class="clearfix"></div>
+                              </div>
+                              
+                          </div>
+                          </li>
+                          <!-- <li>
+                            <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
+                          </li>
+                          <li>
+                            <a class="btn btn-info" href="/crm/report" target="_blank">REPORT</a>
+                          </li> -->
+                        <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      
+                      <div class="clearfix"></div>
+                    </div>
+                    
+                    
+                    <ul class="leads_tab">
+                        <li style="width:11%; class="active_leads" style="width:5%;"><a href=""><h3 style="background:#0066FF;">Action<span id="task_count_11"></span></h3></a>
+                          
+                          <p>1</p>
+                          <p>2</p>
+                          <p>£18,056.75</p>
+                          <p>£144,054.00</p>
+                        </li>
+
+                        <li style="width:11%; class=""><a href=""><h3 style="background:#CC4040;"><span id="step_field_2">Months</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>10,444.00</p>
+                          <p>10,444.00</p>
+                        </li>
+                         <li style="width:11%; class=""><a href=""><h3 style="background:#FF0000;"><span id="step_field_4">Forecast</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>0.00</p>
+                          <p>0.00</p>
+                        </li>
+                          <li style="width:11%; class=""><a href=""><h3 style="background:#FFD119;"><span id="step_field_6">Closed Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                        <li style="width:11%; class=""><a href=""><h3 style="background:#FF3399;"><span id="step_field_7">Other Closed</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                                                                              <li style="width:11%; class=""><a href=""><h3 style="background:#4DA2A2;"><span id="step_field_8">Variance</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                            <li style="width:11%; class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#66CCFF; "><span id="step_field_10">Pipeline Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£20,500.00</p>
+                          <p>£41,000.00</p>
+                        </li>
+                                                                            
+                        <li style="width:11%;"><h3 style="background:#FF3399;">Other Pipeline</h3>
+                           <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>20,500.00</p>
+                          <p>41,000.00</p>
+                        </li>
+                    <li style="width:12%;"><h3 style="background:#4DA2A2;">Variance</h3>
+                          <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>20,500.00</p>
+                          <p>41,000.00</p>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+   
+   
+   <!-- Tab 7 -->
   </div>
 <!-- Tab 7 End-->
 
