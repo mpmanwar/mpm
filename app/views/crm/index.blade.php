@@ -45,6 +45,34 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(function() {
     
+     $('#exampletab2').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
+    
     $('#exampletab3').dataTable({
       "bPaginate": true,
       "bLengthChange": true,
@@ -362,7 +390,260 @@ $(document).ready(function(){
 
 <!-- Tab 2 Start-->
   <div id="tab_2" class="tab-pane {{ ($page_open == 2)?'active':'' }}">
-  Tab 2
+  <div class="col_m2">
+                            <!--sub tab -->
+                            <div class="nav-tabs-custom">
+                              <ul class="nav nav-tabs nav-tabsbg" style="cursor: move;">
+                                <li class="active"><a data-toggle="tab" href="#tab_6">ORGANISATION</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab_7">INDIVIDUALS</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                <div id="tab_6" class="tab-pane active">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                         
+                                                          
+                                                          
+                                                          
+                                                          
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top">
+                                                  
+      <table class="table table-bordered table-hover dataTable crm" id="exampletab2" aria-describedby="exampletab2_info">                                            
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                          <td><input type="checkbox" id="CheckallCheckbox" style="position: absolute; opacity: 0;"></td>
+                                                          <td><strong>Joining Date</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Payment Method</strong></td>
+                                                          <td align="center"><strong>Engagement letters</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Monthly Fees</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Count Down</strong></td>
+                                                          <td align="center"><strong>Renewals</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Quotes</strong></td>
+                                                        </tr>
+                                                        </thead>
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><input type="checkbox" id="CheckallCheckbox" style="position: absolute; opacity: 0;"></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">Method</td>
+                                                          <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>View</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td> 
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">09-09-2015</td>
+                                                          <td align="center">19-09-2015</td>
+                                                          <td align="center">39</td>
+                                                          
+                       <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:80px!important">
+                                  <span>SENT</span>
+                                  <div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td>      
+                                                          
+                                                         <!-- <td align="center"><button class="btn btn-default">SENT</button></td> -->
+                                                         <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>View</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td> 
+                                                        <!--  <td align="center"><button class="btn btn-default">View</button></td> -->
+                                                        </tr>
+                                                      <!--  <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr> -->
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div id="tab_7" class="tab-pane">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td width="5%"><strong>Show</strong></td>
+                                                          <td width="7%"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td width="35%"><strong>entries</strong></td>
+                                                          <td width="24%">&nbsp;</td>
+                                                          <td width="5%"><strong>Search</strong></td>
+                                                          <td width="21%"><input type="text" id="" class="form-control"></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" class="table table-bordered">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td><strong>Joining Date</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Payment Method</strong></td>
+                                                          <td align="center"><strong>Engagement letters</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Monthly Fees</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Count Down</strong></td>
+                                                          <td align="center"><strong>Renewals</strong></td>
+                                                          <td align="center"><strong>Quotes</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                              </div>
+                            </div>
+                            <!--end sub tab-->
+                          </div>
+  
+  
+ <!-- Tab 2 -->
   </div>
 <!-- Tab 2 End-->
 
@@ -1182,7 +1463,9 @@ $(document).ready(function(){
 
 <!-- Tab 7 Start-->
   <div id="tab_7" class="tab-pane {{ ($page_open == '7')?'active':'' }}">
-    Tab 7
+   
+  
+   Tab 7 
   </div>
 <!-- Tab 7 End-->
 
