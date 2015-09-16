@@ -946,7 +946,7 @@ $(function() {
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-tabsbg">
                   <li class="{{ ($page_open == 611 || $page_open == 612 || $page_open == 613 || $page_open == 614 || $page_open == 615 || $page_open == 616 || $page_open == 617)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('611') }}/{{ base64_encode($owner_id) }}">OPEN</a></li>
-                  <li class="{{ ($page_open == 62)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('62') }}/{{ base64_encode($owner_id) }}">CLOSE (WON)</a></li>
+                  <li class="{{ ($page_open == 62)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('62') }}/{{ base64_encode($owner_id) }}">CLOSED (WON)</a></li>
                   <li class="{{ ($page_open == 63)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('63') }}/{{ base64_encode($owner_id) }}">CLOSED (LOST)</a></li>
                   <li class="{{ ($page_open == 64)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('64') }}/{{ base64_encode($owner_id) }}">COLD</a></li>
                   <li><a href="/crm/report" target="_blank">REPORTS</a></li>
@@ -1068,6 +1068,7 @@ $(function() {
                       <tbody role="alert" aria-live="polite" aria-relevant="all">
                         @if(isset($leads_details) && count($leads_details) >0)
                           @foreach($leads_details as $key=>$leads_row)
+                            @if(isset($leads_row['lead_status']) && ($leads_row['lead_status'] != 8 && $leads_row['lead_status'] != 9 && $leads_row['lead_status'] != 10))
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
                               <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -1122,6 +1123,7 @@ $(function() {
                                 @endif
                               </td> -->
                             </tr>
+                            @endif
                           @endforeach
                         @endif
                         
