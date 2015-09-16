@@ -1640,7 +1640,7 @@ $(function() {
                     <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>
                     
                     <div class="forecastsearch"> 
-                    <ul class="leads_tab" style="cursor: none;">
+                    <ul class="leads_tab" >
                         <li style="width:6%" class="" style="width:5%;"><a href=""><h3 style="color: black; background: #deedf5;">EDIT<span id="task_count_11"></span></h3></a>
                           
                           <p><img src="/img/edit_icon.png"></p>
