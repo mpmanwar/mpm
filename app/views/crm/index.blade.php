@@ -423,11 +423,12 @@ $(function() {
                                             <div class="total_annual_fee">
                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tbody><tr>
-                                                  <td>Total Annual Fees</td>
+                                                
+                                                <!--  <td>Total Annual Fees</td>
                                                   <td><input type="text" id="" class="form-control"></td>
                                                   <td width="10%">&nbsp;</td>
                                                   <td>Average Fees</td>
-                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td><input type="text" id="" class="form-control"></td> -->
                                                 </tr>
                                               </tbody></table>
                                             </div>
@@ -488,11 +489,7 @@ $(function() {
                                                           <td align="center">39</td>
                                                           
                        <td align="center">
-                             <div class="email_client_selectbox" style="height:24px; width:80px!important">
-                                  <span>SENT</span>
-                                  <div class="clr"></div>
-                                  
-                                </div>                       
+                             <button type="button" class="send_btn send_manage_task" data-client_id="1" data-field_name="ch_manage_task">SEND</button>                      
                                                           
                                                           </td>      
                                                           
@@ -553,11 +550,11 @@ $(function() {
                                             <div class="total_annual_fee">
                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tbody><tr>
-                                                  <td>Total Annual Fees</td>
+                                                <!--  <td>Total Annual Fees</td>
                                                   <td><input type="text" id="" class="form-control"></td>
                                                   <td width="10%">&nbsp;</td>
                                                   <td>Average Fees</td>
-                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td><input type="text" id="" class="form-control"></td> -->
                                                 </tr>
                                               </tbody></table>
                                             </div>
@@ -1488,7 +1485,7 @@ $(function() {
                           </div>
                           </li>
                           <li>
-                            <div style="width:110px;" class="import_fromch_main">
+                            <div style="width:108px;" class="import_fromch_main">
                               <div class="import_fromch">
                                 <a class="import_fromch_link" href="javascript:void(0)">Show Totals</a>
                               <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
