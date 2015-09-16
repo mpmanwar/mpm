@@ -9,6 +9,8 @@
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/crm.js') }}" type="text/javascript"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="{{ URL :: asset('js/plugins/jquery.quicksearch.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
 <script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
@@ -43,6 +45,14 @@ $(document).ready(function(){
 
 </script>
 <script type="text/javascript">
+
+$(function() {
+        $('input#id_search').quicksearch('.forecastsearch  li');
+        
+       
+    });
+
+
   $(function() {
     
      $('#exampletab2').dataTable({
@@ -1465,12 +1475,12 @@ $(document).ready(function(){
   <div id="tab_7" class="tab-pane {{ ($page_open == '7')?'active':'' }}">
    
    <div class="tab_topcon">
-                      <div style="float:left;" class="top_bts">
+                      <div style="float:left; margin-top:30px; width:25%;" class="top_bts">
                         <ul style="padding:0;">
                           <li>
-                            <div style="width:182px;" class="import_fromch_main">
+                            <div style="width:170px;" class="import_fromch_main">
                               <div class="import_fromch">
-                                <a class="import_fromch_link" href="javascript:void(0)">+ NEW OPPORTUNITY</a>
+                                <a class="import_fromch_link" href="javascript:void(0)"> +NEW FORECASTVALUES</a>
                               <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
                                 <div class="clearfix"></div>
                               </div>
@@ -1478,15 +1488,21 @@ $(document).ready(function(){
                           </div>
                           </li>
                           <li>
-                            <div style="width:182px;" class="import_fromch_main">
+                            <div style="width:110px;" class="import_fromch_main">
                               <div class="import_fromch">
-                                <a class="import_fromch_link" href="javascript:void(0)">Show Total</a>
+                                <a class="import_fromch_link" href="javascript:void(0)">Show Totals</a>
                               <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
                                 <div class="clearfix"></div>
                               </div>
                               
                           </div>
                           </li>
+                          
+                         
+                          
+                            
+                          
+                          
                           <!-- <li>
                             <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
                           </li>
@@ -1496,13 +1512,74 @@ $(document).ready(function(){
                         <div class="clearfix"></div>
                         </ul>
                       </div>
+                     
+                           <form style="float:left; width:75%">
+                           
+                             <div style="margin-top:0px; float: left; width:14%; margin-right: 1%;">
+                              <p style="font-weight: bold;">Select Months</p>
+                               <select id="marital_status" name="marital_status" class="form-control" style="width: 100%;">
+                 
+                                 
+                                            <option value='1'>Janaury</option>
+                                            <option value='2'>February</option>
+                                            <option value='3'>March</option>
+                                            <option value='4'>April</option>
+                                            <option value='5'>May</option>
+                                            <option value='6'>June</option>
+                                            <option value='7'>July</option>
+                                            <option value='8'>August</option>
+                                            <option value='9'>September</option>
+                                            <option value='10'>October</option>
+                                            <option value='11'>November</option>
+                                            <option value='12'>December</option>
+                               </select>
+                             </div>
+                             
+                            <div style="margin-top:0px; float: left; width:12%; margin-right: 1%;">
+                              <p style="font-weight: bold;">Select Year</p>
+                               <select id="marital_status" name="marital_status" class="form-control" style="width: 100%;">
+                 
+                                  <option selected="" value="1">2015</option>
+                               </select>
+                             </div>
+                             
+                             <div style="margin-top:0px; float: left; width:14%; margin-right: 1%;">
+                              <p style="font-weight: bold;">Include Previous</p>
+                               <select id="marital_status" name="marital_status" class="form-control" style="width: 100%;">
+                 
+                                  <option selected="" value="1">1 Month</option>
+                               </select>
+                             </div>
+                             
+                             <div style="margin-top:0px; float: left; width:11%; margin-right: 1%;">
+                              <p style="font-weight: bold;">Forecasts</p>
+                               <input type="text" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555; padding: 7px 0px;   height: 34px; background: #fff; width: 100px;"/>
+                             </div>
+                             
+                              <div style="margin-top:0px; float: left; width:11%;   height: 34px; margin-right: 1%;">
+                              <p style="font-weight: bold;">Closed Deals</p>
+                               <input type="text" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555; padding: 7px 0px; background: #fff; width: 100px;"/>
+                             </div>
+                             
+                              <div style="margin-top:0px; float: left; width:11%;   height: 34px; margin-right: 1%;">
+                              <p style="font-weight: bold;">Pipeline Deals</p>
+                               <input type="text" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555; padding: 7px 0px; background: #fff; "/>
+                             </div>
+                             <div class="clearfix"></div>
+                           </form> 
+                           
+                            
+                            
                       
                       <div class="clearfix"></div>
                     </div>
                     
                     
+                    <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>
+                    
+                    <div class="forecastsearch"> 
                     <ul class="leads_tab">
-                        <li style="width:11%; class="active_leads" style="width:5%;"><a href=""><h3 style="background:#0066FF;">Action<span id="task_count_11"></span></h3></a>
+                        <li style="width:11%" class="active_leads" style="width:5%;"><a href=""><h3 style="background:#0066ff;">Action<span id="task_count_11"></span></h3></a>
                           
                           <p>1</p>
                           <p>2</p>
@@ -1510,50 +1587,50 @@ $(document).ready(function(){
                           <p>£144,054.00</p>
                         </li>
 
-                        <li style="width:11%; class=""><a href=""><h3 style="background:#CC4040;"><span id="step_field_2">Months</span> <span id="task_count_1.$i"></span></h3></a>
+                        <li style="width:11%" class=""><a href=""><h3 style="background:#deedf5;"><span id="step_field_2">Months</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>10,444.00</p>
                           <p>10,444.00</p>
                         </li>
-                         <li style="width:11%; class=""><a href=""><h3 style="background:#FF0000;"><span id="step_field_4">Forecast</span> <span id="task_count_1.$i"></span></h3></a>
+                         <li style="width:11%" class=""><a href=""><h3 style="background:#00ccff;"><span id="step_field_4">Forecast</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
-                          <p>£144,454.00</p>
+                          <p>144,454.00</p>
                           <p>0.00</p>
                           <p>0.00</p>
                         </li>
-                          <li style="width:11%; class=""><a href=""><h3 style="background:#FFD119;"><span id="step_field_6">Closed Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <li style="width:11%" class=""><a href=""><h3 style="background:#ffcd0a;"><span id="step_field_6">Closed Deals</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
-                          <p>£144,454.00</p>
-                          <p>£0.00</p>
-                          <p>£0.00</p>
+                          <p>144,454.00</p>
+                          <p>0.00</p>
+                          <p>0.00</p>
                         </li>
-                        <li style="width:11%; class=""><a href=""><h3 style="background:#FF3399;"><span id="step_field_7">Other Closed</span> <span id="task_count_1.$i"></span></h3></a>
+                        <li style="width:11%" class=""><a href=""><h3 style="background:#ff3199;"><span id="step_field_7">Other Closed</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
-                          <p>£144,454.00</p>
-                          <p>£0.00</p>
-                          <p>£0.00</p>
+                          <p>144,454.00</p>
+                          <p>0.00</p>
+                          <p>0.00</p>
                         </li>
-                                                                              <li style="width:11%; class=""><a href=""><h3 style="background:#4DA2A2;"><span id="step_field_8">Variance</span> <span id="task_count_1.$i"></span></h3></a>
+                                                                              <li style="width:11%" class=""><a href=""><h3 style="background:#f56954;"><span id="step_field_8">Variance</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
-                          <p>£144,454.00</p>
-                          <p>£0.00</p>
-                          <p>£0.00</p>
+                          <p>144,454.00</p>
+                          <p>0.00</p>
+                          <p>0.00</p>
                         </li>
-                            <li style="width:11%; class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#66CCFF; "><span id="step_field_10">Pipeline Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                            <li style="width:11%" class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#4da2a2; "><span id="step_field_10">Pipeline Deals</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
-                          <p>£144,454.00</p>
-                          <p>£20,500.00</p>
-                          <p>£41,000.00</p>
+                          <p>144,454.00</p>
+                          <p>20,500.00</p>
+                          <p>41,000.00</p>
                         </li>
                                                                             
-                        <li style="width:11%;"><h3 style="background:#FF3399;">Other Pipeline</h3>
+                        <li style="width:11%;"><h3 style="background:#ff3399;">Other Pipeline</h3>
                            <p>10%</p>
                           <p>144,454.00</p>
                           <p>20,500.00</p>
                           <p>41,000.00</p>
                         </li>
-                    <li style="width:12%;"><h3 style="background:#4DA2A2;">Variance</h3>
+                    <li style="width:12%;"><h3 style="background:#f56954;">Variance</h3>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>20,500.00</p>
@@ -1561,7 +1638,7 @@ $(document).ready(function(){
                         </li>
                         <div class="clearfix"></div>
                     </ul>
-   
+   </div>
    
    <!-- Tab 7 -->
   </div>
