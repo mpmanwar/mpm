@@ -8,6 +8,7 @@
 @stop
 
 @section('myjsfile')
+<script src="{{ URL :: asset('js/forecast.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/crm.js') }}" type="text/javascript"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script src="{{ URL :: asset('js/plugins/jquery.quicksearch.js') }}" type="text/javascript"></script>
@@ -1477,7 +1478,7 @@ $(function() {
                           <li>
                             <div style="width:170px;" class="import_fromch_main">
                               <div class="import_fromch">
-                                <a class="import_fromch_link" href="javascript:void(0)"> +NEW FORECASTVALUES</a>
+                                <a class="import_fromch_link" href="javascript:void(0)"> +NEW FORECAST VALUES</a>
                               <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
                                 <div class="clearfix"></div>
                               </div>
@@ -1576,58 +1577,58 @@ $(function() {
                     
                     <div class="forecastsearch"> 
                     <ul class="leads_tab">
-                        <li style="width:11%" class="active_leads" style="width:5%;"><a href=""><h3 style="background:#0066ff;">Action<span id="task_count_11"></span></h3></a>
+                        <li style="width:6%" class="" style="width:5%;"><a href=""><h3 style="color: black; background: #deedf5;">EDIT<span id="task_count_11"></span></h3></a>
                           
-                          <p>1</p>
-                          <p>2</p>
-                          <p>£18,056.75</p>
-                          <p>£144,054.00</p>
+                          <p><img src="/img/edit_icon.png"></p>
+                          <p><img src="/img/edit_icon.png"></p>
+                          <p><img src="/img/edit_icon.png"></p>
+                          <p><img src="/img/edit_icon.png"></p>
                         </li>
 
-                        <li style="width:11%" class=""><a href=""><h3 style="background:#deedf5;"><span id="step_field_2">Months</span> <span id="task_count_1.$i"></span></h3></a>
+                        <li style="width:12%" class=""><a href=""><h3 style="background:#0066ff;"><span id="step_field_2">MONTHS</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>10,444.00</p>
                           <p>10,444.00</p>
                         </li>
-                         <li style="width:11%" class=""><a href=""><h3 style="background:#00ccff;"><span id="step_field_4">Forecast</span> <span id="task_count_1.$i"></span></h3></a>
+                         <li style="width:12%" class=""><a href=""><h3 style="background:#00ccff;"><span id="step_field_4">FORECAST</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>0.00</p>
                           <p>0.00</p>
                         </li>
-                          <li style="width:11%" class=""><a href=""><h3 style="background:#ffcd0a;"><span id="step_field_6">Closed Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <li style="width:13%" class=""><a href=""><h3 style="background:#ffcd0a;"><span id="step_field_6">CLOSED DEALS</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>0.00</p>
                           <p>0.00</p>
                         </li>
-                        <li style="width:11%" class=""><a href=""><h3 style="background:#ff3199;"><span id="step_field_7">Other Closed</span> <span id="task_count_1.$i"></span></h3></a>
+                        <li style="width:11%" class=""><a href=""><h3 style="background:#ff3199;"><span id="step_field_7">OTHER CLOSED</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                        </li>
+                                                                              <li style="width:12%" class=""><a href=""><h3 style="background:#f56954;"><span id="step_field_8">VARIANCE</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>0.00</p>
                           <p>0.00</p>
                         </li>
-                                                                              <li style="width:11%" class=""><a href=""><h3 style="background:#f56954;"><span id="step_field_8">Variance</span> <span id="task_count_1.$i"></span></h3></a>
-                          <p>10%</p>
-                          <p>144,454.00</p>
-                          <p>0.00</p>
-                          <p>0.00</p>
-                        </li>
-                            <li style="width:11%" class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#4da2a2; "><span id="step_field_10">Pipeline Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                            <li style="width:11%" class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#4da2a2; "><span id="step_field_10">PIPELINE DEALS</span> <span id="task_count_1.$i"></span></h3></a>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>20,500.00</p>
                           <p>41,000.00</p>
                         </li>
                                                                             
-                        <li style="width:11%;"><h3 style="background:#ff3399;">Other Pipeline</h3>
-                           <p>10%</p>
-                          <p>144,454.00</p>
-                          <p>20,500.00</p>
-                          <p>41,000.00</p>
+                        <li style="width:11%;"><h3 style="background:#ff3399;">OTHER PIPELINE</h3>
+                           <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
+                          <p><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:115px; border-radius: 5px; height: 19px; "/></p>
                         </li>
-                    <li style="width:12%;"><h3 style="background:#f56954;">Variance</h3>
+                    <li style="width:12%;"><h3 style="background:#f56954;">VARIANCE</h3>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>20,500.00</p>
