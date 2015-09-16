@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
+<style>
+.leads_tab li h3{ color:#fff; background: #000; font-size: 13px; padding: 8px 0 !important; margin: 0 0 0px 0!important; cursor: text;}
+</style>
+
   <link href="{{URL :: asset('css/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
   <!-- Date picker script -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -830,7 +834,7 @@ $(function() {
       <div class="clearfix"></div>
     </div>
 
-    <ul class="leads_tab" style="border:none;">
+    <ul class="leads_tab" >
         <li style="width:9%;" class="{{ ($page_open == '51')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">10</span>]</h3></a>
           <p>100%</p>
         </li>
@@ -1576,7 +1580,7 @@ $(function() {
                     <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>
                     
                     <div class="forecastsearch"> 
-                    <ul class="leads_tab">
+                    <ul class="leads_tab" style="cursor: none;">
                         <li style="width:6%" class="" style="width:5%;"><a href=""><h3 style="color: black; background: #deedf5;">EDIT<span id="task_count_11"></span></h3></a>
                           
                           <p><img src="/img/edit_icon.png"></p>
@@ -1591,7 +1595,7 @@ $(function() {
                           <p>10,444.00</p>
                           <p>10,444.00</p>
                         </li>
-                         <li style="width:12%" class=""><a href=""><h3 style="background:#00ccff;"><span id="step_field_4">FORECAST</span> <span id="task_count_1.$i"></span></h3></a>
+                         <li style="width:12%" class=""><h3 style="background:#00ccff;"><span id="step_field_4">FORECAST</span> <span id="task_count_1.$i"></span></h3>
                           <p>10%</p>
                           <p>144,454.00</p>
                           <p>0.00</p>
