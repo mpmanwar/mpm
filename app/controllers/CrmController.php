@@ -21,11 +21,17 @@ class CrmController extends BaseController
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $groupUserId = $session['group_users'];
-        $value = Session::get('show_archive_leads');
-        if (isset($value) && $value == 'Y') {
-            $data['archive'] = 'Show Archived';
+        $won_value = Session::get('won_show_archive');
+        $lost_value = Session::get('lost_show_archive');
+        if (isset($won_value) && $won_value == 'Y') {
+            $data['won_archive'] = 'Show Archived';
         } else {
-            $data['archive'] = 'Hide Archived';
+            $data['won_archive'] = 'Hide Archived';
+        }
+        if (isset($lost_value) && $lost_value == 'Y') {
+            $data['lost_archive'] = 'Show Archived';
+        } else {
+            $data['lost_archive'] = 'Hide Archived';
         }
 
         $data['page_open'] = base64_decode($page_open);
@@ -46,7 +52,7 @@ class CrmController extends BaseController
         $data['staff_details'] = User::getAllStaffDetails();
         $data['old_lead_sources'] = LeadSource::getOldLeadSource();
         $data['new_lead_sources'] = LeadSource::getNewLeadSource();
-        $data['leads_tabs'] = CrmLeadsTab::getAllTabDetails();
+        $data['leads_tabs'] = CrmLeadsTab::getAllTabDetails(); 
 
         $data['invoice_leads_details'] = CrmLead::getInvoiceLeadsDetails();
         $data['leads_details'] = CrmLead::getAllDetails();
@@ -528,10 +534,16 @@ class CrmController extends BaseController
 
     public function archive_leads()
     {
-        Session::put('show_archive_leads', 'Y');
+        $leads_ids  = Input::get("leads_ids");
+        $status     = Input::get("status");
+        $tab_id     = Input::get("tab_id");
+        if($tab_id == 8){
+            Session::put('won_show_archive', 'Y');
+        }
+        if($tab_id == 9){
+            Session::put('lost_show_archive', 'Y');
+        }
 
-        $leads_ids = Input::get("leads_ids");
-        $status = Input::get("status");
         //print_r($clients_id);die;
         foreach ($leads_ids as $leads_id) {
             if ($status == "Archive") {
@@ -552,14 +564,32 @@ class CrmController extends BaseController
         $groupUserId = $session['group_users'];
 
         $is_archive = Input::get("is_archive");
+        $tab_id     = Input::get("tab_id");
+        //echo $is_archive;die;
         if ($is_archive == "Y") {
-            Session::put('show_archive_leads', 'Y');
+            if($tab_id == 8){
+                Session::put('won_show_archive', 'Y');
+            }
+            if($tab_id == 9){
+                Session::put('lost_show_archive', 'Y');
+            }
         } else {
-            Session::put('show_archive_leads', 'N');
+            if($tab_id == 8){
+                Session::put('won_show_archive', 'N');
+            }
+            if($tab_id == 9){
+                Session::put('lost_show_archive', 'N');
+            }
         }
 
-        $affected = CrmLead::whereIn("user_id", $groupUserId)->where("show_archive", "=",
-            "Y")->update(array("is_archive" => $is_archive));
+        $group_leads_id = CrmLeadsStatus::leadsStatusByTabId($tab_id);
+
+        if(isset($group_leads_id) && count($group_leads_id) >0){
+            foreach ($group_leads_id as $key => $value) {
+                $affected = CrmLead::whereIn("user_id", $groupUserId)->where("show_archive", "=", "Y")->where("leads_id", $value['leads_id'])->update(array("is_archive" => $is_archive));
+            }
+            
+        }
         //echo $this->last_query();die;
     }
 
