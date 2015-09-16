@@ -274,13 +274,42 @@ class HomeController extends BaseController {
 							$corres_address .= $client_row->field_value.", ";
 						}
 						// ############### GET CORRESPONDENSE ADDRESS END ################## //
+                        
+                        
+                              
+           $sql = "SELECT ((SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = $client_id->client_id AND user_id = $user_id AND status = 'done') /(SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = '$client_id->client_id' AND user_id = $user_id)) * 100 AS avg FROM `cleinttaskdates` WHERE client_id = $client_id->client_id GROUP BY client_id";
+        
+        $result = DB::select(DB::raw($sql));
+        if(isset($result[0]->avg)) {
+            
+            $client_data[$i]['avg'] = number_format($result[0]->avg,2);  
+            if(number_format($result[0]->avg)=="0.00"){
+                $client_data[$i]['avg'] = '0';
+                
+            }
+            
+        } else {
+            $client_data[$i]['avg'] = '0';
+        }      
+        
+      // $data['avg']=$result[0]->avg;
+       // print_r($result[0]->avg);die();
+
+				//echo $this->last_query(); 
+                        
+                        
+                                                                                                                                                
 					}
+                    //die();                    
 					$client_data[$i]['corres_address'] = substr($corres_address, 0 ,-2);
 
 					$i++;
-				}
-
-				//echo $this->last_query();die;
+			
+            
+            	}
+                
+         
+                
 			}
 		}
 		$data['client_details'] = $client_data;
@@ -288,10 +317,14 @@ class HomeController extends BaseController {
 		$data['client_fields'] = ClientField::where("field_type", "=", "org")->get();
 
 		//print_r($data['client_details']);die;
+/*
 
-
-
-
+       $sql = "SELECT ((SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21 AND status = 'done') /(SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21)) * 100 AS avg FROM `cleinttaskdates` WHERE client_id = 3 GROUP BY client_id";
+        
+        $result = DB::select(DB::raw($sql));
+        $data['avg']=$result[0]->avg; */
+       
+       // print_r($result[0]->avg);die(); 
 
 //staff
 
@@ -308,7 +341,7 @@ class HomeController extends BaseController {
 		$data['new_postion_types'] = Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 //  
-    //echo '<pre>'; print_r($data);die();
+  // echo '<pre>'; print_r($data);die();
 
 		return View::make('home.organisation.onboard', $data);
 	}

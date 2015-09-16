@@ -271,7 +271,7 @@ function editnotesmodal(){
 //var editnotesval= $("#notes").val();
 function editnotes(){
     
-    var editnotesval= $("#notes").val();
+    var editnotesval= $("#notes").val(); 
     
     console.log(editnotesval);
     

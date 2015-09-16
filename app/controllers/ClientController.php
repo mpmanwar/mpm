@@ -1543,28 +1543,34 @@ class ClientController extends BaseController
         
         //$insert_id = Cleinttaskdate::insertGetId($update);
 
-/*
+    $arraydata=array();
         $festchtask = Cleinttaskdate::where('client_id', '=', $client_id)->select('cleinttaskdate_id','user_id','client_id','taskdate','cteatedtaskdate','check_list','task_owner','status')-> get();
         
-        if (isset($festchtask) && count($festchtask) > 0) {
+       if (isset($festchtask) && count($festchtask) > 0) {
             foreach ($festchtask as $festchtaskdata) {
                 
-                Checklist::where('checklist_id', '=', $festchtask['check_list'])->
-                
+              $arraydata['checklistname']=  Checklist::where('checklist_id', '=', $festchtaskdata['check_list'])->select('name')->first();
+              
+              //echo '<pre>';print_r($checklistname['name']);
+              
+             // $owner=$festchtask['task_owner'];
+                $arraydata['taskowner']=$festchtaskdata['task_owner'];
+                $arraydata['status']=$festchtaskdata['status'];
+                // echo '<pre>';print_r($arraydata);
             }
+            //die();
             
             
             
             
-            
-        }
+        } 
+        //echo '<pre>';print_r($festchtask);die();
+         
         
-        echo '<pre>';print_r($festchtask);die();*/
         
-        //$date_gtask = $created['taskdate'];
+        //$date_gtask = $created['taskdate'];die();
 
-        echo View::make('home.organisation.ownerdropdown', $data)->with('data', $data)->
-            with('date_g', $date_g);
+        echo View::make('home.organisation.ownerdropdown', $data)->with('data', $data)->with('date_g', $date_g);
         //echo View::make('home.organisation.ownerdropdown',$data);
 
 
@@ -1626,6 +1632,8 @@ class ClientController extends BaseController
 
 
     }
+    
+    //SELECT (SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21) as total , (SELECT COUNT(*) FROM cleinttaskdates WHERE client_id = 3 AND user_id = 21 AND status = "done") as done FROM `cleinttaskdates` WHERE client_id = 3 GROUP BY client_id
 
     public function getonboardsnotes()
     {
@@ -1728,6 +1736,8 @@ class ClientController extends BaseController
         //print_r($cid);
         return Redirect::to('/onboard');
     }
+
+
 
 
 }

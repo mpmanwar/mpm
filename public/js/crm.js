@@ -1,18 +1,18 @@
 $(document).ready(function () {
-  $('#CheckallCheckbox').on('ifChecked', function(event){
+  $('.CheckallCheckbox').on('ifChecked', function(event){
       $(".crm input[class='ads_Checkbox']").iCheck('check');
   });
 
-  $('#CheckallCheckbox').on('ifUnchecked', function(event){
+  $('.CheckallCheckbox').on('ifUnchecked', function(event){
       $(".crm input[class='ads_Checkbox']").iCheck('uncheck');
   });
 
   $(".ads_Checkbox").on('ifChecked', function(event){
     $(".ads_Checkbox:checked").each( function (i) {
         if($(this).data("archive") == "Y"){
-          $("#archivedButton").html('Un-Archive');
+          $(".archivedButton").html('Un-Archive');
         }else{
-          $("#archivedButton").html('Archive');
+          $(".archivedButton").html('Archive');
         }
     });
     
@@ -20,9 +20,9 @@ $(document).ready(function () {
   $(".ads_Checkbox").on('ifUnchecked', function(event){
     $(".ads_Checkbox:checked").each( function (i) {
         if($(this).data("archive") == "Y"){
-          $("#archivedButton").html('Un-Archive');
+          $(".archivedButton").html('Un-Archive');
         }else{
-          $("#archivedButton").html('Archive');
+          $(".archivedButton").html('Archive');
         }
     });
     
@@ -431,31 +431,32 @@ $(".deleteLeads").click(function(){
 /* ################# Graphs Modal Start #################### */
 
 //Show Archived in add individual client
-  $("#archive_div").click(function(){
+  $(".archive_div").click(function(){
     var page_open = $("#encode_page_open").val();
     var owner_id = $("#encode_owner_id").val();
 
-    var is_archive;
+    var tab_id = $(this).data('tab_id');
     var html = $(this).html();
     if($.trim(html) == 'Show Archived'){
-      is_archive  = 'N';
+      var is_archive = 'N';
     }else{
-      is_archive  = 'Y';
+      var is_archive  = 'Y';
     }
     $.ajax({
       type: "POST",
       url: '/crm/show-archive-leads',
-      data: { 'is_archive' : is_archive },
-      success : function(resp){//return false;
+      data: { 'is_archive' : is_archive, 'tab_id' : tab_id },
+      success : function(resp){
         window.location = '/crm/'+page_open+"/"+owner_id;
       }
     });
   });
 
 // Archive and Un-Archive client start //
-  $("#archivedButton").click(function(){
+  $(".archivedButton").click(function(){
     var page_open = $("#encode_page_open").val();
     var owner_id = $("#encode_owner_id").val();
+    var tab_id = $(this).data('tab_id');
 
     var val = [];
     $(".ads_Checkbox:checked").each( function (i) {
@@ -469,7 +470,7 @@ $(".deleteLeads").click(function(){
         $.ajax({
             type: "POST",
             url: '/crm/archive-leads',
-            data: { 'leads_ids' : val, 'status' : status },
+            data: { 'leads_ids' : val, 'status' : status, 'tab_id' : tab_id },
             success : function(resp){
               window.location = '/crm/'+page_open+"/"+owner_id;
             }

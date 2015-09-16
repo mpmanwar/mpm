@@ -44,6 +44,65 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
   $(function() {
+    
+     $('#exampletab2').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
+    
+    $('#exampletab3').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        //{"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
+    
+    
+    
     $('#example611').dataTable({
       "bPaginate": true,
       "bLengthChange": true,
@@ -331,13 +390,385 @@ $(document).ready(function(){
 
 <!-- Tab 2 Start-->
   <div id="tab_2" class="tab-pane {{ ($page_open == 2)?'active':'' }}">
-  Tab 2
+  <div class="col_m2">
+                            <!--sub tab -->
+                            <div class="nav-tabs-custom">
+                              <ul class="nav nav-tabs nav-tabsbg" style="cursor: move;">
+                                <li class="active"><a data-toggle="tab" href="#tab_6">ORGANISATION</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab_7">INDIVIDUALS</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                <div id="tab_6" class="tab-pane active">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                         
+                                                          
+                                                          
+                                                          
+                                                          
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top">
+                                                  
+      <table class="table table-bordered table-hover dataTable crm" id="exampletab2" aria-describedby="exampletab2_info">                                            
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                          <td><input type="checkbox" class="CheckallCheckbox" style="position: absolute; opacity: 0;"></td>
+                                                          <td><strong>Joining Date</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Payment Method</strong></td>
+                                                          <td align="center"><strong>Engagement letters</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Monthly Fees</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Count Down</strong></td>
+                                                          <td align="center"><strong>Renewals</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Quotes</strong></td>
+                                                        </tr>
+                                                        </thead>
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><input type="checkbox" class="CheckallCheckbox" style="position: absolute; opacity: 0;"></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">Method</td>
+                                                          <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>View</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td> 
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">09-09-2015</td>
+                                                          <td align="center">19-09-2015</td>
+                                                          <td align="center">39</td>
+                                                          
+                       <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:80px!important">
+                                  <span>SENT</span>
+                                  <div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td>      
+                                                          
+                                                         <!-- <td align="center"><button class="btn btn-default">SENT</button></td> -->
+                                                         <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>View</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>                       
+                                                          
+                                                          </td> 
+                                                        <!--  <td align="center"><button class="btn btn-default">View</button></td> -->
+                                                        </tr>
+                                                      <!--  <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr> -->
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div id="tab_7" class="tab-pane">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td width="5%"><strong>Show</strong></td>
+                                                          <td width="7%"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td width="35%"><strong>entries</strong></td>
+                                                          <td width="24%">&nbsp;</td>
+                                                          <td width="5%"><strong>Search</strong></td>
+                                                          <td width="21%"><input type="text" id="" class="form-control"></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" class="table table-bordered">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td><strong>Joining Date</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Payment Method</strong></td>
+                                                          <td align="center"><strong>Engagement letters</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Monthly Fees</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Count Down</strong></td>
+                                                          <td align="center"><strong>Renewals</strong></td>
+                                                          <td align="center"><strong>Quotes</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                              </div>
+                            </div>
+                            <!--end sub tab-->
+                          </div>
+  
+  
+ <!-- Tab 2 -->
   </div>
 <!-- Tab 2 End-->
 
 <!-- Tab 3 Start-->
   <div id="tab_3" class="tab-pane {{ ($page_open == 3)?'active':'' }}">
-  Tab 3
+ <!-- Tab 3 -->
+ 
+                            <!--sub tab -->
+                            <div class="nav-tabs-custom">
+                              <ul class="nav nav-tabs nav-tabsbg" style="cursor: move;">
+                                <li class="active"><a data-toggle="tab" href="#tab_6">All [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Not Started [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">In Progress [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Renewals sent [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Client Review [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Renegotiated [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Accpted [8]</a></li>
+                                <li class=""><a data-toggle="tab" href="#">Client Invoiced [8]</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                <div id="tab_6" class="tab-pane active">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                           
+                                            
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                               
+                                                <tr>
+                                                  
+                                                  
+                                                <table class="table table-bordered table-hover dataTable crm" id="exampletab3" aria-describedby="exampletab3_info">
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                        <td><strong>Delete</strong></td>
+                                                          <td><strong>DOJ</strong></td>
+                                                          <td align="center"><strong>Business Name</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Days</strong></td>
+                                                         
+                                                          <td align="center"><strong>Job Start Date</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Notes</strong></td>
+                                                          <td align="center"><strong>Quotes</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                          <td align="center"><strong>Status</strong>
+                                                          <i class="fa fa-cog fa-fw" style="color:#00c0ef"></i>
+                                                          </td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr><td> 
+                                                        <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                                                        </td>
+                                                          <td>28-08-2015</td>
+                                                          <td>Business Name  Co Limited</td>
+                                                          <td align="center">&nbsp; </td>
+                                                          <td align="center">08-08-2015</td>
+                                                          <td align="center">39</td>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          <td align="center">18-08-2015
+                                               <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="4" data-tab="21"></span>
+                                                          
+                                                          </td>
+                                                           
+                                                          <td align="center">
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="33" data-tab="11"><span style="">notes</span></a>
+                                                          
+                                                          
+                                                          </td>
+                                                         
+                                                          <td align="center">
+                             <div class="email_client_selectbox" style="height:24px; width:93px!important">
+                                  <span>SEND</span>
+                                  <div class="small_icon" data-id="27" data-tab="11"></div><div class="clr"></div>
+                                  
+                                </div>  <img src="/img/corner_arrow.png" style="height:12px;">                      
+                                                          
+                                                          </td>
+                                                          
+                                                          <td align="center"><select class="form-control newdropdown status_dropdown" id="11_status_dropdown_27" data-leads_id="27">
+                                                                                                            <option value="2">INCOMING</option>
+                                                                          <option value="4">QUALIFIED</option>
+                                                                          <option value="6">DISCUSSIONS</option>
+                                                                          <option value="7">PROPOSAL</option>
+                                                                          <option value="8" selected="">NEGITIATIONS</option>
+                                                                          <option value="10">CLOSING</option>
+                                                                                                      </select></td>
+                                                        </tr>
+                                                       
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                                
+                                <!-- /.tab-pane -->
+                              </div>
+                            </div>
+                            <!--end sub tab-->
+                         
   </div>
 <!-- Tab 3 End-->
 
@@ -379,7 +810,7 @@ $(document).ready(function(){
         <ul style="padding:0;">
           
           <li style="margin-top: 8px;">
-            <a href="javascript:void(0)" id="archive_div">{{ $archive }}</a>
+            <a href="javascript:void(0)" id="archive_div"></a>
           </li>
           <li>
             <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
@@ -417,7 +848,7 @@ $(document).ready(function(){
       <table class="table table-bordered table-hover dataTable crm" id="example5" aria-describedby="example5_info">
       <thead>
         <tr role="row">
-          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
           <th width="7%">Date</th>
           <th width="12%">Deal Owner</th>
           <th width="12%">Prospect Name</th>
@@ -507,10 +938,12 @@ $(document).ready(function(){
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs nav-tabsbg">
                   <li class="{{ ($page_open == 611 || $page_open == 612 || $page_open == 613 || $page_open == 614 || $page_open == 615 || $page_open == 616 || $page_open == 617)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('611') }}/{{ base64_encode($owner_id) }}">OPEN</a></li>
-                  <li class="{{ ($page_open == 62)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('62') }}/{{ base64_encode($owner_id) }}">CLOSE (OWN)</a></li>
+                  <li class="{{ ($page_open == 62)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('62') }}/{{ base64_encode($owner_id) }}">CLOSE (WON)</a></li>
                   <li class="{{ ($page_open == 63)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('63') }}/{{ base64_encode($owner_id) }}">CLOSED (LOST)</a></li>
                   <li class="{{ ($page_open == 64)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('64') }}/{{ base64_encode($owner_id) }}">COLD</a></li>
-                  <li class="{{ ($page_open == 65)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('65') }}/{{ base64_encode($owner_id) }}">REPORTS</a></li>
+                  <li><a href="/crm/report" target="_blank">REPORTS</a></li>
+                  <!-- <li class="{{ ($page_open == 65)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('65') }}/{{ base64_encode($owner_id) }}">REPORTS</a></li> -->
+
                 </ul>
                 <div class="tab-content">
 
@@ -551,7 +984,7 @@ $(document).ready(function(){
                         <ul style="padding:0;">
                           
                           <li style="margin-top: 8px;">
-                            <a href="javascript:void(0)" id="archive_div">{{ $archive }}</a>
+                            <a href="javascript:void(0)" id="archive_div"></a>
                           </li>
                           <li>
                             <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
@@ -579,12 +1012,14 @@ $(document).ready(function(){
                             $likely   = 0;
                           ?>
                           @foreach($leads_tabs as $key=>$tab_row)
-                          <li class="{{ ($page_open == '61'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('61'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
-                          <p>10%</p>
-                          <p>&#163;{{ $all_total or "0.00" }}</p>
-                          <p>&#163;{{ $tab_row['table_value']['average'] or "0.00" }}</p>
-                          <p>&#163;{{ $tab_row['table_value']['likely'] or "0.00" }}</p>
-                        </li>
+                            @if($tab_row['status'] == 'S')
+                            <li class="{{ ($page_open == '61'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('61'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
+                            <p>10%</p>
+                            <p>&#163;{{ $all_total or "0.00" }}</p>
+                            <p>&#163;{{ $tab_row['table_value']['average'] or "0.00" }}</p>
+                            <p>&#163;{{ $tab_row['table_value']['likely'] or "0.00" }}</p>
+                            </li>
+                            @endif
                           <?php $i++;?>
                           @endforeach
                         @endif
@@ -605,7 +1040,7 @@ $(document).ready(function(){
                     <table class="table table-bordered table-hover dataTable crm" id="example611" aria-describedby="example611_info">
                       <thead>
                         <tr role="row">
-                          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+                          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
                           <th width="7%">Date</th>
                           <th width="12%">Deal Owner</th>
                           <th width="12%">Prospect Name</th>
@@ -686,12 +1121,12 @@ $(document).ready(function(){
                     </table>
                     </div>
 
-                    @for($k=2; $k <=11;$k++)                          
+                    @for($k=2; $k <=7;$k++)                          
                     <div id="tab_61{{$k}}" class="tab-pane top_margin {{ ($page_open == '61'.$k)?'active':'' }}">
                       <table class="table table-bordered table-hover dataTable crm" id="example61{{$k}}" aria-describedby="example61{{$k}}_info">
                       <thead>
                         <tr role="row">
-                          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+                          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
                           <th width="7%">Date</th>
                           <th width="12%">Deal Owner</th>
                           <th width="12%">Prospect Name</th>
@@ -786,10 +1221,34 @@ $(document).ready(function(){
 
                   <!-- Tab 62 Start-->
                   <div id="tab_62" class="tab-pane top_margin {{ ($page_open == '62')?'active':'' }}">
+                    <div class="tab_topcon">
+                      <div class="top_bts" style="float:left;">
+                        <ul style="padding:0;">
+                          <li>
+                            <a class="btn btn-danger deleteLeads" href="javascript:void(0)">DELETE</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      <div class="top_search_con">
+                       <div class="top_bts">
+                        <ul style="padding:0;">
+                          <li style="margin-top: 8px;">
+                            <a href="javascript:void(0)" class="archive_div" data-tab_id='8'>{{$won_archive}}</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0)" data-tab_id='8' class="btn btn-warning archivedButton">Archive</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
                     <table class="table table-bordered table-hover dataTable crm" id="example62" aria-describedby="example62_info">
                       <thead>
                         <tr role="row">
-                          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+                          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
                           <th width="7%">Close Date</th>
                           <th width="12%">Deal Owner</th>
                           <th width="12%">Prospect Name</th>
@@ -806,6 +1265,7 @@ $(document).ready(function(){
                       <tbody role="alert" aria-live="polite" aria-relevant="all">
                         @if(isset($leads_details) && count($leads_details) >0)
                           @foreach($leads_details as $key=>$leads_row)
+                            @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == 8)
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
                               <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -850,6 +1310,7 @@ $(document).ready(function(){
                                 @endif
                               </td>
                             </tr>
+                            @endif
                           @endforeach
                         @endif
                         
@@ -860,10 +1321,34 @@ $(document).ready(function(){
 
                   <!-- Tab 63 Start-->
                   <div id="tab_63" class="tab-pane {{ ($page_open == '63')?'active':'' }}">
+                    <div class="tab_topcon">
+                      <div class="top_bts" style="float:left;">
+                        <ul style="padding:0;">
+                          <li>
+                            <a class="btn btn-danger deleteLeads" href="javascript:void(0)">DELETE</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      <div class="top_search_con">
+                       <div class="top_bts">
+                        <ul style="padding:0;">
+                          <li style="margin-top: 8px;">
+                            <a href="javascript:void(0)" class="archive_div" data-tab_id='9'>{{$lost_archive}}</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0)" data-tab_id='9' class="btn btn-warning archivedButton">Archive</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
                     <table class="table table-bordered table-hover dataTable crm" id="example63" aria-describedby="example63_info">
                       <thead>
                         <tr role="row">
-                          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+                          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
                           <th width="7%">Close Date</th>
                           <th width="18%">Deal Owner</th>
                           <th width="18%">Prospect Name</th>
@@ -879,6 +1364,7 @@ $(document).ready(function(){
                       <tbody role="alert" aria-live="polite" aria-relevant="all">
                         @if(isset($leads_details) && count($leads_details) >0)
                           @foreach($leads_details as $key=>$leads_row)
+                            @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == 9)
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
                               <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -917,6 +1403,7 @@ $(document).ready(function(){
                               </td>
                               
                             </tr>
+                            @endif
                           @endforeach
                         @endif
                         
@@ -930,7 +1417,7 @@ $(document).ready(function(){
                     <table class="table table-bordered table-hover dataTable crm" id="example64" aria-describedby="example64_info">
                       <thead>
                         <tr role="row">
-                          <th width="3%"><input type='checkbox' id="CheckallCheckbox"></th>
+                          <th width="3%"><input type='checkbox' class="CheckallCheckbox"></th>
                           <th width="7%">Date</th>
                           <th width="12%">Deal Owner</th>
                           <th width="12%">Prospect Name</th>
@@ -941,7 +1428,7 @@ $(document).ready(function(){
                           <th width="9%">Quote</th>
                           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
                           <th width="9%">Stage <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
-                          <th width="8%">Amount</th>
+                          <th width="7%">Amount</th>
                           <th width="5%">Notes</th>
                           <!-- <th width="6%">Client Onboarding</th> -->
                         </tr>
@@ -950,6 +1437,7 @@ $(document).ready(function(){
                       <tbody role="alert" aria-live="polite" aria-relevant="all">
                         @if(isset($leads_details) && count($leads_details) >0)
                           @foreach($leads_details as $key=>$leads_row)
+                            @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == 10)
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
                               <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -1004,6 +1492,7 @@ $(document).ready(function(){
                                 @endif
                               </td> -->
                             </tr>
+                            @endif
                           @endforeach
                         @endif
                         
@@ -1032,7 +1521,107 @@ $(document).ready(function(){
 
 <!-- Tab 7 Start-->
   <div id="tab_7" class="tab-pane {{ ($page_open == '7')?'active':'' }}">
-    Tab 7
+   
+   <div class="tab_topcon">
+                      <div style="float:left;" class="top_bts">
+                        <ul style="padding:0;">
+                          <li>
+                            <div style="width:182px;" class="import_fromch_main">
+                              <div class="import_fromch">
+                                <a class="import_fromch_link" href="javascript:void(0)">+ NEW OPPORTUNITY</a>
+                              <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
+                                <div class="clearfix"></div>
+                              </div>
+                              
+                          </div>
+                          </li>
+                          <li>
+                            <div style="width:182px;" class="import_fromch_main">
+                              <div class="import_fromch">
+                                <a class="import_fromch_link" href="javascript:void(0)">Show Total</a>
+                              <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
+                                <div class="clearfix"></div>
+                              </div>
+                              
+                          </div>
+                          </li>
+                          <!-- <li>
+                            <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
+                          </li>
+                          <li>
+                            <a class="btn btn-info" href="/crm/report" target="_blank">REPORT</a>
+                          </li> -->
+                        <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      
+                      <div class="clearfix"></div>
+                    </div>
+                    
+                    
+                    <ul class="leads_tab">
+                        <li style="width:11%; class="active_leads" style="width:5%;"><a href=""><h3 style="background:#0066FF;">Action<span id="task_count_11"></span></h3></a>
+                          
+                          <p>1</p>
+                          <p>2</p>
+                          <p>£18,056.75</p>
+                          <p>£144,054.00</p>
+                        </li>
+
+                        <li style="width:11%; class=""><a href=""><h3 style="background:#CC4040;"><span id="step_field_2">Months</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>10,444.00</p>
+                          <p>10,444.00</p>
+                        </li>
+                         <li style="width:11%; class=""><a href=""><h3 style="background:#FF0000;"><span id="step_field_4">Forecast</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>0.00</p>
+                          <p>0.00</p>
+                        </li>
+                          <li style="width:11%; class=""><a href=""><h3 style="background:#FFD119;"><span id="step_field_6">Closed Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                        <li style="width:11%; class=""><a href=""><h3 style="background:#FF3399;"><span id="step_field_7">Other Closed</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                                                                              <li style="width:11%; class=""><a href=""><h3 style="background:#4DA2A2;"><span id="step_field_8">Variance</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£0.00</p>
+                          <p>£0.00</p>
+                        </li>
+                            <li style="width:11%; class=""><a href="/crm/NjE3/YWxs"><h3 style="background:#66CCFF; "><span id="step_field_10">Pipeline Deals</span> <span id="task_count_1.$i"></span></h3></a>
+                          <p>10%</p>
+                          <p>£144,454.00</p>
+                          <p>£20,500.00</p>
+                          <p>£41,000.00</p>
+                        </li>
+                                                                            
+                        <li style="width:11%;"><h3 style="background:#FF3399;">Other Pipeline</h3>
+                           <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>20,500.00</p>
+                          <p>41,000.00</p>
+                        </li>
+                    <li style="width:12%;"><h3 style="background:#4DA2A2;">Variance</h3>
+                          <p>10%</p>
+                          <p>144,454.00</p>
+                          <p>20,500.00</p>
+                          <p>41,000.00</p>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+   
+   
+   <!-- Tab 7 -->
   </div>
 <!-- Tab 7 End-->
 

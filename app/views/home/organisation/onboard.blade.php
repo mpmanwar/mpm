@@ -366,7 +366,7 @@ $('.DeleteBoxRow').click(function() {
                     </td>
                     
                     <td align="center">
-                    %
+                    {{ $client_row['avg'] }} %
                     <!--  @if( isset($client_row['deadacc_count']) && $client_row['deadacc_count'] == "OVER DUE" )
                         <span style="color:red">{{ $client_row['deadacc_count'] or "" }}</span>
                       @else
@@ -578,36 +578,11 @@ $('.DeleteBoxRow').click(function() {
                         @endforeach
                       @endif
                                                       </select>
-                
-                
-                
-                
-                
-                    
-                  
+                 
                   </td>
-              <!--  <td align="center">
-                <select class="form-control newdropdown status_dropdown" name="client_id" id="client_id">
-    				<option value="">None</option>
-    					@if(isset($allClients) && count($allClients)>0)
-					       @foreach($allClients as $key=>$client_row)
-						      <option value="{{ $client_row['client_id'] }}">{{ $client_row['client_name'] }}</option>
-					       @endforeach
-					   @endif
-                </select>
-                </td> -->
-                  
+             
                   
                 <td align="center" id="ownerdrop">
-                                 
-                 
-                  
-                  
-                  
-                <!--    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                -->
                 
                   </td>
                 <td align="center" id="">
@@ -627,15 +602,10 @@ $('.DeleteBoxRow').click(function() {
                     <li><a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a></li>
                    <li>
                 
-                
-               
-                
-                
                 <a href="javascript:void(0)" id="gocalender" class="" data-client_id="">Add to Calender</a>
                    </li>
                   </ul>
-                
-                 </div></div>
+                </div></div>
                 </td>
                 <td align="center">
                 

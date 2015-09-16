@@ -70,4 +70,20 @@ class CrmLeadsStatus extends Eloquent {
 		return $tab_id;
 	}
 
+	public static function getLeadsIdByTabId( $tab_id )
+	{
+		$data = array();
+		$session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $groupUserId    = $session['group_users'];
+
+		$stattus = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_tab_id", "=", $tab_id)->first();
+		if(isset($stattus) && count($stattus) >0){
+			foreach ($stattus as $i => $details) {
+				$data[$i]['leads_id'] 	= $details->leads_id;
+			}
+		}
+		return $data;
+	}
+
 }
