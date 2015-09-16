@@ -1424,6 +1424,30 @@ $(function() {
 
                   <!-- Tab 64 Start-->
                   <div id="tab_64" class="tab-pane {{ ($page_open == '64')?'active':'' }}">
+                    <div class="tab_topcon">
+                      <div class="top_bts" style="float:left;">
+                        <ul style="padding:0;">
+                          <li>
+                            <a class="btn btn-danger deleteLeads" href="javascript:void(0)">DELETE</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul>
+                      </div>
+                      <div class="top_search_con">
+                       <div class="top_bts">
+                        <!-- <ul style="padding:0;">
+                          <li style="margin-top: 8px;">
+                            <a href="javascript:void(0)" class="archive_div" data-tab_id='9'>{{$lost_archive}}</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0)" data-tab_id='9' class="btn btn-warning archivedButton">Archive</a>
+                          </li>
+                          <div class="clearfix"></div>
+                        </ul> -->
+                      </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
                     <table class="table table-bordered table-hover dataTable crm" id="example64" aria-describedby="example64_info">
                       <thead>
                         <tr role="row">
