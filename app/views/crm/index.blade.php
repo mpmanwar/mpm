@@ -1609,7 +1609,31 @@ $(function() {
                               <p style="font-weight: bold;">Include Previous</p>
                                <select id="marital_status" name="marital_status" class="form-control" style="width: 100%;">
                  
-                                  <option selected="" value="1">1 Month</option>
+                                  <option selected="selected" value="1">1 Month</option>
+                                  <option selected="" value="1">2 Month</option>
+                                  <option selected="" value="1">3 Month</option>
+                                  <option selected="" value="1">4 Month</option>
+                                  <option selected="" value="1">5 Month</option>
+                                  <option selected="" value="1">6 Month</option>
+                                  <option selected="" value="1">7 Month</option>
+                                  <option selected="" value="1">8 Month</option>
+                                  <option selected="" value="1">9 Month</option>
+                                  <option selected="" value="1">10 Month</option>
+                                  <option selected="" value="1">11 Month</option>
+                                  <option selected="" value="1">12 Month</option>
+                                  <option selected="" value="1">13 Month</option>
+                                  <option selected="" value="1">14 Month</option>
+                                  <option selected="" value="1">15 Month</option>
+                                  <option selected="" value="1">16 Month</option>
+                                  <option selected="" value="1">17 Month</option>
+                                  <option selected="" value="1">18 Month</option>
+                                  <option selected="" value="1">19 Month</option>
+                                  <option selected="" value="1">20 Month</option>
+                                  <option selected="" value="1">21 Month</option>
+                                  <option selected="" value="1">22 Month</option>
+                                  <option selected="" value="1">23 Month</option>
+                                  <option selected="" value="1">24 Month</option>
+                                  
                                </select>
                              </div>
                              
@@ -1640,7 +1664,7 @@ $(function() {
                     <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>
                     
                     <div class="forecastsearch"> 
-                    <ul class="leads_tab" >
+                    <ul class="leads_tab">
                         <li style="width:6%" class="" style="width:5%;"><a href=""><h3 style="color: black; background: #deedf5;">EDIT<span id="task_count_11"></span></h3></a>
                           
                           <p><img src="/img/edit_icon.png"></p>
