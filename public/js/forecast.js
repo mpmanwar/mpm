@@ -48,14 +48,7 @@ $(function() {
                 $("#eddpick").datepicker({dateFormat: 'dd-mm-yy'});
 });
 	// "remove row" check box
-    $('.DeleteBoxRow').click(function() {
-    
-    //find the closest parent row and remove it
-	var size = $(".DeleteBoxRow").size();
-		if(size>1){
-        	$(this).closest('tr').remove();
-		}
-    });
+  
 	
 })
 
@@ -67,7 +60,8 @@ $(function() {
     
     //find the closest parent row and remove it
 	var size = $(".DeleteBoxRow").size();
-		if(size>1){
+    //alert(size);return false;
+		if(size>2){
         	$(this).closest('tr').remove();
 		}
     });
