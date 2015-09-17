@@ -119,8 +119,8 @@ $(document).ready(function () {
       var type      = $(this).data("type");
       var leads_id  = $(this).data("leads_id");
 
-      $("#type").val(type);
-      $("#leads_id").val(leads_id);
+      $("#new_type").val(type);
+      $("#new_leads_id").val(leads_id);
       if(type == "org"){
         $("#lead_name_div").hide();
         $("#lead_contact_name_div").show();
@@ -238,8 +238,16 @@ $("#append_new_source").on("click", ".delete_source", function(){
 
 /* ================== Manage Tasks ================== */
   $(".lead_status-modal").click(function(){
+    var is_show = $(this).data('is_show');
+    if(is_show == 'L'){
+      $(".is_show_O").hide();
+    }else{
+      $(".is_show_L").hide();
+    }
+    $(".is_show_"+is_show).show();
     $("#lead_status-modal").modal("show");
   });
+
   $("#lead_status-modal").on("click", ".edit_status", function(){
       var step_id = $(this).data("step_id");
       var status_name = $("#status_span"+step_id).html();
