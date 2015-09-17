@@ -329,19 +329,20 @@ $(".deleteLeads").click(function(){
 
 /* ################# Status change Start ################### */
   $(".status_dropdown").change(function(){
-      var tab_id = $(this).val();
-      var leads_id = $(this).data('leads_id');
-      var page_open = $("#encode_page_open").val();
-      var owner_id = $("#encode_owner_id").val();
+    var tab_id    = $(this).val();
+    var leads_id  = $(this).data('leads_id');
+    var page_open = $("#encode_page_open").val();
+    var owner_id  = $("#encode_owner_id").val();
+    var close_date = $('#close_date_'+leads_id).val();
 
-      $.ajax({
-          type: "POST",
-          url: '/crm/sendto-another-tab',
-          data: { 'tab_id' : tab_id, 'leads_id' : leads_id },
-          success : function(resp){
-            window.location = '/crm/'+page_open+"/"+owner_id;
-          }
-      });
+    if( (tab_id == 8 || tab_id == 9) && close_date == '0000-00-00'){
+      $("#add_date_leads_id").val(leads_id);
+      $("#add_date_tab_id").val(tab_id);
+      $("#add_close_date-modal").modal("show");
+      return false;
+    }else{
+      save_lead_status(tab_id, leads_id);
+    }
   });
   $(".sendto_invoiced").click(function(){
       var tab_id = $(this).data('tab_id');
@@ -361,6 +362,25 @@ $(".deleteLeads").click(function(){
           }
       });
   });
+
+  $(".save_close_date").click(function(){
+      var tab_id      = $("#add_date_tab_id").val();
+      var leads_id    = $("#add_date_leads_id").val();
+      var close_date  = $("#add_close_date").val();
+      $.ajax({
+          type: "POST",
+          url: '/crm/save-close-date',
+          data: { 'close_date' : close_date, 'leads_id' : leads_id },
+          beforeSend : function(){
+            $(".show_loader").html('<img src="/img/spinner.gif" />');
+          },
+          success : function(resp){
+            save_lead_status(tab_id, leads_id);
+          }
+      });
+  });
+
+  
 /* ################# Status change End ################### */
 
 /* ################# Existing Client Start ################### */
@@ -536,6 +556,22 @@ $(".deleteLeads").click(function(){
 	
 });//document end 
 
+
+
+function save_lead_status(tab_id, leads_id)
+{
+  var page_open = $("#encode_page_open").val();
+  var owner_id = $("#encode_owner_id").val();
+  $.ajax({
+    type: "POST",
+    url: '/crm/sendto-another-tab',
+    data: { 'tab_id' : tab_id, 'leads_id' : leads_id },
+    success : function(resp){
+      window.location = '/crm/'+page_open+"/"+owner_id;
+    }
+  });
+}
+      
 
 /*function validation()
 {

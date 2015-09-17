@@ -405,6 +405,7 @@ Route::any('/crm/archive-leads','CrmController@archive_leads');
 Route::any('/crm/show-archive-leads', 'CrmController@show_archive_leads');
 Route::any('/crm/report', 'CrmController@report');
 Route::any('/crm/show-leads-report', 'CrmController@show_leads_report');
+Route::any('/crm/save-close-date', 'CrmController@save_close_date');
 /*================== CRM End ==============*/
 Route::any('/fileandsign', 'FileandsignController@fileandsign');
 
