@@ -2120,7 +2120,7 @@ $(function() {
                                                 </tr>
                                                 <tr>
                                                   <td valign="top">
-                                                  
+                                                   
                                                   
       <table class="table table-bordered table-hover dataTable crm" id="mailing" aria-describedby="mailing_info">                                            
                                                   
