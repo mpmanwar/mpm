@@ -2678,7 +2678,6 @@ $(function() {
 </div>
 <!-- Add New Lead End-->
 
-<<<<<<< HEAD
 <!-- COMPOSE MESSAGE MODAL -->
 <div class="modal fade" id="add_close_date-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
@@ -2712,7 +2711,6 @@ $(function() {
   </div>
   <!-- /.modal-dialog -->
 </div>
-=======
 
 
 <div class="modal fade" id="forecast-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -2821,9 +2819,6 @@ $(function() {
   <!-- /.modal-dialog -->
 </div>  
 
-
-
->>>>>>> 328713bf14324f549bd3cf97d7cce500af6251b8
 @stop
 
 
