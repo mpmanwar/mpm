@@ -20,8 +20,6 @@
 <!-- Time picker script -->
 <script src="{{ URL :: asset('js/timepicki.js') }}"></script>
 <!-- Time picker script -->
-
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <script src="{{ URL :: asset('js/forecast.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/crm.js') }}" type="text/javascript"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
@@ -39,6 +37,8 @@
 
 <script>
 $(document).ready(function(){
+    //$(".dpick").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
+    
     $("#close_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
@@ -56,6 +56,15 @@ $(document).ready(function(){
         thousandsSeparator: ',',
         centsLimit: '',
     });
+    $('.amountformat').priceFormat({
+        prefix: '',
+        //centsSeparator: '.',
+        //thousandsSeparator: ',',
+      //  centsLimit: '',
+    });
+    
+    
+    
 });
 
 </script>
@@ -438,7 +447,24 @@ $(function() {
 <div class="tab-content">
   <!-- Tab 1 Start-->
   <div id="tab_11" class="tab-pane {{ ($page_open == 11)?'active':'' }}">
-  Tab 1
+  
+  <span style="float: left; padding-right: 10px; padding-top: 7px;">Dashboard
+  </span>
+  <span style="float:left;">
+  
+  <select id="crmdashboard" name="" class="form-control" style="width: 250px;">
+                                            <option value="">--Select--</option>
+                                 
+                                            <option value="salesperformancedashboard">Sales Performance Dashboard</option>
+                                            <option value="existingclient">Existing Client</option>
+                                            
+                               </select></span>
+                               <div class="clearfix"></div>
+                               
+  <div id="salesimg" style="padding-top:10px;"></div>
+  
+  
+ <!-- Tab 1 -->
   </div>
 <!-- Tab 1 End-->
 
@@ -1754,8 +1780,40 @@ $(function() {
                               <td align="center"><img src="/img/edit_icon.png"> </td>
                               <td align="center"> MONTHS</td>
                               <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
                               <td align="center">VARIANCE</td>
                               <td align="center">PIPELINE DEALS</td>
                               <td align="center">
@@ -1770,8 +1828,8 @@ $(function() {
                               <td align="center"><img src="/img/edit_icon.png"> </td>
                               <td align="center"> MONTHS1</td>
                               <td align="center">FORECAST1</td>
+                              <td align="center">CLOSED DEALS1</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED1</td>
                               <td align="center">VARIANCE1</td>
                               <td align="center">PIPELINE DEALS1</td>
                               <td align="center">
@@ -1784,67 +1842,100 @@ $(function() {
                             <tr>
                               
                               <td align="center"><img src="/img/edit_icon.png"> </td>
-                              <td align="center"> MONTHS1</td>
-                              <td align="center">FORECAST1</td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED1</td>
-                              <td align="center">VARIANCE1</td>
-                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
                               <td align="center">
                                <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
                               <td align="center">
-                                 VARIANCE1
+                                 VARIANCE
                               </td>
                              
                             </tr>
                             <tr>
                               
                               <td align="center"><img src="/img/edit_icon.png"> </td>
-                              <td align="center"> MONTHS1</td>
-                              <td align="center">FORECAST1</td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED1</td>
-                              <td align="center">VARIANCE1</td>
-                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
                               <td align="center">
                                <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
                               <td align="center">
-                                 VARIANCE1
+                                 VARIANCE
                               </td>
                              
                             </tr>
                             <tr>
                               
                               <td align="center"><img src="/img/edit_icon.png"> </td>
-                              <td align="center"> MONTHS1</td>
-                              <td align="center">FORECAST1</td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED1</td>
-                              <td align="center">VARIANCE1</td>
-                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
                               <td align="center">
                                <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
                               <td align="center">
-                                 VARIANCE1
+                                 VARIANCE
                               </td>
                              
                             </tr>
                             <tr>
                               
                               <td align="center"><img src="/img/edit_icon.png"> </td>
-                              <td align="center"> MONTHS1</td>
-                              <td align="center">FORECAST1</td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
                               <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
-                              <td align="center">OTHER CLOSED1</td>
-                              <td align="center">VARIANCE1</td>
-                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
                               <td align="center">
                                <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
                               <td align="center">
-                                 VARIANCE1
+                                 VARIANCE
                               </td>
                              
                             </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center">CLOSED DEALS</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE
+                              </td>
+                             
+                            </tr>
+                           
                            
                             
                       
@@ -2680,7 +2771,9 @@ $(function() {
 
 
 <div class="modal fade" id="forecast-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:60%;">
+
+ 
+  <div class="modal-dialog" style="width:62%;">
     <div class="modal-content">
       <!--<div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -2688,16 +2781,18 @@ $(function() {
         <div class="clearfix"></div>
       </div>-->
       <!--<form action="#" method="post">-->
-      <p id="businessname" align="center" style="margin: 17px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p>
+      
       <div class="modal-body">
           <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
           <table width="100%" border="0" class="staff_holidays">
             <tr>
               <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
+  
+    
     <td width="30%"><strong style="color: #00ccff; font-size: 20px;">ADD FORECAST VALUES</strong></td>
-    <td width="30%">&nbsp;</td>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -2707,67 +2802,107 @@ $(function() {
             </tr>
             <tr>
               <td valign="top">
-			 
-              
-              
-              
-              
-              
-			   {{ Form::open(array('url' => '/insert-forecast')) }}
-               
+			  <?php 
+			  		
+					//echo '<pre>';
+					//print_r($staff_details);
+			  
+			  ?>
+			   {{ Form::open(array('url' => '/timesheet/insert-forecast')) }}
               <table width="100%" class="table table-bordered" id="BoxTable">
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
-              <input type="hidden" name="cid" id="c_id" value="">
               <tr>
-                <td width="5%" align="center"id="allCheckSelect"> Delete</td>
-                <td width="40%" align="center"><strong>Details</strong>
-                
-                </td>
-                <!--<td width="20%" align="center"><strong>Client</strong></td>-->
-                <td width="20%" align="center"><strong>Date</strong>
-                </td>
-                <td width="15%" align="center"><strong>Amount</strong></td>
-                
+              <td width="4%" align="center"><strong>Delete</strong></td>
+                <td width="20%" align="center"><strong>Date</strong></td>
+                <td width="20%" align="center"><strong>Details</strong></td>
+                <td width="20%" align="center"><strong>Amount</strong></td>
+                  
               </tr>
-              
-              
               
               <tr id="TemplateRow" class="makeCloneClass">
               
-              
-              
-                <td align="center">
-                <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
-                </td>
+              <td align="left"><a href="#"><img src="/img/cross.png" width="15" id="date_picker"  class="DeleteBoxRow" ></a>
+				
                 
-                <td align="center" style="width:50%;">
-                <input type="text" class="" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:374px; border-radius: 5px; height: 30px; ">
-                </td>
-             
-                  
-                <td align="center" style="width:20%;" >
-                <input type="hidden" name="" id="date" value="" style="height: 30px;" >
-                </td>
-                <td align="center" id="" style="width:30%;">
-                <input type="text" class="" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 30px; ">
-                </td>
+				</td>
+              
+               
+				<td>
+                <input class="dpick" type="text" id="dpick1" name="date[]"  style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:140px; border-radius: 5px; height: 30px; "/>
+				</td>
+                
+                
+                <td align="center">
+                
+                <input type="text" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:374px; border-radius: 5px; height: 30px; " id="details" name="detaislname[]" value="" class="">
+              
+              </td>
+                <td align="center">
+			<input type="text" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 30px; " id="amount" name="amountforecast[]" value="" class="amountformat">
+		  </td>
+                
+              
+                
                 
               </tr>
-              
+              <!--<tr>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><input type="text" ></td>
+                <td align="center"><input type="text"></td>
+              </tr>-->
+              <!--<tr>
+                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><select class="form-control">
+                    <option>wdfd wefwe</option>
+                    <option>wefew ewf</option>
+                    <option>wef werfg</option>
+                  </select></td>
+                <td align="center"><input type="text" ></td>
+                <td align="center"><input type="text"></td>
+              </tr>-->
+              <!-- <tr>
+                <td align="left" colspan="5"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></td>
+                <td align="center"><button class="btn btn-primary">Submit</button></td>
+              </tr> -->
             </tbody>
           </table>
               </td>
             </tr>
           </table>
-          <div class="save_btncon">
+         <div class="save_btncon">
             <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
 
 
 
 
         <div class="right_side" style="padding-left: 10px;"> <button class="btn btn-info">Save</button></div>
-        <div class="right_side" > <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <div class="right_side"> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
         </div>
 
           
@@ -2782,6 +2917,9 @@ $(function() {
     </div>
     <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
+
+</div>  
   <!-- /.modal-dialog -->
 </div>  
 
