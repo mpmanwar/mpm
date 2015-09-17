@@ -834,7 +834,7 @@ $(function() {
 <!-- Tab 5 Start-->
   <div id="tab_51" class="tab-pane {{ ($page_open == 51 || $page_open == 52 || $page_open == 53)?'active':'' }}">
 
-    <div class="tab_topcon">
+    <!-- <div class="tab_topcon">
       <div class="top_bts" style="float:left;">
         <ul style="padding:0;">
           <li>
@@ -858,24 +858,30 @@ $(function() {
         <div class="clearfix"></div>
         </ul>
       </div>
-      <!-- <div class="top_search_con">
-       <div class="top_bts">
-        <ul style="padding:0;">
-          
-          <li style="margin-top: 8px;">
-            <a href="javascript:void(0)" id="archive_div"></a>
-          </li>
-          <li>
-            <button type="button" id="archivedButton" class="btn btn-warning">Archive</button>
-          </li>
-          <div class="clearfix"></div>
-        </ul>
-      </div>
-      </div> -->
+      
       <div class="clearfix"></div>
-    </div>
+    </div> -->
 
-    <ul class="leads_tab" >
+    <ul class="leads_tab" style="border: none;">
+        <li style="width:8%">
+          <a class="btn btn-danger deleteLeads" href="javascript:void(0)">DELETE</a>
+        </li>
+        <li>
+          <div class="import_fromch_main" style="width:182px;">
+            <div class="import_fromch">
+              <a href="javascript:void(0)" class="import_fromch_link">+ NEW LEAD</a>
+              <a href="javascript:void(0)" class="i_selectbox" id="select_new_lead"><img src="/img/arrow_icon.png"></a>
+              <div class="clearfix"></div>
+            </div>
+            <div class="crm_dropdown open_toggle" style="left: 90px;">
+            <ul>
+              <li><href="javascript:void(0)" data-type="ind" data-leads_id="0" class="open_new_lead-modal">Individual</a></li>
+              <li><href="javascript:void(0)" data-type="org" data-leads_id="0" class="open_new_lead-modal">Organisation</a></li>
+            </ul>
+          </div>
+        </div>
+        </li>
+
         <li style="width:9%;" class="{{ ($page_open == '51')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">10</span>]</h3></a>
           <p>100%</p>
         </li>
