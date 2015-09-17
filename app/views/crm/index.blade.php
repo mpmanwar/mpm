@@ -44,6 +44,7 @@ $(document).ready(function(){
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#to_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $("#new_lead_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     //$('.money').mask('000.000.000.000.000,00');
     $('#quoted_value').priceFormat({
         prefix: '',
@@ -325,7 +326,7 @@ $(function() {
         {"bSortable": true},
         {"bSortable": false},
         {"bSortable": false},
-        {"bSortable": false},
+        //{"bSortable": false},
         //{"bSortable": false},
         //{"bSortable": false},
         //{"bSortable": false},
@@ -430,7 +431,7 @@ $(function() {
       <li class="{{ ($page_open == 2)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('2') }}/{{ base64_encode($owner_id) }}">CLIENT DETAILS</a></li>
       <li class="{{ ($page_open == 3)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('3') }}/{{ base64_encode($owner_id) }}">MANAGE CONTRACT RENEWALS</a></li>
       <li class="{{ ($page_open == 4)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('4') }}/{{ base64_encode($owner_id) }}">MANAGE DIRECT DEBITS</a></li>
-      <li class="{{ ($page_open == 51)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}">LEADS</a></li>
+      <li class="{{ ($page_open == 51 || $page_open == 511 || $page_open == 512 || $page_open == 513)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}">LEADS</a></li>
       <li class="{{ ($page_open == 611 || $page_open == 612 || $page_open == 613 || $page_open == 614 || $page_open == 615 || $page_open == 616 || $page_open == 617 || $page_open == 62 || $page_open == 63 || $page_open == 64 || $page_open == 65)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('611') }}/{{ base64_encode($owner_id) }}">OPPORTUNITIES</a></li>
       <li class="{{ ($page_open == 7)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('7') }}/{{ base64_encode($owner_id) }}">SALES FORECAST</a></li>
       <li class="{{ ($page_open == 8)?'active':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('8') }}/{{ base64_encode($owner_id) }}">MAILING LIST</a></li>
@@ -832,7 +833,7 @@ $(function() {
 <!-- Tab 4 End-->
 
 <!-- Tab 5 Start-->
-  <div id="tab_51" class="tab-pane {{ ($page_open == 51 || $page_open == 52 || $page_open == 53)?'active':'' }}">
+  <div id="tab_51" class="tab-pane {{ ($page_open == 51 || $page_open == 511 || $page_open == 512 || $page_open == 513)?'active':'' }}">
 
     <!-- <div class="tab_topcon">
       <div class="top_bts" style="float:left;">
@@ -886,17 +887,17 @@ $(function() {
           <p>100%</p>
         </li>
 
-        <li class="{{ ($page_open == '52')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('52') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#CC3300;"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">HOT</span> [<span id="task_count_1">0</span>]</h3></a>
-          <p>10%</p>
-        </li>
-
-        <li class="{{ ($page_open == '53')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('53') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#66CCFF;"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">WARM</span> [<span id="task_count_1">0</span>]</h3></a>
-          <p>10%</p>
-        </li>
-
-        <li class="{{ ($page_open == '54')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('54') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#D1A319;"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">COLD</span> [<span id="task_count_1">0</span>]</h3></a>
-          <p>10%</p>
-        </li>
+        @if(isset($leads_tabs) && count($leads_tabs) >0)
+        <?php $j = 11;?>
+          @foreach($leads_tabs as $key=>$tab_row)
+            @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'L')
+            <li class="{{ ($page_open == '5'.$j)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('5'.$j) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1{{ $j }}">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
+            <p>{{ (isset($tab_row['table_value']['total']) && $all_total != '0.00')?round(str_replace(',','',$tab_row['table_value']['total'])*100/str_replace(',','',$all_total), 2):'0.00' }}%</p>
+          </li>
+            <?php $j++;?>
+            @endif
+          @endforeach
+        @endif
 
         <div class="clearfix"></div>
     </ul>
@@ -913,10 +914,9 @@ $(function() {
           <th width="12%">Prospect Name</th>
           <th>Contact Name</th>
           <th width="5%">Phone</th>
-          <th width="9%">Email</th>
           <th width="13%">Convert to Opportunity</th>
           <th width="8%">Lead Source</th>
-          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;" data-is_show="L"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
           <th width="5%">Notes</th>
         </tr>
       </thead>
@@ -937,7 +937,6 @@ $(function() {
               </td>
               <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
               <td align="center">Phone</td>
-              <td align="center">Email</td>
               <td align="center">
                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                   <option value="no">No</option>
@@ -948,14 +947,18 @@ $(function() {
               <td align="center"></td>
               <td align="center">
                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
-                  <option value="warm">WARM</option>
-                  <option value="hot">HOT</option>
-                  <option value="cold">COLD</option>
+                  @if(isset($leads_tabs) && count($leads_tabs) >0)
+                    @foreach($leads_tabs as $key=>$tab_row)
+                      @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'L')
+                        <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                        @endif
+                    @endforeach
+                  @endif
                 </select>
               </td>
               <td>
                 <input type="hidden" id="notes_{{ $leads_row['leads_id'] or "" }}" value="{{ $leads_row['notes'] or "" }}">
-                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="51"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
               </td>
               
             </tr>
@@ -966,9 +969,9 @@ $(function() {
     </table>
     </div>
 
-    @for($k=2; $k <=11;$k++)                          
+    @for($k=11; $k <=13;$k++)                          
     <div id="tab_5{{$k}}" class="tab-pane top_margin {{ ($page_open == '5'.$k)?'active':'' }}">
-      33
+      {{$k}}
     </div>
     @endfor  
 
@@ -1069,7 +1072,7 @@ $(function() {
                             $likely   = 0;
                           ?>
                           @foreach($leads_tabs as $key=>$tab_row)
-                            @if($tab_row['status'] == 'S')
+                            @if($tab_row['status'] == 'S' && $tab_row['is_show'] == 'O')
                             <li class="{{ ($page_open == '61'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('61'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
                             <p>{{ (isset($tab_row['table_value']['total']) && $all_total != '0.00')?round(str_replace(',','',$tab_row['table_value']['total'])*100/str_replace(',','',$all_total), 2):'0.00' }}%</p>
                             <p>&#163;{{ $tab_row['table_value']['total'] or "0.00" }}</p>
@@ -1107,7 +1110,7 @@ $(function() {
                           <th width="3%">Age</th>
                           <th width="9%">Quote</th>
                           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
-                          <th width="9%">Stage <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                          <th width="9%">Stage <a href="javascript:void(0)" class="lead_status-modal" style="float:right;" data-is_show="O"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
                           <th width="8%">Amount</th>
                           <th width="5%">Notes</th>
                           <!-- <th width="6%">Client Onboarding</th> -->
@@ -1155,7 +1158,9 @@ $(function() {
                                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                                   @if(isset($leads_tabs) && count($leads_tabs) >0)
                                     @foreach($leads_tabs as $key=>$tab_row)
-                                      <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                      @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'O')
+                                        <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                      @endif
                                     @endforeach
                                   @endif
                                 </select>
@@ -1196,7 +1201,7 @@ $(function() {
                           <th width="3%">Age</th>
                           <th width="6%">Quote</th>
                           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
-                          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                          <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;" data-is_show="O"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
                           <th width="8%">Quoted Value</th>
                           <th width="5%">Notes</th>
                           <!-- <th width="6%">Client Onboarding</th> -->
@@ -1243,7 +1248,9 @@ $(function() {
                                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                                   @if(isset($leads_tabs) && count($leads_tabs) >0)
                                     @foreach($leads_tabs as $key=>$tab_row)
-                                      <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                      @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'O')
+                                        <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                        @endif
                                     @endforeach
                                   @endif
                                 </select>
@@ -1511,7 +1518,7 @@ $(function() {
                           <th width="3%">Age</th>
                           <th width="9%">Quote</th>
                           <th width="6%">Emails <a href="javascript:void(0)" class="" style="float:right;"><img src="/img/question_frame.png"></a></th>
-                          <th width="9%">Stage <a href="javascript:void(0)" class="lead_status-modal" style="float:right;"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
+                          <th width="9%">Stage <a href="javascript:void(0)" class="lead_status-modal" style="float:right;" data-is_show="O"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
                           <th width="7%">Amount</th>
                           <th width="5%">Notes</th>
                           <!-- <th width="6%">Client Onboarding</th> -->
@@ -1558,7 +1565,9 @@ $(function() {
                                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                                   @if(isset($leads_tabs) && count($leads_tabs) >0)
                                     @foreach($leads_tabs as $key=>$tab_row)
-                                      <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                      @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'O')
+                                        <option value="{{ $tab_row['tab_id'] or "" }}" {{ (isset($leads_row['lead_status']) && $leads_row['lead_status'] == $tab_row['tab_id'])?'selected':'' }}>{{ $tab_row['tab_name'] or "" }}</option>
+                                      @endif
                                     @endforeach
                                   @endif
                                 </select>
@@ -2250,6 +2259,220 @@ $(function() {
 </div>
 <!-- Send Template modal end -->
 
+<!-- Add New Lead Start-->
+<div class="modal fade" id="open_new_lead-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:700px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
+        <div class="clearfix"></div>
+      </div>
+    {{ Form::open(array('url' => '/crm/save-new-leads')) }}
+      <input type="hidden" name="encode_page_open" value="{{ $encode_page_open }}">
+      <input type="hidden" name="encode_owner_id" value="{{ $encode_owner_id }}">
+      <input type="hidden" name="new_type" id="new_type" value="">
+      <input type="hidden" name="new_leads_id" id="new_leads_id" value="0">
+      <div class="modal-body">
+        <div class="form-group" style="margin:0;">
+            <div class="n_box12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Date</label>
+                <input type="text" id="new_lead_date" name="new_lead_date" value="{{ $staff_row['date'] or '' }}" class="form-control date">
+              </div>
+            </div>
+
+          <div class="n_box11">
+            <div class="form-group">
+              <!-- <label for="deal_certainty">Deal Certainty</label>
+              <input type="text" id="deal_certainty" name="deal_certainty" value="100" class="form-control box_60" maxlength="3"><span style="margin-top: 7px; float:left;">%</span> -->
+            </div>
+          </div>
+
+          <div class="f_namebox2">
+            <label for="exampleInputPassword1">Lead Owner</label>
+              <select class="form-control" name="new_deal_owner"  id="new_deal_owner">
+                <option value="">-- None --</option>
+                @if(isset($staff_details) && count($staff_details) >0)
+                  @foreach($staff_details as $key=>$staff_row)
+                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
+                  @endforeach
+                @endif
+             </select>
+          </div>
+          <!-- <div class="f_namebox3">
+            <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
+            <select class="form-control" name="existing_client" id="existing_client">
+              <option value="0">-- None --</option>
+              
+             </select>
+          </div> -->
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="twobox" id="lead_org_name_div">
+          <div class="twobox_1">
+            <div class="form-group" style="width:57%">
+              <label for="exampleInputPassword1">Business Type <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a></label>
+              <select class="form-control" name="new_business_type" id="new_business_type">
+                @if( isset($old_org_types) && count($old_org_types) >0 )
+                  @foreach($old_org_types as $key=>$old_org_row)
+                  <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
+                  @endforeach
+                @endif
+
+                @if( isset($new_org_types) && count($new_org_types) >0 )
+                  @foreach($new_org_types as $key=>$new_org_row)
+                  <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
+                  @endforeach
+                @endif
+              </select>
+            </div>
+            
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Lead Name</label>
+              <input type="text" class="form-control" name="new_prospect_name" id="new_prospect_name">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" id="lead_contact_name_div">
+          <label for="exampleInputPassword1">Contact Name</label>
+          <div class="clearfix"></div>
+          <div class="n_box1">
+            <select class="form-control select_title" id="new_contact_title" name="new_contact_title">
+              <option value="">-- Title --</option>
+              @if(!empty($titles))
+                @foreach($titles as $key=>$title_row)
+                <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
+                @endforeach
+              @endif
+            </select>
+          </div>
+          <div class="f_namebox">
+            <input type="text" id="new_contact_fname" name="new_contact_fname" class="form-control" placeholder="First Name">
+          </div>
+          <div class="f_namebox">
+            <input type="text" id="new_contact_lname" name="new_contact_lname" class="form-control" placeholder="Last Name">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" id="lead_name_div">
+          <label for="exampleInputPassword1">Lead Name</label>
+          <div class="clearfix"></div>
+          <div class="n_box1">
+            <select class="form-control select_title" id="new_prospect_title" name="new_prospect_title">
+              <option value="">-- Title --</option>
+              @if(!empty($titles))
+                @foreach($titles as $key=>$title_row)
+                <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
+                @endforeach
+              @endif
+            </select>
+          </div>
+          <div class="f_namebox">
+            <input type="text" id="new_prospect_fname" name="new_prospect_fname" class="form-control" placeholder="First Name">
+          </div>
+          <div class="f_namebox">
+            <input type="text" id="new_prospect_lname" name="new_prospect_lname" class="form-control" placeholder="Last Name">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="twobox">
+          <div class="twobox_1">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Phone</label>
+                <input type="text" id="new_phone" name="new_phone" class="form-control" >
+              </div> 
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mobile</label>
+                <input type="text" id="new_mobile" name="new_mobile" class="form-control" >
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="twobox">
+          <div class="twobox_1">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Email</label>
+                <input type="text" id="new_email" name="new_email" class="form-control" >
+              </div> 
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Website</label>
+                <input type="text" id="new_website" name="new_website" class="form-control" >
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        
+        <div class="twobox">
+          <div class="twobox_1">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Lead Source <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a></label>
+                <select class="form-control select_title" id="new_lead_source" name="new_lead_source">
+                  <option value="0">-- None --</option>
+                  @if(isset($old_lead_sources) && count($old_lead_sources) >0)
+                    @foreach($old_lead_sources as $key=>$lead_row)
+                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
+                    @endforeach
+                  @endif
+                  @if(isset($new_lead_sources) && count($new_lead_sources) >0)
+                    @foreach($new_lead_sources as $key=>$lead_row)
+                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </div> 
+          </div>
+          <div class="twobox_2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Industry</label>
+              <select class="form-control select_title" id="new_industry" name="new_industry">
+                <option value="0">-- None --</option>
+                @if(isset($industry_lists) && count($industry_lists) >0)
+                  @foreach($industry_lists as $key=>$industry_row)
+                    <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>
+                  @endforeach
+                @endif
+              </select>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" style="width:98%;">
+          <label for="exampleInputPassword1">Notes</label>
+          <textarea class="form-control" rows="4" name="new_notes" id="new_notes"></textarea>
+        </div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+      <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-info pull-left save_t2">Save</button>
+        </div>
+      </div>
+      {{ Form::close() }}
+    
+  </div>
+  </div>
+</div>
+<!-- Add New Lead End-->
+
 <!-- add/edit list -->
 <div class="modal fade" id="addcompose-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:300px;">
@@ -2369,11 +2592,19 @@ $(function() {
         <tbody role="alert" aria-live="polite" aria-relevant="all">
           @if(isset($leads_tabs) && count($leads_tabs) >0)
             @foreach($leads_tabs as $key=>$value)
-              <tr id="change_status_tr_{{ $value['tab_id'] or "" }}">
+              @if(isset($value['status']) && $value['status'] == "S" && $value['is_show'] == 'O' )
+              <tr class="is_show_O" id="change_status_tr_{{ $value['tab_id'] or "" }}">
                 <!-- <td align="center"><input type="checkbox" id="step_check_2{{ $value['tab_id']}}" class="status_check" {{ ($value['status'] == "S")?"checked":"" }} value="{{ $value['tab_id'] or "" }}" data-step_id="{{ $value['tab_id'] }}" {{ ((isset($value['count']) && $value['count'] !=0) || $value['tab_id'] == 10)?"disabled":"" }} /></td> -->
                 <td><span id="status_span{{ $value['tab_id'] or "" }}">{{ $value['tab_name'] or "" }}</span></td>
                 <td align="center"><span id="action_{{ $value['tab_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['tab_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
               </tr>
+              @endif
+              @if(isset($value['status']) && $value['status'] == "S" && $value['is_show'] == 'L' )
+              <tr class="is_show_L" id="change_status_tr_{{ $value['tab_id'] or "" }}">
+                <td><span id="status_span{{ $value['tab_id'] or "" }}">{{ $value['tab_name'] or "" }}</span></td>
+                <td align="center"><span id="action_{{ $value['tab_id'] or "" }}"><a href="javascript:void(0)" class="edit_status" data-step_id="{{ $value['tab_id'] or "" }}"><img src="/img/edit_icon.png"></a></span></td>
+              </tr>
+              @endif
             @endforeach
           @endif
 
@@ -2472,217 +2703,7 @@ $(function() {
   </div>
 </div>
 
-<!-- Add New Lead Start-->
-<div class="modal fade" id="open_new_lead-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:700px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">NEW - LEAD ENQUIRY & PROSPECT</h4>
-        <div class="clearfix"></div>
-      </div>
-    {{ Form::open(array('url' => '/crm/save-new-leads')) }}
-      <input type="hidden" name="encode_page_open" value="{{ $encode_page_open }}">
-      <input type="hidden" name="encode_owner_id" value="{{ $encode_owner_id }}">
-      <div class="modal-body">
-        <div class="form-group" style="margin:0;">
-            <div class="n_box12">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Date</label>
-                <input type="text" id="date" name="date" value="{{ $staff_row['date'] or '' }}" class="form-control">
-              </div>
-            </div>
 
-          <div class="n_box11">
-            <div class="form-group">
-              <!-- <label for="deal_certainty">Deal Certainty</label>
-              <input type="text" id="deal_certainty" name="deal_certainty" value="100" class="form-control box_60" maxlength="3"><span style="margin-top: 7px; float:left;">%</span> -->
-            </div>
-          </div>
-
-          <div class="f_namebox2">
-            <label for="exampleInputPassword1">Lead Owner</label>
-              <select class="form-control" name="deal_owner" id="deal_owner">
-                <option value="">-- None --</option>
-                @if(isset($staff_details) && count($staff_details) >0)
-                  @foreach($staff_details as $key=>$staff_row)
-                  <option value="{{ $staff_row['user_id'] }}">{{ $staff_row['fname'] or "" }} {{ $staff_row['lname'] or "" }}</option>
-                  @endforeach
-                @endif
-             </select>
-          </div>
-          <!-- <div class="f_namebox3">
-            <label for="exampleInputPassword1">Attach Opportunity to Existing Client</label>
-            <select class="form-control" name="existing_client" id="existing_client">
-              <option value="0">-- None --</option>
-              
-             </select>
-          </div> -->
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="twobox" id="lead_org_name_div">
-          <div class="twobox_1">
-            <div class="form-group" style="width:57%">
-              <label for="exampleInputPassword1">Business Type <a href="#" class="add_to_list" data-toggle="modal" data-target="#addcompose-modal"> Add/Edit list</a></label>
-              <select class="form-control" name="business_type" id="business_type">
-                @if( isset($old_org_types) && count($old_org_types) >0 )
-                  @foreach($old_org_types as $key=>$old_org_row)
-                  <option value="{{ $old_org_row->organisation_id }}">{{ $old_org_row->name }}</option>
-                  @endforeach
-                @endif
-
-                @if( isset($new_org_types) && count($new_org_types) >0 )
-                  @foreach($new_org_types as $key=>$new_org_row)
-                  <option value="{{ $new_org_row->organisation_id }}">{{ $new_org_row->name }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </div>
-            
-          </div>
-          <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Lead Name</label>
-              <input type="text" class="form-control" name="prospect_name" id="prospect_name">
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="form-group" id="lead_contact_name_div">
-          <label for="exampleInputPassword1">Contact Name</label>
-          <div class="clearfix"></div>
-          <div class="n_box1">
-            <select class="form-control select_title" id="contact_title" name="contact_title">
-              <option value="">-- Title --</option>
-              @if(!empty($titles))
-                @foreach($titles as $key=>$title_row)
-                <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
-                @endforeach
-              @endif
-            </select>
-          </div>
-          <div class="f_namebox">
-            <input type="text" id="contact_fname" name="contact_fname" class="form-control" placeholder="First Name">
-          </div>
-          <div class="f_namebox">
-            <input type="text" id="contact_lname" name="contact_lname" class="form-control" placeholder="Last Name">
-          </div>
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="form-group" id="lead_name_div">
-          <label for="exampleInputPassword1">Lead Name</label>
-          <div class="clearfix"></div>
-          <div class="n_box1">
-            <select class="form-control select_title" id="prospect_title" name="prospect_title">
-              <option value="">-- Title --</option>
-              @if(!empty($titles))
-                @foreach($titles as $key=>$title_row)
-                <option value="{{ $title_row->title_name }}">{{ $title_row->title_name }}</option>
-                @endforeach
-              @endif
-            </select>
-          </div>
-          <div class="f_namebox">
-            <input type="text" id="prospect_fname" name="prospect_fname" class="form-control" placeholder="First Name">
-          </div>
-          <div class="f_namebox">
-            <input type="text" id="prospect_lname" name="prospect_lname" class="form-control" placeholder="Last Name">
-          </div>
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="twobox">
-          <div class="twobox_1">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Phone</label>
-                <input type="text" id="phone" name="phone" class="form-control" >
-              </div> 
-          </div>
-          <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Mobile</label>
-                <input type="text" id="mobile" name="mobile" class="form-control" >
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="twobox">
-          <div class="twobox_1">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Email</label>
-                <input type="text" id="email" name="email" class="form-control" >
-              </div> 
-          </div>
-          <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Website</label>
-                <input type="text" id="website" name="website" class="form-control" >
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        
-        <div class="twobox">
-          <div class="twobox_1">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Lead Source <a href="javascript:void(0)" class="lead_source-modal"> Add/Edit list</a></label>
-                <select class="form-control select_title" id="lead_source" name="lead_source">
-                  <option value="0">-- None --</option>
-                  @if(isset($old_lead_sources) && count($old_lead_sources) >0)
-                    @foreach($old_lead_sources as $key=>$lead_row)
-                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
-                    @endforeach
-                  @endif
-                  @if(isset($new_lead_sources) && count($new_lead_sources) >0)
-                    @foreach($new_lead_sources as $key=>$lead_row)
-                      <option value="{{ $lead_row['source_id'] }}">{{ $lead_row['source_name'] }}</option>
-                    @endforeach
-                  @endif
-                </select>
-              </div> 
-          </div>
-          <div class="twobox_2">
-            <div class="form-group">
-              <label for="exampleInputPassword1">Industry</label>
-              <select class="form-control select_title" id="industry" name="industry">
-                <option value="0">-- None --</option>
-                @if(isset($industry_lists) && count($industry_lists) >0)
-                  @foreach($industry_lists as $key=>$industry_row)
-                    <option value="{{ $industry_row['industry_id'] }}">{{ $industry_row['industry_name'] }}</option>
-                  @endforeach
-                @endif
-              </select>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-
-        <div class="form-group" style="width:98%;">
-          <label for="exampleInputPassword1">Notes</label>
-          <textarea class="form-control" rows="4" name="notes" id="notes"></textarea>
-        </div>
-
-        
-
-        <div class="clearfix"></div>
-      </div>
-      
-      <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
-        <div class="email_btns">
-          <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-info pull-left save_t2">Save</button>
-        </div>
-      </div>
-      {{ Form::close() }}
-    
-  </div>
-  </div>
-</div>
-<!-- Add New Lead End-->
 
 <!-- COMPOSE MESSAGE MODAL -->
 <div class="modal fade" id="add_close_date-modal" tabindex="-1" role="dialog" aria-hidden="true">
