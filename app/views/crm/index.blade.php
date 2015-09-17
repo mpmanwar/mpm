@@ -1071,7 +1071,7 @@ $(function() {
                           @foreach($leads_tabs as $key=>$tab_row)
                             @if($tab_row['status'] == 'S')
                             <li class="{{ ($page_open == '61'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('61'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
-                            <p>{{ isset($tab_row['table_value']['total'])?round(str_replace(',','',$tab_row['table_value']['total'])*100/str_replace(',','',$all_total), 2):'0.00' }}%</p>
+                            <p>{{ (isset($tab_row['table_value']['total']) && $all_total != '0.00')?round(str_replace(',','',$tab_row['table_value']['total'])*100/str_replace(',','',$all_total), 2):'0.00' }}%</p>
                             <p>&#163;{{ $tab_row['table_value']['total'] or "0.00" }}</p>
                             <p>&#163;{{ $tab_row['table_value']['average'] or "0.00" }}</p>
                             <p>&#163;{{ $tab_row['table_value']['likely'] or "0.00" }}</p>
