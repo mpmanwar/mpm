@@ -1,5 +1,9 @@
+//new
+
 $(function() {
-var cloneCount = 0;
+    //attach the a function to the click event of the 
+    //"Add Box Attribute" button that will add a new row
+   var cloneCount = 0;
    
    
  	
@@ -8,37 +12,56 @@ var cloneCount = 0;
 				//alert('AAAAAAAAAAAA');	
 				
 				
-               // $(".dpick").datepicker("destroy");      
+                $(".dpick").datepicker("destroy");      
 				
 				
 				
 				var $newRow = $('#TemplateRow').clone(true);
 			
-            	//$newRow.find('#date_picker').val('');
-			//	$newRow.find('.dpick').val('');
+            	$newRow.find('#date_picker').val('');
+				$newRow.find('.dpick').val('');
         		$newRow.find('#details').val('');
-                $newRow.find('#date').val('');
-				$newRow.find('#owner').val('');
-				$newRow.find('#ammount').val('');
-               
-        		
+                $newRow.find('#amount').val('');
+		
+        	
 				var noOfDivs = $('.makeCloneClass').length + 1;
-				
-                // $newRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
-			
+				 $newRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
+				//cloneCount++;
+				//alert('#dpick'+ noOfDivs);
 				$('#BoxTable tr:last').after($newRow);
-				//$(".dpick").datepicker({dateFormat: 'dd-mm-yy'});    
+			
+				 $(".dpick").datepicker({dateFormat: 'dd-mm-yy'});    
+                  $('.amountformat').priceFormat({
+        prefix: '',
+       // centsSeparator: '.',
+       // thousandsSeparator: ',',
+       // centsLimit: '',
+    });
 				return false;
 			
 	})
-    	});
+$(function() {
+            $(".dpick").datepicker({dateFormat: 'dd-mm-yy'});
+			  
+});	
+$(function() {
+                $("#eddpick").datepicker({dateFormat: 'dd-mm-yy'});
+});
+	// "remove row" check box
+  
+	
+})
+
+//new
+
         
         
         $('.DeleteBoxRow').click(function() {
     
     //find the closest parent row and remove it
 	var size = $(".DeleteBoxRow").size();
-		if(size>1){
+    //alert(size);return false;
+		if(size>2){
         	$(this).closest('tr').remove();
 		}
     });
@@ -67,3 +90,30 @@ $(".forecasttext").keydown(function(event) {
 		}
 
 	});
+    
+    
+    
+    
+    
+
+  $("#crmdashboard").change(function(){
+    
+    var crmdashboard_value   = $(this).val();
+ 
+  // alert(crmdashboard_value);
+   
+   if(crmdashboard_value=="salesperformancedashboard"){
+    $('#salesimg').html('<img src="/img/img_1.png" />')
+      }
+   if(crmdashboard_value=="existingclient"){
+    $('#salesimg').html('<img src="/img/img_2.png" />')
+       
+   }   
+   if(crmdashboard_value==""){
+    $('#salesimg').html('')
+       
+   }       
+ 
+
+    
+  });
