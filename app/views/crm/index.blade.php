@@ -2862,13 +2862,13 @@ $(function() {
               
               <tr id="TemplateRow" class="makeCloneClass">
               
-              <td align="left"><a href="#"><img src="/img/cross.png" width="15" id="date_picker"  class="DeleteBoxRow" ></a>
+              <td align="center"><a href="#"><img src="/img/cross.png" width="15" id="date_picker"  class="DeleteBoxRow" ></a>
 				
                 
 				</td>
               
                
-				<td>
+				<td align="center">
                 <input class="dpick" type="text" id="dpick1" name="date[]"  style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:140px; border-radius: 5px; height: 30px; "/>
 				</td>
                 
@@ -2886,50 +2886,7 @@ $(function() {
                 
                 
               </tr>
-              <!--<tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><input type="text" ></td>
-                <td align="center"><input type="text"></td>
-              </tr>-->
-              <!--<tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><input type="text" ></td>
-                <td align="center"><input type="text"></td>
-              </tr>-->
-              <!-- <tr>
-                <td align="left" colspan="5"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></td>
-                <td align="center"><button class="btn btn-primary">Submit</button></td>
-              </tr> -->
+             
             </tbody>
           </table>
               </td>
