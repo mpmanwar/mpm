@@ -105,6 +105,27 @@ $(function() {
       "aaSorting": [[1, 'desc']]
     });
     
+    $('#mailing').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
+      
+       
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
     
     
     
@@ -454,7 +475,7 @@ $(function() {
   <span style="float:left;">
   
   <select id="crmdashboard" name="" class="form-control" style="width: 250px;">
-                                            <option value="">--Select--</option>
+                                            
                                  
                                             <option value="salesperformancedashboard">Sales Performance Dashboard</option>
                                             <option value="existingclient">Existing Client</option>
@@ -462,7 +483,7 @@ $(function() {
                                </select></span>
                                <div class="clearfix"></div>
                                
-  <div id="salesimg" style="padding-top:10px;"></div>
+  <div id="salesimg" style="padding-top:10px;"><img src="/img/img_1.png" /></div>
   
   
  <!-- Tab 1 -->
@@ -2019,7 +2040,248 @@ $(function() {
 
 <!-- Tab 8 Start-->
   <div id="tab_8" class="tab-pane {{ ($page_open == 8)?'active':'' }}">
-  Tab 8
+    <div class="import_fromch_main" style="width:600px; padding-left: 20px;   padding-bottom: 46px; padding-top: 10px;">
+           
+            <div class="import_fromch"  style=" margin-right: 42px;">
+              <a href="javascript:void(0)" class="import_fromch_link">+ ADD NEW</a>
+              
+             
+            </div>
+            
+            
+            <div class="import_fromch" >
+              <a href="javascript:void(0)" class="import_fromch_link">IMPORT - CSV</a>
+              
+              
+            </div>
+             
+        </div>
+        
+        
+  <div class="col_m2">
+  
+                  
+                            <!--sub tab -->
+                            <div class="nav-tabs-custom">
+                              <ul class="nav nav-tabs nav-tabsbg" style="cursor: move;">
+                                <li class="active"><a data-toggle="tab" href="#tab_6">LIST</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab_7">EXAMPLE DESCRIPTION</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                <div id="tab_6" class="tab-pane active">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                
+                                                <!--  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td> -->
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            
+                                            
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                         
+                                                          
+                                                          
+                                                          
+                                                          
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top">
+                                                  
+                                                  
+      <table class="table table-bordered table-hover dataTable crm" id="mailing" aria-describedby="mailing_info">                                            
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                         
+                                                          <td align="center" style="width:10%"><strong>Date</strong></td>
+                                                          <td align="center" style="width:60%"><strong>List Name</strong></td>
+                                                          <td align="center" style="width:20%"><strong>Action</strong></td>
+                                                          <td align="center" style="width:10%"><strong>Notes</strong></td>
+                                                          
+                                                         
+                                                        </tr>
+                                                        </thead>
+                                                      <tbody>
+                                                        <tr>
+                                                          
+                                                          <td align="center">09-09-2015</td>
+                                                          <td align="center">EXAMPLE DESCRIPTION</td>
+                                                          <td align="center">
+                                                          <span style="padding-right: 20px;"><button  style="border-radius: 4px; width: 100px; border-color: rgb(8, 102, 198);" >Download</button></span>
+                                                          
+                                                          
+                                                          <span style="padding-left:10px ;">
+                                                         
+                                                          <img src="/img/edit_icon.png"></span>
+                                                          <span style="padding-left:10px ;">
+                                                          <img src="/img/cross.png">
+                                                         </span>
+                                                          </td>
+                                                         <td align="center">
+                                                  <a href="javascript:void(0)" class="notes_btn " data-leads_id="21" data-tab="11"><span style="">notes</span></a>
+                                                          </td>
+                            
+                                                          
+                                                       
+                                                        </tr>
+                                                     
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div id="tab_7" class="tab-pane">
+                                  <!--table area-->
+                                  <div class="box-body table-responsive">
+                                    <div role="grid" class="dataTables_wrapper form-inline" id="example2_wrapper">
+                                      <div class="row">
+                                        <div class="col-xs-6"></div>
+                                        <div class="col-xs-6"></div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="col_m2">
+                                            <div class="notes_top_btns"> </div>
+                                            <div class="total_annual_fee">
+                                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                <!--  <td>Total Annual Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td>
+                                                  <td width="10%">&nbsp;</td>
+                                                  <td>Average Fees</td>
+                                                  <td><input type="text" id="" class="form-control"></td> -->
+                                                </tr>
+                                              </tbody></table>
+                                            </div>
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" border="0">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td width="5%"><strong>Show</strong></td>
+                                                          <td width="7%"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td width="35%"><strong>entries</strong></td>
+                                                          <td width="24%">&nbsp;</td>
+                                                          <td width="5%"><strong>Search</strong></td>
+                                                          <td width="21%"><input type="text" id="" class="form-control"></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                                <tr>
+                                                  <td valign="top"><table width="100%" class="table table-bordered">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td><strong>Joining Date</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Payment Method</strong></td>
+                                                          <td align="center"><strong>Engagement letters</strong></td>
+                                                          <td align="center"><strong>Annual Fee</strong></td>
+                                                          <td align="center"><strong>Monthly Fees</strong></td>
+                                                          <td align="center"><strong>Contract End Date</strong></td>
+                                                          <td align="center"><strong>Count Down</strong></td>
+                                                          <td align="center"><strong>Renewals</strong></td>
+                                                          <td align="center"><strong>Quotes</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                                                          <td>09-09-2015</td>
+                                                          <td align="center">Cockerton &amp; Co Limited</td>
+                                                          <td align="center">ewfe</td>
+                                                          <td align="center"><select class="form-control">
+                                                              <option>50</option>
+                                                              <option>20</option>
+                                                              <option>10</option>
+                                                              <option>15</option>
+                                                            </select></td>
+                                                          <td align="center">&nbsp;</td>
+                                                          <td align="center">ergre</td>
+                                                          <td align="center">ewfew</td>
+                                                          <td align="center">ewf</td>
+                                                          <td align="center"><button class="btn btn-default">SENT</button></td>
+                                                          <td align="center"><button class="btn btn-default">View</button></td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end table-->
+                                </div>
+                                <!-- /.tab-pane -->
+                              </div>
+                            </div>
+                            <!--end sub tab-->
+                          </div>
+  
+  
+  
+  
+  
+ <!-- Tab 8 -->
   </div>
 <!-- Tab 8 End-->
       

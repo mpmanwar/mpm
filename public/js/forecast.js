@@ -109,10 +109,10 @@ $(".forecasttext").keydown(function(event) {
     $('#salesimg').html('<img src="/img/img_2.png" />')
        
    }   
-   if(crmdashboard_value==""){
-    $('#salesimg').html('')
+  // if(crmdashboard_value==""){
+   // $('#salesimg').html('')
        
-   }       
+  // }       
  
 
     
