@@ -948,8 +948,8 @@ $(function() {
       </thead>
 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-        @if(isset($leads_details) && count($leads_details) >0)
-          @foreach($leads_details as $key=>$leads_row)
+        @if(isset($leads) && count($leads) >0)
+          @foreach($leads as $key=>$leads_row)
             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
               <td align="left">{{ $leads_row['date'] or "" }}</td>
