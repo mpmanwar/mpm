@@ -296,7 +296,7 @@ class CrmLead extends Eloquent {
 	        $data['postal_code']    = $details->postal_code;
 	        $data['country_id']     = $details->country_id;
 	        $data['notes']          = $details->notes;
-	        $data[$key]['close_date']     = (isset($details->close_date) && $details->close_date != '0000-00-00')?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
+	        $data['close_date']     = (isset($details->close_date) && $details->close_date != '0000-00-00')?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 	        $data['is_invoiced']    = $details->is_invoiced;
 	        $data['is_archive']     = $details->is_archive;
 		    $data['show_archive']   = $details->show_archive;
