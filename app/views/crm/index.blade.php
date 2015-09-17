@@ -47,15 +47,15 @@ $(document).ready(function(){
     //$('.money').mask('000.000.000.000.000,00');
     $('#quoted_value').priceFormat({
         prefix: '',
-        centsSeparator: '.',
-        thousandsSeparator: ',',
-        centsLimit: '',
+        //centsSeparator: '.',
+        //thousandsSeparator: ',',
+        //centsLimit: '',
     });
     $('#annual_revenue').priceFormat({
         prefix: '',
-        centsSeparator: '.',
-        thousandsSeparator: ',',
-        centsLimit: '',
+        //centsSeparator: '.',
+        //thousandsSeparator: ',',
+        //centsLimit: '',
     });
 });
 
@@ -1048,8 +1048,8 @@ $(function() {
                     </div>
 
                     <ul class="leads_tab">
-                        <li style="width:9%;" class="{{ ($page_open == '611')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('611') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ count($leads_details) }}</span>]</h3></a>
-                          <p>100%</p>
+                        <li style="width:9%;" class="{{ ($page_open == '611')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('611') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ $all_count }}</span>]</h3></a>
+                          <p>{{ ($all_total != '0.00')?round( ($all_total*100/$all_total), 2 ):'0.00' }}%</p>
                           <p>&#163;{{ $all_total or "0.00" }}</p>
                           <p>&#163;{{ $all_average or "0.00" }}</p>
                           <p>&#163;{{ $all_likely or "0.00" }}</p>

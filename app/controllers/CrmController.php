@@ -59,25 +59,30 @@ class CrmController extends BaseController
         $total = 0;
         $average = 0;
         $likely = 0;
+        $all_count = 0;
         if (isset($data['leads_details']) && count($data['leads_details']) > 0) {
             foreach ($data['leads_details'] as $key => $value) {
-                $quoted_value = str_replace(",", "", $value['quoted_value']);
-                $total += $quoted_value;
-                $likely += ($value['deal_certainty'] * $quoted_value) / 100;
+                if(isset($value['lead_status']) && ($value['lead_status'] != 8 && $value['lead_status'] != 9 && $value['lead_status'] != 10)){
+                    $quoted_value = str_replace(",", "", $value['quoted_value']);
+                    $total += $quoted_value;
+                    $likely += ($value['deal_certainty'] * $quoted_value) / 100;
 
-                $status = CrmLeadsStatus::getDetailsByLeadsId($value['leads_id']);
-                //echo $this->last_query();
-                if (isset($status) && ($status['leads_tab_id'] == 8 || $status['leads_tab_id'] ==
-                    9)) {
-                    $date = explode(' ', $status['likely']);
-                    $data['leads_details'][$key]['deal_age'] = $this->getDealAge($value['date'], $date[0]);
-                } else {
-                    $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
+                    $status = CrmLeadsStatus::getDetailsByLeadsId($value['leads_id']);
+                    //echo $this->last_query();
+                    if (isset($status) && ($status['leads_tab_id'] == 8 || $status['leads_tab_id'] ==
+                        9)) {
+                        $date = explode(' ', $status['likely']);
+                        $data['leads_details'][$key]['deal_age'] = $this->getDealAge($value['date'], $date[0]);
+                    } else {
+                        $data['leads_details'][$key]['deal_age'] = $this->getAgeCount($value['date']);
+                    }
+                    $all_count++;
+                    
                 }
-
             }
             $average = $total / count($data['leads_details']);
         }
+        $data['all_count'] = $all_count;
         $data['all_total'] = number_format($total, 2);
         $data['all_average'] = number_format($average, 2);
         $data['all_likely'] = number_format($likely, 2);
