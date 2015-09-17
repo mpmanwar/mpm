@@ -67,8 +67,8 @@ class CrmController extends BaseController
 
                 $status = CrmLeadsStatus::getDetailsByLeadsId($value['leads_id']);
                 //echo $this->last_query();
-                if (isset($status) && ($status['leads_tab_id'] == 11 || $status['leads_tab_id'] ==
-                    10)) {
+                if (isset($status) && ($status['leads_tab_id'] == 8 || $status['leads_tab_id'] ==
+                    9)) {
                     $date = explode(' ', $status['likely']);
                     $data['leads_details'][$key]['deal_age'] = $this->getDealAge($value['date'], $date[0]);
                 } else {
@@ -818,62 +818,13 @@ class CrmController extends BaseController
     }
 
 
-        /**
-     * Get list of Messages in user's mailbox.
-     *
-     * @param  Google_Service_Gmail $service Authorized Gmail API instance.
-     * @param  string $userId User's email address. The special value 'me'
-     * can be used to indicate the authenticated user.
-     * @return array Array of Messages.
-     */
-    function listMessages($service, $userId)
+    public function save_close_date()
     {
-        $pageToken = null;
-        $messages = array();
-        $opt_param = array();
-        do {
-            try {
-                if ($pageToken) {
-                    $opt_param['pageToken'] = $pageToken;
-                }
-                $messagesResponse = $service->users_messages->listUsersMessages($userId, $opt_param);
-                if ($messagesResponse->getMessages()) {
-                    $messages = array_merge($messages, $messagesResponse->getMessages());
-                    $pageToken = $messagesResponse->getNextPageToken();
-                }
-            }
-            catch (exception $e) {
-                print 'An error occurred: ' . $e->getMessage();
-            }
-        } while ($pageToken);
+        $leads_id      = Input::get("leads_id");
+        $close_date    = Input::get("close_date");
 
-        foreach ($messages as $message) {
-            print 'Message with ID: ' . $message->getId() . '<br/>';
-        }
-
-        return $messages;
-    }
-
-
-    /**
-     * Get Message with given ID.
-     *
-     * @param  Google_Service_Gmail $service Authorized Gmail API instance.
-     * @param  string $userId User's email address. The special value 'me'
-     * can be used to indicate the authenticated user.
-     * @param  string $messageId ID of Message to get.
-     * @return Google_Service_Gmail_Message Message retrieved.
-     */
-    function getMessage($service, $userId, $messageId)
-    {
-        try {
-            $message = $service->users_messages->get($userId, $messageId);
-            print 'Message with ID: ' . $message->getId() . ' retrieved.';
-            return $message;
-        }
-        catch (exception $e) {
-            print 'An error occurred: ' . $e->getMessage();
-        }
+        $up_data['close_date'] = date('Y-m-d', strtotime($close_date));
+        CrmLead::where('leads_id', '=', $leads_id)->update($up_data);
     }
 
 

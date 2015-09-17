@@ -42,6 +42,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['postal_code']    = $details->postal_code;
 		        $data[$key]['country_id']     = $details->country_id;
 		        $data[$key]['notes']          = $details->notes;
+		        $data[$key]['close_date']     = isset($details->close_date)?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
@@ -90,6 +91,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['postal_code']    = $details->postal_code;
 		        $data[$key]['country_id']     = $details->country_id;
 		        $data[$key]['notes']          = $details->notes;
+		        $data[$key]['close_date']     = isset($details->close_date)?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
@@ -140,6 +142,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['postal_code']    = $details->postal_code;
 		        $data[$key]['country_id']     = $details->country_id;
 		        $data[$key]['notes']          = $details->notes;
+		        $data[$key]['close_date']     = isset($details->close_date)?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
@@ -189,6 +192,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['postal_code']    = $details->postal_code;
 		        $data[$key]['country_id']     = $details->country_id;
 		        $data[$key]['notes']          = $details->notes;
+		        $data[$key]['close_date']     = isset($details->close_date)?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
@@ -236,6 +240,7 @@ class CrmLead extends Eloquent {
 	        $data['postal_code']    = $details->postal_code;
 	        $data['country_id']     = $details->country_id;
 	        $data['notes']          = $details->notes;
+	        $data[$key]['close_date']     = isset($details->close_date)?date('d-m-Y', strtotime($details->close_date)):'0000-00-00';
 	        $data['is_invoiced']    = $details->is_invoiced;
 	        $data['is_archive']     = $details->is_archive;
 		    $data['show_archive']   = $details->show_archive;
@@ -277,11 +282,10 @@ class CrmLead extends Eloquent {
 			/*$data['total']     = number_format($total, 2, '.', '');
 	        $data['average']   = number_format($average, 2, '.', '');
 	        $data['likely']    = number_format($likely, 2, '.', '');*/
-	        $data['total']     = number_format($total, 2);
-	        $data['average']   = number_format($average, 2);
-	        $data['likely']    = number_format($likely, 2);
-			
-		}
+	        $data['total']     	= number_format($total, 2);
+	        $data['average']   	= number_format($average, 2);
+	        $data['likely']    	= number_format($likely, 2);
+	    }
 
 		return $data;
     }

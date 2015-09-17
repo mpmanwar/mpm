@@ -30,6 +30,7 @@
 <script>
 $(document).ready(function(){
     $("#close_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+    $(".close_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#from_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
     $("#to_date").datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
@@ -752,14 +753,15 @@ $(function() {
                                                           
                                                           </td>
                                                           
-                                                          <td align="center"><select class="form-control newdropdown status_dropdown" id="11_status_dropdown_27" data-leads_id="27">
-                                                                                                            <option value="2">INCOMING</option>
-                                                                          <option value="4">QUALIFIED</option>
-                                                                          <option value="6">DISCUSSIONS</option>
-                                                                          <option value="7">PROPOSAL</option>
-                                                                          <option value="8" selected="">NEGITIATIONS</option>
-                                                                          <option value="10">CLOSING</option>
-                                                                                                      </select></td>
+                                  <td align="center">
+                                    <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_27" data-leads_id="27">
+                                                                                      
+                                                          <option value="4">QUALIFIED</option>
+                                                          <option value="6">DISCUSSIONS</option>
+                                                          <option value="7">PROPOSAL</option>
+                                                          <option value="8" selected="">NEGITIATIONS</option>
+                                                          <option value="10">CLOSING</option>
+                                                                                      </select></td>
                                                         </tr>
                                                        
                                                       </tbody>
@@ -893,18 +895,16 @@ $(function() {
               <td align="center">Email</td>
               <td align="center">
                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
-                  <option value=""></option>
-                  <option value="yes">Yes</option>
                   <option value="no">No</option>
+                  <option value="yes">Yes</option>
                 </select>
               </td>
               
               <td align="center"></td>
               <td align="center">
                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
-                  <option value=""></option>
-                  <option value="hot">HOT</option>
                   <option value="warm">WARM</option>
+                  <option value="hot">HOT</option>
                   <option value="cold">COLD</option>
                 </select>
               </td>
@@ -1026,8 +1026,8 @@ $(function() {
                           @foreach($leads_tabs as $key=>$tab_row)
                             @if($tab_row['status'] == 'S')
                             <li class="{{ ($page_open == '61'.$i)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('61'.$i) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1.$i">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
-                            <p>10%</p>
-                            <p>&#163;{{ $all_total or "0.00" }}</p>
+                            <p>{{ isset($tab_row['table_value']['total'])?round(str_replace(',','',$tab_row['table_value']['total'])*100/str_replace(',','',$all_total), 2):'0.00' }}%</p>
+                            <p>&#163;{{ $tab_row['table_value']['total'] or "0.00" }}</p>
                             <p>&#163;{{ $tab_row['table_value']['average'] or "0.00" }}</p>
                             <p>&#163;{{ $tab_row['table_value']['likely'] or "0.00" }}</p>
                             </li>
@@ -1106,6 +1106,7 @@ $(function() {
                                 <a href="javascript:void(0)" class="notes_btn" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11">View</a>
                               </td>
                               <td align="center">
+                                <input type="hidden" name="close_date_{{ $leads_row['leads_id'] }}" id="close_date_{{ $leads_row['leads_id'] }}" value="{{ $leads_row['close_date'] }}">
                                 <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                                   @if(isset($leads_tabs) && count($leads_tabs) >0)
                                     @foreach($leads_tabs as $key=>$tab_row)
@@ -1282,7 +1283,7 @@ $(function() {
                             @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == 8)
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
-                              <td align="left">{{ $leads_row['date'] or "" }}</td>
+                              <td align="left">{{ $leads_row['close_date'] or "" }}</td>
                               <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
                               <td align="left">
                                 @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
@@ -1381,7 +1382,7 @@ $(function() {
                             @if(isset($leads_row['lead_status']) && $leads_row['lead_status'] == 9)
                             <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
                               <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
-                              <td align="left">{{ $leads_row['date'] or "" }}</td>
+                              <td align="left">{{ $leads_row['close_date'] or "" }}</td>
                               <td align="left">{{ $leads_row['deal_owner'] or "" }}</td>
                               <td align="left">
                                 @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
@@ -2487,6 +2488,40 @@ $(function() {
   </div>
 </div>
 <!-- Add New Lead End-->
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="add_close_date-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD CLOSE DATE</h4>
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body">
+        <div class="show_loader" style="text-align: center;"></div>
+        <input type="hidden" name="add_date_leads_id" id="add_date_leads_id" />
+        <input type="hidden" name="add_date_tab_id" id="add_date_tab_id" />
+        <div class="form-group" style="width:100%;">
+          <label for="exampleInputPassword1">Close Date</label>
+          <input type="text" class="form-control close_date" name="add_close_date" id="add_close_date" />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="modal-footer clearfix" style="border-top: none; padding-top: 0;">
+        <div class="email_btns">
+          <button type="button" class="btn btn-danger pull-left save_t" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-info pull-left save_t2 save_close_date">Save</button>
+        </div>
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 @stop
 
 
