@@ -12,6 +12,16 @@
 @stop
 
 @section('myjsfile')
+
+
+
+
+
+<!-- Time picker script -->
+<script src="{{ URL :: asset('js/timepicki.js') }}"></script>
+<!-- Time picker script -->
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <script src="{{ URL :: asset('js/forecast.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/crm.js') }}" type="text/javascript"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
@@ -59,6 +69,35 @@ $(function() {
 
 
   $(function() {
+     $('#exaforecast').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        {"bSortable": false},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true}
+       
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
+    
+    
+    
     
      $('#exampletab2').dataTable({
       "bPaginate": true,
@@ -1565,8 +1604,10 @@ $(function() {
                         <ul style="padding:0;">
                           <li>
                             <div style="width:170px;" class="import_fromch_main">
+  
                               <div class="import_fromch">
-                                <a class="import_fromch_link" href="javascript:void(0)"> +NEW FORECAST VALUES</a>
+                              
+<a class="import_fromch_link" href="#" data-toggle="modal"  data-target="#forecast-modal" > +NEW FORECAST VALUES</a>
                               <!--  <a id="select_icon" class="i_selectbox" href="javascript:void(0)"><img src="/img/arrow_icon.png"></a> -->
                                 <div class="clearfix"></div>
                               </div>
@@ -1684,10 +1725,134 @@ $(function() {
                       <div class="clearfix"></div>
                     </div>
                     
+                    <!--
+                    <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div> -->
                     
-                    <div style="margin-bottom:20px;"><strong class="search_t">Search</strong> &nbsp;	<input style=" padding: 3px; border: #ccc solid 1px;   width: 16em;" type="text" name="search" value="" id="id_search" placeholder="" autofocus=""></div>
                     
-                    <div class="forecastsearch"> 
+                    <table class="table table-bordered table-hover dataTable crm" id="exaforecast" aria-describedby="exaforecast_info">
+                      <thead>
+                        <tr role="row">
+                        
+                          <td align="center" width="4%" style="color: black; background: #deedf5;" >EDIT</td>
+                          <td align="center" width="12%" style="background:#0066ff; color: white" >MONTHS</td>
+                          <td align="center" width="12%" style="background:#00ccff; color: white">FORECAST</td>
+                          <td align="center" width="12%"  style="background:#ffcd0a;; color: white">CLOSED DEALS</td>
+                          <td align="center" width="12%" style="background:#ff3199; color: white">OTHER CLOSED</td>
+                          <td align="center" width="12%" style="background:#f56954; color: white">VARIANCE</td>
+                          <td align="center" width="12%" style="background:#4da2a2; color: white">PIPELINE DEALS</td>
+                          <td align="center" width="12%" style="background:#ff3399; color: white">OTHER PIPELINE</td>
+                          <td  align="center"width="12%" style="background:#f56954; color: white">VARIANCE</td>
+                          
+                          <!-- <th width="6%">Client Onboarding</th> -->
+                        </tr>
+                      </thead>
+
+                      <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS</td>
+                              <td align="center">FORECAST</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED</td>
+                              <td align="center">VARIANCE</td>
+                              <td align="center">PIPELINE DEALS</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS1</td>
+                              <td align="center">FORECAST1</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED1</td>
+                              <td align="center">VARIANCE1</td>
+                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE1
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS1</td>
+                              <td align="center">FORECAST1</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED1</td>
+                              <td align="center">VARIANCE1</td>
+                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE1
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS1</td>
+                              <td align="center">FORECAST1</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED1</td>
+                              <td align="center">VARIANCE1</td>
+                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE1
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS1</td>
+                              <td align="center">FORECAST1</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED1</td>
+                              <td align="center">VARIANCE1</td>
+                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE1
+                              </td>
+                             
+                            </tr>
+                            <tr>
+                              
+                              <td align="center"><img src="/img/edit_icon.png"> </td>
+                              <td align="center"> MONTHS1</td>
+                              <td align="center">FORECAST1</td>
+                              <td align="center"><input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">OTHER CLOSED1</td>
+                              <td align="center">VARIANCE1</td>
+                              <td align="center">PIPELINE DEALS1</td>
+                              <td align="center">
+                               <input type="text" class="forecasttext" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142PX; border-radius: 5px; height: 24px; "></td>
+                              <td align="center">
+                                 VARIANCE1
+                              </td>
+                             
+                            </tr>
+                           
+                            
+                      
+                      </tbody>
+                    </table>
+                    
+                                        
+                <!--    <div class="forecastsearch"> 
                     <ul class="leads_tab">
                         <li style="width:6%" class="" style="width:5%;"><a href=""><h3 style="color: black; background: #deedf5;">EDIT<span id="task_count_11"></span></h3></a>
                           
@@ -1748,7 +1913,7 @@ $(function() {
                         </li>
                         <div class="clearfix"></div>
                     </ul>
-   </div>
+   </div> -->
    
    <!-- Tab 7 -->
   </div>
@@ -2511,6 +2676,117 @@ $(function() {
   </div>
 </div>
 <!-- Add New Lead End-->
+
+
+
+<div class="modal fade" id="forecast-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:60%;">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD COURSE</h4>
+        <div class="clearfix"></div>
+      </div>-->
+      <!--<form action="#" method="post">-->
+      <p id="businessname" align="center" style="margin: 17px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p>
+      <div class="modal-body">
+          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <table width="100%" border="0" class="staff_holidays">
+            <tr>
+              <td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td width="30%"><strong style="color: #00ccff; font-size: 20px;">ADD FORECAST VALUES</strong></td>
+    <td width="30%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+			 
+              
+              
+              
+              
+              
+			   {{ Form::open(array('url' => '/insert-forecast')) }}
+               
+              <table width="100%" class="table table-bordered" id="BoxTable">
+            <tbody>
+              <!-- <tr class="table_heading_bg"> -->
+              <input type="hidden" name="cid" id="c_id" value="">
+              <tr>
+                <td width="5%" align="center"id="allCheckSelect"> Delete</td>
+                <td width="40%" align="center"><strong>Details</strong>
+                
+                </td>
+                <!--<td width="20%" align="center"><strong>Client</strong></td>-->
+                <td width="20%" align="center"><strong>Date</strong>
+                </td>
+                <td width="15%" align="center"><strong>Amount</strong></td>
+                
+              </tr>
+              
+              
+              
+              <tr id="TemplateRow" class="makeCloneClass">
+              
+              
+              
+                <td align="center">
+                <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+                </td>
+                
+                <td align="center" style="width:50%;">
+                <input type="text" class="" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:374px; border-radius: 5px; height: 30px; ">
+                </td>
+             
+                  
+                <td align="center" style="width:20%;" >
+                <input type="hidden" name="" id="date" value="" style="height: 30px;" >
+                </td>
+                <td align="center" id="" style="width:30%;">
+                <input type="text" class="" value="" name="" id="" style="border: 1px solid #CCCCCC; color: #555555;  background: #fff; width:142px; border-radius: 5px; height: 30px; ">
+                </td>
+                
+              </tr>
+              
+            </tbody>
+          </table>
+              </td>
+            </tr>
+          </table>
+          <div class="save_btncon">
+            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
+
+
+
+
+        <div class="right_side" style="padding-left: 10px;"> <button class="btn btn-info">Save</button></div>
+        <div class="right_side" > <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+
+          
+          
+            <div class="clearfix"></div>
+            </div>
+         
+        </div>
+        
+        {{ Form::close() }}
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>  
+
+
+
 @stop
 
 
