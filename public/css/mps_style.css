@@ -452,6 +452,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f9f6', end
 .open_toggle ul{list-style:none; padding:0; margin:0;}
 .open_toggle ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer;}
 
+.open_drop{width:100%; position:absolute; top:27px; border: 1px solid #cbcbcb; left:0px; background: #fff; display: none; }
+.open_drop ul{list-style:none; padding:0; margin:0;}
+.open_drop ul li{padding:4px; border-bottom:1px solid #cbcbcb; cursor: pointer;}
+
 .officer_selectbox {position: relative; height: 20px; border: 1px solid #388ebd; border-radius: 4px; width: 90px!important; float: left; display: inline; margin: 6px 4px 6px 40px; font-size: 14px; font-family: Arial; color: #444; padding: 0;
 background: #f6f7f8;
 background: -moz-linear-gradient(top,  #f6f7f8 0%, #e7ebed 65%, #e7ebed 65%);
