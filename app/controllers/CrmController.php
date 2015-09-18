@@ -83,7 +83,9 @@ class CrmController extends BaseController
                     
                 }
             }
-            $average = $total / count($data['leads_details']);
+            if(isset($all_count) && $all_count != 0){
+                $average = $total/$all_count;
+            }
         }
         $data['all_count']      = $all_count;
         $data['all_total']      = number_format($total, 2);
