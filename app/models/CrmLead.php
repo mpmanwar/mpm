@@ -164,7 +164,7 @@ class CrmLead extends Eloquent {
     	$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->whereBetween('date', array($from_date, $to_date))->where("is_deleted", "=", "N")->where("is_archive", "=", "N")->get();
+		$crm_data = CrmLead::whereIn("user_id", $groupUserId)->whereBetween('date', array($from_date, $to_date))->where("is_deleted", "=", "N")->where("close_date", "!=", "0000-00-00")->where("is_archive", "=", "N")->get();
 		//Common::last_query();
 		if(isset($crm_data) && count($crm_data) >0){
 			foreach ($crm_data as $key => $details) {

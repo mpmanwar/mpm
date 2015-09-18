@@ -18,7 +18,7 @@
 				<tr>
 					<td width="25%" align="left">Deal Owner </td>
 					<td width="30%" align="left">Prospect Name</td>
-					<td width="15%" align="left">Date</td>
+					<td width="15%" align="left">Close Date</td>
 					<td width="10%" align="left">Age</td>
 					<td width="10%" align="left">Status</td>
 					<td width="10%" align="left">Amount</td>
@@ -42,7 +42,7 @@
 									<tr>
 										<td width="25%" align="left">{{ $value['deal_owner_name'] or "" }}</td>
 										<td width="30%" align="left">{{ $value['prospect_name'] or "" }}</td>
-										<td width="15%" align="left">{{ $value['date'] or "" }}</td>
+										<td width="15%" align="left">{{ $value['close_date'] or "" }}</td>
 										<td width="10%" align="left">{{ $value['age'] or "" }}</td>
 										<td width="10%" align="left">{{ $value['tab_name'] or "" }}</td>
 										<td width="10%" align="right"><b style="margin-right: 15px">{{ $value['quoted_value'] or '0.00' }}</b></td>
