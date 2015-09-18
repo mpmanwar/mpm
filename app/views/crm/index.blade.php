@@ -2152,7 +2152,7 @@ $(function() {
                                                          </span>
                                                           </td>
                                                          <td align="center">
-                                                  <a href="javascript:void(0)" class="notes_btn " data-leads_id="21" data-tab="11"><span style="">notes</span></a>
+                                                  <a href="javascript:void(0)" class="notes_btn " id="mailingnotes"  data-leads_id="21" data-tab="11"><span style="">notes</span></a>
                                                           </td>
                             
                                                           
@@ -3201,7 +3201,40 @@ $(function() {
 
 </div>  
   <!-- /.modal-dialog -->
-</div>  
+ 
+ 
+<div>
+<div class="modal fade" id="composemailingnotes-modal" tabindex="1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:36%;">
+    
+    <div class="modal-content">
+     <input type="hidden" id="notescid" value="">
+      
+      <div class="modal-body">
+      <button class="close save_btn" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+     
+      <div style="width:100%;">
+      <h2 style="padding:0px; margin:0px;">
+             <label for="f_name" >Notes</label></h2>
+             
+          <textarea rows="4" cols="50" style="width:100%"  name="notes1[]" id="notess" value="" ></textarea>
+         
+         <div class="clr"></div>   
+          <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right;">Save</button>   
+               
+         </div>
+          <div class="clr"></div>   
+        </div>
+        
+       
+      <!--</form>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+</div>
 
 @stop
 

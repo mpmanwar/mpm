@@ -117,3 +117,14 @@ $(".forecasttext").keydown(function(event) {
 
     
   });
+  
+  
+      $('#mailingnotes').click(function() {
+        
+        $('#composemailingnotes-modal').modal('show');
+        
+        
+        
+        
+      })
+  
