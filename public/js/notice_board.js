@@ -113,6 +113,24 @@ $("#fixed_add2").click(function(){
 
 
 function openbodyModal(noticefont_id,e) {
+    
+    
+    
+     tinymce.remove();
+     tinymce.init({
+    selector: "#edit_msgmessage",
+   // elements : "notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    
+    
+    
     //alert(event);
     
    if (!e) e = window.event;
@@ -127,7 +145,7 @@ function openbodyModal(noticefont_id,e) {
 			'noticefont_id': noticefont_id
 		},
 		success: function(resp) {
-			console.log(resp);
+			//console.log(resp);
 			//return false;
             
 			$("#compose-msgmodal").modal("show");
@@ -139,7 +157,7 @@ function openbodyModal(noticefont_id,e) {
 					var res = attachment.substring(2);
 				}
 				var msg = (resp.message);
-               
+                
 				$('#edit_msgmessage').text($(msg).text());
 				
 			});
@@ -608,6 +626,7 @@ $('input').on('ifClicked', function (event) {
             }
             else{
                 $('#showpdfview').hide('');
+               
                 
             }
             

@@ -78,9 +78,13 @@ class NoticeboardController extends BaseController{
             "lname")->first();
 
 
-        $data['excel'] = Noticeexcel::whereIn("user_id", $groupUserId)->select("file")->
-            get();
+        $data['excel'] = Noticeexcel::whereIn("user_id", $groupUserId)->select("file")->get();
 
+ 
+
+            
+           
+            
         //echo '<pre>';print_r($data['excel']);die();
 
 
@@ -88,9 +92,17 @@ class NoticeboardController extends BaseController{
         foreach ($data['excel'] as $key => $val) {
 
             $arr[$key]['file'] = $data['excel'][$key]->file;
-            //print_r($arr[$key]['file']);die();
+            
+           // print_r($arr[$key]['file']);die();
+            //$data['file_name']=$arr['file'];
+     
+        // print_r($data['file_name']);
+       
         }
-
+        $data['file_name']=$arr;
+       
+       //echo '<pre>';print_r($data['file_name']);
+        //die();
 
         $data['excel'] = Noticeexcel::where("group_id", $group_id)->where("file_type",
             "=", "E")->select("noticeexcel_id", "level", "user_id", "file")->get();
