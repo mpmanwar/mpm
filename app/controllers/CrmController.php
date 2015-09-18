@@ -85,10 +85,10 @@ class CrmController extends BaseController
             }
             $average = $total / count($data['leads_details']);
         }
-        $data['all_count'] = $all_count;
-        $data['all_total'] = number_format($total, 2);
-        $data['all_average'] = number_format($average, 2);
-        $data['all_likely'] = number_format($likely, 2);
+        $data['all_count']      = $all_count;
+        $data['all_total']      = number_format($total, 2);
+        $data['all_average']    = number_format($average, 2);
+        $data['all_likely']     = number_format($likely, 2);
 
         //=================LEADS TAB ===================//
         if($data['tab_no'] == 5){

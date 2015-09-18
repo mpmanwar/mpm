@@ -13,10 +13,6 @@
 
 @section('myjsfile')
 
-
-
-
-
 <!-- Time picker script -->
 <script src="{{ URL :: asset('js/timepicki.js') }}"></script>
 <!-- Time picker script -->
@@ -330,7 +326,8 @@ $(function() {
       "aaSorting": [[1, 'desc']]
     });
 
-    $('#example5').dataTable({
+  for(var k=0; k<=3;k++){ 
+    $('#example51'+k).dataTable({
       "bPaginate": true,
       "bLengthChange": true,
       "bFilter": true,
@@ -358,6 +355,7 @@ $(function() {
       ],
       "aaSorting": [[1, 'desc']]
     });
+  }
         
 
 });
