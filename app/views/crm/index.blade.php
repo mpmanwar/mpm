@@ -477,14 +477,14 @@ $(function() {
   
   <select id="crmdashboard" name="" class="form-control" style="width: 250px;">
                                             
-                                 
-                                            <option value="salesperformancedashboard">Sales Performance Dashboard</option>
                                             <option value="existingclient">Existing Client</option>
+                                            <option value="salesperformancedashboard">Sales Performance Dashboard</option>
+                                            
                                             
                                </select></span>
                                <div class="clearfix"></div>
                                
-  <div id="salesimg" style="padding-top:10px;"><img src="/img/img_1.png" /></div>
+  <div id="salesimg" style="padding-top:10px;"><img src="/img/img_2.png" /></div>
   
   
  <!-- Tab 1 -->
