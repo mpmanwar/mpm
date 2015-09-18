@@ -108,15 +108,10 @@ class CrmController extends BaseController
         $leads_count = 0;
         if (isset($leads) && count($leads) > 0) {
             foreach ($leads as $key => $value) {
-                $quoted_value = str_replace(",", "", $value['quoted_value']);
-                $total += $quoted_value;
-                //$status = CrmLeadsStatus::getDetailsByLeadsId($value['leads_id']);
-
                 $leads_count++;
             }
         }
         $data['leads_details']  = $leads;
-        $data['total_price']    = $total;
         $data['leads_count']    = $leads_count;
 
         return $data;
@@ -355,20 +350,14 @@ class CrmController extends BaseController
         $data['leads_id'] = Input::get('leads_id');
         $data['user_id'] = $user_id;
 
-        if ($data['leads_tab_id'] == 12) {
-            CrmLead::where('leads_id', '=', $data['leads_id'])->update(array('is_invoiced' =>
-                    'Y'));
-            $last_id = $data['leads_id'];
+        $leads_status = CrmLeadsStatus::getDetailsByLeadsId($data['leads_id']);
+        if (isset($leads_status) && count($leads_status) > 0) {
+            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->
+                update($data);
+            $last_id = $leads_status['leads_status_id'];
         } else {
-            $leads_status = CrmLeadsStatus::getDetailsByLeadsId($data['leads_id']);
-            if (isset($leads_status) && count($leads_status) > 0) {
-                CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->
-                    update($data);
-                $last_id = $leads_status['leads_status_id'];
-            } else {
-                $data['created'] = date("Y-m-d H:i:s");
-                $last_id = CrmLeadsStatus::insertGetId($data);
-            }
+            $data['created'] = date("Y-m-d H:i:s");
+            $last_id = CrmLeadsStatus::insertGetId($data);
         }
         echo $last_id;
     }
