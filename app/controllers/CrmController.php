@@ -834,19 +834,19 @@ class CrmController extends BaseController
             foreach ($leads_details as $key => $value) {
                 if ($converson_user == "all") {
                     $tab_id = CrmLeadsStatus::getTabIdByLeadsId($value['leads_id']);
-                    if (isset($tab_id) && $tab_id == '11') {
+                    if (isset($tab_id) && $tab_id == '8') {
                         $won++;
                     }
-                    if (isset($tab_id) && $tab_id == '10') {
+                    if (isset($tab_id) && $tab_id == '9') {
                         $lost++;
                     }
                 } else {
                     if ($value['deal_owner_id'] == $converson_user) {
                         $tab_id = CrmLeadsStatus::getTabIdByLeadsId($value['leads_id']);
-                        if (isset($tab_id) && $tab_id == '11') {
+                        if (isset($tab_id) && $tab_id == '8') {
                             $won++;
                         }
-                        if (isset($tab_id) && $tab_id == '10') {
+                        if (isset($tab_id) && $tab_id == '9') {
                             $lost++;
                         }
                     }
@@ -862,7 +862,7 @@ class CrmController extends BaseController
             $data['converson_rate'] = $won * 100 / ($won + $lost);
         }
 
-        //echo "Total : ".($won + $lost);
+        //echo "Total : ".($won + $lost);die;
         /////////////Converson Rate////////////
         //print_r($data);die;
         echo view::make("crm/ajax/report", $data);
