@@ -36,6 +36,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['annual_revenue'] = $details->annual_revenue;
 		        $data[$key]['quoted_value']   = $details->quoted_value;
 		        $data[$key]['lead_source']    = $details->lead_source;
+		        $data[$key]['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
@@ -87,6 +88,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['annual_revenue'] = $details->annual_revenue;
 		        $data[$key]['quoted_value']   = $details->quoted_value;
 		        $data[$key]['lead_source']    = $details->lead_source;
+		        $data[$key]['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
@@ -137,6 +139,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['annual_revenue'] = $details->annual_revenue;
 		        $data[$key]['quoted_value']   = $details->quoted_value;
 		        $data[$key]['lead_source']    = $details->lead_source;
+		        $data[$key]['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
@@ -189,6 +192,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['annual_revenue'] = $details->annual_revenue;
 		        $data[$key]['quoted_value']   = $details->quoted_value;
 		        $data[$key]['lead_source']    = $details->lead_source;
+		        $data[$key]['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
@@ -240,6 +244,7 @@ class CrmLead extends Eloquent {
 				$data[$key]['annual_revenue'] = $details->annual_revenue;
 		        $data[$key]['quoted_value']   = $details->quoted_value;
 		        $data[$key]['lead_source']    = $details->lead_source;
+		        $data[$key]['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 		        $data[$key]['industry']       = $details->industry;
 		        $data[$key]['street']         = $details->street;
 		        $data[$key]['city']           = $details->city;
@@ -289,6 +294,7 @@ class CrmLead extends Eloquent {
 			$data['annual_revenue'] = $details->annual_revenue;
 	        $data['quoted_value']   = $details->quoted_value;
 	        $data['lead_source']    = $details->lead_source;
+	        $data['source_name']	  = LeadSource::getLeadSourceName($details->lead_source);
 	        $data['industry']       = $details->industry;
 	        $data['street']         = $details->street;
 	        $data['city']           = $details->city;
@@ -344,6 +350,12 @@ class CrmLead extends Eloquent {
 	    }
 
 		return $data;
+    }
+
+    public static function getLeadsTypeByLeadsId($leads_id)
+    {
+    	$leads_type = CrmLead::where("leads_id", "=", $leads_id)->select('leads_type')->first();
+		return $leads_type['leads_type'];
     }
 
 

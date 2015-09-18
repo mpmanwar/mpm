@@ -8,12 +8,12 @@ class CrmLeadsStatus extends Eloquent {
 		$session        = Session::get('admin_details');
         $user_id        = $session['id'];
         $groupUserId    = $session['group_users'];
-
-        if($tab_id == 12){
+        $stattus_count = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_tab_id", "=", $tab_id)->get()->count();
+        /*if($tab_id == 12){
         	$stattus_count = CrmLead::whereIn("user_id", $groupUserId)->where('is_invoiced', '=', 'Y')->get()->count();
         }else{
         	$stattus_count = CrmLeadsStatus::whereIn("user_id", $groupUserId)->where("leads_tab_id", "=", $tab_id)->get()->count();
-        }
+        }*/
 		
 		return $stattus_count;
 	}

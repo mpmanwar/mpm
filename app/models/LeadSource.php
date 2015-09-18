@@ -72,6 +72,12 @@ class LeadSource extends Eloquent {
 		return $data;
     }
 
+    public static function getLeadSourceName($source_id)
+    {
+    	$data = LeadSource::where("source_id", "=", $source_id)->select('source_name')->first();
+		return $data['source_name'];
+    }
+
 
 
 }

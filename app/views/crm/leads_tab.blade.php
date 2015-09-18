@@ -18,8 +18,8 @@
     </div>
   </li>
 
-  <li style="width:9%;" class="{{ ($page_open == '51')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">10</span>]</h3></a>
-    <p>100%</p>
+  <li style="width:9%;" class="{{ ($page_open == '51')?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('51') }}/{{ base64_encode($owner_id) }}"><h3 style="background:#0066FF;">All [<span id="task_count_11">{{ $leads['leads_count'] or '0'}}</span>]</h3></a>
+    <p>{{ ($leads['total_price'] != '0')?round( ($leads['total_price']*100/$leads['total_price']), 2 ):'0.00' }}%</p>
   </li>
 
   @if(isset($leads_tabs) && count($leads_tabs) >0)
@@ -56,8 +56,8 @@
     </thead>
 
     <tbody role="alert" aria-live="polite" aria-relevant="all">
-      @if(isset($leads) && count($leads) >0)
-        @foreach($leads as $key=>$leads_row)
+      @if(isset($leads['leads_details']) && count($leads['leads_details']) >0)
+        @foreach($leads['leads_details'] as $key=>$leads_row)
           <tr {{ ($leads_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
             <td><input type='checkbox' data-archive="{{ $leads_row['show_archive'] }}" class="ads_Checkbox" name="leads_delete_id[]" value="{{ $leads_row['leads_id'] or "" }}"></td>
             <td align="left">{{ $leads_row['date'] or "" }}</td>
@@ -70,7 +70,7 @@
               @endif
             </td>
             <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
-            <td align="center">Phone</td>
+            <td align="center">{{ $leads_row['phone'] or "" }}</td>
             <td align="center">
               <div class="j_selectbox" style="width:80px!important;">
                 <span>No</span>
@@ -84,7 +84,7 @@
               </div>
             </td>
             
-            <td align="center"></td>
+            <td align="center">{{ $leads_row['source_name'] or "" }}</td>
             <td align="center">
               <select class="form-control newdropdown status_dropdown" id="11_status_dropdown_{{ $leads_row['leads_id'] or "" }}" data-leads_id="{{ $leads_row['leads_id'] or "" }}">
                 @if(isset($leads_tabs) && count($leads_tabs) >0)
