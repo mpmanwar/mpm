@@ -37,11 +37,12 @@ class CrmController extends BaseController
             $data['lost_archive'] = 'Hide Archived';
         }
 
-        $data['page_open'] = base64_decode($page_open);
-        $data['encode_page_open'] = $page_open;
-        $data['encode_owner_id'] = $owner_id;
-        $data['owner_id'] = base64_decode($owner_id);
-        $data['goto_url'] = "/crm";
+        $data['page_open']          = base64_decode($page_open);
+        $data['encode_page_open']   = $page_open;
+        $data['encode_owner_id']    = $owner_id;
+        $data['owner_id']           = base64_decode($owner_id);
+        $data['goto_url']           = "/crm";
+        $data['tab_no']             = $this->getTabNo($data['page_open']);
 
         //echo "<pre>";print_r($data);die;
         $data['titles'] = Title::orderBy("title_id")->get();
@@ -82,19 +83,40 @@ class CrmController extends BaseController
                     
                 }
             }
-            $average = $total / count($data['leads_details']);
+            if(isset($all_count) && $all_count != 0){
+                $average = $total/$all_count;
+            }
         }
-        $data['all_count'] = $all_count;
-        $data['all_total'] = number_format($total, 2);
-        $data['all_average'] = number_format($average, 2);
-        $data['all_likely'] = number_format($likely, 2);
+        $data['all_count']      = $all_count;
+        $data['all_total']      = number_format($total, 2);
+        $data['all_average']    = number_format($average, 2);
+        $data['all_likely']     = number_format($likely, 2);
 
         //=================LEADS TAB ===================//
-        $data['leads'] = CrmLead::getAllLeads();
-
-
+        if($data['tab_no'] == 5){
+            $leads = $this->leadstabDetails();
+            $data['leads'] = $leads;
+        }
+        
         //echo "<pre>";print_r($data['leads']);echo "</pre>";die;
         return View::make('crm.index', $data);
+    }
+
+    public function leadstabDetails()
+    {
+        $data = array();
+        $leads = CrmLead::getAllLeads();
+        $total = 0;
+        $leads_count = 0;
+        if (isset($leads) && count($leads) > 0) {
+            foreach ($leads as $key => $value) {
+                $leads_count++;
+            }
+        }
+        $data['leads_details']  = $leads;
+        $data['leads_count']    = $leads_count;
+
+        return $data;
     }
 
     public function save_leads_data()
@@ -102,6 +124,7 @@ class CrmController extends BaseController
         $data = array();
         $session = Session::get('admin_details');
         $user_id = $session['id'];
+        $groupUserId    = $session['group_users'];
 
         $details = Input::get();
         $encode_page_open = $details['encode_page_open'];
@@ -155,6 +178,11 @@ class CrmController extends BaseController
             $leadstatus['created'] = date("Y-m-d H:i:s");
             CrmLeadsStatus::insert($leadstatus);
         } else {
+            $leads_type = CrmLead::getLeadsTypeByLeadsId($leads_id);
+            if(isset($leads_type) && $leads_type == 'L'){
+                $leadstatus['leads_tab_id'] = 2;
+                CrmLeadsStatus::whereIn("user_id", $groupUserId)->where('leads_id', '=', $leads_id)->update($leadstatus);
+            }
             CrmLead::where('leads_id', '=', $leads_id)->update($data);
         }
 
@@ -324,20 +352,14 @@ class CrmController extends BaseController
         $data['leads_id'] = Input::get('leads_id');
         $data['user_id'] = $user_id;
 
-        if ($data['leads_tab_id'] == 12) {
-            CrmLead::where('leads_id', '=', $data['leads_id'])->update(array('is_invoiced' =>
-                    'Y'));
-            $last_id = $data['leads_id'];
+        $leads_status = CrmLeadsStatus::getDetailsByLeadsId($data['leads_id']);
+        if (isset($leads_status) && count($leads_status) > 0) {
+            CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->
+                update($data);
+            $last_id = $leads_status['leads_status_id'];
         } else {
-            $leads_status = CrmLeadsStatus::getDetailsByLeadsId($data['leads_id']);
-            if (isset($leads_status) && count($leads_status) > 0) {
-                CrmLeadsStatus::where("leads_status_id", "=", $leads_status['leads_status_id'])->
-                    update($data);
-                $last_id = $leads_status['leads_status_id'];
-            } else {
-                $data['created'] = date("Y-m-d H:i:s");
-                $last_id = CrmLeadsStatus::insertGetId($data);
-            }
+            $data['created'] = date("Y-m-d H:i:s");
+            $last_id = CrmLeadsStatus::insertGetId($data);
         }
         echo $last_id;
     }
@@ -891,6 +913,19 @@ class CrmController extends BaseController
 
         $up_data['close_date'] = date('Y-m-d', strtotime($close_date));
         CrmLead::where('leads_id', '=', $leads_id)->update($up_data);
+    }
+
+    public function getTabNo($page_open)
+    {
+        $tab_no = 1;
+        if($page_open == 51 || $page_open == 511 || $page_open == 512 || $page_open == 513){
+            $tab_no = 5;
+        }
+        if($page_open == 611 || $page_open == 612 || $page_open == 613 || $page_open == 614 || $page_open == 615 || $page_open == 616 || $page_open == 617 || $page_open == 62 || $page_open == 63 || $page_open == 64 || $page_open == 65){
+            $tab_no = 6;
+        }
+
+        return $tab_no;
     }
 
 

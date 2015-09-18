@@ -40,6 +40,11 @@ $(document).ready(function () {
       $(".open_toggle").toggle();
       event.stopPropagation();
   });
+  $(".select_leads_list").click(function(event) {
+    var leads_id = $(this).data('leads_id');
+      $("#open_toggle_"+leads_id).toggle();
+      event.stopPropagation();
+  });
 
   $(".small_icon").click(function(event) {
       var id = $(this).data("id");
@@ -51,9 +56,7 @@ $(document).ready(function () {
   $(".open_form-modal").click(function(){
       var type      = $(this).data("type");
       var leads_id  = $(this).data("leads_id");
-
-      $("#type").val(type);
-      $("#leads_id").val(leads_id);
+      
       if(type == "org"){
         $("#prospect_name_div").hide();
         $("#contact_name_div").show();
@@ -69,6 +72,11 @@ $(document).ready(function () {
         url: '/crm/get-form-dropdown',
         dataType : 'json',
         data: { 'type' : type, 'leads_id' : leads_id },
+        beforeSend : function(){
+          $("#type").val(type);
+          $("#leads_id").val(leads_id);
+          $('.open_drop').hide();
+        },
         success : function(resp){
           var client_dropdown = "<option value=''>-- None --</option>";
           $.each(resp['existing_clients'], function(key){
@@ -137,7 +145,44 @@ $(document).ready(function () {
         dataType : 'json',
         data: { 'type' : type, 'leads_id' : leads_id },
         success : function(resp){
-          
+          if(type == 'ind'){
+            $("#new_prospect_title").val(resp['leads_details'].prospect_title);
+            $("#new_prospect_fname").val(resp['leads_details'].prospect_fname);
+            $("#new_prospect_lname").val(resp['leads_details'].prospect_lname);
+          }else{
+            if(typeof resp['leads_details'].business_type !== "undefined"){
+              $("#new_business_type").val(resp['leads_details'].business_type);
+            }else{
+              $("#new_business_type").val('2');
+            }
+            $("#new_prospect_name").val(resp['leads_details'].prospect_name);
+            $("#new_contact_title").val(resp['leads_details'].contact_title);
+            $("#new_contact_fname").val(resp['leads_details'].contact_fname);
+            $("#new_contact_lname").val(resp['leads_details'].contact_lname);
+          }
+
+          if(typeof resp['leads_details'].deal_owner !== "undefined"){
+            $("#new_deal_owner").val(resp['leads_details'].deal_owner);
+          }else{
+            $("#new_deal_owner").val('');
+          }
+          if(typeof resp['leads_details'].lead_source !== "undefined"){
+            $("#new_lead_source").val(resp['leads_details'].lead_source);
+          }else{
+            $("#new_lead_source").val('0');
+          }
+          if(typeof resp['leads_details'].industry !== "undefined"){
+            $("#new_industry").val(resp['leads_details'].industry);
+          }else{
+            $("#new_industry").val('0');
+          }
+          $("#new_lead_date").val(resp['leads_details'].date);
+          $("#new_phone").val(resp['leads_details'].phone);
+          $("#new_mobile").val(resp['leads_details'].mobile);
+          $("#new_email").val(resp['leads_details'].email);
+          $("#new_website").val(resp['leads_details'].website);
+          $("#new_notes").val(resp['leads_details'].notes);
+
           $("#open_new_lead-modal").modal("show");
         }
       });
