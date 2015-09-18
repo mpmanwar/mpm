@@ -27,7 +27,7 @@
     @foreach($leads_tabs as $key=>$tab_row)
       @if(isset($tab_row['is_show']) && $tab_row['is_show'] == 'L')
       <li class="{{ ($page_open == '5'.$j)?'active_leads':'' }}"><a href="{{ $goto_url }}/{{ base64_encode('5'.$j) }}/{{ base64_encode($owner_id) }}"><h3 style="background:#{{ $tab_row['color_code'] or "" }};"><span id="step_field_{{ $tab_row['tab_id'] or "" }}">{{ $tab_row['tab_name'] or "" }}</span> [<span id="task_count_1{{ $j }}">{{ $tab_row['count'] or "0" }}</span>]</h3></a>
-      <p>{{ (isset($tab_row['leads_count']) && $leads['leads_count'] != 0)?round(($tab_row['count']*100)/$leads['leads_count'], 2):'0.00' }}%</p>
+      <p>{{ (isset($tab_row['count']) && $leads['leads_count'] != 0)?round(($tab_row['count']*100)/$leads['leads_count'], 2):'0.00' }}%</p>
     </li>
       <?php $j++;?>
       @endif
