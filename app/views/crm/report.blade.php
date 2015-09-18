@@ -79,8 +79,8 @@ $(document).ready(function(){
           			<span class="slct_con"><strong>Select Status</strong></span>
                   	<select class="form-control2 newdropdown" name="status_id" id="status_id">
     					<option value="">None</option>
-    					<option value="10">LOST</option>
-    					<option value="11">WON</option>
+    					<option value="9">LOST</option>
+    					<option value="8">WON</option>
     				</select>
                   	<div class="clr"></div>
           		</div>
