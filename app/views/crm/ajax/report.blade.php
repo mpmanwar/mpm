@@ -26,8 +26,8 @@
 			</table>
 		</td>
 	</tr>
+<?php $grand_total = $total = 0;?>
 @if(isset($outer_details) && count($outer_details) >0)
-	<?php $grand_total = 0;?>
 	@foreach($outer_details as $key=>$outer)
 	<tr>
 		<td align="left">
@@ -36,7 +36,6 @@
 					<td width="100%" align="left">
 						<table width="100%" align="left">
 							@if(isset($details) && count($details) >0)
-								<?php $total = 0;?>
 								@foreach($details as $key=>$value)
 									@if(isset($value['deal_owner']) && $value['deal_owner'] == $outer->deal_owner)
 									<tr>
