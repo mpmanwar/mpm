@@ -26,6 +26,8 @@ $(function() {
         
        
     });
+    
+    
 /*
 $(".date_of_meeting").datepicker({minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
 

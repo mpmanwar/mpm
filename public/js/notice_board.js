@@ -1,4 +1,18 @@
 function openModal(noticefont_id) {
+    //alert('sfsfsfsf');return false;
+    tinymce.remove();
+    tinymce.init({
+    selector: "#edit_message1",
+   // elements : "notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    
 	//$('#edit-modal').modal('show');
 	console.log(noticefont_id);
 	$.ajax({
@@ -28,7 +42,13 @@ function openModal(noticefont_id) {
 				$('#message_subject1').val(resp.message_subject); //
 				$('#edit_attach_file2').empty().html(res);
 				$('#hidd_file').empty().val(resp['file']);
-				CKEDITOR.instances['edit_message1'].setData(resp['message']);
+                
+               // tinymce.activeEditor.setContent($('#edit_message1').val(resp.message));
+                var tyn = tinyMCE.activeEditor.setContent(resp.message);
+               
+               // alert(tyn);return false;
+                $('#edit_message1').val(tyn);
+				//CKEDITOR.instances['edit_message1'].setData(resp['message']);
 				//var hidden_chk = $('#hidd_chek').val(resp.checkbox);
 				var ch = resp.checkbox;
 				var str_array = ch.split(',');
@@ -57,6 +77,41 @@ function openModal(noticefont_id) {
 	});
 }
 
+$("#fixed_add").click(function(){
+    
+    tinymce.remove();
+     tinymce.init({
+    selector: "#add_message",
+   // elements : "notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    
+});
+$("#fixed_add2").click(function(){
+    
+    tinymce.remove();
+     tinymce.init({
+    selector: "#add_message",
+   // elements : "notesmsg",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    plugins: ["wordcount", "table", "charmap", "anchor", "insertdatetime", "link", "image", "media", "visualblocks", "preview", "fullscreen", "print", "code" ]
+});
+    
+});
+
+
+
 function openbodyModal(noticefont_id,e) {
     //alert(event);
     
@@ -84,40 +139,9 @@ function openbodyModal(noticefont_id,e) {
 					var res = attachment.substring(2);
 				}
 				var msg = (resp.message);
-                //$this.html($this.html().replace(/&nbsp;/g, ''));
-                //var full_msg = msg.replace(/&nbsp;/g, '');
-				//var full_msg = msg.replace(/(<([^>]+)>)/ig, "");
-				//console.log(full_msg);
-				//var msg= stripTags(resp.message);
-				//console.log( stripHTML(resp.message) );
-				//$('#typecatagory1').val(resp.typecatagory);
-				//$('#edit_notice_template_id1').val(resp.noticefont_id);
+               
 				$('#edit_msgmessage').text($(msg).text());
-				//$('#message_msgsubject').val(resp.message_subject);//
-				//$('#msg_attach').html(res);
-				//$('#edit_attach_file2').empty().html(res);
-				//$('#hidd_file').empty().val(resp['file']);
-				//
-				//CKEDITOR.instances['edit_msgmessage'].setData(resp['message']);
-				//var hidden_chk = $('#hidd_chek').val(resp.checkbox);
-				//  var ch = resp.checkbox;
-				//  var str_array = ch.split(',');
-				// var gid= resp.group;
-				//   var content ='';
-				// $.each(gid , function(  key, value ) {
-				//   var groupids= value.user_id;
-				//   console.log(groupids);
-				// }); 
-				//  var str = resp.checkbox;
-				// $( ".chknotifys" ).each( function( index, element ){
-				//alert($(this).val());
-				// var box = $(this).val();
-				//  if(str.indexOf(box) != -1){
-				// $("#notifycheck"+box).iCheck('check');
-				//     }
-				// });
-				//$('#edit_attach_file1').empty().html(resp['file']);
-				// },1000);
+				
 			});
 		}
 	});
@@ -126,10 +150,7 @@ function openbodyModal(noticefont_id,e) {
 $(function() {
 	$('#edit_msgmessage').attr('disabled', 'disabled');
 });
-//$("#edit_attach_file2").mouseover(function(){
-// return confirm("You want to delete ??");
-//alert('attachdel');
-//});
+
 $(".chknotifys").on('ifUnchecked', function(event) {
 	var num = parseInt($(this).attr('id').match(/\d+/)[0], 10);
 	$("#chknotify" + num).val('');
@@ -140,6 +161,7 @@ $(".chknotifys").on('ifChecked', function(event) {
 	$("#chknotify" + num).val(num);
 	//alert(num);
 });
+/*
 $(window).load(function() {
 	CKEDITOR.replace('add_message', {
 		toolbar: [
@@ -155,11 +177,7 @@ $(window).load(function() {
 			showWordCount: true
 		}
 	});
-/*var editor = CKEDITOR.instances.doc_desc;
-editor.on( 'key', function( evt ){
-    limitChars(evt, 100, 'cke_wordcount_doc_desc');
-   
-}); */
+
 	CKEDITOR.editor.setReadOnly, CKEDITOR.replace('edit_message1', {
 		toolbar: [
 			['Source'],
@@ -174,7 +192,7 @@ editor.on( 'key', function( evt ){
 			showWordCount: true
 		}
 	});
-});
+}); */
 
 function delfun() {
 	return confirm("You want to delete??");
@@ -183,14 +201,6 @@ function delfun() {
 function delattachfun() {
 	return confirm("You want to delete Attachment??");
 }
-//upload ecxel
-/*$(".xyz").click(function() {
-	var id = $(this).attr("id");
-    console.log("id : ", id);
-   
-	//alert('#add_file'+id);
-	
-});*/
 
 var looper = $(".upload-buttons");
 $.each(looper, function(key, value) {
@@ -263,8 +273,9 @@ $(".upbutton").click(function() {
                  //$('#notifycheckadd').prop('checked', false);
                  $("#notifycheckadd" ).iCheck('uncheck');
                  //$('#notifycheckadd').removeAttr('checked');
-                 //$('#notifycheckadd').val("");	
-                 	CKEDITOR.instances['add_message'].setData("");
+                 //$('#notifycheckadd').val("");
+                 	
+                 	//CKEDITOR.instances['add_message'].setData("");
                  $("#compose-modal").modal("hide");
                 //$("#compose-modal").html("");
                
@@ -547,6 +558,86 @@ $(function() {
 //sortable
 
 // ajax submit board 2 //////
+
+$(document).ready(function(){
+
+    
+     $('#showpdfview').hide('');
+    
+})
+
+
+$(function() {
+/*$('.iradio_minimal').on('click' ,function(){
+    console.log('clicked');
+    //$(".pdfviwerclass").iCheck('uncheck');
+   
+    //$(this).iCheck('check');
+       //alert('ttt');
+        //return false;
+});*/
+$('input').on('ifClicked', function (event) {
+        //$('#showpdfview').show('');
+        $(".pdfviwerclass").iCheck('uncheck')
+        $(this).iCheck('check')
+        var value = $(this).val();
+        
+        
+         var file_type =	$("#pdf").val();
+         //alert("file type " + file_type);
+                        
+        //alert("You clicked " + value);
+        
+            
+       
+        
+        $.ajax({
+		type: "POST",
+		//dataType: "html",
+		url: '/viewfilenoticeboard',
+		data: 
+			{ 'file_type':file_type ,'value':value
+		},
+		success: function(resp) {
+		  
+		//	console.log(resp);return false;
+            if(resp != "")
+            {
+                $('#showpdfview').attr('src', resp)
+                $('#showpdfview').show('');
+            }
+            else{
+                $('#showpdfview').hide('');
+                
+            }
+            
+            
+            //$("#showpdfview").html(resp);
+            
+            
+           
+            }
+	}); 
+        
+      
+        
+        
+    });
+});
+
+/*$('.pdfviwerclass').on('ifChecked', function(event){
+    
+    $(".pdfviwerclass").iCheck('uncheck');
+       alert('fafafaf');
+        return false;
+    });
+
+
+ $('.pdfviwerclass').on('ifUnchecked', function(event){
+        alert('unnnn');return false;
+    });*/
+
+
 $("#noticetab li").on('click', function(event) {
 	//alert('fsfsf');
 	var tabno = $(this).data("tabno");
