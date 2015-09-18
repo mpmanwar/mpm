@@ -241,6 +241,13 @@ Route::any('/insert-noticeboard', array("as"=>"insert_noticeboard", "uses"=>'Not
 Route::any('/notice-template', array("as"=>"notice_template", "uses"=>'NoticeboardController@notice_template'));
 Route::any('/excel-upload', array("as"=>"excel_upload", "uses"=>'NoticeboardController@excel_upload'));
 Route::any('/pdf-upload', array("as"=>"pdf_upload", "uses"=>'NoticeboardController@pdf_upload'));
+
+Route::any('/viewfilenoticeboard', 'NoticeboardController@viewfilenoticeboard');
+
+
+
+
+
 Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
 Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
 Route::any('/staff-holidays/{type}', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));

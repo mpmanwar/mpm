@@ -5,7 +5,7 @@
  @stop @section('myjsfile')
 <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}" type="text/javascript">
 </script>
-
+<script src="{{ URL :: asset('tinymce/tinymce.min.js') }}"></script>
 <script type="text/javascript" src="js/notice_board.js"></script>
 <script type="text/javascript" src="js/fixedsortable.js">
 
@@ -15,6 +15,20 @@
 
 <script src="{{ URL :: asset('js/jquery.form.js') }}" type="text/javascript">
 </script>
+
+
+<script type="text/javascript">
+
+$(function() {
+    
+    
+   
+    
+})
+
+</script>
+
+
 @stop
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -1195,7 +1209,8 @@ for($k=1;$k<=5;$k++){
 <span class="btn btn-default btn-file">
 FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="add_pdffile<?php echo $k; ?>" data-looper="<?php echo $k; ?>"  class="pdf"  >
 </span>
-<span><input type="radio" />
+<span>
+<input type="radio" name="pdfviwer" class="pdfviwerclass"  value="<?php echo $k; ?>"  />
 </span>
 <div id='previewpdf<?php echo $k; ?>'>
 </div>
@@ -1229,14 +1244,17 @@ FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="
 <div class="col-xs-12 holidays_border" >
 <div class="url_apimain">
 <div class="url_apicon">
-<div class="url_apicon_heading">
+<!-- <div class="url_apicon_heading">
 <strong>URL API</strong> to view PDF files online
-</div>
+</div> -->
+
+<iframe id="showpdfview" width="100%" height="20%" src=""></iframe>
+<!--
 <div class="url_apitext">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>
 <br>
 Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui officia deserunt mollit</a> anim id est laborum.
-</div>
+</div> -->
 
 </div>
 

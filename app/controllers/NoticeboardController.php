@@ -1178,7 +1178,55 @@ class NoticeboardController extends BaseController{
         
         echo json_encode($data);
     }
+    
+    public function viewfilenoticeboard()
+    {   
+        
+       $admin_s = Session::get('admin_details');
+        $user_id = $admin_s['id'];
+       $groupUserId = $admin_s['group_users'];
+        $group_id = $admin_s['group_id'];    
+        
+        $file_type = Input::get("file_type");
+        $value = Input::get("value"); 
+       
+      /* $file_type = "P";
+     $value = "1"; 
+       $user_id="21";
+       $group_id ="21";*/
+      //die();
 
+ $filepdf= Noticeexcel::where("file_type", "=", $file_type)->where("level", "=", $value)->where("user_id", "=", $user_id)->select('noticeexcel_id','file')->first();
+        
+      // echo  $filepdf['file']; die();
+         if($filepdf['file']){
+            echo $path = 'uploads/' . $group_id . '/noticepdf/'.$filepdf['file']; 
+         }
+        
+         die();
+          
+          
+          
+          
+          $file = $path;
+          $filename = $filepdf['file'];
+          header('Content-type: application/pdf');
+          header('Content-Disposition: inline; filename="' .$filename. '"');
+          header('Content-Transfer-Encoding: binary');
+          header('Accept-Ranges: bytes');
+         
+         echo @readfile($file); 
+           
+         //echo  @readfile($path);
+            
+// echo return Response::make(file_get_contents($path), 200, ['Content-Type' => 'application/pdf','Content-Disposition' => 'inline; '.$file['file']]);
+                       
+           
+            //die();
+                
+                
+                
+    }
     
 
 }
