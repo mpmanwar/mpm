@@ -1,3 +1,7 @@
+<div class="col-4">
+        <h1 style="color:blue">{{ $title }}</h1>
+    </div>
+
  <table width="100%" border="1" bordercolor="60aad2">
           <tr class="td_color">
             <td colspan="2" align="center"><span class="table_tead_t">OVERVIEW</span></td>

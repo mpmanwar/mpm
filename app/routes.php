@@ -201,7 +201,18 @@ Route::any('/client/upload-other-files', array("as"=>"upload_other_files", "uses
 
 ## Company House Data Start ##
 Route::any('/chdata/index', array("as"=>"index", "uses"=>'ChdataController@index'));
+
+Route::get('/chdatapdf', 'ChdataController@chdatapdf');
+Route::get('/chdataexcel', 'ChdataController@chdataexcel');
+
 Route::any('/chdata-details/{number}', array("as"=>"chdata_details", "uses"=>'ChdataController@chdata_details'));
+Route::get('/chadtadetailspdf/{number}', 'ChdataController@chadtadetailspdf');
+
+
+
+
+
+
 Route::any('/officers-details', array("as"=>"officers_details", "uses"=>'ChdataController@officers_details'));
 Route::any('/import-from-ch/{back_url}', array("as"=>"import_from_ch", "uses"=>'ChdataController@import_from_ch'));
 Route::any('/company-search', array("as"=>"search_company", "uses"=>'ChdataController@search_company'));
@@ -382,6 +393,8 @@ Route::any('/edit-service-id', 'ClientListAllocationController@edit_service_id')
 
 /*================== Contacts Letters Emails Start ==============*/
 Route::any('/contacts-letters-emails/{step_id}/{address_type}', 'ContactsLettersEmailsController@index');
+Route::any('/cletab1pdf', 'ContactsLettersEmailsController@cletab1pdf');
+
 Route::any('/send-letters-emails', 'ContactsLettersEmailsController@send_letteremail');
 Route::any('/contacts/show-contacts-notes', 'ContactsLettersEmailsController@show_contacts_notes');
 Route::any('/contacts/save-contacts-notes', 'ContactsLettersEmailsController@save_contacts_notes');

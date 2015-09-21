@@ -205,6 +205,7 @@ class HomeController extends BaseController {
 		$data['client_fields'] = ClientField::where("field_type", "=", "org")->get();
 
 		//echo '<pre>';print_r($data['client_details']);die;
+        	//echo '<pre>';print_r($data);die;
 
 		return View::make('home.organisation.organisation_client', $data);
 	}

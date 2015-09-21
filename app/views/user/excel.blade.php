@@ -1,3 +1,7 @@
+<div class="col-4">
+        <h1 style="color:blue">{{ $title or "" }}</h1>
+    </div>
+
 <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
     <thead>
         <tr role="row">
