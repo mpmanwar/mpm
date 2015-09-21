@@ -610,7 +610,7 @@ $(".deleteLeads").click(function(){
   $(".sendto_client_list").click(function(){
       var client_type = $(this).data('client_type');
       var leads_id = $(this).data('leads_id');
-      if(!confirm('Client details will be added to the Client list and the On-boarding page')){
+      if(!confirm('Client details will be added to the Client list and the On-boarding pages')){
         return false;
       }
       //$("#onboard_td_"+leads_id).html('<img src="/img/spinner.gif" height="25" />');return false;
