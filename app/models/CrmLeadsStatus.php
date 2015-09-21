@@ -86,4 +86,6 @@ class CrmLeadsStatus extends Eloquent {
 		return $data;
 	}
 
+	
+
 }

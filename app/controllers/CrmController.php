@@ -284,8 +284,8 @@ class CrmController extends BaseController
             $existing_clients = Client::getAllOrgClientDetails();
             if (isset($existing_clients) && count($existing_clients) > 0) {
                 foreach ($existing_clients as $key => $value) {
-                    $client_data[$key]['client_id'] = $value['client_id'];
-                    $client_data[$key]['client_name'] = $value['business_name'];
+                    $client_data[$key]['client_id'] = isset($value['client_id'])?$value['client_id']:'';
+                    $client_data[$key]['client_name'] = isset($value['business_name'])?$value['business_name']:'';
                 }
             }
         }
@@ -920,6 +920,50 @@ class CrmController extends BaseController
         }
 
         return $tab_no;
+    }
+
+    public function sendto_client_list()
+    {
+        $leads_id       = Input::get("leads_id");
+        $client_type    = Input::get("client_type");
+        $leads_details  = CrmLead::getLeadsByLeadsId( $leads_id );
+        $session        = Session::get('admin_details');
+        $user_id        = $session['id'];
+        $client_id = 0;
+
+        if(isset($leads_details) && count($leads_details) >0){
+            if(isset($leads_details['client_type']) && $leads_details['client_type'] == 'org'){
+                $company_name = $leads_details['prospect_name'];
+                if(isset($leads_details['business_type']) && ($leads_details['business_type'] == 1 || $leads_details['business_type'] == 2)){
+                    //$company_name  = "BOOTH & BOOTH LTD";//echo $value;die;
+                    $number = CrmLead::getCompanyNumber($company_name);
+                    $client_id = 0;
+                    if(isset($number) && $number != 0){
+                        $value = $number.'=function';
+                        $client_id  = App::make('ChdataController')->import_company_details($value);
+                    }
+                }else{
+                    $client_id = Client::insertGetId(array("user_id"=>$user_id, 'type'=>'org', 'chd_type'=>'org'));
+                    StepsFieldsClient::update_org_client($leads_details, $client_id);
+                }
+
+                if($client_id != 0){
+                    CrmLead::where('leads_id', '=', $leads_id)->update(array('is_onboarding'=>'Y'));
+                    Client::where('client_id', '=', $client_id)->update(array('is_onboard' => 'Y'));
+                    StepsFieldsClient::update_step_field_client($leads_details, $client_id);
+                }else{
+                        $client_id  = 'spell_check';
+                    }
+                
+            }else{
+                $client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind', 'chd_type' => 'ind', 'is_onboard' => 'Y'));
+                CrmLead::where('leads_id', '=', $leads_id)->update(array('is_onboarding'=>'Y'));
+                StepsFieldsClient::update_ind_client($leads_details, $client_id);
+            }
+        }
+        
+
+        echo $client_id;die;
     }
 
 

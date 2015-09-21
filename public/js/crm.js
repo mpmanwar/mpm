@@ -606,6 +606,40 @@ $(".deleteLeads").click(function(){
     });
   });
 
+//===============Client Onboarding Start ============== //
+  $(".sendto_client_list").click(function(){
+      var client_type = $(this).data('client_type');
+      var leads_id = $(this).data('leads_id');
+      if(!confirm('Client details will be added to the Client list and the On-boarding pages')){
+        return false;
+      }
+      //$("#onboard_td_"+leads_id).html('<img src="/img/spinner.gif" height="25" />');return false;
+      $.ajax({
+        type: "POST",
+        url: '/crm/sendto-client-list',
+        //dataType:'json',
+        data: { 'client_type' : client_type, 'leads_id' : leads_id },
+        beforeSend: function() {
+          //$("#display_result").html('');
+          $("#onboard_td_"+leads_id).html('<img src="/img/spinner.gif" height="25" />');
+        },
+        success : function(resp){//console.log(resp);return false;
+          var start = '<a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="'+leads_id+'" data-client_type="'+client_type+'">START</a>';
+          if(resp == 'spell_check'){
+            $("#onboard_td_"+leads_id).html(start);
+            alert("Please check the company name spelling");
+          }else if(resp >0){
+            window.location.reload();
+          }else{
+            $("#onboard_td_"+leads_id).html(start);
+            alert("There are some error, Please try again.");
+          }
+          
+        }
+      });
+  });
+//===============Client Onboarding End ============== //
+
 	
 });//document end 
 
