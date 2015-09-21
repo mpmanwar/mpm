@@ -384,9 +384,9 @@
                                   {{ "N/A" }}
                                 @else
                                   @if(isset($leads_row['is_onboarding']) && $leads_row['is_onboarding'] == 'N')
-                                    <a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-client_type="{{ $leads_row['client_type'] or "" }}">Start</a>
+                                    <a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-client_type="{{ $leads_row['client_type'] or "" }}">START</a>
                                   @else
-                                    <a href="javascript:void(0)" class="sent_btn">Started...</a>
+                                    <a href="javascript:void(0)" class="sent_btn">STARTED</a>
                                   @endif
                                 @endif
                               </td>

@@ -943,7 +943,7 @@ class CrmController extends BaseController
                         $client_id  = App::make('ChdataController')->import_company_details($value);
                     }
                 }else{
-                    $client_id = Client::insertGetId(array("user_id"=>$user_id, 'type'=>'org', 'chd_type'=>'org', 'is_onboard' => 'Y'));
+                    $client_id = Client::insertGetId(array("user_id"=>$user_id, 'type'=>'org', 'chd_type'=>'org'));
                     StepsFieldsClient::update_org_client($leads_details, $client_id);
                 }
 
