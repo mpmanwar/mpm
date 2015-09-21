@@ -172,4 +172,162 @@ class StaffdataController extends BaseController{
         echo $affected;
         //echo $this->last_query();die;
     }
+    
+    
+    public function staffpdf(){
+        
+        
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $user_type = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        if (!isset($user_id) && $user_id == "") {
+            return Redirect::to('/');
+        } else
+            if (isset($user_type) && $user_type == "C") {
+                return Redirect::to('/invitedclient-dashboard');
+            }
+
+        $data['heading'] = "";
+        $data['title'] = "Staff List";
+        $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+
+        $data['staff_details'] = $this->getAllStaffDetails();
+
+
+        $address = "";
+
+        if (isset($data['staff_details']) && count($data['staff_details']) > 0) {
+
+            foreach ($data['staff_details'] as $key => $add) {
+
+
+                if (isset($add['step_data']['res_addr_line1'])) {
+                    $add['step_data']['res_addr_line1'];
+                }
+
+
+                if (isset($add['step_data']['res_addr_line1'])) {
+                    $address .= $add['step_data']['res_addr_line1'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_addr_line2'])) {
+                    $address .= $add['step_data']['res_addr_line2'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_city'])) {
+                    $address .= $add['step_data']['res_city'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_county'])) {
+                    $address .= $add['step_data']['res_county'] . ", ";
+                }
+                if (isset($add['step_data']['res_postcode'])) {
+                    $address .= $add['step_data']['res_postcode'];
+                }
+
+
+                $data['staff_details'][$key]['fulladdress'] = $address;
+            }
+        }
+
+        $pdf = PDF::loadView('staff/staffdata/staffdatapdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('staff_list.pdf');
+            
+       // return View::make('staff.staffdata.staff_data', $data);
+        
+        
+        
+        
+    }
+    
+    public function staffexcel(){
+        
+        
+        
+        
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $user_type = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        if (!isset($user_id) && $user_id == "") {
+            return Redirect::to('/');
+        } else
+            if (isset($user_type) && $user_type == "C") {
+                return Redirect::to('/invitedclient-dashboard');
+            }
+
+        $data['heading'] = "";
+        $data['title'] = "Staff List";
+        $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+
+        $data['staff_details'] = $this->getAllStaffDetails();
+
+
+        $address = "";
+
+        if (isset($data['staff_details']) && count($data['staff_details']) > 0) {
+
+            foreach ($data['staff_details'] as $key => $add) {
+
+
+                if (isset($add['step_data']['res_addr_line1'])) {
+                    $add['step_data']['res_addr_line1'];
+                }
+
+
+                if (isset($add['step_data']['res_addr_line1'])) {
+                    $address .= $add['step_data']['res_addr_line1'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_addr_line2'])) {
+                    $address .= $add['step_data']['res_addr_line2'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_city'])) {
+                    $address .= $add['step_data']['res_city'] . ", ";
+                }
+
+                if (isset($add['step_data']['res_county'])) {
+                    $address .= $add['step_data']['res_county'] . ", ";
+                }
+                if (isset($add['step_data']['res_postcode'])) {
+                    $address .= $add['step_data']['res_postcode'];
+                }
+
+
+                $data['staff_details'][$key]['fulladdress'] = $address;
+            }
+        }
+        
+        $viewToLoad = 'staff/staffdata/staffdataexcel';
+			///////////  Start Generate and store excel file ////////////////////////////
+			Excel::create('staff_list', function ($excel) use ($data, $viewToLoad) {
+
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+				})->save();
+
+			});
+        
+        //
+        
+	   
+		$filepath = storage_path() . '/exports/staff_list.xls';
+		$fileName = 'staff_list.xls';
+		$headers = array(
+			'Content-Type: application/vnd.ms-excel',
+		);
+
+		return Response::download($filepath, $fileName, $headers);
+		exit;
+        
+        
+        
+    }
+    
+    
+    
 }

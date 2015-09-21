@@ -59,7 +59,7 @@ class ChdataController extends BaseController {
 		$data['client_data']		= $this->getRegisteredIn($details->primaryTopic->CompanyNumber);
 		$data['insolvency']			= Common::getInsolvency($number);
 		$data['charges']			= Common::getCharges($number);
-
+        $data['chnumber']           =$number;
 		//print_r($data['officers']);die;
 		return View::make("ch_data.chdata_details", $data);
 	}
@@ -1331,6 +1331,116 @@ class ChdataController extends BaseController {
 		}*/
 		echo json_encode($client_array);
 		
+    }
+    
+    
+    public function chdatapdf(){
+        
+        
+		$data 			= array();
+		$client_data 	= array();
+		$data['heading'] 	= "CH DATA";
+		$data['title'] 		= "Ch Data";
+		$admin_s 			= Session::get('admin_details');
+		$user_id 			= $admin_s['id'];
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
+
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+		
+		$data['company_details']	= Client::getAllOrgClientDetails();
+		
+		//print_r($data['jobs_steps']);die;
+		//return View::make('ch_data.chdata_list', $data);
+		
+
+	   $pdf = PDF::loadView('ch_data/chdatapdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('ch_data.pdf');
+        
+        
+        
+    }
+    
+    
+    
+    public function chdataexcel(){
+        
+        $data 			= array();
+		$client_data 	= array();
+		$data['heading'] 	= "CH DATA";
+		$data['title'] 		= "Ch Data";
+		$admin_s 			= Session::get('admin_details');
+		$user_id 			= $admin_s['id'];
+		$groupUserId 		= Common::getUserIdByGroupId($admin_s['group_id']);
+
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+		
+		$data['company_details']	= Client::getAllOrgClientDetails();
+        
+    
+        $viewToLoad = 'ch_data/chdataexcel';
+			///////////  Start Generate and store excel file ////////////////////////////
+			Excel::create('ch_data', function ($excel) use ($data, $viewToLoad) {
+
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+				})->save();
+
+			});
+        
+        //
+        
+	   
+		$filepath = storage_path() . '/exports/ch_data.xls';
+		$fileName = 'ch_data.xls';
+		$headers = array(
+			'Content-Type: application/vnd.ms-excel',
+		);
+
+		return Response::download($filepath, $fileName, $headers);
+		exit;
+    
+    
+    
+    
+    
+    }
+    
+    public function chadtadetailspdf($number){
+        
+        $data = array();
+		$data['heading'] 	= "COMPANY DETAILS";
+		$data['title'] 		= "Company Details";
+		$details 			= Common::getCompanyDetails($number);
+		//$details 			= Common::getCompanyData($number);
+		//print_r($details);die;
+		$registered_office 	= Common::getRegisteredOffice($number);
+		$officers 			= Common::getOfficerDetails($number);
+		$filling_history 	= Common::getFillingHistory($number);
+		//$insolvency 		= Common::getInsolvency($number);
+
+		$data['details']			= $details->primaryTopic;
+		//$data['details']			= Common::getCompanyData($number);
+		$data['officers']			= $officers->items;
+		$data['filling_history']	= $filling_history->items;
+		$data['registered_office']	= $registered_office;
+
+		$data['nature_of_business']	= $this->getSicDescription($details->primaryTopic->SICCodes->SicText);
+		$data['client_data']		= $this->getRegisteredIn($details->primaryTopic->CompanyNumber);
+		$data['insolvency']			= Common::getInsolvency($number);
+		$data['charges']			= Common::getCharges($number);
+        $data['chnumber']           =$number;
+		//print_r($data['officers']);die;
+	//	return View::make("ch_data.chdata_details", $data);
+        
+        $pdf = PDF::loadView('ch_data/chdetailspdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('ch_detailsdata.pdf');
+        
+        
+        
     }
 
     

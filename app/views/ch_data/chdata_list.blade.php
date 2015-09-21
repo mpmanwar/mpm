@@ -81,10 +81,15 @@ $(function() {
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
             </li>-->
             <li>
-              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+          <!--    <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button> -->
+              <a href="/chdatapdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a>
+              
+              
             </li>
             <li>
-              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+            
+              <a href="/chdataexcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a>
+             <!--  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button> -->
             </li>
             
             <!-- <li>

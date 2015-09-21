@@ -383,7 +383,8 @@
                                 @if(isset($leads_row['existing_client']) && $leads_row['existing_client'] != '0')
                                   {{ "N/A" }}
                                 @else
-                                  <a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-client_type="{{ $leads_row['client_type'] or "" }}">START</a>
+                                  <a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-client_type="{{ $leads_row['client_type'] or "" }}">
+                                    {{ (isset($leads_row['is_onboarding']) && $leads_row['is_onboarding'] != '0')?"Start":"Started..." }}</a>
                                 @endif
                               </td>
                             </tr>

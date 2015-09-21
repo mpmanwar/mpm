@@ -30,6 +30,10 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/db_connect', 'HomeController@db_connect');
 Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses' => 'HomeController@organisation_clients' ));
 
+Route::get('/orgpdf', 'HomeController@orgpdf');
+Route::get('/download_orgexcel', 'HomeController@download_orgexcel');
+
+
 Route::any('/onboard', 'HomeController@onboard');
 Route::any('/client/onboard-client', 'ClientController@onboard_client');
 Route::any('/client/indonboard-client', 'ClientController@indonboard_client');
@@ -49,7 +53,13 @@ Route::any('/client/indadd-checklist', 'ClientController@indadd_checklist');
 Route::any('/delete-checklist-type', 'ClientController@delete_checklist');
 Route::any('/client/getowner', 'ClientController@getowner');
 Route::any('/client/indgetowner', 'ClientController@indgetowner');
+
 Route::any('/individual-clients', array('as' => 'individual-clients', 'uses' => 'HomeController@individual_clients' ));
+Route::get('/indpdf', 'HomeController@indpdf');
+Route::get('/indexcel', 'HomeController@indexcel');
+
+
+
 Route::any('/individual/add-client', array("as"=>"add_individual_client", "uses"=>'HomeController@add_individual_client'));
 Route::post('/individual/insert-client-details', array("as"=>"insert_individual_client", "uses"=>'HomeController@insert_individual_client'));
 Route::any('/individual/get-office-address', array("as"=>"get_office_address", "uses"=>'HomeController@get_office_address'));
@@ -88,6 +98,8 @@ Route::any('/delete-users', array("as"=>"user/delete-users", "uses"=>'UserContro
 Route::get('/edit-user/{id}', 'UserController@edit_user');
 Route::post('/save-edit', 'UserController@saveedit');
 Route::get('/pdf', 'UserController@pdf');
+
+
 Route::any('/download/downloadExcel', array("as"=>"user/download_excel", "uses"=>'UserController@download_excel'));
 Route::any('/user/create-password/{id}', array("as"=>"create_user_password", "uses"=>'UserController@create_user_password'));
 Route::any('/create-password-process', array("as"=>"create_new_password", "uses"=>'UserController@create_new_password'));
@@ -252,6 +264,11 @@ Route::any('/staffmanagement', array("as"=>"staff_management", "uses"=>'Staffman
 Route::any('/staff-management', array("as"=>"staff_management", "uses"=>'StaffmanagementController@staff_management'));
 Route::any('/staff-holidays/{type}', array("as"=>"staff_holidays", "uses"=>'StaffholidaysController@staff_holidays'));
 Route::any('/time-sheet-reports/{type}', array("as"=>"time_sheet_reports", "uses"=>'TimesheetController@time_sheet_reports'));
+
+Route::any('/timesheetpdf', 'TimesheetController@timesheetpdf');
+Route::any('/timesheetexcel', 'TimesheetController@timesheetexcel');
+
+
 Route::any('/cpd-and-courses/{type}', array("as"=>"cpd_and_courses", "uses"=>'CpdController@cpd_and_courses'));
 
 
@@ -261,6 +278,9 @@ Route::any('/get-calender', array("as"=>"get_calender", "uses"=>'NoticeboardCont
 /*=============== Staff Data Start =================*/
 Route::any('/staff-details', array("as"=>"staff_data", "uses"=>'StaffdataController@staff_data'));
 Route::any('/staff/archive-staff', 'StaffdataController@archive_staff');
+Route::any('/staffpdf', 'StaffdataController@staffpdf');
+Route::any('/staffexcel', 'StaffdataController@staffexcel');
+
 Route::any('/staff/show-archive-staff', 'StaffdataController@show_archive_staff');
 /*=============== Staff Data End =================*/
 

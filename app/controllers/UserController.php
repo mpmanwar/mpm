@@ -388,6 +388,7 @@ class UserController extends BaseController {
 	}
 
 	function download_excel() {
+	   
 		$filepath = storage_path() . '/exports/UserList.xls';
 		$fileName = 'UserList.xls';
 		$headers = array(
@@ -569,5 +570,8 @@ class UserController extends BaseController {
 		}
 		exit;
 	}
+    
+    
+    
 
 }

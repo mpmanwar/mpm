@@ -42,7 +42,11 @@
           <div class="top_bts">
             <ul style="padding:0;">
               <li>
-                <button type="button" class="btn btn-success"><i class="fa fa-download"></i> GENERATE PDF</button>
+                
+               <!-- <button type="button" class="btn btn-success" id="{{$chnumber}}"><i class="fa fa-download"></i> GENERATE PDF</button> -->
+             
+             
+              <a href="/chadtadetailspdf/{{$chnumber}}" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a>
               </li>
               <!-- <li>
                 <button class="btn btn-info">WEBCHECK</button>

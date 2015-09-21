@@ -1206,7 +1206,7 @@ for($k=1;$k<=5;$k++){
 {{ Form::open( array('url' => '/excel-upload', 'files' => true, 'id'=>'pdfeform'.$k, 'name'=>'pdfform'.$k)   ) }}
 <input type="hidden" name="file_type" id="pdf" value="P" />
 <li>
-<span class="btn btn-default btn-file">
+<span class="btn btn-default btn-file" style="width: 135px;">
 FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="add_pdffile<?php echo $k; ?>" data-looper="<?php echo $k; ?>"  class="pdf"  >
 </span>
 <span>
@@ -1218,9 +1218,14 @@ FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="
 <p class="file_name" id="file_pdfvalue<?php echo $k; ?>"> 
 @if ( (isset($all_pdf[$k]['file'])) && (!empty($all_pdf[$k]['file'])) )
 
+
+
+
+
+
 <img src="img/attachment.png" />
-<!--{{ (strlen($all_pdf[$k]['file']) > 10)? substr(strip_tags($all_pdf[$k]['file']), 0, 10)."...": strip_tags($all_pdf[$k]['file'])
-}} -->
+{{ (strlen($all_pdf[$k]['file']) > 10)? substr(strip_tags($all_pdf[$k]['file']), 0, 10)."...": strip_tags($all_pdf[$k]['file'])
+}} 
 @endif
 
 </p>
@@ -1241,14 +1246,14 @@ FILE<?php echo $k; ?><input type="file" name="add_pdffile<?php echo $k; ?>" id="
   
   
 
-<div class="col-xs-12 holidays_border" >
+<div class="col-xs-12 holidays_border" style="height: 550px" >
 <div class="url_apimain">
-<div class="url_apicon">
+<div class="url_apicon" >
 <!-- <div class="url_apicon_heading">
 <strong>URL API</strong> to view PDF files online
 </div> -->
 
-<iframe id="showpdfview" width="100%" height="20%" src=""></iframe>
+<iframe id="showpdfview" width="900" height="500" src=""></iframe>
 <!--
 <div class="url_apitext">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>
@@ -1597,8 +1602,12 @@ Excepteur sint occaecat cupidatat non proident, sunt in <a href="#">culpa qui of
 					
 					<div class="twobox">
 						<div class="form-group">
+                       <!-- <div id="edit_msgmessage" class="form-control" style="height: 250px;"></div> -->
+                        
 							<textarea  name="edit_message" id="edit_msgmessage" class="form-control" style="height: 250px;" >
-							</textarea>
+							</textarea> 
+                            
+                            
 						</div>
 					</div>
 					<div class="twobox">

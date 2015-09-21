@@ -94,10 +94,15 @@ $(function() {
               <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
             </li> -->
             <li>
-              <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+            <a href="/indpdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a>
+            
+            
+            <!--  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button> -->
             </li>
             <li>
-              <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+            <a href="/indexcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a>
+            
+              <!-- <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button> -->
             </li>
             <li>
             
