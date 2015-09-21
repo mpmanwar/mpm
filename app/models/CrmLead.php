@@ -48,6 +48,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
+		        $data[$key]['is_onboarding']  = $details->is_onboarding;
 		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
@@ -100,6 +101,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
+		        $data[$key]['is_onboarding']  = $details->is_onboarding;
 		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
@@ -151,6 +153,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
+		        $data[$key]['is_onboarding']  = $details->is_onboarding;
 		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
@@ -204,6 +207,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
+		        $data[$key]['is_onboarding']  = $details->is_onboarding;
 		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
@@ -256,6 +260,7 @@ class CrmLead extends Eloquent {
 		        $data[$key]['is_invoiced']    = $details->is_invoiced;
 		        $data[$key]['is_archive']     = $details->is_archive;
 		        $data[$key]['show_archive']   = $details->show_archive;
+		        $data[$key]['is_onboarding']  = $details->is_onboarding;
 		        $data[$key]['lead_status']    = CrmLeadsStatus::getTabIdByLeadsId( $details->leads_id );
 			}
 		}
@@ -306,6 +311,7 @@ class CrmLead extends Eloquent {
 	        $data['is_invoiced']    = $details->is_invoiced;
 	        $data['is_archive']     = $details->is_archive;
 		    $data['show_archive']   = $details->show_archive;
+		    $data['is_onboarding']  = $details->is_onboarding;
 		}
 		//echo "<pre>";print_r($data);echo "</pre>";die;
 		return $data;
