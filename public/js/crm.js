@@ -606,6 +606,31 @@ $(".deleteLeads").click(function(){
     });
   });
 
+//===============Client Onboarding Start ============== //
+  $(".sendto_client_list").click(function(){
+      var client_type = $(this).data('client_type');
+      var leads_id = $(this).data('leads_id');
+      $.ajax({
+        type: "POST",
+        url: '/crm/sendto-client-list',
+        //dataType:'json',
+        data: { 'client_type' : client_type, 'leads_id' : leads_id },
+        beforeSend: function() {
+          //$("#display_result").html('');
+          //$("#display_result").html('<div style="text-align:center;"><img src="/img/spinner.gif" /></div>');
+        },
+        success : function(resp){console.log(resp);//return false;
+          if(resp >0){
+            window.location.reload();
+          }else{
+            alert("There are some error, Please try again.");
+          }
+          
+        }
+      });
+  });
+//===============Client Onboarding End ============== //
+
 	
 });//document end 
 

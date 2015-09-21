@@ -358,6 +358,25 @@ class CrmLead extends Eloquent {
 		return $leads_type['leads_type'];
     }
 
+    public static function getCompanyNumber($company_name)
+	{
+		$company_number = 0;
+        $value = str_replace(" ", "+", $company_name);
+        $compamy_details    = Common::getSearchCompany($value);
+        if(isset($compamy_details->items) && count($compamy_details->items) >0 )
+        {
+            foreach ($compamy_details->items as $key => $value) {//return $company_name;die;
+                //$company[$key]['company_name']      = $value->title;
+                //$company[$key]['company_number']    = $value->company_number;
+                $comp_name = str_replace("+", " ", $company_name);
+                if(strtolower($company_name) == strtolower($value->title)){
+                	$company_number = $value->company_number;
+                }
+            }
+        }
+
+        return $company_number;
+	}
 
 
 

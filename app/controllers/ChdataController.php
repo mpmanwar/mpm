@@ -262,7 +262,7 @@ class ChdataController extends BaseController {
 		$data 		= array();
 		$data['officers']	= array();
 		
-		$details 			= Common::getCompanyDetails($number);
+		$details 			= Common::getCompanyDetails($number); 
 		$registered_office 	= Common::getRegisteredOffice($number);
 		$officers 			= Common::getOfficerDetails($number);
 		if(isset($officers->items) && count($officers->items) > 0){
@@ -388,7 +388,7 @@ class ChdataController extends BaseController {
 	{
 		$value = explode("=", $value);
 		$number = $value[0];
-		$function_type = $value[1];
+		$function_type = $value[1];//echo $number;die;
 
 		$data = array();
 		$details 	= Common::getCompanyData($number);
