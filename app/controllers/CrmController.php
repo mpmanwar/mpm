@@ -951,7 +951,10 @@ class CrmController extends BaseController
                     CrmLead::where('leads_id', '=', $leads_id)->update(array('is_onboarding'=>'Y'));
                     Client::where('client_id', '=', $client_id)->update(array('is_onboard' => 'Y'));
                     StepsFieldsClient::update_step_field_client($leads_details, $client_id);
-                }
+                }else{
+                        $client_id  = 'spell_check';
+                    }
+                
             }else{
                 $client_id = Client::insertGetId(array("user_id" => $user_id, 'type' => 'ind', 'chd_type' => 'ind', 'is_onboard' => 'Y'));
                 CrmLead::where('leads_id', '=', $leads_id)->update(array('is_onboarding'=>'Y'));

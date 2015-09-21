@@ -379,14 +379,14 @@
                                 <input type="hidden" id="notes_{{ $leads_row['leads_id'] or "" }}" value="{{ $leads_row['notes'] or "" }}">
                                 <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-tab="11"><span style="{{ (isset($leads_row['notes']) && $leads_row['notes'] != '')?'border-bottom:3px dotted #3a8cc1 !important':''}}">notes</span></a>
                               </td>
-                              <td align="center">
+                              <td align="center" id="onboard_td_{{ $leads_row['leads_id'] }}">
                                 @if(isset($leads_row['existing_client']) && $leads_row['existing_client'] != '0')
                                   {{ "N/A" }}
                                 @else
                                   @if(isset($leads_row['is_onboarding']) && $leads_row['is_onboarding'] == 'N')
                                     <a href="javascript:void(0)" class="send_btn sendto_client_list" data-leads_id="{{ $leads_row['leads_id'] or "" }}" data-client_type="{{ $leads_row['client_type'] or "" }}">START</a>
                                   @else
-                                    <a href="javascript:void(0)" class="sent_btn">STARTED</a>
+                                    <a href="javascript:void(0)" class="sent_btn">STARTED....</a>
                                   @endif
                                 @endif
                               </td>

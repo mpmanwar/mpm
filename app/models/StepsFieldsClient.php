@@ -19,6 +19,8 @@ class StepsFieldsClient  extends Eloquent{
 			$name .= " ".$details['contact_lname'];
 		}
 		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'corres_cont_name', $name);
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'cont_corres_addr', 'corres');
+		$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'corres_name_check', 'corres_cont');
 
 		if (isset($details['phone'])) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, $step_id, 'corres_cont_telephone', $details['phone']);
@@ -105,6 +107,8 @@ class StepsFieldsClient  extends Eloquent{
 
     	$name = "";
     	$step_id = 1;
+    	$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'cont_corres_addr', 'corres');
+    	$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 3, 'corres_name_check', 'corres_cont');
     	if (isset($details['business_type'])) {
 			$arrData[] = App::make('HomeController')->save_client($user_id, $client_id, 1, 'business_type', $details['business_type']);
 		}
