@@ -631,10 +631,15 @@ function fontfetchnotesmodal(fontvalue){
                   <button class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
                 </li> -->
                 <li>
-                  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                  <!-- <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button> -->
+                  <a href="/timesheetpdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a>
+                  
+                  
                 </li>
                 <li>
-                  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                <a href="/timesheetexcel" class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</a>
+                
+                 <!--  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button> -->
                 </li>
               </ul>
             </div>

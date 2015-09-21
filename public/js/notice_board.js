@@ -222,11 +222,14 @@ function delattachfun() {
 
 var looper = $(".upload-buttons");
 $.each(looper, function(key, value) {
-	//console.log(value); 
+	//console.log(value); return false;
+
 	$(value).on('change', function() {
 		var control = $(this);
-		//console.log(that);
-		var loop = $(this).attr("data-looper");
+	
+    //	console.log(control);return false;
+	
+    	var loop = $(this).attr("data-looper");
 		console.log("in change", loop);
 		//alert("#imageform"+id);
 		$("#prev").html('');
@@ -323,9 +326,25 @@ $(".pdf").click(function() {
 		{
 			//target: '#previewpdf+id',
 			success: function(response) {
-				//alert(response);
+				//alert(response);return false;
 				x = response;
-				$("#file_pdfvalue" + id).html('<img src="img/attachment.png" />');
+                if(x.length>"10"){
+        
+                 var filename = x.substr(0,10);
+                  var uploadfilename=filename+'...' 
+           
+            //alert(finaledittitle);
+            }
+            else{
+                uploadfilename = x
+            }            
+                
+                
+                
+                
+                
+                
+				$("#file_pdfvalue" + id).html('<img src="img/attachment.png" />'+uploadfilename);
 				$("#pdfprev").html('');
 			}
 		}).submit();

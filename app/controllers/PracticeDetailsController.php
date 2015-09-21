@@ -254,53 +254,92 @@ class PracticeDetailsController extends BaseController {
 	}
 
 	function downloadPdf() {
-//die("sss");
 
-		$data['heading'] = "PRACTICE DETAILS";
+		$admin_s = Session::get('admin_details'); // session
+		$user_id = $admin_s['id']; //session user id
+
+		$city_name = array();
+		$state_name = array();
+		$country_name = array();
+
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+
+		$data['heading'] = "";
 		$data['title'] = "Practice Details";
-		$data['org_types'] = OrganizationType::orderBy("name")->get();
+		$data['previous_page'] = '<a href="/settings-dashboard">Settings</a>';
+		$data['org_types'] = OrganisationType::where("status", "=", "old")->orderBy("organisation_id")->get();
+		$data['countries'] = Country::orderBy('country_name')->get();
 		//print_r($data['org_types']);die;
-		$data["practice_details"] = PracticeDetail::where("practice_id", "=", 1)->first();
-		if (!empty($data["practice_details"]) && count($data["practice_details"]) > 0) {
+
+		$groupUserId = Common::getUserIdByGroupId($admin_s['group_id']);
+		$data["practice_details"] = PracticeDetail::whereIn("user_id", $groupUserId)->first();
+
+		//echo $this->last_query();die;
+		if (isset($data["practice_details"]) && count($data["practice_details"]) > 0) {
 			$data["practice_details"]['telephone_no'] = explode("-", $data["practice_details"]['telephone_no']);
 			$data["practice_details"]['fax_no'] = explode("-", $data["practice_details"]['fax_no']);
 			$data["practice_details"]['mobile_no'] = explode("-", $data["practice_details"]['mobile_no']);
 
 			$practice_addresses = PracticeAddress::where("practice_id", "=", $data["practice_details"]['practice_id'])->get();
 			foreach ($practice_addresses as $pa_row) {
-				$city_name = City::where("city_id", "=", $pa_row->city_id)->get();
-				$state_name = State::where("state_id", "=", $pa_row->state_id)->get();
-				$country_name = Country::where("country_id", "=", $pa_row->country_id)->get();
+				//$city_name = City::where("city_id", "=", $pa_row->city_id)->first();
+				//echo $this->last_query();die;
+				//$state_name = State::where("state_id", "=", $pa_row->state_id)->first();
+				//$country_name = Country::where("country_id", "=", $pa_row->country_id)->first();
 				if ($pa_row->type == "registered") {
-					$data["practice_address"]['reg_address_id'] = $pa_row->address_id;
-					$data["practice_address"]['reg_practice_id'] = $pa_row->practice_id;
-					$data["practice_address"]['reg_type'] = $pa_row->type;
-					$data["practice_address"]['reg_attention'] = $pa_row->attention;
+					$data["practice_address"]['reg_address_id'] 	= $pa_row->address_id;
+					$data["practice_address"]['reg_practice_id'] 	= $pa_row->practice_id;
+					$data["practice_address"]['reg_type'] 			= $pa_row->type;
+					$data["practice_address"]['reg_attention'] 		= $pa_row->attention;
 					$data["practice_address"]['reg_street_address'] = $pa_row->street_address;
-					$data["practice_address"]['reg_city_id'] = $pa_row->city_id;
-					$data["practice_address"]['reg_city_name'] = $city_name[0]->city_name;
-					$data["practice_address"]['reg_state_id'] = $state_name[0]->state_id;
-					$data["practice_address"]['reg_state_name'] = $state_name[0]->state_name;
-					$data["practice_address"]['reg_zip'] = $pa_row->zip;
-					$data["practice_address"]['reg_country_name'] = $country_name[0]->country_name;
+					$data["practice_address"]['reg_city'] 			= $pa_row->city;
+					$data["practice_address"]['reg_state'] 			= $pa_row->state;
+					$data["practice_address"]['reg_zip'] 			= $pa_row->zip;
+					$data["practice_address"]['reg_country_id'] 	= $pa_row->country_id;
+
+					//$data["practice_address"]['reg_city_name'] 		= (isset($city_name['city_name']))?$city_name['city_name']:"";
+					//$data["practice_address"]['reg_state_name'] 	= (isset($state_name['state_name']))?$state_name['state_name']:"";
+					//$data["practice_address"]['reg_country_name'] 	= (isset($country_name['country_name']))?$country_name['country_name']:"";
 				}
 				if ($pa_row->type == "physical") {
-					$data["practice_address"]['phy_address_id'] = $pa_row->address_id;
-					$data["practice_address"]['phy_practice_id'] = $pa_row->practice_id;
-					$data["practice_address"]['phy_type'] = $pa_row->type;
-					$data["practice_address"]['phy_attention'] = $pa_row->attention;
+					$data["practice_address"]['phy_address_id'] 	= $pa_row->address_id;
+					$data["practice_address"]['phy_practice_id'] 	= $pa_row->practice_id;
+					$data["practice_address"]['phy_type'] 			= $pa_row->type;
+					$data["practice_address"]['phy_attention'] 		= $pa_row->attention;
 					$data["practice_address"]['phy_street_address'] = $pa_row->street_address;
-					$data["practice_address"]['phy_city_id'] = $city_name[0]->city_id;
-					$data["practice_address"]['phy_city_name'] = $city_name[0]->city_name;
-					$data["practice_address"]['phy_state_id'] = $state_name[0]->state_id;
-					$data["practice_address"]['phy_state_name'] = $state_name[0]->state_name;
-					$data["practice_address"]['phy_zip'] = $pa_row->zip;
-					$data["practice_address"]['phy_country_name'] = $country_name[0]->country_name;
+					$data["practice_address"]['phy_city'] 			= $pa_row->city;
+					$data["practice_address"]['phy_state'] 			= $pa_row->state;
+					$data["practice_address"]['phy_zip'] 			= $pa_row->zip;
+					$data["practice_address"]['phy_country_id'] 	= $pa_row->country_id;
+
+					//$data["practice_address"]['phy_city_id'] = (isset($city_name['city_id']))?$city_name['city_id']:"";
+					//$data["practice_address"]['phy_city_name'] = (isset($city_name['city_name']))?$city_name['city_name']:"";
+					//$data["practice_address"]['phy_state_id'] = (isset($state_name['state_id']))?$state_name['state_id']:"";
+					//$data["practice_address"]['phy_state_name'] = (isset($state_name['state_name']))?$state_name['state_name']:"";
+					//$data["practice_address"]['phy_country_name'] = (isset($country_name['country_name']))?$country_name['country_name']:"";
 				}
 			}
+
+
+		/*	$viewToLoad = 'practice.excel';
+			$data["organization_type_name"] = OrganisationType::where("organisation_id", "=", $data["practice_details"]->organisation_type_id)->first();
+			//echo $this->last_query();die;
+			///////////  Start Generate and store excel file ////////////////////////////
+			Excel::create('practiceDetails', function ($excel) use ($data, $viewToLoad) {
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+				})->save();
+
+		}); */
+
+		///////////  End Generate and store excel file ////////////////////////////
+
 		}
-//print_r($data);
-		$pdf = PDF::loadView('practice.practice_details', $data);
+				
+        $pdf = PDF::loadView('practice.practicepdf', $data);
+        
 		return $pdf->download('practice_details.pdf');
 	}
 

@@ -806,6 +806,236 @@ class TimesheetController extends BaseController{
         $groupUserId = $session['group_users'];
         return View::make('staff.timesheet.demo',$data);
     }
+    
+    
+    public function timesheetpdf(){
+        
+        
+        //die('staffmanagement');
+        $data['heading'] = "TIME SHEET";
+        $data['title'] = "Time Sheet Reports";
+        //if (base64_decode($type) == 'profile') {
+        //    $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+      //  } else {
+       //     $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+       // }
+       // $data['staff_type'] = base64_decode($type);
+
+
+        $data['heading'] = "";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        //print_r($groupUserId);die();
+
+        $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id",
+            "=", 0)->select("user_id", "fname", "lname")->get();
+        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
+            get();
+        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
+            $groupUserId)->orderBy("vat_scheme_name")->get();
+
+        $data['allClients'] = App::make("HomeController")->get_all_clients();
+
+
+        $time_sheet_report = TimeSheetReport::whereIn("user_id", $groupUserId)->orderBy("created_date",
+            "desc")->get();
+        //echo $this->last_query();die();
+        if (!empty($time_sheet_report)) {
+            foreach ($time_sheet_report as $key => $val) {
+
+                $data2[$key]['timesheet_id'] = $val['timesheet_id'];
+                $data2[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
+                    select("user_id", "fname", "lname")->first();
+                $data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
+                    select("vat_scheme_name")->first();
+                //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
+                $data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
+                    where(function ($query)
+                {
+                    $query->where("field_name", "=", "business_name")->orWhere("field_name", "=",
+                        "client_name"); }
+                )->first();
+
+                //echo $this->last_query();
+                $data2[$key]['hrs'] = $val['hrs'];
+                $data2[$key]['notes'] = $val['notes'];
+                $data2[$key]['created_date'] = date("d-m-Y", strtotime($val['created_date']));
+            }
+            //echo $val;die();
+            if (!empty($data2)) {
+                $data['time_sheet_report'] = $data2;
+            }
+        }
+
+        $time_sheet_reportlmt = TimeSheetReport::whereIn("user_id", $groupUserId)->
+            orderBy("created_date", "desc")->take(90)->get();
+        //echo $this->last_query();die();
+        if (!empty($time_sheet_reportlmt)) {
+            foreach ($time_sheet_reportlmt as $key => $val) {
+
+                $data3[$key]['timesheet_id'] = $val['timesheet_id'];
+                $data3[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
+                    select("user_id", "fname", "lname")->first();
+                $data3[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
+                    select("vat_scheme_name")->first();
+                //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
+                $data3[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
+                    where(function ($query)
+                {
+                    $query->where("field_name", "=", "business_name")->orWhere("field_name", "=",
+                        "client_name"); }
+                )->first();
+
+                //echo $this->last_query();
+                $data3[$key]['hrs'] = $val['hrs'];
+                $data3[$key]['notes'] = $val['notes'];
+                $data3[$key]['created_date'] = date("d-m-Y", strtotime($val['created_date']));
+            }
+            //echo $val;die();
+            if (!empty($data3)) {
+                $data['time_sheet_reportlmt'] = $data3;
+            }
+        }
+
+
+        $pdf = PDF::loadView('staff/timesheet/timesheetpdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('timesheetpdf.pdf');
+
+       
+        
+        
+        
+    }
+    
+    
+    
+    public function timesheetexcel(){
+        
+        
+        
+        //die('staffmanagement');
+        $data['heading'] = "TIME SHEET";
+        $data['title'] = "Time Sheet Reports";
+        //if (base64_decode($type) == 'profile') {
+        //    $data['previous_page'] = '<a href="/staff-profile">Staff Profile</a>';
+      //  } else {
+       //     $data['previous_page'] = '<a href="/staff-management">Staff Management</a>';
+       // }
+       // $data['staff_type'] = base64_decode($type);
+
+
+        $data['heading'] = "";
+        $session = Session::get('admin_details');
+        $user_id = $session['id'];
+        $data['user_type'] = $session['user_type'];
+        $groupUserId = $session['group_users'];
+
+        //print_r($groupUserId);die();
+
+        $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id",
+            "=", 0)->select("user_id", "fname", "lname")->get();
+        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
+            get();
+        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
+            $groupUserId)->orderBy("vat_scheme_name")->get();
+
+        $data['allClients'] = App::make("HomeController")->get_all_clients();
+
+
+        $time_sheet_report = TimeSheetReport::whereIn("user_id", $groupUserId)->orderBy("created_date",
+            "desc")->get();
+        //echo $this->last_query();die();
+        if (!empty($time_sheet_report)) {
+            foreach ($time_sheet_report as $key => $val) {
+
+                $data2[$key]['timesheet_id'] = $val['timesheet_id'];
+                $data2[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
+                    select("user_id", "fname", "lname")->first();
+                $data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
+                    select("vat_scheme_name")->first();
+                //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
+                $data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
+                    where(function ($query)
+                {
+                    $query->where("field_name", "=", "business_name")->orWhere("field_name", "=",
+                        "client_name"); }
+                )->first();
+
+                //echo $this->last_query();
+                $data2[$key]['hrs'] = $val['hrs'];
+                $data2[$key]['notes'] = $val['notes'];
+                $data2[$key]['created_date'] = date("d-m-Y", strtotime($val['created_date']));
+            }
+            //echo $val;die();
+            if (!empty($data2)) {
+                $data['time_sheet_report'] = $data2;
+            }
+        }
+
+        $time_sheet_reportlmt = TimeSheetReport::whereIn("user_id", $groupUserId)->
+            orderBy("created_date", "desc")->take(90)->get();
+        //echo $this->last_query();die();
+        if (!empty($time_sheet_reportlmt)) {
+            foreach ($time_sheet_reportlmt as $key => $val) {
+
+                $data3[$key]['timesheet_id'] = $val['timesheet_id'];
+                $data3[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
+                    select("user_id", "fname", "lname")->first();
+                $data3[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
+                    select("vat_scheme_name")->first();
+                //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
+                $data3[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
+                    where(function ($query)
+                {
+                    $query->where("field_name", "=", "business_name")->orWhere("field_name", "=",
+                        "client_name"); }
+                )->first();
+
+                //echo $this->last_query();
+                $data3[$key]['hrs'] = $val['hrs'];
+                $data3[$key]['notes'] = $val['notes'];
+                $data3[$key]['created_date'] = date("d-m-Y", strtotime($val['created_date']));
+            }
+            //echo $val;die();
+            if (!empty($data3)) {
+                $data['time_sheet_reportlmt'] = $data3;
+            }
+        }
+
+
+        
+
+       
+   
+          $viewToLoad = 'staff/timesheet/timesheetexcel';
+			///////////  Start Generate and store excel file ////////////////////////////
+			Excel::create('timesheet_list', function ($excel) use ($data, $viewToLoad) {
+
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $viewToLoad) {
+					$sheet->loadView($viewToLoad)->with($data);
+				})->save();
+
+			});
+        
+        //
+        
+	   
+		$filepath = storage_path() . '/exports/timesheet_list.xls';
+		$fileName = 'timesheet_list.xls';
+		$headers = array(
+			'Content-Type: application/vnd.ms-excel',
+		);
+
+		return Response::download($filepath, $fileName, $headers);
+		exit;
+        
+        
+        
+        
+    }
 
 
 }

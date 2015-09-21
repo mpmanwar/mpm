@@ -14,13 +14,13 @@ class ContactsLettersEmailsController extends BaseController {
 	}
 	
 	public function index($step_id, $address_type)
-	{
+	{ 
 		$data = array();
 		$org_data 		= array();
 		$data['title'] 		= 'Contacts Letters & Emails';
-		$data['step_id'] 	= $step_id;
+	$data['step_id'] 	= $step_id;
 		$data['address_type'] 	= base64_decode($address_type);
-		$data['encoded_type'] 	= $address_type;
+		$data['encoded_type'] 	= $address_type; 
 		$data['heading'] 		= "CONTACTS, LETTERS & EMAILS";
 		$session 		= Session::get('admin_details');
 		$user_id 		= $session['id'];
@@ -376,6 +376,78 @@ class ContactsLettersEmailsController extends BaseController {
     	}else{
     		echo 0;die;
     	}
+    }
+    
+    
+    public function cletab1pdf(){
+         $step_id ="1";
+         $address_type="corres";
+		$data = array();
+		$org_data 		= array();
+		$data['title'] 		= 'Contacts Letters & Emails';
+		$data['step_id'] 	= $step_id;
+		$data['address_type'] 	= base64_decode($address_type);
+	 	$data['encoded_type'] 	= $address_type;
+		$data['heading'] 		= "CONTACTS, LETTERS & EMAILS";
+		$session 		= Session::get('admin_details');
+		$user_id 		= $session['id'];
+		$groupUserId 	= $session['group_users'];
+
+		if (empty($user_id)) {
+			return Redirect::to('/');
+		}
+		$org_count 		= 0;
+		$ind_count 		= 0;
+		$staff_count 	= 0;
+		$other_count 	= 0;
+
+		if($step_id == 1){
+			$org_details = Client::getAllOrgClientDetails();
+			if(isset($org_details) && count($org_details) >0){
+				foreach ($org_details as $key => $client_row) {
+					//$org_details[$key]['contact_name'] 	= $this->getContactNameDropdown($client_row);
+					$org_details[$key]['other_details'] = ContactAddress::getContactAddressByType($client_row['client_id'], $data['address_type']);
+					$org_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'org');
+
+					$org_count++;
+				}
+				$data['org_details'] = $org_details;
+			}
+		}else if($step_id == 2){
+			$ind_details = Client::getAllIndClientDetails();
+			if(isset($ind_details) && count($ind_details) >0){
+				foreach ($ind_details as $key => $client_row) {
+					$ind_details[$key]['notes']	= ContactsNote::getNotes($client_row['client_id'], 'ind');
+
+					$ind_count++;
+				}
+				$data['ind_details'] = $ind_details;
+			}
+		}else if($step_id == 3){
+			$data['staff_details'] = User::getAllStaffDetails();
+		}else if($step_id == 4){
+			$data['contact_details'] = ContactAddress::getAllContactDetails();
+		}else{
+			$data['group_details'] 	= ContactAddress::getGroupContactDetails($step_id);
+		}
+		
+
+		$data['steps'] = ContactsStep::getAllSteps($org_count, $ind_count, $staff_count, $other_count);
+		$data['countries'] 	= Country::orderBy('country_name')->get();
+		$data['address_types'] 	= AddressType::getAllAddressDetails();
+		$data['all_address'] 	= ContactAddress::getAllContactAddress();
+
+
+		//echo "<pre>";print_r($data['group_details']);echo "</pre>";die;
+	//	return View::make('contacts_letters.index', $data);
+        
+        $pdf = PDF::loadView('contacts_letters.tab1clelistpdf', $data);
+        
+		return $pdf->download('ContactsLetters_Emails.pdf');
+	
+        
+        
+        
     }
 
     
