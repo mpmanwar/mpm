@@ -29,13 +29,6 @@ $(".open_adddrop").click(function(event) {
     $("#idopen_dropdown_"+onboarding_id).toggle();
     event.stopPropagation();
 });
-//$(".opendropcal").click(function(event) {
-//    
-//    $("#idopen_dropdown").show();
-//      //alert('afaffaf')
-//      //$("#addeditshow").show();
-//});
-
 
  $(".open_calender_pop").click(function(){
        
