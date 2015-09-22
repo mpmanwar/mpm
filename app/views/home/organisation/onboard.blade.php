@@ -373,14 +373,14 @@ $('#calender_time').timepicki({
           <table width="100%" border="0" class="staff_holidays">
             <tr>
               <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="30%"><strong>On Boarding checklist</strong></td>
-    <td width="30%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30%"><strong>On Boarding checklist</strong></td>
+                    <td width="30%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
 
               </td>
             </tr>
