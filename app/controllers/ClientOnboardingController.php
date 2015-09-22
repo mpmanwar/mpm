@@ -182,6 +182,61 @@ class ClientOnboardingController extends BaseController {
         echo View::make('onboard.task_list', $details);
 
 	}
+
+	public function ajax_new_task()
+    {
+    	$data = array();
+    	$details = array();
+    	$session 		= Session::get('admin_details');
+        $user_id 		= $session['id'];
+        $groupUserId 	= $session['group_users'];
+        $client_id 		= Input::get('client_id');
+
+        $staff_details = User::getAllStaffDetails();
+        $i = 0;
+		foreach ($staff_details as $key => $staff) {
+            $name = "";
+            if (isset($staff['fname']) && $staff['fname'] != "") {
+                $name .= $staff['fname'];
+            }
+			if (isset($staff['lname'])) {
+                $name .= " ".$staff['lname'];
+            }
+
+            $data[$i]['owner_id'] = $staff['user_id'];
+            $data[$i]['contact_type'] = "staff";
+            $data[$i]['name'] = ucwords(strtolower($name));
+            $i++;
+		}
+
+		$client_details = Common::clientDetailsById($client_id);
+		foreach ($client_details as $key => $details) {
+            if (isset($details['corres_cont_name']) && $details['corres_cont_name'] != "") {
+                $data[$i]['owner_id'] = $client_id;
+                $data[$i]['contact_type'] = "corres";
+                $data[$i]['name'] = ucwords(strtolower($details['corres_cont_name']));
+            }
+			$i++;
+        }
+        $relayth_data = Common::get_relationship_client($client_id);
+        if (isset($relayth_data) && count($relayth_data) > 0) {
+            foreach ($relayth_data as $key => $value) {
+                $data[$i]['owner_id']       = $value['client_id'];
+                $data[$i]['contact_type']   = $value['client'];
+                $data[$i]['name']           = ucwords(strtolower($value['name']));
+                $i++;
+            }
+
+        }
+
+        $details['owner_list'] 		= $data;
+        $details['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+
+        //print_r($data);die;
+        echo View::make('onboard.add_new', $details);
+
+	}
     
     
     

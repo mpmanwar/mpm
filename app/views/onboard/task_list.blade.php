@@ -6,7 +6,7 @@
     </td>
     
     <td align="center">
-      <select class="form-control newdropdown status_dropdown" name="checklist_type[]" id="checklist_type">
+      <select class="form-control newdropdown status_dropdown" name="checklist_type" id="checklist_type">
         @if( isset($old_postion_types) && count($old_postion_types) >0 )
           @foreach($old_postion_types as $key=>$old_org_row)
             <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
@@ -23,7 +23,7 @@
     </td>
  
     <td align="center" id="ownerdrop">
-      <select class="form-control newdropdown status_dropdown" name="owner[]" id="owner">
+      <select class="form-control newdropdown status_dropdown" name="owner" id="owner">
         <option value="">None</option>
         @if(!empty($owner_list))
           @foreach($owner_list as $key=>$staff_row)
@@ -53,7 +53,7 @@
     </td>
 
     <td align="center">
-      <select class="form-control newdropdown status_dropdown" name="status[]" id="status">
+      <select class="form-control newdropdown status_dropdown" name="status" id="status">
         <option value="N">Not Started</option>
         <option value="D">Done</option>
         <option value="W">WIP</option>

@@ -461,6 +461,7 @@ Route::any('/indonboard', 'HomeController@indonboard');
 Route::any('/onboard', 'ClientOnboardingController@index');
 Route::any('/onboarding/insert-onboarding', 'ClientOnboardingController@insert_onboarding');
 Route::any('/onboarding/ajax-task-details', 'ClientOnboardingController@ajax_task_details');
+Route::any('/onboarding/ajax-new-task', 'ClientOnboardingController@ajax_new_task');
 /*================== Client Onboarding End ==============*/
 
 

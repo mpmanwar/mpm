@@ -1,3 +1,19 @@
+$(document).ready(function(){
+  $('.addnew_line').click(function() {
+      var client_id =$('c_id').val();
+      $.ajax({
+        type: "POST",
+        //url: '/client/getowner',
+        url: '/onboarding/ajax-new-task',
+        data: { 'client_id' : client_id },
+        success : function(resp){
+          $('#BoxTable > tbody:last-child').append(resp);
+          //var r = resp.split('|||');
+          //$("#ownerdrop").html(r[1]);
+        }
+      });
+  });
+});
 
 $(document).on("click", "#businessclient", function(event){
   $("#idopen_dropdown").hide();

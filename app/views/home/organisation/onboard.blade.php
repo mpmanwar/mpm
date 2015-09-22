@@ -67,7 +67,7 @@ $(function() {
 });
 
 $(function() {
-  var cloneCount = 0;
+  /*var cloneCount = 0;
   $('.addnew_line').click(function() {
 		var $newRow = $('#TemplateRow').clone(true);
 		$newRow.find('#checklist_type').val('');
@@ -79,7 +79,10 @@ $(function() {
 		$('#BoxTable tr:last').after($newRow);
 
 		return false;
-	});
+	});*/
+
+  
+
 });
         
 $('.DeleteBoxRow').click(function() {
@@ -410,7 +413,7 @@ $('#calender_time').timepicki({
             </tr>
           </table>
           <div class="save_btncon">
-            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
+            <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
           <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
             <div class="clearfix"></div>
             </div>
