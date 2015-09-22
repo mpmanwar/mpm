@@ -117,7 +117,7 @@ class HomeController extends BaseController {
 
 		$data['client_fields'] = ClientField::where("field_type", "=", "ind")->get();
 //die;
-		//print_r($data['client_details']);die;
+		echo '<pre>';print_r($data['client_details']);die;
 		return View::make('home.individual.individual_client', $data);
 	}
 
