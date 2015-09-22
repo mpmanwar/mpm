@@ -1419,7 +1419,7 @@ class ClientController extends BaseController
     }
 
 
-    public function getowner()
+    public function getowner1()
     {
 
         $data = $update = array();
