@@ -115,11 +115,13 @@ class ClientOnboardingController extends BaseController {
         //print_r($cid); die();
         foreach($checklist_type as $key=>$value){
             
-            $data['user_id']=$user_id;
-            $data['client_id']=$cid;
+            $data['user_id']	= $user_id;
+            $data['client_id']	= $cid;
             $data['check_list'] = $value;
             $data['task_owner'] = $owner[$key];
-            $data['status'] = $status[$key];
+            $data['status'] 	= $status[$key];
+            $data['added_date'] = date('Y-m-d H:i:s');
+            $data['added_time'] = time();
             $insert_id = ClientTaskDate::insertGetId($data);
         }
         
