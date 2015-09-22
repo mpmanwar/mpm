@@ -1,32 +1,30 @@
-<table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse;">
+<div class="col-4">
+        <h1 style="color:blue">{{ $title }}</h1>
+    </div>
+
+
+<table border="1" style="margin-bottom: 20px; border-collapse: collapse;">
     <thead>
         <tr>
             <th>Display Name</th>
             <th>Legal/Trading Name</th>
             <th>Registration Number</th>
             <th>Organisation Type</th>
-
             <th>Reg_Attention</th>
             <th>Reg_Street Address or PO Box</th>
             <th>Reg_Town/City</th>
             <th>Reg_State/Region</th>
             <th>Reg_Postal/Zip Code</th>
             <th>Reg_Country</th>
-
              <th>Phy_Attention</th>
             <th>Phy_Street Address or PO Box</th>
             <th>Phy_Town/City</th>
             <th>Phy_State/Region</th>
             <th>Phy_Postal/Zip Code</th>
             <th>Phy_Country</th>
-
             <th>Telephone</th>
-
             <th>Fax</th>
-
             <th>Mobile</th>
-
-
 
 
         </tr>

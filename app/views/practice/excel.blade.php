@@ -1,3 +1,7 @@
+<div class="col-4">
+        <h1 style="color:blue">{{ $title }}</h1>
+    </div>
+
 <table>
     <thead>
         <tr>

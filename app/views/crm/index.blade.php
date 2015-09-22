@@ -179,6 +179,34 @@ $(function() {
       "aaSorting": [[1, 'desc']]
     });
     
+    
+      $('#exampletab4').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+      "iDisplayLength": 25,
+
+      "aoColumns":[
+        
+        
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false}
+      ],
+      "aaSorting": [[1, 'desc']]
+    });
+    
     $('#example611').dataTable({
       "bPaginate": true,
       "bLengthChange": true,
@@ -867,7 +895,94 @@ $(function() {
 
 <!-- Tab 4 Start-->
   <div id="tab_4" class="tab-pane {{ ($page_open == 4)?'active':'' }}">
-  Tab 4
+  
+  
+   <div class="col_m2">
+   
+   <div class="import_fromch_main" style="width:52%; position: absolute; padding-top: 10px; left: 20%;">
+           
+            <div class="import_fromch" style=" margin-right: 42px;">
+              <a href="javascript:void(0)" class="import_fromch_link">SEND DIRECT DEBIT REQUEST</a>
+              
+             
+            </div>
+            
+            
+            <div class="import_fromch" style="float:right;">
+              <a href="javascript:void(0)" class="import_fromch_link">SYNC WITH XERO</a>
+              
+              
+            </div>
+             
+        </div>
+   
+   
+                                           
+                                            
+                                            <table width="100%" border="0" class="staff_holidays">
+                                              <tbody>
+                                               
+                                                <tr>
+                                                  
+                                                  
+                                                <table class="table table-bordered table-hover dataTable crm" id="exampletab4" aria-describedby="exampletab4_info">
+                                                  
+                                                      <thead>
+                                                        <tr>
+                                                        <td><input type="checkbox" name="" class="CheckallCheckbox" /></td>
+                                                          <td><strong>Account Ref</strong></td>
+                                                          <td align="center"><strong>Client Name</strong></td>
+                                                          <td align="center"><strong>Contact Name</strong></td>
+                                                          <td align="center"><strong>Email</strong></td>
+                                                          <td align="center"><strong class="collection_color">Ammount Due (&#163;)</strong></td>
+                                                          <td align="center"><strong>To be Collected (&#163;)</strong></td>
+                                                            <td align="center"><strong>Status</strong></td>
+                                                          <td align="center"><strong class="collection_color">Collection Date</strong></td>
+                                                          <td align="center"><strong>Notes</strong></td>
+                                                          
+                                                          
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                        
+                                                        <td> 
+                                                        <input type="checkbox" name="" class="CheckallCheckbox" /></td>
+                                                          <td>28-08-2015</td>
+                                                          <td>Business Name  Co Limited</td>
+                                                          <td align="center">&nbsp; </td>
+                                                          <td align="center">08-08-2015</td>
+                                         <td align="center"><a href="#" class="" data-toggle="modal" id=""  data-target="#amount_mdd">299.00</a></td>
+                                                          
+                                                          <td align="center"><a href="#">299.00</a></td>
+                                                          <td align="center" class="autho_color">Authorised</td>
+                                                         
+                                                          
+                                                          
+                                                          <td align="center">18-08-2015
+                                               <span class="glyphicon glyphicon-chevron-down open_adddrop" data-client_id="4" data-tab="21"></span>
+                                                          
+                                                          </td>
+                                                           
+                                                          <td align="center">
+                <a href="javascript:void(0)" class="notes_btn open_notes_popup" data-leads_id="33" data-tab="11"><span style="">notes</span></a>
+                                                          
+                                                          
+                                                          </td>
+                                                         
+                                                         
+                                                          
+                                  
+                                                        </tr>
+                                                       
+                                                      </tbody>
+                                                    </table></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+  
+  <!-- Tab 4 -->
   </div>
 <!-- Tab 4 End-->
 
@@ -2460,6 +2575,58 @@ $(function() {
 
 </div>
 
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal fade" id="amount_mdd" tabindex="" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"></h4>
+            <table class="table table-bordered " id="">
+            <tr>
+            <th>Collect?</th>
+            <th align="center"><strong>Invoice number</strong></th>
+            <th align="center"><strong>Description</strong></th>
+            <th align="center"><strong>Amount</strong></th>
+            <th align="center"><strong>Amount</strong></th>
+            </tr>
+          <tr>
+            <td><input type="checkbox" name="" class="CheckallCheckbox" /></td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="" class="CheckallCheckbox" /></td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+          <tr>
+            <td><button class="btn btn-info" data-id="" type="button">Save</button></td>
+            <td align="right"><strong>Total</strong></td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+            </table>
+                                                        
+                                                        
+        
+        <div class="clearfix"></div>
+      </div>
+    
+      <div class="modal-body" id="show_full_address">
+        
+      </div>
+    
+  </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 @stop
 
 

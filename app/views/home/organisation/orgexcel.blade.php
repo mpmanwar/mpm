@@ -1,3 +1,7 @@
+<div class="col-4">
+        <h1 style="color:blue">{{ $title or "" }}</h1>
+    </div>
+
 <table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse;">
       <input type="hidden" id="client_type" value="org"> 
         <thead>
@@ -13,6 +17,20 @@
                 <th>Vat number</th>
                 <th>VAT Stagger</th>
                 <th>Correspondence Address</th>
+                <th>reg_cont_name</th>
+                
+                <th>Account Office Reference</th>
+                <th>PAYE Reference</th>
+                <th>Employer Office</th>
+                 <th>Post Code</th>
+                 <th>Telephone</th>
+                <th>HMRC Log-in Details</th>
+                <th>Bank Name</th>
+                <th>Sort Code</th>
+                <th>Account Number</th>
+                <th>Marketing Source</th>
+                
+                
             </tr>
         </thead>
 
@@ -44,6 +62,19 @@
                     <td align="center">{{ isset($client_row['vat_number'])?$client_row['vat_number']:"" }}</td>
                     <td align="center">{{ $client_row['vat_stagger'] or "" }}</td>
                     <td align="left">{{ (strlen($client_row['corres_address']) > 48)? substr($client_row['corres_address'], 0, 45)."...": $client_row['corres_address'] }}</td>
+                <td align="center">{{ $client_row['reg_cont_name'] or "" }}</td>
+                
+                <td align="center">{{ $client_row['acc_office_ref'] or "" }}</td>
+                <td align="center">{{ $client_row['paye_reference'] or "" }}</td>
+                 <td align="center">{{ $client_row['employer_office'] or "" }}</td>
+                 <td align="center">{{ $client_row['employer_postcode'] or "" }}</td>
+                 <td align="center">{{ $client_row['employer_telephone'] or "" }}</td>
+                 <td align="center">{{ $client_row['hmrc_login_details'] or "" }}</td>
+                  <td align="center">{{ $client_row['bank_name'] or "" }}</td>
+                  <td align="center">{{ $client_row['bank_short_code'] or "" }}</td>
+                  <td align="center">{{ $client_row['bank_acc_no'] or "" }}</td>
+                  <td align="center">{{ $client_row['bank_mark_source'] or "" }}</td>
+              
                   </tr>
                 <?php $i++; ?>
               @endforeach
