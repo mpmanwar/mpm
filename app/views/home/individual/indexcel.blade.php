@@ -33,7 +33,7 @@
                 <th> Email</th>
                 <th> Website</th>
                 <th> Skype</th>
-                
+               
                 
                 
               </tr>
@@ -71,6 +71,8 @@
                     <td align="center">{{ $client_row['res_website'] or "" }}</td>
                     <td align="center">{{ $client_row['res_skype'] or "" }}</td>
                
+                  
+                 
                  
               
                   </tr>
