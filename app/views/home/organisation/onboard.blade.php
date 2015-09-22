@@ -1,132 +1,111 @@
 @extends('layouts.layout')
 
 @section('mycssfile')
+<link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<!-- Date picker script -->
+<link rel="stylesheet" href="{{ URL :: asset('css/jquery-ui.css') }}" />
+<!-- Date picker script -->
 
-    <link href="{{ URL :: asset('css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ URL :: asset('css/timepicki.css') }}" />
+<!-- Time picker script -->
+<link rel="stylesheet" href="{{ URL :: asset('css/timepicki.css') }}" />
+<!-- Time picker script -->
+
+<!-- Add To Calender Start -->
+<link href="{{ URL :: asset('css/atc-style-blue.css') }}" rel="stylesheet" type="text/css">
+<!-- Add To Calender End -->
 @stop
 
 @section('myjsfile')
 <script src="{{ URL :: asset('js/onboard.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/clients.js') }}" type="text/javascript"></script>
 <!-- DATA TABES SCRIPT -->
-<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+<script src="{{ URL :: asset('js/plugins/datatables/jquery.dataTables.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL :: asset('js/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+
+<!-- Date picker script -->
+<script src="{{ URL :: asset('js/jquery-ui.min.js') }}"></script>
+<!-- Date picker script -->
 
 <!-- Time picker script -->
 <script src="{{ URL :: asset('js/timepicki.js') }}"></script>
 <!-- Time picker script -->
 
-
-
-
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <script src="{{ URL :: asset('js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 
-<!-- Date picker script -->
-<script src="{{ URL :: asset('js/jquery-ui.min.js') }}"></script>
-<!-- Date picker script -->
 <!-- page script -->
 <script type="text/javascript">
 $(".made_up_date").datepicker({ minDate: new Date(1900, 12-1, 25), maxDate:0, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "-10:+10" });
 
 $(".addto_date").datepicker({ minDate: new Date(1900, 12-1, 25), dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true, yearRange: "-5:+100" });
 
-var oTable;
-
 $(function() {
-    oTable = $('#example2').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
-        "iDisplayLength": 50,
-        "aoColumns":[
-            {"bSortable": false},
-            {"bSortable": true},
-            {"bSortable": true},
-            //{"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": true},
-            {"bSortable": false},
-            {"bSortable": false},
-            {"bSortable": false},
-            //{"bSortable": false}
-        ]
+  $('#example2').dataTable({
+      "bPaginate": true,
+      "bLengthChange": true,
+      "bFilter": true,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false,
+      "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, 200]],
+      "iDisplayLength": 50,
+      "aoColumns":[
+        {"bSortable": false},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": true},
+        {"bSortable": false},
+        {"bSortable": false},
+        {"bSortable": false},
+      ],
+      "aaSorting": [[3, 'desc']]
 
-    });
-    oTable.fnSort( [ [3,'asc'] ] );
+  });
 
 });
+
 $(function() {
-var cloneCount = 0;
-   
-   
- 	
-    $('.addnew_line').click(function() {
-		
-				//alert('AAAAAAAAAAAA');	
-				
-				
-               // $(".dpick").datepicker("destroy");      
-				
-				
-				
-				var $newRow = $('#TemplateRow').clone(true);
-			
-            	//$newRow.find('#date_picker').val('');
-			//	$newRow.find('.dpick').val('');
-        		$newRow.find('#checklist_type').val('');
-                $newRow.find('#client_id').val('');
-				$newRow.find('#owner').val('');
-				$newRow.find('#frequency').val('');
-                $newRow.find('#status').val('');
-        		
-				var noOfDivs = $('.makeCloneClass').length + 1;
-				
-                // $newRow.find('input[type="text"]').attr('id', 'dpick'+ noOfDivs);
-			
-				$('#BoxTable tr:last').after($newRow);
-				//$(".dpick").datepicker({dateFormat: 'dd-mm-yy'});    
-				return false;
-			
-	})
-    	});
+  var cloneCount = 0;
+  $('.addnew_line').click(function() {
+		var $newRow = $('#TemplateRow').clone(true);
+		$newRow.find('#checklist_type').val('');
+    $newRow.find('#client_id').val('');
+		$newRow.find('#owner').val('');
+		$newRow.find('#frequency').val('');
+    $newRow.find('#status').val('');
+    var noOfDivs = $('.makeCloneClass').length + 1;
+		$('#BoxTable tr:last').after($newRow);
+
+		return false;
+	});
+});
         
 $('.DeleteBoxRow').click(function() {
-    
-    //find the closest parent row and remove it
-	var size = $(".DeleteBoxRow").size();
+  var size = $(".DeleteBoxRow").size();
 		if(size>1){
-        	$(this).closest('tr').remove();
+      $(this).closest('tr').remove();
 		}
-    });
+});
         
-        
-
-
 /*$(document).ready(function(){
   $("#archivedButton").click(function(){
         var oSettings = oTable.fnSettings();
         oSettings._iDisplayLength = -1;
         oTable.fnDraw();
   })
-})*/
+});*/
 
- $('#calender_time').timepicki({
-    show_meridian:false,
-    //min_hour_value:0,
-    max_hour_value:23,
-    //step_size_minutes:15,
-    //overflow_minutes:true,
-    increase_direction:'up',
-    //disable_keyboard_mobile: true
-  });
+$('#calender_time').timepicki({
+  show_meridian:false,
+  //min_hour_value:0,
+  max_hour_value:23,
+  //step_size_minutes:15,
+  //overflow_minutes:true,
+  increase_direction:'up',
+  //disable_keyboard_mobile: true
+});
 </script>
 
 @stop
@@ -157,30 +136,13 @@ $('.DeleteBoxRow').click(function() {
       <div class="row">
         <div class="top_bts">
           <ul>
-            <!-- <li>
-              <button class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            </li> -->
             <li>
               <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
             </li>
             <li>
               <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
             </li>
-          <!--  <li>
-              <a class="btn btn-danger sync_jobs_data" href="javascript:void(0)">SYNC DATA</a>
-            </li>
-            <li>
-              <button class="btn btn-info">ON-BOARD NEW CLIENT</button>
-            </li> -->
-            <!-- <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li> -->
-            <!-- <li>
-              <button class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
-            </li> -->
-            
-
-            <div class="clearfix"></div>
+          <div class="clearfix"></div>
           </ul>
         </div>
         <div id="message_div" style="margin-left: 700px;"><!-- Loader image show while sync data --></div>
@@ -189,75 +151,25 @@ $('.DeleteBoxRow').click(function() {
       </div>
       <div class="practice_mid">
         <form>
-          <!--<div class="row box_border2 row_cont">
- <div class="col-xs-12 col-xs-6 p_left">
- <h2 class="res_t">USERS <small>General Settings</small></h2>
-
- </div>
- <div class="col-xs-12 col-xs-6">
- <div class="setting_con">
- <button class="btn btn-success btn-lg"><i class="fa fa-cog fa-fw"></i>Settings</button>
- </div>
- </div>
- <div class="clearfix"></div>
-</div>-->
-          <!--<div class="add_usercon">
-<p><a href="#">What's this?</a></p>
-<button class="btn btn-success"><i class="fa fa-edit"></i> Add User</button>
-</div>-->
           <div class="tabarea">
             <div class="tab_topcon">
               <div class="top_bts" style="float:left;">
                 <ul style="padding:0;">
-                <!--   <li>
-                    <a href="/organisation/add-client" class="btn btn-info">+ CLIENT - KEY IN</a>
+                  <li>
+                    <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
                   </li>
-                  <li>
-                    <div class="import_fromch_main">
-                      <div class="import_fromch">
-                        <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
-                        <a href="javascript:void(0)" class="i_selectbox" id="select_icon"><img src="/img/arrow_icon.png"></a>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="i_dropdown open_toggle"><a href="/chdata/bulk-company-upload-page/{{ base64_encode('org_list') }}">BULK COMPANY UPLOAD</a></div>
-                    </div>
-
-
-                    <div class="import_fromch">
-                      <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="import_fromch_link">IMPORT FROM CH</a>
-                      <a href="/chdata/bulk-company-upload-page/{{ base64_encode('org_list') }}" class="i_selectbox"><img src="img/arrow_icon.png" /></a>
-                    </div> -->
-                    <!-- <a href="/import-from-ch/{{ base64_encode('org_list') }}" class="btn btn-info">IMPORT FROM CH</a> 
-                  </li>
-                  <li>
-                    <button type="button" class="btn btn-info">CSV IMPORT</button>
-                  </li>-->
-                  <li>
-              <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
-            </li>
-
-            
                   <div class="clearfix"></div>
                 </ul>
               </div>
               <div class="top_search_con">
                <div class="top_bts">
                 <ul style="padding:0;">
-                  
-                 <!-- <li style="margin-top: 8px;">
-                     <button type="button" id="show_search" class="btn btn-success">Search</button> 
-                    <?php $value = Session::get('show_archive');?>
-                    <a href="javascript:void(0)" id="archive_div">
-                      {{ (isset($value) && $value == "Y") ? "Show Archived Clients":"Hide Archived Clients" }}</a>
-                  </li>-->
                   <li>
                     <button type="button" id="" style="  width: 95px;" class="btn btn-warning">AML</button>
                   </li>
                   <li>
-                 <a href="/hmrc/authorisations" 
-                    <button type="button" id="" class="btn btn-info" style="width: 95px;">64-8</button></a>
+                    <a href="/hmrc/authorisations"  class="btn btn-info" style="width: 95px;">64-8</a>
                   </li>
-                  
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -288,60 +200,29 @@ $('.DeleteBoxRow').click(function() {
 
         <tbody role="alert" aria-live="polite" aria-relevant="all">
             @if(!empty($client_details))
-                <?php $i=1; ?>
-                @foreach($client_details as $key=>$client_row)
-                  <tr class="all_check" {{ ($client_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
-                   
-                   
-                   
-                    <td align="center">
-                      <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
-                    </td>
-                    
-                    
-                    
-                    
-                    <td align="center">
-              
-                <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}"  data-prev_date="{{ date('d-m-Y',strtotime($client_row['created'])) }}"> {{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
+              <?php $i=1; ?>
+              @foreach($client_details as $key=>$client_row)
+                <tr class="all_check" {{ ($client_row['show_archive'] == "Y")?'style="background:#ccc"':"" }}>
+                  <td align="center">
+                    <input type="checkbox" data-archive="{{ $client_row['show_archive'] }}" class="ads_Checkbox" name="client_delete_id[]" value="{{ $client_row['client_id'] or "" }}" />
+                  </td>
+                  <td align="center">
+                    <a href="javascript:void(0)" class="change_last_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}" id="3_dateanchore_{{ $key }}"  data-prev_date="{{ date('d-m-Y',strtotime($client_row['created'])) }}"> {{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
                 
-                <span class="3_save_made_span_{{ $key }}"  style="display:none;">
-                
-                
-                  <input type="text" class="made_up_date" id="3_made_up_date_{{ $key }}" />
-                  <a href="javascript:void(0)" class="search_t save_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Save</a>
-                  <a href="javascript:void(0)" class="search_t cancel_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Cancel</a>
-                </span>
-              </td>
-                    
-                    
-                   <!-- <td align="center">
-                    <a href="javascript:void(0)" class="change_last_date" >{{ date('d-m-Y',strtotime($client_row['created'])) }}</a>
-                    
-                    
-                   
                     <span class="3_save_made_span_{{ $key }}"  style="display:none;">
+                      <input type="text" class="made_up_date" id="3_made_up_date_{{ $key }}" />
+                        <a href="javascript:void(0)" class="search_t save_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Save</a>
+                        <a href="javascript:void(0)" class="search_t cancel_made_date" data-client_id="{{ $client_row['client_id'] or "" }}" data-tab="3" data-key="{{ $key }}">Cancel</a>
+                    </span>
+                  </td>
+                  
+                  @if( isset($client_row['business_type']))
+                  <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
+                  @endif
                     
-                     <input type="text" class="made_up_date" id="made_up_date" />
-                    
-                    
-                    
-                     <a href="javascript:void(0)" class="search_t save_made_date">Save</a>
-                  <a href="javascript:void(0)" class="search_t cancel_made_date" >Cancel</a>
-                   </span>
-                    </td> -->
-                    
-                     @if( isset($client_row['business_type']))
-                     <td align="center">{{ isset($client_row['business_type'])?$client_row['business_type']:"" }}</td>
-                    
-                    @endif
-                    
-                    
-                   
-                    @if( isset($client_row['client_name']))
-                      <td align="center">{{ isset($client_row['client_name'])?"Individual":"" }}</td>
-                    
-                    @endif
+                  @if( isset($client_row['client_name']))
+                    <td align="center">{{ isset($client_row['client_name'])?"Individual":"" }}</td>
+                  @endif
                     
                  <!--   <td align="center">{{ $client_row['registration_number'] or "" }}</td> -->
                     
@@ -375,20 +256,14 @@ $('.DeleteBoxRow').click(function() {
                     </td>
                     
                     <td align="center">
-                     @if( isset($client_row['corres_cont_telephone']))
-                    {{ isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"" }}
-                      @endif
+                    @if( isset($client_row['corres_cont_telephone']))
+                      {{ isset($client_row['corres_cont_telephone'])?$client_row['corres_cont_telephone']:"" }}
+                    @endif
+
                     @if( isset($client_row['res_telephone']))
-                    {{ isset($client_row['res_telephone'])?$client_row['res_telephone']:"" }}
-                      @endif
+                      {{ isset($client_row['res_telephone'])?$client_row['res_telephone']:"" }}
+                    @endif
                     
-                   
-                   <!--   @if( isset($client_row['deadret_count']) && $client_row['deadret_count'] == "OVER DUE" )
-                        <span style="color:red">{{ $client_row['deadret_count'] or "" }}</span>
-                      @else
-                         {{ $client_row['deadret_count'] or "" }}
-                      @endif
-                   -->
                     </td>
                   
                  
@@ -417,13 +292,7 @@ $('.DeleteBoxRow').click(function() {
                     
                     
                     <td align="center">
-                    
-                    <button class="notes_btn" data-cid="{{ $client_row['client_id'] }}" id="notesmodal"  ><span class="requ_t">notes</span></button>
-                    
-                    
-                    <!--
-                    {{ isset($client_row['tax_reference'])?$client_row['tax_reference']:"" }}
-                    -->
+                      <button class="notes_btn" data-cid="{{ $client_row['client_id'] }}" id="notesmodal"  ><span class="requ_t">notes</span></button>
                     </td>
                     
                     
@@ -507,7 +376,7 @@ $('.DeleteBoxRow').click(function() {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="30%"><strong>On Boarding checklist</strong></td>
-    <td width="30%"><strong>Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong>Days </strong></td>
+    <td width="30%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -517,152 +386,24 @@ $('.DeleteBoxRow').click(function() {
             </tr>
             <tr>
               <td valign="top">
-			  <?php 
-			  		
-					//echo '<pre>';
-					//print_r($staff_details);
-			  
-			  ?>
-              
-              
-              
-              
-              
-			   {{ Form::open(array('url' => '/insert-onboarding')) }}
+			  {{ Form::open(array('url' => '/onboarding/insert-onboarding')) }}
                
-              <table width="100%" class="table table-bordered" id="BoxTable">
+          <table width="100%" class="table table-bordered" id="BoxTable">
             <tbody>
               <!-- <tr class="table_heading_bg"> -->
               <input type="hidden" name="cid" id="c_id" value="">
               <tr>
                 <td width="5%" align="center"id="allCheckSelect"> Delete</td>
-                <td width="40%" align="center"><strong>Checklist</strong>
+                <td width="35%" align="center"><strong>Checklist</strong>
                 <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
                 </td>
-                <!--<td width="20%" align="center"><strong>Client</strong></td>-->
                 <td width="20%" align="center"><strong>Task Owner</strong>
                 </td>
-                <td width="15%" align="center"><strong>Task Date</strong></td>
+                <td width="20%" align="center"><strong>Task Date</strong></td>
                 <td width="20%" align="center"><strong>Status</strong></td>
               </tr>
               
-              
-              
-              <tr id="TemplateRow" class="makeCloneClass">
-              
-              
-              
-                <td align="center">
-                
-                <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
-                
-               <!-- <input type="checkbox" class="ads_Checkbox" name="client_delete_id[]" value="" /> -->
-                
-                </td>
-                
-                <td align="center">
-                
-                
-                
-                <select class="form-control newdropdown status_dropdown" name="checklist_type[]" id="checklist_type">
-                                           @if( isset($old_postion_types) && count($old_postion_types) >0 )
-                        @foreach($old_postion_types as $key=>$old_org_row)
-                        <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
-                        @endforeach
-                      @endif
-
-                      @if( isset($new_postion_types) && count($new_postion_types) >0 )
-                        @foreach($new_postion_types as $key=>$new_org_row)
-                        <option value="{{ $new_org_row->checklist_id }}">{{ $new_org_row->name }}</option>
-                        
-                        @endforeach
-                      @endif
-                                                      </select>
-                 
-                  </td>
-             
-                  
-                <td align="center" id="ownerdrop">
-                
-                  </td>
-                <td align="center" id="">
-                <div style="position: relative;" class="edit_cal">
-               
-              <a href=""><span id="frequency"></span> </a>
-              
-              <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
-               <span>
-               
-               </span>
-               
-                
-              <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
-                    <ul>
-
-                    <li><a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a></li>
-                   <li>
-                
-                <a href="javascript:void(0)" id="gocalender" class="" data-client_id="">Add to Calender</a>
-                   </li>
-                  </ul>
-                </div></div>
-                </td>
-                <td align="center">
-                
-                <select class="form-control newdropdown status_dropdown" name="status[]" id="status">
-                   <option value="notstarted">Not Started</option>
-                    <option value="done">Done</option>
-                    <option value="wip">WIP</option>
-                    <option value="na">N/A</option>
-                  </select>
-                
-                
-                </td>
-              </tr>
-              <!--<tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><input type="text" ></td>
-                <td align="center"><input type="text"></td>
-              </tr>-->
-              <!--<tr>
-                <td align="left"><a href="#"><img src="/img/cross_icon.png" width="15"></a> 19-08-2015</td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><select class="form-control">
-                    <option>wdfd wefwe</option>
-                    <option>wefew ewf</option>
-                    <option>wef werfg</option>
-                  </select></td>
-                <td align="center"><input type="text" ></td>
-                <td align="center"><input type="text"></td>
-              </tr>-->
-              <!-- <tr>
-                <td align="left" colspan="5"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add new line</p></button></td>
-                <td align="center"><button class="btn btn-primary">Submit</button></td>
-              </tr> -->
+            
             </tbody>
           </table>
               </td>

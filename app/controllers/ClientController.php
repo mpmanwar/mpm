@@ -1526,25 +1526,18 @@ class ClientController extends BaseController
         //
 
 
-        $created = Client::where('client_id', '=', $client_id)->select('created')->
-            first();
+        $created = Client::where('client_id', '=', $client_id)->select('created')->first();
 
         //echo
         $date_g = $created['created'];
         //die();
 
-        // print_r($data);
-        //print_r($data['name']);
-        //die();
-        //array_merge($a1,$a2)
         $update['client_id'] = $client_id;
         $update['taskdate'] = $date_g;
         $update['user_id'] = $user_id;
         
-        //$insert_id = Cleinttaskdate::insertGetId($update);
-
-    $arraydata=array();
-        $festchtask = Cleinttaskdate::where('client_id', '=', $client_id)->select('cleinttaskdate_id','user_id','client_id','taskdate','cteatedtaskdate','check_list','task_owner','status')-> get();
+        $arraydata=array();
+        $festchtask = ClientTaskDate::where('client_id', '=', $client_id)->select('cleinttaskdate_id','user_id','client_id','taskdate','cteatedtaskdate','check_list','task_owner','status')-> get();
         
        if (isset($festchtask) && count($festchtask) > 0) {
             foreach ($festchtask as $festchtaskdata) {
@@ -1566,14 +1559,8 @@ class ClientController extends BaseController
         } 
         //echo '<pre>';print_r($festchtask);die();
          
-        
-        
-        //$date_gtask = $created['taskdate'];die();
-
         echo View::make('home.organisation.ownerdropdown', $data)->with('data', $data)->with('date_g', $date_g);
-        //echo View::make('home.organisation.ownerdropdown',$data);
-
-
+    
     }
 
     public function onboardsnotes()
@@ -1712,30 +1699,7 @@ class ClientController extends BaseController
 
     }
     
-    public function insert_onboarding()
-    {
-        $data = array();
-         $session = Session::get('admin_details');
-        $user_id = $session['id'];
-        $checklist_type = Input::get('checklist_type');
-        $status = Input::get('status');
-        $owner = Input::get('owner');
-        $cid = Input::get('cid'); 
-       //echo $cid;die;
-        //print_r($cid); die();
-        foreach($checklist_type as $key=>$value){
-            
-            $data['user_id']=$user_id;
-            $data['client_id']=$cid;
-            $data['check_list'] = $value;
-            $data['task_owner'] = $owner[$key];
-            $data['status'] = $status[$key];
-            $insert_id = Cleinttaskdate::insertGetId($data);
-        }
-        
-        //print_r($cid);
-        return Redirect::to('/onboard');
-    }
+    
 
 
 
