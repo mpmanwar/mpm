@@ -1,49 +1,25 @@
 
 $(document).on("click", "#businessclient", function(event){
-    
-    
-$("#idopen_dropdown").hide();
+  $("#idopen_dropdown").hide();
    var client_id =$(event.target).attr("data-clientid");
-    console.log($(event.target).attr("data-clientid"));
-    
-    //var date= $(event.target).attr("data-date");
     
     //alert(date);return false;
     $("#clientspanid").html(client_id)
     $("#c_id").val(client_id)
-    
-    
-    //$("#frequency").html(date)
-    //$('#checklist-modal').modal('show');
     $("#hiddenclient").val($(event.target).attr("data-clientid"));
-    
-    console.log($(event.target).attr("data-businessname"));
     $("#businessname").html($(event.target).attr("data-businessname"));
         
-    
-    
-    
     $.ajax({
       type: "POST",
-      url: '/client/getowner',
-      data: { 'client_id':client_id },
+      //url: '/client/getowner',
+      url: '/onboarding/ajax-task-details',
+      data: { 'client_id' : client_id },
       success : function(resp){
-        
-        console.log(resp);
-           //return false;
-        
-        var r = resp.split('|||');
-        
-        $("#ownerdrop").html(r[1]);
-       //$("#frequency").html(r[0]);
-
+        $('#BoxTable > tbody:last-child').append(resp);
+        //var r = resp.split('|||');
+        //$("#ownerdrop").html(r[1]);
       }
     });
-        
-        
-        
-        
-        
 
 });
 
@@ -53,13 +29,6 @@ $(".open_adddrop").click(function(event) {
     $("#idopen_dropdown_"+onboarding_id).toggle();
     event.stopPropagation();
 });
-//$(".opendropcal").click(function(event) {
-//    
-//    $("#idopen_dropdown").show();
-//      //alert('afaffaf')
-//      //$("#addeditshow").show();
-//});
-
 
  $(".open_calender_pop").click(function(){
        

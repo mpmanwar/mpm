@@ -33,8 +33,6 @@ Route::any('/organisation-clients', array('as' => 'organisation-clients', 'uses'
 Route::get('/orgpdf', 'HomeController@orgpdf');
 Route::get('/download_orgexcel', 'HomeController@download_orgexcel');
 
-
-Route::any('/onboard', 'HomeController@onboard');
 Route::any('/client/onboard-client', 'ClientController@onboard_client');
 Route::any('/client/indonboard-client', 'ClientController@indonboard_client');
 
@@ -458,6 +456,11 @@ Route::any('/renewals', 'CrmController@renewals');
 Route::any('/inboxmail', 'CrmController@inboxmail');
 Route::any('/getmail', 'CrmController@getmail');
 Route::any('/indonboard', 'HomeController@indonboard');
-Route::any('/insert-onboarding', 'ClientController@insert_onboarding');
+
+/*================== Client Onboarding Start ==============*/
+Route::any('/onboard', 'ClientOnboardingController@index');
+Route::any('/onboarding/insert-onboarding', 'ClientOnboardingController@insert_onboarding');
+Route::any('/onboarding/ajax-task-details', 'ClientOnboardingController@ajax_task_details');
+/*================== Client Onboarding End ==============*/
 
 
