@@ -13,6 +13,26 @@ $(document).ready(function(){
         }
       });
   });
+
+  $(document).on("click", ".DeleteBoxRow", function(){
+    var cleinttaskdate_id = $(this).data('cleinttaskdate_id');
+    if(cleinttaskdate_id == 0){
+      $(this).closest("tr").remove();
+    }else{
+      $.ajax({
+        type: "POST",
+        url: '/onboarding/delete-task-details',
+        data: { 'cleinttaskdate_id' : cleinttaskdate_id },
+        success : function(resp){
+          $("#TemplateRow_"+cleinttaskdate_id).hide();
+        }
+      });
+      
+    }
+    
+      
+  });
+
 });
 
 $(document).on("click", "#businessclient", function(event){

@@ -66,40 +66,6 @@ $(function() {
 
 });
 
-$(function() {
-  /*var cloneCount = 0;
-  $('.addnew_line').click(function() {
-		var $newRow = $('#TemplateRow').clone(true);
-		$newRow.find('#checklist_type').val('');
-    $newRow.find('#client_id').val('');
-		$newRow.find('#owner').val('');
-		$newRow.find('#frequency').val('');
-    $newRow.find('#status').val('');
-    var noOfDivs = $('.makeCloneClass').length + 1;
-		$('#BoxTable tr:last').after($newRow);
-
-		return false;
-	});*/
-
-  
-
-});
-        
-$('.DeleteBoxRow').click(function() {
-  var size = $(".DeleteBoxRow").size();
-		if(size>1){
-      $(this).closest('tr').remove();
-		}
-});
-        
-/*$(document).ready(function(){
-  $("#archivedButton").click(function(){
-        var oSettings = oTable.fnSettings();
-        oSettings._iDisplayLength = -1;
-        oTable.fnDraw();
-  })
-});*/
-
 $('#calender_time').timepicki({
   show_meridian:false,
   //min_hour_value:0,
@@ -186,19 +152,18 @@ $('#calender_time').timepicki({
     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
       <input type="hidden" id="client_type" value="org"> 
         <thead>
-            <tr role="row">
-                <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
-                <td align="center">Join Date</td>
-                <td align="center">Client Type</td>
-                <td align="center">Client Name</td>
-                <td align="center">Contact Name</td>
-                <td align="center">% Completed</td>
-                <td align="center">Telephone</td>
-                <td align="center">Email</td>
-                <td align="center">Mobile</td>
-                <td align="center">Notes</td>
-                
-            </tr>
+          <tr role="row">
+            <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
+            <td align="center">Join Date</td>
+            <td align="center">Client Type</td>
+            <td align="center">Client Name</td>
+            <td align="center">Contact Name</td>
+            <td align="center">% Completed</td>
+            <td align="center">Telephone</td>
+            <td align="center">Email</td>
+            <td align="center">Mobile</td>
+            <td align="center">Notes</td>
+          </tr>
         </thead>
 
         <tbody role="alert" aria-live="polite" aria-relevant="all">

@@ -1,6 +1,6 @@
 <tr id="TemplateRow" class="makeCloneClass">
     <td align="center">
-      <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+      <a href="javascript:void(0)" class="DeleteBoxRow" data-cleinttaskdate_id="0"><img src="/img/cross.png"></a>
     </td>
     
     <td align="center">

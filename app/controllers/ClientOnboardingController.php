@@ -239,6 +239,13 @@ class ClientOnboardingController extends BaseController {
         echo View::make('onboard.add_new', $details);
 
 	}
+
+    public function delete_task_details()
+    {
+        $cleinttaskdate_id  = Input::get('cleinttaskdate_id');
+        $ret = ClientTaskDate::where('cleinttaskdate_id', '=', $cleinttaskdate_id)->delete();
+        echo $ret;
+    }
     
     
     

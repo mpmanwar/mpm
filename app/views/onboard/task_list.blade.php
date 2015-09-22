@@ -1,8 +1,8 @@
 @if(isset($task_details) && count($task_details) > 0)
   @foreach($task_details as $key=>$task_row)
-  <tr id="TemplateRow" class="makeCloneClass">
+  <tr id="TemplateRow_{{ $task_row['cleinttaskdate_id'] }}" class="makeCloneClass">
     <td align="center">
-      <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+      <a href="javascript:void(0)" class="DeleteBoxRow" data-cleinttaskdate_id="{{ $task_row['cleinttaskdate_id'] }}"><img src="/img/cross.png"></a>
     </td>
     
     <td align="center">
