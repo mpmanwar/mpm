@@ -899,8 +899,8 @@ $(function() {
   
    <div class="col_m2">
    
-   <div class="import_fromch_main" style="width:670px; padding-top: 10px; z-index: 99; margin: 0 0 0 16%;">
-           
+   <div class="import_fromch_main" style="width:670px; padding-top: 10px; z-index: 99; margin: 0 0 0 16%;"> 
+     <!--  <div class="import_fromch_main" style="width:670px; padding-top: 45px; position: absolute; bottom: 19px; height: 78px; left:4%; z-index: 99; margin: 0 0 0 16%;"> -->   
             <div class="import_fromch" style=" margin-right: 42px;">
               <a href="javascript:void(0)" class="import_fromch_link">SEND DIRECT DEBIT REQUEST</a>
               
