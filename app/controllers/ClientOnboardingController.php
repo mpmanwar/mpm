@@ -92,8 +92,8 @@ class ClientOnboardingController extends BaseController {
 		$data['client_fields'] 		= ClientField::where("field_type", "=", "org")->get();
 		$data['staff_details'] 		= User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
         $data['allClients'] 		= App::make('HomeController')->get_all_clients();
-    	//$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
-		//$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+    	$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 		//$data['task_details'] = ClientTaskDate::get_task_details();
 

@@ -362,6 +362,7 @@ $('#calender_time').timepicki({
               </td>
             </tr>
           </table>
+
           <div class="save_btncon">
             <!-- <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div> -->
           <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
@@ -371,6 +372,49 @@ $('#calender_time').timepicki({
         </div>
         
         {{ Form::close() }}
+        <div style="display:none;" id="new_row">
+          <table><tbody>
+            <tr id="TemplateRow_">
+              <td align="left" style="padding:0!important;"><p class="custom_chk"><input type="checkbox" data-checklist_id="" class="addto_task" id="addto_task" checked><label for="addto_task" style="width: 5px!important; margin: 1px 0 0 1px;">&nbsp;</label></p></td>
+              
+              <td align="left"></td>
+           
+              <td align="left" id="ownerdrop_ }}">
+                <select class="form-control newdropdown status_dropdown" name="owner" id="new_owner">
+                  <option value="">None</option>
+                  
+                </select>
+              </td>
+              <td align="left">
+                <div style="position: relative;" class="edit_cal">
+                  <a href=""><span id="frequency"></span> </a>
+                  <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
+                 <span></span>
+                  <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" id="gocalender" class="" data-client_id="">Add to Calender</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+
+              <td align="left" id="statusdrop_">
+                <select class="form-control newdropdown status_dropdown" name="status" id="status">
+                  <option value="N">Not Started</option>
+                  <option value="D">Done</option>
+                  <option value="W">WIP</option>
+                </select>
+              </td>
+
+            </tr>
+          </tbody>
+          </table>
+        </div>
       <!--</form>-->
     </div>
     <!-- /.modal-content -->
@@ -384,7 +428,7 @@ $('#calender_time').timepicki({
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD to List</h4>
+        <h4 class="modal-title">Add to List</h4>
         <div class="clearfix"></div>
       </div>
       <input type="hidden" id="hiddenclient" value="" />

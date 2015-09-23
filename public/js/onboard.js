@@ -78,33 +78,29 @@ $(".open_adddrop").click(function(event) {
         $("#addto_calender-modal").modal("show");
     });
 $("#add_position_type").click(function(){
-    
-                
-     var type_name      = $("#checklist").val();
-      var client_id      = $("#hiddenclient").val();
-     console.log($(event.target).attr("data-clientid"));
-    // var clientid = $("#businessclient").attr("data-clientid");
-    // $("#hiddenclient").val();
-    //alert(clientid);
+    var type_name      = $("#checklist").val();
+    var client_id      = $("#hiddenclient").val();
         
-        if(type_name !=""){
-            
-        
-    $.ajax({
-      type: "POST",
-      url: '/client/add-checklist',
-      data: { 'type_name':type_name, 'client_id':client_id },
-      success : function(field_id){
-        $("#checklist").val("");
-        //alert(field_id)
-       var append = '<div class="form-group" id="hide_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+type_name+'">'+type_name+'</label></div>';
-        $("#append_position_type").append(append);
+    if(type_name !=""){
+      $.ajax({
+        type: "POST",
+        url: '/client/add-checklist',
+        dataType:'json',
+        data: { 'type_name':type_name, 'client_id':client_id },
+        success : function(resp){
+          window.location.reload();
+          $("#checklist").val("");
+          //alert(field_id)
+          var append = '<div class="form-group" id="hide_div_'+resp['last_id']+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="'+resp['last_id']+'"><img src="/img/cross.png" width="12"></a>&nbsp;<label for="'+type_name+'">'+type_name+'</label></div>';
+          $("#append_position_type").append(append);
+          $("#checklist").html("");
 
-       $("#checklist").html("");
-        $("#checklist_type").append('<option value="'+field_id+'">'+type_name+'</option>'); 
+          var new_row = $('#new_row tbody').html();
+          $('#BoxTable > tbody:last-child').append(new_row);
 
-      }
-    });
+
+        }//BoxTable
+      });
     }
     
 });
