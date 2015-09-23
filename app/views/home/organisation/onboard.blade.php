@@ -66,37 +66,6 @@ $(function() {
 
 });
 
-$(function() {
-  var cloneCount = 0;
-  $('.addnew_line').click(function() {
-		var $newRow = $('#TemplateRow').clone(true);
-		$newRow.find('#checklist_type').val('');
-    $newRow.find('#client_id').val('');
-		$newRow.find('#owner').val('');
-		$newRow.find('#frequency').val('');
-    $newRow.find('#status').val('');
-    var noOfDivs = $('.makeCloneClass').length + 1;
-		$('#BoxTable tr:last').after($newRow);
-
-		return false;
-	});
-});
-        
-$('.DeleteBoxRow').click(function() {
-  var size = $(".DeleteBoxRow").size();
-		if(size>1){
-      $(this).closest('tr').remove();
-		}
-});
-        
-/*$(document).ready(function(){
-  $("#archivedButton").click(function(){
-        var oSettings = oTable.fnSettings();
-        oSettings._iDisplayLength = -1;
-        oTable.fnDraw();
-  })
-});*/
-
 $('#calender_time').timepicki({
   show_meridian:false,
   //min_hour_value:0,
@@ -183,19 +152,18 @@ $('#calender_time').timepicki({
     <table class="table table-bordered table-hover dataTable" id="example2" aria-describedby="example2_info">
       <input type="hidden" id="client_type" value="org"> 
         <thead>
-            <tr role="row">
-                <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
-                <td align="center">Join Date</td>
-                <td align="center">Client Type</td>
-                <td align="center">Client Name</td>
-                <td align="center">Contact Name</td>
-                <td align="center">% Completed</td>
-                <td align="center">Telephone</td>
-                <td align="center">Email</td>
-                <td align="center">Mobile</td>
-                <td align="center">Notes</td>
-                
-            </tr>
+          <tr role="row">
+            <td align="center"><input type="checkbox" id="allCheckSelect"/></td>
+            <td align="center">Join Date</td>
+            <td align="center">Client Type</td>
+            <td align="center">Client Name</td>
+            <td align="center">Contact Name</td>
+            <td align="center">% Completed</td>
+            <td align="center">Telephone</td>
+            <td align="center">Email</td>
+            <td align="center">Mobile</td>
+            <td align="center">Notes</td>
+          </tr>
         </thead>
 
         <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -359,17 +327,17 @@ $('#calender_time').timepicki({
         
 <!-- -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:80%;">
+  <div class="modal-dialog" style="width:70%;">
     <div class="modal-content">
-      <!--<div class="modal-header">
+      <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD COURSE</h4>
+        <h4 class="modal-title"><p id="businessname" align="center" style="margin: 0px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p></h4>
         <div class="clearfix"></div>
-      </div>-->
+      </div>
       <!--<form action="#" method="post">-->
-      <p id="businessname" align="center" style="margin: 17px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p>
+      
       <div class="modal-body">
-          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          
           <table width="100%" border="0" class="staff_holidays">
             <tr>
               <td>
@@ -386,31 +354,16 @@ $('#calender_time').timepicki({
             </tr>
             <tr>
               <td valign="top">
-			  {{ Form::open(array('url' => '/onboarding/insert-onboarding')) }}
-               
-          <table width="100%" class="table table-bordered" id="BoxTable">
-            <tbody>
-              <!-- <tr class="table_heading_bg"> -->
-              <input type="hidden" name="cid" id="c_id" value="">
-              <tr>
-                <td width="5%" align="center"id="allCheckSelect"> Delete</td>
-                <td width="35%" align="center"><strong>Checklist</strong>
-                <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
-                </td>
-                <td width="20%" align="center"><strong>Task Owner</strong>
-                </td>
-                <td width="20%" align="center"><strong>Task Date</strong></td>
-                <td width="20%" align="center"><strong>Status</strong></td>
-              </tr>
-              
-            
-            </tbody>
-          </table>
+      			  {{ Form::open(array('url' => '/onboarding/insert-onboarding')) }}
+                <input type="hidden" name="cid" id="c_id" value="">     
+                <table width="100%" class="table table-bordered" id="BoxTable">
+                  
+                </table>
               </td>
             </tr>
           </table>
           <div class="save_btncon">
-            <div class="left_side"><button class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
+            <!-- <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div> -->
           <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
             <div class="clearfix"></div>
             </div>

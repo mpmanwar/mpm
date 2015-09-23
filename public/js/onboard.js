@@ -1,12 +1,57 @@
+$(document).ready(function(){
+
+  $('#BoxTable').on('click', '.addto_task', function(event){
+    var checklist_id = $(this).data('checklist_id');
+      if($(this).is(':checked')){
+          $('#ownerdrop_'+checklist_id+' select').removeAttr("disabled");
+          $('#statusdrop_'+checklist_id+' select').removeAttr("disabled");
+      } else {
+          $('#ownerdrop_'+checklist_id+' select').attr("disabled","disabled");
+          $('#statusdrop_'+checklist_id+' select').attr("disabled","disabled");
+      }
+    
+  });
+
+  $('.addnew_line').click(function() {
+      var client_id =$('#c_id').val();
+      $.ajax({
+        type: "POST",
+        //url: '/client/getowner',
+        url: '/onboarding/ajax-new-task',
+        data: { 'client_id' : client_id },
+        success : function(resp){
+          $('#BoxTable > tbody:last-child').append(resp);
+          //var r = resp.split('|||');
+          //$("#ownerdrop").html(r[1]);
+        }
+      });
+  });
+
+  $(document).on("click", ".DeleteBoxRow", function(){
+    var cleinttaskdate_id = $(this).data('cleinttaskdate_id');
+    if(cleinttaskdate_id == 0){
+      $(this).closest("tr").remove();
+    }else{
+      $.ajax({
+        type: "POST",
+        url: '/onboarding/delete-task-details',
+        data: { 'cleinttaskdate_id' : cleinttaskdate_id },
+        success : function(resp){
+          $("#TemplateRow_"+cleinttaskdate_id).hide();
+        }
+      });
+      
+    }
+  });
+
+});
 
 $(document).on("click", "#businessclient", function(event){
   $("#idopen_dropdown").hide();
-   var client_id =$(event.target).attr("data-clientid");
-    
-    //alert(date);return false;
+    var client_id =$(this).data("clientid");
     $("#clientspanid").html(client_id)
     $("#c_id").val(client_id)
-    $("#hiddenclient").val($(event.target).attr("data-clientid"));
+    $("#hiddenclient").val(client_id);
     $("#businessname").html($(event.target).attr("data-businessname"));
         
     $.ajax({
@@ -15,9 +60,7 @@ $(document).on("click", "#businessclient", function(event){
       url: '/onboarding/ajax-task-details',
       data: { 'client_id' : client_id },
       success : function(resp){
-        $('#BoxTable > tbody:last-child').append(resp);
-        //var r = resp.split('|||');
-        //$("#ownerdrop").html(r[1]);
+        $('#BoxTable').html(resp);
       }
     });
 

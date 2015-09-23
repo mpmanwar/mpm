@@ -1,29 +1,24 @@
-@if(isset($task_details) && count($task_details) > 0)
-  @foreach($task_details as $key=>$task_row)
-  <tr id="TemplateRow" class="makeCloneClass">
-    <td align="center">
-      <a href="javascript:void(0)" class="delete_single_task DeleteBoxRow" data-client_id="" data-tab=""><img src="/img/cross.png"></a>
+<tbody>
+  <tr>
+    <td width="5%" align="left">&nbsp;</td>
+    <td width="30%" align="left"><strong>Checklist</strong>
+    <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
     </td>
-    
-    <td align="center">
-      <select class="form-control newdropdown status_dropdown" name="checklist_type[]" id="checklist_type">
-        @if( isset($old_postion_types) && count($old_postion_types) >0 )
-          @foreach($old_postion_types as $key=>$old_org_row)
-            <option value="{{ $old_org_row->checklist_id }}">{{ $old_org_row->name }}</option>
-            @endforeach
-          @endif
+    <td width="23%" align="left"><strong>Task Owner</strong></td>
+    <td width="20%" align="left"><strong>Task Date</strong></td>
+    <td width="22%" align="left"><strong>Status</strong></td>
+    <!-- <td width="5%" align="left">Delete</td> -->
+  </tr>
 
-        @if( isset($new_postion_types) && count($new_postion_types) >0 )
-          @foreach($new_postion_types as $key=>$new_org_row)
-          <option value="{{ $new_org_row->checklist_id }}">{{ $new_org_row->name }}</option>
-          
-          @endforeach
-        @endif
-      </select>
-    </td>
+@if(isset($check_list) && count($check_list) > 0)
+  @foreach($check_list as $key=>$check_row)
+  <tr id="TemplateRow_{{ $check_row['checklist_id'] }}">
+    <td align="left"><p class="custom_chk"><input type="checkbox" data-checklist_id="{{ $check_row['checklist_id'] }}" class="addto_task" id='addto_task{{ $check_row['checklist_id'] }}' checked><label for="addto_task{{ $check_row['checklist_id'] }}" style="width: 5px!important; margin: 1px 0 0 1px;">&nbsp;</label></p></td>
+    
+    <td align="left">{{ $check_row['name'] or "" }}</td>
  
-    <td align="center" id="ownerdrop">
-      <select class="form-control newdropdown status_dropdown" name="owner[]" id="owner">
+    <td align="left" id="ownerdrop_{{ $check_row['checklist_id'] }}">
+      <select class="form-control newdropdown status_dropdown" name="owner" id="owner">
         <option value="">None</option>
         @if(!empty($owner_list))
           @foreach($owner_list as $key=>$staff_row)
@@ -32,13 +27,11 @@
         @endif
       </select>
     </td>
-    <td align="center" id="">
+    <td align="left">
       <div style="position: relative;" class="edit_cal">
         <a href=""><span id="frequency"></span> </a>
         <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
-       <span>
-       
-       </span>
+       <span></span>
         <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
           <ul>
             <li>
@@ -52,14 +45,19 @@
       </div>
     </td>
 
-    <td align="center">
-      <select class="form-control newdropdown status_dropdown" name="status[]" id="status">
+    <td align="left" id="statusdrop_{{ $check_row['checklist_id'] }}">
+      <select class="form-control newdropdown status_dropdown" name="status" id="status">
         <option value="N">Not Started</option>
         <option value="D">Done</option>
         <option value="W">WIP</option>
       </select>
     </td>
 
+    <!-- <td align="left">
+      <a href="javascript:void(0)" class="DeleteBoxRow" data-checklist_id="{{ $check_row['checklist_id'] }}"><img src="/img/cross.png"></a>
+    </td> -->
+
   </tr>
   @endforeach
   @endif
+  </tbody>
