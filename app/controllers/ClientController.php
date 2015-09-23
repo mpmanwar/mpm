@@ -1372,7 +1372,7 @@ class ClientController extends BaseController
 
     public function add_checklist()
     {
-
+        $rt_data = array();
         $session_data = Session::get('admin_details');
         $user_id = $session_data['id'];
 
@@ -1381,7 +1381,9 @@ class ClientController extends BaseController
         $data['user_id'] = $user_id;
         $data['status'] = "new";
         $insert_id = Checklist::insertGetId($data);
-        echo $insert_id;
+        $rt_data['last_id'] = $insert_id;
+        $rt_data['owner_list'] = App::make('ClientOnboardingController')->get_owner_list($data['client_id']);
+        echo json_encode($rt_data);
         exit();
         //return Redirect::to('/organisation/add-client');
 

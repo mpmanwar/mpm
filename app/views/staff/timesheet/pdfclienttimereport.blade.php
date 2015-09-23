@@ -80,7 +80,7 @@
 
     <td width="14%"><strong>Date To :</strong></td>
 
-    <td width="46%">{{$to}}</td>
+    <td width="46%">{{$to}}</td> 
 
     <td width="20%"> <strong>Client</strong></td>
 

@@ -127,6 +127,9 @@ $('#calender_time').timepicki({
                   <li>
                     <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
                   </li>
+                  <li>
+                    <a href="javascript:void(0)" id="positionopen" class="btn btn-info">Onboarding Checklist</a>
+                  </li>
                   <div class="clearfix"></div>
                 </ul>
               </div>
@@ -198,7 +201,7 @@ $('#calender_time').timepicki({
                     @if( isset($client_row['business_name']))
                     
                     
-                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-date="{{ date('d-m-Y',strtotime($client_row['created'])) }}" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>          
+                    <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-date="{{ date('d-m-Y',strtotime($client_row['created'])) }}" data-businessname="{{$client_row['business_name']}}" data-clientid= "{{ $client_row['client_id'] }}">{{ isset($client_row['business_name'])?$client_row['business_name']:"" }}</a></td>          
                      @endif
                      @if( isset($client_row['client_name']))
                      <td align="left"><a href="#" data-toggle="modal" id="businessclient" data-date="{{ date('d-m-Y',strtotime($client_row['created'])) }}" data-businessname="{{$client_row['client_name']}}" data-clientid= "{{ $client_row['client_id'] }}" data-target="#compose-modal">{{ isset($client_row['client_name'])?$client_row['client_name']:"" }}</a></td>
@@ -343,9 +346,9 @@ $('#calender_time').timepicki({
               <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td width="30%"><strong>On Boarding checklist</strong></td>
-                    <td width="30%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
-                    <td>&nbsp;</td>
+                    <td width="30%"><strong>On Boarding Checklist</strong></td>
+                    <td width="20%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
+                    <td><!-- <input type="checkbox" class="onboard_autosend" value="1"> --></td>
                     <td>&nbsp;</td>
                   </tr>
                 </table>
@@ -362,6 +365,7 @@ $('#calender_time').timepicki({
               </td>
             </tr>
           </table>
+
           <div class="save_btncon">
             <!-- <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div> -->
           <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
@@ -379,12 +383,12 @@ $('#calender_time').timepicki({
 </div>  
 
  <!-- Client -->
-			<div class="modal fade" id="checklist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="checklist-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" style="width:430px; ">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD to List</h4>
+        <h4 class="modal-title">Add to List</h4>
         <div class="clearfix"></div>
       </div>
       <input type="hidden" id="hiddenclient" value="" />
@@ -392,6 +396,12 @@ $('#calender_time').timepicki({
    {{ Form::open(array('url' => '/client/add-checklist', 'id'=>'field_form')) }}
     <input type="hidden" name="client_type" value="org">
     <div class="modal-body">
+      <div id="add_to_msg" style="text-align:center;"><!-- Loader show --></div>
+      <div class="form-group" style="float:right">
+        <button type="button" class="btn btn-info pull-left save_t" data-client_type="org" id="add_position_type" name="save">ADD</button>
+        <div class="clearfix"></div>
+      </div>
+
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="checklist" id="checklist" placeholder="Checklist" class="form-control">
@@ -416,15 +426,12 @@ $('#calender_time').timepicki({
       @endif
       </div>
      
-      <div class="modal-footer1 clearfix">
+      <!-- <div class="modal-footer1 clearfix">
         <div class="email_btns">
-         
-          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">Save</button>
-          
-          
+          <button type="button" class="btn btn-primary pull-left save_t" data-client_type="org" id="add_position_type" name="save">ADD</button>
           <button type="button" class="btn btn-danger pull-left save_t2" data-dismiss="modal">Cancel</button>
         </div>
-      </div>
+      </div> -->
     </div>
     {{ Form::close() }} 
   </div>

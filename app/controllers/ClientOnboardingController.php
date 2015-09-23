@@ -66,7 +66,7 @@ class ClientOnboardingController extends BaseController {
                         
                         
                            
-       				$sql = "SELECT ((SELECT COUNT(*) FROM client_task_dates WHERE client_id = $client_id->client_id AND user_id = $user_id AND status = 'done') /(SELECT COUNT(*) FROM client_task_dates WHERE client_id = '$client_id->client_id' AND user_id = $user_id)) * 100 AS avg FROM `client_task_dates` WHERE client_id = $client_id->client_id GROUP BY client_id";
+       				$sql = "SELECT ((SELECT COUNT(*) FROM client_task_dates WHERE client_id = $client_id->client_id AND user_id = $user_id AND status = 'D') /(SELECT COUNT(*) FROM client_task_dates WHERE client_id = '$client_id->client_id' AND user_id = $user_id)) * 100 AS avg FROM `client_task_dates` WHERE client_id = $client_id->client_id GROUP BY client_id";
          
 			        $result = DB::select(DB::raw($sql));
 				        if(isset($result[0]->avg)) {
@@ -92,8 +92,8 @@ class ClientOnboardingController extends BaseController {
 		$data['client_fields'] 		= ClientField::where("field_type", "=", "org")->get();
 		$data['staff_details'] 		= User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
         $data['allClients'] 		= App::make('HomeController')->get_all_clients();
-    	//$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
-		//$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+    	$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
 		//$data['task_details'] = ClientTaskDate::get_task_details();
 
@@ -108,22 +108,25 @@ class ClientOnboardingController extends BaseController {
         $data 		= array();
         $session 	= Session::get('admin_details');
         $user_id 	= $session['id'];
-        $checklist_type = Input::get('checklist_type');
+        $groupUserId = $session['group_users'];
+        $addto_task = Input::get('addto_task');
         $status 	= Input::get('status');
         $owner 		= Input::get('owner');
         $cid 		= Input::get('cid'); 
        //echo $cid;die;
-        //print_r($cid); die();
-        foreach($checklist_type as $key=>$value){
-            
-            $data['user_id']	= $user_id;
-            $data['client_id']	= $cid;
-            $data['check_list'] = $value;
-            $data['task_owner'] = $owner[$key];
-            $data['status'] 	= $status[$key];
-            $data['added_date'] = date('Y-m-d H:i:s');
-            $data['added_time'] = time();
-            $insert_id = ClientTaskDate::insertGetId($data);
+        //print_r($addto_task); die();
+        if(isset($addto_task) && count($addto_task) >0){
+            ClientTaskDate::whereIn('user_id', $groupUserId)->where('client_id', '=', $cid)->delete();
+            foreach($addto_task as $key=>$value){
+                $data['user_id']	= $user_id;
+                $data['client_id']	= $cid;
+                $data['check_list'] = $value;
+                $data['task_owner'] = $owner[$key];
+                $data['status'] 	= $status[$key];
+                $data['added_date'] = date('Y-m-d H:i:s');
+                $data['added_time'] = time();
+                $insert_id = ClientTaskDate::insertGetId($data);
+            }
         }
         
         //print_r($cid);
@@ -175,6 +178,7 @@ class ClientOnboardingController extends BaseController {
     public function ajax_task_details()
     {
     	$data = array();
+        $task_data = array();
     	$session 		= Session::get('admin_details');
         $user_id 		= $session['id'];
         $groupUserId 	= $session['group_users'];
@@ -185,8 +189,13 @@ class ClientOnboardingController extends BaseController {
         //$details['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
 		//$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
         $data['check_list']  = Checklist::get_checklist();
-
-        //print_r($data);die;
+        if(isset($data['check_list']) && count($data['check_list']) >0){
+            foreach ($data['check_list'] as $key => $value) {
+                $data['check_list'][$key]['task_details'] = ClientTaskDate::get_task_by_client($client_id, $value['checklist_id']);
+            }
+        }
+        //$data['check_list'] = $task_data;
+        //print_r($data['check_list']);die;
         echo View::make('onboard.task_list', $data);
 
 	}
