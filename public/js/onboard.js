@@ -59,7 +59,12 @@ $(document).on("click", "#businessclient", function(event){
       //url: '/client/getowner',
       url: '/onboarding/ajax-task-details',
       data: { 'client_id' : client_id },
-      success : function(resp){
+      beforeSend: function() {
+        $('#compose-modal').modal('show');
+        $("#BoxTable").html('<img src="/img/spinner.gif" style="margin-left:450px" />');
+      },
+      success : function(resp){//return false;
+        $("#BoxTable").html('');
         $('#BoxTable').html(resp);
       }
     });
@@ -110,8 +115,8 @@ $("#add_position_type").click(function(){
 
 $("#positionopen").click(function(){
     $("#checklist").html("");
-    
-   });
+    $('#checklist-modal').modal('show');
+});
     
 
 $("#append_position_type").on("click", ".delete_checklist_name", function(){

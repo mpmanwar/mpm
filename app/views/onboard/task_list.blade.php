@@ -2,8 +2,8 @@
   <tr>
     <td width="5%" align="left">&nbsp;</td>
     <td width="30%" align="left"><strong>Checklist</strong>
-    <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
-    </td>
+    <!-- <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
+    </td> -->
     <td width="23%" align="left"><strong>Task Owner</strong></td>
     <td width="20%" align="left"><strong>Task Date</strong></td>
     <td width="22%" align="left"><strong>Status</strong></td>
