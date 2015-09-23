@@ -22,5 +22,24 @@ class ClientTaskDate extends Eloquent{
 		return $data;
 	}
 
+	public static function get_task_by_client($client_id, $checklist_id)
+	{
+		$data = array();
+		$value = ClientTaskDate::where('client_id', '=', $client_id)->where('check_list', '=', $checklist_id)->first();
+		if(isset($value) && count($value) >0){
+			//foreach ($details as $key => $value) {
+				$data['cleinttaskdate_id']= $value->cleinttaskdate_id;
+				$data['user_id'] 			= $value->user_id;
+				$data['client_id'] 		= $value->client_id;
+				$data['taskdate'] 		= $value->taskdate;
+				$data['cteatedtaskdate'] 	= $value->cteatedtaskdate;
+				$data['check_list'] 		= $value->check_list;
+				$data['task_owner'] 		= $value->task_owner;
+				$data['status'] 			= $value->status;
+			//}
+		}
+		return $data;
+	}
+
 
 }

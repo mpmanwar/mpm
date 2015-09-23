@@ -87,16 +87,19 @@ $("#add_position_type").click(function(){
         url: '/client/add-checklist',
         dataType:'json',
         data: { 'type_name':type_name, 'client_id':client_id },
+        beforeSend: function() {
+          $("#add_to_msg").html('<img src="/img/spinner.gif" />');
+        },
         success : function(resp){
           window.location.reload();
           $("#checklist").val("");
           //alert(field_id)
           var append = '<div class="form-group" id="hide_div_'+resp['last_id']+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_checklist_name" data-field_id="'+resp['last_id']+'"><img src="/img/cross.png" width="12"></a>&nbsp;<label for="'+type_name+'">'+type_name+'</label></div>';
-          $("#append_position_type").append(append);
+          //$("#append_position_type").append(append);
           $("#checklist").html("");
 
           var new_row = $('#new_row tbody').html();
-          $('#BoxTable > tbody:last-child').append(new_row);
+          //$('#BoxTable > tbody:last-child').append(new_row);
 
 
         }//BoxTable
@@ -112,21 +115,20 @@ $("#positionopen").click(function(){
     
 
 $("#append_position_type").on("click", ".delete_checklist_name", function(){
-    
- 
   var field_id = $(this).data('field_id');
-  
-  //alert(field_id);return false;
-  
   if (confirm("Do you want to delete this field ?")) {
     $.ajax({
       type: "POST",
       //dataType: "json",
       url: '/delete-checklist-type',
       data: { 'field_id' : field_id },
-      success : function(resp){//console.log(resp);return false;
+      beforeSend: function() {
+        $("#add_to_msg").html('<img src="/img/spinner.gif" />');
+      },
+      success : function(resp){
+        //return false;
         if(resp != ""){
-          //location.reload();
+          window.location.reload();
           $("#hide_div_"+field_id).hide();
           
           $("#checklist_type option[value='"+field_id+"']").remove();

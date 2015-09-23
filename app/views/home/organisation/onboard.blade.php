@@ -372,7 +372,7 @@ $('#calender_time').timepicki({
         </div>
         
         {{ Form::close() }}
-        <div style="display:none;" id="new_row">
+        <!-- <div style="display:none;" id="new_row">
           <table><tbody>
             <tr id="TemplateRow_">
               <td align="left" style="padding:0!important;"><p class="custom_chk"><input type="checkbox" data-checklist_id="" class="addto_task" id="addto_task" checked><label for="addto_task" style="width: 5px!important; margin: 1px 0 0 1px;">&nbsp;</label></p></td>
@@ -402,7 +402,7 @@ $('#calender_time').timepicki({
                   </div>
                 </div>
               </td>
-
+        
               <td align="left" id="statusdrop_">
                 <select class="form-control newdropdown status_dropdown" name="status" id="status">
                   <option value="N">Not Started</option>
@@ -410,11 +410,11 @@ $('#calender_time').timepicki({
                   <option value="W">WIP</option>
                 </select>
               </td>
-
+        
             </tr>
           </tbody>
           </table>
-        </div>
+        </div> -->
       <!--</form>-->
     </div>
     <!-- /.modal-content -->
@@ -436,6 +436,7 @@ $('#calender_time').timepicki({
    {{ Form::open(array('url' => '/client/add-checklist', 'id'=>'field_form')) }}
     <input type="hidden" name="client_type" value="org">
     <div class="modal-body">
+      <div id="add_to_msg" style="text-align:center;"><!-- Loader show --></div>
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="checklist" id="checklist" placeholder="Checklist" class="form-control">
