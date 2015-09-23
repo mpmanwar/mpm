@@ -346,9 +346,9 @@ $('#calender_time').timepicki({
               <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td width="30%"><strong>On Boarding checklist</strong></td>
-                    <td width="20%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" disabled /><strong style="margin-left: 5px;">Days </strong></td>
-                    <td><input type="checkbox" class="onboard_autosend" value="1"></td>
+                    <td width="30%"><strong>On Boarding Checklist</strong></td>
+                    <td width="20%"><strong style="margin-right: 5px;">Remind Every</strong><input style="width:50px" type="text" id="txtboxToFilter" class="remindevery" /><strong style="margin-left: 5px;">Days </strong></td>
+                    <td><!-- <input type="checkbox" class="onboard_autosend" value="1"> --></td>
                     <td>&nbsp;</td>
                   </tr>
                 </table>

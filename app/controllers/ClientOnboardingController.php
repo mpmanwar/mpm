@@ -66,7 +66,7 @@ class ClientOnboardingController extends BaseController {
                         
                         
                            
-       				$sql = "SELECT ((SELECT COUNT(*) FROM client_task_dates WHERE client_id = $client_id->client_id AND user_id = $user_id AND status = 'done') /(SELECT COUNT(*) FROM client_task_dates WHERE client_id = '$client_id->client_id' AND user_id = $user_id)) * 100 AS avg FROM `client_task_dates` WHERE client_id = $client_id->client_id GROUP BY client_id";
+       				$sql = "SELECT ((SELECT COUNT(*) FROM client_task_dates WHERE client_id = $client_id->client_id AND user_id = $user_id AND status = 'D') /(SELECT COUNT(*) FROM client_task_dates WHERE client_id = '$client_id->client_id' AND user_id = $user_id)) * 100 AS avg FROM `client_task_dates` WHERE client_id = $client_id->client_id GROUP BY client_id";
          
 			        $result = DB::select(DB::raw($sql));
 				        if(isset($result[0]->avg)) {
