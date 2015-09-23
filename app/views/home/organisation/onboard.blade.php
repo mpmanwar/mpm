@@ -327,17 +327,17 @@ $('#calender_time').timepicki({
         
 <!-- -->
 <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" style="width:80%;">
+  <div class="modal-dialog" style="width:70%;">
     <div class="modal-content">
-      <!--<div class="modal-header">
+      <div class="modal-header">
         <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD COURSE</h4>
+        <h4 class="modal-title"><p id="businessname" align="center" style="margin: 0px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p></h4>
         <div class="clearfix"></div>
-      </div>-->
+      </div>
       <!--<form action="#" method="post">-->
-      <p id="businessname" align="center" style="margin: 17px 0px -31px 0px;font-size: 18px; font-weight: bold;color:#00acd6"></p>
+      
       <div class="modal-body">
-          <button type="button" class="close save_btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+          
           <table width="100%" border="0" class="staff_holidays">
             <tr>
               <td>

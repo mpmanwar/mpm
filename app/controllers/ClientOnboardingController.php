@@ -184,7 +184,7 @@ class ClientOnboardingController extends BaseController {
         //$details['task_details'] 	= ClientTaskDate::get_task_details();
         //$details['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
 		//$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
-        $data['check_list']  = Checklist::get_checklist_by_client_id($client_id);
+        $data['check_list']  = Checklist::get_checklist();
 
         //print_r($data);die;
         echo View::make('onboard.task_list', $data);
