@@ -1037,23 +1037,26 @@ class TimesheetController extends BaseController
         $ctr_data = array();
         $data_ctr = array();
         $data = array();
-        /*
-        $ctr_data['ctr_client'] = Input::get("ctr_client");
-        $ctr_data['ctr_serv'] = Input::get("ctr_serv");
-        $ctr_data['fromdate'] = date('Y-m-d', strtotime(Input::get("fromdpick2")));
-        $ctr_data['todate'] = date('Y-m-d', strtotime(Input::get("todpick")));*/
-        // die();
+       $data['from'] =$fromdate;
+        $data['to']=$todate;
+        
+         $t= time();
+        
        
-      /*  $ctr_data['ctr_client'] = "3";
-        $ctr_data['ctr_serv'] = "2";
-        $ctr_data['fromdate'] = "2015-09-01";
-        $ctr_data['todate'] = "2015-09-30";  */
 
+$time = date("Y-m-d H:i:s",$t);
+
+    $pieces = explode(" ", $time);
+   $data['cdate'] =     $pieces[0];
+     $data['ctime']  =  $pieces[1];
+        
+        
+        
         $ctr_data['ctr_client'] =$ctr_client ;
         $ctr_data['ctr_serv'] = $ctr_serv;
         $ctr_data['fromdate'] = date('Y-m-d', strtotime($fromdate));
         $ctr_data['todate'] = date('Y-m-d', strtotime($todate));
-
+        
 
         $form = $ctr_data['fromdate'];
         $to = $ctr_data['todate'];
@@ -1061,12 +1064,9 @@ class TimesheetController extends BaseController
         if ($ctr_data['ctr_serv'] != "") {
 
 
-            $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->
-                where('rel_client_id', '=', $ctr_data['ctr_client'])->where('vat_scheme_type',
-                '=', $ctr_data['ctr_serv'])->get();
+            $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id', '=', $ctr_data['ctr_client'])->where('vat_scheme_type','=', $ctr_data['ctr_serv'])->get();
         } else {
-            $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->
-                where('rel_client_id', '=', $ctr_data['ctr_client'])->get();
+            $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->where('rel_client_id', '=', $ctr_data['ctr_client'])->get();
         }
         //echo $this->last_query();
         //die();
@@ -1112,10 +1112,12 @@ class TimesheetController extends BaseController
                 $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
 
             }
+                        
         }
-
+        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
-
+        
+        
         // echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
         if (!empty($data['cfinal_array'])) {
 
@@ -1205,7 +1207,7 @@ class TimesheetController extends BaseController
 
             }
         }
-
+        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
 
         // echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
@@ -1244,6 +1246,23 @@ class TimesheetController extends BaseController
         $ctr_data = array();
         $data_ctr = array();
         $data = array();
+        
+         $data['from'] =$fromdate;
+        $data['to']=$todate;
+        
+             $t= time();
+            
+            $time = date("Y-m-d H:i:s",$t);
+            
+            $pieces = explode(" ", $time);
+            $data['cdate'] =     $pieces[0];
+            $data['ctime']  =  $pieces[1];
+        
+        
+        
+        
+        
+        
         /*
         $ctr_data['ctr_client'] = Input::get("ctr_client");
         $ctr_data['ctr_serv'] = Input::get("ctr_serv");
@@ -1463,6 +1482,22 @@ class TimesheetController extends BaseController
         $str_data = array();
         $data_str = array();
         $data = array();
+        
+        
+         $data['from'] =$strfromdate;
+        $data['to']=$strtodate;
+        
+             $t= time();
+            
+            $time = date("Y-m-d H:i:s",$t);
+            
+            $pieces = explode(" ", $time);
+            $data['cdate'] =     $pieces[0];
+            $data['ctime']  =  $pieces[1];
+        
+        
+        
+        
 
         $str_data['str_staff'] = $str_staff;
         $str_data['str_client'] = "";
@@ -1543,7 +1578,7 @@ class TimesheetController extends BaseController
 
 
         }
-
+        $data['sname']= $temp['staff_name'];
         $data['final_array'] = $staff_timereport;
         
         //echo View::make('staff.timesheet.staff_timereport')->with('final_array', $data['final_array']);
@@ -1568,6 +1603,21 @@ class TimesheetController extends BaseController
         $data_str = array();
         $data = array();
 
+
+
+            
+            $data['from'] =$strfromdate;
+            $data['to']=$strtodate;
+            
+            $t= time();
+            
+            $time = date("Y-m-d H:i:s",$t);
+            
+            $pieces = explode(" ", $time);
+            $data['cdate'] =     $pieces[0];
+            $data['ctime']  =  $pieces[1];
+        
+        
         $str_data['str_staff'] = $str_staff;
         $str_data['str_client'] = $str_client;
         $str_data['strfromdate'] = date('Y-m-d', strtotime($strfromdate));
@@ -1647,7 +1697,7 @@ class TimesheetController extends BaseController
 
 
         }
-
+        $data['sname']= $temp['staff_name'];
         $data['final_array'] = $staff_timereport;
         
         //echo View::make('staff.timesheet.staff_timereport')->with('final_array', $data['final_array']);

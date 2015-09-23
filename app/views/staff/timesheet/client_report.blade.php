@@ -298,6 +298,7 @@ function newclientdisplay(){
               
               
               <div class="clr"></div>
+              <div class="clr"></div>
               <div id="dropctrc">
               </div>
               <div class="clr"></div>
