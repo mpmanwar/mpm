@@ -145,7 +145,7 @@ $(function() {
 				
 				
 				var $newRow = $('#TemplateRow').clone(true);
-			
+   
             	$newRow.find('#date_picker').val('');
 				$newRow.find('.dpick').val('');
         		$newRow.find('#staff_id').val('');
@@ -632,6 +632,7 @@ function fontfetchnotesmodal(fontvalue){
                 </li> -->
                 <li>
                   <!-- <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button> -->
+                  
                   <a href="/timesheetpdf" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a>
                   
                   

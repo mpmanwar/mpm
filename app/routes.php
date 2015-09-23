@@ -340,6 +340,24 @@ Route::post('/timesheet/timesheet-templates', array("as"=>"timesheet-templates",
 Route::post('/timesheet/edit-time-sheet', array("as"=>"edit-time-sheet", "uses"=>'TimesheetController@edit_time_sheet'));
 
 Route::post('/timesheet/insertclient-time-sheet', 'TimesheetController@insertclient_time_sheet');
+Route::any('/pdfclient-time-sheet/{ctr_client}/{ctr_serv}/{fromdpick2}/{todpick}', 'TimesheetController@pdfclient_time_sheet');
+
+Route::any('/pdfclientnotstaff-time-sheet/{ctr_client}/{fromdpick2}/{todpick}', 'TimesheetController@pdfclientnotstaff_time_sheet');
+
+Route::any('/excelclient-time-sheet/{ctr_client}/{ctr_serv}/{fromdpick2}/{todpick}', 'TimesheetController@excelclient_time_sheet');
+
+Route::any('/excelclientnotstaff-time-sheet/{ctr_client}/{fromdpick2}/{todpick}', 'TimesheetController@excelclientnotstaff_time_sheet');
+
+
+Route::any('/pdfstaffnoclient-time-sheet/{str_staff}/{fromdpick2}/{todpick}', 'TimesheetController@pdfstaffnoclient_time_sheet');
+Route::any('/pdfstaff-time-sheet/{str_staff}/{str_client}/{fromdpick2}/{todpick}', 'TimesheetController@pdfstaff_time_sheet');
+
+Route::any('/excelstaff-time-sheet/{str_staff}/{str_client}/{fromdpick2}/{todpick}', 'TimesheetController@excelstaff_time_sheet');
+
+Route::any('/excelstaffnoclient-time-sheet/{str_staff}/{fromdpick2}/{todpick}', 'TimesheetController@excelstaffnoclient_time_sheet');
+
+
+
 Route::post('/timesheet/insertstaff-time-sheet', 'TimesheetController@insertstaff_time_sheet');
 
 Route::post('/timesheet/fetcheditclient-time-sheet', 'TimesheetController@editclient_time_sheet');

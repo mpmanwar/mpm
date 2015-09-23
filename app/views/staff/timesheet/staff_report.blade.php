@@ -24,6 +24,104 @@ $(function() {
                 $("#dpickclients").datepicker({dateFormat: 'dd-mm-yy'});
 });
 
+function pdfstaff(){
+    
+    var str_staff= $("#str_staffs").val(); 
+    
+    if($("#str_clients").val()){
+        var str_client = $("#str_clients").val();
+    }else{
+         var str_client = "";
+    }
+   
+    
+    
+    
+    
+    var strdpick2= $("#strdpick2s").val();
+    var dpickclient = $("#dpickclients").val();
+     
+     
+    
+    console.log(str_staff);
+    console.log(str_client);
+    console.log(strdpick2);
+    console.log(dpickclient);
+    
+    if((strdpick2!="" && dpickclient!="" && str_staff!="") && str_client =="" ){
+        
+        var hiturl = '/pdfstaffnoclient-time-sheet/'+str_staff+'/'+strdpick2+'/'+dpickclient
+        console.log(hiturl);
+        window.location.href='/pdfstaffnoclient-time-sheet/'+str_staff+'/'+strdpick2+'/'+dpickclient;
+        
+        
+    }
+    
+    if(strdpick2!="" && dpickclient!="" && str_staff!="" && str_client !="" ){
+        
+        var hiturl = '/pdfstaff-time-sheet/'+str_staff+'/'+str_client+'/'+strdpick2+'/'+dpickclient
+        console.log(hiturl);
+        window.location.href='/pdfstaff-time-sheet/'+str_staff+'/'+str_client+'/'+strdpick2+'/'+dpickclient;
+        
+        
+    }
+    
+    
+    
+}
+
+
+
+function excelstaff(){
+    
+    var str_staff= $("#str_staffs").val(); 
+    
+    if($("#str_clients").val()){
+        var str_client = $("#str_clients").val();
+    }else{
+         var str_client = "";
+    }
+   
+    
+    
+    
+    
+    var strdpick2= $("#strdpick2s").val();
+    var dpickclient = $("#dpickclients").val();
+     
+     
+    
+    console.log(str_staff);
+    console.log(str_client);
+    console.log(strdpick2);
+    console.log(dpickclient);
+    //return false;
+    if((strdpick2!="" && dpickclient!="" && str_staff!="") && str_client =="" ){
+        
+        var hiturl = '/excelstaffnoclient-time-sheet/'+str_staff+'/'+strdpick2+'/'+dpickclient
+        console.log(hiturl);
+        window.location.href='/excelstaffnoclient-time-sheet/'+str_staff+'/'+strdpick2+'/'+dpickclient;
+        
+        
+    }
+    
+    if(strdpick2!="" && dpickclient!="" && str_staff!="" && str_client !="" ){
+        
+        var hiturl = '/excelstaff-time-sheet/'+str_staff+'/'+str_client+'/'+strdpick2+'/'+dpickclient
+        console.log(hiturl);
+        window.location.href='/excelstaff-time-sheet/'+str_staff+'/'+str_client+'/'+strdpick2+'/'+dpickclient;
+        
+        
+    }
+    
+    
+    
+}
+
+
+
+
+
 function newstaffdisplay(){
     
    
@@ -118,10 +216,10 @@ function newstaffdisplay(){
                   <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button>
                 </li> 
                 <li>
-                  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                  <button class="btn btn-success" onclick="pdfstaff();"><i class="fa fa-download"></i> Generate PDF</button>
                 </li>
                 <li>
-                  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                  <button class="btn btn-primary" onclick="excelstaff();"><i class="fa fa fa-file-text-o"></i> Excel</button>
                 </li>
               </ul>
             </div>

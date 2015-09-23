@@ -2,12 +2,7 @@
  
 
 @if(!empty($cfinal_array))
-
-
-
-
-             <table class="table table-bordered" style="margin-top:20px;">
-
+ <table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse;">
 <tr>
 <td align="center" >
 <table class="" width="100%" >
