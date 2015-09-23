@@ -354,31 +354,16 @@ $('#calender_time').timepicki({
             </tr>
             <tr>
               <td valign="top">
-			  {{ Form::open(array('url' => '/onboarding/insert-onboarding')) }}
-               
-          <table width="100%" class="table table-bordered" id="BoxTable">
-            <tbody>
-              <!-- <tr class="table_heading_bg"> -->
-              <input type="hidden" name="cid" id="c_id" value="">
-              <tr>
-                <td width="5%" align="center"id="allCheckSelect"> Delete</td>
-                <td width="35%" align="center"><strong>Checklist</strong>
-                <a href="#" class="add_to_list" data-toggle="modal" id="positionopen" data-target="#checklist-modal"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a>
-                </td>
-                <td width="20%" align="center"><strong>Task Owner</strong>
-                </td>
-                <td width="20%" align="center"><strong>Task Date</strong></td>
-                <td width="20%" align="center"><strong>Status</strong></td>
-              </tr>
-              
-            
-            </tbody>
-          </table>
+      			  {{ Form::open(array('url' => '/onboarding/insert-onboarding')) }}
+                <input type="hidden" name="cid" id="c_id" value="">     
+                <table width="100%" class="table table-bordered" id="BoxTable">
+                  
+                </table>
               </td>
             </tr>
           </table>
           <div class="save_btncon">
-            <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div>
+            <!-- <div class="left_side"><button type="button" class="addnew_line"><i class="add_icon_img"><img src="/img/add_icon.png"></i><p class="add_line_t">Add New</p></button></div> -->
           <div class="right_side"> <button class="btn btn-primary">Submit</button></div>
             <div class="clearfix"></div>
             </div>

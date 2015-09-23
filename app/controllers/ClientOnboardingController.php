@@ -92,10 +92,11 @@ class ClientOnboardingController extends BaseController {
 		$data['client_fields'] 		= ClientField::where("field_type", "=", "org")->get();
 		$data['staff_details'] 		= User::whereIn("user_id", $groupUserId)->where("client_id","=", 0)->select("user_id", "fname", "lname")->get();
         $data['allClients'] 		= App::make('HomeController')->get_all_clients();
-    	$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
-		$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+    	//$data['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		//$data['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
 
-		$data['task_details'] = ClientTaskDate::get_task_details();
+		//$data['task_details'] = ClientTaskDate::get_task_details();
+
 		//$data['owner_list'] = $this->get_owner_list();
 		//echo "<pre>";print_r($data['owner_list']);die;
 
@@ -129,23 +130,17 @@ class ClientOnboardingController extends BaseController {
         return Redirect::to('/onboard');
     }
 
-    public function ajax_task_details()
+    public function get_owner_list($client_id)
     {
-    	$data = array();
-    	$details = array();
-    	$session 		= Session::get('admin_details');
-        $user_id 		= $session['id'];
-        $groupUserId 	= $session['group_users'];
-        $client_id 		= Input::get('client_id');
-
+        $data  = array();
         $staff_details = User::getAllStaffDetails();
         $i = 0;
-		foreach ($staff_details as $key => $staff) {
+        foreach ($staff_details as $key => $staff) {
             $name = "";
             if (isset($staff['fname']) && $staff['fname'] != "") {
                 $name .= $staff['fname'];
             }
-			if (isset($staff['lname'])) {
+            if (isset($staff['lname'])) {
                 $name .= " ".$staff['lname'];
             }
 
@@ -153,35 +148,46 @@ class ClientOnboardingController extends BaseController {
             $data[$i]['contact_type'] = "staff";
             $data[$i]['name'] = ucwords(strtolower($name));
             $i++;
-		}
+        }
 
-		$client_details = Common::clientDetailsById($client_id);
-		foreach ($client_details as $key => $details) {
+        $client_details = Common::clientDetailsById($client_id);
+        foreach ($client_details as $key => $details) {
             if (isset($details['corres_cont_name']) && $details['corres_cont_name'] != "") {
                 $data[$i]['owner_id'] = $client_id;
                 $data[$i]['contact_type'] = "corres";
                 $data[$i]['name'] = ucwords(strtolower($details['corres_cont_name']));
             }
-			$i++;
+            $i++;
         }
         $relayth_data = Common::get_relationship_client($client_id);
         if (isset($relayth_data) && count($relayth_data) > 0) {
             foreach ($relayth_data as $key => $value) {
                 $data[$i]['owner_id']       = $value['client_id'];
-                $data[$i]['contact_type']   = $value['client'];
+                $data[$i]['contact_type']   = 'org';
                 $data[$i]['name']           = ucwords(strtolower($value['name']));
                 $i++;
             }
 
         }
+        return $data;
+    }
 
-        $details['owner_list'] 		= $data;
-        $details['task_details'] 	= ClientTaskDate::get_task_details();
-        $details['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
-		$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+    public function ajax_task_details()
+    {
+    	$data = array();
+    	$session 		= Session::get('admin_details');
+        $user_id 		= $session['id'];
+        $groupUserId 	= $session['group_users'];
+        $client_id 		= Input::get('client_id');
+        //echo $client_id;die;
+        $data['owner_list'] = $this->get_owner_list($client_id);
+        //$details['task_details'] 	= ClientTaskDate::get_task_details();
+        //$details['old_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "old")->orderBy("name")->get();
+		//$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
+        $data['check_list']  = Checklist::get_checklist_by_client_id($client_id);
 
         //print_r($data);die;
-        echo View::make('onboard.task_list', $details);
+        echo View::make('onboard.task_list', $data);
 
 	}
 
