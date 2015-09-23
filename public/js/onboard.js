@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+  $('.onboard_autosend').on('ifChecked', function(event){
+    $('#txtboxToFilter').removeAttr("disabled");
+  });
+
+  $('.onboard_autosend').on('ifUnchecked', function(event){
+    $('#txtboxToFilter').attr("disabled","disabled");
+  });
+
   $('#BoxTable').on('click', '.addto_task', function(event){
     var checklist_id = $(this).data('checklist_id');
       if($(this).is(':checked')){
