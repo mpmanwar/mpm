@@ -186,7 +186,7 @@ class ClientOnboardingController extends BaseController {
 		//$details['new_postion_types'] 	= Checklist::whereIn("user_id", $groupUserId)->where("status", "=", "new")->orderBy("name")->get();
         $data['check_list']  = Checklist::get_checklist_by_client_id($client_id);
 
-        //print_r($data);die;
+        print_r($data);die;
         echo View::make('onboard.task_list', $data);
 
 	}

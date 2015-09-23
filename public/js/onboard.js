@@ -13,7 +13,7 @@ $(document).ready(function(){
   });
 
   $('.addnew_line').click(function() {
-      var client_id =$('c_id').val();
+      var client_id =$('#c_id').val();
       $.ajax({
         type: "POST",
         //url: '/client/getowner',
