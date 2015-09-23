@@ -24,6 +24,109 @@ $(function() {
                 $("#todpickc").datepicker({dateFormat: 'dd-mm-yy'});
 });
 
+function pdfnewclientdisplay(){
+     //alert('faffafaf');
+    var ctr_client= $("#ctr_clientc").val();
+   // var ctr_serv = $("#ctr_servc").val();
+    
+    if($("#ctr_servc").val()){
+        var ctr_serv = $("#ctr_servc").val();
+        
+    }else{
+        var ctr_serv ="";
+    }
+    
+    var fromdpick2= $("#fromdpick2c").val();
+    var todpick = $("#todpickc").val();
+     
+     if((fromdpick2!="" && todpick!="" && ctr_client!="") && ctr_serv =="" ){
+    
+        var hiturl = '/pdfclientnotstaff-time-sheet/'+ctr_client+'/'+fromdpick2+'/'+todpick
+        console.log(hiturl);
+        window.location.href='/pdfclientnotstaff-time-sheet/'+ctr_client+'/'+fromdpick2+'/'+todpick;
+     } 
+     
+     
+     if(fromdpick2!="" && todpick!="" && ctr_client!="" && ctr_serv!="" ){
+    
+        var hiturl = '/pdfclient-time-sheet/'+ctr_client+'/'+ctr_serv+'/'+fromdpick2+'/'+todpick
+        console.log(hiturl);
+        window.location.href='/pdfclient-time-sheet/'+ctr_client+'/'+ctr_serv+'/'+fromdpick2+'/'+todpick;
+     }
+     
+     
+     
+     //console.log(url);return false;
+     
+  /*   if(fromdpick2!="" && todpick!="" && ctr_client!="" ){
+     
+     $.ajax({
+    	type: "POST",
+        
+        url: '/pdfclient-time-sheet',
+        data: {
+
+			'ctr_client': ctr_client,'ctr_serv': ctr_serv,'fromdpick2': fromdpick2,'todpick': todpick
+
+		},
+
+		success: function(resp) {
+		  
+          console.log(resp);
+          //return false;
+            window.location.href='/pdfclient-time-sheet/'+ctr_client+'/'+ctr_serv+'/'+fromdpick2+'/'+todpick+   ;
+		  
+        }
+
+	});  
+    
+     
+    
+    
+} */
+
+
+}
+
+
+function excelnewclientdisplay(){
+     //alert('faffafaf');
+    var ctr_client= $("#ctr_clientc").val();
+   // var ctr_serv = $("#ctr_servc").val();
+    
+    if($("#ctr_servc").val()){
+        var ctr_serv = $("#ctr_servc").val();
+        
+    }else{
+        var ctr_serv ="";
+    }
+    
+    var fromdpick2= $("#fromdpick2c").val();
+    var todpick = $("#todpickc").val();
+     
+     if((fromdpick2!="" && todpick!="" && ctr_client!="") && ctr_serv =="" ){
+    
+        var hiturl = '/excelclientnotstaff-time-sheet/'+ctr_client+'/'+fromdpick2+'/'+todpick
+        console.log(hiturl);
+        window.location.href='/excelclientnotstaff-time-sheet/'+ctr_client+'/'+fromdpick2+'/'+todpick;
+     } 
+     
+     
+     if(fromdpick2!="" && todpick!="" && ctr_client!="" && ctr_serv!="" ){
+    
+        var hiturl = '/excelclient-time-sheet/'+ctr_client+'/'+ctr_serv+'/'+fromdpick2+'/'+todpick
+        console.log(hiturl);
+        window.location.href='/excelclient-time-sheet/'+ctr_client+'/'+ctr_serv+'/'+fromdpick2+'/'+todpick;
+     }
+     
+     
+     
+     //console.log(url);return false;
+     
+
+
+}
+
 
 function newclientdisplay(){
     //alert('fsfsf');
@@ -116,10 +219,13 @@ function newclientdisplay(){
                   <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button>
                 </li> 
                 <li>
-                  <button class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</button>
+                
+                              
+              <!-- <a href="/pdfclient-time-sheet" target="_blank" class="btn btn-success"><i class="fa fa-download"></i> Generate PDF</a> -->
+                  <button class="btn btn-success" onclick="pdfnewclientdisplay();"><i class="fa fa-download"></i> Generate PDF</button> 
                 </li>
                 <li>
-                  <button class="btn btn-primary"><i class="fa fa fa-file-text-o"></i> Excel</button>
+                  <button class="btn btn-primary" onclick="excelnewclientdisplay();"><i class="fa fa fa-file-text-o"></i> Excel</button>
                 </li>
               </ul>
             </div>

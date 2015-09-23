@@ -1,5 +1,5 @@
 <div class="col-4">
-        <h1 style="color:blue">{{ $title or "" }}</h1>
+        <h1 style="color:black">{{ $title or "" }}</h1>
     </div>
 
 <table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse;">
