@@ -40,66 +40,50 @@
 
 
     </td>
-
-    <td width="38%" style="font-size:20px; text-align:center; font-weight:bold; text-decoration:underline;">{{ "Report Title:Staff Time Report" }}</td>
-
+    <td width="38%" style="font-size:20px; text-align:center; font-weight:bold; text-decoration:underline;">{{ "Staff Time Report" }}</td>
       <td width="35%">&nbsp;</td>
-
   </tr>
-
 </table>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>&nbsp;</td>
-
   </tr>
-
   <tr>
-
     <td valign="top">
-
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
 
   <tr>
-
     <td width="15%"><strong>Date From :</strong></td>
-
     <td width="62%">{{$from}}</td>
-
     <td width="10%"><strong>Staff</strong></td>
-
     <td width="13%">{{$sname or ""}}</td>
-
   </tr>
-
   <tr>
-
     <td><strong>Date To :</strong></td>
 
     <td>{{$to}}</td>
-
- @foreach($final_array as $key=>$nstaff_row)
-    <td><strong>Client</strong></td>
-    <td>{{$key or ""}}</td>
-@endforeach
-
-
+<td><strong>Client</strong></td>
+<?php if(count($final_array)>1)
+ { ?>
+  
+    <td>{{"Zzzzzz"}}</td>
+<?php
+ }else{
+    ?>
+     @foreach($final_array as $key=>$nstaff_row)
+     <td>{{$key or ""}}</td>
+  @endforeach
+  
+   <?php 
+ }
+  ?>
   </tr>
    <tr>
-
     <td>&nbsp;</td>
-
     <td>&nbsp;</td>
-
     <td>&nbsp;</td>
-
     <td>&nbsp;</td>
-
   </tr>
   
 </table>
@@ -163,7 +147,7 @@
 <td width="25%" align="center" > {{ $eachRE['staff_name'] }}</td>
 <td width="15%" align="center" style="font-size:11pt"> {{ $eachRE['date'] }}</td>
 <td width="45%" align="center" style="font-size:11pt">{{ $eachRE['service'] }}</td>
-<td width="15%" align="center" style="font-size:11pt">{{ $eachRE['hrs'] }}<?php $i=$i+$eachRE['hrs']; ?></td>
+<td width="15%" align="center" style="font-size:11pt">{{ number_format((float)$eachRE['hrs'], 1, '.', ''); }}<?php $i=$i+$eachRE['hrs']; ?></td>
 </tr>
 @endforeach
 
@@ -203,7 +187,7 @@
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
 <td width="40%" align="center">&nbsp;</td>
-<td width="20%" align="center" style="font-size:11pt"><b>Total&nbsp;&nbsp;&nbsp;<?php echo $i; $y=$y+$i; ?> </b></td>
+<td width="20%" align="center" style="font-size:11pt"><b>Total&nbsp;&nbsp;&nbsp;<?php echo number_format((float)$i, 2, '.', '') ; $y=$y+$i; ?> </b></td>
 
 
 </tr>
@@ -227,7 +211,7 @@
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
 <td width="30%" align="center">&nbsp;</td>
-<td width="30%" align="center" style="font-size:11pt"><b>GRAND TOTAL&nbsp;&nbsp;&nbsp;<?php echo $y; ?></b> </td>
+<td width="30%" align="center" style="font-size:11pt"><b>GRAND TOTAL&nbsp;&nbsp;&nbsp;<?php echo number_format((float)$y, 2, '.', '') ;?></b> </td>
 
 
 </tr>

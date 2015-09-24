@@ -1,7 +1,7 @@
 @extends('layouts.layout') 
 @section('mycssfile')
    
-
+ 
  @stop @section('myjsfile')
 <script src="{{ URL :: asset('ckeditor/ckeditor.js') }}" type="text/javascript">
 </script>
