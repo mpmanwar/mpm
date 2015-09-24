@@ -1,3 +1,5 @@
+
+
 <div class="col-4" >
         <center><h2 style="color:black" ></h2></center>
     </div>
@@ -156,6 +158,15 @@
 </table>
 </td>
 </tr>
+ <?php 
+            //if ( isset($cfinal_array) ) {
+           // $font = Font_Metrics::get_font("helvetica", "bold");
+          //  $cfinal_array->page_text(72, 18, "{`} of {PAGE_COUNT}", $font, 6, array(255,0,0));
+      //  }
+
+?>
+
+
 <?php $y=0; ?>
  @if(isset($cfinal_array))
   @foreach($cfinal_array as $key=>$nstaff_row)
@@ -247,4 +258,4 @@
 </td>
 </tr>
 </table>
- @endif
+ @endif 

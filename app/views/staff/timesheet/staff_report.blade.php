@@ -210,10 +210,10 @@ function newstaffdisplay(){
     <section class="content">
       <div class="practice_mid">
           <div class="top_buttons">
-            <div class="top_bts" style="margin-left: 419px;" >
+            <div class="top_bts" style="margin-left: 467px;" >
               <ul>
                 <li>
-                  <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button>
+               <!--   <button class="btn btn-success" onclick="window.print();"><i class="fa fa-trash-o fa-fw"></i> Print</button> -->
                 </li> 
                 <li>
                   <button class="btn btn-success" onclick="pdfstaff();"><i class="fa fa-download"></i> Generate PDF</button>

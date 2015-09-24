@@ -36,7 +36,7 @@
 <td width="25%" align="center">{{ $eachRE['staff_name'] }}</td>
 <td width="15%" align="center"> {{ $eachRE['date'] }}</td>
 <td width="45%" align="center">{{ $eachRE['service'] }}</td>
-<td width="15%" align="center">{{ $eachRE['hrs'] }}<?php $i=$i+$eachRE['hrs']; ?></td>
+<td width="15%" align="center">{{ number_format((float)$eachRE['hrs'], 1, '.', ''); }}<?php $i=$i+$eachRE['hrs']; ?></td>
 </tr>
 @endforeach
 
@@ -76,7 +76,7 @@
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
 <td width="40%" align="center">&nbsp;</td>
-<td width="20%" align="center"><b>Total&nbsp;&nbsp;&nbsp;<?php echo $i; $y=$y+$i; ?> </b></td>
+<td width="20%" align="center"><b>Total&nbsp;&nbsp;&nbsp;<?php echo number_format((float)$i, 2, '.', ''); $y=$y+$i; ?> </b></td>
 
 
 </tr>
@@ -100,7 +100,7 @@
 <td width="25%" align="center">&nbsp;</td>
 <td width="15%" align="center">&nbsp;</td>
 <td width="30%" align="center">&nbsp;</td>
-<td width="30%" align="center"><b>GRAND TOTAL&nbsp;&nbsp;&nbsp;<?php echo $y; ?></b> </td>
+<td width="30%" align="center"><b>GRAND TOTAL&nbsp;&nbsp;&nbsp;<?php echo number_format((float)$y, 2, '.', ''); ?></b> </td>
 
 
 </tr>

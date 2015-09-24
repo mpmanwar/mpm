@@ -904,8 +904,10 @@ class TimesheetController extends BaseController
         }
 
 
-        $pdf = PDF::loadView('staff/timesheet/timesheetpdf', $data)->setPaper('a4')->
-            setOrientation('landscape')->setWarnings(false);
+        $pdf = PDF::loadView('staff/timesheet/timesheetpdf', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+            
+            
+
         return $pdf->download('timesheetpdf.pdf');
 
 
@@ -1115,6 +1117,7 @@ $time = date("Y-m-d H:i:s",$t);
                         
         }
         $data['cname']= $temp['client_name'];
+//        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
         
         
@@ -1125,7 +1128,21 @@ $time = date("Y-m-d H:i:s",$t);
 
 
             $pdf = PDF::loadView('staff/timesheet/pdfclienttimereport', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+           
+                $pdf->output();
+                $dom_pdf = $pdf->getDomPDF();
+                
+                $canvas = $dom_pdf ->get_canvas();
+               // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                
+                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+                
+       
+           
+           
             return $pdf->download('clienttimesheetpdf.pdf');
+            
+            
             // return Redirect::to('/timesheet/client-timereport');
 
         } else {
@@ -1347,6 +1364,16 @@ $time = date("Y-m-d H:i:s",$t);
 
 
             $pdf = PDF::loadView('staff/timesheet/pdfclienttimereport', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+            
+             $pdf->output();
+                $dom_pdf = $pdf->getDomPDF();
+                
+                $canvas = $dom_pdf ->get_canvas();
+               // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                
+                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+           
+           
             return $pdf->download('clienttimesheetpdf.pdf');
             // return Redirect::to('/timesheet/client-timereport');
 
@@ -1585,6 +1612,15 @@ $time = date("Y-m-d H:i:s",$t);
         //echo View::make('staff.timesheet.staff_timereport')->with('final_array', $data['final_array']);
         
         $pdf = PDF::loadView('staff/timesheet/pdfstafftimereport', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+            
+         $pdf->output();
+                $dom_pdf = $pdf->getDomPDF();
+                
+                $canvas = $dom_pdf ->get_canvas();
+               // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                
+                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+            
             return $pdf->download('stafftimesheetpdf.pdf');
         
         
@@ -1704,6 +1740,15 @@ $time = date("Y-m-d H:i:s",$t);
         //echo View::make('staff.timesheet.staff_timereport')->with('final_array', $data['final_array']);
         
         $pdf = PDF::loadView('staff/timesheet/pdfstafftimereport', $data)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+           
+            $pdf->output();
+                $dom_pdf = $pdf->getDomPDF();
+                
+                $canvas = $dom_pdf ->get_canvas();
+               // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                
+                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+           
             return $pdf->download('stafftimesheetpdf.pdf');
         
         
