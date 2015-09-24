@@ -113,7 +113,7 @@ class ClientOnboardingController extends BaseController {
         $status 	= Input::get('status');
         $owner 		= Input::get('owner');
         $cid 		= Input::get('cid'); 
-       //echo $cid;die;
+       
         //print_r($addto_task); die();
         if(isset($addto_task) && count($addto_task) >0){
             ClientTaskDate::whereIn('user_id', $groupUserId)->where('client_id', '=', $cid)->delete();
@@ -128,7 +128,14 @@ class ClientOnboardingController extends BaseController {
                 $insert_id = ClientTaskDate::insertGetId($data);
             }
         }
-        
+
+        $average = $this->getCompletedPercentage($cid);
+        if(isset($average) && $average == '100'){
+            $up_data['is_onboarding'] = 'C';
+        }else{
+            $up_data['is_onboarding'] = 'Y';
+        }
+        CrmLead::updateCrmLeadsStatus($cid, $up_data);
         //print_r($cid);
         return Redirect::to('/onboard');
     }
@@ -262,6 +269,30 @@ class ClientOnboardingController extends BaseController {
         echo $ret;
     }
 
+    public function getCompletedPercentage($client_id)
+    {
+        
+        //$sql = "SELECT ((SELECT COUNT(*) FROM client_task_dates WHERE client_id = $client_id AND user_id = $user_id AND status = 'D') /(SELECT COUNT(*) FROM client_task_dates WHERE client_id = '$client_id' AND user_id = $user_id)) * 100 AS avg FROM `client_task_dates` WHERE client_id = $client_id GROUP BY client_id";
+        $task_count = ClientTaskDate::taskCountByClientId($client_id);//echo $task_count;die;
+        $done_count = ClientTaskDate::doneCountByClientId($client_id);
+        if($task_count != 0){
+            $avg = $done_count*100/$task_count;
+        }else{
+            $avg = 0;
+        }
+        
+       /* $result = DB::select(DB::raw($sql));
+        if(isset($result[0]->avg)) {
+            $avg = number_format($result[0]->avg,2);  
+            if(number_format($result[0]->avg)=="0.00"){
+                $avg = '0';
+            }
+        } else {
+            $avg = '0';
+        }*/
+        return $avg;
+    }
+
     public function delete_onboarding_clients()
     {
         $client_delete_id = Input::get("client_delete_id");
@@ -269,7 +300,9 @@ class ClientOnboardingController extends BaseController {
             $del_data['is_onboard'] = "N";
             Client::where('client_id', '=', $client_id)->update($del_data);
             ClientTaskDate::where('client_id', '=', $client_id)->delete();
-            //StepsFieldsClient::where('client_id', '=', $client_id)->delete();
+
+            $up_data['is_onboarding'] = 'C';
+            CrmLead::updateCrmLeadsStatus($client_id, $up_data);
         }
     }
     
