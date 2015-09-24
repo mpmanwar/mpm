@@ -261,6 +261,17 @@ class ClientOnboardingController extends BaseController {
         $ret = ClientTaskDate::where('cleinttaskdate_id', '=', $cleinttaskdate_id)->delete();
         echo $ret;
     }
+
+    public function delete_onboarding_clients()
+    {
+        $client_delete_id = Input::get("client_delete_id");
+        foreach ($client_delete_id as $client_id) {
+            $del_data['is_onboard'] = "N";
+            Client::where('client_id', '=', $client_id)->update($del_data);
+            ClientTaskDate::where('client_id', '=', $client_id)->delete();
+            //StepsFieldsClient::where('client_id', '=', $client_id)->delete();
+        }
+    }
     
     
     

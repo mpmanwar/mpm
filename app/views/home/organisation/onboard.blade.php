@@ -125,7 +125,7 @@ $('#calender_time').timepicki({
               <div class="top_bts" style="float:left;">
                 <ul style="padding:0;">
                   <li>
-                    <button type="button" id="deleteClients" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
+                    <button type="button" id="deleteOnboarding" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> Delete</button>
                   </li>
                   <li>
                     <a href="javascript:void(0)" id="positionopen" class="btn btn-info">Onboarding Checklist</a>
