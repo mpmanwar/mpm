@@ -41,10 +41,10 @@
                             </div>
                           </div>
                           </li>
-                          <!-- <li>
-                            <a class="btn btn-info" href="/crm/graph-page" target="_blank">GRAPHS</a>
-                          </li>
                           <li>
+                            <a href="javascript:void(0)" style="margin-left: 300px; font-size: 23px;">Pipeline Deals</a>
+                          </li>
+                          <!--<li>
                             <a class="btn btn-info" href="/crm/report" target="_blank">REPORT</a>
                           </li> -->
                         <div class="clearfix"></div>

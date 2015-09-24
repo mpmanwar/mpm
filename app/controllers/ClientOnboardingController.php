@@ -305,6 +305,17 @@ class ClientOnboardingController extends BaseController {
             CrmLead::updateCrmLeadsStatus($client_id, $up_data);
         }
     }
+
+    public function add_task_date()
+    {
+        $cleinttaskdate_id = Input::get("cleinttaskdate_id");
+        $task_date = date("Y-m-d", strtotime(Input::get("calender_date")));
+        $task_time = str_replace(' ', '', Input::get("calender_time"));;
+        $date = $task_date." ".$task_time.":00";
+        //$date = Input::get("calender_date");
+        ClientTaskDate::where('cleinttaskdate_id', '=', $cleinttaskdate_id)->update(array('taskdate'=>$date));
+        return Redirect::to('/onboard');
+    }
     
     
     

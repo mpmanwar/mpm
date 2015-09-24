@@ -482,6 +482,7 @@ Route::any('/onboarding/ajax-task-details', 'ClientOnboardingController@ajax_tas
 Route::any('/onboarding/ajax-new-task', 'ClientOnboardingController@ajax_new_task');
 Route::any('/onboarding/delete-task-details', 'ClientOnboardingController@delete_task_details');
 Route::any('/onboarding/delete-onboarding-clients', 'ClientOnboardingController@delete_onboarding_clients');
+Route::any('/onboarding/add-task-date', 'ClientOnboardingController@add_task_date');
 /*================== Client Onboarding End ==============*/
 
 
