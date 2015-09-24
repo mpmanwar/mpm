@@ -1619,7 +1619,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $canvas = $dom_pdf ->get_canvas();
                // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                 
-                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+                $canvas->page_text(700, 18, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
             
             return $pdf->download('Staff_Time_Reportpdf.pdf');
         
