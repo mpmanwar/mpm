@@ -1237,9 +1237,7 @@ $time = date("Y-m-d H:i:s",$t);
 
     }
     
-    
-    
-    
+           
     public function pdfclientnotstaff_time_sheet($ctr_client,$fromdate,$todate){
         
         

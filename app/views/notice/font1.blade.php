@@ -1,4 +1,3 @@
-
         <div class="col-xs-4 loop_sec" id="<?php echo $font->noticefont_id; ?>">
         <div class="hvr-grow2 limitboard" id="<?php echo $font->noticefont_id;; ?>">
         

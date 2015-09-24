@@ -22,8 +22,7 @@
         <a  href="#" data-template_id="{{ $font2->noticefont_id }}" onclick="openModal('{{ $font2->noticefont_id }}')"><img src="img/edit_icon.png"  /></a>
         <a href="/delete-template/{{ $font2->noticefont_id }}" onClick="return delfun()"><img src="img/cross.png" /></a>
                 </div>
-        
-                
+                        
                 <div class="clearfix"></div>
           
         </div>
