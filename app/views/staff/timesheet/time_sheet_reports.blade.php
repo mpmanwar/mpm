@@ -1523,7 +1523,7 @@ function fontfetchnotesmodal(fontvalue){
       <div style="width:100%;">
              <label for="f_name" style="font-size: 18px;">Notes</label>
              
-          <textarea rows="4" cols="50"  name="notes1[]" id="notess" value="" ></textarea>
+          <textarea rows="4" cols="65"  name="notes1[]" id="notess" value="" ></textarea>
          
          
           <button class="btn btn-primary" onclick="return notes()" id="save_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button>   
@@ -1555,7 +1555,7 @@ function fontfetchnotesmodal(fontvalue){
       <div style="width:100%;">
              <label for="f_name" style="font-size: 18px;">Notes</label>
              
-          <textarea rows="4" cols="50"  name="notes1[]" id="fetchnotess" value="" ></textarea>
+          <textarea rows="4" cols="65"  name="notes1[]" id="fetchnotess" value="" ></textarea>
          
          
      <!--     <button class="btn btn-primary" onclick="return fetchnotes()" id="fetchsave_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button> -->  
@@ -1589,7 +1589,7 @@ function fontfetchnotesmodal(fontvalue){
       <div style="width:100%;">
              <label for="f_name" style="font-size: 18px;">Notes</label>
              
-          <textarea rows="4" cols="50"  name="notes1[]" id="fontfetchnotess" value="" ></textarea>
+          <textarea rows="4" cols="65"  name="notes1[]" id="fontfetchnotess" value="" ></textarea>
          
          
      <!--     <button class="btn btn-primary" onclick="return fetchnotes()" id="fetchsave_notes" style=" padding:4px 20px; text-align: center; margin-top: 15px; float: right; margin-right: 6%; ">Save</button> -->  
@@ -1621,7 +1621,7 @@ function fontfetchnotesmodal(fontvalue){
              <label for="f_name" style="font-size: 18px;">Notes</label>
              
           <!-- <input type="text" name="notes1[]" id="notess" value="" style="padding: 5px 5px;"> -->
-          <textarea rows="4" cols="50" name="notes" id="notes" ></textarea>
+          <textarea rows="4" cols="65" name="notes" id="notes" ></textarea>
           
         <!--  <input type="text" name="notes1[]" id="editnotess" value="" style="padding: 5px 5px;"> -->
          
