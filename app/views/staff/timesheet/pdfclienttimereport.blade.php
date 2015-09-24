@@ -35,31 +35,17 @@
   </tr>
 
 </table>
-
-
-
     </td>
-
-    <td width="38%" style="font-size:20px; text-align:center; font-weight:bold; text-decoration:underline;">{{ "Report Title:Client Time Report" }}</td>
-
+    <td width="38%" style="font-size:20px; text-align:center; font-weight:bold; text-decoration:underline;">{{ "Client Time Report" }}</td>
       <td width="35%">&nbsp;</td>
-
   </tr>
-
 </table>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>&nbsp;</td>
-
   </tr>
-
   <tr>
-
     <td valign="top">
 
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -70,22 +56,31 @@
 
     <td width="60%">{{$from}}</td>
 
-    <td width="20%"><strong>Staff</strong></td>
+    <td width="20%"><strong>Service</strong></td>
 
-    <td width="6%">&nbsp;</td>
+    <?php if(count($cfinal_array)>1)
+ { ?>
+  
+    <td>{{"Zzzzzz"}}</td>
+<?php
+ }else{
+    ?>
+     @foreach($cfinal_array as $key=>$nstaff_row)
+     <td>{{$key or ""}}</td>
+  @endforeach
+  
+   <?php 
+ }
+  ?>
 
   </tr>
 
   <tr>
 
     <td width="14%"><strong>Date To :</strong></td>
-
     <td width="46%">{{$to}}</td> 
-
     <td width="20%"> <strong>Client</strong></td>
-
     <td width="20%">{{$cname or ""}}</td>
-
   </tr>
 <tr>
 

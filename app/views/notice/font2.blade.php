@@ -1,5 +1,4 @@
-
-        <div class="col-xs-4 loop_sec" id="<?php echo $font2->noticefont_id; ?>">
+          <div class="col-xs-4 loop_sec" id="<?php echo $font2->noticefont_id; ?>">
         <div class="hvr-grow2 limitboard" id="<?php echo $font2->noticefont_id;; ?>">
         
         <div class="holidays_list" id="{{$font2->noticefont_id }}"  >
@@ -23,8 +22,7 @@
         <a  href="#" data-template_id="{{ $font2->noticefont_id }}" onclick="openModal('{{ $font2->noticefont_id }}')"><img src="img/edit_icon.png"  /></a>
         <a href="/delete-template/{{ $font2->noticefont_id }}" onClick="return delfun()"><img src="img/cross.png" /></a>
                 </div>
-        
-                
+                        
                 <div class="clearfix"></div>
           
         </div>

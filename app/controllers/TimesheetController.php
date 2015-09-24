@@ -1237,9 +1237,7 @@ $time = date("Y-m-d H:i:s",$t);
 
     }
     
-    
-    
-    
+           
     public function pdfclientnotstaff_time_sheet($ctr_client,$fromdate,$todate){
         
         
@@ -1339,7 +1337,7 @@ $time = date("Y-m-d H:i:s",$t);
 
             }
         }
-
+        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
 
         // echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
@@ -1578,6 +1576,9 @@ $time = date("Y-m-d H:i:s",$t);
 
 
         }
+        
+        
+        
         $data['sname']= $temp['staff_name'];
         $data['final_array'] = $staff_timereport;
         
