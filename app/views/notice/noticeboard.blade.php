@@ -183,7 +183,7 @@ $(function() {
 @foreach($font as $key=>$val)
 <div class="col-xs-4 loop_sec" id="<?php echo $val['noticefont_id']; ?>">
 
-<div class="hvr-grow1 limitboard" id="<?php echo $val['noticefont_id']; ?>">
+<div class="hvr-grow2 limitboard" id="<?php echo $val['noticefont_id']; ?>">
 
 <div class="holidays_list" id="{{ $val['noticefont_id'] }}"  >
 <div  style="cursor:move; width: 100%;" class="holidays_h">{{$val['message_subject'] }}</div>
@@ -331,7 +331,7 @@ $(function() {
 
 @foreach($font2 as $key=>$val2)
 <div class="col-xs-4 loop_sec" id="<?php echo $val2['noticefont_id']; ?>">
-<div class="staff_left hvr-grow1 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
+<div class="staff_left hvr-grow2 limitboard2" id="<?php echo $val2['noticefont_id']; ?>">
 
 <div class="holidays_list" id="dyn">
 <div  style="cursor:move; width:100%" class="holidays_h">{{$val2['message_subject'] }}</div>
