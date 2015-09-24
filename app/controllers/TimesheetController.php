@@ -1207,7 +1207,7 @@ $time = date("Y-m-d H:i:s",$t);
 
             }
         }
-        //$data['cname']= $temp['client_name'];
+        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
 
         // echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
@@ -1339,7 +1339,7 @@ $time = date("Y-m-d H:i:s",$t);
 
             }
         }
-        //$data['cname']= $temp['client_name'];
+        $data['cname']= $temp['client_name'];
         $data['cfinal_array'] = $client_timereport;
 
         // echo View::make('staff.timesheet.client_timereport')->with('cfinal_array',$data['cfinal_array']);
