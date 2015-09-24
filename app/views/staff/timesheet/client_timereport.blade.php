@@ -1,8 +1,6 @@
-
- 
-
 @if(!empty($cfinal_array))
- <table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse;">
+
+ <table border="1" style="width: 100%;margin-bottom: 20px; border-collapse: collapse; margin-top:20px;">
 <tr>
 <td align="center" >
 <table class="" width="100%" >
