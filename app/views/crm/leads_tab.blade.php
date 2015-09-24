@@ -47,7 +47,7 @@
         <th width="12%">Deal Owner</th>
         <th width="12%">Prospect Name</th>
         <th>Contact Name</th>
-        <th width="5%">Phone</th>
+        <th width="">Phone</th>
         <th width="13%">Convert to Opportunity</th>
         <th width="8%">Lead Source</th>
         <th width="9%">Lead Status <a href="javascript:void(0)" class="lead_status-modal" style="float:right;" data-is_show="L"><i class="fa fa-cog fa-fw" style="color:#00c0ef"></i></a></th>
@@ -69,7 +69,12 @@
                 <a href="javascript:void(0)" data-type="ind" data-leads_id="{{ $leads_row['leads_id'] or "" }}" class="open_new_lead-modal">{{ $leads_row['prospect_title'] or "" }} {{ $leads_row['prospect_fname'] or "" }} {{ $leads_row['prospect_lname'] or "" }}</a>
               @endif
             </td>
-            <td align="left">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</td>
+            <td align="left">
+              @if(isset($leads_row['client_type']) && $leads_row['client_type'] == "org")
+                <a href="javascript:void(0)" data-type="org" data-leads_id="{{ $leads_row['leads_id'] }}" class="open_new_lead-modal">{{ $leads_row['contact_title'] or "" }} {{ $leads_row['contact_fname'] or "" }} {{ $leads_row['contact_lname'] or "" }}</a>
+              @endif
+              
+            </td>
             <td align="center">{{ $leads_row['phone'] or "" }}</td>
             <td align="center">
               <div class="j_selectbox" style="width:80px!important;">

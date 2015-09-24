@@ -29,17 +29,31 @@
     </td>
     <td align="left">
       <div style="position: relative;" class="edit_cal">
-        <a href=""><span id="frequency"></span> </a>
-        <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="{{ $check_row['checklist_id'] }}"></span> 
+        <a href=""><span id="frequency">{{ (isset($check_row['task_details']['taskdate']) && $check_row['task_details']['taskdate'] != "")?date('d-m-Y', strtotime($check_row['task_details']['taskdate'])):'' }}</span> </a>
+        <span class="glyphicon glyphicon-chevron-down open_adddrop" data-checklist_id="{{ $check_row['checklist_id'] }}" data-cleinttaskdate_id="{{ $check_row['task_details']['cleinttaskdate_id'] }}" data-client_id="{{ $check_row['task_details']['client_id'] or "" }}"></span> 
        <span></span>
         <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_{{ $check_row['checklist_id'] }}" style="display: none;">
           <ul>
             <li>
-              <a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a>
+              <a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-cleinttaskdate_id="cleinttaskdate_id">Add/Edit Start Date</a>
             </li>
             <li>
               <a href="javascript:void(0)" id="gocalender" class="" data-client_id="">Add to Calender</a>
             </li>
+            <!-- <li>
+              <span id="view_calender_" class="addtocalendar atc-style-blue">
+                <var class="atc_event">
+                  <var class="atc_date_start">ss</var>
+                  <var class="atc_date_end">ss</var>
+                  <var class="atc_timezone">Europe/London</var>
+                  <var class="atc_title"> - </var>
+                  <var class="atc_description"> - </var>
+                  <var class="atc_location">Office</var>
+                  <var class="atc_organizer"></var>
+                  <var class="atc_organizer_email"></var>
+                </var>
+              </span>
+             </li> -->
           </ul>
         </div>
       </div>

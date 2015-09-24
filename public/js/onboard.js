@@ -81,9 +81,20 @@ $(document).on("click", "#businessclient", function(event){
 
 
 $('#BoxTable').on("click", ".open_adddrop", function(event){
-    var onboarding_id = $(this).data("onboarding_id");//alert(onboarding_id);
-    $("#idopen_dropdown_"+onboarding_id).toggle();
+    var checklist_id = $(this).data("checklist_id");//alert(onboarding_id);
+    $("#idopen_dropdown_"+checklist_id).toggle();
+
+    var client_id = $(this).data("client_id");
+    $("#calender_client_id").val(client_id);
+    var cleinttaskdate_id = $(this).data("cleinttaskdate_id");
+    $("#cleinttaskdate_id").val(cleinttaskdate_id);
     event.stopPropagation();
+});
+
+$('#BoxTable').on("click", ".save_job_start_date", function(event){
+    var onboarding_id = $(this).data("onboarding_id");//alert(onboarding_id);
+    //$("#idopen_dropdown_"+onboarding_id).toggle();
+    //event.stopPropagation();
 });
 
 $('#BoxTable').on("click", ".open_calender_pop", function(event){

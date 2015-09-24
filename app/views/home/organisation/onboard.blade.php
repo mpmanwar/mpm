@@ -60,7 +60,7 @@ $(function() {
         {"bSortable": false},
         {"bSortable": false},
       ],
-      "aaSorting": [[3, 'desc']]
+      "aaSorting": [[1, 'asc']]
 
   });
 
@@ -447,10 +447,11 @@ $('#calender_time').timepicki({
         <h4 class="modal-title">ADD JOB START DATE</h4>
         <div class="clearfix"></div>
       </div>
-    
+    {{ Form::open(array('url' => '/onboarding/add-task-date', 'id'=>'field_form')) }}
       <div class="modal-body">
         <div id="start_date_loader" style="text-align: center; padding-bottom: 10px;"><!-- Show loader --></div>
         <input type="hidden" id="calender_client_id" name="calender_client_id">
+        <input type="hidden" id="cleinttaskdate_id" name="cleinttaskdate_id">
         <input type="hidden" id="calender_tab" name="calender_tab">
         <table>
           <tr>
@@ -474,12 +475,11 @@ $('#calender_time').timepicki({
 
           <tr>
             <td align="left" colspan="2" width="20%"></td>
-            <td align="right"><button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-info save_job_start_date">Save</button></td>
+            <td align="right"><button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="submit" class="btn btn-info save_job_start_date">Save</button></td>
           </tr>
         </table>
-
-        
       </div>
+      {{ Form::close() }} 
     
   </div>
     <!-- /.modal-content -->
