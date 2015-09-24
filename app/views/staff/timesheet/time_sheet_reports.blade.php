@@ -757,10 +757,19 @@ function fontfetchnotesmodal(fontvalue){
 									<td align="center">{{ number_format((float)$staff_row['hrs'], 1, '.', '')  }}</td>
 									<td align="center"> <!--{{ $staff_row['notes'] }} -->
                                     
-                                    <button class="btn btn-default" onclick="return fontfetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fontfetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
+                                    @if(empty($staff_row['notes']))
+                                    
+                                    <a href="javascript:void(0)" onclick="return fontfetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fontfetchcomposenotes-modal"><span class="notes_btn">Notes</span></a>
+                                    @endif
+                                     
+                                    
+                                    
                                    @if(!empty($staff_row['notes']))
                                     
-                                   ......
+                                    
+                                    <a href="javascript:void(0)" onclick="return fontfetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fontfetchcomposenotes-modal"><span style="border-bottom:3px dotted #3a8cc1 !important" class="notes_btn">Notes</span></a>
+                                    
+                                     
                                    @endif
                                     </td>
 									<td align="center"><a href="#" data-toggle="modal" data-template_id="{{ $staff_row['timesheet_id'] }}" onclick="openModal('{{ $staff_row['timesheet_id'] }}')"><img src="/img/edit_icon.png" width="15"></a>
@@ -878,7 +887,7 @@ function fontfetchnotesmodal(fontvalue){
                                 <th align="center"><strong>Date</strong></th>
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
-                                <th align="left"><strong>Service</strong></th>
+                                <th align="center"><strong>Service</strong></th>
                                 <th><strong>Hrs</strong></th>
                                 <th><strong>Notes</strong></th>
                                 <th><strong>Action</strong></th>
@@ -893,13 +902,24 @@ function fontfetchnotesmodal(fontvalue){
 								<!--	<td align="center"><input type="checkbox" /></td> -->
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
-									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
-									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
+									<td  align="center">{{ $staff_row['client_detail']['field_value'] }}</td>
+									<td align="center">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
 									<td align="center">{{   number_format((float)$staff_row['hrs'], 1, '.', '')   }}</td>
-									<td align="center"><button class="btn btn-default" onclick="return fetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
+								
+                                
+                                	<td align="center">
+                                    
+                                   
+                                    
+                                    @if(empty($staff_row['notes']))
+                                     <a href="javascript:void(0)" onclick="return fetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fetchcomposenotes-modal"><span class="notes_btn">Notes</span>
+                                    </a>
+                                    @endif
                                     @if(!empty($staff_row['notes']))
                                     
-                                   ......
+                                    <a href="javascript:void(0)" onclick="return fetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fetchcomposenotes-modal"><span style="border-bottom:3px dotted #3a8cc1 !important" class="notes_btn">Notes</span>
+                                    </a>
+                                   
                                    @endif
                                     
                                     </td>

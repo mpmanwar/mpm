@@ -1701,7 +1701,12 @@ $("#other_upload_table").on("click", ".delete_files", function(){
       var service_name  = $("#service_name").val();
       var client_type   = $("#client_type").val();
       var client_id     = $("#client_id").val();
-
+     // console.log('service_name:'+service_name+'client_type'+client_type+'client_id'+client_id)
+      
+    //alert('fafafafafaf');
+    //return false;
+    
+    
       $.ajax({
         type: "POST",
         url: '/client/add-services',
