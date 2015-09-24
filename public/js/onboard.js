@@ -80,16 +80,17 @@ $(document).on("click", "#businessclient", function(event){
 });
 
 
-$(".open_adddrop").click(function(event) {
+$('#BoxTable').on("click", ".open_adddrop", function(event){
     var onboarding_id = $(this).data("onboarding_id");//alert(onboarding_id);
     $("#idopen_dropdown_"+onboarding_id).toggle();
     event.stopPropagation();
 });
 
- $(".open_calender_pop").click(function(){
-       
-        $("#addto_calender-modal").modal("show");
-    });
+$('#BoxTable').on("click", ".open_calender_pop", function(event){
+  $('.open_dropdown').hide();
+  $("#addto_calender-modal").modal("show");
+});
+
 $("#add_position_type").click(function(){
     var type_name      = $("#checklist").val();
     var client_id      = $("#hiddenclient").val();
@@ -157,153 +158,119 @@ $("#append_position_type").on("click", ".delete_checklist_name", function(){
 
 
 $(document).ready(function() {
+  $("#txtboxToFilter").keydown(function(event) {
+    if ( event.keyCode == 46 || event.keyCode == 8 ) {
 
-	$("#txtboxToFilter").keydown(function(event) {
-    
-        
-		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+		}else{
 
-			// let it happen, don't do anything
+		  if($("#txtboxToFilter").val().length>=3){
+			   event.preventDefault();	
+         return false;
+      }
 
-		}
-
-		else {
-		  
-          
-          if($("#txtboxToFilter").val().length>=3){
-			event.preventDefault();	
-        return false;
-        }
-
-			// Ensure that it is a number and stop the keypress
-
-			 if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
-
-            event.preventDefault();
-
-        }	
+			if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
+        event.preventDefault();
+      }	
 
 		}
+  });
 
-	});
+  $(".change_last_date").click(function(){
+    var key         = $(this).data('key');
+    var tab         = $(this).data('tab');
+    var prev_date   = $(this).data('prev_date');
+    $(this).hide();
+    $("."+tab+"_save_made_span_"+key).show();
+    $("#"+tab+"_made_up_date_"+key).val(prev_date); 
+  });
+  $(".cancel_made_date").click(function(){
+      var key   = $(this).data('key');
+      var tab   = $(this).data('tab');
+      $("#"+tab+"_dateanchore_"+key).show();
+      $("."+tab+"_save_made_span_"+key).hide();
+  });
+      
+  $(".save_made_date").click(function(){
+    var client_id   = $(this).data('client_id');
+    var tab         = $(this).data('tab');
+    var key         = $(this).data('key');
+    var date        = $("#"+tab+"_made_up_date_"+key).val();
+    $.ajax({
+      type: "POST",
+      //dataType : "json",
+      url: "/onboardsave-made-up-date",
+      data: { 'client_id': client_id, 'date': date },
+      success: function (resp) {
+        window.location = "/onboard";
+      }
+    });
+  });
+
+//=========== Delete Onboarding Client Start ===========//
+  $('#deleteOnboarding').click(function() {
+    var val = [];
+        //alert('val');return false;
+    $(".ads_Checkbox:checked").each( function (i) {
+      if($(this).is(':checked')){
+        val[i] = $(this).val();
+      }
+    });
+    //alert(val.length);return false;
+    if(val.length>0){
+      var client_type = $("#client_type").val();
+      if(confirm("Do you want to delete??")){
+        $.ajax({
+            type: "POST",
+            url: '/onboarding/delete-onboarding-clients',
+            data: { 'client_delete_id' : val },
+            success : function(resp){
+              window.location.reload();
+            }
+        });
+      }
+
+    }else{
+      alert('Please select atleast one clients');
+    }
+  });
+//=========== Delete Onboarding Client End ===========//
 
 });
 
 
 
 function notes(){
-    
-    
-     var notes      = $("#notess").val();
-      var client_id      = $("#notescid").val();
-    
-    console.log(notes)
-    console.log(client_id)
-    
-    $.ajax({
-      type: "POST",
-      url: '/client/onboardsnotes',
-      data: { 'client_id':client_id,'notes':notes },
-      success : function(resp){
-        
-        console.log(resp);
-        
-       $("#composenotes-modal").modal("hide");
+  var notes      = $("#notess").val();
+  var client_id      = $("#notescid").val();
+  $.ajax({
+    type: "POST",
+    url: '/client/onboardsnotes',
+    data: { 'client_id':client_id,'notes':notes },
+    success : function(resp){
+      
+      console.log(resp);
+      
+     $("#composenotes-modal").modal("hide");
 
-      }
-    });
-    
-    
-    
-    
-    
-    
-        
+    }
+  });
 }
-$(document).on("click", "#notesmodal", function(event){
-    
-    
-    $("#notess").val("");
-    var client_id =$(this).attr('data-cid');
-    
-    console.log($(this).attr('data-cid'))
-    $("#notescid").val(client_id);
-    
-    $.ajax({
-      type: "POST",
-      url: '/client/getonboardsnotes',
-      data: { 'client_id':client_id },
-      success : function(resp){
-        
-        console.log(resp);
-        
-      $("#notess").val(resp);
 
-      }
-    });
-    
-    
-    
-    
-    
-    $("#composenotes-modal").modal("show");
-     
-    
-    
-    
-    event.preventDefault();
-    
-    
+$(document).on("click", "#notesmodal", function(event){
+  $("#notess").val("");
+  var client_id =$(this).attr('data-cid');
+  $("#notescid").val(client_id);
+  $.ajax({
+    type: "POST",
+    url: '/client/getonboardsnotes',
+    data: { 'client_id':client_id },
+    success : function(resp){
+      $("#notess").val(resp);
+    }
+  });
+  $("#composenotes-modal").modal("show");
+  event.preventDefault();
 });
 
 
- $(".change_last_date").click(function(){
-        var key         = $(this).data('key');
-        var tab         = $(this).data('tab');
-        var prev_date   = $(this).data('prev_date');
-        $(this).hide();
-        $("."+tab+"_save_made_span_"+key).show();
-        $("#"+tab+"_made_up_date_"+key).val(prev_date); 
-    });
-    $(".cancel_made_date").click(function(){
-        var key   = $(this).data('key');
-        var tab   = $(this).data('tab');
-        $("#"+tab+"_dateanchore_"+key).show();
-        $("."+tab+"_save_made_span_"+key).hide();
-    });
-    
-    
-    $(".save_made_date").click(function(){
-        var client_id   = $(this).data('client_id');
-       // var service_id  = $(this).data('service_id');
-        var tab         = $(this).data('tab');
-        var key         = $(this).data('key');
-        var date        = $("#"+tab+"_made_up_date_"+key).val();
-console.log(client_id);
-//console.log(service_id);
-console.log(tab);
-console.log(key);
-console.log(date);
-//return false;
-        $.ajax({
-          type: "POST",
-          //dataType : "json",
-          url: "/onboardsave-made-up-date",
-          data: { 'client_id': client_id, 'date': date },
-          success: function (resp) {
-            window.location = "/onboard";
-            
-            console.log(resp);
-            //$("#"+tab+"_dateanchore_"+key).show();
-            //$("."+tab+"_save_made_span_"+key).hide();         
-          }
-        });
-    });
-    
-    
 
-/*
-function notesmodal(){
-     $("#composenotes-modal").modal("show");
-     return false;
- }*/

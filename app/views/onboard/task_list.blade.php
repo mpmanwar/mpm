@@ -30,9 +30,9 @@
     <td align="left">
       <div style="position: relative;" class="edit_cal">
         <a href=""><span id="frequency"></span> </a>
-        <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="1"></span> 
+        <span class="glyphicon glyphicon-chevron-down open_adddrop" data-onboarding_id="{{ $check_row['checklist_id'] }}"></span> 
        <span></span>
-        <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_1" style="display: none;">
+        <div class="cont_add_to_date open_dropdown" id="idopen_dropdown_{{ $check_row['checklist_id'] }}" style="display: none;">
           <ul>
             <li>
               <a href="javascript:void(0)" id="addeditshow" class="open_calender_pop" data-client_id="">Add/Edit Start Date</a>
