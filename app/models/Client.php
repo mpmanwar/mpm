@@ -19,7 +19,7 @@ class Client extends Eloquent {
 				$client_data[$i]['client_id'] 		= $client_id->client_id;
 				$client_data[$i]['client_type'] 	= "org";
 				$client_data[$i]['show_archive'] 	= $client_id->show_archive;
-				//$client_data[$i]['ch_manage_task'] 	= $client_id->ch_manage_task;
+				$client_data[$i]['crm_leads_id'] 	= $client_id->crm_leads_id;
 
 				// ############### GET MANAGE TASK START ################## //
 				$jobs = JobsManage::whereIn("user_id", $groupUserId)->where("client_id", "=", $client_id->client_id)->first();
@@ -170,6 +170,7 @@ class Client extends Eloquent {
                 $client_data[$i]['client_id'] 		= $client_id->client_id;
                 $client_data[$i]['client_type'] 	= "ind";
                 $client_data[$i]['show_archive'] 	= $client_id->show_archive;
+                $client_data[$i]['crm_leads_id'] 	= $client_id->crm_leads_id;
 
                 // ############### GET CLIENT LIST ALLOCATION START ################## //
 				$list = ClientListAllocation::where("client_id", "=", $client_id->client_id)->get();

@@ -41,5 +41,29 @@ class ClientTaskDate extends Eloquent{
 		return $data;
 	}
 
+	public static function taskCountByClientId($client_id)
+	{
+		$data = array();
+		$session    	= Session::get('admin_details');
+        $user_id    	= $session['id'];
+        $groupUserId 	= $session['group_users'];
+
+		$value = ClientTaskDate::whereIn('user_id', $groupUserId)->where('client_id', '=', $client_id)->count();
+		
+		return $value;
+	}
+
+	public static function doneCountByClientId($client_id)
+	{
+		$data = array();
+		$session    	= Session::get('admin_details');
+        $user_id    	= $session['id'];
+        $groupUserId 	= $session['group_users'];
+
+		$value = ClientTaskDate::whereIn('user_id', $groupUserId)->where('client_id', '=', $client_id)->where('status', '=', 'D')->count();
+		
+		return $value;
+	}
+
 
 }

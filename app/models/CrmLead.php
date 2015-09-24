@@ -384,6 +384,14 @@ class CrmLead extends Eloquent {
         return $company_number;
 	}
 
+	public static function updateCrmLeadsStatus($client_id, $data)
+	{
+		$crm_leads = Client::where('client_id', '=', $client_id)->select('crm_leads_id')->first();
+		if(isset($crm_leads['crm_leads_id']) && $crm_leads['crm_leads_id'] != 0){
+			CrmLead::where('leads_id', '=', $crm_leads['crm_leads_id'])->update($data);
+		}
+	}
+
 
 
 }
