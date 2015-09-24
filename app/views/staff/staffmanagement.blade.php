@@ -52,12 +52,20 @@
                 </div>
                 </a> </li>
               <li class="hvr-grow"> <a  href="/time-sheet-reports/{{ base64_encode('staff') }}">
+              
+              
+              
+              
+              
                 <div class="circle_icons_inner">
                   <div class="circle_icon"> <img alt="" src="img/dashboard_circle.png"> </div>
-                  <p class="c_tagline">TIME SHEET<br>
-                    REPORTS</p>
+                  <p class="c_tagline2">TIME SHEETS</p>
                   <div class="clearfix"></div>
                 </div>
+               
+               
+               
+               
                 </a> </li>
               <li class="hvr-grow"> <a  href="/cpd-and-courses/{{ base64_encode('staff') }}">
                 <div class="circle_icons_inner">

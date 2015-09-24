@@ -15,7 +15,7 @@
 <td width="20%" align="center">Staff Name</td>
 <td width="10%" align="center">Date</td>
 <td width="40%" align="center">Service</td>
-<td width="10%" align="center">HRS</td>
+<td width="10%" align="center">Hrs</td>
 </tr>
 </table>
 </td>

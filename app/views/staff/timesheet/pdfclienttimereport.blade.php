@@ -153,20 +153,11 @@
 <td width="20%" align="center" style="font-size:11pt">Staff Name</td>
 <td width="10%" align="center" style="font-size:11pt">Date</td>
 <td width="40%" align="center" style="font-size:11pt">Client Name </td>
-<td width="10%" align="center" style="font-size:11pt">HRS</td>
+<td width="10%" align="center" style="font-size:11pt">Hrs</td>
 </tr>
 </table>
 </td>
 </tr>
- <?php 
-            //if ( isset($cfinal_array) ) {
-           // $font = Font_Metrics::get_font("helvetica", "bold");
-          //  $cfinal_array->page_text(72, 18, "{`} of {PAGE_COUNT}", $font, 6, array(255,0,0));
-      //  }
-
-?>
-
-
 <?php $y=0; ?>
  @if(isset($cfinal_array))
   @foreach($cfinal_array as $key=>$nstaff_row)

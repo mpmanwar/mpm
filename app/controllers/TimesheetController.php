@@ -30,7 +30,7 @@ class TimesheetController extends BaseController
         $data['staff_type'] = base64_decode($type);
 
 
-        $data['heading'] = "";
+        //$data['heading'] = "";
         $session = Session::get('admin_details');
         $user_id = $session['id'];
         $data['user_type'] = $session['user_type'];
@@ -1135,12 +1135,12 @@ $time = date("Y-m-d H:i:s",$t);
                 $canvas = $dom_pdf ->get_canvas();
                // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                 
-                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+                $canvas->page_text(700, 10, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
                 
        
            
            
-            return $pdf->download('clienttimesheetpdf.pdf');
+            return $pdf->download('Client_Time_Reportpdf.pdf');
             
             
             // return Redirect::to('/timesheet/client-timereport');
@@ -1374,7 +1374,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
            
            
-            return $pdf->download('clienttimesheetpdf.pdf');
+            return $pdf->download('Client_Time_Reportpdf.pdf');
             // return Redirect::to('/timesheet/client-timereport');
 
         } else {
@@ -1621,7 +1621,7 @@ $time = date("Y-m-d H:i:s",$t);
                 
                 $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
             
-            return $pdf->download('stafftimesheetpdf.pdf');
+            return $pdf->download('Staff_Time_Reportpdf.pdf');
         
         
         
@@ -1747,9 +1747,9 @@ $time = date("Y-m-d H:i:s",$t);
                 $canvas = $dom_pdf ->get_canvas();
                // $canvas->page_text(72, 18, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                 
-                $canvas->page_text(700, 30, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
+                $canvas->page_text(700, 18, "Page - {PAGE_NUM}", null, 10, array(0, 0, 0));
            
-            return $pdf->download('stafftimesheetpdf.pdf');
+            return $pdf->download('Staff_Time_Reportpdf.pdf');
         
         
         

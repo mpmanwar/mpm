@@ -125,7 +125,7 @@
 <td width="20%" align="center" style="font-size:11pt">Staff Name</td>
 <td width="10%" align="center" style="font-size:11pt">Date</td>
 <td width="40%" align="center" style="font-size:11pt">Service</td>
-<td width="10%" align="center" style="font-size:11pt">HRS</td>
+<td width="10%" align="center" style="font-size:11pt">Hrs</td>
 </tr>
 </table>
 </td>

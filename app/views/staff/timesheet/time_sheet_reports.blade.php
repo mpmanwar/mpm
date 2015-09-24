@@ -738,7 +738,7 @@ function fontfetchnotesmodal(fontvalue){
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
                                 <th align="left"><strong>Service</strong></th>
-                                <th><strong>HRS</strong></th>
+                                <th><strong>Hrs</strong></th>
                                 <th><strong>Notes</strong></th>
                                 <th><strong>Action</strong></th>
                               </tr>
@@ -754,7 +754,7 @@ function fontfetchnotesmodal(fontvalue){
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
-									<td align="center">{{ $staff_row['hrs'] }}</td>
+									<td align="center">{{ number_format((float)$staff_row['hrs'], 1, '.', '')  }}</td>
 									<td align="center"> <!--{{ $staff_row['notes'] }} -->
                                     
                                     <button class="btn btn-default" onclick="return fontfetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fontfetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
@@ -879,7 +879,7 @@ function fontfetchnotesmodal(fontvalue){
                                 <th align="center"><strong>Staff Name</strong></th>
                                 <th><strong>Client Name</strong></th>
                                 <th align="left"><strong>Service</strong></th>
-                                <th><strong>HRS</strong></th>
+                                <th><strong>Hrs</strong></th>
                                 <th><strong>Notes</strong></th>
                                 <th><strong>Action</strong></th>
                               </tr>
@@ -895,7 +895,7 @@ function fontfetchnotesmodal(fontvalue){
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
 									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
-									<td align="center">{{ $staff_row['hrs'] }}</td>
+									<td align="center">{{   number_format((float)$staff_row['hrs'], 1, '.', '')   }}</td>
 									<td align="center"><button class="btn btn-default" onclick="return fetchnotesmodal('{{ $staff_row['notes'] }}')" data-toggle="modal" data-target="#fetchcomposenotes-modal"><span class="requ_t">Notes</span></button>
                                     @if(!empty($staff_row['notes']))
                                     
@@ -977,7 +977,7 @@ function fontfetchnotesmodal(fontvalue){
                 <td width="20%" align="center"><strong>Staff Name</strong></td>
                 <td width="20%" align="center"><strong>Client Name</strong></td>
                 <td width="20%" align="center"><strong>Service</strong>  <!--Add/Edit list--></td>
-                <td width="6%" align="center"><strong>HRS</strong></td>
+                <td width="6%" align="center"><strong>Hrs</strong></td>
                 <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr >
@@ -1665,7 +1665,7 @@ function fontfetchnotesmodal(fontvalue){
                 <td width="20%" align="center"><strong>Staff Name</strong></td>
                 <td width="20%" align="center"><strong>Client Name</strong></td>
                 <td width="20%" align="center"><strong>Service</strong> <a href="#" class="add_to_list" data-toggle="modal" data-target="#vatScheme-modal">Add/Edit List</a></td>
-                <td width="6%" align="center"><strong>HRS</strong></td>
+                <td width="6%" align="center"><strong>Hrs</strong></td>
                 <td width="14%" align="center"><strong>Notes</strong></td>
               </tr>
               <tr id="TemplateRow" class="makeCloneClass">
