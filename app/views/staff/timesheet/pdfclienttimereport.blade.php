@@ -72,7 +72,7 @@
 
     <td width="20%"><strong>Staff</strong></td>
 
-    <td width="6%">zzzzzz</td>
+    <td width="6%">&nbsp;</td>
 
   </tr>
 

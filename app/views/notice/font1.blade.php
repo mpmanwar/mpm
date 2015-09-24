@@ -1,6 +1,6 @@
 
         <div class="col-xs-4 loop_sec" id="<?php echo $font->noticefont_id; ?>">
-        <div class="hvr-grow1 limitboard" id="<?php echo $font->noticefont_id;; ?>">
+        <div class="hvr-grow2 limitboard" id="<?php echo $font->noticefont_id;; ?>">
         
         <div class="holidays_list" id="{{$font->noticefont_id }}"  >
         <div  style="cursor:move; width: 100%;" class="holidays_h">{{$font->message_subject  }}</div>

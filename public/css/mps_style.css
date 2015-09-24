@@ -499,7 +499,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', end
 
 .bulk_text{text-align: center; font-size: 18px; margin-top: -20px; font-weight: bold; color: #999;}
 .bulk_header{ text-align: center; font-size: 22px; margin-top: 10px;}
-.loop_sec{margin-bottom: 10px;}
+.loop_sec{margin:15px 0 15px 0;}
 .crm_dropdown{z-index:10; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; color: #555; height:65px; padding: 6px 5px; font-size: 14px; position:absolute; cursor: pointer; top:35px; width:60%; left:145px;}
 .crm_dropdown ul li{ margin-bottom: 0; width:100%;}
 
@@ -1230,7 +1230,25 @@ ul.agreement_points li:nth-child(even){margin-right:0px;}
 .cancel_color{color:#f12f32;}
 .collection_color{color:#911231;}
 
-
+.hvr-grow2 {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(o);
+  transform: translateZ(o);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  width: 100%;
+}
+.hvr-grow2:hover, .hvr-grow2:focus, .hvr-grow2:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
 
 
 
