@@ -1833,7 +1833,7 @@ function fontfetchnotesmodal(fontvalue){
         <label for="name">Name</label>
         <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Service" class="form-control">
       </div>
-      
+       
       <div id="append_vat_scheme">
        
         @if( isset($old_services) && count($old_services) )
