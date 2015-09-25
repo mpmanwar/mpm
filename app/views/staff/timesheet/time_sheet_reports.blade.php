@@ -778,8 +778,7 @@ function fontfetchnotesmodal(fontvalue){
 									@endforeach
 								@endif
                                   
-                              
-                            </tbody>
+                                                          </tbody>
                           </table>
                <!--   <div>
               <p class="btn btn-default">Client Time Report</p>
