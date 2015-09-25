@@ -40,11 +40,13 @@ class TimesheetController extends BaseController
 
         $data['staff_details'] = User::whereIn("user_id", $groupUserId)->where("client_id",
             "=", 0)->select("user_id", "fname", "lname")->get();
-        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
-            get();
-        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
-            $groupUserId)->orderBy("vat_scheme_name")->get();
-
+      //  $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+      //  $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",$groupUserId)->orderBy("vat_scheme_name")->get();
+       
+        $data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
+            
+            
         $data['allClients'] = App::make("HomeController")->get_all_clients();
 
 
@@ -57,8 +59,10 @@ class TimesheetController extends BaseController
                 $data2[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data2[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data2[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+  
+  $data2[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+              
+              
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -87,8 +91,13 @@ class TimesheetController extends BaseController
                 $data3[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data3[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data3[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+              //  $data3[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+             
+              $data3[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+               $data3[$key]['new_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+              
+              
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data3[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -163,7 +172,7 @@ class TimesheetController extends BaseController
         */
 
 
-        //echo '<pre>'; print_r($data3);die();
+        //echo '<pre>'; print_r($data['time_sheet_reportlmt']);die();
 
         //echo $this->last_query();
 
@@ -321,6 +330,7 @@ class TimesheetController extends BaseController
                 where('rel_client_id', '=', $ctr_data['ctr_client'])->where('vat_scheme_type',
                 '=', $ctr_data['ctr_serv'])->get();
         } else {
+            
             $limitimesheet = TimeSheetReport::whereBetween('created_date', array($form, $to))->
                 where('rel_client_id', '=', $ctr_data['ctr_client'])->get();
         }
@@ -373,8 +383,9 @@ class TimesheetController extends BaseController
                 $data_ctr[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_ctr[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                    
+                $data_ctr[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_ctr[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -393,15 +404,15 @@ class TimesheetController extends BaseController
                 $data['limitimesheet'] = $data_ctr;
             }
         }
-
+            //echo '<pre>';print_r($data['limitimesheet']);die();
+        
         $client_timereport = $data['cfinal_array'] = array();
         if (isset($data['limitimesheet'])) {
 
             foreach ($data['limitimesheet'] as $eachR) {
                 $temp = array();
                 $temp['client_name'] = $eachR{'client_detail'}->field_value;
-                $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
-                    'staff_detail'}->lname;
+                $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
                 //$temp['service']  = $eachR{'old_vat_scheme'}->vat_scheme_name;
 
@@ -410,18 +421,18 @@ class TimesheetController extends BaseController
 
                 //$client_timereport[$eachR{'client_detail'}->field_id][] = $temp;
 
-                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
+                $client_timereport[$eachR{'old_service'}->service_name][] = $temp;
 
 
             }
 
-
+//shovan nandi->jagdish chandra clg porten junior biplab da cl korte
         }
 
         $data['cfinal_array'] = $client_timereport;
 
-        // echo '<pre>';
-        // print_r($data['cfinal_array']);die;
+         //echo '<pre>';
+         //print_r($data['cfinal_array']);die;
 
         //header('Content-Type: application/json; charset=utf-8');
         //   echo json_encode($data['limitimesheet']);
@@ -487,8 +498,14 @@ class TimesheetController extends BaseController
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+             
+               // $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                $data_str[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+                
+                
+                
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -519,7 +536,7 @@ class TimesheetController extends BaseController
                 $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
-                $temp['service'] = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                $temp['service'] = $eachR{'old_service'}->service_name;
 
                 $temp['hrs'] = $eachR['hrs'];
 
@@ -535,7 +552,7 @@ class TimesheetController extends BaseController
         }
 
         $data['final_array'] = $staff_timereport;
-        // echo '<pre>';
+         //echo '<pre>';
         //print_r($data['final_array']);die;
 
         // echo View::make('staff.timesheet.staff_timereport')->with('limitimesheetstr',$data['limitimesheetstr'])->with('final_array',$data['final_array']);
@@ -748,10 +765,14 @@ class TimesheetController extends BaseController
         //die('sddsdsd');
 
         $data['allClients'] = App::make("HomeController")->get_all_clients();
-        $data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->
-            get();
-        $data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",
-            $groupUserId)->orderBy("vat_scheme_name")->get();
+        
+        //$data['old_vat_schemes'] = VatScheme::where("status", "=", "old")->orderBy("vat_scheme_name")->get();
+        //$data['new_vat_schemes'] = VatScheme::where("status", "=", "new")->whereIn("user_id",$groupUserId)->orderBy("vat_scheme_name")->get();
+      
+        $data['old_services'] 	= Service::where("status", "=", "old")->orderBy("service_name")->get();
+		$data['new_services'] 	= Service::where("status", "=", "new")->whereIn("user_id", $groupUserId)->orderBy("service_name")->get();
+        
+        
         return View::make('staff.timesheet.client_report', $data);
 
     }
@@ -1080,8 +1101,9 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_ctr[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_ctr[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+               // $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                $data_ctr[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_ctr[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1111,7 +1133,7 @@ $time = date("Y-m-d H:i:s",$t);
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
                 $temp['hrs'] = $eachR['hrs'];
-                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
+                $client_timereport[$eachR{'old_services'}->service_name][] = $temp;
 
             }
                         
@@ -1189,8 +1211,10 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_ctr[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_ctr[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                
+                $data_ctr[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_ctr[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1220,7 +1244,7 @@ $time = date("Y-m-d H:i:s",$t);
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
                 $temp['hrs'] = $eachR['hrs'];
-                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
+                $client_timereport[$eachR{'old_services'}->service_name][] = $temp;
 
             }
         }
@@ -1319,8 +1343,9 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_ctr[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_ctr[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                $data_ctr[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_ctr[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1350,7 +1375,7 @@ $time = date("Y-m-d H:i:s",$t);
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
                 $temp['hrs'] = $eachR['hrs'];
-                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
+                $client_timereport[$eachR{'old_services'}->service_name][] = $temp;
 
             }
         }
@@ -1427,8 +1452,11 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_ctr[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_ctr[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_ctr[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                
+                $data_ctr[$key]['old_services'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+                
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_ctr[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1458,7 +1486,7 @@ $time = date("Y-m-d H:i:s",$t);
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
                 $temp['hrs'] = $eachR['hrs'];
-                $client_timereport[$eachR{'old_vat_scheme'}->vat_scheme_name][] = $temp;
+                $client_timereport[$eachR{'old_services'}->service_name][] = $temp;
 
             }
         }
@@ -1557,8 +1585,11 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                
+                $data_str[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1589,7 +1620,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
-                $temp['service'] = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                $temp['service'] = $eachR{'old_service'}->service_name;
 
                 $temp['hrs'] = $eachR['hrs'];
 
@@ -1688,8 +1719,10 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+               // $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                $data_str[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1720,7 +1753,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
-                $temp['service'] = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                $temp['service'] = $eachR{'old_service'}->service_name;
 
                 $temp['hrs'] = $eachR['hrs'];
 
@@ -1809,8 +1842,12 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                 $data_str[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+                
+                
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1841,7 +1878,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
-                $temp['service'] = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                $temp['service'] = $eachR{'old_service'}->service_name;
 
                 $temp['hrs'] = $eachR['hrs'];
 
@@ -1939,8 +1976,13 @@ $time = date("Y-m-d H:i:s",$t);
                 $data_str[$key]['timesheet_id'] = $val['timesheet_id'];
                 $data_str[$key]['staff_detail'] = User::where("user_id", "=", $val['staff_id'])->
                     select("user_id", "fname", "lname")->first();
-                $data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->
-                    select("vat_scheme_name")->first();
+                //$data_str[$key]['old_vat_scheme'] = VatScheme::where("vat_scheme_id", "=", $val['vat_scheme_type'])->select("vat_scheme_name")->first();
+                $data_str[$key]['old_service'] = Service::where("service_id", "=", $val['vat_scheme_type'])->select("service_name")->first();
+               
+                
+                
+                
+                
                 //$data2[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->where("field_name", "=", "business_name")->orWhere("field_name", "=", "client_name")->first();
                 $data_str[$key]['client_detail'] = StepsFieldsClient::where("client_id", "=", $val['rel_client_id'])->
                     where(function ($query)
@@ -1971,7 +2013,7 @@ $time = date("Y-m-d H:i:s",$t);
                 $temp['staff_name'] = $eachR{'staff_detail'}->fname . " " . $eachR{
                     'staff_detail'}->lname;
                 $temp['date'] = $eachR['created_date'];
-                $temp['service'] = $eachR{'old_vat_scheme'}->vat_scheme_name;
+                $temp['service'] = $eachR{'old_service'}->service_name;
 
                 $temp['hrs'] = $eachR['hrs'];
 

@@ -144,6 +144,7 @@ function newclientdisplay(){
     console.log(fromdpick2);
     console.log(todpick);
     
+    //return false;
 
     if(fromdpick2!="" && todpick!="" && ctr_client!="" ){
         
@@ -266,15 +267,16 @@ function newclientdisplay(){
                   
                        <select class="form-control2 newdropdown" name="ctr_serv" id="ctr_servc">
     				<option value="">None</option>
-    					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
-                                      @foreach($old_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                    
+    					@if( isset($old_services) && count($old_services)>0 )
+                                      @foreach($old_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                                     
-                        @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
-                                      @foreach($new_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                        @if( isset($new_services) && count($new_services)>0 )
+                                      @foreach($new_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                        </select>

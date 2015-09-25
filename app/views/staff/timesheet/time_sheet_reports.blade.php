@@ -753,7 +753,7 @@ function fontfetchnotesmodal(fontvalue){
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="left">{{ $staff_row['client_detail']['field_value'] }}</td>
-									<td align="left">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
+									<td align="left">{{ $staff_row['old_services']['service_name'] }}</td>
 									<td align="center">{{ number_format((float)$staff_row['hrs'], 1, '.', '')  }}</td>
 									<td align="center"> <!--{{ $staff_row['notes'] }} -->
                                     
@@ -903,7 +903,7 @@ function fontfetchnotesmodal(fontvalue){
 									<td align="center">{{ $staff_row['created_date'] }}</td>
 									<td align="center">{{ $staff_row['staff_detail']['fname'] }} {{ $staff_row['staff_detail']['lname'] }}</td>
 									<td  align="center">{{ $staff_row['client_detail']['field_value'] }}</td>
-									<td align="center">{{ $staff_row['old_vat_scheme']['vat_scheme_name'] }}</td>
+									<td align="center">{{ $staff_row['old_services']['service_name'] }}</td>
 									<td align="center">{{   number_format((float)$staff_row['hrs'], 1, '.', '')   }}</td>
 								
                                 
@@ -1031,15 +1031,15 @@ function fontfetchnotesmodal(fontvalue){
                 <td align="center"><select class="form-control" name="vat_scheme_type" id="vat_scheme_types">
                                     <option value="">None</option>
                                     
-                                    @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
-                                      @foreach($old_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    @if( isset($old_services) && count($old_services)>0 )
+                                      @foreach($old_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                                     
-                                    @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
-                                      @foreach($new_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    @if( isset($new_services) && count($new_services)>0 )
+                                      @foreach($new_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                                    
@@ -1165,11 +1165,12 @@ function fontfetchnotesmodal(fontvalue){
           
                   <span class="slct_con">Select Service</span>
                   
+                  
                        <select class="form-control2 newdropdown" name="ctr_serv" id="ctr_serv">
     				<option value="">None</option>
-    					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
-                                      @foreach($old_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+    					@if( isset($old_services) && count($old_services)>0 )
+                                      @foreach($old_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                        </select>
@@ -1261,11 +1262,20 @@ function fontfetchnotesmodal(fontvalue){
                   
                        <select class="form-control2 newdropdown" name="ctredit_serv" id="ctredit_serv">
     				<option value="">None</option>
-    					@if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
-                                      @foreach($old_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+    					@if( isset($old_services) && count($old_services)>0 )
+                                      @foreach($old_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
+                                    
+                                    
+                                    
+         
+         	
+         
+         
+                                    
+                                    
                        </select>
                      
                   <div class="clr"></div>
@@ -1712,20 +1722,30 @@ function fontfetchnotesmodal(fontvalue){
 					@endif
           </select>
 		  </td>
-                <td align="center"><select class="form-control" name="vat_scheme_type[]" id="vat_scheme_type">
+                <td align="center">
+                    
+                    <select class="form-control" name="vat_scheme_type[]" id="vat_scheme_type">
+                                   
                                     <option value="">None</option>
-                                    @if( isset($old_vat_schemes) && count($old_vat_schemes)>0 )
-                                      @foreach($old_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    @if( isset($old_services) && count($old_services)>0 )
+                                      @foreach($old_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
-                                    @if( isset($new_vat_schemes) && count($new_vat_schemes)>0 )
-                                      @foreach($new_vat_schemes as $key=>$scheme_row)
-                                        <option value="{{ $scheme_row->vat_scheme_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->vat_scheme_id)?"selected":"" }}>{{ $scheme_row->vat_scheme_name }}</option>
+                                    @if( isset($new_services) && count($new_services)>0 )
+                                      @foreach($new_services as $key=>$scheme_row)
+                                        <option value="{{ $scheme_row->service_id }}" {{ (isset($client_details['vat_scheme_type']) && $client_details['vat_scheme_type'] == $scheme_row->service_id)?"selected":"" }}>{{ $scheme_row->service_name }}</option>
                                       @endforeach
                                     @endif
                                    
-                                  </select></td>
+                                  </select>
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  </td>
                 <td align="center"><input type="text" name="hrs[]" id="hrs" size="5%" style="height: 33px;"></td>
                 
                 <td align="center">
@@ -1811,26 +1831,32 @@ function fontfetchnotesmodal(fontvalue){
     <div class="modal-body">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Vat Scheme" class="form-control">
+        <input type="text" name="vat_scheme_name" id="vat_scheme_name" placeholder="Service" class="form-control">
       </div>
       
       <div id="append_vat_scheme">
-        @if( isset($old_vat_schemes) && count($old_vat_schemes) )
-          @foreach($old_vat_schemes as $key=>$scheme_row)
+       
+        @if( isset($old_services) && count($old_services) )
+          @foreach($old_services as $key=>$scheme_row)
             <div class="form-group">
-              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+              <label for="{{ $scheme_row->service_name }}">{{ $scheme_row->service_name }}</label>
             </div>
           @endforeach
         @endif
 
-        @if( isset($new_vat_schemes) && count($new_vat_schemes) )
-          @foreach($new_vat_schemes as $key=>$scheme_row)
-            <div class="form-group" id="hide_vat_div_{{ $scheme_row->vat_scheme_id }}">
-              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->vat_scheme_id }}"><img src="/img/cross.png" width="12"></a>
-              <label for="{{ $scheme_row->vat_scheme_name }}">{{ $scheme_row->vat_scheme_name }}</label>
+        @if( isset($new_services) && count($new_services) )
+          @foreach($new_services as $key=>$scheme_row)
+            <div class="form-group" id="hide_vat_div_{{ $scheme_row->service_id }}">
+              <a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="{{ $scheme_row->service_id }}"><img src="/img/cross.png" width="12"></a>
+              <label for="{{ $scheme_row->service_name }}">{{ $scheme_row->service_name }}</label>
             </div>
           @endforeach
         @endif
+     
+     
+              
+     
+     
       </div>
      
       <div class="modal-footer1 clearfix">

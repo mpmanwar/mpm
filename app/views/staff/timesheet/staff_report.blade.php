@@ -124,7 +124,7 @@ function excelstaff(){
 
 function newstaffdisplay(){
     
-   
+   //alert('sfsfsfsf');return false;
 
     
      var str_staff= $("#str_staffs").val();
@@ -140,7 +140,7 @@ function newstaffdisplay(){
     console.log(str_client);
     console.log(strdpick2);
     console.log(dpickclient);
-    
+    //return false;
     if(strdpick2!="" && dpickclient!="" && str_staff!="" ){
      $.ajax({
     	type: "POST",

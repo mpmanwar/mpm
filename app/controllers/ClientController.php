@@ -381,12 +381,15 @@ class ClientController extends BaseController
     {
         $session_data = Session::get('admin_details');
 
-        $data['vat_scheme_name'] = Input::get("vat_scheme_name");
+        $data['service_name'] = Input::get("vat_scheme_name");
         $data['user_id'] = $session_data['id'];
         $data['status'] = "new";
-        $insert_id = VatScheme::insertGetId($data);
+        //$data['client_type'] = "timesheet";
+        
+        $insert_id = Service::insertGetId($data);
         echo $insert_id;
         exit();
+      
         //return Redirect::to('/organisation/add-client');
     }
 
@@ -394,7 +397,7 @@ class ClientController extends BaseController
     {
         $field_id = Input::get("field_id");
         if (Request::ajax()) {
-            $data = VatScheme::where("vat_scheme_id", "=", $field_id)->delete();
+            $data = Service::where("service_id", "=", $field_id)->delete();
             echo $data;
         }
     }

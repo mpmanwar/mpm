@@ -158,11 +158,14 @@ $("#vat_scheme_type").change(function(){
 //Add Vat Scheme while add individual/organisation user start
 $("#add_vat_scheme").click(function(){
     var vat_scheme_name  = $("#vat_scheme_name").val();
+   // alert(vat_scheme_name);return false;
+
 
     $.ajax({
       type: "POST",
       url: '/client/add-vat-scheme',
       data: { 'vat_scheme_name' : vat_scheme_name },
+      
       success : function(field_id){//alert(client_type);return false;
         var append = '<div class="form-group" id="hide_vat_div_'+field_id+'"><a href="javascript:void(0)" title="Delete Field ?" class="delete_vat_scheme" data-field_id="'+field_id+'"><img src="/img/cross.png" width="12"></a><label for="'+field_id+'">'+vat_scheme_name+'</label></div>';
         $("#append_vat_scheme").append(append);
