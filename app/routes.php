@@ -22,6 +22,8 @@ Route::get('/contact', 'ContactController@index');
 
 /* =========== Cron Job Start =============== */
 Route::get('/jobs_email_client', 'CronJobController@jobs_email_client');
+Route::get('/email_test', 'EmailTestController@index');
+Route::get('/php-info', 'EmailTestController@php_info');
 /* =========== Cron Job End =============== */
 
 ### Routes for Dashboard related URL's start ###
