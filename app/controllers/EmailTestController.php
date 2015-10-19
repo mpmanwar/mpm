@@ -7,7 +7,7 @@ class EmailTestController extends BaseController {
     public function index()
     {
         set_time_limit(4000);
-    //phpinfo();die;
+        
         //http://davidwalsh.name/gmail-php-imap
         /*$imapPath = '{imap.example.com:993/imap/ssl}INBOX';
         $username = 'anwar.appsbee@gmail.com';
